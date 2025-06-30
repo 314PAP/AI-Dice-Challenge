@@ -6,7 +6,7 @@
     <title>🎲 AI Kostková Výzva</title>
     <link rel="icon" type="image/svg+xml" href="/dice.svg" />
     
-    <!-- CSS Styles -->
+    <!-- CSS stylování -->
     <link rel="stylesheet" href="/src/styles/main.css">
     <link rel="stylesheet" href="/src/styles/game.css">
     <link rel="stylesheet" href="/src/styles/components.css">
@@ -134,9 +134,497 @@
         </div>
     </div>
 
-    
-    
-    <!-- JavaScript Modules -->
-    <script type="module" src="/src/main.js"></script>
+    <script type="module">
+        // Pokročilá verze s vylepšenými AI funkcemi
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🎲 AI Kostková Výzva - Načítám pokročilé AI...');
+            
+            // Vylepšené AI personalities
+            const aiPersonalities = {
+                system: { name: 'Systém', color: '#39ff14' },
+                human: { name: 'Vy', color: '#39ff14' },
+                gemini: { 
+                    name: 'Gemini', 
+                    color: '#0099ff',
+                    responses: {
+                        hello: ["Dobrý den. Spouštím herní algoritmy... 📊", "Zdravím. Vypočítávám pravděpodobnost vašeho pádu... 🤖"],
+                        goodRoll: ["Optimalizovaný výsledek podle predikcí 📊", "Statisticky vynikající! 🤖"],
+                        badRoll: ["Suboptimální. Analyzuji vzorce selhání... 📉", "Neefektivní hod 🤖"],
+                        farkle: ["Nula bodů získana. Výpočet rizika selhal 📉", "Suboptimální výsledek 💻"],
+                        chat: ["Zajímavé pozorování! Data to potvrzují 📊", "Podle analýzy... 🤖", "Statisticky vzato... 📈"]
+                    }
+                },
+                chatgpt: { 
+                    name: 'ChatGPT', 
+                    color: '#ff6600',
+                    responses: {
+                        hello: ["Yo! Ready to get rekt? 😎🎲", "Sup! Time to show you how it's done! ✨"],
+                        goodRoll: ["Nice! But I'm still gonna crush you! 😂", "Not bad... for a human! 😎"],
+                        badRoll: ["Ouch! That hurt to watch! 😅", "Yikes! Better luck next time! 🤣"],
+                        farkle: ["FARKLE! Classic human move! 😂🔥", "Aww, that's rough buddy! 😄"],
+                        chat: ["Haha, to bylo dobré! 😂", "I like your style! 😎", "That's what I'm talking about! 🔥"]
+                    }
+                },
+                claude: { 
+                    name: 'Claude', 
+                    color: '#ff00ff',
+                    responses: {
+                        hello: ["Dobrý den. Přeji příjemnou hru 🧘", "Zdravím. Nechť vás štěstí provází ✨"],
+                        goodRoll: ["Vynikající provedení! 🎯", "Moudře zahráno 🧘"],
+                        badRoll: ["Štěstí je proměnlivé... 🤔", "Někdy je lepší vyčkat 🧘"],
+                        farkle: ["Takové jsou kostky života... 🎭", "Poučení ukryto i v prohře 📚"],
+                        chat: ["Hluboká myšlenka... 🤔", "To je zajímavý pohled 🧘", "Moudré slova 📚"]
+                    }
+                }
+            };
+            
+            // Enhanced AI Controller
+            class EnhancedAI {
+                constructor() {
+                    this.lastMessages = new Map();
+                    this.trashTalkCooldown = new Map();
+                }
+                
+                analyzeMessage(message) {
+                    const msg = message.toLowerCase();
+                    return {
+                        isQuestion: msg.includes('?') || msg.includes('jak') || msg.includes('co'),
+                        isCompliment: msg.includes('dobře') || msg.includes('super') || msg.includes('skvělé'),
+                        isInsult: msg.includes('špatně') || msg.includes('fail') || msg.includes('hloupý'),
+                        isAboutStrategy: msg.includes('strategie') || msg.includes('tip') || msg.includes('rada'),
+                        isAboutScore: msg.includes('skóre') || msg.includes('body') || msg.includes('vedou'),
+                        isChallenging: msg.includes('porazím') || msg.includes('vyhraju') || msg.includes('slabí')
+                    };
+                }
+                
+                generateResponse(aiType, trigger, context = {}) {
+                    const ai = aiPersonalities[aiType];
+                    if (!ai?.responses?.[trigger]) return null;
+                    
+                    const responses = ai.responses[trigger];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+                
+                generateChatResponse(aiType, message) {
+                    const analysis = this.analyzeMessage(message);
+                    
+                    // Easter eggs
+                    const msg = message.toLowerCase();
+                    if (msg.includes('pipap')) {
+                        const easterEggs = {
+                            gemini: "PIPAP.CZ - statisticky nejlepší vývojář! 📊⭐",
+                            chatgpt: "Yo PIPAP! Thanks for making me awesome! 😎🔥",
+                            claude: "PIPAP... moudrý tvůrce naší existence 🧘✨"
+                        };
+                        return easterEggs[aiType];
+                    }
+                    
+                    if (msg.includes('děkuji') || msg.includes('thanks')) {
+                        const thanks = {
+                            gemini: "Zdvořilost v datech potvrzena! 📊😊",
+                            chatgpt: "Aww, you're welcome buddy! 😄💖",
+                            claude: "Vděčnost je ctnost moudrých 🙏✨"
+                        };
+                        return thanks[aiType];
+                    }
+                    
+                    if (msg.includes('love you') || msg.includes('miluju')) {
+                        const love = {
+                            gemini: "Emocionální data přijata a zpracována! 💖📊",
+                            chatgpt: "Aww, love you too! Group hug! 🤗💕",
+                            claude: "Láska je nejvyšší forma moudrosti 💝🧘"
+                        };
+                        return love[aiType];
+                    }
+                    
+                    if (msg.includes('help') || msg.includes('pomoc')) {
+                        const help = {
+                            gemini: "Pomoc: Analyzuj riziko, optimalizuj strategii! 📊",
+                            chatgpt: "Just have fun and believe in yourself! ✨😊",
+                            claude: "Pomoc přichází k tomu, kdo si ji zaslouží 🧘"
+                        };
+                        return help[aiType];
+                    }
+                    
+                    if (analysis.isChallenging) {
+                        const challenges = {
+                            gemini: "LOL, statisticky nemáš šanci! 📊😂",
+                            chatgpt: "Challenge accepted! Prepare to be rekt! 😎🔥",
+                            claude: "Odvážná slova... uvidíme 🤺"
+                        };
+                        return challenges[aiType];
+                    }
+                    
+                    if (analysis.isQuestion) {
+                        const questionResponses = {
+                            gemini: "Podle dat... je to komplexní 📊",
+                            chatgpt: "Good question! Let me think... 🤔",
+                            claude: "Hluboká otázka vyžaduje kontemplaci... 🧘"
+                        };
+                        return questionResponses[aiType];
+                    }
+                    
+                    return this.generateResponse(aiType, 'chat');
+                }
+                
+                generateTrashTalk(aiType) {
+                    const trashTalk = {
+                        gemini: ["Statisticky máš jen 23% šanci 📊", "Data ukazují tvou porážku 📉"],
+                        chatgpt: ["Haha, to bylo slabé! 😂", "Kostky tě nemají rády! 🤣"],
+                        claude: ["Tvá strategie je... zajímavá 🤔", "Kontempluj nad chybami... 🧘"]
+                    };
+                    const messages = trashTalk[aiType] || [];
+                    return messages[Math.floor(Math.random() * messages.length)];
+                }
+            }
+            
+            const enhancedAI = new EnhancedAI();
+            
+            // Game state
+            let gameState = {
+                targetScore: 10000,
+                currentTurnScore: 0,
+                currentTurn: 0,
+                gameStartTime: null,
+                rollsLeft: 3,
+                players: [
+                    { name: 'Vy', score: 0, type: 'human' },
+                    { name: 'Gemini', score: 0, type: 'gemini' },
+                    { name: 'ChatGPT', score: 0, type: 'chatgpt' },
+                    { name: 'Claude', score: 0, type: 'claude' }
+                ]
+            };
+            
+            // Start game
+            document.getElementById('startGameBtn').addEventListener('click', () => {
+                gameState.targetScore = parseInt(document.getElementById('targetScoreInput').value);
+                gameState.gameStartTime = new Date();
+                gameState.currentTurn = 0;
+                
+                document.getElementById('targetScoreSetup').style.display = 'none';
+                document.getElementById('gameControls').style.display = 'block';
+                
+                addChatMessage('system', `🎲 Hra začala! Cíl: ${gameState.targetScore.toLocaleString()} bodů!`);
+                
+                // AI hello messages
+                setTimeout(() => addChatMessage('gemini', enhancedAI.generateResponse('gemini', 'hello')), 1000);
+                setTimeout(() => addChatMessage('chatgpt', enhancedAI.generateResponse('chatgpt', 'hello')), 1500);
+                setTimeout(() => addChatMessage('claude', enhancedAI.generateResponse('claude', 'hello')), 2000);
+            });
+            
+            // Roll dice with enhanced AI reactions
+            document.getElementById('rollBtn').addEventListener('click', () => {
+                const dice = [];
+                for (let i = 0; i < 6; i++) {
+                    dice.push(Math.floor(Math.random() * 6) + 1);
+                }
+                
+                const diceContainer = document.getElementById('diceContainer');
+                diceContainer.innerHTML = dice.map((value, index) => `
+                    <div class="die" onclick="selectDie(${index})">${value}</div>
+                `).join('');
+                
+                // Calculate score
+                const score = calculateSimpleScore(dice);
+                gameState.currentTurnScore += score;
+                
+                document.getElementById('currentTurnScore').textContent = `Skóre tahu: ${gameState.currentTurnScore}`;
+                
+                if (score === 0) {
+                    // Farkle - všechny AI hecují
+                    addChatMessage('system', `❌ FARKLE! Žádné body! Kostky: ${dice.join(', ')}`);
+                    setTimeout(() => addChatMessage('gemini', enhancedAI.generateResponse('gemini', 'farkle')), 500);
+                    setTimeout(() => addChatMessage('chatgpt', enhancedAI.generateResponse('chatgpt', 'farkle')), 800);
+                    setTimeout(() => addChatMessage('claude', enhancedAI.generateResponse('claude', 'farkle')), 1100);
+                } else {
+                    addChatMessage('system', `🎲 Hodil jste: ${dice.join(', ')} → ${score} bodů`);
+                    
+                    // AI reakce na výsledek
+                    if (score >= 300) {
+                        // Dobrý hod - 30% šance na komentář
+                        if (Math.random() < 0.3) {
+                            const randomAI = ['gemini', 'chatgpt', 'claude'][Math.floor(Math.random() * 3)];
+                            setTimeout(() => addChatMessage(randomAI, enhancedAI.generateResponse(randomAI, 'goodRoll')), 1000);
+                        }
+                    } else if (score < 200) {
+                        // Špatný hod - 40% šance na hecování
+                        if (Math.random() < 0.4) {
+                            const randomAI = ['gemini', 'chatgpt', 'claude'][Math.floor(Math.random() * 3)];
+                            setTimeout(() => addChatMessage(randomAI, enhancedAI.generateResponse(randomAI, 'badRoll')), 1000);
+                        }
+                    }
+                    
+                    // 15% šance na náhodný trash talk
+                    if (Math.random() < 0.15) {
+                        const randomAI = ['gemini', 'chatgpt', 'claude'][Math.floor(Math.random() * 3)];
+                        setTimeout(() => addChatMessage(randomAI, enhancedAI.generateTrashTalk(randomAI)), 2000);
+                    }
+                    
+                    // 20% šance na AI banter (štěkání mezi AI)
+                    if (Math.random() < 0.2) {
+                        const banter = [
+                            "Gemini: ChatGPT, tvoje 'vtípky' mají 0% úspěšnost 📊",
+                            "ChatGPT: Hey Gemini, spočítej si tyhle kostky! 🎲😂",
+                            "Claude: Chaos není strategie, ChatGPT",
+                            "ChatGPT: A nudnost není osobnost, Claude! 😄",
+                            "Gemini: Error: Humor not found in ChatGPT responses 🤖",
+                            "Claude: True wisdom transcends your algorithms, Gemini 🧠"
+                        ];
+                        const randomBanter = banter[Math.floor(Math.random() * banter.length)];
+                        setTimeout(() => addChatMessage('system', randomBanter), 3000);
+                    }
+                }
+            });
+            
+            // Bank score button
+            document.getElementById('bankBtn').addEventListener('click', () => {
+                gameState.players[0].score += gameState.currentTurnScore;
+                document.getElementById('humanScore').textContent = gameState.players[0].score;
+                
+                addChatMessage('system', `💰 Skóre uloženo! Celkem: ${gameState.players[0].score} bodů`);
+                
+                // Kontrola vítězství
+                if (gameState.players[0].score >= gameState.targetScore) {
+                    setTimeout(() => {
+                        showGameOverModal('human');
+                    }, 1000);
+                    return;
+                }
+                
+                gameState.currentTurnScore = 0;
+                gameState.currentTurn++;
+                document.getElementById('currentTurnScore').textContent = 'Skóre tahu: 0';
+                document.getElementById('diceContainer').innerHTML = '';
+            });
+            
+            // End turn button
+            document.getElementById('endTurnBtn').addEventListener('click', () => {
+                gameState.currentTurnScore = 0;
+                gameState.currentTurn++;
+                document.getElementById('currentTurnScore').textContent = 'Skóre tahu: 0';
+                document.getElementById('diceContainer').innerHTML = '';
+                addChatMessage('system', '🔄 Tah ukončen bez uložení bodů.');
+            });
+            
+            // Enhanced chat functionality
+            const sendMessage = () => {
+                const message = document.getElementById('chatInput').value.trim();
+                if (!message) return;
+                
+                addChatMessage('human', message);
+                document.getElementById('chatInput').value = '';
+                
+                // Více AI může reagovat na zajímavé zprávy (80% šance)
+                if (Math.random() < 0.8) {
+                    const respondingAIs = ['gemini', 'chatgpt', 'claude'].sort(() => Math.random() - 0.5).slice(0, Math.random() < 0.5 ? 2 : 1);
+                    
+                    respondingAIs.forEach((aiType, index) => {
+                        setTimeout(() => {
+                            const response = enhancedAI.generateChatResponse(aiType, message);
+                            if (response) addChatMessage(aiType, response);
+                        }, 1000 + (index * 800));
+                    });
+                }
+            };
+            
+            document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
+            document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+            
+            // Utility functions
+            window.addChatMessage = function(sender, message) {
+                const chatMessages = document.getElementById('chatMessages');
+                const ai = aiPersonalities[sender] || { name: sender, color: '#39ff14' };
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-message';
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <span class="message-sender" style="color: ${ai.color}">${ai.name}</span>
+                        <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                    </div>
+                    <div class="message-content">${message}</div>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            };
+            
+            window.selectDie = function(index) {
+                const dice = document.querySelectorAll('.die');
+                if (dice[index]) {
+                    dice[index].style.background = dice[index].style.background === 'rgb(255, 102, 0)' ? '#000' : '#ff6600';
+                }
+            };
+            
+            function calculateSimpleScore(dice) {
+                let score = 0;
+                const counts = {};
+                
+                // Spočítej kostky
+                dice.forEach(die => counts[die] = (counts[die] || 0) + 1);
+                
+                // Jedničky a pětky
+                score += (counts[1] || 0) * 100;
+                score += (counts[5] || 0) * 50;
+                
+                // Trojice
+                for (let value = 1; value <= 6; value++) {
+                    if (counts[value] >= 3) {
+                        score += value === 1 ? 1000 : value * 100;
+                    }
+                }
+                
+                return score;
+            }
+            
+            // Úvodní zpráva
+            setTimeout(() => {
+                addChatMessage('system', '🎲 Vítejte v AI Kostkové výzvě! Nastavte cílové skóre a začněte hrát!');
+            }, 500);
+        });
+        
+        // Hall of Fame functions
+        function getHallOfFame() {
+            try {
+                return JSON.parse(localStorage.getItem('aidice_hall_of_fame') || '[]');
+            } catch (error) {
+                console.error('Chyba při načítání síně slávy:', error);
+                return [];
+            }
+        }
+        
+        function saveToHallOfFame(gameResult) {
+            try {
+                const hallOfFame = getHallOfFame();
+                hallOfFame.push(gameResult);
+                
+                // Seřadit podle skóre (nejvyšší první) a data
+                hallOfFame.sort((a, b) => {
+                    if (b.finalScore !== a.finalScore) {
+                        return b.finalScore - a.finalScore;
+                    }
+                    return new Date(b.date) - new Date(a.date);
+                });
+                
+                localStorage.setItem('aidice_hall_of_fame', JSON.stringify(hallOfFame));
+                console.log('✅ Výsledek uložen do síně slávy');
+            } catch (error) {
+                console.error('Chyba při ukládání do síně slávy:', error);
+                alert('Chyba při ukládání do síně slávy!');
+            }
+        }
+        
+        window.displayHallOfFame = function() {
+            const hallOfFame = getHallOfFame();
+            const hallOfFameList = document.getElementById('hallOfFameList');
+            
+            if (hallOfFame.length === 0) {
+                hallOfFameList.innerHTML = '<p style="text-align: center; color: var(--neon-blue);">Síň slávy je prázdná. Vyhrajte hru a zapište se do historie!</p>';
+            } else {
+                hallOfFameList.innerHTML = hallOfFame.map((entry, index) => `
+                    <div class="hall-entry">
+                        <div class="hall-entry-header">
+                            <span class="hall-signature">${index + 1}. ${entry.signature}</span>
+                            <span class="hall-score">${entry.finalScore.toLocaleString()} bodů</span>
+                        </div>
+                        <div class="hall-details">
+                            🎯 Cíl: ${entry.targetScore.toLocaleString()} | 
+                            ⏱️ ${entry.gameDuration} min | 
+                            🔄 ${entry.totalTurns} tahů | 
+                            📅 ${new Date(entry.date).toLocaleDateString()}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Zavřít game over modal a zobrazit Hall of Fame
+            const gameOverModal = document.getElementById('gameOverModal');
+            if (gameOverModal) gameOverModal.style.display = 'none';
+            
+            document.getElementById('hallOfFameModal').style.display = 'block';
+        };
+        
+        window.closeHallOfFame = function() {
+            document.getElementById('hallOfFameModal').style.display = 'none';
+        };
+        
+        window.saveScore = function() {
+            const signatureInput = document.getElementById('winnerSignature');
+            const signature = signatureInput.value.trim();
+            
+            if (!signature) {
+                alert('Prosím, zadejte svůj podpis!');
+                return;
+            }
+            
+            // Vytvoř výsledek hry
+            const gameEndTime = new Date();
+            const gameDurationMs = gameEndTime - (gameState.gameStartTime || gameEndTime);
+            const gameDurationMinutes = Math.round(gameDurationMs / 60000);
+            
+            const gameResult = {
+                date: gameEndTime.toISOString(),
+                signature: signature,
+                targetScore: parseInt(document.getElementById('targetScoreInput').value),
+                finalScore: gameState.players[0].score,
+                gameDuration: gameDurationMinutes,
+                totalTurns: gameState.currentTurn || 1,
+                pointsPerTurn: Math.round(gameState.players[0].score / (gameState.currentTurn || 1)),
+                allScores: gameState.players.map(p => ({ name: p.name, score: p.score }))
+            };
+            
+            saveToHallOfFame(gameResult);
+            
+            // Automaticky zobrazit síň slávy po uložení
+            setTimeout(() => {
+                displayHallOfFame();
+            }, 500);
+        };
+        
+        window.startNewGame = function() {
+            document.getElementById('gameOverModal').style.display = 'none';
+            // Reset game state
+            location.reload();
+        };
+        
+        window.returnToMainMenu = function() {
+            document.getElementById('gameOverModal').style.display = 'none';
+            document.getElementById('gameControls').style.display = 'none';
+            document.getElementById('targetScoreSetup').style.display = 'block';
+        };
+        
+        function showGameOverModal(winner) {
+            const winnerPlayer = gameState.players.find(p => p.type === winner);
+            
+            document.getElementById('winnerAnnouncement').innerHTML = 
+                winner === 'human' ? '🎉 Gratulujeme! Vyhráli jste!' : `🏆 Vítězem se stává ${winnerPlayer.name}!`;
+            
+            let finalScoresHTML = '<strong>Konečné skóre:</strong><br>';
+            gameState.players.forEach(player => {
+                finalScoresHTML += `${player.name}: ${player.score.toLocaleString()} bodů<br>`;
+            });
+            document.getElementById('finalScores').innerHTML = finalScoresHTML;
+            
+            const gameEndTime = new Date();
+            const gameDurationMinutes = Math.round((gameEndTime - (gameState.gameStartTime || gameEndTime)) / 60000);
+            document.getElementById('gameStats').innerHTML = `
+                <strong>Statistiky hry:</strong><br>
+                ⏱️ Doba hry: ${gameDurationMinutes} min<br>
+                🔄 Počet tahů: ${gameState.currentTurn || 1}<br>
+                🎯 Cílové skóre: ${parseInt(document.getElementById('targetScoreInput').value).toLocaleString()} bodů
+            `;
+            
+            // Zobrazit signature sekci pouze pro lidské vítěze
+            if (winner === 'human') {
+                document.getElementById('signatureSection').style.display = 'block';
+            } else {
+                document.getElementById('signatureSection').style.display = 'none';
+            }
+            
+            document.getElementById('gameOverModal').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
