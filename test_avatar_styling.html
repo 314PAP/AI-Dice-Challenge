@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Test Avatar Styling</title>
+    <link rel="stylesheet" href="/src/styles/base/reset.css">
+    <link rel="stylesheet" href="/src/styles/themes/neon.css">
+    
+    <style>
+        body {
+            background: var(--black-bg);
+            color: var(--neon-green);
+            font-family: 'Orbitron', monospace;
+            padding: 20px;
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid var(--neon-green);
+            border-radius: 10px;
+        }
+        
+        .test-section h2 {
+            color: var(--neon-orange);
+            margin-bottom: 20px;
+        }
+
+        /* Chat Header Avatars */
+        .player-avatars {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 15px;
+            border: 1px solid var(--neon-blue);
+            max-width: 250px;
+            margin: 0 auto;
+        }
+
+        .avatar-mini {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-green);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px var(--neon-green);
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .avatar-mini:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 15px var(--neon-green);
+            border-width: 4px;
+        }
+
+        .avatar-mini.active {
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 20px var(--neon-orange);
+            border-width: 4px;
+        }
+
+        /* Main Player Cards */
+        .players-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .player {
+            background: var(--black-bg);
+            border: 2px solid var(--neon-green);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            min-width: 110px;
+            transition: all 0.3s ease;
+        }
+
+        .player.active {
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 15px var(--neon-orange);
+        }
+
+        .player-head img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .player.active .player-head img {
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 15px var(--neon-orange);
+        }
+
+        .player-name, .player-score {
+            color: var(--neon-green);
+            font-weight: 700;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .player.active .player-name,
+        .player.active .player-score {
+            color: var(--neon-orange);
+        }
+        
+        .toggle-active {
+            margin: 10px 5px;
+            padding: 5px 10px;
+            background: var(--black-bg);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>🎨 Test Avatar Styling</h1>
+        
+        <div class="test-section">
+            <h2>💬 Chat Header Avatars (Kompaktní)</h2>
+            <div class="player-avatars">
+                <img src="/ai-icons/mind.jpeg" alt="Vy" class="avatar-mini active" title="Vy">
+                <img src="/ai-icons/gemini.jpeg" alt="Gemini" class="avatar-mini" title="Gemini">
+                <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" class="avatar-mini" title="ChatGPT">
+                <img src="/ai-icons/claude.jpeg" alt="Claude" class="avatar-mini" title="Claude">
+            </div>
+            <p style="margin-top: 15px; font-size: 14px; opacity: 0.8;">
+                Avatary v modrém rámečku - blízko k sobě, silný neonový kruh
+            </p>
+        </div>
+
+        <div class="test-section">
+            <h2>🎮 Hlavní hráčské karty</h2>
+            <div class="players-container">
+                <div class="player human-player active">
+                    <div class="player-head">
+                        <img src="/ai-icons/mind.jpeg" alt="Vy" />
+                    </div>
+                    <div class="player-name">Vy</div>
+                    <div class="player-score">Skóre: <span>8750</span></div>
+                </div>
+                <div class="player gemini-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/gemini.jpeg" alt="Gemini" />
+                    </div>
+                    <div class="player-name">Gemini</div>
+                    <div class="player-score">Skóre: <span>7200</span></div>
+                </div>
+                <div class="player chatgpt-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" />
+                    </div>
+                    <div class="player-name">ChatGPT</div>
+                    <div class="player-score">Skóre: <span>6850</span></div>
+                </div>
+                <div class="player claude-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/claude.jpeg" alt="Claude" />
+                    </div>
+                    <div class="player-name">Claude</div>
+                    <div class="player-score">Skóre: <span>7950</span></div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <button class="toggle-active" onclick="toggleActive(0)">Aktivní: Vy</button>
+                <button class="toggle-active" onclick="toggleActive(1)">Aktivní: Gemini</button>
+                <button class="toggle-active" onclick="toggleActive(2)">Aktivní: ChatGPT</button>
+                <button class="toggle-active" onclick="toggleActive(3)">Aktivní: Claude</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleActive(playerIndex) {
+            // Remove active from all players
+            document.querySelectorAll('.player').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.avatar-mini').forEach(a => a.classList.remove('active'));
+            
+            // Add active to selected player
+            const players = document.querySelectorAll('.player');
+            const avatars = document.querySelectorAll('.avatar-mini');
+            
+            if (players[playerIndex]) {
+                players[playerIndex].classList.add('active');
+            }
+            if (avatars[playerIndex]) {
+                avatars[playerIndex].classList.add('active');
+            }
+        }
+        
+        // Add click handlers to mini avatars
+        document.querySelectorAll('.avatar-mini').forEach((avatar, index) => {
+            avatar.addEventListener('click', () => toggleActive(index));
+        });
+    </script>
+</body>
+</html>
