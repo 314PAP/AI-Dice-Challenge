@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Dice Test - Working Buttons</title>
+    
+    <!-- CSS moduly v správném pořadí -->
+    <link rel="stylesheet" href="/src/styles/base/reset.css">
+    <link rel="stylesheet" href="/src/styles/themes/neon.css">
+    <link rel="stylesheet" href="/src/styles/base/layout.css">
+    <link rel="stylesheet" href="/src/styles/components/buttons.css">
+    <link rel="stylesheet" href="/src/styles/components/players.css">
+    <link rel="stylesheet" href="/src/styles/components/chat.css">
+    <link rel="stylesheet" href="/src/styles/components/dice.css">
+</head>
+<body class="cyber-bg">
+    <div class="container">
+        <div class="game-area">
+            <div class="game-header">
+                <h1 class="game-title neon-text">🎲 AI Kostková Výzva - Test</h1>
+                
+                <div class="target-score-setup" id="targetScoreSetup">
+                    <label class="neon-text">Cílové skóre: 
+                        <input type="number" id="targetScoreInput" value="10000" min="1000" step="1000" class="neon-border">
+                    </label>
+                    <button class="btn btn-primary neon-border" id="startGameBtn">🚀 Začít hru</button>
+                    <button class="btn btn-secondary neon-border" id="hallOfFameBtn">🏆 Síň slávy</button>
+                </div>
+                
+                <div class="game-controls" id="gameControls" style="display: none;">
+                    <h2 class="neon-text">🎮 Hra běží!</h2>
+                    <button class="btn btn-danger neon-border" id="resetGameBtn">🔄 Nová hra</button>
+                </div>
+            </div>
+
+            <div class="players-container" id="playersContainer">
+                <div class="player human-player active neon-border">
+                    <div class="player-head">
+                        <img src="/ai-icons/mind.jpeg" alt="Vy" />
+                    </div>
+                    <div class="player-name neon-text">Vy</div>
+                    <div class="player-score neon-text">Skóre: <span id="humanScore">0</span></div>
+                </div>
+                
+                <div class="player gemini-player neon-border">
+                    <div class="player-head">
+                        <img src="/ai-icons/gemini.jpeg" alt="Gemini" />
+                    </div>
+                    <div class="player-name neon-text">Gemini</div>
+                    <div class="player-score neon-text">Skóre: <span id="geminiScore">0</span></div>
+                </div>
+                
+                <div class="player chatgpt-player neon-border">
+                    <div class="player-head">
+                        <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" />
+                    </div>
+                    <div class="player-name neon-text">ChatGPT</div>
+                    <div class="player-score neon-text">Skóre: <span id="chatgptScore">0</span></div>
+                </div>
+                
+                <div class="player claude-player neon-border">
+                    <div class="player-head">
+                        <img src="/ai-icons/claude.jpeg" alt="Claude" />
+                    </div>
+                    <div class="player-name neon-text">Claude</div>
+                    <div class="player-score neon-text">Skóre: <span id="claudeScore">0</span></div>
+                </div>
+            </div>
+
+            <div class="dice-section">
+                <div class="dice-container" id="diceContainer">
+                    <div class="dice neon-border" data-value="1">1</div>
+                    <div class="dice neon-border" data-value="2">2</div>
+                    <div class="dice neon-border" data-value="3">3</div>
+                    <div class="dice neon-border" data-value="4">4</div>
+                    <div class="dice neon-border" data-value="5">5</div>
+                    <div class="dice neon-border" data-value="6">6</div>
+                </div>
+                
+                <div class="dice-controls">
+                    <button class="btn btn-primary neon-border" id="rollDiceBtn">🎲 Hoď kostkami</button>
+                    <button class="btn btn-secondary neon-border" id="bankScoreBtn">💰 Odlož skóre</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-panel neon-border">
+            <div class="chat-header">
+                <h2 class="neon-text">💬 AI Chat</h2>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message">
+                    <div class="message-header">
+                        <span class="message-sender neon-text">Systém</span>
+                        <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                    </div>
+                    <div class="message-content neon-text">🎲 Vítejte v AI Kostkové výzvě! Nastavte cílové skóre a začněte hrát!</div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Napište zprávu AI..." class="neon-text">
+                <button class="chat-send-btn neon-border" id="sendChatBtn">📤</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        console.log('🎲 Test page loading...');
+        
+        // Základní event listenery pro test tlačítek
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ DOM loaded, setting up test event listeners...');
+            
+            // Start game button
+            const startBtn = document.getElementById('startGameBtn');
+            if (startBtn) {
+                startBtn.addEventListener('click', () => {
+                    console.log('🚀 Start game clicked!');
+                    document.getElementById('targetScoreSetup').style.display = 'none';
+                    document.getElementById('gameControls').style.display = 'block';
+                    addChatMessage('Systém', '🎮 Hra byla spuštěna!');
+                });
+            }
+            
+            // Reset game button
+            const resetBtn = document.getElementById('resetGameBtn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    console.log('🔄 Reset game clicked!');
+                    document.getElementById('targetScoreSetup').style.display = 'block';
+                    document.getElementById('gameControls').style.display = 'none';
+                    addChatMessage('Systém', '🔄 Hra byla resetována!');
+                });
+            }
+            
+            // Hall of fame button
+            const hallBtn = document.getElementById('hallOfFameBtn');
+            if (hallBtn) {
+                hallBtn.addEventListener('click', () => {
+                    console.log('🏆 Hall of Fame clicked!');
+                    addChatMessage('Systém', '🏆 Síň slávy zatím není implementována');
+                });
+            }
+            
+            // Roll dice button
+            const rollBtn = document.getElementById('rollDiceBtn');
+            if (rollBtn) {
+                rollBtn.addEventListener('click', () => {
+                    console.log('🎲 Roll dice clicked!');
+                    rollDice();
+                });
+            }
+            
+            // Bank score button
+            const bankBtn = document.getElementById('bankScoreBtn');
+            if (bankBtn) {
+                bankBtn.addEventListener('click', () => {
+                    console.log('💰 Bank score clicked!');
+                    addChatMessage('Systém', '💰 Skóre bylo uloženo (test)');
+                });
+            }
+            
+            // Chat send button
+            const sendBtn = document.getElementById('sendChatBtn');
+            const chatInput = document.getElementById('chatInput');
+            if (sendBtn && chatInput) {
+                sendBtn.addEventListener('click', () => {
+                    const message = chatInput.value.trim();
+                    if (message) {
+                        addChatMessage('Vy', message);
+                        chatInput.value = '';
+                        
+                        // AI odpověď
+                        setTimeout(() => {
+                            addChatMessage('Gemini', '📊 Test odpověď od AI');
+                        }, 1000);
+                    }
+                });
+                
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        sendBtn.click();
+                    }
+                });
+            }
+            
+            // Dice click events
+            document.querySelectorAll('.dice').forEach(dice => {
+                dice.addEventListener('click', () => {
+                    dice.classList.toggle('selected');
+                    console.log(`🎲 Dice ${dice.dataset.value} clicked!`);
+                });
+            });
+        });
+        
+        // Test funkce pro házení kostkami
+        function rollDice() {
+            const diceElements = document.querySelectorAll('.dice');
+            
+            diceElements.forEach(dice => {
+                dice.classList.add('rolling');
+                const newValue = Math.floor(Math.random() * 6) + 1;
+                dice.dataset.value = newValue;
+                dice.textContent = newValue;
+                
+                setTimeout(() => {
+                    dice.classList.remove('rolling');
+                }, 500);
+            });
+            
+            addChatMessage('Systém', '🎲 Kostky byly vyhozeny!');
+        }
+        
+        // Funkce pro přidání zprávy do chatu
+        function addChatMessage(sender, message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-message';
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <span class="message-sender neon-text">${sender}</span>
+                    <span class="message-time">${new Date().toLocaleTimeString()}</span>
+                </div>
+                <div class="message-content neon-text">${message}</div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        console.log('✅ Test page fully loaded and functional!');
+    </script>
+</body>
+</html>

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const { GameFlowController } = await import('./game/flow/gameFlowControllerSimple.js');
         
         console.log('🎨 Načítám UI controller...');
-        const { initializeUI } = await import('./js/ui/uiController.js');
+        const { setupUI } = await import('./js/ui/uiController.js');
         
         console.log('💬 Načítám enhanced chat controller...');
         const { EnhancedChatController } = await import('./ui/chat/enhancedChatController.js');
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await gameEngine.initialize();
         await gameFlowController.initialize();
         await chatController.initialize();
-        initializeUI();
+        setupUI();
         
         console.log('✅ Aplikace byla úspěšně inicializována!');
         

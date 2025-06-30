@@ -75,15 +75,31 @@ npm run dev
 
 ## 🛠️ Technické detaily
 
-### Architektura
+### Architektura (Nová modulární struktura)
 ```
 src/
-├── js/
-│   ├── game/          # Herní logika
-│   ├── ai/            # AI personality systém
-│   ├── ui/            # UI komponenty
-│   └── utils/         # Utility funkce
-└── styles/            # CSS moduly
+├── core/                  # Základní systémy
+│   ├── constants.js       # Herní konstanty
+│   ├── gameEngine.js      # Hlavní herní engine
+│   └── gameState.js       # Správa herního stavu
+├── game/                  # Herní logika
+│   ├── flow/              # Řízení herního toku
+│   ├── turns/             # Správa tahů
+│   ├── dice/              # Interakce s kostkami
+│   └── events/            # Herní události
+├── ai/                    # AI systém
+│   ├── controllers/       # AI řadiče
+│   └── personalities/     # AI osobnosti
+├── ui/                    # UI komponenty
+│   └── chat/              # Chat systém
+├── js/                    # Legacy kompatibilita
+│   ├── game/              # Původní herní logika
+│   ├── ai/                # AI wrappers
+│   └── ui/                # UI wrappers
+└── styles/                # CSS moduly
+    ├── base/              # Základní styly
+    ├── components/        # Komponenty
+    └── themes/            # Témata
 ```
 
 ### Technologie
@@ -94,9 +110,13 @@ src/
 - **ES6+ Modules** - Modulární architektura
 
 ### Klíčové soubory
-- `index.html` - Hlavní HTML a game logic
-- `src/js/main.js` - Entry point pro Vite
-- `src/styles/` - Kompletní CSS styling
+- `index.html` - Hlavní HTML struktura
+- `src/main.js` - Entry point pro moduly (Vite)
+- `src/core/` - Základní herní systémy
+- `src/game/` - Modulární herní logika
+- `src/ai/` - AI kontrolery a osobnosti  
+- `src/ui/` - UI komponenty a chat
+- `src/styles/` - Modulární CSS styling
 - `public/ai-icons/` - Avatary AI hráčů
 
 ## 🤖 AI Systém
