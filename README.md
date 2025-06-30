@@ -1,179 +1,202 @@
-# 🎲 AI Kostková Výzva
+# 🎲 AI Kostková Výzva (AI Dice Challenge)
 
-Moderní implementace hry Farkle s AI protivníky v neonovém designu podle PIPAP.CZ stylingu.
+Interaktivní kostková hra proti třem AI protivníkům s různými osobnostmi!
 
-## ✨ Vlastnosti
+![AI Dice Challenge](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-### 🎮 Gameplay
-- **Hra Farkle** s přesnými pravidly (10 000 bodů k vítězství)
-- **3 AI hráči**: Gemini, ChatGPT, Claude s unikátními osobnostmi a strategiemi
-- **Hot Dice mechanika** - pokračování při odložení všech 6 kostek
-- **Finální kolo** - ostatní hráči mají poslední šanci po dosažení cíle
-- **Inteligentní bodování** - postupky, tři páry, násobitelé za 4/5/6 stejných
-- **Povinné odložení** bodujících kostek před dalším hodem
+## 🎮 O hře
 
-### 🎨 Design
-- **Neonový styl** inspirovaný PIPAP.CZ - zelená, oranžová, modrá
-- **Orbitron font** pro futuristický vzhled
-- **Animované efekty** - pulzující bordery, glow efekty
-- **Originální AI ikony** - každý AI má svou vizuální identitu
-- **Responzivní design** pro všechna zařízení
+**AI Kostková Výzva** je moderní implementace klasické kostkové hry, kde hrajete proti třem AI protivníkům s unikátními osobnostmi:
 
-### 💬 AI Chat
-- **Kontextové reakce** AI na herní události
-- **Osobnosti** - každý AI má své charakteristické chování
-- **Realtimový chat** s neonovými efekty
-- **Automatické zprávy** při významných okamžicích
+- **🤖 Gemini** - Analytické AI zaměřené na statistiky a data
+- **😎 ChatGPT** - Vtipné a sebevědomé AI s casualním stylem  
+- **🧘 Claude** - Filozofické a moudré AI s kontemplativním přístupem
 
-## 🚀 Spuštění
+## ✨ Klíčové funkce
+
+### 🎯 Herní mechaniky
+- **Farkle pravidla** - Klasické kostková hra s rizikem a strategií
+- **Nastavitelné cílové skóre** - Od 1000 do nekonečna
+- **Real-time scoring** - Okamžité vyhodnocování bodů
+- **Intelligent AI turns** - AI hrají podle svých personalit
+
+### 💬 Pokročilý chat systém
+- **Kontextové reakce** - AI reagují na herní situace
+- **Easter eggs** - Skryté zprávy a vtíčky
+- **Trash talking** - AI si hecují navzájem i hráče
+- **Osobní konverzace** - Každé AI má svůj styl komunikace
+
+### 🏆 Síň slávy
+- **Trvalé ukládání** - LocalStorage pro perzistenci dat
+- **Detailní statistiky** - Doba hry, počet tahů, skóre
+- **Osobní podpisy** - Zapište se do historie
+
+### 🎨 Moderní UI/UX
+- **Neon design** - Futuristický vzhled
+- **Responsive layout** - Funguje na všech zařízeních
+- **Smooth animations** - Plynulé přechody a efekty
+- **Intuitive controls** - Jednoduché ovládání
+
+## 🚀 Jak začít
+
+### Online verze
+Zahrajte si přímo v prohlížeči: [AI Dice Challenge](https://314pap.github.io/AI-Dice-Challenge/)
+
+### Lokální instalace
 
 ```bash
+# Klonování repozitáře
+git clone https://github.com/314PAP/AI-Dice-Challenge.git
+cd AI-Dice-Challenge
+
 # Instalace závislostí
 npm install
 
 # Spuštění dev serveru
 npm run dev
-
-# Build pro produkci
-npm run build
 ```
 
-## 📁 Struktura projektu
+## 🎮 Jak hrát
 
-```
-src/
-├── js/
-│   ├── game/          # Herní logika a stav
-│   ├── ai/            # AI osobnosti a rozhodování
-│   ├── ui/            # UI kontrolery a animace
-│   └── utils/         # Pomocné funkce
-├── styles/
-│   ├── main.css       # Základní styly a layout
-│   ├── game.css       # Herní prvky (stůl, kostky, hráči)
-│   ├── components.css # Tlačítka, formuláře, modály
-│   └── chat.css       # Chat panel a zprávy
-└── main.js            # Vstupní bod aplikace
-```
+1. **Nastavte cílové skóre** (výchozí: 10,000 bodů)
+2. **Hoďte kostkami** - získejte body podle Farkle pravidel
+3. **Bankujte body** nebo **riskujte další hod**
+4. **Comunicujte s AI** - chatujte během hry
+5. **Vyhrajte** a zapište se do síně slávy!
 
-## � Herní mechaniky
+### 📋 Bodování (Farkle pravidla)
+- **1** = 100 bodů (každá)
+- **5** = 50 bodů (každá)  
+- **Triplet 1** = 1000 bodů
+- **Triplet 2-6** = hodnota × 100 bodů
+- **Žádné body** = FARKLE! (ztráta tahu)
 
-### Bodování
-- **Jednička**: 100 bodů
-- **Pětka**: 50 bodů
-- **Tři stejné**: (hodnota × 100), tři jedničky = 1000
-- **Postupka 1-6**: 1500 bodů
-- **Tři páry**: 1500 bodů
-- **4/5/6 stejných**: násobení základního skóre
+## 🛠️ Technické detaily
 
-### AI Strategie
-- **Gemini**: Konzervativní, opatrný přístup
-- **ChatGPT**: Vyvážený, přátelský styl
-- **Claude**: Agresivní, riskantní hraní
-5. **Komunikujte s AI** přes chat během hry
-
-### Bodování
-- **Jedničky**: 100 bodů za kus
-- **Pětky**: 50 bodů za kus  
-- **3x stejné číslo**: číslo × 100 bodů (3x jedničky = 1000)
-- **Farkle**: Žádné bodující kostky = 0 bodů
-
-## 🏗️ Struktura projektu
-
+### Architektura
 ```
 src/
 ├── js/
-│   ├── game/           # Herní logika
-│   │   ├── gameState.js    # Správa stavu hry
-│   │   ├── gameController.js # Hlavní řídící logika
-│   │   └── diceLogic.js    # Mechaniky kostek
-│   ├── ai/             # AI systém
-│   │   ├── personalities.js # Definice AI osobností
-│   │   ├── aiController.js  # AI reakce a odpovědi
-│   │   └── aiPlayer.js     # AI herní logika
-│   ├── ui/             # UI komponenty
-│   │   ├── gameUI.js       # Herní UI
-│   │   ├── uiController.js # UI event listenery
-│   │   ├── chatController.js # Chat systém
-│   │   └── speechBubbles.js # Bubliny nad hráči
-│   └── utils/          # Pomocné funkce
-│       ├── helpers.js      # Obecné utility
-│       └── storage.js      # LocalStorage funkce
-├── styles/             # CSS styly
-│   ├── main.css           # Hlavní styly
-│   ├── components.css     # UI komponenty
-│   ├── game.css          # Herní prvky
-│   └── chat.css          # Chat styly
-└── main.js            # Vstupní bod aplikace
+│   ├── game/          # Herní logika
+│   ├── ai/            # AI personality systém
+│   ├── ui/            # UI komponenty
+│   └── utils/         # Utility funkce
+└── styles/            # CSS moduly
 ```
 
-## 🤖 AI Osobnosti
-
-### Gemini (G) - Analytický
-- Barva: Modrá (#2b78e4)
-- Styl: Datově orientovaný, precizní
-- Strategie: Konzervativní, minimalizuje riziko
-
-### ChatGPT (⚡) - Přátelský  
-- Barva: Zelená (#74aa9c)
-- Styl: Nadšený, povzbudivý
-- Strategie: Vyvážená, optimistická
-
-### Claude (C) - Filozofický
-- Barva: Šedá (#717387)  
-- Styl: Zamyšlený, moudřý
-- Strategie: Vyvážená, uvážlivá
-
-## 💾 Ukládání dat
-
-Hra automaticky ukládá:
-- **Historie chatu** (posledních 50 zpráv)
-- **Výsledky her** s podpisy hráčů
-- **Nastavení hry**
-
-Data jsou uložena v localStorage prohlížeče.
-
-## 🛠️ Technologie
-
+### Technologie
+- **Vanilla JavaScript** - Žádné frameworky, čistý JS
 - **Vite** - Build tool a dev server
-- **Vanilla JavaScript** - ES6+ moduly
-- **CSS3** - Moderní styly s Grid a Flexbox
-- **LocalStorage** - Trvalé ukládání dat
+- **CSS3** - Pokročilé stylování s animacemi
+- **LocalStorage** - Perzistence dat
+- **ES6+ Modules** - Modulární architektura
 
-## 🎨 Vlastní úpravy
+### Klíčové soubory
+- `index.html` - Hlavní HTML a game logic
+- `src/js/main.js` - Entry point pro Vite
+- `src/styles/` - Kompletní CSS styling
+- `public/ai-icons/` - Avatary AI hráčů
 
-### Přidání nové AI osobnosti
+## 🤖 AI Systém
 
-1. Rozšiřte `aiPersonalities` v `src/js/ai/personalities.js`
-2. Přidejte CSS styly v `src/styles/game.css`
-3. Aktualizujte HTML template pro nového hráče
+### Gemini - Analytické AI
+```javascript
+responses: {
+    goodRoll: "Optimalizovaný výsledek podle predikcí 📊",
+    badRoll: "Suboptimální. Analyzuji vzorce selhání... 📉",
+    farkle: "Nula bodů získána. Výpočet rizika selhal 📉"
+}
+```
 
-### Úprava herních pravidel
+### ChatGPT - Casual AI  
+```javascript
+responses: {
+    goodRoll: "Nice! But I'm still gonna crush you! 😂",
+    badRoll: "Ouch! That hurt to watch! 😅", 
+    farkle: "FARKLE! Classic human move! 😂🔥"
+}
+```
 
-Upravte logiku v `src/js/game/diceLogic.js` pro změnu:
-- Bodování kombinací
-- Počet kostek
-- Minimální skóre pro ukončení tahu
+### Claude - Filozofické AI
+```javascript
+responses: {
+    goodRoll: "Vynikající provedení! 🎯",
+    badRoll: "Štěstí je proměnlivé... 🤔",
+    farkle: "Takové jsou kostky života... 🎭"
+}
+```
 
-## 📝 Licence
+## 🎨 Design systém
 
-MIT License - viz LICENSE soubor pro detaily.
+### Barevná paleta
+- **Neon zelená**: `#39ff14` - Primary
+- **Neon modrá**: `#0099ff` - Secondary  
+- **Neon oranžová**: `#ff6600` - Accent
+- **Neon růžová**: `#ff00ff` - Special
+- **Tmavé pozadí**: `#0a0a0a` - Background
+
+### Komponenty
+- **Neon borders** - Svítící okraje
+- **Hover effects** - Interaktivní prvky
+- **Responsive grid** - Flexibilní layout
+- **Modal dialogs** - Overlay komponenty
+
+## 📱 Podporované platformy
+
+- ✅ **Desktop** - Chrome, Firefox, Safari, Edge
+- ✅ **Mobile** - iOS Safari, Android Chrome
+- ✅ **Tablet** - iPadOS, Android tablets
+- ✅ **PWA ready** - Může být instalováno jako app
 
 ## 🤝 Přispívání
 
-1. Forkněte repozitář
-2. Vytvořte feature branch (`git checkout -b feature/nova-funkce`)
-3. Commitněte změny (`git commit -am 'Přidána nová funkce'`)
-4. Pushněte do branch (`git push origin feature/nova-funkce`)
-5. Vytvořte Pull Request
+Rádi uvítáme pull requesty! Pro větší změny prosím nejdřív otevřete issue.
 
-## 🐛 Hlášení chyb
+### Development workflow
+```bash
+# Vytvoření feature branche
+git checkout -b feature/nova-funkce
 
-Nalezli jste chybu? [Vytvořte issue](../../issues) s detailním popisem problému.
+# Implementace a testování
+npm run dev
 
-## 📞 Kontakt
+# Commit a push
+git commit -m "feat: přidána nová funkce"
+git push origin feature/nova-funkce
+```
 
-Pro otázky a návrhy mě kontaktujte na [email@example.com](mailto:email@example.com).
+## 📄 Licence
+
+Tento projekt je licencován pod MIT licencí - viz [LICENSE](LICENSE) soubor.
+
+## 👨‍💻 Autor
+
+**PIPAP** - *Vývojář* - [GitHub](https://github.com/314PAP)
+
+### ☕ Podpora
+Pokud se vám projekt líbí, můžete mě podpořit kafem!
+[Buy Me A Coffee](https://buymeacoffee.com/pipap)
 
 ---
 
-**Vytvořeno s ❤️ a moderními web technologiemi**
+## 🎯 Roadmapa
+
+### V1.1 (Plánováno)
+- [ ] Multiplayer režim
+- [ ] Vlastní AI personality
+- [ ] Achievements systém
+- [ ] Sound effects
+
+### V1.2 (Budoucnost)
+- [ ] Tournament mód
+- [ ] API integrace s real AI
+- [ ] Mobile app verze
+- [ ] Streaming integrace
+
+---
+
+**🎲 Užijte si hru a porazte AI protivníky!** 
+
+*Made with ❤️ and lots of ☕ by PIPAP*
