@@ -359,6 +359,20 @@
     box-shadow: 0 0 25px var(--neon-green) !important;
 }
 
+/* Farkle kostky - červené */
+.dice.farkle {
+    border-color: #ff0000 !important;
+    color: #ff0000 !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+    box-shadow: 0 0 15px #ff0000 !important;
+    animation: farkle-pulse 1s ease-in-out infinite;
+}
+
+@keyframes farkle-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
 /* Turn info */
 .turn-info {
     background: var(--black-bg);

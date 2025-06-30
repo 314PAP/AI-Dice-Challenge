@@ -45,7 +45,13 @@ export function displayHallOfFame() {
     const games = getHallOfFame();
     
     if (games.length === 0) {
-        list.innerHTML = '<p style="text-align: center; color: var(--neon-green);">Zatím žádné záznamy...</p>';
+        list.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: var(--neon-green);">
+                <h3>🏆 Síň slávy je prázdná</h3>
+                <p>Zatím žádné záznamy...</p>
+                <p style="font-size: 14px; opacity: 0.7;">Vyhrajte hru a zapište se do historie!</p>
+            </div>
+        `;
     } else {
         list.innerHTML = games.map((game, index) => {
             const date = new Date(game.date);

@@ -22,7 +22,7 @@
     flex: 1;
     overflow-y: auto;
     margin-bottom: 20px;
-    min-height: 300px;
+    height: 600px; /* Desktop výška */
     padding: 15px;
     background: var(--black-bg);
     scrollbar-width: thin;
@@ -108,13 +108,14 @@
     background: var(--neon-green);
     color: var(--black-bg);
     border: none;
-    padding: 10px 15px;
+    padding: 12px 15px;
     border-radius: 0 6px 6px 0;
     font-family: 'Orbitron', monospace;
     font-weight: 700;
     cursor: pointer;
     font-size: 16px;
     transition: all 0.2s ease;
+    min-width: 50px;
 }
 
 .chat-input button:hover {
@@ -122,4 +123,45 @@
     color: var(--neon-green);
     border: 1px solid var(--neon-green);
     box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* Responzivní úpravy podle CHAT_REDESIGN.md */
+@media (max-width: 768px) {
+    .chat-messages {
+        height: 300px; /* Tablet výška */
+        font-size: 12px;
+    }
+    
+    .chat-input input {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .chat-input button {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-messages {
+        height: 250px; /* Mobil výška */
+        font-size: 11px;
+    }
+    
+    .chat-input input {
+        padding: 6px;
+        font-size: 11px;
+    }
+    
+    .chat-input button {
+        padding: 6px 10px;
+    }
+    
+    .message-content {
+        font-size: 12px;
+    }
+    
+    .message-header {
+        font-size: 11px;
+    }
 }

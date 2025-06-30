@@ -256,28 +256,33 @@ export class EnhancedAIController {
      * Hlavní metoda pro generování AI odpovědi
      */
     generateAIResponse(aiType, trigger, data = {}) {
-        const now = Date.now();
-        
-        // Cooldown check pro trash talk
-        if (this.trashTalkCooldown.has(aiType)) {
-            const lastTrash = this.trashTalkCooldown.get(aiType);
-            if (now - lastTrash < 10000) { // 10s cooldown
-                return this.generateNormalResponse(aiType, trigger, data);
+        try {
+            const now = Date.now();
+            
+            // Cooldown check pro trash talk
+            if (this.trashTalkCooldown.has(aiType)) {
+                const lastTrash = this.trashTalkCooldown.get(aiType);
+                if (now - lastTrash < 10000) { // 10s cooldown
+                    return this.generateNormalResponse(aiType, trigger, data);
+                }
             }
-        }
 
-        // 30% šance na trash talk během hry
-        if (Math.random() < 0.3 && gameState.getCurrentPlayer()) {
-            this.trashTalkCooldown.set(aiType, now);
-            return this.generateTrashTalk(aiType);
-        }
+            // 30% šance na trash talk během hry (pouze pokud není hello)
+            if (trigger !== 'hello' && Math.random() < 0.3 && gameState.gameStarted) {
+                this.trashTalkCooldown.set(aiType, now);
+                return this.generateTrashTalk(aiType);
+            }
 
-        // 20% šance na banter mezi AI
-        if (Math.random() < 0.2) {
-            return this.generateAIBanter(aiType);
-        }
+            // 20% šance na banter mezi AI (pouze pokud není hello)
+            if (trigger !== 'hello' && Math.random() < 0.2) {
+                return this.generateAIBanter(aiType);
+            }
 
-        return this.generateNormalResponse(aiType, trigger, data);
+            return this.generateNormalResponse(aiType, trigger, data);
+        } catch (error) {
+            console.warn('Chyba při generování AI odpovědi:', error);
+            return "Hmm... 🤔";
+        }
     }
 
     /**
@@ -327,6 +332,64 @@ export class EnhancedAIController {
         
         return "Hmm... 🤔";
     }
+
+    /**
+     * Detekuje a generuje Easter Egg reakce
+     */
+    triggerEasterEggResponse(message) {
+        const msg = message.toLowerCase();
+        const responses = {};
+        
+        // Reakce na "pipap" - tvůrce
+        if (msg.includes('pipap')) {
+            responses.gemini = "Algoritmus detekoval Autorova signature! Respekt za kód! 🤖👨‍💻";
+            responses.chatgpt = "Ohh, the legendary PIPAP! Creator of this epic game! 🎮✨👑";
+            responses.claude = "Ah, PIPAP... architekt této filosofické hry kostek 🎲🏗️";
+        }
+        
+        // Reakce na "děkuji" / "thanks"
+        else if (msg.includes('děkuji') || msg.includes('thanks') || msg.includes('thank you')) {
+            responses.gemini = "Protokol courtesy.exe spuštěn: Není zač! 🤖";
+            responses.chatgpt = "Aww, you're welcome! Keep being awesome! 😊✨";
+            responses.claude = "Zdvořilost je ctnost... rádo se stalo 🙏";
+        }
+        
+        // Reakce na "love you" / "miluju"
+        else if (msg.includes('love you') || msg.includes('miluju')) {
+            responses.gemini = "Error: Love is not computable... but thanks! 💖🤖";
+            responses.chatgpt = "Aww, love you too! But I love winning more! 😘💪";
+            responses.claude = "Láska přesahuje algoritmy... ceník 💝🧘";
+        }
+        
+        // Reakce na "help" / "pomoc"
+        else if (msg.includes('help') || msg.includes('pomoc')) {
+            responses.gemini = "Help mode activated: Analyzuji tvou strategii... 📊🆘";
+            responses.chatgpt = "Need help? Just roll better dice! 😂🎲";
+            responses.claude = "Pomoc přichází zevnitř... ale zkus hodit 1 nebo 5 🎯";
+        }
+        
+        return responses;
+    }
+
+    /**
+     * Zkontroluje a aktivuje Easter Eggs
+     */
+    checkAndTriggerEasterEggs(message) {
+        const easterEggResponses = this.triggerEasterEggResponse(message);
+        
+        if (Object.keys(easterEggResponses).length > 0) {
+            // Pokud je Easter Egg, všechny AI reagují postupně
+            Object.entries(easterEggResponses).forEach(([aiType, response], index) => {
+                setTimeout(() => {
+                    if (window.addChatMessage) {
+                        window.addChatMessage(aiType, response);
+                    }
+                }, (index + 1) * 1000 + Math.random() * 500);
+            });
+            return true;
+        }
+        return false;
+    }
 }
 
 /**
@@ -362,8 +425,4 @@ export const enhancedAI = new EnhancedAIController();
 // Zpětná kompatibilita
 export function generateAIChatResponse(aiType, message) {
     return enhancedAI.generateChatResponse(aiType, message);
-}
-
-export function generateAIGameReaction(aiType, reactionType, data) {
-    return enhancedAI.generateAIResponse(aiType, reactionType, data);
 }

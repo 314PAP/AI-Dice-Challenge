@@ -15,7 +15,12 @@ export class EnhancedChatController {
     constructor() {
         this.useRealAI = USE_REAL_AI;
         this.chatHistory = [];
+    }
+
+    initialize() {
+        console.log('💬 Inicializuji Enhanced Chat Controller...');
         this.setupEventListeners();
+        console.log('✅ Chat systém připraven');
     }
 
     setupEventListeners() {
@@ -26,10 +31,6 @@ export class EnhancedChatController {
             chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') this.sendMessage();
             });
-        }
-        
-        if (sendMessageBtn) {
-            sendMessageBtn.addEventListener('click', () => this.sendMessage());
         }
         
         if (sendMessageBtn) {
@@ -50,6 +51,11 @@ export class EnhancedChatController {
         this.addMessage('human', message);
         chatInput.value = '';
         
+        // Zkontroluj Easter Eggs
+        if (enhancedAI.checkAndTriggerEasterEggs(message)) {
+            return; // Easter Egg reaction aktivní, nevytvářej normální odpovědi
+        }
+        
         // Generuj AI odpovědi
         await this.generateAIResponses(message);
     }
@@ -60,7 +66,26 @@ export class EnhancedChatController {
     async generateAIResponses(userMessage) {
         const aiTypes = ['gemini', 'chatgpt', 'claude'];
         
-        for (const aiType of aiTypes) {
+        // Analýza zprávy pro určení, kolik AI bude reagovat
+        const messageAnalysis = enhancedAI.analyzeMessage(userMessage);
+        
+        let respondingAIs = 1; // defaultně 1 AI
+        
+        if (messageAnalysis.isQuestion) {
+            respondingAIs = Math.min(3, Math.floor(Math.random() * 3) + 1); // 1-3 AI pro otázky
+        } else if (messageAnalysis.isChallenging) {
+            respondingAIs = 3; // Všechny AI na výzvy
+        } else if (messageAnalysis.isInsult) {
+            respondingAIs = Math.min(2, Math.floor(Math.random() * 2) + 1); // 1-2 AI na urážky
+        }
+        
+        // Náhodně vybrat AI, které budou reagovat
+        const shuffledAIs = [...aiTypes].sort(() => Math.random() - 0.5);
+        const respondingAITypes = shuffledAIs.slice(0, respondingAIs);
+        
+        for (let i = 0; i < respondingAITypes.length; i++) {
+            const aiType = respondingAITypes[i];
+            
             // Přidej delay pro realističtější konverzaci
             setTimeout(async () => {
                 let response;
@@ -68,8 +93,8 @@ export class EnhancedChatController {
                 if (this.useRealAI) {
                     // Aktualizuj kontext pro AI
                     realAI.updateGameContext({
-                        currentScore: gameState.getPlayerScore('human'),
-                        turnScore: gameState.getCurrentTurnScore(),
+                        currentScore: gameState.players[0].score, // Human player score
+                        turnScore: gameState.currentTurnScore,
                         lastAction: 'chat_message',
                         userMessage: userMessage
                     });
@@ -77,15 +102,17 @@ export class EnhancedChatController {
                     // Zavolej skutečné AI
                     response = await realAI.getAIResponse(aiType, 'chat_response', {
                         userMessage: userMessage,
-                        gameState: gameState.getGameState()
+                        gameState: gameState
                     });
                 } else {
                     // Použij vylepšené AI odpovědi
                     response = enhancedAI.generateChatResponse(aiType, userMessage);
                 }
                 
-                this.addMessage(aiType, response);
-            }, Math.random() * 2000 + 500); // Random delay 0.5-2.5s
+                if (response) {
+                    this.addMessage(aiType, response);
+                }
+            }, (i * 800) + Math.random() * 1200 + 500); // Postupné odpovědi s náhodným zpožděním
         }
     }
 

@@ -1,7 +1,8 @@
 // AI Dice Challenge - Main Application
-import { initializeGame, setupEventListeners, startGame } from './game/gameController.js';
+import { initializeGame, setupEventListeners, startGame, saveScore as saveGameScore, startNewGame as startNewGameController, returnToMainMenu as returnToMainMenuController } from './game/gameController.js';
 import { EnhancedChatController } from './ui/enhancedChatController.js';
-import { setupUI, displayHallOfFame, closeHallOfFame, saveScore, startNewGame, returnToMainMenu } from './ui/uiController.js';
+import { setupUI, displayHallOfFame, closeHallOfFame } from './ui/uiController.js';
+import { updateScoreboard, updateActivePlayer } from './ui/gameUI.js';
 import { enhancedAI } from './ai/enhancedAIController.js';
 
 // Wrapper class for game controller
@@ -25,8 +26,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const chatCtrl = new EnhancedChatController();
     
     // Global functions for backward compatibility
-    window.addChatMessage = chatCtrl.addMessage?.bind(chatCtrl) || function(sender, message) {
-        chatCtrl.addMessage(sender, message);
+    window.addChatMessage = function(sender, message, isGameEvent = false) {
+        console.log(`💬 Chat message: ${sender} -> ${message}`);
+        if (chatCtrl && chatCtrl.addMessage) {
+            chatCtrl.addMessage(sender, message, isGameEvent);
+        } else {
+            console.error('❌ Chat controller not available');
+        }
     };
     
     window.selectDie = function(index) {
@@ -38,14 +44,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     window.displayHallOfFame = displayHallOfFame;
     window.closeHallOfFame = closeHallOfFame;
-    window.saveScore = saveScore;
-    window.startNewGame = startNewGame;
-    window.returnToMainMenu = returnToMainMenu;
+    window.saveScore = saveGameScore;
+    window.startNewGame = startNewGameController;
+    window.returnToMainMenu = returnToMainMenuController;
     
     // Initialize the application
     await gameCtrl.initialize();
     chatCtrl.initialize();
     setupUI();
+    
+    // Inicializuj zobrazení hráčů
+    updateScoreboard();
+    updateActivePlayer();
+    
+    // Přidej přímý event listener pro Start Game (backup)
+    const startGameBtn = document.getElementById('startGameBtn');
+    if (startGameBtn) {
+        console.log('🚀 Přidávám backup event listener pro Start Game');
+        startGameBtn.addEventListener('click', () => {
+            console.log('🎮 Start Game clicked - backup handler!');
+            const targetScoreInput = document.getElementById('targetScoreInput');
+            const targetScore = parseInt(targetScoreInput.value);
+            
+            if (targetScore >= 1000) {
+                gameCtrl.startGame();
+            } else {
+                alert('Cílové skóre musí být alespoň 1000 bodů!');
+            }
+        });
+    }
     
     // Úvodní zpráva
     setTimeout(() => {

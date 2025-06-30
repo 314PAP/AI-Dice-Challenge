@@ -5,10 +5,12 @@
 
 export const gameState = {
     targetScore: 10000,
-    currentPlayer: 0, // 0=human, 1=ai
+    currentPlayer: 0, // 0=human, 1=gemini, 2=chatgpt, 3=claude
     players: [
-        { name: 'Hráč', score: 0, type: 'human' },
-        { name: 'AI Protivník', score: 0, type: 'ai' }
+        { name: 'Vy', score: 0, type: 'human' },
+        { name: 'Gemini', score: 0, type: 'gemini' },
+        { name: 'ChatGPT', score: 0, type: 'chatgpt' },
+        { name: 'Claude', score: 0, type: 'claude' }
     ],
     currentTurnScore: 0,
     rollsLeft: 3,
@@ -20,7 +22,8 @@ export const gameState = {
     finalRound: false,   // Flag indicating final round after someone reaches target
     finalRoundInitiator: null, // Player who triggered final round
     gameStartTime: null, // Čas začátku hry pro statistiky
-    currentTurn: 0 // Celkový počet tahů
+    totalTurns: 0, // Celkový počet tahů všech hráčů
+    playerTurns: { human: 0, gemini: 0, chatgpt: 0, claude: 0 } // Tahy jednotlivých hráčů
 };
 
 /**
@@ -30,8 +33,10 @@ export function resetGameState() {
     gameState.targetScore = 10000;
     gameState.currentPlayer = 0;
     gameState.players = [
-        { name: 'Hráč', score: 0, type: 'human' },
-        { name: 'AI Protivník', score: 0, type: 'ai' }
+        { name: 'Vy', score: 0, type: 'human' },
+        { name: 'Gemini', score: 0, type: 'gemini' },
+        { name: 'ChatGPT', score: 0, type: 'chatgpt' },
+        { name: 'Claude', score: 0, type: 'claude' }
     ];
     gameState.currentTurnScore = 0;
     gameState.rollsLeft = 3;
@@ -43,19 +48,25 @@ export function resetGameState() {
     gameState.finalRound = false;
     gameState.finalRoundInitiator = null;
     gameState.gameStartTime = null;
-    gameState.currentTurn = 0;
+    gameState.totalTurns = 0;
+    gameState.playerTurns = { human: 0, gemini: 0, chatgpt: 0, claude: 0 };
 }
 
 /**
  * Přejde na dalšího hráče
  */
 export function nextPlayer() {
-    gameState.currentPlayer = (gameState.currentPlayer + 1) % 2;
+    gameState.currentPlayer = (gameState.currentPlayer + 1) % 4; // 4 hráči celkem
     gameState.currentTurnScore = 0;
     gameState.rollsLeft = 3;
     gameState.dice = [];
     gameState.bankedDice = [];
     gameState.mustBankDice = false;
+    gameState.totalTurns++;
+    
+    // Sledování tahů podle hráče
+    const currentPlayerType = gameState.players[gameState.currentPlayer].type;
+    gameState.playerTurns[currentPlayerType]++;
 }
 
 /**

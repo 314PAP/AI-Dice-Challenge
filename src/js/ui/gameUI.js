@@ -11,7 +11,7 @@ import { calculateScore } from '../game/diceLogic.js';
  */
 export function updateGameDisplay() {
     // Update dice display
-    const diceContainer = document.getElementById('humanDiceContainer');
+    const diceContainer = document.getElementById('diceContainer');
     if (!diceContainer) return;
     
     diceContainer.innerHTML = '';
@@ -83,16 +83,25 @@ export function updateGameDisplay() {
  * Aktualizuje tabulku skóre
  */
 export function updateScoreboard() {
-    // Aktualizuj skóre lidského hráče
-    const humanTotalScore = document.getElementById('humanTotalScore');
-    if (humanTotalScore && gameState.players[0]) {
-        humanTotalScore.textContent = gameState.players[0].score;
-    }
+    // Aktualizuj skóre všech hráčů
+    const scoreElements = {
+        0: document.getElementById('humanScore'),
+        1: document.getElementById('geminiScore'), 
+        2: document.getElementById('chatgptScore'),
+        3: document.getElementById('claudeScore')
+    };
     
-    // Aktualizuj skóre AI hráče
-    const aiTotalScore = document.getElementById('aiTotalScore');
-    if (aiTotalScore && gameState.players[1]) {
-        aiTotalScore.textContent = gameState.players[1].score;
+    gameState.players.forEach((player, index) => {
+        const scoreElement = scoreElements[index];
+        if (scoreElement) {
+            scoreElement.textContent = player.score;
+        }
+    });
+    
+    // Aktualizuj current turn score
+    const currentTurnScore = document.getElementById('currentTurnScore');
+    if (currentTurnScore) {
+        currentTurnScore.textContent = `Skóre tahu: ${gameState.currentTurnScore}`;
     }
 }
 
@@ -100,14 +109,26 @@ export function updateScoreboard() {
  * Aktualizuje zobrazení aktivního hráče
  */
 export function updateActivePlayer() {
-    const humanSection = document.getElementById('humanPlayerSection');
-    const aiSection = document.getElementById('aiPlayerSection');
+    // Odstraň active třídu ze všech hráčů
+    document.querySelectorAll('.player').forEach(player => {
+        player.classList.remove('active');
+    });
     
-    if (gameState.currentPlayer === 0) {
-        if (humanSection) humanSection.classList.add('active');
-        if (aiSection) aiSection.classList.remove('active');
-    } else {
-        if (humanSection) humanSection.classList.remove('active');
-        if (aiSection) aiSection.classList.add('active');
+    // Přidej active třídu k aktuálnímu hráči
+    const playerClasses = ['human-player', 'gemini-player', 'chatgpt-player', 'claude-player'];
+    const currentPlayerClass = playerClasses[gameState.currentPlayer];
+    
+    if (currentPlayerClass) {
+        const currentPlayerElement = document.querySelector(`.${currentPlayerClass}`);
+        if (currentPlayerElement) {
+            currentPlayerElement.classList.add('active');
+        }
+    }
+    
+    // Aktualizuj turn info
+    const turnInfo = document.getElementById('turnInfo');
+    if (turnInfo) {
+        const playerName = gameState.players[gameState.currentPlayer]?.name || 'Neznámý';
+        turnInfo.textContent = `${playerName} na tahu!`;
     }
 }

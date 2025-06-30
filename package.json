@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "dev": "vite --host",
-    "build": "echo 'No build needed - vanilla JS project' && cp -r . dist/ && echo 'Files copied to dist/'",
+    "build": "vite build",
     "preview": "vite preview",
     "serve": "vite preview --port 3000",
     "start": "python3 -m http.server 8000",

@@ -6,10 +6,9 @@
 import { gameState, getCurrentPlayer } from '../game/gameState.js';
 import { rollDice, calculateScore, findBestScoringCombination } from '../game/diceLogic.js';
 import { updateGameDisplay } from '../ui/gameUI.js';
-import { addChatMessage } from '../ui/chatController.js';
-import { generateAIGameReaction, generateHotDiceReaction, generateHighScoreReaction } from './aiController.js';
+import { addChatMessage } from '../ui/enhancedChatController.js';
+import { generateAIGameReaction, enhancedAI } from './enhancedAIController.js';
 import { endTurn } from '../game/gameController.js';
-import { showSpeechBubble } from '../ui/speechBubbles.js';
 
 /**
  * Spustí tah AI hráče
@@ -44,7 +43,6 @@ function playAIRoll() {
     const diceValues = gameState.dice.map(d => d.value);
     const rollScore = calculateScore(diceValues);
     
-    showSpeechBubble(gameState.currentPlayer, `Hod: ${diceValues.join(', ')}`);
     addChatMessage('system', `${aiPlayer.name} hodil: ${diceValues.join(', ')} - Možné body z hodu: ${rollScore}`);
     
     if (rollScore === 0) {
@@ -54,11 +52,9 @@ function playAIRoll() {
         // Označit kostky jako farkle pro vizuální efekt
         gameState.dice.forEach(die => die.farkle = true);
         
-        const reaction = generateAIGameReaction(aiPlayer.type, 'farkle');
-        if (reaction) addChatMessage(reaction.senderType, reaction.message);
+        const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
+        if (reaction) addChatMessage(aiPlayer.type, reaction);
         addChatMessage('system', `❌ ${aiPlayer.name} neměl žádné bodující kostky! FARKLE! Tah končí s 0 body.`);
-        
-        showSpeechBubble(gameState.currentPlayer, "FARKLE! 😞");
         
         setTimeout(() => {
             console.log(`🔄 AI ${aiPlayer.name}: Automaticky ukončuji tah po farkle...`);
@@ -96,9 +92,9 @@ function playAIRoll() {
             addChatMessage('system', `🔥 ${aiPlayer.name} odložil všechny kostky! HOT DICE! Pokračuje s novými kostkami.`);
             
             // AI reakce na hot dice
-            const hotDiceReaction = generateHotDiceReaction(aiPlayer.type);
+            const hotDiceReaction = enhancedAI.generateAIResponse(aiPlayer.type, 'hotdice');
             if (hotDiceReaction) {
-                setTimeout(() => addChatMessage(hotDiceReaction.senderType, hotDiceReaction.message), 500);
+                setTimeout(() => addChatMessage(aiPlayer.type, hotDiceReaction), 500);
             }
             
             setTimeout(() => {
@@ -131,19 +127,19 @@ function playAIRoll() {
             let reaction;
             
             if (score >= 500) {
-                reaction = generateHighScoreReaction(aiPlayer.type, score);
+                reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'highscore', { score });
             } else {
-                reaction = generateAIGameReaction(aiPlayer.type, 'scoredPoints', score);
+                reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'scoredPoints', { score });
             }
             
-            if (reaction) addChatMessage(reaction.senderType, reaction.message);
+            if (reaction) addChatMessage(aiPlayer.type, reaction);
             
             setTimeout(() => endTurn(true), 2000);
         }
     } else {
         // This shouldn't happen if rollScore > 0, but just in case
-        const reaction = generateAIGameReaction(aiPlayer.type, 'farkle');
-        if (reaction) addChatMessage(reaction.senderType, reaction.message);
+        const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
+        if (reaction) addChatMessage(aiPlayer.type, reaction);
         addChatMessage('system', `${aiPlayer.name} neměl žádné bodující kostky! Tah končí.`);
         
         setTimeout(() => endTurn(false), 2000);

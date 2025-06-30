@@ -62,6 +62,9 @@
             <div class="game-controls" id="gameControls" style="display: none;">
                 <div class="turn-info" id="turnInfo">Váš tah!</div>
                 <div class="current-turn-score" id="currentTurnScore">Skóre tahu: 0</div>
+                <div class="target-info" id="targetInfo">
+                    Cíl: <span id="targetScoreDisplay">10000</span>
+                </div>
                 
                 <div class="dice-container" id="diceContainer"></div>
                 
@@ -69,6 +72,7 @@
                     <button class="btn btn-primary" id="rollBtn">Hodit kostky</button>
                     <button class="btn btn-secondary" id="bankBtn" disabled>Odložit vybrané</button>
                     <button class="btn btn-warning" id="endTurnBtn" disabled>Ukončit tah</button>
+                    <button class="btn btn-danger" id="quitGameBtn">Opustit hru</button>
                 </div>
             </div>
         </div>
@@ -135,5 +139,27 @@
     </div>
 
     <script type="module" src="/src/js/main.js"></script>
+    
+    <!-- Temporary inline script for debugging -->
+    <script>
+        console.log('🔧 Inline script loading...');
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔧 DOM loaded, adding backup listeners...');
+            
+            // Backup start game listener
+            const startBtn = document.getElementById('startGameBtn');
+            if (startBtn) {
+                console.log('✅ Found start button, adding backup listener');
+                startBtn.addEventListener('click', () => {
+                    console.log('🚀 Backup start button clicked!');
+                    document.getElementById('targetScoreSetup').style.display = 'none';
+                    document.getElementById('gameControls').style.display = 'block';
+                    alert('Game started! (backup handler)');
+                });
+            } else {
+                console.error('❌ Start button not found!');
+            }
+        });
+    </script>
 </body>
 </html>
