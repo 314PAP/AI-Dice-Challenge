@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hall of Fame</title>
+</head>
+<body>
+    <h1>Test Hall of Fame Persistence</h1>
+    <button onclick="addTestEntry()">Přidat testovací záznam</button>
+    <button onclick="showHallOfFame()">Zobrazit síň slávy</button>
+    <button onclick="clearHallOfFame()">Vymazat síň slávy</button>
+    <div id="results"></div>
+
+    <script type="module">
+        import { saveGameResult, getHallOfFame, clearHallOfFame as clearHOF } from './src/js/utils/hallOfFame.js';
+
+        window.addTestEntry = function() {
+            const testResult = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                signature: 'Test Player',
+                winner: 'Vy',
+                winnerScore: 5000,
+                targetScore: 5000,
+                finalScores: [
+                    { name: 'Vy', score: 5000 },
+                    { name: 'Gemini', score: 3000 },
+                    { name: 'ChatGPT', score: 2500 }
+                ],
+                gameDuration: 300000, // 5 minut
+                totalTurns: 25,
+                gameType: 'Farkle'
+            };
+            
+            saveGameResult(testResult);
+            alert('Testovací záznam přidán!');
+        };
+
+        window.showHallOfFame = function() {
+            const games = getHallOfFame();
+            const results = document.getElementById('results');
+            
+            if (games.length === 0) {
+                results.innerHTML = '<p>Žádné záznamy v síni slávy.</p>';
+            } else {
+                results.innerHTML = '<h2>Síň slávy:</h2>' + 
+                    games.map((game, index) => `
+                        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                            <strong>#${index + 1} ${game.winner} (${game.signature})</strong><br>
+                            Skóre: ${game.winnerScore}/${game.targetScore}<br>
+                            Tahy: ${game.totalTurns}<br>
+                            Doba: ${Math.floor(game.gameDuration / 60000)}m ${Math.floor((game.gameDuration % 60000) / 1000)}s<br>
+                            Datum: ${new Date(game.date).toLocaleString()}
+                        </div>
+                    `).join('');
+            }
+        };
+
+        window.clearHallOfFame = function() {
+            clearHOF();
+            alert('Síň slávy vymazána!');
+            document.getElementById('results').innerHTML = '';
+        };
+
+        // Automaticky zobrazit při načtení
+        window.showHallOfFame();
+    </script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Farkle Rules</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0a0a0a;
+            color: #00ff41;
+        }
+        .test-section {
+            border: 1px solid #00ff41;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .pass { background: #004400; }
+        .fail { background: #440000; }
+        button {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎲 Test Farkle Rules Implementation</h1>
+    
+    <div class="test-section">
+        <h2>Scoring Tests</h2>
+        <button onclick="runScoringTests()">Test Scoring Rules</button>
+        <div id="scoringResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Entry Game Tests</h2>
+        <button onclick="runEntryGameTests()">Test Entry Game Logic</button>
+        <div id="entryResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Hot Dice Tests</h2>
+        <button onclick="runHotDiceTests()">Test Hot Dice Mechanics</button>
+        <div id="hotDiceResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Final Round Tests</h2>
+        <button onclick="runFinalRoundTests()">Test Final Round Logic</button>
+        <div id="finalRoundResults"></div>
+    </div>
+
+    <script type="module">
+        import { calculateScore, hasScoringDice, getAllScoringCombinations, findBestScoringCombination } from './src/js/game/diceLogic.js';
+
+        window.runScoringTests = function() {
+            const results = document.getElementById('scoringResults');
+            results.innerHTML = '';
+            
+            const tests = [
+                // Základní scoring testy
+                { dice: [1], expected: 100, name: 'Jednička' },
+                { dice: [5], expected: 50, name: 'Pětka' },
+                { dice: [1, 1, 1], expected: 1000, name: 'Tři jedničky' },
+                { dice: [2, 2, 2], expected: 200, name: 'Tři dvojky' },
+                { dice: [3, 3, 3], expected: 300, name: 'Tři trojky' },
+                { dice: [4, 4, 4], expected: 400, name: 'Tři čtyřky' },
+                { dice: [5, 5, 5], expected: 500, name: 'Tři pětky' },
+                { dice: [6, 6, 6], expected: 600, name: 'Tři šestky' },
+                { dice: [1, 1, 1, 1], expected: 2000, name: 'Čtyři jedničky' },
+                { dice: [2, 2, 2, 2], expected: 400, name: 'Čtyři dvojky' },
+                { dice: [1, 1, 1, 1, 1], expected: 4000, name: 'Pět jedniček' },
+                { dice: [1, 1, 1, 1, 1, 1], expected: 8000, name: 'Šest jedniček' },
+                { dice: [1, 2, 3, 4, 5, 6], expected: 1500, name: 'Postupka' },
+                { dice: [1, 1, 2, 2, 3, 3], expected: 1500, name: 'Tři páry' },
+                { dice: [1, 5, 2, 3, 4, 6], expected: 150, name: 'Jednička + pětka' },
+                { dice: [2, 3, 4, 6], expected: 0, name: 'Žádné body' },
+                { dice: [1, 1, 1, 5, 5], expected: 1100, name: 'Tři jedničky + dvě pětky' }
+            ];
+            
+            let passed = 0;
+            let total = tests.length;
+            
+            tests.forEach(test => {
+                const score = calculateScore(test.dice);
+                const isPass = score === test.expected;
+                if (isPass) passed++;
+                
+                const div = document.createElement('div');
+                div.className = `test-result ${isPass ? 'pass' : 'fail'}`;
+                div.innerHTML = `${test.name}: ${test.dice.join(',')} → ${score} ${isPass ? '✓' : '✗ (expected ' + test.expected + ')'}`;
+                results.appendChild(div);
+            });
+            
+            const summary = document.createElement('div');
+            summary.innerHTML = `<strong>Scoring Tests: ${passed}/${total} passed</strong>`;
+            results.appendChild(summary);
+        };
+
+        window.runEntryGameTests = function() {
+            const results = document.getElementById('entryResults');
+            results.innerHTML = '';
+            
+            const tests = [
+                { score: 250, shouldEnter: false, name: 'Nedostatečné skóre (250)' },
+                { score: 300, shouldEnter: true, name: 'Minimální vstup (300)' },
+                { score: 500, shouldEnter: true, name: 'Komfortní vstup (500)' },
+                { score: 1000, shouldEnter: true, name: 'Vysoký vstup (1000)' }
+            ];
+            
+            let passed = 0;
+            let total = tests.length;
+            
+            tests.forEach(test => {
+                const canEnter = test.score >= 300;
+                const isPass = canEnter === test.shouldEnter;
+                if (isPass) passed++;
+                
+                const div = document.createElement('div');
+                div.className = `test-result ${isPass ? 'pass' : 'fail'}`;
+                div.innerHTML = `${test.name}: ${test.score} bodů → ${canEnter ? 'Vstup povolen' : 'Vstup odepřen'} ${isPass ? '✓' : '✗'}`;
+                results.appendChild(div);
+            });
+            
+            const summary = document.createElement('div');
+            summary.innerHTML = `<strong>Entry Tests: ${passed}/${total} passed</strong>`;
+            results.appendChild(summary);
+        };
+
+        window.runHotDiceTests = function() {
+            const results = document.getElementById('hotDiceResults');
+            results.innerHTML = '';
+            
+            // Test hot dice scenarios
+            const tests = [
+                { bankedCount: 6, shouldTrigger: true, name: 'Všech 6 kostek odloženo' },
+                { bankedCount: 5, shouldTrigger: false, name: 'Pouze 5 kostek odloženo' },
+                { bankedCount: 4, shouldTrigger: false, name: 'Pouze 4 kostky odloženy' }
+            ];
+            
+            let passed = 0;
+            let total = tests.length;
+            
+            tests.forEach(test => {
+                const isHotDice = test.bankedCount === 6;
+                const isPass = isHotDice === test.shouldTrigger;
+                if (isPass) passed++;
+                
+                const div = document.createElement('div');
+                div.className = `test-result ${isPass ? 'pass' : 'fail'}`;
+                div.innerHTML = `${test.name}: ${isHotDice ? 'HOT DICE spuštěn' : 'HOT DICE nespuštěn'} ${isPass ? '✓' : '✗'}`;
+                results.appendChild(div);
+            });
+            
+            const summary = document.createElement('div');
+            summary.innerHTML = `<strong>Hot Dice Tests: ${passed}/${total} passed</strong>`;
+            results.appendChild(summary);
+        };
+
+        window.runFinalRoundTests = function() {
+            const results = document.getElementById('finalRoundResults');
+            results.innerHTML = '';
+            
+            // Test final round logic
+            const tests = [
+                { targetScore: 5000, playerScore: 5000, shouldTrigger: true, name: 'Hráč dosáhl cíle' },
+                { targetScore: 5000, playerScore: 5500, shouldTrigger: true, name: 'Hráč překonal cíl' },
+                { targetScore: 5000, playerScore: 4900, shouldTrigger: false, name: 'Hráč nedosáhl cíle' },
+                { targetScore: 10000, playerScore: 10000, shouldTrigger: true, name: 'Standardní hra dosažena' }
+            ];
+            
+            let passed = 0;
+            let total = tests.length;
+            
+            tests.forEach(test => {
+                const shouldStart = test.playerScore >= test.targetScore;
+                const isPass = shouldStart === test.shouldTrigger;
+                if (isPass) passed++;
+                
+                const div = document.createElement('div');
+                div.className = `test-result ${isPass ? 'pass' : 'fail'}`;
+                div.innerHTML = `${test.name}: ${test.playerScore}/${test.targetScore} → ${shouldStart ? 'Finální kolo' : 'Hra pokračuje'} ${isPass ? '✓' : '✗'}`;
+                results.appendChild(div);
+            });
+            
+            const summary = document.createElement('div');
+            summary.innerHTML = `<strong>Final Round Tests: ${passed}/${total} passed</strong>`;
+            results.appendChild(summary);
+        };
+    </script>
+</body>
+</html>

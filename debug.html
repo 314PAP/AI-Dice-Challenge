@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Kostková Výzva - Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #39ff14;
+            padding: 20px;
+        }
+        .test-section {
+            border: 1px solid #39ff14;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .status {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        .success { background: #004400; }
+        .error { background: #440000; }
+        button {
+            background: #39ff14;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎲 AI Kostková Výzva - Debug Test</h1>
+    
+    <div class="test-section">
+        <h2>📋 Diagnostika</h2>
+        <div id="diagnostics"></div>
+        <button onclick="runDiagnostics()">Spustit diagnostiku</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎮 Základní test hry</h2>
+        <div id="gameTest"></div>
+        <button onclick="testBasicGame()">Test základní hra</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>💬 Test chatu</h2>
+        <div id="chatTest"></div>
+        <button onclick="testChat()">Test chat</button>
+    </div>
+
+    <script type="module">
+        window.runDiagnostics = async function() {
+            const diagnostics = document.getElementById('diagnostics');
+            diagnostics.innerHTML = '';
+            
+            const tests = [
+                {
+                    name: 'Vite server běží',
+                    test: () => window.location.href.includes('localhost')
+                },
+                {
+                    name: 'Main.js se načte',
+                    test: async () => {
+                        try {
+                            const module = await import('./src/main.js');
+                            return true;
+                        } catch (e) {
+                            console.error('Main.js error:', e);
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name: 'GameController se načte',
+                    test: async () => {
+                        try {
+                            const module = await import('./src/js/game/gameController.js');
+                            return module.initializeGame !== undefined;
+                        } catch (e) {
+                            console.error('GameController error:', e);
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name: 'EnhancedChatController se načte',
+                    test: async () => {
+                        try {
+                            const module = await import('./src/js/ui/enhancedChatController.js');
+                            return module.initializeChat !== undefined;
+                        } catch (e) {
+                            console.error('ChatController error:', e);
+                            return false;
+                        }
+                    }
+                },
+                {
+                    name: 'CSS soubory se načtou',
+                    test: () => {
+                        const links = document.querySelectorAll('link[rel="stylesheet"]');
+                        return links.length > 0 || window.getComputedStyle(document.body).backgroundColor === 'rgb(0, 0, 0)';
+                    }
+                }
+            ];
+            
+            for (const test of tests) {
+                try {
+                    const result = await test.test();
+                    const status = document.createElement('div');
+                    status.className = `status ${result ? 'success' : 'error'}`;
+                    status.innerHTML = `${test.name}: ${result ? '✅ OK' : '❌ FAILED'}`;
+                    diagnostics.appendChild(status);
+                } catch (e) {
+                    const status = document.createElement('div');
+                    status.className = 'status error';
+                    status.innerHTML = `${test.name}: ❌ ERROR - ${e.message}`;
+                    diagnostics.appendChild(status);
+                }
+            }
+        };
+        
+        window.testBasicGame = async function() {
+            const gameTest = document.getElementById('gameTest');
+            gameTest.innerHTML = '';
+            
+            try {
+                const gameModule = await import('./src/js/game/gameState.js');
+                const result = document.createElement('div');
+                result.className = 'status success';
+                result.innerHTML = `✅ GameState načten: ${JSON.stringify(gameModule.gameState.players.map(p => p.name))}`;
+                gameTest.appendChild(result);
+            } catch (e) {
+                const result = document.createElement('div');
+                result.className = 'status error';
+                result.innerHTML = `❌ GameState error: ${e.message}`;
+                gameTest.appendChild(result);
+            }
+        };
+        
+        window.testChat = async function() {
+            const chatTest = document.getElementById('chatTest');
+            chatTest.innerHTML = '';
+            
+            try {
+                const chatModule = await import('./src/js/ui/enhancedChatController.js');
+                const personalityModule = await import('./src/js/ai/personalities.js');
+                
+                const result = document.createElement('div');
+                result.className = 'status success';
+                result.innerHTML = `✅ Chat systém načten. AI personalities: ${Object.keys(personalityModule.aiPersonalities).join(', ')}`;
+                chatTest.appendChild(result);
+            } catch (e) {
+                const result = document.createElement('div');
+                result.className = 'status error';
+                result.innerHTML = `❌ Chat error: ${e.message}`;
+                chatTest.appendChild(result);
+            }
+        };
+    </script>
+</body>
+</html>

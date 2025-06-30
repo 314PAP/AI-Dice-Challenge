@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Kostková Výzva</title>
+    <link rel="icon" type="image/svg+xml" href="/public/dice.svg">
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 AI Kostková Výzva</h1>
+        
+        <!-- Nastavení hry -->
+        <div id="targetScoreSetup" class="setup-section">
+            <h2>🎯 Nastavení cílového skóre</h2>
+            <div class="form-group">
+                <label for="targetScore">Cílové skóre:</label>
+                <select id="targetScore">
+                    <option value="5000">5 000 bodů (Rychlá hra)</option>
+                    <option value="10000" selected>10 000 bodů (Standardní)</option>
+                    <option value="15000">15 000 bodů (Dlouhá hra)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="playerName">Vaše jméno:</label>
+                <input type="text" id="playerName" placeholder="Zadejte své jméno" value="Hráč">
+            </div>
+            <div class="form-group">
+                <button id="startGameBtn">🚀 Začít hru</button>
+                <button id="viewHallOfFameBtn">🏆 Síň slávy</button>
+            </div>
+        </div>
+
+        <!-- Herní oblast -->
+        <div id="gameControls" class="game-section hidden">
+            <div class="game-layout">
+                <!-- Herní plocha -->
+                <div class="game-area">
+                    <!-- Lidský hráč -->
+                    <div class="player-section" id="humanPlayerSection">
+                        <div class="player-header">
+                            <h3 class="player-name">
+                                <span class="player-icon">👤</span>
+                                <span id="humanPlayerName">Hráč</span>
+                            </h3>
+                            <div class="player-status" id="humanPlayerStatus">Váš tah</div>
+                        </div>
+                        
+                        <div class="score-display">
+                            <div class="total-score">
+                                <span class="score-label">Celkem:</span>
+                                <span class="score-value" id="humanTotalScore">0</span>
+                            </div>
+                            <div class="turn-score">
+                                <span class="score-label">Tento tah:</span>
+                                <span class="score-value" id="humanTurnScore">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Kostky pro lidského hráče -->
+                        <div class="dice-area">
+                            <div class="dice-container" id="humanDiceContainer"></div>
+                            <div class="banked-dice-container">
+                                <div class="banked-dice-label">Uložené kostky:</div>
+                                <div class="banked-dice" id="humanBankedDice"></div>
+                            </div>
+                        </div>
+
+                        <!-- Ovládání pro lidského hráče -->
+                        <div class="roll-controls">
+                            <button id="rollDiceBtn" class="btn btn-primary">
+                                <span class="btn-icon">🎲</span>
+                                Hodit kostkami
+                            </button>
+                            <button id="bankScoreBtn" class="btn btn-success">
+                                <span class="btn-icon">💰</span>
+                                Uložit skóre
+                            </button>
+                            <button id="quitGameBtn" class="btn btn-danger">
+                                <span class="btn-icon">🚪</span>
+                                Opustit hru
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- AI hráč -->
+                    <div class="player-section" id="aiPlayerSection">
+                        <div class="player-header">
+                            <h3 class="player-name">
+                                <img class="ai-icon" id="aiPlayerIcon" src="/public/ai-icons/system.jpeg" alt="AI">
+                                <span id="aiPlayerName">AI Protivník</span>
+                            </h3>
+                            <div class="player-status" id="aiPlayerStatus">Čeká na váš tah</div>
+                        </div>
+                        
+                        <div class="score-display">
+                            <div class="total-score">
+                                <span class="score-label">Celkem:</span>
+                                <span class="score-value" id="aiTotalScore">0</span>
+                            </div>
+                            <div class="turn-score">
+                                <span class="score-label">Tento tah:</span>
+                                <span class="score-value" id="aiTurnScore">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Kostky pro AI hráče -->
+                        <div class="dice-area">
+                            <div class="dice-container" id="aiDiceContainer"></div>
+                            <div class="banked-dice-container">
+                                <div class="banked-dice-label">Uložené kostky:</div>
+                                <div class="banked-dice" id="aiBankedDice"></div>
+                            </div>
+                        </div>
+
+                        <!-- AI thinking status -->
+                        <div class="ai-thinking" id="aiThinkingStatus" style="display: none;">
+                            <span class="thinking-dots">AI přemýšlí</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat panel -->
+                <div class="chat-panel">
+                    <div class="chat-header">
+                        <h3>💬 AI Chat</h3>
+                        <div class="chat-status" id="chatStatus">Online</div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Zprávy se vkládají dynamicky -->
+                    </div>
+                    
+                    <div class="chat-input-wrapper">
+                        <input type="text" id="chatInput" class="chat-input" placeholder="Napište zprávu AI..." maxlength="200">
+                        <button id="sendChatBtn" class="chat-send-btn">
+                            <span>📤</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOverModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🎮 Konec hry</h2>
+            </div>
+            <div class="modal-body">
+                <div id="winnerAnnouncement" class="winner-announcement"></div>
+                <div id="finalScores" class="final-scores"></div>
+                <div id="gameStats" class="game-stats"></div>
+                
+                <!-- Signature section for human winners -->
+                <div id="signatureSection" class="signature-section hidden">
+                    <h3>🏆 Gratulujeme k vítězství!</h3>
+                    <p>Zadejte svůj podpis pro zápis do síně slávy:</p>
+                    <div class="signature-input">
+                        <input type="text" id="winnerSignature" placeholder="Váš podpis" maxlength="30">
+                        <button id="saveScoreBtn" class="btn btn-success">💾 Uložit skóre</button>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="viewHallOfFameFromGameBtn" class="btn btn-primary">🏆 Zobrazit síň slávy</button>
+                    <button id="newGameBtn" class="btn btn-secondary">🔄 Nová hra</button>
+                    <button id="mainMenuBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hall of Fame Modal -->
+    <div id="hallOfFameModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏆 Síň slávy</h2>
+            </div>
+            <div class="modal-body">
+                <div id="hallOfFameContent">
+                    <div id="hallOfFameList"></div>
+                </div>
+                <div class="modal-actions">
+                    <button id="closeHallOfFameBtn" class="btn btn-secondary">✖️ Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hlavní modul aplikace -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

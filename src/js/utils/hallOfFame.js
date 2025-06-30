@@ -1,0 +1,139 @@
+/**
+ * Hall of Fame Management
+ * Správa síně slávy pro ukládání a zobrazování výsledků
+ */
+
+/**
+ * Uloží výsledek hry do síně slávy
+ * @param {Object} gameResult - Výsledek hry
+ */
+export function saveGameResult(gameResult) {
+    const savedGames = getHallOfFame();
+    savedGames.push(gameResult);
+    
+    // Seřadit podle skóre (nejvyšší první) a data
+    savedGames.sort((a, b) => {
+        if (b.winnerScore !== a.winnerScore) {
+            return b.winnerScore - a.winnerScore;
+        }
+        return new Date(b.date) - new Date(a.date);
+    });
+    
+    localStorage.setItem('diceGameHallOfFame', JSON.stringify(savedGames));
+}
+
+/**
+ * Získá všechny záznamy ze síně slávy
+ * @returns {Array} Pole výsledků her
+ */
+export function getHallOfFame() {
+    return JSON.parse(localStorage.getItem('diceGameHallOfFame') || '[]');
+}
+
+/**
+ * Zobrazí síň slávy v modalu
+ */
+export function displayHallOfFame() {
+    // Nejprve zavřít všechny ostatní modaly
+    const gameOverModal = document.getElementById('gameOverModal');
+    if (gameOverModal) {
+        gameOverModal.style.display = 'none';
+    }
+    
+    const modal = document.getElementById('hallOfFameModal');
+    const list = document.getElementById('hallOfFameList');
+    const games = getHallOfFame();
+    
+    if (games.length === 0) {
+        list.innerHTML = '<p style="text-align: center; color: var(--neon-green);">Zatím žádné záznamy...</p>';
+    } else {
+        list.innerHTML = games.map((game, index) => {
+            const date = new Date(game.date);
+            const formattedDate = date.toLocaleDateString('cs-CZ', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            const duration = formatDuration(game.gameDuration);
+            const efficiency = Math.round(game.winnerScore / game.totalTurns);
+            
+            return `
+                <div class="hall-of-fame-entry ${game.winner === 'Vy' ? 'winner' : ''}">
+                    <div class="rank-number">#${index + 1}</div>
+                    <div>
+                        <div class="entry-header">🏆 ${game.winner} (${game.signature || 'Anonym'})</div>
+                        <div class="entry-stats">
+                            🎯 ${game.winnerScore}/${game.targetScore} bodů<br>
+                            ⏱️ ${duration} (${game.totalTurns} tahů)<br>
+                            📊 ${efficiency} bodů/tah
+                        </div>
+                    </div>
+                    <div class="entry-details">
+                        📅 ${formattedDate}<br>
+                        ${game.finalScores.map(p => `${p.name}: ${p.score}`).join('<br>')}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    
+    modal.style.display = 'flex';
+}
+
+/**
+ * Skryje síň slávy
+ */
+export function hideHallOfFame() {
+    document.getElementById('hallOfFameModal').style.display = 'none';
+}
+
+/**
+ * Formátuje dobu trvání hry
+ * @param {number} milliseconds - Doba v milisekundách
+ * @returns {string} Formátovaná doba
+ */
+function formatDuration(milliseconds) {
+    const seconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    
+    if (hours > 0) {
+        return `${hours}h ${minutes % 60}m`;
+    } else if (minutes > 0) {
+        return `${minutes}m ${seconds % 60}s`;
+    } else {
+        return `${seconds}s`;
+    }
+}
+
+/**
+ * Vytvoří objekt výsledku hry
+ * @param {Object} gameState - Stav hry
+ * @param {string} signature - Podpis vítěze
+ * @param {number} startTime - Čas začátku hry
+ * @param {number} totalTurns - Celkový počet tahů
+ * @returns {Object} Objekt výsledku hry
+ */
+export function createGameResult(gameState, signature, startTime, totalTurns) {
+    const winner = gameState.players.reduce((prev, current) => 
+        (prev.score > current.score) ? prev : current);
+    
+    return {
+        id: Date.now(), // Unikátní ID
+        date: new Date().toISOString(),
+        signature: signature,
+        winner: winner.name,
+        winnerScore: winner.score,
+        targetScore: gameState.targetScore,
+        finalScores: gameState.players.map(p => ({ 
+            name: p.name, 
+            score: p.score 
+        })),
+        gameDuration: Date.now() - startTime,
+        totalTurns: totalTurns,
+        gameType: 'Farkle'
+    };
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Kostková Výzva</title>
+    <link rel="icon" type="image/svg+xml" href="/dice.svg" />
+    
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+    <link rel="stylesheet" href="/src/styles/game.css">
+    <link rel="stylesheet" href="/src/styles/components.css">
+    <link rel="stylesheet" href="/src/styles/chat.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game-area">
+            <div class="game-header">
+                <h1 class="game-title"><span class="neon-icon">🎲</span> AI Kostková Výzva</h1>
+                <div class="target-score-setup" id="targetScoreSetup">
+                    <label>Cílové skóre: <input type="number" id="targetScoreInput" value="10000" min="1000" step="1000"></label>
+                    <button class="btn btn-primary" id="startGameBtn">Začít hru</button>
+                    <button class="btn btn-secondary" onclick="displayHallOfFame()" style="margin-left: 10px;">🏆 Síň slávy</button>
+                </div>
+                
+                <a href="https://buymeacoffee.com/pipap" target="_blank" class="coffee-link">
+                    <span class="neon-icon">☕</span> Kup mi kávu
+                </a>
+            </div>
+
+            <div class="players-container">
+                <div class="player human-player active">
+                    <div class="player-head">
+                        <img src="/ai-icons/mind.jpeg" alt="Vy" />
+                    </div>
+                    <div class="player-name">Vy</div>
+                    <div class="player-score">Skóre: <span id="humanScore">0</span></div>
+                </div>
+                <div class="player gemini-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/gemini.jpeg" alt="Gemini" />
+                    </div>
+                    <div class="player-name">Gemini</div>
+                    <div class="player-score">Skóre: <span id="geminiScore">0</span></div>
+                </div>
+                <div class="player chatgpt-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" />
+                    </div>
+                    <div class="player-name">ChatGPT</div>
+                    <div class="player-score">Skóre: <span id="chatgptScore">0</span></div>
+                </div>
+                <div class="player claude-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/claude.jpeg" alt="Claude" />
+                    </div>
+                    <div class="player-name">Claude</div>
+                    <div class="player-score">Skóre: <span id="claudeScore">0</span></div>
+                </div>
+            </div>
+
+            <div class="game-controls" id="gameControls" style="display: none;">
+                <div class="turn-info" id="turnInfo">Váš tah!</div>
+                <div class="current-turn-score" id="currentTurnScore">Skóre tahu: 0</div>
+                
+                <div class="dice-container" id="diceContainer"></div>
+                
+                <div class="roll-controls">
+                    <button class="btn btn-primary" id="rollBtn">Hodit kostky</button>
+                    <button class="btn btn-secondary" id="bankBtn" disabled>Odložit vybrané</button>
+                    <button class="btn btn-warning" id="endTurnBtn" disabled>Ukončit tah</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-panel">
+            <div class="chat-header">
+                <h2>💬 Chat s AI</h2>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages"></div>
+            
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Napište zprávu..." maxlength="200">
+                <button id="sendMessageBtn">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOverModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🎮 Konec hry</h2>
+            </div>
+            <div class="modal-body">
+                <div id="winnerAnnouncement" class="winner-announcement"></div>
+                <div id="finalScores" class="final-scores"></div>
+                <div id="gameStats" class="game-stats"></div>
+                
+                <!-- Signature section for human winners -->
+                <div id="signatureSection" class="signature-section" style="display: none;">
+                    <h3>🏆 Gratulujeme k vítězství!</h3>
+                    <p>Zadejte svůj podpis pro zápis do síně slávy:</p>
+                    <div class="signature-input">
+                        <input type="text" id="winnerSignature" placeholder="Váš podpis" maxlength="30">
+                        <button onclick="saveScore()" class="btn btn-success">💾 Uložit skóre</button>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button onclick="displayHallOfFame()" class="btn btn-primary">🏆 Zobrazit síň slávy</button>
+                    <button onclick="startNewGame()" class="btn btn-secondary">🔄 Nová hra</button>
+                    <button onclick="returnToMainMenu()" class="btn btn-secondary">🏠 Hlavní menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hall of Fame Modal -->
+    <div id="hallOfFameModal" class="modal" style="display: none;">
+        <div class="modal-content hall-of-fame-content">
+            <div class="modal-header">
+                <h2>🏆 Síň slávy</h2>
+            </div>
+            <div class="modal-body">
+                <div id="hallOfFameContent">
+                    <div id="hallOfFameList"></div>
+                </div>
+                <div class="modal-actions">
+                    <button onclick="closeHallOfFame()" class="btn btn-secondary">✖️ Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <!-- JavaScript Modules -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

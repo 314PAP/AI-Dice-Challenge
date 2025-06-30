@@ -1,0 +1,30 @@
+{
+  "name": "aidice",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI Kostková Výzva - Interaktivní hra s AI osobnostmi",
+  "keywords": [
+    "dice game",
+    "AI",
+    "vite",
+    "javascript"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port 3000",
+    "lint": "echo 'ESLint není nakonfigurován' && exit 0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.0",
+    "eslint": "^9.30.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "lucide-react": "^0.525.0"
+  }
+}

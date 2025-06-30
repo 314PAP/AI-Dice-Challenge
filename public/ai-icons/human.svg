@@ -1,0 +1,20 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Minimalistická ikona mozku v neonovém stylu -->
+  <path d="M12 2C8.5 2 6 4.5 6 8c0 1.5 0.5 3 1.5 4.2C6 13.5 5 15.5 5 18c0 2.5 2 4.5 4.5 4.5h5c2.5 0 4.5-2 4.5-4.5 0-2.5-1-4.5-2.5-5.8C17.5 11 18 9.5 18 8c0-3.5-2.5-6-6-6z" 
+        fill="none" 
+        stroke="#ff6600" 
+        stroke-width="2" 
+        stroke-linejoin="round"/>
+  <circle cx="9" cy="8.5" r="1" fill="#ff6600"/>
+  <circle cx="15" cy="8.5" r="1" fill="#ff6600"/>
+  <path d="M8 12c1-0.5 2-0.5 3 0" 
+        stroke="#ff6600" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        fill="none"/>
+  <path d="M13 12c1-0.5 2-0.5 3 0" 
+        stroke="#ff6600" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        fill="none"/>
+</svg>
