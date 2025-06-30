@@ -16,6 +16,7 @@ export class MainGameController {
         this.gameStarted = false;
         this.gameStartTime = null;
         this.totalTurns = 0;
+        this.hasRolledThisTurn = false; // Nová proměnná pro sledování stavu tahu
     }
 
     /**
@@ -136,6 +137,11 @@ export class MainGameController {
         dice.dataset.value = value;
         dice.textContent = value;
         
+        // Přidej třídu pro neaktivní kostky na začátku tahu
+        if (!this.hasRolledThisTurn) {
+            dice.classList.add('dice-inactive');
+        }
+        
         dice.addEventListener('click', () => this.selectDice(id));
         
         return dice;
@@ -151,6 +157,9 @@ export class MainGameController {
         }
 
         console.log('🎲 Házím kostkami...');
+        
+        // Odstraň hlášku "Hoďte kostkami"
+        this.removeRollFirstMessage();
         
         // Animace a hození
         const availableDice = this.currentDice.filter(d => !d.selected && !d.banked);
@@ -181,6 +190,10 @@ export class MainGameController {
         });
 
         this.rollCount++;
+        this.hasRolledThisTurn = true; // Označí, že byly kostky hozeny
+        
+        // Aktualizuj vizuální stav kostek
+        this.updateDiceVisualState();
         
         // Zkontroluj scoring
         setTimeout(() => {
@@ -195,6 +208,12 @@ export class MainGameController {
      * Vybere/zruší výběr kostky
      */
     selectDice(diceId) {
+        // Nelze vybírat kostky před prvním hodem
+        if (!this.hasRolledThisTurn) {
+            this.showRollFirstMessage();
+            return;
+        }
+
         const dice = this.currentDice.find(d => d.id === diceId);
         if (!dice || dice.banked) return;
 
@@ -280,6 +299,11 @@ export class MainGameController {
                 element.textContent = 1;
             }
         });
+        
+        // Resetuj flag pro nové hození po Hot Dice
+        this.hasRolledThisTurn = false;
+        this.updateDiceVisualState(); // Nastav kostky jako neaktivní
+        this.updateButtons();
     }
 
     /**
@@ -357,8 +381,10 @@ export class MainGameController {
     resetTurn() {
         this.turnScore = 0;
         this.rollCount = 0;
+        this.hasRolledThisTurn = false; // Reset flag pro nový tah
         this.updateTurnScore();
         this.createInitialDice();
+        this.updateDiceVisualState(); // Aktualizuj vizuální stav kostek
         this.updateButtons();
     }
 
@@ -451,7 +477,7 @@ export class MainGameController {
     }
 
     /**
-     * Aktualizuje tlačítka
+     * Aktualizuje tlačítka podle stavu hry
      */
     updateButtons() {
         const rollBtn = document.getElementById('rollBtn');
@@ -460,10 +486,24 @@ export class MainGameController {
         
         const availableDice = this.currentDice.filter(d => !d.banked);
         const selectedDice = this.currentDice.filter(d => d.selected);
+        const hasValidSelection = selectedDice.length > 0 && this.calculateSelectedScore() > 0;
         
-        if (rollBtn) rollBtn.disabled = availableDice.length === 0;
-        if (bankBtn) bankBtn.disabled = selectedDice.length === 0;
-        if (endTurnBtn) endTurnBtn.disabled = this.turnScore === 0;
+        if (rollBtn) {
+            // Roll button je povolen pokud jsou dostupné kostky
+            rollBtn.disabled = availableDice.length === 0;
+        }
+        
+        if (bankBtn) {
+            // Bank button je povolen pouze pokud:
+            // 1. Byly hozeny kostky v tomto tahu
+            // 2. Jsou vybrané kostky s platným skóre
+            bankBtn.disabled = !this.hasRolledThisTurn || !hasValidSelection;
+        }
+        
+        if (endTurnBtn) {
+            // End turn button je povolen pouze pokud bylo odloženo nějaké skóre
+            endTurnBtn.disabled = this.turnScore === 0;
+        }
     }
 
     /**
@@ -667,6 +707,62 @@ export class MainGameController {
      */
     delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    /**
+     * Zobrazí hlášku "Hoďte kostkami"
+     */
+    showRollFirstMessage() {
+        // Odstraň předchozí hlášky
+        this.removeRollFirstMessage();
+        
+        // Najdi kontejner kostek
+        const diceContainer = document.getElementById('diceContainer');
+        if (!diceContainer) return;
+        
+        // Vytvoř žlutou hlášku
+        const messageDiv = document.createElement('div');
+        messageDiv.id = 'rollFirstMessage';
+        messageDiv.className = 'roll-first-message';
+        messageDiv.innerHTML = `
+            <div class="message-content">
+                🎲 Nejdříve hoďte kostkami!
+            </div>
+        `;
+        
+        // Přidej před kontejner kostek
+        diceContainer.parentNode.insertBefore(messageDiv, diceContainer);
+        
+        // Automaticky odstraň po 2 sekundách
+        setTimeout(() => {
+            this.removeRollFirstMessage();
+        }, 2000);
+    }
+
+    /**
+     * Odstraní hlášku "Hoďte kostkami"
+     */
+    removeRollFirstMessage() {
+        const message = document.getElementById('rollFirstMessage');
+        if (message) {
+            message.remove();
+        }
+    }
+
+    /**
+     * Aktualizuje vizuální stav kostek podle toho, zda byly hozeny
+     */
+    updateDiceVisualState() {
+        this.currentDice.forEach(dice => {
+            const element = document.querySelector(`[data-id="${dice.id}"]`);
+            if (element) {
+                if (this.hasRolledThisTurn) {
+                    element.classList.remove('dice-inactive');
+                } else {
+                    element.classList.add('dice-inactive');
+                }
+            }
+        });
     }
 }
 

@@ -117,6 +117,23 @@
     font-weight: 700;
 }
 
+/* Neaktivní kostky na začátku tahu */
+.dice.dice-inactive {
+    opacity: 0.6;
+    border-color: #666;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+    pointer-events: none;
+}
+
+.dice.dice-inactive:hover {
+    border-color: #666;
+    color: #666;
+    box-shadow: none;
+    transform: none;
+}
+
 /* Mobilní optimalizace */
 @media (max-width: 768px) {
     .dice {

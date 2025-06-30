@@ -1,66 +1,108 @@
-// main.js - Hlavní vstupní bod aplikace
-// Importy CSS - nová modulární struktura
-import './styles/base/reset.css';
-import './styles/base/layout.css';
-import './styles/components/buttons.css';
-import './styles/components/players.css';
-import './styles/components/chat.css';
-import './styles/components/dice.css';
-import './styles/themes/neon.css';
+/**
+ * AI Dice Challenge - Main Application Entry Point
+ * Hlavní vstupní bod aplikace - čistá modulární verze
+ */
 
-// Základní inicializace bez komplikovaných importů
+console.log('🎲 AI Kostková Výzva - Loading...');
+
+// Import UI controlleru pro řízení celé aplikace
+import { GameUIController } from './ui/gameUIController.js';
+
+/**
+ * Inicializace aplikace po načtení DOM
+ */
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('🎲 AI Kostková Výzva - Inicializace...');
+    console.log('✅ DOM loaded, initializing application...');
     
     try {
-        // Inicializace modulů postupně s error handlingem
-        console.log('📦 Načítám main game controller...');
-        const { MainGameController } = await import('./game/mainGameController.js');
+        // Vytvoř a inicializuj hlavní UI controller
+        const uiController = new GameUIController();
+        await uiController.initialize();
         
-        console.log('🎨 Načítám UI controller...');
-        const { setupUI } = await import('./js/ui/uiController.js');
+        // Zpřístupni globálně pro debugging
+        window.uiController = uiController;
+        window.gameController = uiController.gameController;
         
-        console.log('💬 Načítám enhanced chat controller...');
-        const { EnhancedChatController } = await import('./ui/chat/enhancedChatController.js');
-        
-        // Inicializace jednotlivých modulů s novou architekturou
-        const mainGameController = new MainGameController();
-        const chatController = new EnhancedChatController();
-        
-        // Inicializace systému
-        await mainGameController.initialize();
-        await chatController.initialize();
-        setupUI();
-        
-        console.log('✅ Aplikace byla úspěšně inicializována!');
+        console.log('✅ AI Kostková Výzva ready!');
         
     } catch (error) {
-        console.error('❌ Chyba při inicializaci:', error);
+        console.error('❌ Critical error during initialization:', error);
         
-        // Fallback na základní funkcionalita
-        console.log('🔄 Spouštím základní režim...');
-        
-        // Základní funkcionalita pro start hry
-        const startGameBtn = document.getElementById('startGameBtn');
-        if (startGameBtn) {
-            startGameBtn.addEventListener('click', () => {
-                document.getElementById('targetScoreSetup').style.display = 'none';
-                document.getElementById('gameControls').style.display = 'block';
-                
-                // Základní zpráva
-                const chatMessages = document.getElementById('chatMessages');
-                if (chatMessages) {
-                    chatMessages.innerHTML = `
-                        <div class="chat-message">
-                            <div class="message-header">
-                                <span class="message-sender">Systém</span>
-                                <span class="message-time">${new Date().toLocaleTimeString()}</span>
-                            </div>
-                            <div class="message-content">🎲 Hra začala! (Základní režim)</div>
-                        </div>
-                    `;
-                }
-            });
-        }
+        // Fallback - základní funkcionalita bez modulů
+        setupEmergencyFallback();
     }
 });
+
+/**
+ * Emergency fallback pro případ selhání modulárního systému
+ */
+function setupEmergencyFallback() {
+    console.log('🔧 Setting up emergency fallback...');
+    
+    // Základní start game funkcionalita
+    const startBtn = document.getElementById('startGameBtn');
+    const gameControls = document.getElementById('gameControls');
+    const targetScoreSetup = document.getElementById('targetScoreSetup');
+    
+    if (startBtn && gameControls && targetScoreSetup) {
+        startBtn.addEventListener('click', () => {
+            console.log('🚀 Emergency start game');
+            targetScoreSetup.style.display = 'none';
+            gameControls.classList.remove('hidden');
+            gameControls.style.display = 'block';
+        });
+    }
+    
+    // Základní quit game funkcionalita
+    const quitBtn = document.getElementById('quitGameBtn');
+    if (quitBtn) {
+        quitBtn.addEventListener('click', () => {
+            if (confirm('Opravdu chcete opustit hru?')) {
+                gameControls.style.display = 'none';
+                gameControls.classList.add('hidden');
+                targetScoreSetup.style.display = 'block';
+            }
+        });
+    }
+    
+    // Základní chat message funkce
+    window.addChatMessage = (sender, message) => {
+        const chatMessages = document.getElementById('chatMessages');
+        if (!chatMessages) return;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'chat-message';
+        messageDiv.innerHTML = `
+            <div class="message-header">
+                <span class="message-sender">${sender}</span>
+                <span class="message-time">${new Date().toLocaleTimeString()}</span>
+            </div>
+            <div class="message-content">${message}</div>
+        `;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+    
+    // Uvítací zpráva
+    setTimeout(() => {
+        if (window.addChatMessage) {
+            window.addChatMessage('Systém', '🔧 Spuštěno v nouzovém režimu');
+        }
+    }, 1000);
+}
+
+/**
+ * Debug funkce pro development
+ */
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.debugMode = true;
+    console.log('🧪 Debug mode enabled');
+    
+    // Přidej debug menu po 3 sekundách
+    setTimeout(() => {
+        if (window.addDebugMenu && typeof window.addDebugMenu === 'function') {
+            window.addDebugMenu();
+            console.log('🧪 Debug menu added');
+        }
+    }, 3000);
+}
