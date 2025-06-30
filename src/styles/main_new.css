@@ -1,26 +1,6 @@
 /**
- * 🎨 Main CSS - Modular Architecture Entry Point
- * 
- * Hlavní vstupní bod pro celou CSS architekturu projektu AI Kostková Výzva.
- * Organizuje importy v logickém pořadí pro optimální načítání a kaskádování.
- * 
- * Import struktura:
- * 1. Base      → CSS proměnné, reset, typografie (základ)
- * 2. Layout    → Grid systém, kontejnery, layout utility
- * 3. Components→ Komponenty UI (tlačítka, chat, kostky, hráči)
- * 4. Game      → Herní specifické styly (dice, skoreboard atd.)
- * 5. Utilities → Helper třídy pro rychlé stylování
- * 6. Themes    → Neonový design theme
- * 
- * Pravidla:
- * - Žádné inline styly v HTML
- * - Maximálně 150 řádků per soubor
- * - Modulární, znovupoužitelný kód
- * - Jasné jmenné konvence
- * 
- * @author AI Assistant & pipap
- * @version 2.0 - Kompletně refaktorováno
- * @date 2025-07-01
+ * Main CSS - Modular Import Structure
+ * Importuje všechny CSS moduly pro čistou architekturu
  */
 
 /* Base styles */

@@ -3,7 +3,7 @@
  * Hlavní controller pro UI a game flow
  */
 
-import { MainGameController } from '../game/mainGameController.js';
+import { MainGameController } from '../game/MainGameController.js';
 
 class GameUIController {
     constructor() {

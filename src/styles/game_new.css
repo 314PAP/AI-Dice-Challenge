@@ -1,20 +1,6 @@
 /**
- * 🎮 Game Styles - Modular Import Hub
- * 
- * Tento soubor slouží jako centrální import hub pro všechny herní styly.
- * Importuje specializované CSS moduly pro čistou a udržitelnou architekturu.
- * 
- * Struktura modulů:
- * - buttons.css    → Stylování herních tlačítek a interakcí
- * - dice.css       → Kostky, animace hodů, stavy (vybrané/odložené)
- * - scoreboard.css → Skóre, info panely, herní statistiky
- * - gameArea.css   → Layout herní plochy a kontejnerů
- * - modals.css     → Modální okna (výsledky, Hall of Fame)
- * - animations.css → CSS animace a přechody
- * 
- * @author AI Assistant & pipap
- * @version 2.0 - Modulární architektura
- * @date 2025-07-01
+ * Game Styles - Modular Import Structure
+ * Importuje všechny herní styly z modulárních souborů
  */
 
 /* Import všech herních modulů */
