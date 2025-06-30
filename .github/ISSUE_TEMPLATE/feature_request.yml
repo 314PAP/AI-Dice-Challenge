@@ -1,0 +1,47 @@
+name: ✨ Feature Request
+description: Navrhněte novou funkcionalitu
+title: "[FEATURE] "
+labels: ["enhancement", "needs-discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Máte nápad na vylepšení? Rádi si ho vyslechneme!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problém nebo potřeba
+      description: Je tato funkce řešením nějakého problému?
+      placeholder: Např. Frustruje mě, že...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Navrhované řešení
+      description: Jak by tato funkce měla fungovat?
+      placeholder: Přidal bych možnost...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativy
+      description: Zvažovali jste jiná řešení?
+
+  - type: checkboxes
+    id: category
+    attributes:
+      label: Kategorie
+      options:
+        - label: 🎮 Herní mechaniky
+        - label: 🤖 AI vylepšení
+        - label: 💬 Chat systém
+        - label: 🎨 UI/UX
+        - label: 📱 Mobile podpora
+        - label: 🏆 Achievements
+        - label: 🔊 Audio
+        - label: 🌐 Multiplayer

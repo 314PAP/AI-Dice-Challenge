@@ -1,0 +1,58 @@
+name: 🐛 Bug Report
+description: Nahlásit chybu v AI Kostkové Výzvě
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Děkujeme za nahlášení chyby! Pomáhá nám to zlepšovat hru.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Co se stalo?
+      description: Popište prosím chybu
+      placeholder: Např. Hra spadla při hození kostek...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Kroky k reprodukci
+      description: Jak můžeme chybu zopakovat?
+      placeholder: |
+        1. Klikněte na...
+        2. Proveďte...
+        3. Pozorujte chybu...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Očekávané chování
+      description: Co jste očekávali, že se stane?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Prohlížeč
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Mobile Safari
+        - Mobile Chrome
+        - Jiný
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Další informace
+      description: Screenshots, console logy, atd.
