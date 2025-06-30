@@ -1,18 +1,10 @@
 /**
- * AI Dice Challenge - Base Variables & Reset
- * Základní CSS proměnné a reset stylů
+ * AI Dice Challenge - CSS Reset
+ * Základní reset stylů bez proměnných (ty jsou v themes/neon.css)
  */
 
-/* CSS Custom Properties - Neonové barvy */
-:root {
-    --neon-green: #39ff14;
-    --neon-orange: #ff6600;
-    --neon-blue: #0099ff;
-    --neon-pink: #ff00ff;
-    --black-bg: #000000;
-    --text-primary: #39ff14;
-    --text-secondary: #39ff14;
-}
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
 /* CSS Reset */
 * {
@@ -20,9 +12,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-/* Font imports */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 
 /* Body base styles */
 body {

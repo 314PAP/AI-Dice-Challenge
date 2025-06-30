@@ -3,6 +3,15 @@
  * Základní layout a kontejnery
  */
 
+/* Body base styles */
+body {
+    font-family: 'Orbitron', monospace;
+    background: var(--black-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
 /* Hlavní kontejner */
 .container {
     max-width: 1400px;

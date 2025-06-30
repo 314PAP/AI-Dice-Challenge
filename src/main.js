@@ -1,8 +1,12 @@
 // main.js - Hlavní vstupní bod aplikace
-import './styles/main.css';
-import './styles/components.css';
-import './styles/game.css';
-import './styles/chat.css';
+// Importy CSS - nová modulární struktura
+import './styles/base/reset.css';
+import './styles/base/layout.css';
+import './styles/components/buttons.css';
+import './styles/components/players.css';
+import './styles/components/chat.css';
+import './styles/components/dice.css';
+import './styles/themes/neon.css';
 
 // Základní inicializace bez komplikovaných importů
 document.addEventListener('DOMContentLoaded', async () => {
@@ -10,19 +14,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     try {
         // Inicializace modulů postupně s error handlingem
-        console.log('📦 Načítám game controller...');
-        const { initializeGame } = await import('./js/game/gameController.js');
+        console.log('📦 Načítám game engine...');
+        const { GameEngine } = await import('./core/gameEngine.js');
+        
+        console.log('🎮 Načítám game flow controller...');
+        const { GameFlowController } = await import('./game/flow/gameFlowControllerSimple.js');
         
         console.log('🎨 Načítám UI controller...');
         const { initializeUI } = await import('./js/ui/uiController.js');
         
-        console.log('💬 Načítám chat controller...');
-        const { initializeChat } = await import('./js/ui/enhancedChatController.js');
+        console.log('💬 Načítám enhanced chat controller...');
+        const { EnhancedChatController } = await import('./ui/chat/enhancedChatController.js');
         
-        // Inicializace jednotlivých modulů
-        initializeGame();
+        // Inicializace jednotlivých modulů s novou architekturou
+        const gameEngine = new GameEngine();
+        const gameFlowController = new GameFlowController(gameEngine);
+        const chatController = new EnhancedChatController();
+        
+        // Inicializace systému
+        await gameEngine.initialize();
+        await gameFlowController.initialize();
+        await chatController.initialize();
         initializeUI();
-        initializeChat();
         
         console.log('✅ Aplikace byla úspěšně inicializována!');
         

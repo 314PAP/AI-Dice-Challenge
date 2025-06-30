@@ -1,0 +1,88 @@
+/* Neon téma - Proměnné a základní styl */
+
+:root {
+    /* Základní barvy */
+    --black-bg: #000000;
+    --neon-green: #39ff14;
+    --neon-orange: #ff6600;
+    --neon-blue: #0099ff;
+    --neon-pink: #ff00ff;
+    --white: #ffffff;
+    --text-primary: #39ff14;
+    --text-secondary: #888888;
+    
+    /* Neon efekty */
+    --neon-glow: 0 0 10px var(--neon-green);
+    --neon-glow-strong: 0 0 20px var(--neon-green);
+    --neon-text-shadow: 0 0 5px var(--neon-green);
+    
+    /* Přechody */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Globální neon efekty */
+.neon-icon {
+    color: var(--neon-green);
+    text-shadow: var(--neon-text-shadow);
+    animation: neon-pulse 2s infinite alternate;
+}
+
+@keyframes neon-pulse {
+    from {
+        text-shadow: 0 0 5px var(--neon-green);
+    }
+    to {
+        text-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green);
+    }
+}
+
+/* Neon borders */
+.neon-border {
+    border: 2px solid var(--neon-green);
+    box-shadow: var(--neon-glow);
+}
+
+.neon-border:hover {
+    box-shadow: var(--neon-glow-strong);
+}
+
+/* Neon text */
+.neon-text {
+    color: var(--neon-green);
+    text-shadow: var(--neon-text-shadow);
+}
+
+/* Backdrop efekty */
+.cyber-bg {
+    background: var(--black-bg);
+    background-image: 
+        linear-gradient(0deg, transparent 24%, rgba(0, 255, 65, 0.05) 25%, rgba(0, 255, 65, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, 0.05) 75%, rgba(0, 255, 65, 0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(0, 255, 65, 0.05) 25%, rgba(0, 255, 65, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 65, 0.05) 75%, rgba(0, 255, 65, 0.05) 76%, transparent 77%, transparent);
+    background-size: 20px 20px;
+}
+
+/* Matrix-style animace pro pozadí */
+.matrix-bg::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--black-bg);
+    opacity: 0.1;
+    background-image: 
+        radial-gradient(circle at 25% 25%, var(--neon-green) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, var(--neon-green) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: matrix-move 20s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes matrix-move {
+    0% { background-position: 0 0, 25px 25px; }
+    100% { background-position: 50px 50px, 75px 75px; }
+}

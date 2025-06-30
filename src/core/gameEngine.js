@@ -1,43 +1,27 @@
 /**
- * AI Dice Challenge - Core Game Engine
- * Hlavní herní engine koordinující všechny systémy
+ * AI Dice Challenge - Core Game Engine (Simplified)
+ * Hlavní herní engine pro koordinaci základních systémů
  */
 
 import { gameState } from './gameState.js';
 import { GAME_CONSTANTS, GAME_EVENTS, TIMINGS } from './constants.js';
-import { EventSystem } from '../game/events/eventSystem.js';
-import { TurnManager } from '../game/turns/turnManager.js';
-import { UIManager } from '../ui/components/uiManager.js';
-import { ChatManager } from '../ui/chat/chatManager.js';
-import { AIManager } from '../ai/controllers/aiManager.js';
 
 export class GameEngine {
     constructor() {
-        this.events = new EventSystem();
-        this.turnManager = new TurnManager(this.events);
-        this.uiManager = new UIManager(this.events);
-        this.chatManager = new ChatManager(this.events);
-        this.aiManager = new AIManager(this.events);
-        
         this.initialized = false;
+        this.targetScore = GAME_CONSTANTS.DEFAULT_TARGET_SCORE;
+        this.eventListeners = new Map();
     }
 
     /**
-     * Inicializuje celý herní systém
+     * Inicializuje herní systém
      */
     async initialize() {
-        console.log('🎮 Inicializuji Game Engine...');
+        console.log('🎮 Inicializuji Game Engine (Simplified)...');
         
         try {
-            // Inicializuj všechny subsystémy
-            await this.events.initialize();
-            await this.uiManager.initialize();
-            await this.chatManager.initialize();
-            await this.aiManager.initialize();
-            await this.turnManager.initialize();
-            
-            // Nastav event listenery
-            this.setupEventListeners();
+            // Základní inicializace
+            this.setupBasicEventListeners();
             
             this.initialized = true;
             console.log('✅ Game Engine inicializován');
@@ -62,16 +46,13 @@ export class GameEngine {
         console.log(`🚀 Spouštím novou hru s cílem ${targetScore} bodů`);
         
         // Resetuj stav hry
-        gameState.reset();
+        this.resetGameState();
         gameState.targetScore = targetScore;
         gameState.gameStarted = true;
         gameState.gameStartTime = new Date();
         
         // Emituj start event
-        this.events.emit(GAME_EVENTS.GAME_START, { targetScore });
-        
-        // Spusť první tah
-        this.turnManager.startPlayerTurn(0);
+        this.emit(GAME_EVENTS.GAME_START, { targetScore });
         
         return true;
     }
@@ -85,7 +66,7 @@ export class GameEngine {
         gameState.gameEnded = true;
         gameState.winner = winner;
         
-        this.events.emit(GAME_EVENTS.GAME_END, { winner });
+        this.emit(GAME_EVENTS.GAME_END, { winner });
     }
 
     /**
@@ -94,40 +75,56 @@ export class GameEngine {
     resetGame() {
         console.log('🔄 Resetuji hru');
         
-        gameState.reset();
-        this.events.emit(GAME_EVENTS.GAME_START, { reset: true });
+        this.resetGameState();
+        this.emit(GAME_EVENTS.GAME_START, { reset: true });
     }
 
     /**
-     * Nastavuje event listenery pro herní události
+     * Resetuje herní stav
      */
-    setupEventListeners() {
-        // DOM je připravený, nastav UI listenery s mírným zpožděním
-        setTimeout(() => {
-            this.uiManager.setupDOMListeners();
-        }, TIMINGS.DOM_READY_DELAY);
+    resetGameState() {
+        gameState.gameStarted = false;
+        gameState.gameEnded = false;
+        gameState.currentPlayer = 0;
+        gameState.players.forEach(player => {
+            player.score = 0;
+            player.turnScore = 0;
+        });
+        gameState.dice = [];
+        gameState.selectedDice = [];
+        gameState.lastRoll = [];
+    }
 
-        // Game events
-        this.events.on(GAME_EVENTS.GAME_START, (data) => {
-            this.uiManager.showGameInterface(data.targetScore);
-            this.chatManager.addSystemMessage(
-                `🎮 Hra začala! Cíl: ${data.targetScore} bodů!`
-            );
+    /**
+     * Nastavuje základní event listenery
+     */
+    setupBasicEventListeners() {
+        // Start game button
+        const startBtn = document.getElementById('startGameBtn');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                const targetScoreInput = document.getElementById('targetScoreInput');
+                const targetScore = parseInt(targetScoreInput?.value) || GAME_CONSTANTS.DEFAULT_TARGET_SCORE;
+                
+                // Skryj setup, zobraz game controls
+                const setup = document.getElementById('targetScoreSetup');
+                const controls = document.getElementById('gameControls');
+                
+                if (setup) setup.style.display = 'none';
+                if (controls) controls.style.display = 'block';
+                
+                this.startGame(targetScore);
+            });
+        }
+
+        // Event listenery pro herní události
+        this.on(GAME_EVENTS.GAME_START, (data) => {
+            this.updateGameInterface(data.targetScore);
+            this.addSystemMessage(`🎮 Hra začala! Cíl: ${data.targetScore} bodů!`);
         });
 
-        this.events.on(GAME_EVENTS.GAME_END, (data) => {
-            this.uiManager.showGameOverModal(data.winner);
-        });
-
-        this.events.on(GAME_EVENTS.FARKLE, (data) => {
-            this.chatManager.addSystemMessage('❌ FARKLE! Žádné bodující kostky!');
-            this.aiManager.triggerFarkleReactions(data.player);
-        });
-
-        this.events.on(GAME_EVENTS.HOT_DICE, () => {
-            this.chatManager.addSystemMessage(
-                '🔥 HOT DICE! Všechny kostky odloženy!'
-            );
+        this.on(GAME_EVENTS.GAME_END, (data) => {
+            this.showGameOverModal(data.winner);
         });
     }
 
@@ -136,10 +133,55 @@ export class GameEngine {
      */
     showWelcomeMessage() {
         setTimeout(() => {
-            this.chatManager.addSystemMessage(
+            this.addSystemMessage(
                 '🎲 Vítejte v AI Kostkové výzvě! Nastavte cílové skóre a začněte hrát!'
             );
         }, TIMINGS.DOM_READY_DELAY);
+    }
+
+    /**
+     * Aktualizuje herní rozhraní
+     */
+    updateGameInterface(targetScore) {
+        console.log(`🎨 Updating game interface with target score: ${targetScore}`);
+    }
+
+    /**
+     * Přidá systémovou zprávu do chatu
+     */
+    addSystemMessage(message) {
+        console.log(`💬 System message: ${message}`);
+    }
+
+    /**
+     * Zobrazí game over modal
+     */
+    showGameOverModal(winner) {
+        console.log(`🏆 Game over! Winner: ${winner?.name || 'Unknown'}`);
+    }
+
+    /**
+     * Event systém - přidej listener
+     */
+    on(eventName, callback) {
+        if (!this.eventListeners.has(eventName)) {
+            this.eventListeners.set(eventName, []);
+        }
+        this.eventListeners.get(eventName).push(callback);
+    }
+
+    /**
+     * Event systém - emituj událost
+     */
+    emit(eventName, data) {
+        const listeners = this.eventListeners.get(eventName) || [];
+        listeners.forEach(callback => {
+            try {
+                callback(data);
+            } catch (error) {
+                console.error(`Error in event listener for ${eventName}:`, error);
+            }
+        });
     }
 
     /**
@@ -163,11 +205,10 @@ export class GameEngine {
      * Cleanup při zničení instance
      */
     destroy() {
-        this.events.removeAllListeners();
+        this.eventListeners.clear();
         this.initialized = false;
         console.log('🗑️ Game Engine zničen');
     }
 }
 
-// Singleton instance
-export const gameEngine = new GameEngine();
+export default GameEngine;
