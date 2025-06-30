@@ -20,12 +20,16 @@ export class EnhancedChatController {
 
     setupEventListeners() {
         const chatInput = document.getElementById('chatInput');
-        const sendMessageBtn = document.getElementById('sendChatBtn');
+        const sendMessageBtn = document.getElementById('sendMessageBtn');
         
         if (chatInput) {
             chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') this.sendMessage();
             });
+        }
+        
+        if (sendMessageBtn) {
+            sendMessageBtn.addEventListener('click', () => this.sendMessage());
         }
         
         if (sendMessageBtn) {
