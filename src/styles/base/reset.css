@@ -1,0 +1,101 @@
+/**
+ * AI Dice Challenge - Base Variables & Reset
+ * Základní CSS proměnné a reset stylů
+ */
+
+/* CSS Custom Properties - Neonové barvy */
+:root {
+    --neon-green: #39ff14;
+    --neon-orange: #ff6600;
+    --neon-blue: #0099ff;
+    --neon-pink: #ff00ff;
+    --black-bg: #000000;
+    --text-primary: #39ff14;
+    --text-secondary: #39ff14;
+}
+
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+/* Body base styles */
+body {
+    font-family: 'Orbitron', monospace;
+    background: var(--black-bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.4;
+    overflow-x: hidden;
+}
+
+/* Základní animace */
+@keyframes neonPulse {
+    from { 
+        text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor; 
+    }
+    to { 
+        text-shadow: 0 0 15px currentColor, 0 0 25px currentColor, 0 0 35px currentColor; 
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Utility classes */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.neon-icon {
+    color: var(--neon-orange);
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+    animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+/* Responsive breakpoints pomocné třídy */
+.mobile-only {
+    display: block;
+}
+
+.desktop-only {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none;
+    }
+    
+    .desktop-only {
+        display: block;
+    }
+}
