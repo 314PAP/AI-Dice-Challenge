@@ -129,17 +129,57 @@
             flex-direction: column;
         }
 
-        .coffee-link {
-            display: block;
-            text-align: center;
-            margin: 20px 0;
-            color: var(--neon-green);
-            text-decoration: none;
-            font-weight: 700;
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--neon-blue);
+            padding-bottom: 15px;
         }
 
-        .coffee-link:hover {
+        .chat-header h2 {
+            color: var(--neon-blue);
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .player-avatars {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .avatar-mini {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-green);
+            transition: all 0.3s ease;
+        }
+
+        .avatar-mini:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .avatar-mini.active {
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 15px var(--neon-orange);
+        }
+
+        .coffee-icon {
+            color: var(--neon-green);
+            font-size: 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+        }
+
+        .coffee-icon:hover {
             color: var(--neon-orange);
+            text-shadow: 0 0 10px var(--neon-orange);
+            transform: scale(1.2);
         }
 
         /* Modal styly */
@@ -176,6 +216,76 @@
             margin-top: 20px;
         }
 
+        /* Signature section styling */
+        .signature-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid var(--neon-orange);
+            border-radius: 10px;
+            background: rgba(255, 165, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.3);
+        }
+        
+        .signature-section h3 {
+            color: var(--neon-orange);
+            margin-bottom: 15px;
+        }
+        
+        .signature-input {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .signature-input input {
+            background: var(--black-bg);
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Orbitron', monospace;
+            font-size: 16px;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .signature-input input:focus {
+            outline: none;
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 10px var(--neon-orange);
+        }
+        
+        .final-scores, .game-stats {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            background: rgba(0, 100, 255, 0.1);
+        }
+        
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 3px;
+        }
+        
+        .score-row.winner {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid var(--neon-green);
+            font-weight: bold;
+        }
+        
+        .winner-announcement h3 {
+            color: var(--neon-orange);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             .container {
@@ -202,16 +312,17 @@
     <div class="container">
         <div class="game-area">
             <div class="game-header">
-                <h1 class="game-title"><span class="neon-icon">🎲</span> AI Kostková Výzva</h1>
+                <h1 class="game-title">
+                    <span class="neon-icon">🎲</span> AI Kostková Výzva
+                    <a href="https://buymeacoffee.com/pipap" target="_blank" class="coffee-icon" title="Kup mi kávu" style="margin-left: 20px; font-size: 28px;">
+                        ☕
+                    </a>
+                </h1>
                 <div class="target-score-setup" id="targetScoreSetup">
                     <label>Cílové skóre: <input type="number" id="targetScoreInput" value="10000" min="1000" step="1000"></label>
                     <button class="btn btn-primary" id="startGameBtn">Začít hru</button>
                     <button class="btn btn-secondary" onclick="displayHallOfFame()" style="margin-left: 10px;">🏆 Síň slávy</button>
                 </div>
-                
-                <a href="https://buymeacoffee.com/pipap" target="_blank" class="coffee-link">
-                    <span class="neon-icon">☕</span> Kup mi kávu
-                </a>
             </div>
 
             <div class="players-container">
@@ -266,6 +377,12 @@
         <div class="chat-panel">
             <div class="chat-header">
                 <h2>💬 Chat s AI</h2>
+                <div class="player-avatars">
+                    <img src="/ai-icons/mind.jpeg" alt="Vy" class="avatar-mini active" title="Vy">
+                    <img src="/ai-icons/gemini.jpeg" alt="Gemini" class="avatar-mini" title="Gemini">
+                    <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" class="avatar-mini" title="ChatGPT">
+                    <img src="/ai-icons/claude.jpeg" alt="Claude" class="avatar-mini" title="Claude">
+                </div>
             </div>
             
             <div class="chat-messages" id="chatMessages"></div>
@@ -377,8 +494,51 @@
                 
                 // Setup hall of fame
                 window.displayHallOfFame = () => {
+                    console.log('🏆 Zobrazuji síň slávy...');
                     const modal = document.getElementById('hallOfFameModal');
-                    if (modal) {
+                    const list = document.getElementById('hallOfFameList');
+                    
+                    if (modal && list) {
+                        // Načti data ze síně slávy
+                        const hallOfFame = JSON.parse(localStorage.getItem('diceGameHallOfFame') || '[]');
+                        
+                        if (hallOfFame.length === 0) {
+                            list.innerHTML = `
+                                <div style="text-align: center; padding: 40px; color: var(--neon-green);">
+                                    <h3>🏆 Síň slávy je prázdná</h3>
+                                    <p>Zatím žádné záznamy...</p>
+                                    <p style="font-size: 14px; opacity: 0.7;">Vyhrajte hru a zapište se do historie!</p>
+                                </div>
+                            `;
+                        } else {
+                            list.innerHTML = hallOfFame.map((game, index) => `
+                                <div class="hall-of-fame-entry" style="
+                                    border: 1px solid var(--neon-green);
+                                    margin: 10px 0;
+                                    padding: 15px;
+                                    border-radius: 5px;
+                                    background: rgba(0,255,0,0.1);
+                                ">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <span style="font-size: 18px; font-weight: bold; color: var(--neon-orange);">
+                                                #${index + 1} 🏆 ${game.signature || 'Anonym'}
+                                            </span>
+                                            <div style="margin-top: 5px; color: var(--neon-green);">
+                                                🎯 Skóre: ${game.score}/${game.targetScore} | 
+                                                ⏱️ Trvání: ${game.duration} | 
+                                                🎲 Tahů: ${game.turns}
+                                            </div>
+                                        </div>
+                                        <div style="text-align: right; color: var(--neon-blue);">
+                                            📅 ${game.date}<br>
+                                            🕐 ${game.time}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('');
+                        }
+                        
                         modal.style.display = 'block';
                         addChatMessage('Systém', '🏆 Síň slávy zobrazena');
                     }
@@ -391,12 +551,129 @@
                     }
                 };
                 
-                // Setup game over modal
+                // Setup game over modal functions
                 window.closeGameOverModal = () => {
                     const modal = document.getElementById('gameOverModal');
                     if (modal) {
                         modal.style.display = 'none';
                     }
+                };
+                
+                window.startNewGame = () => {
+                    console.log('🔄 Starting new game...');
+                    window.closeGameOverModal();
+                    
+                    // Reset game state
+                    if (window.gameController) {
+                        window.gameController.gameStarted = false;
+                    }
+                    
+                    // Reset UI
+                    document.getElementById('gameControls').style.display = 'none';
+                    document.getElementById('targetScoreSetup').style.display = 'block';
+                    
+                    // Reset all player scores
+                    document.getElementById('humanScore').textContent = '0';
+                    document.getElementById('geminiScore').textContent = '0';
+                    document.getElementById('chatgptScore').textContent = '0';
+                    document.getElementById('claudeScore').textContent = '0';
+                    
+                    // Reset dice container
+                    const diceContainer = document.getElementById('diceContainer');
+                    if (diceContainer) {
+                        diceContainer.innerHTML = '';
+                    }
+                    
+                    // Reset turn info
+                    const turnInfo = document.getElementById('turnInfo');
+                    const currentTurnScore = document.getElementById('currentTurnScore');
+                    if (turnInfo) turnInfo.textContent = 'Váš tah!';
+                    if (currentTurnScore) currentTurnScore.textContent = 'Skóre tahu: 0';
+                    
+                    // Clear chat
+                    const chatMessages = document.getElementById('chatMessages');
+                    if (chatMessages) {
+                        chatMessages.innerHTML = '';
+                    }
+                    
+                    addChatMessage('Systém', '🎮 Připraveno pro novou hru! Nastavte cílové skóre a začněte.');
+                };
+                
+                window.returnToMainMenu = () => {
+                    console.log('🏠 Returning to main menu...');
+                    window.startNewGame(); // Same as new game for now
+                };
+                
+                window.saveScore = () => {
+                    const signatureInput = document.getElementById('winnerSignature');
+                    const signature = signatureInput?.value?.trim();
+                    
+                    if (!signature) {
+                        alert('Prosím zadejte svůj podpis!');
+                        return;
+                    }
+                    
+                    // Get actual game data if available
+                    let score = 10000; // default
+                    let targetScore = 10000; // default
+                    let turns = 15; // default
+                    let duration = '5:30'; // default
+                    
+                    // Try to get real game data
+                    const humanScoreEl = document.getElementById('humanScore');
+                    const targetScoreEl = document.getElementById('targetScoreDisplay');
+                    
+                    if (humanScoreEl) {
+                        score = parseInt(humanScoreEl.textContent) || score;
+                    }
+                    if (targetScoreEl) {
+                        targetScore = parseInt(targetScoreEl.textContent) || targetScore;
+                    }
+                    
+                    // Try to get game controller data if available
+                    if (window.gameController && window.gameController.gameStarted) {
+                        // Calculate duration from game start
+                        const gameStart = window.gameController.gameStartTime || new Date();
+                        const gameDuration = Date.now() - gameStart.getTime();
+                        const minutes = Math.floor(gameDuration / 60000);
+                        const seconds = Math.floor((gameDuration % 60000) / 1000);
+                        duration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                        
+                        // Get turn count if available
+                        if (window.gameController.totalTurns) {
+                            turns = window.gameController.totalTurns;
+                        }
+                    }
+                    
+                    // Create game result object
+                    const gameResult = {
+                        signature: signature,
+                        score: score,
+                        targetScore: targetScore,
+                        turns: turns,
+                        duration: duration,
+                        date: new Date().toLocaleDateString('cs-CZ'),
+                        time: new Date().toLocaleTimeString('cs-CZ')
+                    };
+                    
+                    // Save to localStorage
+                    const hallOfFame = JSON.parse(localStorage.getItem('diceGameHallOfFame') || '[]');
+                    hallOfFame.push(gameResult);
+                    hallOfFame.sort((a, b) => b.score - a.score); // Sort by score desc
+                    localStorage.setItem('diceGameHallOfFame', JSON.stringify(hallOfFame));
+                    
+                    addChatMessage('Systém', `🏆 Skóre ${gameResult.score} uloženo do síně slávy s podpisem "${signature}"!`);
+                    
+                    // Hide signature section
+                    const signatureSection = document.getElementById('signatureSection');
+                    if (signatureSection) {
+                        signatureSection.style.display = 'none';
+                    }
+                    
+                    // Show hall of fame
+                    setTimeout(() => {
+                        window.displayHallOfFame();
+                    }, 1000);
                 };
                 
                 // Welcome message
@@ -476,6 +753,23 @@
                 });
             }
         });
+    </script>
+
+    <script type="module">
+        console.log('🎲 AI Kostková Výzva - Loading...');
+        
+        // Import debug funkcí pro vývoj
+        if (window.location.hostname === 'localhost') {
+            import('/debug-functions.js').then(() => {
+                console.log('🧪 Debug funkce načteny');
+                // Přidej debug menu po 2 sekundách
+                setTimeout(() => {
+                    if (window.addDebugMenu) {
+                        window.addDebugMenu();
+                    }
+                }, 2000);
+            }).catch(err => console.log('Debug funkce nejsou dostupné'));
+        }
     </script>
 </body>
 </html>

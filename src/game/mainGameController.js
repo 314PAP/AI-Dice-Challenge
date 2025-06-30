@@ -14,6 +14,8 @@ export class MainGameController {
         this.turnScore = 0;
         this.rollCount = 0;
         this.gameStarted = false;
+        this.gameStartTime = null;
+        this.totalTurns = 0;
     }
 
     /**
@@ -85,6 +87,11 @@ export class MainGameController {
         gameState.gameStarted = true;
         gameState.gameStartTime = new Date();
         this.gameStarted = true;
+        this.gameStartTime = new Date();
+        this.totalTurns = 0;
+        
+        // Store game controller globally for access from other functions
+        window.gameController = this;
         
         // Skryj setup, zobraz herní rozhraní
         document.getElementById('targetScoreSetup').style.display = 'none';
@@ -287,6 +294,9 @@ export class MainGameController {
         // Přidej skóre k celkovému
         gameState.players[0].score += this.turnScore;
         this.updateScoreboard();
+        
+        // Zvýš počet tahů
+        this.totalTurns++;
         
         // Zkontroluj výhru
         if (gameState.players[0].score >= gameState.targetScore) {
@@ -531,10 +541,72 @@ export class MainGameController {
      */
     showGameOverModal(winner) {
         const modal = document.getElementById('gameOverModal');
-        if (modal) {
-            modal.style.display = 'block';
-            // Implementuj modal obsah
+        if (!modal) return;
+
+        // Update winner announcement
+        const announcement = document.getElementById('winnerAnnouncement');
+        if (announcement) {
+            announcement.innerHTML = `
+                <h3>🏆 ${winner.name} vyhrává!</h3>
+                <p>Finální skóre: <strong>${winner.score}</strong> bodů</p>
+            `;
         }
+
+        // Update final scores
+        const finalScores = document.getElementById('finalScores');
+        if (finalScores) {
+            const scoresHtml = gameState.players.map(player => 
+                `<div class="score-row ${player.id === winner.id ? 'winner' : ''}">
+                    <span>${player.name}:</span> 
+                    <span>${player.score} bodů</span>
+                </div>`
+            ).join('');
+            finalScores.innerHTML = `<h4>Konečné výsledky:</h4>${scoresHtml}`;
+        }
+
+        // Update game stats
+        const gameStats = document.getElementById('gameStats');
+        if (gameStats) {
+            const duration = this.calculateGameDuration();
+            gameStats.innerHTML = `
+                <h4>Statistiky hry:</h4>
+                <p>⏱️ Doba hry: ${duration}</p>
+                <p>🎲 Počet tahů: ${this.totalTurns}</p>
+                <p>🎯 Cílové skóre: ${gameState.targetScore}</p>
+            `;
+        }
+
+        // Show signature section only for human winner
+        const signatureSection = document.getElementById('signatureSection');
+        if (signatureSection) {
+            if (winner.type === 'human') {
+                signatureSection.style.display = 'block';
+                // Clear previous signature
+                const signatureInput = document.getElementById('winnerSignature');
+                if (signatureInput) {
+                    signatureInput.value = '';
+                    signatureInput.focus();
+                }
+            } else {
+                signatureSection.style.display = 'none';
+            }
+        }
+
+        modal.style.display = 'block';
+    }
+
+    /**
+     * Vypočítá dobu hry
+     */
+    calculateGameDuration() {
+        if (!gameState.gameStartTime) return '0:00';
+        
+        const now = new Date();
+        const diff = now - gameState.gameStartTime;
+        const minutes = Math.floor(diff / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
     }
 
     /**
@@ -555,7 +627,18 @@ export class MainGameController {
      */
     showHallOfFame() {
         console.log('🏆 Zobrazuji síň slávy...');
-        // Implementace síně slávy
+        
+        // Import hall of fame modulu a zobraz
+        import('../js/utils/hallOfFame.js').then(({ displayHallOfFame }) => {
+            displayHallOfFame();
+            this.addChatMessage('Systém', '🏆 Síň slávy zobrazena');
+        }).catch(error => {
+            console.error('❌ Chyba při načítání síně slávy:', error);
+            // Fallback - použij window funkci
+            if (window.displayHallOfFame) {
+                window.displayHallOfFame();
+            }
+        });
     }
 
     /**

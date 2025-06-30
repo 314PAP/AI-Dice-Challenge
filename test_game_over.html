@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Test Game Over Modal</title>
+    <link rel="stylesheet" href="/src/styles/base/reset.css">
+    <link rel="stylesheet" href="/src/styles/themes/neon.css">
+    <link rel="stylesheet" href="/src/styles/base/layout.css">
+    <link rel="stylesheet" href="/src/styles/components/buttons.css">
+    
+    <style>
+        body {
+            padding: 20px;
+            background: var(--black-bg);
+            color: var(--neon-green);
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background: var(--black-bg);
+            border: 2px solid var(--neon-green);
+            border-radius: 10px;
+            margin: 5% auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            color: var(--neon-green);
+        }
+
+        .modal-header h2 {
+            color: var(--neon-green);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .signature-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid var(--neon-orange);
+            border-radius: 5px;
+            background: rgba(255, 165, 0, 0.1);
+        }
+        
+        .signature-input {
+            margin-top: 10px;
+        }
+        
+        .signature-input input {
+            background: var(--black-bg);
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Orbitron', monospace;
+            margin-right: 10px;
+            width: 200px;
+        }
+        
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 5px;
+        }
+        
+        .score-row.winner {
+            background: rgba(0, 255, 0, 0.2);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test Game Over Modal</h1>
+        
+        <button class="btn btn-primary" onclick="testHumanWinner()">Test Human Winner</button>
+        <button class="btn btn-secondary" onclick="testAIWinner()">Test AI Winner</button>
+        <button class="btn btn-secondary" onclick="testHallOfFame()">Test Hall of Fame</button>
+        
+        <div id="chatMessages" style="margin-top: 20px; max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px;"></div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOverModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🎮 Konec hry</h2>
+            </div>
+            <div class="modal-body">
+                <div id="winnerAnnouncement" class="winner-announcement"></div>
+                <div id="finalScores" class="final-scores"></div>
+                <div id="gameStats" class="game-stats"></div>
+                
+                <!-- Signature section for human winners -->
+                <div id="signatureSection" class="signature-section" style="display: none;">
+                    <h3>🏆 Gratulujeme k vítězství!</h3>
+                    <p>Zadejte svůj podpis pro zápis do síně slávy:</p>
+                    <div class="signature-input">
+                        <input type="text" id="winnerSignature" placeholder="Váš podpis" maxlength="30">
+                        <button onclick="saveScore()" class="btn btn-success">💾 Uložit skóre</button>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button onclick="displayHallOfFame()" class="btn btn-primary">🏆 Zobrazit síň slávy</button>
+                    <button onclick="startNewGame()" class="btn btn-secondary">🔄 Nová hra</button>
+                    <button onclick="returnToMainMenu()" class="btn btn-secondary">🏠 Hlavní menu</button>
+                    <button onclick="closeGameOverModal()" class="btn btn-danger">✖️ Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hall of Fame Modal -->
+    <div id="hallOfFameModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏆 Síň slávy</h2>
+            </div>
+            <div class="modal-body">
+                <div id="hallOfFameContent">
+                    <div id="hallOfFameList"></div>
+                </div>
+                <div class="modal-actions">
+                    <button onclick="closeHallOfFame()" class="btn btn-secondary">✖️ Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addChatMessage(sender, message) {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = 'margin: 5px 0; padding: 5px; border-left: 2px solid var(--neon-green);';
+            messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function testHumanWinner() {
+            showGameOverModal({
+                id: 0,
+                name: 'Vy',
+                type: 'human',
+                score: 10500
+            });
+        }
+        
+        function testAIWinner() {
+            showGameOverModal({
+                id: 1,
+                name: 'Gemini',
+                type: 'ai',
+                score: 10350
+            });
+        }
+        
+        function showGameOverModal(winner) {
+            const modal = document.getElementById('gameOverModal');
+            if (!modal) return;
+
+            // Mock game state
+            const mockGameState = {
+                players: [
+                    { id: 0, name: 'Vy', score: winner.id === 0 ? winner.score : 9800 },
+                    { id: 1, name: 'Gemini', score: winner.id === 1 ? winner.score : 9500 },
+                    { id: 2, name: 'ChatGPT', score: winner.id === 2 ? winner.score : 8900 },
+                    { id: 3, name: 'Claude', score: winner.id === 3 ? winner.score : 9200 }
+                ],
+                targetScore: 10000
+            };
+
+            // Update winner announcement
+            const announcement = document.getElementById('winnerAnnouncement');
+            if (announcement) {
+                announcement.innerHTML = `
+                    <h3>🏆 ${winner.name} vyhrává!</h3>
+                    <p>Finální skóre: <strong>${winner.score}</strong> bodů</p>
+                `;
+            }
+
+            // Update final scores
+            const finalScores = document.getElementById('finalScores');
+            if (finalScores) {
+                const scoresHtml = mockGameState.players.map(player => 
+                    `<div class="score-row ${player.id === winner.id ? 'winner' : ''}">
+                        <span>${player.name}:</span> 
+                        <span>${player.score} bodů</span>
+                    </div>`
+                ).join('');
+                finalScores.innerHTML = `<h4>Konečné výsledky:</h4>${scoresHtml}`;
+            }
+
+            // Update game stats
+            const gameStats = document.getElementById('gameStats');
+            if (gameStats) {
+                gameStats.innerHTML = `
+                    <h4>Statistiky hry:</h4>
+                    <p>⏱️ Doba hry: 8:45</p>
+                    <p>🎲 Počet tahů: 12</p>
+                    <p>🎯 Cílové skóre: ${mockGameState.targetScore}</p>
+                `;
+            }
+
+            // Show signature section only for human winner
+            const signatureSection = document.getElementById('signatureSection');
+            if (signatureSection) {
+                if (winner.type === 'human') {
+                    signatureSection.style.display = 'block';
+                    // Clear previous signature
+                    const signatureInput = document.getElementById('winnerSignature');
+                    if (signatureInput) {
+                        signatureInput.value = '';
+                        signatureInput.focus();
+                    }
+                } else {
+                    signatureSection.style.display = 'none';
+                }
+            }
+
+            modal.style.display = 'block';
+            addChatMessage('Test', `${winner.name} vyhrál s ${winner.score} body!`);
+        }
+        
+        function closeGameOverModal() {
+            document.getElementById('gameOverModal').style.display = 'none';
+        }
+        
+        function startNewGame() {
+            addChatMessage('Systém', '🔄 Nová hra začíná...');
+            closeGameOverModal();
+        }
+        
+        function returnToMainMenu() {
+            addChatMessage('Systém', '🏠 Návrat do hlavního menu...');
+            closeGameOverModal();
+        }
+        
+        function saveScore() {
+            const signatureInput = document.getElementById('winnerSignature');
+            const signature = signatureInput?.value?.trim();
+            
+            if (!signature) {
+                alert('Prosím zadejte svůj podpis!');
+                return;
+            }
+            
+            // Create game result object
+            const gameResult = {
+                signature: signature,
+                score: 10500,
+                targetScore: 10000,
+                turns: 12,
+                duration: '8:45',
+                date: new Date().toLocaleDateString('cs-CZ'),
+                time: new Date().toLocaleTimeString('cs-CZ')
+            };
+            
+            // Save to localStorage
+            const hallOfFame = JSON.parse(localStorage.getItem('diceGameHallOfFame') || '[]');
+            hallOfFame.push(gameResult);
+            hallOfFame.sort((a, b) => b.score - a.score); // Sort by score desc
+            localStorage.setItem('diceGameHallOfFame', JSON.stringify(hallOfFame));
+            
+            addChatMessage('Systém', `🏆 Skóre ${gameResult.score} uloženo s podpisem "${signature}"!`);
+            
+            // Hide signature section
+            const signatureSection = document.getElementById('signatureSection');
+            if (signatureSection) {
+                signatureSection.style.display = 'none';
+            }
+            
+            // Show hall of fame
+            setTimeout(() => {
+                displayHallOfFame();
+            }, 1000);
+        }
+        
+        function testHallOfFame() {
+            displayHallOfFame();
+        }
+        
+        function displayHallOfFame() {
+            const modal = document.getElementById('hallOfFameModal');
+            const list = document.getElementById('hallOfFameList');
+            
+            if (modal && list) {
+                // Načti data ze síně slávy
+                const hallOfFame = JSON.parse(localStorage.getItem('diceGameHallOfFame') || '[]');
+                
+                if (hallOfFame.length === 0) {
+                    list.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: var(--neon-green);">
+                            <h3>🏆 Síň slávy je prázdná</h3>
+                            <p>Zatím žádné záznamy...</p>
+                            <p style="font-size: 14px; opacity: 0.7;">Vyhrajte hru a zapište se do historie!</p>
+                        </div>
+                    `;
+                } else {
+                    list.innerHTML = hallOfFame.map((game, index) => `
+                        <div class="hall-of-fame-entry" style="
+                            border: 1px solid var(--neon-green);
+                            margin: 10px 0;
+                            padding: 15px;
+                            border-radius: 5px;
+                            background: rgba(0,255,0,0.1);
+                        ">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <span style="font-size: 18px; font-weight: bold; color: var(--neon-orange);">
+                                        #${index + 1} 🏆 ${game.signature || 'Anonym'}
+                                    </span>
+                                    <div style="margin-top: 5px; color: var(--neon-green);">
+                                        🎯 Skóre: ${game.score}/${game.targetScore} | 
+                                        ⏱️ Trvání: ${game.duration} | 
+                                        🎲 Tahů: ${game.turns}
+                                    </div>
+                                </div>
+                                <div style="text-align: right; color: var(--neon-blue);">
+                                    📅 ${game.date}<br>
+                                    🕐 ${game.time}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                
+                modal.style.display = 'block';
+                addChatMessage('Systém', '🏆 Síň slávy zobrazena');
+            }
+        }
+        
+        function closeHallOfFame() {
+            document.getElementById('hallOfFameModal').style.display = 'none';
+        }
+        
+        // Initial test message
+        addChatMessage('Test', '🧪 Test systém načten. Zkuste tlačítka výše!');
+    </script>
+</body>
+</html>
