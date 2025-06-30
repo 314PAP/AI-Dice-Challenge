@@ -14,11 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     try {
         // Inicializace modulů postupně s error handlingem
-        console.log('📦 Načítám game engine...');
-        const { GameEngine } = await import('./core/gameEngine.js');
-        
-        console.log('🎮 Načítám game flow controller...');
-        const { GameFlowController } = await import('./game/flow/gameFlowControllerSimple.js');
+        console.log('📦 Načítám main game controller...');
+        const { MainGameController } = await import('./game/mainGameController.js');
         
         console.log('🎨 Načítám UI controller...');
         const { setupUI } = await import('./js/ui/uiController.js');
@@ -27,13 +24,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const { EnhancedChatController } = await import('./ui/chat/enhancedChatController.js');
         
         // Inicializace jednotlivých modulů s novou architekturou
-        const gameEngine = new GameEngine();
-        const gameFlowController = new GameFlowController(gameEngine);
+        const mainGameController = new MainGameController();
         const chatController = new EnhancedChatController();
         
         // Inicializace systému
-        await gameEngine.initialize();
-        await gameFlowController.initialize();
+        await mainGameController.initialize();
         await chatController.initialize();
         setupUI();
         

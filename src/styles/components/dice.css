@@ -68,24 +68,33 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Dice hodnoty vizuální reprezentace */
-.dice[data-value="1"]::before {
-    content: "⚀";
+/* Dice hodnoty - použij data-value jako text obsah */
+.dice[data-value="1"] {
+    font-family: 'Arial', sans-serif;
 }
-.dice[data-value="2"]::before {
-    content: "⚁";
+.dice[data-value="2"] {
+    font-family: 'Arial', sans-serif;
 }
-.dice[data-value="3"]::before {
-    content: "⚂";
+.dice[data-value="3"] {
+    font-family: 'Arial', sans-serif;
 }
-.dice[data-value="4"]::before {
-    content: "⚃";
+.dice[data-value="4"] {
+    font-family: 'Arial', sans-serif;
 }
-.dice[data-value="5"]::before {
-    content: "⚄";
+.dice[data-value="5"] {
+    font-family: 'Arial', sans-serif;
 }
-.dice[data-value="6"]::before {
-    content: "⚅";
+.dice[data-value="6"] {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Banked dice styl */
+.dice.banked {
+    background: var(--neon-orange);
+    border-color: var(--neon-orange);
+    color: var(--black-bg);
+    opacity: 0.8;
+    cursor: not-allowed;
 }
 
 /* Scoring display */
