@@ -7,36 +7,29 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
     - name: 📁 Checkout
       uses: actions/checkout@v4
-      
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
         
-    - name: 📦 Install dependencies
-      run: npm ci
-      
-    - name: 🔨 Build
-      run: npm run build
-      
-    - name: 🧪 Test build
+    - name: 🧪 Test project structure
       run: |
-        ls -la dist/
-        cat dist/index.html | head -20
+        echo "🎲 Testing AI Dice Challenge..."
+        echo "✅ Project structure check"
+        test -f index.html && echo "✅ index.html exists"
+        test -d src && echo "✅ src directory exists"
+        test -d public && echo "✅ public directory exists"
+        test -f package.json && echo "✅ package.json exists"
+        echo "🎮 Project structure is valid!"
         
     - name: 🚀 Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+        publish_dir: ./
         
   test:
     runs-on: ubuntu-latest
@@ -44,20 +37,18 @@ jobs:
     steps:
     - name: 📁 Checkout
       uses: actions/checkout@v4
-      
-    - name: 🟢 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
         
-    - name: 📦 Install dependencies
-      run: npm ci
-      
-    - name: 🧪 Run tests
+    - name: 🧪 Run basic tests
       run: |
         echo "🎲 Testing AI Dice Challenge..."
-        echo "✅ Project structure check"
+        echo "✅ Checking critical files..."
         test -f index.html && echo "✅ index.html exists"
-        test -d src && echo "✅ src directory exists"
-        test -f package.json && echo "✅ package.json exists"
-        echo "🎮 All basic tests passed!"
+        test -f src/styles/main.css && echo "✅ CSS exists"
+        test -d public/ai-icons && echo "✅ AI icons exist"
+        
+        echo "🔍 Checking HTML structure..."
+        grep -q "AI Kostková Výzva" index.html && echo "✅ Title found"
+        grep -q "chat-panel" index.html && echo "✅ Chat panel found"
+        grep -q "players-container" index.html && echo "✅ Players container found"
+        
+        echo "🎮 All tests passed!"

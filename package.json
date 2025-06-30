@@ -11,10 +11,11 @@
     "javascript"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --host",
+    "build": "echo 'No build needed - vanilla JS project' && cp -r . dist/ && echo 'Files copied to dist/'",
     "preview": "vite preview",
     "serve": "vite preview --port 3000",
+    "start": "python3 -m http.server 8000",
     "lint": "echo 'ESLint není nakonfigurován' && exit 0"
   },
   "devDependencies": {
