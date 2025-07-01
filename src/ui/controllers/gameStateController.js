@@ -147,8 +147,8 @@ export class GameStateController {
         try {
             this.gameController = gameController;
             
-            if (gameController) {
-                await gameController.initialize();
+            if (gameController && gameController.initializeGame) {
+                await gameController.initializeGame();
             }
             
             this.isInitialized = true;

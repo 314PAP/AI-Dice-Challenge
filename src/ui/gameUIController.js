@@ -5,7 +5,7 @@
  */
 
 // Import all UI controller modules
-import * as gameController from '../js/game/gameController.js';
+import { initializeGame } from '../js/game/gameController.js';
 import { uiEventController } from './controllers/uiEventController.js';
 import { chatController } from './controllers/chatController.js';
 import { hallOfFameController } from './controllers/hallOfFameController.js';
@@ -13,7 +13,7 @@ import { gameStateController } from './controllers/gameStateController.js';
 
 class GameUIController {
     constructor() {
-        this.gameController = gameController;
+        this.gameController = { initializeGame };
         this.isInitialized = false;
         
         // Initialize controller modules
@@ -30,7 +30,10 @@ class GameUIController {
         console.log('🎮 Inicializuji UI Controller...');
         
         try {
-            // Game controller is already initialized as module import
+            // Initialize game controller first
+            if (this.gameController.initializeGame) {
+                await this.gameController.initializeGame();
+            }
             
             // Initialize game state controller
             await this.gameState.initialize(this.gameController);
