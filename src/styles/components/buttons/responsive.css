@@ -1,0 +1,43 @@
+/* =============================================================================
+   🎯 BUTTONS RESPONSIVE - Responzivní chování tlačítek
+   ============================================================================= */
+
+/* TABLET */
+@media (max-width: 768px) {
+  .btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.8rem;
+    min-height: 40px;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+    min-height: 36px;
+  }
+  
+  /* Speciální hover efekty jen na desktop */
+  .btn-bounce:hover,
+  .btn-shake:hover,
+  .btn-flip:hover {
+    animation: none;
+  }
+  
+  /* Na mobile jen základní hover */
+  .btn:hover:not(:disabled) {
+    animation: none;
+    transform: none;
+  }
+}

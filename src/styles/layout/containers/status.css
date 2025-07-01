@@ -1,0 +1,26 @@
+/* =============================================================================
+   ⚡ STATUS CONTAINERS - Kontejnery pro stavové zprávy
+   ============================================================================= */
+
+.status-container {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  text-align: center;
+}
+
+.status-success {
+  border-color: var(--neon-green);
+  background: rgba(57, 255, 20, 0.1);
+}
+
+.status-warning {
+  border-color: var(--neon-orange);
+  background: rgba(255, 140, 0, 0.1);
+}
+
+.status-error {
+  border-color: var(--neon-red);
+  background: rgba(255, 0, 64, 0.1);
+}

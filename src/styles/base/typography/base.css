@@ -1,0 +1,73 @@
+/* =============================================================================
+   📝 BASE TYPOGRAPHY - Základní typografické styly
+   ============================================================================= */
+
+body {
+  font-family: 'Roboto Mono', monospace;
+  font-size: var(--font-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--black-bg);
+}
+
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white-text);
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: var(--font-4xl);
+  font-weight: 900;
+}
+
+h2 {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: var(--font-2xl);
+  font-weight: 700;
+}
+
+h4 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+}
+
+h5 {
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+h6 {
+  font-size: var(--font-base);
+  font-weight: 600;
+}
+
+/* PARAGRAPHS */
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+/* LINKS */
+a {
+  color: var(--neon-blue);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+
+a:hover {
+  color: var(--neon-green);
+  text-shadow: var(--glow-xs) var(--neon-green);
+}
+
+a:focus {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}

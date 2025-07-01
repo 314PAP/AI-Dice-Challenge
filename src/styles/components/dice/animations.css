@@ -1,0 +1,34 @@
+/* =============================================================================
+   🎞️ DICE ANIMATIONS - Animace kostek
+   ============================================================================= */
+
+@keyframes dice-roll {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.2); }
+  50% { transform: rotate(180deg) scale(0.8); }
+  75% { transform: rotate(270deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes dice-selected {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes dice-farkle {
+  0%, 100% { 
+    box-shadow: var(--glow-md) var(--neon-red);
+  }
+  50% { 
+    box-shadow: 
+      0 0 30px var(--neon-red), 
+      0 0 45px var(--neon-red);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes score-indicator-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}

@@ -1,0 +1,47 @@
+/* =============================================================================
+   👥 PLAYER AVATARS - Mini avatary v hlavičce
+   ============================================================================= */
+
+.player-avatars-section {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  flex-wrap: wrap;
+}
+
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.avatar-mini {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-green);
+  object-fit: cover;
+  transition: var(--transition-normal);
+  opacity: 0.7;
+}
+
+.avatar-mini:hover {
+  border-color: var(--neon-blue);
+  box-shadow: var(--glow-sm) var(--neon-blue);
+  transform: scale(1.1);
+}
+
+.avatar-mini.active {
+  opacity: 1;
+  box-shadow: var(--glow-md) var(--neon-green);
+  transform: scale(1.1);
+}
+
+.avatar-name {
+  font-size: var(--font-size-xs);
+  color: var(--gray-light);
+  font-weight: 600;
+  text-align: center;
+}

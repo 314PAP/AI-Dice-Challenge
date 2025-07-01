@@ -1,0 +1,17 @@
+/* =============================================================================
+   📝 CONTENT CONTAINERS - Kontejnery pro textový obsah
+   ============================================================================= */
+
+.content {
+  padding: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+.content-center {
+  text-align: center;
+}
+
+.content-narrow {
+  max-width: 65ch;
+  margin: 0 auto;
+}

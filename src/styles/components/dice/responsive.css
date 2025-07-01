@@ -1,0 +1,29 @@
+/* =============================================================================
+   📱 DICE RESPONSIVE - Responzivní design pro kostky
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .dice {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+  
+  .dice-container {
+    gap: 0.75em;
+    padding: 1.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .dice {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+  
+  .dice-container {
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+  }
+}

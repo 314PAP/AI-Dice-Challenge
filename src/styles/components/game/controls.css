@@ -1,0 +1,23 @@
+/* =============================================================================
+   🕹️ GAME CONTROLS - Kontejner pro herní ovládání
+   ============================================================================= */
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+  box-shadow: var(--glow-md) rgba(0, 255, 0, 0.3);
+}
+
+.roll-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+}

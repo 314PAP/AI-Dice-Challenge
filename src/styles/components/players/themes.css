@@ -1,0 +1,63 @@
+/* =============================================================================
+   🎨 PLAYER THEMES - Barvy pro jednotlivé typy hráčů
+   ============================================================================= */
+
+/* HUMAN PLAYER */
+.human-player {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.human-player .player-head {
+  border-color: var(--neon-green);
+  box-shadow: var(--glow-md) var(--neon-green);
+}
+
+.human-player.active {
+  box-shadow: var(--glow-lg) var(--neon-green);
+}
+
+/* GEMINI PLAYER */
+.gemini-player {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+.gemini-player .player-head {
+  border-color: var(--neon-blue);
+  box-shadow: var(--glow-md) var(--neon-blue);
+}
+
+.gemini-player.active {
+  box-shadow: var(--glow-lg) var(--neon-blue);
+}
+
+/* CHATGPT PLAYER */
+.chatgpt-player {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+}
+
+.chatgpt-player .player-head {
+  border-color: var(--neon-pink);
+  box-shadow: var(--glow-md) var(--neon-pink);
+}
+
+.chatgpt-player.active {
+  box-shadow: var(--glow-lg) var(--neon-pink);
+}
+
+/* CLAUDE PLAYER */
+.claude-player {
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+}
+
+.claude-player .player-head {
+  border-color: var(--neon-orange);
+  box-shadow: var(--glow-md) var(--neon-orange);
+}
+
+.claude-player.active {
+  box-shadow: var(--glow-lg) var(--neon-orange);
+}

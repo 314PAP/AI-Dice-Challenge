@@ -1,0 +1,22 @@
+/* =============================================================================
+   📊 STATUS INDICATORS - Indikátory stavu hráčů
+   ============================================================================= */
+
+.player-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--neon-red);
+  animation: status-pulse 1.5s ease-in-out infinite;
+}
+
+.player-status.thinking {
+  background: var(--neon-orange);
+}
+
+.player-status.winning {
+  background: var(--neon-green);
+}

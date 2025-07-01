@@ -1,0 +1,72 @@
+/* =============================================================================
+   🎲 DICE SYSTEM - Kostky a kontejner
+   ============================================================================= */
+
+.dice-container {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin: var(--spacing-md) 0;
+  min-height: 80px;
+  align-items: center;
+}
+
+.dice {
+  width: 60px;
+  height: 60px;
+  background: var(--black-bg);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--neon-green);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  user-select: none;
+}
+
+.dice:hover {
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+  box-shadow: var(--glow-md) var(--neon-orange);
+  transform: scale(1.05);
+}
+
+.dice.selected {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: var(--glow-lg) var(--neon-blue);
+  background: rgba(0, 191, 255, 0.1);
+}
+
+.dice.scoring {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+  box-shadow: var(--glow-sm) var(--neon-yellow);
+}
+
+.dice.banked {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  background: rgba(57, 255, 20, 0.2);
+  opacity: 0.7;
+  cursor: default;
+  transform: scale(0.9);
+}
+
+.dice.farkle {
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+  background: rgba(255, 0, 64, 0.1);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dice.rolling {
+  animation: dice-roll 1s ease-in-out;
+}

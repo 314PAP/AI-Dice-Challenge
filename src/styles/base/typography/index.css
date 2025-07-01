@@ -2,4 +2,8 @@
    ✍️ TYPOGRAPHY - Modularní typografický systém
    ============================================================================= */
 
-@import './typography/index.css';
+@import './base.css';
+@import './utilities.css';
+@import './neon-effects.css';
+@import './game-styles.css';
+@import './responsive.css';

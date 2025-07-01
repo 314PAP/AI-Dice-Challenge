@@ -84,6 +84,16 @@
   --neon-glow-lg: 0 0 20px currentColor;
   --neon-glow-xl: 0 0 30px currentColor;
 
+  /* 🌟 SPECIFICKÉ GLOW EFEKTY */
+  --glow-green: 0 0 20px var(--neon-green);
+  --glow-blue: 0 0 20px var(--neon-blue);
+  --glow-orange: 0 0 20px var(--neon-orange);
+  --glow-red: 0 0 20px var(--neon-red);
+  --glow-purple: 0 0 20px var(--neon-purple);
+  --glow-cyan: 0 0 20px var(--neon-cyan);
+  --glow-pink: 0 0 20px var(--neon-pink);
+  --glow-yellow: 0 0 20px var(--neon-yellow);
+
   /* 🌟 GRADIENTS */
   --gradient-neon: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
   --gradient-fire: linear-gradient(45deg, var(--neon-orange), var(--neon-red));
@@ -107,4 +117,12 @@
   --dice-size: 60px;
   --player-avatar-size: 80px;
   --chat-width: 300px;
+  
+  /* 🎨 IKONY VELIKOSTI */
+  --icon-xs: 0.75rem;
+  --icon-sm: 1rem;
+  --icon-base: 1.25rem;
+  --icon-lg: 1.75rem;
+  --icon-xl: 2rem;
+  --icon-2xl: 2.5rem;
 }

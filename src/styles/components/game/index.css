@@ -2,5 +2,10 @@
    🎮 GAME - Modularní systém herních komponent
    ============================================================================= */
 
-@import './game/index.css';
-
+@import './controls.css';
+@import './info.css';
+@import './dice.css';
+@import './setup.css';
+@import './header.css';
+@import './animations.css';
+@import './responsive.css';

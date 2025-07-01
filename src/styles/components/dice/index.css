@@ -2,4 +2,10 @@
    🎲 DICE - Modularní systém kostek
    ============================================================================= */
 
-@import './dice/index.css';
+@import './container.css';
+@import './base.css';
+@import './states.css';
+@import './values.css';
+@import './animations.css';
+@import './effects.css';
+@import './responsive.css';

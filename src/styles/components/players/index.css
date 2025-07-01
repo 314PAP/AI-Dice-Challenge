@@ -2,4 +2,11 @@
    👥 PLAYERS - Modularní systém pro hráče
    ============================================================================= */
 
-@import './players/index.css';
+@import './avatars.css';
+@import './layout.css';
+@import './cards.css';
+@import './active-states.css';
+@import './themes.css';
+@import './status.css';
+@import './animations.css';
+@import './responsive.css';
