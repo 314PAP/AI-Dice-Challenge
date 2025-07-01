@@ -62,7 +62,10 @@ export function setupEventListeners() {
         const endTurnBtn = document.getElementById('endTurnBtn');
         if (endTurnBtn) {
             console.log('✅ Přidávám event listener pro End Turn');
-            endTurnBtn.addEventListener('click', () => endTurn(true));
+            // Odstraň existující event listenery
+            endTurnBtn.replaceWith(endTurnBtn.cloneNode(true));
+            const newEndTurnBtn = document.getElementById('endTurnBtn');
+            newEndTurnBtn.addEventListener('click', () => endTurn(true));
         }
         
         // Quit game button

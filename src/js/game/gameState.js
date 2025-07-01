@@ -23,7 +23,8 @@ export const gameState = {
     finalRoundInitiator: null, // Player who triggered final round
     gameStartTime: null, // Čas začátku hry pro statistiky
     totalTurns: 0, // Celkový počet tahů všech hráčů
-    playerTurns: { human: 0, gemini: 0, chatgpt: 0, claude: 0 } // Tahy jednotlivých hráčů
+    playerTurns: { human: 0, gemini: 0, chatgpt: 0, claude: 0 }, // Tahy jednotlivých hráčů
+    endTurnProcessing: false // Zabezpečení proti opakovanému volání endTurn
 };
 
 /**
@@ -47,6 +48,7 @@ export function resetGameState() {
     gameState.mustBankDice = false;
     gameState.finalRound = false;
     gameState.finalRoundInitiator = null;
+    gameState.endTurnProcessing = false;
     gameState.gameStartTime = null;
     gameState.totalTurns = 0;
     gameState.playerTurns = { human: 0, gemini: 0, chatgpt: 0, claude: 0 };

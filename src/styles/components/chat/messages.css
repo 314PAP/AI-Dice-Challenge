@@ -52,13 +52,12 @@
   border-left-color: var(--chat-system);
   color: var(--chat-system);
   font-style: italic;
-  font-weight: 600;
+  font-weight: 500;
   opacity: 1;
   text-shadow: 
-    0 0 5px var(--chat-system),
-    0 0 10px var(--chat-system),
-    0 0 15px var(--chat-system);
-  background: rgba(255, 255, 0, 0.05);
+    0 0 3px var(--chat-system),
+    0 0 6px var(--chat-system);
+  background: rgba(255, 255, 0, 0.03);
 }
 
 .chat-message.user {

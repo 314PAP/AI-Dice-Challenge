@@ -110,58 +110,71 @@ export function playerTurn() {
  * Ukončí tah hráče
  */
 export function endTurn(scored = true) {
-    if (scored && gameState.currentTurnScore >= 300) { // FARKLE PRAVIDLO: 300 bodů minimum pro všechny
-        gameState.players[gameState.currentPlayer].score += gameState.currentTurnScore;
-        window.addChatMessage('system', `${getCurrentPlayer().name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${gameState.players[gameState.currentPlayer].score}.`);
-        
-        // AI reakce na skóre (pouze pokud je to lidský hráč)
-        if (gameState.currentPlayer === 0) {
-            // Import these functions when needed from AI reactions controller
-            if (window.triggerAIAfterGoodRoll && gameState.currentTurnScore >= 300) {
-                window.triggerAIAfterGoodRoll(gameState.currentTurnScore, 'Vy');
-            } else if (window.triggerAIAfterBadRoll && gameState.currentTurnScore < 200) {
-                window.triggerAIAfterBadRoll(gameState.currentTurnScore, 'Vy');
-            }
-            
-            // Aktivovat náhodné aktivity
-            if (window.triggerRandomAITrashTalk) window.triggerRandomAITrashTalk();
-            if (window.triggerAIBanter) window.triggerAIBanter();
-            if (window.triggerAIHighTensionComment) window.triggerAIHighTensionComment();
-        }
-        
-        // Kontrola dosažení cílového skóre
-        if (gameState.players[gameState.currentPlayer].score >= gameState.targetScore && !gameState.finalRound) {
-            gameState.finalRound = true;
-            gameState.finalRoundInitiator = gameState.currentPlayer;
-            window.addChatMessage('system', `🏆 ${getCurrentPlayer().name} dosáhl cílového skóre ${gameState.targetScore}! Ostatní hráči mají ještě jednu šanci!`);
-            
-            // AI reakce na finální kolo
-            gameState.players.forEach(player => {
-                if (player.type !== 'human') {
-                    const reaction = enhancedAI.generateAIResponse(player.type, 'finalRound');
-                    if (reaction) {
-                        setTimeout(() => window.addChatMessage(player.type, reaction), 1000 + Math.random() * 500);
-                    }
-                }
-            });
-        }
-        
-        // Kontrola konce finálního kola
-        if (gameState.finalRound && gameState.currentPlayer === gameState.finalRoundInitiator) {
-            // Dokončeno finální kolo, najdeme vítěze
-            const winner = gameState.players.reduce((prev, current) => 
-                (prev.score > current.score) ? prev : current);
-            endGame(winner);
-            return;
-        }
-    } else if (scored) {
-        window.addChatMessage('system', `${getCurrentPlayer().name} nezískal minimálních 250 bodů. Tah končí s 0 body.`);
+    // Zabezpečení proti opakovanému volání
+    if (gameState.endTurnProcessing) {
+        console.warn('⚠️ endTurn již probíhá, ignoruji další volání');
+        return;
     }
     
-    updateScoreboard();
-    nextPlayer();
-    updateGameDisplay();
-    playerTurn();
+    gameState.endTurnProcessing = true;
+    
+    try {
+        if (scored && gameState.currentTurnScore >= 300) { // FARKLE PRAVIDLO: 300 bodů minimum pro všechny
+            gameState.players[gameState.currentPlayer].score += gameState.currentTurnScore;
+            window.addChatMessage('system', `${getCurrentPlayer().name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${gameState.players[gameState.currentPlayer].score}.`);
+            
+            // AI reakce na skóre (pouze pokud je to lidský hráč)
+            if (gameState.currentPlayer === 0) {
+                // Import these functions when needed from AI reactions controller
+                if (window.triggerAIAfterGoodRoll && gameState.currentTurnScore >= 300) {
+                    window.triggerAIAfterGoodRoll(gameState.currentTurnScore, 'Vy');
+                } else if (window.triggerAIAfterBadRoll && gameState.currentTurnScore < 200) {
+                    window.triggerAIAfterBadRoll(gameState.currentTurnScore, 'Vy');
+                }
+                
+                // Aktivovat náhodné aktivity
+                if (window.triggerRandomAITrashTalk) window.triggerRandomAITrashTalk();
+                if (window.triggerAIBanter) window.triggerAIBanter();
+                if (window.triggerAIHighTensionComment) window.triggerAIHighTensionComment();
+            }
+            
+            // Kontrola dosažení cílového skóre
+            if (gameState.players[gameState.currentPlayer].score >= gameState.targetScore && !gameState.finalRound) {
+                gameState.finalRound = true;
+                gameState.finalRoundInitiator = gameState.currentPlayer;
+                window.addChatMessage('system', `🏆 ${getCurrentPlayer().name} dosáhl cílového skóre ${gameState.targetScore}! Ostatní hráči mají ještě jednu šanci!`);
+                
+                // AI reakce na finální kolo
+                gameState.players.forEach(player => {
+                    if (player.type !== 'human') {
+                        const reaction = enhancedAI.generateAIResponse(player.type, 'finalRound');
+                        if (reaction) {
+                            setTimeout(() => window.addChatMessage(player.type, reaction), 1000 + Math.random() * 500);
+                        }
+                    }
+                });
+            }
+            
+            // Kontrola konce finálního kola
+            if (gameState.finalRound && gameState.currentPlayer === gameState.finalRoundInitiator) {
+                // Dokončeno finální kolo, najdeme vítěze
+                const winner = gameState.players.reduce((prev, current) => 
+                    (prev.score > current.score) ? prev : current);
+                endGame(winner);
+                return;
+            }
+        } else if (scored) {
+            window.addChatMessage('system', `${getCurrentPlayer().name} nezískal minimálních 300 bodů. Tah končí s 0 body.`);
+        }
+        
+        updateScoreboard();
+        nextPlayer();
+        updateGameDisplay();
+        playerTurn();
+    } finally {
+        // Vždy resetuje flag, i pokud se stane chyba
+        gameState.endTurnProcessing = false;
+    }
 }
 
 /**
