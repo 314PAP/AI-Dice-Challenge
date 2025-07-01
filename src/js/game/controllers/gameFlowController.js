@@ -110,7 +110,7 @@ export function playerTurn() {
  * Ukončí tah hráče
  */
 export function endTurn(scored = true) {
-    if (scored && gameState.currentTurnScore >= 250) {
+    if (scored && gameState.currentTurnScore >= 300) { // FARKLE PRAVIDLO: 300 bodů minimum pro všechny
         gameState.players[gameState.currentPlayer].score += gameState.currentTurnScore;
         window.addChatMessage('system', `${getCurrentPlayer().name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${gameState.players[gameState.currentPlayer].score}.`);
         

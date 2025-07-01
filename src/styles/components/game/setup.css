@@ -30,7 +30,7 @@
   border: 1px solid var(--neon-blue);
   border-radius: var(--radius-base);
   padding: var(--spacing-xs);
-  color: var(--white-text);
+  color: var(--text-primary);
   font-size: var(--font-size-sm);
   font-weight: 600;
   text-align: center;

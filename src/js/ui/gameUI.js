@@ -60,7 +60,7 @@ export function updateGameDisplay() {
     
     const selectedDice = gameState.dice.filter(d => d.selected);
     const canBank = selectedDice.length > 0 && calculateScore(selectedDice.map(d => d.value)) > 0;
-    const canEndTurn = gameState.currentTurnScore >= 250;
+    const canEndTurn = gameState.currentTurnScore >= 300; // Farkle pravidlo: 300 bodů minimum
     const canRoll = gameState.rollsLeft > 0 && !gameState.mustBankDice && gameState.currentPlayer === 0;
     
     const bankBtn = document.getElementById('bankBtn');

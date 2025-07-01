@@ -179,7 +179,7 @@ function decideAIAction(aiPlayer) {
     // Různé strategie pro různé AI typy
     switch (aiPlayer.type) {
         case 'gemini':
-            // Konzervativní, data-driven přístup
+            // Konzervativní, data-driven přístup - MUSÍ RESPEKTOVAT 300 MINIMUM
             const geminiThreshold = Math.max(300, targetScore * 0.05) * scorePressure;
             return currentScore < geminiThreshold && 
                    rollsLeft > 0 && 
@@ -187,22 +187,23 @@ function decideAIAction(aiPlayer) {
                    riskFactor < 0.7;
             
         case 'chatgpt':
-            // Mírně rizikový, přátelský přístup
-            const chatgptThreshold = Math.max(400, targetScore * 0.04) * scorePressure;
+            // Mírně rizikový, přátelský přístup - MUSÍ RESPEKTOVAT 300 MINIMUM
+            const chatgptThreshold = Math.max(300, targetScore * 0.04) * scorePressure;
             return currentScore < chatgptThreshold && 
                    rollsLeft > 0 && 
                    diceLeft >= 2 && 
                    riskFactor < 0.8;
             
         case 'claude':
-            // Filozofický, vyvážený přístup - adaptivní strategie
-            const claudeThreshold = adaptiveThreshold(totalScore, targetScore) * scorePressure;
+            // Filozofický, vyvážený přístup - MUSÍ RESPEKTOVAT 300 MINIMUM
+            const claudeThreshold = Math.max(300, adaptiveThreshold(totalScore, targetScore)) * scorePressure;
             return currentScore < claudeThreshold && 
                    rollsLeft > 0 && 
                    diceLeft >= 2 && 
                    riskFactor < 0.75;
             
         default:
+            // VŠECHNA AI MUSÍ RESPEKTOVAT 300 BODOVÉ MINIMUM STEJNĚ JAKO HRÁČ
             return currentScore < 300 && rollsLeft > 0 && diceLeft >= 2;
     }
 }
@@ -224,13 +225,13 @@ function calculateRiskFactor(diceLeft, rollsLeft) {
  * Adaptivní práh pro Claude AI na základě pozice ve hře
  * @param {number} currentTotal - Současné celkové skóre
  * @param {number} target - Cílové skóre
- * @returns {number} Doporučený práh pro ukončení tahu
+ * @returns {number} Doporučený práh pro ukončení tahu (minimálně 300)
  */
 function adaptiveThreshold(currentTotal, target) {
     const progress = currentTotal / target;
     
-    if (progress < 0.3) return 500; // Začátek hry - agresivnější
-    if (progress < 0.6) return 400; // Střed hry - vyvážené
-    if (progress < 0.8) return 350; // Pozdní hra - opatrnější
-    return 250; // Konec hry - velmi opatrné
+    if (progress < 0.3) return Math.max(300, 500); // Začátek hry - agresivnější, ale min 300
+    if (progress < 0.6) return Math.max(300, 400); // Střed hry - vyvážené, ale min 300
+    if (progress < 0.8) return Math.max(300, 350); // Pozdní hra - opatrnější, ale min 300
+    return 300; // Konec hry - pouze minimum podle pravidel
 }

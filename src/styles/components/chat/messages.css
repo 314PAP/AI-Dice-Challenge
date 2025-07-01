@@ -73,7 +73,7 @@
 
 .message-sender {
   font-weight: 700;
-  color: var(--white-text);
+  color: var(--text-primary);
   transition: var(--transition-base);
 }
 
@@ -83,7 +83,7 @@
 }
 
 .message-content {
-  color: var(--white-text);
+  color: var(--text-primary);
   line-height: 1.4;
   font-family: 'Roboto Mono', monospace;
   font-size: var(--font-size-sm);

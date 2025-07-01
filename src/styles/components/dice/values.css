@@ -18,25 +18,25 @@
 }
 
 .dice.dots[data-value="1"] { 
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="8" fill="white"/></svg>'); 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="8" fill="%2339ff14"/></svg>'); 
 }
 
 .dice.dots[data-value="2"] { 
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="30" cy="30" r="8" fill="white"/><circle cx="70" cy="70" r="8" fill="white"/></svg>'); 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="30" cy="30" r="8" fill="%2339ff14"/><circle cx="70" cy="70" r="8" fill="%2339ff14"/></svg>'); 
 }
 
 .dice.dots[data-value="3"] { 
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="8" fill="white"/><circle cx="50" cy="50" r="8" fill="white"/><circle cx="75" cy="75" r="8" fill="white"/></svg>'); 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="8" fill="%2339ff14"/><circle cx="50" cy="50" r="8" fill="%2339ff14"/><circle cx="75" cy="75" r="8" fill="%2339ff14"/></svg>'); 
 }
 
 .dice.dots[data-value="4"] { 
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="30" cy="30" r="8" fill="white"/><circle cx="70" cy="30" r="8" fill="white"/><circle cx="30" cy="70" r="8" fill="white"/><circle cx="70" cy="70" r="8" fill="white"/></svg>'); 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="30" cy="30" r="8" fill="%2339ff14"/><circle cx="70" cy="30" r="8" fill="%2339ff14"/><circle cx="30" cy="70" r="8" fill="%2339ff14"/><circle cx="70" cy="70" r="8" fill="%2339ff14"/></svg>'); 
 }
 
 .dice.dots[data-value="5"] { 
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="8" fill="white"/><circle cx="75" cy="25" r="8" fill="white"/><circle cx="50" cy="50" r="8" fill="white"/><circle cx="25" cy="75" r="8" fill="white"/><circle cx="75" cy="75" r="8" fill="white"/></svg>'); 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="8" fill="%2339ff14"/><circle cx="75" cy="25" r="8" fill="%2339ff14"/><circle cx="50" cy="50" r="8" fill="%2339ff14"/><circle cx="25" cy="75" r="8" fill="%2339ff14"/><circle cx="75" cy="75" r="8" fill="%2339ff14"/></svg>'); 
 }
 
 .dice.dots[data-value="6"] { 
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="20" r="8" fill="white"/><circle cx="75" cy="20" r="8" fill="white"/><circle cx="25" cy="50" r="8" fill="white"/><circle cx="75" cy="50" r="8" fill="white"/><circle cx="25" cy="80" r="8" fill="white"/><circle cx="75" cy="80" r="8" fill="white"/></svg>'); 
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="20" r="8" fill="%2339ff14"/><circle cx="75" cy="20" r="8" fill="%2339ff14"/><circle cx="25" cy="50" r="8" fill="%2339ff14"/><circle cx="75" cy="50" r="8" fill="%2339ff14"/><circle cx="25" cy="80" r="8" fill="%2339ff14"/><circle cx="75" cy="80" r="8" fill="%2339ff14"/></svg>'); 
 }

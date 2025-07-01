@@ -13,21 +13,21 @@
   --neon-pink: #ff1493;
   --neon-yellow: #ffff00;
 
-  /* 🎨 ZÁKLADNÍ BARVY */
+  /* 🎨 ZÁKLADNÍ BARVY - ŽÁDNÁ BÍLÁ */
   --black-bg: #0a0a0a;
   --dark-bg: #1a1a1a;
   --gray-bg: #2a2a2a;
-  --white-text: #ffffff;
+  --text-bright: var(--neon-green); /* Nahrazuje bílou */
   --gray-text: #999999;
   --dark-text: #333333;
 
-  /* 📝 TEXT BARVY */
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --text-muted: #999999;
-  --text-success: #39ff14;
-  --text-warning: #ff8c00;
-  --text-danger: #ff0040;
+  /* 📝 TEXT BARVY - POUZE POVOLENÉ BARVY */
+  --text-primary: var(--neon-green);
+  --text-secondary: var(--neon-blue);
+  --text-muted: var(--neon-cyan);
+  --text-success: var(--neon-green);
+  --text-warning: var(--neon-yellow);
+  --text-danger: var(--neon-red);
 
   /* 📏 VELIKOSTI PÍSMA */
   --font-xs: 0.75rem;   /* 12px */
