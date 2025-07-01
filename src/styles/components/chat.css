@@ -1,4 +1,4 @@
-/* Chat komponenty - Kompaktní s perfektním zarovnáním */
+/* Chat komponenty - Perfektní zarovnání s herní oblastí */
 
 .chat-panel {
     background: var(--black-bg);
@@ -10,13 +10,37 @@
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
     position: relative;
     animation: slideIn 0.5s ease-out;
-    height: 100%; /* Vyplní celou výšku gridu */
+    height: fit-content; /* Přizpůsobí se obsahu */
+    min-height: 400px; /* Minimální výška */
+    align-self: start; /* Zarovnání na začátek gridu */
 }
 
-/* Pro desktop - chat se roztahuje s herní oblastí */
-@media (min-width: 701px) {
+/* Pro desktop/tablet - chat se zarovná s herní oblastí */
+@media (min-width: 651px) {
     .chat-panel {
+        /* Chat padding shodný s game-area pro perfektní zarovnání */
+        padding: 30px;
         min-height: 500px;
+    }
+}
+
+/* Responzivní padding pro synchronizaci s game-area */
+@media (max-width: 1200px) {
+    .chat-panel {
+        padding: 20px; /* Shodný s game-area */
+    }
+}
+
+@media (max-width: 1000px) {
+    .chat-panel {
+        padding: 18px; /* Shodný s game-area */
+    }
+}
+
+@media (max-width: 850px) {
+    .chat-panel {
+        padding: 15px; /* Shodný s game-area */
+        min-height: 450px; /* Trochu menší pro úsporu místa */
     }
 }
 

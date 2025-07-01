@@ -3,11 +3,11 @@
  * Target score setup, player avatars, a herní formuláře
  */
 
-/* Target score setup area */
+/* Target score setup area - kompaktnější */
 .target-score-setup {
     text-align: center;
-    margin-bottom: 20px;
-    padding: 20px;
+    margin-bottom: 15px; /* Menší mezera */
+    padding: 15px; /* Menší padding */
     border: 2px solid var(--neon-blue);
     border-radius: 10px;
     background: rgba(0, 255, 255, 0.05);
@@ -17,7 +17,7 @@
     color: var(--neon-green);
     font-weight: 700;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Menší mezera */
     font-size: 1.1rem;
 }
 
@@ -25,12 +25,12 @@
     background: var(--black-bg);
     border: 2px solid var(--neon-green);
     color: var(--neon-green);
-    padding: 10px 15px;
+    padding: 8px 12px; /* Menší padding */
     border-radius: 5px;
     font-family: 'Orbitron', monospace;
-    margin: 0 10px;
-    width: 140px;
-    font-size: 16px;
+    margin: 0 8px; /* Menší margin */
+    width: 120px; /* Menší šířka */
+    font-size: 15px;
     text-align: center;
 }
 
@@ -45,14 +45,14 @@
     margin-left: 10px;
 }
 
-/* Player avatars section - pod setup tlačítky */
+/* Player avatars section - kompaktnější */
 .player-avatars-section {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin: 20px 0;
-    padding: 15px;
+    gap: 12px; /* Menší mezery */
+    margin: 15px 0; /* Menší margin */
+    padding: 12px; /* Menší padding */
     background: rgba(0, 255, 0, 0.1);
     border: 2px solid var(--neon-green);
     border-radius: 15px;
