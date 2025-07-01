@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Test modulárních CSS s utility knihovnami</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <div class="container">
+        <header>
+            <h1 class="game-title">
+                <span class="neon-icon icon-dice animate-pulse"></span>
+                Modulární CSS Test
+                <span class="neon-icon icon-gaming magic-glow"></span>
+            </h1>
+        </header>
+
+        <main>
+            <!-- Test tlačítek s animacemi -->
+            <section class="glow-border" data-aos="fade-up">
+                <h2>🔘 Animovaná tlačítka</h2>
+                <div class="btn-group">
+                    <button class="btn btn-primary hvr-grow">Hover.css Grow</button>
+                    <button class="btn btn-secondary btn-animate-fadein">Animate.css Fade</button>
+                    <button class="btn btn-accent hvr-pulse-grow">Hover Pulse</button>
+                    <button class="btn btn-outline magic-glow">Magic.css Glow</button>
+                </div>
+            </section>
+
+            <!-- Test ikon s efekty -->
+            <section class="holographic" data-aos="slide-up">
+                <h2>✨ Animované ikony</h2>
+                <div class="icon-showcase">
+                    <span class="neon-icon icon-fire animate-bounce large"></span>
+                    <span class="neon-icon icon-star hvr-grow xl"></span>
+                    <span class="neon-icon icon-lightning magic-sparkle large"></span>
+                    <span class="neon-icon icon-trophy animate-spin large"></span>
+                    <span class="neon-icon icon-heart hvr-pulse-grow xl"></span>
+                </div>
+            </section>
+
+            <!-- Test kostek s animacemi -->
+            <section data-aos="zoom-in">
+                <h2>🎲 Animované kostky</h2>
+                <div class="dice-container">
+                    <div class="dice animate-dice-roll">
+                        <span class="dice-face">⚀</span>
+                    </div>
+                    <div class="dice magic-glow">
+                        <span class="dice-face">⚃</span>
+                    </div>
+                    <div class="dice hvr-grow">
+                        <span class="dice-face">⚅</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Test chat zpráv -->
+            <section data-aos="fade-left">
+                <h2>💬 Animované chat zprávy</h2>
+                <div class="chat-preview">
+                    <div class="chat-message ai animate-slideInLeft">
+                        <span class="neon-icon icon-ai-chat"></span>
+                        Ahoj! Jsem AI s novými animacemi! 🤖
+                    </div>
+                    <div class="chat-message player animate-slideInRight">
+                        Skvělé! Animace fungují perfektně! ✨
+                        <span class="neon-icon icon-message"></span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>🎨 Modulární CSS systém s animate.css, hover.css, magic.css, AOS</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // Inicializace AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            offset: 100
+        });
+
+        // Demo animace kostek
+        document.querySelectorAll('.dice').forEach(dice => {
+            dice.addEventListener('click', () => {
+                dice.style.animation = 'dice-roll 1s ease-in-out';
+                setTimeout(() => {
+                    dice.style.animation = '';
+                }, 1000);
+            });
+        });
+    </script>
+
+    <style>
+        /* Quick demo styles */
+        body {
+            padding: 2rem 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            margin: 3rem 0;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            background: rgba(57, 255, 20, 0.05);
+            border: 1px solid var(--neon-green);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .icon-showcase {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dice-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .dice {
+            width: 80px;
+            height: 80px;
+            background: var(--neon-blue);
+            border-radius: var(--radius-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+
+        .chat-preview {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .chat-message {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: var(--radius-base);
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+        }
+
+        .chat-message.ai {
+            margin-right: 2rem;
+        }
+
+        .chat-message.player {
+            margin-left: 2rem;
+            text-align: right;
+            background: rgba(255, 140, 0, 0.1);
+            border-color: var(--neon-orange);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-muted);
+        }
+    </style>
+</body>
+</html>
