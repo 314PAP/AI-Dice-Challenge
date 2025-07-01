@@ -1,5 +1,5 @@
 /* =============================================================================
-   💬 CHAT MESSAGES - Zprávy a scrollbar
+   💬 CHAT MESSAGES - Zprávy a scrollbar (využívá utility knihovny)
    ============================================================================= */
 
 /* CHAT MESSAGES CONTAINER */
@@ -7,89 +7,84 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: 1em;
-  padding: 0.5em;
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
   background: var(--dark-bg);
-  border-radius: 0.5em;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(0, 255, 0, 0.2);
   scroll-behavior: smooth;
+  transition: var(--transition-base);
 }
 
-/* SCROLLBAR STYLING */
+/* SCROLLBAR STYLING - využívá neon colors */
 .chat-messages::-webkit-scrollbar {
   width: 8px;
 }
 
 .chat-messages::-webkit-scrollbar-track {
   background: var(--dark-bg);
-  border-radius: 0.5em;
+  border-radius: var(--radius-sm);
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
   background: var(--neon-green);
-  border-radius: 0.5em;
+  border-radius: var(--radius-sm);
   transition: var(--transition-base);
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
   background: var(--neon-orange);
+  box-shadow: 0 0 8px var(--neon-orange);
 }
 
-/* CHAT MESSAGE */
+/* CHAT MESSAGE - využívá spacing a transition utilities */
 .chat-message {
-  margin-bottom: 0.75em;
-  padding: 0.75em;
-  border-radius: 0.5em;
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
   background: rgba(0, 0, 0, 0.3);
   border-left: 3px solid var(--neon-green);
   transition: var(--transition-base);
+  position: relative;
 }
 
 .chat-message:hover {
   background: rgba(0, 0, 0, 0.5);
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.chat-message.system {
-  border-left-color: var(--neon-blue);
-}
-
-.chat-message.gemini {
-  border-left-color: var(--neon-blue);
-}
-
-.chat-message.chatgpt {
-  border-left-color: var(--neon-pink);
-}
-
-.chat-message.claude {
-  border-left-color: var(--neon-orange);
-}
-
-.chat-message.human {
-  border-left-color: var(--neon-green);
-}
+/* MESSAGE TYPE COLORS - využívá color variables */
+.chat-message.system { border-left-color: var(--neon-blue); }
+.chat-message.gemini { border-left-color: var(--neon-blue); }
+.chat-message.chatgpt { border-left-color: var(--neon-pink); }
+.chat-message.claude { border-left-color: var(--neon-orange); }
+.chat-message.human { border-left-color: var(--neon-green); }
 
 /* MESSAGE METADATA */
 .message-meta {
   display: flex;
   align-items: center;
-  gap: 0.5em;
-  margin-bottom: 0.25em;
-  font-size: 0.75rem;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-xs);
   color: var(--gray-text);
 }
 
 .message-sender {
   font-weight: 700;
   color: var(--white-text);
+  transition: var(--transition-base);
 }
 
 .message-time {
   color: var(--gray-text);
+  opacity: 0.7;
 }
 
 .message-content {
   color: var(--white-text);
   line-height: 1.4;
   font-family: 'Roboto Mono', monospace;
+  font-size: var(--font-size-sm);
 }

@@ -1,5 +1,5 @@
 /* =============================================================================
-   💬 CHAT INPUT - Input pole a send tlačítko
+   💬 CHAT INPUT - Input pole a send tlačítko (využívá utility knihovny)
    ============================================================================= */
 
 /* CHAT INPUT */
@@ -12,31 +12,36 @@
   width: 100%;
   background: var(--dark-bg);
   border: 2px solid var(--gray-text);
-  border-radius: 0.5em;
-  padding: 0.75em 2.5em 0.75em 0.75em;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) 2.5em var(--spacing-sm) var(--spacing-sm);
   color: var(--white-text);
   font-family: 'Roboto Mono', monospace;
-  transition: var(--transition-base);
+  font-size: var(--font-size-sm);
   box-sizing: border-box;
+  transition: var(--transition-base);
 }
 
 .chat-input input:focus {
   outline: none;
   border-color: var(--neon-green);
-  box-shadow: 0 0 10px var(--neon-green);
   background: var(--dark-bg);
+  /* Využívá neon glow effect */
+  box-shadow: 0 0 10px var(--neon-green), 
+              0 0 20px rgba(0, 255, 0, 0.3);
 }
 
 .chat-input input::placeholder {
   color: rgba(0, 255, 0, 0.5);
+  font-style: italic;
 }
 
 .chat-input input:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  filter: grayscale(50%);
 }
 
-/* SEND BUTTON */
+/* SEND BUTTON - neonová šipka s efekty */
 .chat-send-btn {
   position: absolute;
   right: 5px;
@@ -54,32 +59,38 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition-base);
+  /* Využívá neon text-shadow effect */
   text-shadow: 0 0 10px var(--neon-green);
 }
 
 .chat-send-btn:hover {
   color: var(--neon-orange);
-  text-shadow: 0 0 15px var(--neon-orange);
+  text-shadow: 0 0 15px var(--neon-orange), 
+               0 0 25px rgba(255, 140, 0, 0.5);
   transform: translateY(-50%) scale(1.1);
 }
 
 .chat-send-btn:active {
   transform: translateY(-50%) scale(0.95);
+  text-shadow: 0 0 20px var(--neon-orange);
 }
 
 .chat-send-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: translateY(-50%);
+  filter: grayscale(50%);
 }
 
 .chat-send-btn::before {
   content: '➤';
   font-size: 18px;
   font-weight: bold;
+  display: block;
 }
 
 .chat-send-btn:focus-visible {
   outline: 2px solid var(--neon-blue);
   outline-offset: 2px;
+  border-radius: var(--radius-sm);
 }

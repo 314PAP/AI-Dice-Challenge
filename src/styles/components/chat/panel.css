@@ -1,31 +1,40 @@
 /* =============================================================================
-   💬 CHAT PANEL - Základní layout a panel styly
+   💬 CHAT PANEL - Základní layout a panel styly (využívá utility knihovny)
    ============================================================================= */
 
 /* CHAT PANEL */
 .chat-panel {
   background: var(--black-bg);
   border: 2px solid var(--neon-green);
-  border-radius: 1em;
-  padding: 1.5em;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
   height: calc(100vh - 40px);
   overflow: hidden;
   transition: var(--transition-base);
+  /* Využívá neon glow effect */
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), 
+              0 0 40px rgba(0, 255, 0, 0.1);
 }
 
+.chat-panel:hover {
+  box-shadow: 0 0 25px rgba(0, 255, 0, 0.4), 
+              0 0 50px rgba(0, 255, 0, 0.15);
+}
+
+/* COLLAPSED STATE - kompaktní design */
 .chat-panel.collapsed {
   width: 200px;
   height: 80px;
   min-width: 200px;
-  padding: 10px;
+  padding: var(--spacing-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: var(--transition-base);
 }
 
 .chat-panel.collapsed .chat-header {
@@ -36,8 +45,9 @@
 }
 
 .chat-panel.collapsed .chat-header h2 {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   margin: 0;
+  text-shadow: 0 0 8px var(--neon-green);
 }
 
 .chat-panel.collapsed .chat-messages,
@@ -47,7 +57,7 @@
 
 .chat-panel.collapsed .chat-toggle {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
   margin: 0;
 }
