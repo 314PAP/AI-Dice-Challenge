@@ -24,17 +24,37 @@
   0%, 100% {
     box-shadow: 
       0 0 10px currentColor,
-      inset 0 0 10px rgba(57, 255, 20, 0.1);
+      inset 0 0 10px rgba(0, 255, 0, 0.1);
   }
   50% {
     box-shadow: 
       0 0 20px currentColor,
       0 0 30px currentColor,
-      inset 0 0 20px rgba(57, 255, 20, 0.2);
+      inset 0 0 20px rgba(0, 255, 0, 0.2);
   }
 }
 
 @keyframes border-glow {
-  0%, 100% { opacity: 0.1; }
-  50% { opacity: 0.3; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* INTENZIVNÍ NEONOVÁ ANIMACE - pro hover efekty */
+@keyframes intense-glow {
+  0%, 100% {
+    box-shadow: var(--glow-medium);
+  }
+  50% {
+    box-shadow: var(--glow-intense);
+  }
+}
+
+/* PULSNÍ ANIMACE PRO TLAČÍTKA */
+@keyframes button-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    box-shadow: 0 0 25px currentColor, 0 0 40px currentColor;
+  }
 }

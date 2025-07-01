@@ -1,50 +1,34 @@
 /* =============================================================================
-   🎯 BUTTONS - Tlačítka s neonové styly
+   🎯 BUTTONS - Neonová tlačítka podle referenčního obrázku
    ============================================================================= */
 
+/* ZÁKLADNÍ BUTTON - PODLE REFERENČNÍHO OBRÁZKU */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  padding: 0.75em 1.5em;
+  padding: 0.6em 1.2em;
   background: var(--black-bg);
-  border: 2px solid var(--neon-green);
+  border: 1px solid currentColor;
   color: var(--neon-green);
   font-family: 'Orbitron', monospace;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.875rem;
-  border-radius: 0.5em;
+  border-radius: 0.375em;
   cursor: pointer;
-  transition: var(--transition-base);
+  transition: all 0.3s ease;
   text-decoration: none;
   position: relative;
-  overflow: hidden;
-  min-height: 44px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* SVĚTELNÝ EFEKT */
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
-  transition: var(--transition-base);
-}
-
-/* HOVER EFEKTY */
+/* HOVER EFEKT - INTENZIVNÍ NEONOVÉ SVÍCENÍ */
 .btn:hover:not(:disabled) {
-  color: var(--neon-orange);
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 20px var(--neon-orange);
-  transform: translateY(-2px);
-}
-
-.btn:hover:not(:disabled)::before {
-  left: 100%;
+  box-shadow: var(--glow-large);
+  transform: translateY(-1px);
+  text-shadow: 0 0 8px currentColor;
 }
 
 .btn:active:not(:disabled) {
@@ -59,13 +43,13 @@
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
+  filter: grayscale(50%);
 }
 
 .btn:disabled:hover {
-  color: var(--neon-green);
-  border-color: var(--neon-green);
   box-shadow: none;
+  transform: none;
+  text-shadow: none;
 }
 
 /* BUTTON VARIANTY */
@@ -129,6 +113,63 @@
   box-shadow: 0 0 20px var(--neon-orange);
 }
 
+/* BAREVNÉ VARIANTY - PODLE REFERENČNÍHO OBRÁZKU */
+
+/* ZELENÉ TLAČÍTKO (jako Řemesla) */
+.btn-green, .btn-primary {
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+}
+
+.btn-green:hover, .btn-primary:hover {
+  box-shadow: var(--btn-green-glow-hover);
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+/* MODRÉ TLAČÍTKO (jako Kontakt) */
+.btn-blue, .btn-secondary {
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+}
+
+.btn-blue:hover, .btn-secondary:hover {
+  box-shadow: var(--btn-blue-glow-hover);
+  text-shadow: 0 0 10px var(--neon-blue);
+}
+
+/* ORANŽOVÉ TLAČÍTKO (jako Hry) */
+.btn-orange, .btn-warning {
+  color: var(--neon-orange);
+  border-color: var(--neon-orange);
+}
+
+.btn-orange:hover, .btn-warning:hover {
+  box-shadow: var(--btn-orange-glow-hover);
+  text-shadow: 0 0 10px var(--neon-orange);
+}
+
+/* ČERVENÉ TLAČÍTKO (Nebezpečné akce) */
+.btn-red, .btn-danger {
+  color: var(--neon-red);
+  border-color: var(--neon-red);
+}
+
+.btn-red:hover, .btn-danger:hover {
+  box-shadow: var(--btn-red-glow-hover);
+  text-shadow: 0 0 10px var(--neon-red);
+}
+
+/* RŮŽOVÉ TLAČÍTKO (ChatGPT) */
+.btn-pink {
+  color: var(--neon-pink);
+  border-color: var(--neon-pink);
+}
+
+.btn-pink:hover {
+  box-shadow: 0 0 15px #ff1493, 0 0 30px #ff1493, 0 0 45px #ff1493, 0 0 60px #ff149380;
+  text-shadow: 0 0 10px var(--neon-pink);
+}
+
 /* BUTTON VELIKOSTI */
 .btn-small {
   padding: 0.5em 1em;
@@ -150,6 +191,22 @@
 .btn-large .neon-icon {
   width: 1.75rem;
   height: 1.75rem;
+}
+
+/* VELIKOSTI TLAČÍTEK */
+.btn-sm {
+  padding: 0.4em 0.8em;
+  font-size: 0.75rem;
+}
+
+.btn-lg {
+  padding: 0.8em 1.6em;
+  font-size: 1rem;
+}
+
+.btn-xl {
+  padding: 1em 2em;
+  font-size: 1.125rem;
 }
 
 /* BUTTON SKUPINY */

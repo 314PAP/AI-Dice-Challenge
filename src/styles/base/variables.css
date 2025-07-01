@@ -3,22 +3,22 @@
    ============================================================================= */
 
 :root {
-  /* 🌈 NEONOVÉ BARVY */
-  --neon-green: #39ff14;
-  --neon-blue: #00bfff;
-  --neon-orange: #ff8c00;
-  --neon-red: #ff0040;
-  --neon-purple: #8a2be2;
-  --neon-cyan: #00ffff;
-  --neon-pink: #ff1493;
-  --neon-yellow: #ffff00;
+  /* 🌈 NEONOVÉ BARVY - PODLE REFERENČNÍHO OBRÁZKU */
+  --neon-green: #00ff00;     /* Zelená jako Řemesla tlačítko */
+  --neon-blue: #0080ff;      /* Modrá jako Kontakt tlačítko */
+  --neon-orange: #ff8000;    /* Oranžová jako Hry tlačítko */
+  --neon-red: #ff0040;       /* Červená pro varování */
+  --neon-purple: #8a2be2;    /* Fialová */
+  --neon-cyan: #00ffff;      /* Cyan */
+  --neon-pink: #ff1493;      /* Růžová pro ChatGPT */
+  --neon-yellow: #ffff00;    /* Žlutá pro varování */
 
-  /* 🎨 ZÁKLADNÍ BARVY - ŽÁDNÁ BÍLÁ */
-  --black-bg: #0a0a0a;
+  /* 🎨 ZÁKLADNÍ BARVY - PODLE REFERENČNÍHO OBRÁZKU */
+  --black-bg: #000000;       /* Čistě černé pozadí jako na obrázku */
   --dark-bg: #1a1a1a;
   --gray-bg: #2a2a2a;
   --text-bright: var(--neon-green); /* Nahrazuje bílou */
-  --gray-text: #999999;
+  --gray-text: #666666;
   --dark-text: #333333;
 
   /* 📝 TEXT BARVY - POUZE POVOLENÉ BARVY */
@@ -83,6 +83,24 @@
   --neon-glow-base: 0 0 10px currentColor;
   --neon-glow-lg: 0 0 20px currentColor;
   --neon-glow-xl: 0 0 30px currentColor;
+
+  /* ✨ NEONOVÉ EFEKTY - PODLE REFERENČNÍHO OBRÁZKU */
+  --glow-small: 0 0 5px currentColor;
+  --glow-medium: 0 0 10px currentColor, 0 0 20px currentColor;
+  --glow-large: 0 0 15px currentColor, 0 0 30px currentColor, 0 0 45px currentColor;
+  --glow-intense: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor, 0 0 80px currentColor;
+
+  /* 🎮 BUTTON GLOW COLORS */
+  --btn-green-glow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff0080;
+  --btn-blue-glow: 0 0 10px #0080ff, 0 0 20px #0080ff, 0 0 30px #0080ff80;
+  --btn-orange-glow: 0 0 10px #ff8000, 0 0 20px #ff8000, 0 0 30px #ff800080;
+  --btn-red-glow: 0 0 10px #ff0040, 0 0 20px #ff0040, 0 0 30px #ff004080;
+
+  /* 🎮 BUTTON HOVER GLOW - INTENZIVNĚJŠÍ */
+  --btn-green-glow-hover: 0 0 15px #00ff00, 0 0 30px #00ff00, 0 0 45px #00ff00, 0 0 60px #00ff0080;
+  --btn-blue-glow-hover: 0 0 15px #0080ff, 0 0 30px #0080ff, 0 0 45px #0080ff, 0 0 60px #0080ff80;
+  --btn-orange-glow-hover: 0 0 15px #ff8000, 0 0 30px #ff8000, 0 0 45px #ff8000, 0 0 60px #ff800080;
+  --btn-red-glow-hover: 0 0 15px #ff0040, 0 0 30px #ff0040, 0 0 45px #ff0040, 0 0 60px #ff004080;
 
   /* 🌟 SPECIFICKÉ GLOW EFEKTY */
   --glow-green: 0 0 20px var(--neon-green);

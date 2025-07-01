@@ -14,8 +14,8 @@
   color: var(--neon-green);
   letter-spacing: 0.5px;
   line-height: 1.0;
-  text-shadow: var(--glow-lg) var(--neon-green);
-  animation: neon-glow 3s ease-in-out infinite;
+  text-shadow: var(--glow-large);
+  animation: neon-pulse 3s ease-in-out infinite;
   display: flex;
   align-items: center;
   justify-content: center;
