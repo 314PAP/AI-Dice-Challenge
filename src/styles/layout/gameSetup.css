@@ -59,15 +59,17 @@
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
 }
 
+/* Větší avatary s jmény */
 .avatar-mini {
-    width: 50px;
-    height: 50px;
+    width: 65px; /* Zvětšeno z 50px */
+    height: 65px; /* Zvětšeno z 50px */
     border-radius: 50%;
     border: 3px solid var(--neon-green);
     transition: all 0.3s ease;
     box-shadow: 0 0 10px var(--neon-green);
     object-fit: cover;
     cursor: pointer;
+    margin-bottom: 8px; /* Místo pro jména */
 }
 
 .avatar-mini:hover {
@@ -80,4 +82,78 @@
     border-color: var(--neon-orange);
     box-shadow: 0 0 25px var(--neon-orange);
     border-width: 4px;
+}
+
+/* Sekce s avatary a jmény */
+.player-avatars-section {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Mezery mezi avatary */
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.avatar-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--neon-green);
+    margin-top: 5px;
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Responsivní chování avatarů */
+@media (max-width: 768px) {
+    .avatar-mini {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .player-avatars-section {
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .avatar-name {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .avatar-mini {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .player-avatars-section {
+        gap: 12px;
+        margin-top: 12px;
+    }
+    
+    .avatar-name {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .avatar-mini {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .player-avatars-section {
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .avatar-name {
+        font-size: 9px;
+    }
 }

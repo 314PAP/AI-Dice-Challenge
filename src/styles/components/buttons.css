@@ -124,6 +124,20 @@
     min-width: 100px;
 }
 
+/* Lepší spacing pro hlavní tlačítka */
+.target-score-setup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Mezery mezi prvky */
+    margin-bottom: 20px;
+}
+
+.target-score-setup .btn {
+    margin: 5px 8px; /* Mezery mezi tlačítky */
+    min-width: 140px;
+}
+
 /* Responsivní tlačítka */
 @media (max-width: 768px) {
     .btn {
@@ -137,6 +151,15 @@
     
     .btn-group .btn {
         min-width: 80px;
+    }
+    
+    .target-score-setup {
+        gap: 12px;
+    }
+    
+    .target-score-setup .btn {
+        margin: 4px 6px;
+        min-width: 120px;
     }
 }
 
@@ -153,6 +176,17 @@
     
     .btn-group .btn {
         width: 100%;
+        max-width: 200px;
+    }
+    
+    .target-score-setup {
+        gap: 10px;
+    }
+    
+    .target-score-setup .btn {
+        margin: 3px 4px;
+        min-width: 100px;
+        width: 90%;
         max-width: 200px;
     }
 }

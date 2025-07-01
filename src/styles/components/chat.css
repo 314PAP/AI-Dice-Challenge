@@ -1,4 +1,4 @@
-/* Chat komponenty - Kompaktní mobilní verze s lepším responsivním layoutem */
+/* Chat komponenty - Kompaktní s perfektním zarovnáním */
 
 .chat-panel {
     background: var(--black-bg);
@@ -8,17 +8,15 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-    height: 500px; /* Výška odpovídající game-area */
     position: relative;
     animation: slideIn 0.5s ease-out;
+    height: 100%; /* Vyplní celou výšku gridu */
 }
 
 /* Pro desktop - chat se roztahuje s herní oblastí */
-@media (min-width: 1201px) {
+@media (min-width: 901px) {
     .chat-panel {
-        height: auto;
         min-height: 500px;
-        max-height: 80vh; /* Maximální výška na velkých obrazovkách */
     }
 }
 
@@ -242,12 +240,24 @@
     }
 }
 
-/* Mobilní optimalizace - ultra kompaktní */
-@media (max-width: 1200px) {
+/* Mobilní optimalizace - chat vedle kde je možné */
+@media (max-width: 1200px) and (min-width: 901px) {
     .chat-panel {
-        height: 400px;
+        height: 100%; /* Stejná výška jako game-area */
         padding: 12px;
-        margin-bottom: 0; /* Žádné extra mezery */
+    }
+    
+    .chat-messages {
+        margin-bottom: 6px;
+        padding: 6px;
+    }
+}
+
+@media (max-width: 900px) {
+    .chat-panel {
+        height: 400px; /* Pevná výška na malých zařízeních */
+        padding: 12px;
+        margin-bottom: 0;
     }
     
     .chat-messages {
@@ -256,7 +266,7 @@
     }
     
     .chat-input {
-        margin-bottom: 0; /* Žádné extra mezery pod inputem */
+        margin-bottom: 0;
     }
 }
 
@@ -315,7 +325,7 @@
 /* Extra malé displeje - maximální úspora místa */
 @media (max-width: 480px) {
     .chat-panel {
-        height: 280px; /* Ještě menší pro malé displeje */
+        height: 280px;
         padding: 8px;
         margin-bottom: 0;
     }
@@ -326,7 +336,7 @@
     }
     
     .chat-header h2 {
-        font-size: 13px;
+        font-size: 12px; /* Ještě menší nadpis */
     }
     
     .chat-messages {
@@ -358,12 +368,12 @@
 
 @media (max-width: 360px) {
     .chat-panel {
-        height: 250px; /* Minimální výška pro velmi malé displeje */
+        height: 250px;
         padding: 6px;
     }
     
     .chat-header h2 {
-        font-size: 12px;
+        font-size: 11px; /* Minimální velikost nadpisu */
     }
     
     .chat-input {
