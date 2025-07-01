@@ -159,26 +159,31 @@ export function endTurn(scored = true) {
             }
             
             // Kontrola konce finálního kola
-            if (gameState.finalRound) {
-                console.log(`🔍 Kontrola konce finálního kola: CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
-                // Všichni hráči včetně iniciátora finálního kola už hráli
-                // Finální kolo končí po tom, co se vrátíme k iniciátorovi
-                if (gameState.currentPlayer === gameState.finalRoundInitiator) {
-                    console.log('🏁 KONEC FINÁLNÍHO KOLA! Hledám vítěze...');
-                    // Dokončeno finální kolo, najdeme vítěze
-                    const winner = gameState.players.reduce((prev, current) => 
-                        (prev.score > current.score) ? prev : current);
-                    console.log(`🏆 VÍTĚZ: ${winner.name} s ${winner.score} body`);
-                    endGame(winner);
-                    return;
-                }
-            }
+            // POZOR: Tato kontrola se NESMÍ dělat ve stejném tahu, kdy se finální kolo spustilo!
+            // Musí se dělat AŽ po nextPlayer()
         } else if (scored) {
             window.addChatMessage('system', `${getCurrentPlayer().name} nezískal minimálních 300 bodů. Tah končí s 0 body.`);
         }
         
         updateScoreboard();
         nextPlayer();
+        
+        // KONTROLA KONCE FINÁLNÍHO KOLA AŽ PO NEXTPLAYER()
+        if (gameState.finalRound) {
+            console.log(`🔍 Kontrola konce finálního kola PO nextPlayer(): CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
+            // Všichni hráči včetně iniciátora finálního kola už hráli
+            // Finální kolo končí po tom, co se vrátíme k iniciátorovi
+            if (gameState.currentPlayer === gameState.finalRoundInitiator) {
+                console.log('🏁 KONEC FINÁLNÍHO KOLA! Hledám vítěze...');
+                // Dokončeno finální kolo, najdeme vítěze
+                const winner = gameState.players.reduce((prev, current) => 
+                    (prev.score > current.score) ? prev : current);
+                console.log(`🏆 VÍTĚZ: ${winner.name} s ${winner.score} body`);
+                endGame(winner);
+                return;
+            }
+        }
+        
         updateGameDisplay();
         playerTurn();
     } finally {

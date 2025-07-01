@@ -166,7 +166,8 @@
 }
 
 .chat-message.claude {
-  border-left-color: var(--neon-orange);
+  border-left-color: var(--chat-claude);
+  color: var(--chat-claude);
 }
 
 .chat-message.human {
