@@ -2,17 +2,57 @@
    👥 PLAYERS - Hráči s avatary a skóre
    ============================================================================= */
 
-/* PLAYERS CONTAINER */
+/* PLAYER AVATARS SECTION - Mini avatary v hlavičce */
+.player-avatars-section {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  flex-wrap: wrap;
+}
+
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.avatar-mini {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-green);
+  object-fit: cover;
+  transition: var(--transition-normal);
+  opacity: 0.7;
+}
+
+.avatar-mini:hover {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue);
+  transform: scale(1.1);
+}
+
+.avatar-mini.active {
+  opacity: 1;
+  box-shadow: 0 0 15px var(--neon-green);
+  transform: scale(1.1);
+}
+
+.avatar-name {
+  font-size: var(--font-size-xs);
+  color: var(--gray-light);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* PLAYERS CONTAINER - Hlavní panel hráčů */
 .players-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5em;
-  margin: 2em 0;
-  padding: 1.5em;
-  background: rgba(0, 0, 0, 0.2);
-  border: 2px solid var(--neon-blue);
-  border-radius: 1em;
-  /* Skryté před začátkem hry - zobrazí se až při startu */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
 }
 
 .game-state-playing .players-container {
@@ -23,16 +63,15 @@
   display: none; /* Skryté během setup */
 }
 
-/* JEDNOTLIVÍ HRÁČI */
 .player {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.5em;
-  background: var(--black-bg);
-  border: 2px solid var(--gray-text);
-  border-radius: 1em;
-  transition: var(--transition-base);
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  transition: var(--transition-normal);
   position: relative;
 }
 
@@ -65,12 +104,12 @@
 
 /* PLAYER HEAD (AVATAR) */
 .player-head {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
+  margin-bottom: var(--spacing-xs);
   overflow: hidden;
   border: 3px solid currentColor;
-  margin-bottom: 1em;
   position: relative;
 }
 
@@ -78,7 +117,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition-base);
 }
 
 .player.active .player-head {
@@ -93,16 +131,16 @@
 /* SPECIAL PLAYER HEAD ADJUSTMENTS */
 .human-player .player-head img {
   object-fit: fill;
-  transform: scale(1.3);
+  transform: scale(1.2);
 }
 
 /* PLAYER NAME */
 .player-name {
   font-family: 'Orbitron', monospace;
-  font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 0.5em;
-  color: var(--white-text);
+  font-size: var(--font-size-sm);
+  color: currentColor;
+  margin-bottom: var(--spacing-xs);
   text-align: center;
 }
 
@@ -113,10 +151,11 @@
 
 /* PLAYER SCORE */
 .player-score {
-  font-size: 1rem;
-  color: var(--gray-text);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px var(--neon-blue);
   text-align: center;
-  margin-bottom: 0.5em;
 }
 
 .player-score span {
@@ -130,90 +169,45 @@
   color: var(--neon-green);
 }
 
-/* PLAYER AVATARS SECTION (MINI AVATARS) */
-.player-avatars-section {
-  display: flex;
-  justify-content: center;
-  gap: 1em;
-  margin: 1em 0;
-  padding: 1em;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 0.5em;
-  /* Vždy viditelná pro výběr hráčů */
-}
-
-.avatar-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
-}
-
-.avatar-mini {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid var(--gray-text);
-  transition: var(--transition-base);
-  cursor: pointer;
-}
-
-.avatar-mini:hover {
-  border-color: var(--neon-blue);
-  box-shadow: 0 0 10px var(--neon-blue);
-  transform: scale(1.1);
-}
-
-.avatar-mini.active {
-  border-color: var(--neon-green);
-  box-shadow: 0 0 15px var(--neon-green);
-}
-
-.avatar-name {
-  font-size: 0.8rem;
-  color: var(--gray-text);
-  text-align: center;
-}
-
-.avatar-container:hover .avatar-name {
-  color: var(--white-text);
-}
-
 /* PLAYER SPECIFIC COLORS */
 .human-player {
   border-color: var(--neon-green);
+  color: var(--neon-green);
 }
 
 .human-player .player-head {
   border-color: var(--neon-green);
-  box-shadow: 0 0 20px var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green);
 }
 
 .gemini-player {
   border-color: var(--neon-blue);
+  color: var(--neon-blue);
 }
 
 .gemini-player .player-head {
   border-color: var(--neon-blue);
-  box-shadow: 0 0 20px var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue);
 }
 
 .chatgpt-player {
   border-color: var(--neon-pink);
+  color: var(--neon-pink);
 }
 
 .chatgpt-player .player-head {
   border-color: var(--neon-pink);
-  box-shadow: 0 0 20px var(--neon-pink);
+  box-shadow: 0 0 15px var(--neon-pink);
 }
 
 .claude-player {
   border-color: var(--neon-orange);
+  color: var(--neon-orange);
 }
 
 .claude-player .player-head {
   border-color: var(--neon-orange);
-  box-shadow: 0 0 20px var(--neon-orange);
+  box-shadow: 0 0 15px var(--neon-orange);
 }
 
 .human-player.active {
@@ -278,32 +272,22 @@
 
 /* RESPONSIVE PLAYERS */
 @media (max-width: 768px) {
-  .players-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1em;
-    padding: 1em;
-  }
-  
-  .player {
-    padding: 1em;
-  }
-  
-  .player-head {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .player-name {
-    font-size: 1rem;
+  .player-avatars-section {
+    gap: var(--spacing-sm);
   }
   
   .avatar-mini {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
   
-  .avatar-name {
-    font-size: 0.7rem;
+  .player-head {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .player {
+    padding: var(--spacing-sm);
   }
 }
 

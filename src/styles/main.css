@@ -21,6 +21,7 @@
 @import './components/dice.css';
 @import './components/players.css';
 @import './components/scores.css';
+@import './components/game.css';
 
 /* ✨ ANIMACE & EFEKTY */
 @import './animations/keyframes.css';

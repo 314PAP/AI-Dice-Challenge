@@ -53,9 +53,9 @@ export function updateGameDisplay() {
     });
     
     // Update current turn score
-    const humanTurnScore = document.getElementById('humanTurnScore');
-    if (humanTurnScore) {
-        humanTurnScore.textContent = gameState.currentTurnScore;
+    const currentTurnScore = document.getElementById('currentTurnScore');
+    if (currentTurnScore) {
+        currentTurnScore.textContent = `Skóre tahu: ${gameState.currentTurnScore}`;
     }
     
     const selectedDice = gameState.dice.filter(d => d.selected);
@@ -63,8 +63,8 @@ export function updateGameDisplay() {
     const canEndTurn = gameState.currentTurnScore >= 250;
     const canRoll = gameState.rollsLeft > 0 && !gameState.mustBankDice && gameState.currentPlayer === 0;
     
-    const bankBtn = document.getElementById('bankScoreBtn');
-    const rollBtn = document.getElementById('rollDiceBtn');
+    const bankBtn = document.getElementById('bankBtn');
+    const rollBtn = document.getElementById('rollBtn');
     
     if (bankBtn) bankBtn.disabled = !canBank || gameState.currentPlayer !== 0;
     if (rollBtn) rollBtn.disabled = !canRoll;

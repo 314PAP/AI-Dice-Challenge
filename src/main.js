@@ -7,7 +7,9 @@ console.log('🎲 AI Kostková Výzva - Loading main.js...');
 console.log('🔍 Document ready state:', document.readyState);
 
 // Import UI controlleru pro řízení celé aplikace
-import { GameUIController } from './ui/gameUIController.js';
+import { setupUI } from './js/ui/uiController.js';
+import { initGameController } from './js/game/gameController.js';
+import { initializeChat } from './js/ui/enhancedChatController.js';
 
 /**
  * Inicializace aplikace po načtení DOM
@@ -26,20 +28,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('🔍 chatInput:', !!chatInput);
     
     try {
-        console.log('🚀 Creating GameUIController...');
-        // Vytvoř a inicializuj hlavní UI controller
-        const uiController = new GameUIController();
+        console.log('🚀 Initializing UI and Game Controllers...');
         
-        console.log('🚀 Initializing GameUIController...');
-        await uiController.initialize();
+        // Inicializuj UI
+        setupUI();
         
-        // Zpřístupni globálně pro debugging
-        window.uiController = uiController;
-        window.gameController = uiController.gameController;
+        // Inicializuj chat
+        const chatController = initializeChat();
+        
+        // Inicializuj game controller
+        initGameController();
+        
+        // Zpřístupni chat globálně
+        window.addChatMessage = chatController.addMessage.bind(chatController);
         
         console.log('✅ AI Kostková Výzva ready!');
         console.log('🔍 Global objects:', {
-            uiController: !!window.uiController,
             gameController: !!window.gameController,
             addChatMessage: !!window.addChatMessage
         });

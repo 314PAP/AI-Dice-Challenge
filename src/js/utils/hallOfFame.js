@@ -37,7 +37,7 @@ export function displayHallOfFame() {
     // Nejprve zavřít všechny ostatní modaly
     const gameOverModal = document.getElementById('gameOverModal');
     if (gameOverModal) {
-        gameOverModal.style.display = 'none';
+        gameOverModal.classList.add('hidden');
     }
     
     const modal = document.getElementById('hallOfFameModal');
@@ -86,14 +86,15 @@ export function displayHallOfFame() {
         }).join('');
     }
     
-    modal.style.display = 'flex';
+    modal.classList.remove('hidden');
 }
 
 /**
  * Skryje síň slávy
  */
 export function hideHallOfFame() {
-    document.getElementById('hallOfFameModal').style.display = 'none';
+    const modal = document.getElementById('hallOfFameModal');
+    if (modal) modal.classList.add('hidden');
 }
 
 /**

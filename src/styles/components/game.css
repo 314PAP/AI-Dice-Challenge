@@ -1,0 +1,234 @@
+/* =============================================================================
+   🎮 GAME CONTROLS - Herní ovládací prvky
+   ============================================================================= */
+
+/* GAME CONTROLS CONTAINER */
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+/* GAME INFO */
+.turn-info {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
+  margin-bottom: var(--spacing-sm);
+}
+
+.current-turn-score {
+  text-align: center;
+  font-size: var(--font-size-md);
+  color: var(--neon-blue);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+}
+
+.target-info {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--gray-light);
+  margin-bottom: var(--spacing-md);
+}
+
+/* DICE CONTAINER */
+.dice-container {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin: var(--spacing-md) 0;
+  min-height: 80px;
+  align-items: center;
+}
+
+/* DICE STYLING */
+.dice {
+  width: 60px;
+  height: 60px;
+  background: var(--black-bg);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--neon-green);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  user-select: none;
+}
+
+.dice:hover {
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+  box-shadow: 0 0 15px var(--neon-orange);
+  transform: scale(1.05);
+}
+
+.dice.selected {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 20px var(--neon-blue);
+  background: rgba(0, 191, 255, 0.1);
+}
+
+.dice.scoring {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+  box-shadow: 0 0 10px var(--neon-yellow);
+}
+
+.dice.banked {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  background: rgba(57, 255, 20, 0.2);
+  opacity: 0.7;
+  cursor: default;
+  transform: scale(0.9);
+}
+
+.dice.farkle {
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+  background: rgba(255, 0, 64, 0.1);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dice.rolling {
+  animation: dice-roll 1s ease-in-out;
+}
+
+@keyframes dice-roll {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  75% { transform: rotate(270deg) scale(1.1); }
+}
+
+/* ROLL CONTROLS */
+.roll-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+}
+
+/* TARGET SCORE SETUP */
+.target-score-setup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+.target-score-setup label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-md);
+  color: var(--neon-green);
+  font-weight: 600;
+}
+
+.target-score-setup input {
+  background: var(--black-bg);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-base);
+  padding: var(--spacing-sm);
+  color: var(--white-text);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  text-align: center;
+  width: 120px;
+}
+
+.target-score-setup input:focus {
+  outline: none;
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 10px var(--neon-orange);
+}
+
+/* GAME HEADER */
+.game-header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.game-title {
+  font-size: var(--font-size-xxl);
+  font-weight: 900;
+  margin-bottom: var(--spacing-md);
+  color: var(--neon-green);
+  letter-spacing: 0.5px;
+  line-height: 1.0;
+  text-shadow: 0 0 20px var(--neon-green);
+  animation: neon-glow 3s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .dice {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+  
+  .roll-controls {
+    gap: var(--spacing-xs);
+  }
+  
+  .game-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .target-score-setup {
+    padding: var(--spacing-md);
+  }
+  
+  .game-controls {
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .dice {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+  
+  .game-title {
+    font-size: var(--font-size-lg);
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .roll-controls {
+    flex-direction: column;
+  }
+}

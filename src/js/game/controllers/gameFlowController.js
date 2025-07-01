@@ -5,7 +5,7 @@
 
 import { gameState, resetGameState, nextPlayer, getCurrentPlayer, checkForWinner } from '../gameState.js';
 import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
-import { enhancedAI } from '../../../ai/controllers/enhancedAIController.js';
+import { enhancedAI } from '../../ai/enhancedAIController.js';
 import { playAITurn } from '../../ai/aiPlayer.js';
 import { saveGameResult, displayHallOfFame, createGameResult } from '../../utils/hallOfFame.js';
 
@@ -33,8 +33,13 @@ export function startGame() {
         targetScoreDisplay.textContent = gameState.targetScore;
     }
 
-    document.getElementById('targetScoreSetup').style.display = 'none';
-    document.getElementById('gameControls').style.display = 'block';
+    // Hide target score setup and show game controls
+    const targetScoreSetup = document.getElementById('targetScoreSetup');
+    const gameControls = document.getElementById('gameControls');
+    
+    if (targetScoreSetup) targetScoreSetup.classList.add('hidden');
+    if (gameControls) gameControls.classList.remove('hidden');
+    
     // Show players container during game
     const playersContainer = document.querySelector('.players-container');
     if (playersContainer) {
@@ -326,9 +331,15 @@ export function saveScore() {
  * Vrátí se do hlavního menu
  */
 export function returnToMainMenu() {
-    document.getElementById('gameOverModal').style.display = 'none';
-    document.getElementById('gameControls').style.display = 'none';
-    document.getElementById('targetScoreSetup').style.display = 'block';
+    // Hide modals and show main menu
+    const gameOverModal = document.getElementById('gameOverModal');
+    const gameControls = document.getElementById('gameControls');
+    const targetScoreSetup = document.getElementById('targetScoreSetup');
+    
+    if (gameOverModal) gameOverModal.classList.add('hidden');
+    if (gameControls) gameControls.classList.add('hidden');
+    if (targetScoreSetup) targetScoreSetup.classList.remove('hidden');
+    
     // Hide players container on main menu
     const playersContainer = document.querySelector('.players-container');
     if (playersContainer) {

@@ -5,6 +5,17 @@
 
 import { startGame, resetGame, saveScore, startNewGame, returnToMainMenu, endTurn } from './gameFlowController.js';
 import { rollDiceForPlayer, selectDie, bankSelectedDice } from './turnActionsController.js';
+import { displayHallOfFame } from '../../utils/hallOfFame.js';
+
+/**
+ * Quit game function - return to main menu
+ */
+function quitGame() {
+    console.log('🚪 Ukončuji hru...');
+    if (confirm('Opravdu chcete ukončit hru?')) {
+        returnToMainMenu();
+    }
+}
 
 /**
  * Nastavuje event listenery pro herní prvky
@@ -68,18 +79,47 @@ export function setupEventListeners() {
             saveScoreBtn.addEventListener('click', saveScore);
         }
         
-        // New game button
-        const newGameBtn = document.getElementById('newGameBtn');
-        if (newGameBtn) {
-            console.log('✅ Přidávám event listener pro New Game');
-            newGameBtn.addEventListener('click', startNewGame);
+        // Hall of Fame button
+        const hallOfFameBtn = document.getElementById('hallOfFameBtn');
+        if (hallOfFameBtn) {
+            console.log('✅ Přidávám event listener pro Hall of Fame');
+            hallOfFameBtn.addEventListener('click', () => {
+                console.log('🏆 Hall of Fame button clicked!');
+                displayHallOfFame();
+            });
         }
         
-        // Return to menu button
-        const returnMenuBtn = document.getElementById('returnMenuBtn');
-        if (returnMenuBtn) {
+        // Close Hall of Fame button
+        const closeHallOfFameBtn = document.getElementById('closeHallOfFameBtn');
+        if (closeHallOfFameBtn) {
+            console.log('✅ Přidávám event listener pro Close Hall of Fame');
+            closeHallOfFameBtn.addEventListener('click', () => {
+                const modal = document.getElementById('hallOfFameModal');
+                if (modal) modal.classList.add('hidden');
+            });
+        }
+        
+        // Show Hall of Fame from game over modal
+        const showHallOfFameBtn = document.getElementById('showHallOfFameBtn');
+        if (showHallOfFameBtn) {
+            console.log('✅ Přidávám event listener pro Show Hall of Fame');
+            showHallOfFameBtn.addEventListener('click', () => {
+                displayHallOfFame();
+            });
+        }
+        
+        // Start new game button
+        const startNewGameBtn = document.getElementById('startNewGameBtn');
+        if (startNewGameBtn) {
+            console.log('✅ Přidávám event listener pro Start New Game');
+            startNewGameBtn.addEventListener('click', startNewGame);
+        }
+        
+        // Return to menu button  
+        const returnToMenuBtn = document.getElementById('returnToMenuBtn');
+        if (returnToMenuBtn) {
             console.log('✅ Přidávám event listener pro Return to Menu');
-            returnMenuBtn.addEventListener('click', returnToMainMenu);
+            returnToMenuBtn.addEventListener('click', returnToMainMenu);
         }
 
         // Custom event listener pro výběr kostek z gameUI
@@ -89,6 +129,19 @@ export function setupEventListeners() {
             selectDie(index);
         });
 
+        // Chat toggle button
+        const chatToggle = document.getElementById('chatToggle');
+        if (chatToggle) {
+            console.log('✅ Přidávám event listener pro Chat Toggle');
+            chatToggle.addEventListener('click', () => {
+                const chatPanel = document.getElementById('chatPanel');
+                if (chatPanel) {
+                    chatPanel.classList.toggle('collapsed');
+                    chatToggle.textContent = chatPanel.classList.contains('collapsed') ? '+' : '−';
+                }
+            });
+        }
+        
         // Target score input change
         const targetScoreInput = document.getElementById('targetScoreInput');
         if (targetScoreInput) {
@@ -119,7 +172,7 @@ function setupModalEventListeners() {
     if (gameOverModal) {
         gameOverModal.addEventListener('click', (e) => {
             if (e.target === gameOverModal) {
-                gameOverModal.style.display = 'none';
+                gameOverModal.classList.add('hidden');
             }
         });
     }
@@ -129,7 +182,7 @@ function setupModalEventListeners() {
     if (hallOfFameModal) {
         hallOfFameModal.addEventListener('click', (e) => {
             if (e.target === hallOfFameModal) {
-                hallOfFameModal.style.display = 'none';
+                hallOfFameModal.classList.add('hidden');
             }
         });
     }
@@ -159,7 +212,7 @@ function setupKeyboardShortcuts() {
                     e.preventDefault();
                     // Zavřít modály
                     document.querySelectorAll('.modal').forEach(modal => {
-                        modal.style.display = 'none';
+                        modal.classList.add('hidden');
                     });
                     break;
             }
