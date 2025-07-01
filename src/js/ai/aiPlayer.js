@@ -6,7 +6,7 @@
 import { gameState, getCurrentPlayer } from '../game/gameState.js';
 import { rollDice, calculateScore, findBestScoringCombination } from '../game/diceLogic.js';
 import { updateGameDisplay } from '../ui/gameUI.js';
-import { addChatMessage } from '../ui/enhancedChatController.js';
+// Use global addChatMessage instead of direct import
 import { generateAIGameReaction, enhancedAI } from './enhancedAIController.js';
 import { endTurn } from '../game/gameController.js';
 
@@ -43,7 +43,7 @@ function playAIRoll() {
     const diceValues = gameState.dice.map(d => d.value);
     const rollScore = calculateScore(diceValues);
     
-    addChatMessage('system', `${aiPlayer.name} hodil: ${diceValues.join(', ')} - Možné body z hodu: ${rollScore}`);
+    window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} hodil: ${diceValues.join(', ')} - Možné body z hodu: ${rollScore}`);
     
     if (rollScore === 0) {
         // Farkle - žádné bodující kostky
@@ -53,8 +53,8 @@ function playAIRoll() {
         gameState.dice.forEach(die => die.farkle = true);
         
         const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
-        if (reaction) addChatMessage(aiPlayer.type, reaction);
-        addChatMessage('system', `❌ ${aiPlayer.name} neměl žádné bodující kostky! FARKLE! Tah končí s 0 body.`);
+        if (reaction && window.addChatMessage) window.addChatMessage(aiPlayer.type, reaction);
+        window.addChatMessage && window.addChatMessage('system', `❌ ${aiPlayer.name} neměl žádné bodující kostky! FARKLE! Tah končí s 0 body.`);
         
         setTimeout(() => {
             console.log(`🔄 AI ${aiPlayer.name}: Automaticky ukončuji tah po farkle...`);
@@ -83,18 +83,18 @@ function playAIRoll() {
         // Update dice state
         gameState.dice = remainingDice.map(value => ({ value, selected: false }));
         
-        addChatMessage('system', `${aiPlayer.name} odložil: ${bestCombination.dice.join(', ')} za ${bestCombination.score} bodů. Aktuální skóre tahu: ${gameState.currentTurnScore}.`);
+        window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} odložil: ${bestCombination.dice.join(', ')} za ${bestCombination.score} bodů. Aktuální skóre tahu: ${gameState.currentTurnScore}.`);
         
         // HOT DICE: Check if all dice are banked
         if (gameState.bankedDice.length === 6) {
             gameState.bankedDice = [];
             gameState.rollsLeft = Math.max(gameState.rollsLeft, 1);
-            addChatMessage('system', `🔥 ${aiPlayer.name} odložil všechny kostky! HOT DICE! Pokračuje s novými kostkami.`);
+            window.addChatMessage && window.addChatMessage('system', `🔥 ${aiPlayer.name} odložil všechny kostky! HOT DICE! Pokračuje s novými kostkami.`);
             
             // AI reakce na hot dice
             const hotDiceReaction = enhancedAI.generateAIResponse(aiPlayer.type, 'hotdice');
             if (hotDiceReaction) {
-                setTimeout(() => addChatMessage(aiPlayer.type, hotDiceReaction), 500);
+                setTimeout(() => window.addChatMessage && window.addChatMessage(aiPlayer.type, hotDiceReaction), 500);
             }
             
             setTimeout(() => {
@@ -116,7 +116,7 @@ function playAIRoll() {
         } else if (gameState.bankedDice.length === 6 && gameState.rollsLeft > 0) {
             // All dice banked, continue with fresh dice
             gameState.bankedDice = [];
-            addChatMessage('system', `${aiPlayer.name} odložil všechny kostky a pokračuje s novými.`);
+            window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} odložil všechny kostky a pokračuje s novými.`);
             setTimeout(() => {
                 updateGameDisplay();
                 playAIRoll();
@@ -132,15 +132,15 @@ function playAIRoll() {
                 reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'scoredPoints', { score });
             }
             
-            if (reaction) addChatMessage(aiPlayer.type, reaction);
+            if (reaction && window.addChatMessage) window.addChatMessage(aiPlayer.type, reaction);
             
             setTimeout(() => endTurn(true), 2000);
         }
     } else {
         // This shouldn't happen if rollScore > 0, but just in case
         const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
-        if (reaction) addChatMessage(aiPlayer.type, reaction);
-        addChatMessage('system', `${aiPlayer.name} neměl žádné bodující kostky! Tah končí.`);
+        if (reaction && window.addChatMessage) window.addChatMessage(aiPlayer.type, reaction);
+        window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} neměl žádné bodující kostky! Tah končí.`);
         
         setTimeout(() => endTurn(false), 2000);
     }
