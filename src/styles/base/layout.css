@@ -5,11 +5,11 @@
  */
 
 /* Import all layout modules */
-@import 'utilities.css';
-@import 'containers.css';
-@import 'gameSetup.css';
-@import 'modals.css';
-@import 'messages.css';
+@import '../layout/utilities.css';
+@import '../layout/containers.css';
+@import '../layout/gameSetup.css';
+@import '../layout/modals.css';
+@import '../layout/messages.css';
 
 /**
  * Layout Module Structure:

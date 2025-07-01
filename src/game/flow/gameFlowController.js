@@ -3,7 +3,7 @@
  * Manages high-level game flow: start, end, initialization
  */
 
-import { gameState, resetGameState } from '../gameState.js';
+import { gameState, resetGameState } from '../../js/game/gameState.js';
 import { updateGameDisplay, updateScoreboard } from '../../ui/gameUI.js';
 import { enhancedAI } from '../../ai/enhancedAIController.js';
 import { saveGameResult, displayHallOfFame, createGameResult } from '../../utils/hallOfFame.js';
