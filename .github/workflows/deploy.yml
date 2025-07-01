@@ -48,7 +48,11 @@ jobs:
         test -d src && echo "✅ src directory exists"
         test -d public && echo "✅ public directory exists"
         test -f package.json && echo "✅ package.json exists"
-        test -f src/styles/master.css && echo "✅ Master CSS exists"
+        test -f src/styles/modular.css && echo "✅ Modular CSS exists"
+        test -d src/styles/modules && echo "✅ CSS modules directory exists"
+        test -d src/styles/components && echo "✅ CSS components directory exists"
+        test -d src/styles/animations && echo "✅ CSS animations directory exists"
+        test -d src/styles/icons && echo "✅ CSS icons directory exists"
         echo "🎮 Project structure is valid!"
         
     - name: � Setup Pages
@@ -75,7 +79,7 @@ jobs:
         echo "🎲 Testing AI Dice Challenge..."
         echo "✅ Checking critical files..."
         test -f index.html && echo "✅ index.html exists"
-        test -f src/styles/master.css && echo "✅ Master CSS exists"
+        test -f src/styles/modular.css && echo "✅ Modular CSS exists"
         test -d public/ai-icons && echo "✅ AI icons exist"
         
         echo "🔍 Checking HTML structure..."
