@@ -14,6 +14,17 @@ export class ChatController {
     setupChatFunctionality() {
         const sendBtn = document.getElementById('sendMessageBtn');
         const chatInput = document.getElementById('chatInput');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatPanel = document.getElementById('chatPanel');
+        
+        // Chat toggle functionality
+        if (chatToggle && chatPanel) {
+            chatToggle.addEventListener('click', () => {
+                const isCollapsed = chatPanel.classList.toggle('collapsed');
+                chatToggle.textContent = isCollapsed ? '+' : '−';
+                chatToggle.title = isCollapsed ? 'Rozbalit chat' : 'Sbalit chat';
+            });
+        }
         
         if (sendBtn && chatInput) {
             sendBtn.addEventListener('click', () => {
