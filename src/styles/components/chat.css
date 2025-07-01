@@ -14,7 +14,7 @@
 }
 
 /* Pro desktop - chat se roztahuje s herní oblastí */
-@media (min-width: 901px) {
+@media (min-width: 701px) {
     .chat-panel {
         min-height: 500px;
     }
@@ -65,8 +65,8 @@
     transform: scale(1.1);
 }
 
-/* Menší tooltipka na malých displejích */
-@media (max-width: 480px) {
+/* Menší tooltipka na středních a malých displejích */
+@media (max-width: 850px) {
     .chat-toggle {
         width: 18px;
         height: 18px;
@@ -76,13 +76,23 @@
     }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
     .chat-toggle {
         width: 16px;
         height: 16px;
         font-size: 11px;
         top: 5px;
         right: 5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .chat-toggle {
+        width: 14px;
+        height: 14px;
+        font-size: 10px;
+        top: 4px;
+        right: 4px;
     }
 }
 
@@ -240,11 +250,15 @@
     }
 }
 
-/* Mobilní optimalizace - chat vedle kde je možné */
-@media (max-width: 1200px) and (min-width: 901px) {
+/* Mobilní optimalizace - postupné zmenšování */
+@media (max-width: 1200px) and (min-width: 851px) {
     .chat-panel {
-        height: 100%; /* Stejná výška jako game-area */
+        height: 100%;
         padding: 12px;
+    }
+    
+    .chat-header h2 {
+        font-size: 15px;
     }
     
     .chat-messages {
@@ -253,9 +267,45 @@
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 850px) and (min-width: 701px) {
     .chat-panel {
-        height: 400px; /* Pevná výška na malých zařízeních */
+        height: 100%;
+        padding: 10px;
+    }
+    
+    .chat-header h2 {
+        font-size: 14px;
+    }
+    
+    .chat-messages {
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+    
+    .chat-message {
+        font-size: 11px;
+        padding: 3px 6px;
+        margin-bottom: 3px;
+    }
+    
+    .chat-input {
+        height: 32px;
+    }
+    
+    .chat-input input {
+        font-size: 11px;
+        padding: 5px 35px 5px 10px;
+    }
+    
+    .chat-send-btn {
+        width: 26px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 700px) {
+    .chat-panel {
+        height: 400px; /* Pevná výška když je chat pod obsahem */
         padding: 12px;
         margin-bottom: 0;
     }
@@ -383,5 +433,49 @@
     .chat-send-btn {
         width: 24px;
         font-size: 10px;
+    }
+}
+
+/* Chat přesun dolů pod herní oblast */
+@media (max-width: 650px) {
+    .chat-panel {
+        width: 100%; /* Plná šířka když je dolů */
+        height: 300px; /* Trochu vyšší pro lepší použitelnost */
+        padding: 12px;
+        margin-top: 0; /* Žádný top margin */
+    }
+    
+    .chat-header h2 {
+        font-size: 16px; /* Větší nadpis když je chat široký */
+    }
+    
+    .chat-messages {
+        margin-bottom: 8px;
+        padding: 8px;
+    }
+    
+    .chat-message {
+        font-size: 13px; /* Trochu větší text */
+        padding: 6px 10px;
+        margin-bottom: 4px;
+    }
+    
+    .chat-input {
+        height: 40px; /* Vyšší input */
+    }
+    
+    .chat-input input {
+        font-size: 14px;
+        padding: 8px 45px 8px 15px;
+    }
+    
+    .chat-send-btn {
+        width: 32px;
+        font-size: 14px;
+    }
+    
+    /* Sbalený stav pro mobilní layout */
+    .chat-panel.collapsed {
+        height: 45px !important;
     }
 }
