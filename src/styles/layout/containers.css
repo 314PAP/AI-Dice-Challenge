@@ -157,3 +157,21 @@
         margin-bottom: 8px;
     }
 }
+
+/* !!! DEBUG TEST - VERY SPECIFIC RULE !!! */
+.container.debug-test-container {
+    background: red !important;
+    border: 5px solid yellow !important;
+}
+
+/* DEBUG: Container with high specificity */
+html body .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 350px !important; /* Desktop - plná šířka chatu */
+    gap: 30px;
+    min-height: 100vh;
+    align-items: start !important; /* Zarovnání na začátek místo stretch */
+}
