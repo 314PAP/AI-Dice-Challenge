@@ -1,0 +1,161 @@
+/**
+ * LAYOUT OVERRIDE - Force our responsive layout
+ * Tento soubor má vyšší specificity a přepíše všechny konflikty
+ */
+
+/* Vyšší specificity pro container */
+html body .container,
+body .container,
+.container {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 350px !important;
+    gap: 30px !important;
+    min-height: 100vh !important;
+    align-items: start !important;
+}
+
+/* Vyšší specificity pro game-area */
+html body .game-area,
+body .game-area,
+.container .game-area {
+    background: var(--black-bg) !important;
+    border: 2px solid var(--neon-green) !important;
+    border-radius: 10px !important;
+    padding: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    height: fit-content !important;
+}
+
+/* Vyšší specificity pro chat-panel */
+html body .chat-panel,
+body .chat-panel,
+.container .chat-panel {
+    background: var(--black-bg) !important;
+    border: 2px solid var(--neon-green) !important;
+    border-radius: 10px !important;
+    padding: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: fit-content !important;
+    min-height: 400px !important;
+    align-self: start !important;
+}
+
+/* Kompaktnější nadpis */
+.game-title {
+    text-align: center !important;
+    font-size: 3rem !important;
+    font-weight: 900 !important;
+    margin-bottom: 20px !important;
+    color: var(--neon-green) !important;
+    letter-spacing: 2px !important;
+    line-height: 1.1 !important;
+}
+
+/* Responzivní pravidla s !important */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr 300px !important;
+        gap: 20px !important;
+        padding: 15px !important;
+    }
+    
+    .game-area, .chat-panel {
+        padding: 20px !important;
+    }
+    
+    .game-title {
+        font-size: 2.2rem !important;
+        margin-bottom: 15px !important;
+        letter-spacing: 1px !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container {
+        grid-template-columns: 1fr 280px !important;
+        gap: 15px !important;
+        padding: 12px !important;
+    }
+    
+    .game-area, .chat-panel {
+        padding: 18px !important;
+    }
+    
+    .game-title {
+        font-size: 1.9rem !important;
+        margin-bottom: 12px !important;
+        letter-spacing: 0.5px !important;
+    }
+}
+
+@media (max-width: 850px) {
+    .container {
+        grid-template-columns: 1fr 250px !important;
+        gap: 12px !important;
+        padding: 10px !important;
+    }
+    
+    .game-area, .chat-panel {
+        padding: 15px !important;
+    }
+    
+    .game-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 10px !important;
+        letter-spacing: 0px !important;
+    }
+}
+
+@media (max-width: 650px) {
+    .container {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        padding: 10px !important;
+    }
+    
+    .chat-panel {
+        width: 100% !important;
+        height: 300px !important;
+        padding: 12px !important;
+    }
+    
+    .game-title {
+        font-size: 1.8rem !important;
+        margin-bottom: 15px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 8px !important;
+        gap: 10px !important;
+    }
+    
+    .game-area {
+        padding: 12px !important;
+    }
+    
+    .game-title {
+        font-size: 1.4rem !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .container {
+        padding: 5px !important;
+        gap: 8px !important;
+    }
+    
+    .game-title {
+        font-size: 1.2rem !important;
+        margin-bottom: 8px !important;
+    }
+}
