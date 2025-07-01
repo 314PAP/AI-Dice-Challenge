@@ -1,0 +1,63 @@
+/* =============================================================================
+   🎮 GAME LAYOUT - Layout komponent hry
+   ============================================================================= */
+
+.game-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-lg);
+}
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-lg);
+}
+
+.roll-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-lg);
+}
+
+.turn-info {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--neon-orange);
+  border-radius: var(--radius-lg);
+  color: var(--neon-orange);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: var(--font-lg);
+}
+
+.current-turn-score {
+  text-align: center;
+  padding: var(--spacing-sm);
+  color: var(--neon-green);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: var(--font-xl);
+}
+
+.target-info {
+  text-align: center;
+  padding: var(--spacing-sm);
+  color: var(--neon-blue);
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+}
