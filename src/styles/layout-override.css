@@ -1,61 +1,75 @@
 /**
- * LAYOUT OVERRIDE - Force our responsive layout
- * Tento soubor má vyšší specificity a přepíše všechny konflikty
+ * LAYOUT OVERRIDE - MAXIMÁLNÍ SPECIFICITY
+ * Tento soubor MUSÍ přepsat všechny ostatní CSS konflikty
  */
 
-/* DESKTOP - Optimální poměr, chat zarovnaný */
-html body .container,
-body .container,
+/* NEJVYŠŠÍ SPECIFICITY pro container */
+html body div.container,
+body div.container,
+div.container,
 .container {
     max-width: 1400px !important;
     margin: 0 auto !important;
-    padding: 15px !important; /* Menší padding */
+    padding: 15px !important;
     display: grid !important;
-    grid-template-columns: 1fr 280px !important; /* MENŠÍ chat, více pro hru */
-    gap: 15px !important; /* Menší gap */
+    grid-template-columns: 1fr 280px !important;
+    gap: 15px !important;
     min-height: 100vh !important;
-    align-items: stretch !important; /* Chat se roztáhne na výšku game-area */
+    align-items: stretch !important;
+    /* Debug border pro ověření */
+    box-shadow: inset 0 0 0 2px rgba(255, 0, 0, 0.5) !important;
 }
 
-/* Game-area optimalizovaná */
-html body .game-area,
-body .game-area,
-.container .game-area {
+/* NEJVYŠŠÍ SPECIFICITY pro game-area */
+html body div.game-area,
+body div.game-area,
+div.container div.game-area,
+.container .game-area,
+.game-area {
     background: var(--black-bg) !important;
     border: 2px solid var(--neon-green) !important;
     border-radius: 10px !important;
-    padding: 20px !important; /* Menší padding */
+    padding: 20px !important;
     display: flex !important;
     flex-direction: column !important;
     min-width: 0 !important;
     overflow: hidden !important;
     height: fit-content !important;
+    /* Debug border pro ověření */
+    box-shadow: inset 0 0 0 1px rgba(0, 255, 0, 0.3) !important;
 }
 
-/* Chat-panel - STEJNÁ VÝŠKA a padding jako game-area */
-html body .chat-panel,
-body .chat-panel,
-.container .chat-panel {
+/* NEJVYŠŠÍ SPECIFICITY pro chat-panel */
+html body div.chat-panel,
+body div.chat-panel,
+div.container div.chat-panel,
+.container .chat-panel,
+.chat-panel {
     background: var(--black-bg) !important;
     border: 2px solid var(--neon-green) !important;
     border-radius: 10px !important;
-    padding: 20px !important; /* STEJNÝ padding jako game-area */
+    padding: 20px !important;
     display: flex !important;
     flex-direction: column !important;
-    height: 100% !important; /* Vyplní celou dostupnou výšku */
-    min-height: auto !important; /* Bez min-height */
-    align-self: stretch !important; /* Roztáhne se na výšku */
+    height: 100% !important;
+    min-height: auto !important;
+    align-self: stretch !important;
+    /* Debug border pro ověření */
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 255, 0.3) !important;
 }
 
-/* Kompaktní nadpis - desktop */
+/* NEJVYŠŠÍ SPECIFICITY pro game-title */
+html body .game-title,
+body .game-title,
+.game-area .game-title,
 .game-title {
     text-align: center !important;
-    font-size: 2.2rem !important; /* Menší pro úsporu místa */
+    font-size: 2.2rem !important;
     font-weight: 900 !important;
-    margin-bottom: 12px !important; /* Menší mezera */
+    margin-bottom: 12px !important;
     color: var(--neon-green) !important;
     letter-spacing: 0.5px !important;
-    line-height: 1.0 !important; /* Těsné řádkování */
+    line-height: 1.0 !important;
 }
 .game-title {
     text-align: center !important;
@@ -280,4 +294,29 @@ body .chat-panel,
         width: 35px !important;
         height: 35px !important;
     }
+}
+
+/* EXTRÉMNÍ OVERRIDE - Pokud ani toto nepomůže, pak je CSS cache problém */
+html body div.container#container,
+html body div.container.container,
+body div.container.container.container {
+    display: grid !important;
+    grid-template-columns: 1fr 280px !important;
+    align-items: stretch !important;
+    background: rgba(255, 0, 0, 0.1) !important; /* Debug červené pozadí */
+}
+
+html body div.game-area#game-area,
+html body div.game-area.game-area,
+body div.game-area.game-area.game-area {
+    height: fit-content !important;
+    background: rgba(0, 255, 0, 0.1) !important; /* Debug zelené pozadí */
+}
+
+html body div.chat-panel#chat-panel,
+html body div.chat-panel.chat-panel,
+body div.chat-panel.chat-panel.chat-panel {
+    height: 100% !important;
+    align-self: stretch !important;
+    background: rgba(0, 0, 255, 0.1) !important; /* Debug modré pozadí */
 }
