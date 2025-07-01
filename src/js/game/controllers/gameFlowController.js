@@ -8,6 +8,7 @@ import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../u
 import { enhancedAI } from '../../ai/enhancedAIController.js';
 import { playAITurn } from '../../ai/aiPlayer.js';
 import { saveGameResult, displayHallOfFame, createGameResult } from '../../utils/hallOfFame.js';
+import { resetEventListeners } from './eventSetupController.js';
 
 /**
  * Inicializuje herní logiku
@@ -286,6 +287,7 @@ export function startNewGame() {
  */
 export function resetGame() {
     resetGameState();
+    resetEventListeners(); // Resetuj flag pro event listenery
     
     // Odstraň game-active třídu pro zobrazení avatarů
     document.body.classList.remove('game-active');

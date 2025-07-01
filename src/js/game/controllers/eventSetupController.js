@@ -7,6 +7,9 @@ import { startGame, resetGame, saveScore, startNewGame, returnToMainMenu, endTur
 import { rollDiceForPlayer, selectDie, bankSelectedDice } from './turnActionsController.js';
 import { displayHallOfFame } from '../../utils/hallOfFame.js';
 
+// Globální flag pro zabezpečení proti opakovanému nastavování event listenerů
+let eventListenersSetup = false;
+
 /**
  * Quit game function - return to main menu
  */
@@ -21,6 +24,11 @@ function quitGame() {
  * Nastavuje event listenery pro herní prvky
  */
 export function setupEventListeners() {
+    if (eventListenersSetup) {
+        console.log('⚠️ Event listenery už jsou nastavené, přeskakuji...');
+        return;
+    }
+    
     console.log('🎮 Nastavuji event listenery...');
     
     // Počkej na úplné načtení DOM
@@ -62,10 +70,7 @@ export function setupEventListeners() {
         const endTurnBtn = document.getElementById('endTurnBtn');
         if (endTurnBtn) {
             console.log('✅ Přidávám event listener pro End Turn');
-            // Odstraň existující event listenery
-            endTurnBtn.replaceWith(endTurnBtn.cloneNode(true));
-            const newEndTurnBtn = document.getElementById('endTurnBtn');
-            newEndTurnBtn.addEventListener('click', () => endTurn(true));
+            endTurnBtn.addEventListener('click', () => endTurn(true));
         }
         
         // Quit game button
@@ -163,6 +168,7 @@ export function setupEventListeners() {
         setupKeyboardShortcuts();
 
         console.log('✅ Event listenery nastaveny');
+        eventListenersSetup = true; // Označit, že jsou event listenery nastavené
     }, 100);
 }
 
@@ -221,4 +227,12 @@ function setupKeyboardShortcuts() {
             }
         }
     });
+}
+
+/**
+ * Resetuje flag pro event listenery (používá se při restartu hry)
+ */
+export function resetEventListeners() {
+    console.log('🔄 Resetuji flag pro event listenery');
+    eventListenersSetup = false;
 }
