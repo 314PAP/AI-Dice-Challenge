@@ -1,0 +1,91 @@
+/**
+ * Container and Grid Layout
+ * Hlavní kontejnery a grid systém
+ */
+
+/* Hlavní kontejner */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    min-height: 100vh;
+}
+
+/* Herní oblast */
+.game-area {
+    background: var(--black-bg);
+    border: 2px solid var(--neon-green);
+    border-radius: 10px;
+    padding: 30px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Chat panel */
+.chat-panel {
+    background: var(--black-bg);
+    border: 2px solid var(--neon-blue);
+    border-radius: 10px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Hlavní nadpis */
+.game-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 30px;
+    color: var(--neon-green);
+    letter-spacing: 2px;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Responsivní layout */
+@media (max-width: 1200px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .chat-panel {
+        order: 1;
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .game-area {
+        padding: 20px;
+    }
+    
+    .chat-panel {
+        padding: 20px;
+    }
+    
+    .game-title {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .game-title {
+        font-size: 1.5rem;
+    }
+}
