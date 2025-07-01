@@ -1,0 +1,157 @@
+/**
+ * Responsive Test Page
+ * Test responsivního chování chatu
+ */
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Responsive Test - AI Kostková Výzva</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .responsive-tester {
+            background: #000;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .size-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .size-btn {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        .size-btn:hover {
+            background: #00ffff;
+        }
+        .iframe-container {
+            border: 2px solid #333;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        #testFrame {
+            width: 100%;
+            height: 800px;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .current-size {
+            text-align: center;
+            margin: 10px 0;
+            color: #00ffff;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 style="text-align: center; color: #00ffff;">📱 Responsive Chat Test</h1>
+        
+        <div class="responsive-tester">
+            <h3>🔧 Test Different Screen Sizes</h3>
+            
+            <div class="size-buttons">
+                <button class="size-btn" onclick="setSize(1400, 900)">🖥️ Desktop (1400px)</button>
+                <button class="size-btn" onclick="setSize(1200, 800)">💻 Laptop (1200px)</button>
+                <button class="size-btn" onclick="setSize(768, 600)">📱 Tablet (768px)</button>
+                <button class="size-btn" onclick="setSize(480, 600)">📱 Mobile (480px)</button>
+                <button class="size-btn" onclick="setSize(360, 600)">📱 Small (360px)</button>
+                <button class="size-btn" onclick="setSize(320, 600)">📱 Tiny (320px)</button>
+            </div>
+            
+            <div class="current-size" id="currentSize">
+                Current size: 100% x 800px
+            </div>
+            
+            <div class="iframe-container" id="frameContainer">
+                <iframe id="testFrame" src="./"></iframe>
+            </div>
+        </div>
+        
+        <div class="responsive-tester">
+            <h3>📋 Test Checklist</h3>
+            <ul style="line-height: 1.8;">
+                <li>✅ Chat je zarovnaný s herní oblastí na desktopu</li>
+                <li>✅ Chat se správně přizpůsobuje mobilním zařízením</li>
+                <li>✅ Žádné zbytečné mezery pod chat inputem</li>
+                <li>✅ Tooltipka funguje na všech velikostech</li>
+                <li>✅ Tlačítko odeslat je dobře viditelné</li>
+                <li>✅ Scroll funguje v chat zprávách</li>
+                <li>✅ Sbalování/rozbalování funguje smooth</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const testFrame = document.getElementById('testFrame');
+        const frameContainer = document.getElementById('frameContainer');
+        const currentSize = document.getElementById('currentSize');
+
+        function setSize(width, height) {
+            frameContainer.style.width = width + 'px';
+            frameContainer.style.margin = '0 auto';
+            testFrame.style.height = height + 'px';
+            currentSize.textContent = `Current size: ${width}px x ${height}px`;
+            
+            // Add visual feedback
+            frameContainer.style.boxShadow = '0 0 20px #00ff00';
+            setTimeout(() => {
+                frameContainer.style.boxShadow = '0 0 5px #333';
+            }, 1000);
+        }
+
+        // Auto-test different sizes
+        function autoTest() {
+            const sizes = [
+                [1400, 900],
+                [1200, 800], 
+                [768, 600],
+                [480, 600],
+                [360, 600],
+                [320, 600]
+            ];
+            
+            let index = 0;
+            const interval = setInterval(() => {
+                if (index < sizes.length) {
+                    setSize(sizes[index][0], sizes[index][1]);
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    setSize(1400, 900); // Reset to desktop
+                }
+            }, 3000);
+        }
+
+        // Add auto-test button
+        const autoBtn = document.createElement('button');
+        autoBtn.className = 'size-btn';
+        autoBtn.textContent = '🔄 Auto Test';
+        autoBtn.onclick = autoTest;
+        document.querySelector('.size-buttons').appendChild(autoBtn);
+    </script>
+</body>
+</html>

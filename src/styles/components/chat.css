@@ -1,4 +1,4 @@
-/* Chat komponenty - Kompaktní mobilní verze */
+/* Chat komponenty - Kompaktní mobilní verze s lepším responsivním layoutem */
 
 .chat-panel {
     background: var(--black-bg);
@@ -8,8 +8,18 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-    height: 450px; /* Pevná výška pro mobilní */
+    height: 500px; /* Výška odpovídající game-area */
     position: relative;
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Pro desktop - chat se roztahuje s herní oblastí */
+@media (min-width: 1201px) {
+    .chat-panel {
+        height: auto;
+        min-height: 500px;
+        max-height: 80vh; /* Maximální výška na velkých obrazovkách */
+    }
 }
 
 /* Chat header - kompaktní */
@@ -29,7 +39,7 @@
     text-shadow: 0 0 10px var(--neon-green);
 }
 
-/* Tooltipka - minimální rušení */
+/* Tooltipka - responsivní velikost */
 .chat-toggle {
     position: absolute;
     top: 8px;
@@ -57,16 +67,36 @@
     transform: scale(1.1);
 }
 
+/* Menší tooltipka na malých displejích */
+@media (max-width: 480px) {
+    .chat-toggle {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+        top: 6px;
+        right: 6px;
+    }
+}
+
+@media (max-width: 360px) {
+    .chat-toggle {
+        width: 16px;
+        height: 16px;
+        font-size: 11px;
+        top: 5px;
+        right: 5px;
+    }
+}
+
 /* Kompaktní zprávy */
 .chat-messages {
     flex: 1;
     overflow-y: auto;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Menší margin pro úsporu místa */
     padding: 8px;
     background: var(--black-bg);
     scrollbar-width: thin;
     scrollbar-color: var(--neon-green) transparent;
-    max-height: 300px; /* Omezená výška */
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -189,7 +219,7 @@
 }
 
 .chat-panel.collapsed {
-    height: 50px;
+    height: 40px !important; /* Menší sbalená výška */
     overflow: hidden;
 }
 
@@ -205,26 +235,61 @@
     opacity: 1;
 }
 
-/* Mobilní optimalizace - ještě kompaktnější */
+/* Pro velmi malé displeje - ještě menší sbalený stav */
+@media (max-width: 480px) {
+    .chat-panel.collapsed {
+        height: 35px !important;
+    }
+}
+
+/* Mobilní optimalizace - ultra kompaktní */
+@media (max-width: 1200px) {
+    .chat-panel {
+        height: 400px;
+        padding: 12px;
+        margin-bottom: 0; /* Žádné extra mezery */
+    }
+    
+    .chat-messages {
+        margin-bottom: 6px;
+        padding: 6px;
+    }
+    
+    .chat-input {
+        margin-bottom: 0; /* Žádné extra mezery pod inputem */
+    }
+}
+
 @media (max-width: 768px) {
     .chat-panel {
         height: 350px;
         padding: 10px;
+        margin-bottom: 0;
+    }
+    
+    .chat-header {
+        margin-bottom: 6px;
+        padding-bottom: 4px;
+    }
+    
+    .chat-header h2 {
+        font-size: 14px;
     }
     
     .chat-messages {
-        max-height: 200px;
+        margin-bottom: 5px;
         padding: 5px;
     }
     
     .chat-message {
         font-size: 11px;
         padding: 4px 8px;
-        margin-bottom: 6px;
+        margin-bottom: 4px;
     }
     
     .message-header {
         font-size: 10px;
+        margin-bottom: 2px;
     }
     
     .message-content {
@@ -233,6 +298,7 @@
     
     .chat-input {
         height: 35px;
+        margin-bottom: 0;
     }
     
     .chat-input input {
@@ -246,26 +312,66 @@
     }
 }
 
-/* Extra malé displeje */
+/* Extra malé displeje - maximální úspora místa */
 @media (max-width: 480px) {
     .chat-panel {
-        height: 300px;
+        height: 280px; /* Ještě menší pro malé displeje */
         padding: 8px;
+        margin-bottom: 0;
+    }
+    
+    .chat-header {
+        margin-bottom: 4px;
+        padding-bottom: 2px;
     }
     
     .chat-header h2 {
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .chat-messages {
-        max-height: 150px;
+        margin-bottom: 4px;
+        padding: 4px;
+    }
+    
+    .chat-message {
+        font-size: 10px;
+        padding: 3px 6px;
+        margin-bottom: 3px;
     }
     
     .chat-input {
         height: 32px;
+        margin-bottom: 0;
+    }
+    
+    .chat-input input {
+        font-size: 11px;
+        padding: 5px 35px 5px 10px;
     }
     
     .chat-send-btn {
         width: 26px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 360px) {
+    .chat-panel {
+        height: 250px; /* Minimální výška pro velmi malé displeje */
+        padding: 6px;
+    }
+    
+    .chat-header h2 {
+        font-size: 12px;
+    }
+    
+    .chat-input {
+        height: 30px;
+    }
+    
+    .chat-send-btn {
+        width: 24px;
+        font-size: 10px;
     }
 }
