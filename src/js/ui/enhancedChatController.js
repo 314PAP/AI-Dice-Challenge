@@ -11,6 +11,9 @@ export class EnhancedChatController {
         this.chatMessages = document.getElementById('chatMessages');
         this.chatInput = document.getElementById('chatInput');
         this.sendBtn = document.getElementById('sendMessageBtn');
+        this.chatPanel = document.getElementById('chatPanel');
+        this.chatToggle = document.getElementById('chatToggle');
+        this.isCollapsed = false;
     }
     
     initialize() {
@@ -31,6 +34,26 @@ export class EnhancedChatController {
                 }
             });
         }
+        
+        if (this.chatToggle) {
+            this.chatToggle.addEventListener('click', () => this.toggleChat());
+        }
+    }
+    
+    toggleChat() {
+        this.isCollapsed = !this.isCollapsed;
+        
+        if (this.chatPanel) {
+            if (this.isCollapsed) {
+                this.chatPanel.classList.add('collapsed');
+                this.chatToggle.textContent = '+';
+                this.chatToggle.title = 'Rozbalit chat';
+            } else {
+                this.chatPanel.classList.remove('collapsed');
+                this.chatToggle.textContent = '−';
+                this.chatToggle.title = 'Sbalit chat';
+            }
+        }
     }
     
     sendMessage() {
@@ -38,14 +61,35 @@ export class EnhancedChatController {
         if (message) {
             this.addMessage('human', message);
             this.chatInput.value = '';
+            
+            // Simulace AI odpovědi po chvilce
+            setTimeout(() => {
+                this.generateAIResponse(message);
+            }, 1000 + Math.random() * 2000);
         }
+    }
+    
+    generateAIResponse(userMessage) {
+        const aiTypes = ['gemini', 'chatgpt', 'claude'];
+        const randomAI = aiTypes[Math.floor(Math.random() * aiTypes.length)];
+        
+        const responses = {
+            gemini: ['Analýza dokončena! 🔍', 'Zajímavé pozorování...', 'Data potvrzují trend.', 'Probabilisticky výhodné!'],
+            chatgpt: ['Super zpráva! 😄', 'To je zajímavé! 🤔', 'Skvělý nápad! 💡', 'Hmm, zkusme to! 🎯'],
+            claude: ['Moudrá úvaha...', 'Přemýšlím o tom.', 'Strategicky zajímavé.', 'Uvážlivě řečeno.']
+        };
+        
+        const aiResponses = responses[randomAI];
+        const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+        
+        this.addMessage(randomAI, randomResponse);
     }
     
     addMessage(sender, message) {
         if (!this.chatMessages) return;
         
         const messageElement = document.createElement('div');
-        messageElement.className = `message message-${sender}`;
+        messageElement.className = `chat-message ${sender}`;
         messageElement.innerHTML = `
             <div class="message-content">
                 <strong>${this.getSenderName(sender)}:</strong> ${message}
