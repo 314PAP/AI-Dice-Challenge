@@ -77,10 +77,6 @@
 
 .chat-message.claude {
   border-left-color: var(--chat-claude);
-  color: var(--chat-claude);
-  text-shadow: 
-    0 0 3px var(--chat-claude),
-    0 0 6px var(--chat-claude);
 }
 
 /* ANIMACE ZPRÁV - jemné */
