@@ -1,0 +1,384 @@
+/* =============================================================================
+   MODULAR CSS SYSTEM - AI Kostková Výzva
+   Moderní modulární CSS systém s PostCSS a neonové téma
+   ============================================================================= */
+
+/* IMPORT ZÁKLADNÍCH MODULŮ */
+@import './modules/variables.css';
+@import './modules/reset.css';
+
+/* IMPORT KOMPONENT */
+@import './components/chat-module.css';
+@import './components/button-module.css';
+
+/* IMPORT ANIMACÍ A EFEKTŮ */
+@import './animations/effects.css';
+
+/* IMPORT IKON */
+@import './icons/neon-icons.css';
+
+/* =============================================================================
+   LAYOUT SYSTEM - Grid a flexbox layouty
+   ============================================================================= */
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--black-bg);
+  padding: var(--spacing-sm);
+  gap: var(--spacing-sm);
+}
+
+.main-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: var(--spacing-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  
+  /* RESPONZIVNÍ BREAKPOINTY */
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 320px;
+    gap: var(--spacing-md);
+  }
+  
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr 280px;
+  }
+  
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 250px;
+    gap: var(--spacing-sm);
+  }
+  
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--spacing-sm);
+  }
+}
+
+/* =============================================================================
+   GAME AREA - Herní oblast
+   ============================================================================= */
+
+.game-area {
+  background: var(--black-bg);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  
+  /* NEONOVÝ GLOW EFEKT */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-green), var(--neon-orange), var(--neon-pink));
+    border-radius: var(--border-radius);
+    z-index: -1;
+    opacity: 0.1;
+    animation: borderGlow 3s ease-in-out infinite;
+  }
+  
+  @media (max-width: 1200px) {
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+  }
+  
+  @media (max-width: 800px) {
+    padding: var(--spacing-sm);
+  }
+  
+  @media (max-width: 650px) {
+    grid-row: 1;
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}
+
+/* GAME TITLE */
+.game-title {
+  text-align: center;
+  font-size: var(--font-size-xxl);
+  font-weight: 900;
+  margin-bottom: var(--spacing-md);
+  color: var(--neon-green);
+  letter-spacing: 0.5px;
+  line-height: 1.0;
+  text-shadow: 0 0 20px var(--neon-green);
+  animation: neonGlow 3s ease-in-out infinite;
+  
+  @media (max-width: 1200px) {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  @media (max-width: 800px) {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  @media (max-width: 650px) {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: 0;
+  }
+}
+
+/* =============================================================================
+   DICE AREA - Kostky
+   ============================================================================= */
+
+.dice-area {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: var(--dark-bg);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  margin: var(--spacing-md) 0;
+}
+
+.dice-container {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin: var(--spacing-md) 0;
+}
+
+.dice {
+  width: 60px;
+  height: 60px;
+  background: var(--black-bg);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--neon-green);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  
+  &:hover {
+    border-color: var(--neon-orange);
+    color: var(--neon-orange);
+    box-shadow: 0 0 15px var(--neon-orange);
+    transform: scale(1.05);
+  }
+  
+  &.selected {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+    box-shadow: 0 0 20px var(--neon-blue);
+  }
+  
+  &.rolling {
+    animation: diceRoll 1s ease-in-out;
+  }
+  
+  @media (max-width: 480px) {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* =============================================================================
+   PLAYERS PANEL - Panely hráčů
+   ============================================================================= */
+
+.players-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
+  
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.player-card {
+  background: var(--dark-bg);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  text-align: center;
+  transition: var(--transition-normal);
+  position: relative;
+  
+  &.current-player {
+    border-color: var(--neon-orange);
+    box-shadow: 0 0 20px rgba(255, 119, 0, 0.5);
+    animation: neonPulse 2s ease-in-out infinite;
+  }
+  
+  &.winner {
+    border-color: var(--neon-yellow);
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.6);
+    animation: neonGlow 1s ease-in-out infinite;
+  }
+  
+  .player-name {
+    font-weight: 700;
+    color: var(--neon-green);
+    margin-bottom: var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+  }
+  
+  .player-score {
+    font-size: var(--font-size-lg);
+    color: var(--neon-blue);
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--neon-blue);
+  }
+  
+  .player-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    object-fit: cover;
+    filter: drop-shadow(0 0 8px currentColor);
+  }
+}
+
+/* =============================================================================
+   MODALS - Modální okna
+   ============================================================================= */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
+  
+  &.hidden {
+    display: none;
+  }
+}
+
+.modal-content {
+  background: var(--black-bg);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  animation: bounce 0.5s ease-out;
+  
+  .modal-header {
+    margin-bottom: var(--spacing-lg);
+    
+    h2 {
+      color: var(--neon-green);
+      text-shadow: 0 0 15px var(--neon-green);
+      margin: 0;
+    }
+  }
+  
+  .modal-body {
+    margin-bottom: var(--spacing-lg);
+    color: var(--white-text);
+  }
+  
+  .modal-footer {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* =============================================================================
+   UTILITY CLASSES - Pomocné třídy
+   ============================================================================= */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+
+.flex { display: flex; }
+.flex-column { flex-direction: column; }
+.flex-center { align-items: center; justify-content: center; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+
+.neon-green { color: var(--neon-green); }
+.neon-blue { color: var(--neon-blue); }
+.neon-orange { color: var(--neon-orange); }
+.neon-pink { color: var(--neon-pink); }
+
+/* =============================================================================
+   RESPONSIVE HELPERS - Responzivní pomocníky
+   ============================================================================= */
+
+.hide-mobile {
+  @media (max-width: 650px) {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @media (min-width: 651px) {
+    display: none !important;
+  }
+}
+
+.mobile-only {
+  display: none;
+  
+  @media (max-width: 650px) {
+    display: block;
+  }
+}
+
+.desktop-only {
+  @media (max-width: 650px) {
+    display: none;
+  }
+}

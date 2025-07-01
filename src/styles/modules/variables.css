@@ -1,0 +1,85 @@
+/* =============================================================================
+   CSS VARIABLES - Základní proměnné a témata
+   ============================================================================= */
+
+:root {
+  /* NEONOVÉ BARVY */
+  --neon-green: #00ff00;
+  --neon-orange: #ff7700;
+  --neon-blue: #00ffff;
+  --neon-pink: #ff00ff;
+  --neon-purple: #8000ff;
+  --neon-yellow: #ffff00;
+  --neon-red: #ff0040;
+  
+  /* POZADÍ A TEXTY */
+  --black-bg: #0a0a0a;
+  --dark-bg: #1a1a1a;
+  --card-bg: #111111;
+  --white-text: #ffffff;
+  --gray-text: #cccccc;
+  --dark-text: #888888;
+  
+  /* FONTY */
+  --font-family-primary: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-secondary: 'Roboto Mono', 'Courier New', monospace;
+  
+  /* VELIKOSTI FONTŮ - Responzivní */
+  --font-size-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 2.5vw, 1rem);
+  --font-size-md: clamp(1rem, 3vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 4vw, 1.5rem);
+  --font-size-xl: clamp(1.5rem, 5vw, 2rem);
+  --font-size-xxl: clamp(2rem, 6vw, 3rem);
+  
+  /* ROZESTUPY */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* BORDER RADIUS */
+  --border-radius-sm: 4px;
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  
+  /* STÍNY A EFEKTY */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+  --shadow-neon: 0 0 20px currentColor;
+  
+  /* PŘECHODY */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Z-INDEX VRSTVY */
+  --z-background: -1;
+  --z-content: 1;
+  --z-overlay: 10;
+  --z-modal: 100;
+  --z-tooltip: 1000;
+}
+
+/* TMAVÝ REŽIM PRO LEPŠÍ KONTRAST */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --black-bg: #000000;
+    --dark-bg: #0f0f0f;
+    --card-bg: #0a0a0a;
+  }
+}
+
+/* REDUKCE ANIMACÍ PRO ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0s;
+    --transition-normal: 0s;
+    --transition-slow: 0s;
+    --transition-bounce: 0s;
+  }
+}

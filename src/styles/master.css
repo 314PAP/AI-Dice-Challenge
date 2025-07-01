@@ -141,34 +141,67 @@ body {
   background: var(--black-bg);
   border: 2px solid var(--neon-green);
   border-radius: var(--border-radius);
-  padding: var(--spacing-lg); /* Same as game-area */
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   position: relative;
   box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  height: 500px; /* Pevná výška pro scrollování */
+  overflow: hidden; /* Zabránit přetékání */
+  
+  &.collapsed {
+    height: 60px; /* Pouze header když je sbalený */
+    
+    .chat-messages,
+    .chat-input {
+      display: none;
+    }
+  }
   
   @media (max-width: 1200px) {
     padding: var(--spacing-md);
+    height: 450px;
+    
+    &.collapsed {
+      height: 55px;
+    }
   }
   
   @media (max-width: 800px) {
     padding: var(--spacing-sm);
+    height: 400px;
+    
+    &.collapsed {
+      height: 50px;
+    }
   }
   
   @media (max-width: 650px) {
     grid-row: 2;
     width: 100%;
-    height: 250px;
+    height: 300px;
     padding: var(--spacing-sm);
+    
+    &.collapsed {
+      height: 45px;
+    }
   }
   
   @media (max-width: 480px) {
-    height: 220px;
+    height: 280px;
     padding: var(--spacing-xs);
+    
+    &.collapsed {
+      height: 40px;
+    }
   }
   
   @media (max-width: 360px) {
-    height: 200px;
+    height: 250px;
+    
+    &.collapsed {
+      height: 38px;
+    }
   }
 }
 
@@ -346,10 +379,41 @@ body {
 }
 
 /* CHAT COMPONENTS */
+.chat-toggle {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: var(--neon-green);
+  color: var(--black-bg);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+  
+  &:hover {
+    background: var(--neon-orange);
+    box-shadow: 0 0 15px var(--neon-orange);
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
 .chat-header {
   text-align: center;
   margin-bottom: var(--spacing-sm);
   padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
   
   h2 {
     color: var(--neon-green);

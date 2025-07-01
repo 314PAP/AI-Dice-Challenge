@@ -6,23 +6,38 @@
     <title>🎲 AI Kostková Výzva</title>
     <link rel="icon" type="image/svg+xml" href="/dice.svg" />
     
-    <!-- CSS stylování - Single Master CSS File -->
-    <link rel="stylesheet" href="/src/styles/master.css">
+    <!-- MODERNÍ MODULÁRNÍ CSS SYSTÉM -->
+    <link rel="stylesheet" href="/src/styles/modular.css">
+    
+    <!-- GOOGLE FONTS PRO NEONOVÝ VZHLED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
+<body class="app-container">
+    <div class="main-layout">
         <div class="game-area">
             <div class="game-header">
-                <h1 class="game-title">
-                    <span class="neon-icon">🎲</span> AI Kostková Výzva
-                    <a href="https://buymeacoffee.com/pipap" target="_blank" class="coffee-icon" title="Kup mi kávu">
-                        ☕
+                <h1 class="game-title animate-neon-glow">
+                    <span class="neon-icon icon-dice large pulse"></span> 
+                    AI Kostková Výzva
+                    <a href="https://buymeacoffee.com/pipap" target="_blank" class="neon-icon icon-coffee hover-glow" title="Kup mi kávu">
                     </a>
                 </h1>
                 <div class="target-score-setup" id="targetScoreSetup">
-                    <label>Cílové skóre: <input type="number" id="targetScoreInput" value="10000" min="1000" step="1000"></label>
-                    <button class="btn btn-primary" id="startGameBtn">Začít hru</button>
-                    <button class="btn btn-secondary" id="hallOfFameBtn">🏆 Síň slávy</button>
+                    <label>
+                        <span class="neon-icon icon-star small"></span>
+                        Cílové skóre: 
+                        <input type="number" id="targetScoreInput" value="10000" min="1000" step="1000">
+                    </label>
+                    <button class="btn btn-primary" id="startGameBtn">
+                        <span class="neon-icon icon-gaming small"></span>
+                        Začít hru
+                    </button>
+                    <button class="btn btn-secondary" id="hallOfFameBtn">
+                        <span class="neon-icon icon-star small"></span>
+                        🏆 Síň slávy
+                    </button>
                 </div>
                 
                 <!-- Avatary s jmény pod tlačítky -->
@@ -87,10 +102,22 @@
                 <div class="dice-container" id="diceContainer"></div>
                 
                 <div class="roll-controls">
-                    <button class="btn btn-primary" id="rollBtn">Hodit kostky</button>
-                    <button class="btn btn-secondary" id="bankBtn" disabled>Odložit vybrané</button>
-                    <button class="btn btn-warning" id="endTurnBtn" disabled>Ukončit tah</button>
-                    <button class="btn btn-danger" id="quitGameBtn">Opustit hru</button>
+                    <button class="btn btn-primary" id="rollBtn">
+                        <span class="neon-icon icon-dice small"></span>
+                        Hodit kostky
+                    </button>
+                    <button class="btn btn-secondary" id="bankBtn" disabled>
+                        <span class="neon-icon icon-star small"></span>
+                        Odložit vybrané
+                    </button>
+                    <button class="btn btn-warning" id="endTurnBtn" disabled>
+                        <span class="neon-icon icon-gaming small"></span>
+                        Ukončit tah
+                    </button>
+                    <button class="btn btn-danger" id="quitGameBtn">
+                        <span class="neon-icon icon-brain small"></span>
+                        Opustit hru
+                    </button>
                 </div>
             </div>
         </div>
@@ -98,14 +125,19 @@
         <div class="chat-panel" id="chatPanel">
             <button class="chat-toggle" id="chatToggle" title="Sbalit/rozbalit chat">−</button>
             <div class="chat-header">
-                <h2>💬 Chat s AI</h2>
+                <h2>
+                    <span class="neon-icon icon-ai-chat small pulse"></span>
+                    Chat s AI
+                </h2>
             </div>
             
             <div class="chat-messages" id="chatMessages"></div>
             
             <div class="chat-input">
                 <input type="text" id="chatInput" placeholder="Napište zprávu..." maxlength="200">
-                <button id="sendMessageBtn" class="chat-send-btn" title="Odeslat zprávu">▶</button>
+                <button id="sendMessageBtn" class="chat-send-btn" title="Odeslat zprávu">
+                    <span class="neon-icon icon-message small"></span>
+                </button>
             </div>
         </div>
     </div>

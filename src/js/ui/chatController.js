@@ -15,6 +15,7 @@ export function initializeChat() {
     
     const chatInput = document.getElementById('chatInput');
     const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const chatToggle = document.getElementById('chatToggle');
     
     if (chatInput) {
         chatInput.addEventListener('keypress', handleChatKeyPress);
@@ -22,6 +23,10 @@ export function initializeChat() {
     
     if (sendMessageBtn) {
         sendMessageBtn.addEventListener('click', sendMessage);
+    }
+    
+    if (chatToggle) {
+        chatToggle.addEventListener('click', toggleChat);
     }
     
     // Load chat history
@@ -202,7 +207,40 @@ function loadChatHistory() {
         chatMessages.appendChild(messageDiv);
     });
     
-    if (chatHistory.length > 0) {
+    // Scroll to bottom after loading messages
+    scrollToBottom();
+}
+
+/**
+ * Rozbalí/sbalí chat panel
+ */
+function toggleChat() {
+    const chatPanel = document.getElementById('chatPanel');
+    const chatToggle = document.getElementById('chatToggle');
+    
+    if (!chatPanel || !chatToggle) return;
+    
+    const isCollapsed = chatPanel.classList.contains('collapsed');
+    
+    if (isCollapsed) {
+        chatPanel.classList.remove('collapsed');
+        chatToggle.textContent = '−';
+        chatToggle.title = 'Sbalit chat';
+    } else {
+        chatPanel.classList.add('collapsed');
+        chatToggle.textContent = '+';
+        chatToggle.title = 'Rozbalit chat';
+    }
+    
+    console.log(`💬 Chat ${isCollapsed ? 'rozbalen' : 'sbalen'}`);
+}
+
+/**
+ * Posune chat dolů na nejnovější zprávu
+ */
+function scrollToBottom() {
+    const chatMessages = document.getElementById('chatMessages');
+    if (chatMessages) {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 }
