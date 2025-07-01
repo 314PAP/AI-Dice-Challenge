@@ -1,0 +1,40 @@
+/* =============================================================================
+   ✨ KEYFRAME ANIMACE - NEONOVÉ EFEKTY
+   Základní neonové animace pro téma
+   ============================================================================= */
+
+/* NEONOVÉ EFEKTY */
+@keyframes neon-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor;
+  }
+  50% {
+    text-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor,
+      0 0 40px currentColor;
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px currentColor,
+      inset 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px currentColor,
+      0 0 30px currentColor,
+      inset 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes border-glow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+}

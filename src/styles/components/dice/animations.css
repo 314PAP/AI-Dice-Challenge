@@ -32,3 +32,32 @@
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.2); }
 }
+
+/* =============================================================================
+   🎞️ DICE ANIMATIONS - Animace kostek s animate.css knihovnou
+   ============================================================================= */
+
+/* IMPORT ANIMATE.CSS PRO POKROČILÉ ANIMACE */
+@import 'animate.css/animate.min.css';
+
+/* ANIMATE.CSS TŘÍDY PRO KOSTKY */
+.dice.animate__rubberBand {
+  animation-duration: 0.8s;
+}
+
+.dice.animate__bounceIn {
+  animation-duration: 0.6s;
+}
+
+.dice.animate__rotateIn {
+  animation-duration: 0.7s;
+}
+
+.dice.animate__zoomInUp {
+  animation-duration: 0.5s;
+}
+
+/* KOMBINOVANÉ ANIMACE */
+.dice.rolling.enhanced {
+  animation: animate__rotateIn 0.8s ease-in-out, dice-roll 1s ease-in-out;
+}

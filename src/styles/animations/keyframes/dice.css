@@ -1,0 +1,24 @@
+/* =============================================================================
+   ✨ KEYFRAME ANIMACE - KOSTKY (DICE)
+   Animace pro herní kostky
+   ============================================================================= */
+
+/* DICE ANIMACE */
+@keyframes dice-roll {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.2); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes dice-selected-pulse {
+  0% { box-shadow: 0 0 20px var(--neon-orange); }
+  100% { box-shadow: 0 0 40px var(--neon-orange); }
+}
+
+@keyframes dice-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}

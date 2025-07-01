@@ -1,0 +1,15 @@
+/* =============================================================================
+   ✨ KEYFRAME ANIMACE - MODULÁRNÍ IMPORT
+   ============================================================================= */
+
+/* Neonové efekty */
+@import './neon.css';
+
+/* Animace kostek */
+@import './dice.css';
+
+/* UI komponenty */
+@import './ui.css';
+
+/* Základní animace */
+@import './basic.css';

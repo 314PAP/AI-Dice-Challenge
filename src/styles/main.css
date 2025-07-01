@@ -1,19 +1,15 @@
 /* =============================================================================
-   🎨 MODULÁRNÍ CSS SYSTÉM - AI Kostková Výzva
-   Kompletně nový modulární systém - pouze importy, žádný inline CSS
+   🎨 MODULÁRNÍ CSS SYSTÉM - AI Kostková Výzva s KNIHOVNAMI
+   Kompletně nový modulární systém s maximálním využitím utility knihoven
    ============================================================================= */
 
-/* 🎯 ZÁKLADNÍ MODULY - Proměnné, reset, typography */
+@import './utils/libraries.css';
 @import './base/variables.css';
 @import './base/reset.css';
 @import './base/typography.css';
-
-/* 🎮 LAYOUT SYSTÉM - Grid, containers, responzivita */
 @import './layout/grid.css';
 @import './layout/containers.css';
 @import './layout/responsive.css';
-
-/* 🧩 KOMPONENTY - UI elementy */
 @import './components/buttons.css';
 @import './components/forms.css';
 @import './components/modals.css';
@@ -22,20 +18,12 @@
 @import './components/players.css';
 @import './components/scores.css';
 @import './components/game.css';
-
-/* ✨ ANIMACE & EFEKTY */
 @import './animations/keyframes.css';
 @import './animations/transitions.css';
 @import './animations/neon-effects.css';
-
-/* 🎨 IKONY & GRAFIKA */
 @import './icons/neon-icons.css';
 @import './icons/game-icons.css';
-
-/* 🎪 TÉMATA */
 @import './themes/neon-dark.css';
-
-/* 🛠️ UTILITY TŘÍDY */
 @import './utils/spacing.css';
 @import './utils/colors.css';
 @import './utils/visibility.css';

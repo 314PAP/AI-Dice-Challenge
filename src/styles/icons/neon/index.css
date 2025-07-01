@@ -1,10 +1,15 @@
 /* =============================================================================
-   🎯 BUTTONS INDEX - Import všech button modulů
+   ✨ NEONOVÉ IKONY - MODULÁRNÍ IMPORT
    ============================================================================= */
 
+/* Základní styly */
 @import './base.css';
-@import './hover.css';
-@import './variants.css';
-@import './sizes.css';
+
+/* Animace a efekty s knihovnami */
 @import './animations.css';
-@import './responsive.css';
+
+/* Emoji ikony */
+@import './emoji.css';
+
+/* Geometrické a UI ikony */
+@import './shapes.css';

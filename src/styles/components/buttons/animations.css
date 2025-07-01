@@ -1,0 +1,76 @@
+/* =============================================================================
+   🎞️ BUTTONS ANIMATIONS - Animace s animate.css knihovnou
+   ============================================================================= */
+
+/* IMPORT ANIMATE.CSS KNIHOVNY */
+@import 'animate.css/animate.min.css';
+
+/* ANIMATE.CSS UTILITY TŘÍDY PRO TLAČÍTKA */
+
+/* ENTRANCE ANIMATIONS */
+.btn-animate-fadein { 
+  animation: animate__fadeIn 0.8s ease-in-out;
+}
+
+.btn-animate-bouncein { 
+  animation: animate__bounceIn 1s ease-in-out;
+}
+
+.btn-animate-zoomin { 
+  animation: animate__zoomIn 0.6s ease-in-out;
+}
+
+.btn-animate-slideinup { 
+  animation: animate__slideInUp 0.8s ease-in-out;
+}
+
+/* CLICK ANIMATIONS */
+.btn-animate-pulse:active { 
+  animation: animate__pulse 0.5s ease-in-out;
+}
+
+.btn-animate-bounce:active { 
+  animation: animate__bounce 0.8s ease-in-out;
+}
+
+.btn-animate-tada:active { 
+  animation: animate__tada 1s ease-in-out;
+}
+
+.btn-animate-heartbeat:active { 
+  animation: animate__heartBeat 1.3s ease-in-out;
+}
+
+/* HOVER ANIMATIONS */
+.btn-animate-wobble:hover { 
+  animation: animate__wobble 1s ease-in-out;
+}
+
+.btn-animate-jello:hover { 
+  animation: animate__jello 1s ease-in-out;
+}
+
+.btn-animate-rubberband:hover { 
+  animation: animate__rubberBand 1s ease-in-out;
+}
+
+/* KOMBINOVANÉ ANIMACE S NEON EFEKTY */
+.btn-hero {
+  animation: animate__fadeInUp 1.2s ease-out, neon-glow 3s ease-in-out infinite;
+}
+
+.btn-hero:hover {
+  animation: animate__pulse 1s infinite, neon-glow 1.5s ease-in-out infinite;
+}
+
+.btn-success:active {
+  animation: animate__bounceIn 0.6s ease-out;
+}
+
+.btn-warning:hover {
+  animation: animate__wobble 1s ease-in-out;
+}
+
+.btn-danger:active {
+  animation: animate__shakeX 0.8s ease-in-out;
+}

@@ -1,6 +1,30 @@
 /* =============================================================================
-   🎯 BUTTONS HOVER - Hover efekty s animate.css inspirací
+   🎯 BUTTONS HOVER - Hover efekty s animate.css a hover.css knihovnami
    ============================================================================= */
+
+/* IMPORT HOVER.CSS KNIHOVNY */
+@import 'hover.css/css/hover-min.css';
+
+/* HOVER.CSS UTILITY TŘÍDY PRO TLAČÍTKA */
+.btn.hvr-grow { 
+  display: inline-flex !important; 
+}
+
+.btn.hvr-pulse-grow { 
+  display: inline-flex !important; 
+}
+
+.btn.hvr-pulse-shrink { 
+  display: inline-flex !important; 
+}
+
+.btn.hvr-buzz { 
+  display: inline-flex !important; 
+}
+
+.btn.hvr-bounce-in { 
+  display: inline-flex !important; 
+}
 
 /* ZÁKLADNÍ HOVER EFEKTY */
 .btn:hover:not(:disabled) {
@@ -35,6 +59,19 @@
 
 .btn-flip:hover {
   animation: flip 0.6s;
+}
+
+/* VLASTNÍ HOVER KOMBINACE S KNIHOVNAMI */
+.btn-hover-glow:hover {
+  animation: hvr-pulse-grow 1s infinite, neon-glow 2s ease-in-out infinite;
+}
+
+.btn-hover-bounce:hover {
+  animation: hvr-bounce-in 0.75s ease-out, neon-glow 2s ease-in-out infinite;
+}
+
+.btn-hover-buzz:hover {
+  animation: hvr-buzz 0.15s linear infinite, neon-glow 2s ease-in-out infinite;
 }
 
 /* KEYFRAMES INSPIROVANÉ ANIMATE.CSS */

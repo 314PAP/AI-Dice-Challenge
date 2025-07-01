@@ -1,4 +1,33 @@
 /* =============================================================================
+   🎞️ PLAYER ANIMATIONS - Animace pro komponenty hráčů s AOS knihovnou
+   ============================================================================= */
+
+/* IMPORT AOS KNIHOVNY */
+@import 'aos/dist/aos.css';
+
+/* AOS ANIMATIONS PRO HRÁČE */
+.player[data-aos="fade-up"] {
+  transition-duration: 0.8s;
+}
+
+.player[data-aos="zoom-in"] {
+  transition-duration: 0.6s;
+}
+
+.player[data-aos="slide-right"] {
+  transition-duration: 0.7s;
+}
+
+.avatar-mini[data-aos="flip-left"] {
+  transition-duration: 0.5s;
+}
+
+/* KOMBINACE AOS S VLASTNÍMI ANIMACEMI */
+.player.aos-animate {
+  animation: player-active-pulse 2s ease-in-out infinite;
+}
+
+/* =============================================================================
    🎞️ PLAYER ANIMATIONS - Animace pro komponenty hráčů
    ============================================================================= */
 

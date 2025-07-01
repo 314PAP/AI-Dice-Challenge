@@ -1,0 +1,35 @@
+/* =============================================================================
+   ✨ NEONOVÉ IKONY - ZÁKLADNÍ STYLY
+   ============================================================================= */
+
+/* ZÁKLADNÍ NEONOVÉ IKONY */
+.neon-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  color: currentColor;
+  fill: currentColor;
+  transition: var(--transition-base);
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.neon-icon:hover {
+  filter: drop-shadow(0 0 12px currentColor) drop-shadow(0 0 20px currentColor);
+  transform: scale(1.1);
+}
+
+/* VELIKOSTI IKON */
+.neon-icon.small {
+  width: 1em;
+  height: 1em;
+}
+
+.neon-icon.large {
+  width: 2em;
+  height: 2em;
+}
+
+.neon-icon.xl {
+  width: 3em;
+  height: 3em;
+}

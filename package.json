@@ -30,9 +30,17 @@
     "vite": "^7.0.0"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "animate-on-scroll": "^1.2.5",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
+    "cssremedy": "^0.1.0-beta.2",
     "hover.css": "^2.3.2",
-    "lucide-react": "^0.525.0"
+    "lucide-react": "^0.525.0",
+    "magic.css": "^1.4.8",
+    "modern-css-reset": "^1.4.0",
+    "normalize.css": "^8.0.1",
+    "prismjs": "^1.30.0",
+    "tailwindcss": "^4.1.11"
   }
 }

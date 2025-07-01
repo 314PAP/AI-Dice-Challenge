@@ -1,4 +1,16 @@
 /* =============================================================================
+   🔄 CSS RESET - Moderní reset s knihovnami pro konzistentní zobrazení
+   ============================================================================= */
+
+/* IMPORT NORMALIZE.CSS PRO CROSS-BROWSER CONSISTENCY */
+@import 'normalize.css/normalize.css';
+
+/* IMPORT MODERN CSS RESET */
+@import 'modern-css-reset/dist/reset.min.css';
+
+/* VLASTNÍ MODERNÍ RESET ROZŠÍŘENÍ */
+
+/* =============================================================================
    🔄 CSS RESET - Moderní reset pro konzistentní zobrazení
    ============================================================================= */
 
