@@ -3,13 +3,9 @@
  * Styly pro zobrazení hráčů
  */
 
-/* Players container - základní */
+/* Skrýt velké panely hráčů - používáme jen avatary v hlavičce */
 .players-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 25px 0;
-    flex-wrap: wrap;
+    display: none !important;
 }
 
 /* Jednotlivý hráč */
