@@ -27,6 +27,10 @@ export function startGame() {
     gameState.targetScore = parseInt(targetScoreInput.value);
     gameState.gameStarted = true;
     gameState.gameStartTime = new Date(); // Nastavit čas začátku hry
+    
+    // Přidej game-active třídu pro skrytí avatarů
+    document.body.classList.add('game-active');
+    
      // Aktualizovat target score display
     const targetScoreDisplay = document.getElementById('targetScoreDisplay');
     if (targetScoreDisplay) {
@@ -270,6 +274,9 @@ export function startNewGame() {
 export function resetGame() {
     resetGameState();
     
+    // Odstraň game-active třídu pro zobrazení avatarů
+    document.body.classList.remove('game-active');
+    
     document.getElementById('targetScoreSetup').style.display = 'block';
     document.getElementById('gameControls').style.display = 'none';
     document.getElementById('gameOverModal').style.display = 'none';
@@ -335,6 +342,9 @@ export function returnToMainMenu() {
     const gameOverModal = document.getElementById('gameOverModal');
     const gameControls = document.getElementById('gameControls');
     const targetScoreSetup = document.getElementById('targetScoreSetup');
+    
+    // Odstraň game-active třídu pro zobrazení avatarů
+    document.body.classList.remove('game-active');
     
     if (gameOverModal) gameOverModal.classList.add('hidden');
     if (gameControls) gameControls.classList.add('hidden');

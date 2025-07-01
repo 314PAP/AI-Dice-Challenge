@@ -8,6 +8,19 @@
   gap: var(--spacing-sm);
   margin: var(--spacing-sm) 0;
   flex-wrap: wrap;
+  transition: var(--transition-normal);
+}
+
+/* Skrytí avatarů během hry */
+.game-active .player-avatars-section {
+  display: none;
+}
+
+/* Alternativní varianta - fade out */
+.game-active .player-avatars-section.fade-out {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
 }
 
 .avatar-container {

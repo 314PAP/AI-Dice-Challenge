@@ -67,6 +67,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             const targetScore = parseInt(targetScoreInput.value);
             
             if (targetScore >= 1000) {
+                // Přidej game-active třídu pro skrytí avatarů
+                document.body.classList.add('game-active');
                 gameCtrl.startGame();
             } else {
                 alert('Cílové skóre musí být alespoň 1000 bodů!');
