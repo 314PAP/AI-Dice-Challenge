@@ -58,7 +58,10 @@ export function resetGameState() {
  * Přejde na dalšího hráče
  */
 export function nextPlayer() {
+    const previousPlayer = gameState.currentPlayer;
     gameState.currentPlayer = (gameState.currentPlayer + 1) % 4; // 4 hráči celkem
+    console.log(`🔄 NextPlayer: ${previousPlayer} → ${gameState.currentPlayer} (FinalRound: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator})`);
+    
     gameState.currentTurnScore = 0;
     gameState.rollsLeft = 3;
     gameState.dice = [];

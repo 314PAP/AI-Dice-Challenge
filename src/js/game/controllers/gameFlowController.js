@@ -118,6 +118,7 @@ export function endTurn(scored = true) {
     }
     
     gameState.endTurnProcessing = true;
+    console.log(`🎯 EndTurn: Player ${gameState.currentPlayer}, Score: ${gameState.currentTurnScore}, FinalRound: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator}`);
     
     try {
         if (scored && gameState.currentTurnScore >= 300) { // FARKLE PRAVIDLO: 300 bodů minimum pro všechny
@@ -143,6 +144,7 @@ export function endTurn(scored = true) {
             if (gameState.players[gameState.currentPlayer].score >= gameState.targetScore && !gameState.finalRound) {
                 gameState.finalRound = true;
                 gameState.finalRoundInitiator = gameState.currentPlayer;
+                console.log(`🏆 FINÁLNÍ KOLO SPUŠTĚNO! Iniciátor: ${gameState.finalRoundInitiator} (${getCurrentPlayer().name})`);
                 window.addChatMessage('system', `🏆 ${getCurrentPlayer().name} dosáhl cílového skóre ${gameState.targetScore}! Ostatní hráči mají ještě jednu šanci!`);
                 
                 // AI reakce na finální kolo
@@ -157,12 +159,19 @@ export function endTurn(scored = true) {
             }
             
             // Kontrola konce finálního kola
-            if (gameState.finalRound && gameState.currentPlayer === gameState.finalRoundInitiator) {
-                // Dokončeno finální kolo, najdeme vítěze
-                const winner = gameState.players.reduce((prev, current) => 
-                    (prev.score > current.score) ? prev : current);
-                endGame(winner);
-                return;
+            if (gameState.finalRound) {
+                console.log(`🔍 Kontrola konce finálního kola: CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
+                // Všichni hráči včetně iniciátora finálního kola už hráli
+                // Finální kolo končí po tom, co se vrátíme k iniciátorovi
+                if (gameState.currentPlayer === gameState.finalRoundInitiator) {
+                    console.log('🏁 KONEC FINÁLNÍHO KOLA! Hledám vítěze...');
+                    // Dokončeno finální kolo, najdeme vítěze
+                    const winner = gameState.players.reduce((prev, current) => 
+                        (prev.score > current.score) ? prev : current);
+                    console.log(`🏆 VÍTĚZ: ${winner.name} s ${winner.score} body`);
+                    endGame(winner);
+                    return;
+                }
             }
         } else if (scored) {
             window.addChatMessage('system', `${getCurrentPlayer().name} nezískal minimálních 300 bodů. Tah končí s 0 body.`);
