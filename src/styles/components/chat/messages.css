@@ -49,10 +49,10 @@
 
 /* TYPY ZPRÁV - barevné odlišení bez rámečků */
 .chat-message.system {
-  border-left-color: var(--neon-orange);
-  color: var(--neon-orange);
+  border-left-color: var(--neon-yellow);
+  color: var(--neon-yellow);
   font-style: italic;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .chat-message.user {

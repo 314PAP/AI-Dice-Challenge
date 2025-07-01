@@ -24,11 +24,11 @@
   letter-spacing: 0.5px;
 }
 
-/* HOVER EFEKT - INTENZIVNÍ NEONOVÉ SVÍCENÍ */
+/* HOVER EFEKT - ROZŽÁŘENÍ VE VLASTNÍ BARVĚ */
 .btn:hover:not(:disabled) {
   box-shadow: var(--glow-large);
   transform: translateY(-1px);
-  text-shadow: 0 0 8px currentColor;
+  text-shadow: 0 0 10px currentColor;
 }
 
 .btn:active:not(:disabled) {
@@ -50,67 +50,6 @@
   box-shadow: none;
   transform: none;
   text-shadow: none;
-}
-
-/* BUTTON VARIANTY */
-.btn-primary {
-  border-color: var(--neon-blue);
-  color: var(--neon-blue);
-}
-
-.btn-primary::before {
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
-}
-
-.btn-primary:hover:not(:disabled) {
-  color: var(--neon-orange);
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 20px var(--neon-orange);
-}
-
-.btn-secondary {
-  border-color: var(--neon-pink);
-  color: var(--neon-pink);
-}
-
-.btn-secondary::before {
-  background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.2), transparent);
-}
-
-.btn-secondary:hover:not(:disabled) {
-  color: var(--neon-orange);
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 20px var(--neon-orange);
-}
-
-.btn-warning {
-  border-color: var(--neon-yellow);
-  color: var(--neon-yellow);
-}
-
-.btn-warning::before {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 0, 0.2), transparent);
-}
-
-.btn-warning:hover:not(:disabled) {
-  color: var(--neon-orange);
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 20px var(--neon-orange);
-}
-
-.btn-danger {
-  border-color: var(--neon-red);
-  color: var(--neon-red);
-}
-
-.btn-danger::before {
-  background: linear-gradient(90deg, transparent, rgba(255, 0, 64, 0.2), transparent);
-}
-
-.btn-danger:hover:not(:disabled) {
-  color: var(--neon-orange);
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 20px var(--neon-orange);
 }
 
 /* BAREVNÉ VARIANTY - PODLE REFERENČNÍHO OBRÁZKU */
