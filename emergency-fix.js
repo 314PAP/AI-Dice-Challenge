@@ -252,6 +252,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     }
     
+    // Chat toggle
+    const chatToggle = document.getElementById('chatToggle');
+    if (chatToggle) {
+        chatToggle.addEventListener('click', () => {
+            const chatPanel = document.getElementById('chatPanel');
+            if (chatPanel) {
+                chatPanel.classList.toggle('collapsed');
+                chatToggle.textContent = chatPanel.classList.contains('collapsed') ? '+' : '−';
+            }
+        });
+    }
+    
     // Chat
     const chatInput = document.getElementById('chatInput');
     const sendBtn = document.getElementById('sendMessageBtn');
