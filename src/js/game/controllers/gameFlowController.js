@@ -38,7 +38,7 @@ export function startGame() {
     // Show players container during game
     const playersContainer = document.querySelector('.players-container');
     if (playersContainer) {
-        playersContainer.style.display = 'flex';
+        playersContainer.classList.remove('hidden');
     }
     console.log('✅ Zobrazeny herní ovládací prvky');
 
@@ -271,7 +271,7 @@ export function resetGame() {
     // Hide players container on main menu
     const playersContainer = document.querySelector('.players-container');
     if (playersContainer) {
-        playersContainer.style.display = 'none';
+        playersContainer.classList.add('hidden');
     }
     document.getElementById('targetScoreInput').value = 10000;
     document.getElementById('signatureInput').value = '';
@@ -332,7 +332,7 @@ export function returnToMainMenu() {
     // Hide players container on main menu
     const playersContainer = document.querySelector('.players-container');
     if (playersContainer) {
-        playersContainer.style.display = 'none';
+        playersContainer.classList.add('hidden');
     }
     
     // Reset game state
