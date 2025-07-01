@@ -123,31 +123,62 @@ function setupEmergencyFallback() {
     }
     
     console.log('✅ Emergency fallback setup complete');
+}
+            gameControls.classList.remove('hidden');
+            gameControls.style.display = 'block';
+        });
+    }
     
-    // Expose emergency fallback functions globally
-    window.emergencyFallback = true;
+    // Základní quit game funkcionalita
+    const quitBtn = document.getElementById('quitGameBtn');
+    if (quitBtn) {
+        quitBtn.addEventListener('click', () => {
+            if (confirm('Opravdu chcete opustit hru?')) {
+                gameControls.style.display = 'none';
+                gameControls.classList.add('hidden');
+                targetScoreSetup.style.display = 'block';
+            }
+        });
+    }
+    
+    // Základní chat message funkce
     window.addChatMessage = (sender, message) => {
-        console.log(`💬 Emergency chat from ${sender}: ${message}`);
         const chatMessages = document.getElementById('chatMessages');
-        if (chatMessages) {
-            const messageDiv = document.createElement('div');
-            messageDiv.style.color = '#39ff14';
-            messageDiv.style.padding = '5px';
-            messageDiv.textContent = `${sender}: ${message}`;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
+        if (!chatMessages) return;
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'chat-message';
+        messageDiv.innerHTML = `
+            <div class="message-header">
+                <span class="message-sender">${sender}</span>
+                <span class="message-time">${new Date().toLocaleTimeString()}</span>
+            </div>
+            <div class="message-content">${message}</div>
+        `;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     };
+    
+    // Uvítací zpráva
+    setTimeout(() => {
+        if (window.addChatMessage) {
+            window.addChatMessage('Systém', '🔧 Spuštěno v nouzovém režimu');
+        }
+    }, 1000);
 }
 
 /**
- * Fallback pro celkové selhání
+ * Debug funkce pro development
  */
-window.addEventListener('error', (e) => {
-    console.error('🚨 Global error caught:', e.error);
-    if (!window.emergencyFallback) {
-        setupEmergencyFallback();
-    }
-});
-
-console.log('🔚 main.js loaded completely');
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.debugMode = true;
+    console.log('🧪 Debug mode enabled');
+    
+    // Přidej debug menu po 3 sekundách
+    setTimeout(() => {
+        if (window.addDebugMenu && typeof window.addDebugMenu === 'function') {
+            window.addDebugMenu();
+            console.log('🧪 Debug menu added');
+        }
+    }, 3000);
+}

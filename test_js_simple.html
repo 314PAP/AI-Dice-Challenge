@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Jednoduchý Test JS</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #000; color: #39ff14; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #39ff14; }
+        .error { border-color: #ff0000; color: #ff0000; }
+        .success { border-color: #00ff00; color: #00ff00; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Test JavaScript Načítání</h1>
+    <div id="results"></div>
+    <button id="testBtn">Test Button</button>
+
+    <script>
+        const results = document.getElementById('results');
+        const testBtn = document.getElementById('testBtn');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+            console.log(message);
+        }
+        
+        // Test základního JS
+        log('✅ Základní JavaScript funguje');
+        
+        // Test tlačítka
+        testBtn.addEventListener('click', () => {
+            log('✅ Event listener funguje', 'success');
+        });
+        
+        // Test DOM
+        const startBtn = document.querySelector('#startGameBtn');
+        if (startBtn) {
+            log('✅ #startGameBtn nalezen', 'success');
+        } else {
+            log('❌ #startGameBtn NENALEZEN', 'error');
+        }
+        
+        // Test module import
+        import('./src/main.js').then(() => {
+            log('✅ main.js se načetl', 'success');
+        }).catch(error => {
+            log(`❌ main.js CHYBA: ${error.message}`, 'error');
+        });
+    </script>
+    
+    <!-- Zkusíme načíst i původní stránku elementy -->
+    <iframe src="/" width="100%" height="400" style="border: 1px solid #39ff14; margin-top: 20px;"></iframe>
+</body>
+</html>
