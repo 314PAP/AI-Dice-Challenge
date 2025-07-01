@@ -189,6 +189,27 @@
         </div>
     </div>
 
+    <!-- CSS Debug Script -->
+    <script>
+        // Debug CSS proměnných
+        window.addEventListener('DOMContentLoaded', () => {
+            const root = document.documentElement;
+            const computedStyle = getComputedStyle(root);
+            
+            console.log('🎨 CSS Proměnné:');
+            console.log('--neon-green:', computedStyle.getPropertyValue('--neon-green'));
+            console.log('--neon-blue:', computedStyle.getPropertyValue('--neon-blue'));
+            console.log('--neon-pink:', computedStyle.getPropertyValue('--neon-pink'));
+            console.log('--neon-orange:', computedStyle.getPropertyValue('--neon-orange'));
+            
+            // Debug players container
+            const playersContainer = document.querySelector('.players-container');
+            console.log('👥 Players container:', playersContainer);
+            console.log('Hidden class:', playersContainer?.classList.contains('hidden'));
+            console.log('Display style:', getComputedStyle(playersContainer)?.display);
+        });
+    </script>
+
     <!-- Main Application Script -->
     <script type="module" src="/src/main.js"></script>
 </body>
