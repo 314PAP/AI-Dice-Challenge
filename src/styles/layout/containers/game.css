@@ -7,20 +7,21 @@
   display: flex;
   flex-direction: column;
   background: var(--black-bg);
-  padding: 10px;
+  padding: 5px;
 }
 
 .game-area {
   background: var(--black-bg);
   border: 2px solid var(--neon-green);
   border-radius: 1em;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   box-shadow: var(--glow-lg) rgba(0, 255, 0, 0.3);
   position: relative;
   overflow: hidden;
+  flex: 1;
 }
 
 .game-area::before {
@@ -41,9 +42,10 @@
   background: rgba(0, 0, 0, 0.7);
   border: 3px solid var(--neon-green);
   border-radius: var(--radius-xl);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-md);
   position: relative;
   backdrop-filter: blur(5px);
+  flex: 1;
 }
 
 .game-board::before {

@@ -2,18 +2,19 @@
    🌃 NEON DARK TÉMA - ZÁKLADNÍ KOMPONENTY
    ============================================================================= */
 
-/* GAME TITLE STYLING */
+/* GAME TITLE STYLING - bez rámečku, kompaktní */
 .game-title {
   font-family: 'Orbitron', monospace;
   font-weight: 900;
-  font-size: var(--font-5xl);
+  font-size: var(--font-3xl);
   color: var(--neon-green);
   text-align: center;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   text-shadow: 0 0 20px var(--neon-green);
   animation: neon-glow 3s ease-in-out infinite;
   letter-spacing: 0.1em;
   line-height: 1;
+  padding: var(--spacing-sm) 0;
 }
 
 .game-title .neon-icon {

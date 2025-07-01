@@ -5,18 +5,15 @@
 .game-header {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  padding: var(--spacing-lg);
-  background: rgba(0, 0, 0, 0.5);
-  border: 2px solid var(--neon-blue);
-  border-radius: var(--radius-lg);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
 }
 
 .game-controls {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
   background: rgba(0, 0, 0, 0.3);
   border: 2px solid var(--neon-green);
   border-radius: var(--radius-lg);
@@ -25,10 +22,10 @@
 .roll-controls {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   background: rgba(0, 0, 0, 0.4);
   border-radius: var(--radius-lg);
 }

@@ -19,7 +19,9 @@
   }
   
   .target-score-setup {
-    padding: var(--spacing-md);
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
   }
   
   .game-controls {

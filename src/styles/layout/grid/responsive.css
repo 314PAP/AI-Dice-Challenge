@@ -2,18 +2,23 @@
    📱 GRID RESPONSIVE - Responzivní úpravy gridu
    ============================================================================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .main-layout {
     grid-template-columns: 1fr;
     grid-template-areas: 
       "game"
       "chat";
     grid-template-rows: 1fr auto;
+    gap: var(--spacing-sm);
   }
   
   .chat-panel {
     width: 100%;
-    max-height: 300px;
+    max-height: 250px;
+  }
+  
+  .game-area {
+    min-height: calc(100vh - 280px);
   }
 }
 
