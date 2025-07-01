@@ -97,6 +97,13 @@ export function hideHallOfFame() {
 }
 
 /**
+ * Vymaže všechny záznamy ze síně slávy
+ */
+export function clearHallOfFame() {
+    localStorage.removeItem('diceGameHallOfFame');
+}
+
+/**
  * Formátuje dobu trvání hry
  * @param {number} milliseconds - Doba v milisekundách
  * @returns {string} Formátovaná doba

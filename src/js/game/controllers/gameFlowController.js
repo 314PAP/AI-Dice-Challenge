@@ -35,6 +35,11 @@ export function startGame() {
 
     document.getElementById('targetScoreSetup').style.display = 'none';
     document.getElementById('gameControls').style.display = 'block';
+    // Show players container during game
+    const playersContainer = document.querySelector('.players-container');
+    if (playersContainer) {
+        playersContainer.style.display = 'flex';
+    }
     console.log('✅ Zobrazeny herní ovládací prvky');
 
     window.addChatMessage('system', `🎮 Hra začala! První hráč, který dosáhne ${gameState.targetScore} bodů, vyhrává!`);
@@ -263,6 +268,11 @@ export function resetGame() {
     document.getElementById('targetScoreSetup').style.display = 'block';
     document.getElementById('gameControls').style.display = 'none';
     document.getElementById('gameOverModal').style.display = 'none';
+    // Hide players container on main menu
+    const playersContainer = document.querySelector('.players-container');
+    if (playersContainer) {
+        playersContainer.style.display = 'none';
+    }
     document.getElementById('targetScoreInput').value = 10000;
     document.getElementById('signatureInput').value = '';
 
@@ -319,6 +329,11 @@ export function returnToMainMenu() {
     document.getElementById('gameOverModal').style.display = 'none';
     document.getElementById('gameControls').style.display = 'none';
     document.getElementById('targetScoreSetup').style.display = 'block';
+    // Hide players container on main menu
+    const playersContainer = document.querySelector('.players-container');
+    if (playersContainer) {
+        playersContainer.style.display = 'none';
+    }
     
     // Reset game state
     resetGameState();

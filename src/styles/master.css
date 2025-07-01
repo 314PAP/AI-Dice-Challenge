@@ -18,10 +18,10 @@
   
   /* Layout */
   --container-max-width: 1400px;
-  --desktop-chat-width: 280px;
-  --tablet-large-chat-width: 250px;
-  --tablet-medium-chat-width: 220px;
-  --tablet-small-chat-width: 200px;
+  --desktop-chat-width: 350px;
+  --tablet-large-chat-width: 320px;
+  --tablet-medium-chat-width: 280px;
+  --tablet-small-chat-width: 250px;
   
   /* Spacing */
   --spacing-xs: 4px;
