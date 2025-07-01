@@ -47,32 +47,41 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* TYPY ZPRÁV - barevné odlišení bez rámečků */
+/* TYPY ZPRÁV - barevné odlišení s lepším rozlišením */
 .chat-message.system {
-  border-left-color: var(--neon-yellow);
-  color: var(--neon-yellow);
+  border-left-color: var(--chat-system);
+  color: var(--chat-system);
   font-style: italic;
-  opacity: 0.9;
+  font-weight: 600;
+  opacity: 1;
+  text-shadow: 
+    0 0 5px var(--chat-system),
+    0 0 10px var(--chat-system),
+    0 0 15px var(--chat-system);
+  background: rgba(255, 255, 0, 0.05);
 }
 
 .chat-message.user {
-  border-left-color: var(--neon-green);
-  color: var(--neon-green);
+  border-left-color: var(--chat-user);
+  color: var(--chat-user);
 }
 
 .chat-message.gemini {
-  border-left-color: var(--neon-blue);
-  color: var(--neon-blue);
+  border-left-color: var(--chat-gemini);
+  color: var(--chat-gemini);
 }
 
 .chat-message.chatgpt {
-  border-left-color: var(--neon-pink);
-  color: var(--neon-pink);
+  border-left-color: var(--chat-chatgpt);
+  color: var(--chat-chatgpt);
 }
 
 .chat-message.claude {
-  border-left-color: var(--neon-orange);
-  color: var(--neon-orange);
+  border-left-color: var(--chat-claude);
+  color: var(--chat-claude);
+  text-shadow: 
+    0 0 3px var(--chat-claude),
+    0 0 6px var(--chat-claude);
 }
 
 /* ANIMACE ZPRÁV - jemné */

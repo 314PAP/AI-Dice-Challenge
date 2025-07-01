@@ -154,7 +154,7 @@
 }
 
 .chat-message.system {
-  border-left-color: var(--neon-yellow);
+  border-left-color: var(--chat-system);
 }
 
 .chat-message.gemini {

@@ -65,9 +65,11 @@ export function updateGameDisplay() {
     
     const bankBtn = document.getElementById('bankBtn');
     const rollBtn = document.getElementById('rollBtn');
+    const endTurnBtn = document.getElementById('endTurnBtn');
     
     if (bankBtn) bankBtn.disabled = !canBank || gameState.currentPlayer !== 0;
     if (rollBtn) rollBtn.disabled = !canRoll;
+    if (endTurnBtn) endTurnBtn.disabled = !canEndTurn || gameState.currentPlayer !== 0;
     
     // Zobrazit varování, pokud musí hráč odložit kostky
     if (gameState.mustBankDice && gameState.currentPlayer === 0) {

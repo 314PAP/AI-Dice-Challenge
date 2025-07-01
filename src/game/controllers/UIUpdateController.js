@@ -53,7 +53,10 @@ export class UIUpdateController {
         }
 
         if (endTurnBtn) {
-            endTurnBtn.disabled = !this.gameController.gameStarted || this.gameController.turnScore === 0;
+            // Farkle pravidlo: Minimum 300 bodů pro ukončení tahu
+            // Hráč může ukončit tah po jakémkoliv platném bodování >= 300 bodů
+            const canEndTurn = this.gameController.gameStarted && this.gameController.turnScore >= 300;
+            endTurnBtn.disabled = !canEndTurn;
         }
     }
 

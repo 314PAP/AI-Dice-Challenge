@@ -143,4 +143,11 @@
   --icon-lg: 1.75rem;
   --icon-xl: 2rem;
   --icon-2xl: 2.5rem;
+
+  /* 💬 CHAT BARVY - pro lepší rozlišení */
+  --chat-system: #ffff00;    /* Čistá žlutá - více odlišná od oranžové */
+  --chat-claude: #ff4500;    /* OrangeRed - výraznější než předchozí oranžová */
+  --chat-user: var(--neon-green);     /* Zelená pro uživatele */
+  --chat-gemini: var(--neon-blue);    /* Modrá pro Gemini */
+  --chat-chatgpt: var(--neon-pink);   /* Růžová pro ChatGPT */
 }
