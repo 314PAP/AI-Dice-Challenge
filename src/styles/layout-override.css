@@ -58,8 +58,12 @@ body .chat-panel,
     line-height: 1.1 !important;
 }
 
-/* Responzivní pravidla s !important */
-@media (max-width: 1200px) {
+/* Responzivní pravidla s !important - SPRÁVNÉ POŘADÍ */
+
+/* Desktop velký (>1200px) - používá default styles nahoře */
+
+/* Tablet velký (1001px-1200px) */
+@media (max-width: 1200px) and (min-width: 1001px) {
     .container {
         grid-template-columns: 1fr 300px !important;
         gap: 20px !important;
@@ -77,7 +81,8 @@ body .chat-panel,
     }
 }
 
-@media (max-width: 1000px) {
+/* Tablet střední (851px-1000px) */
+@media (max-width: 1000px) and (min-width: 851px) {
     .container {
         grid-template-columns: 1fr 280px !important;
         gap: 15px !important;
@@ -95,7 +100,8 @@ body .chat-panel,
     }
 }
 
-@media (max-width: 850px) {
+/* Tablet malý (651px-850px) - poslední s chatem vpravo */
+@media (max-width: 850px) and (min-width: 651px) {
     .container {
         grid-template-columns: 1fr 250px !important;
         gap: 12px !important;
@@ -113,17 +119,26 @@ body .chat-panel,
     }
 }
 
+/* MOBIL - Chat dolů (≤650px) */
 @media (max-width: 650px) {
     .container {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr !important; /* JEDNA KOLONA */
+        grid-template-rows: auto auto !important; /* Dva řádky */
         gap: 15px !important;
         padding: 10px !important;
     }
     
+    .game-area {
+        grid-row: 1 !important; /* První řádek */
+        padding: 15px !important;
+    }
+    
     .chat-panel {
+        grid-row: 2 !important; /* Druhý řádek */
         width: 100% !important;
         height: 300px !important;
         padding: 12px !important;
+        min-height: 250px !important;
     }
     
     .game-title {
@@ -132,6 +147,7 @@ body .chat-panel,
     }
 }
 
+/* Mobil střední (≤480px) */
 @media (max-width: 480px) {
     .container {
         padding: 8px !important;
@@ -142,16 +158,31 @@ body .chat-panel,
         padding: 12px !important;
     }
     
+    .chat-panel {
+        padding: 10px !important;
+        height: 280px !important;
+    }
+    
     .game-title {
         font-size: 1.4rem !important;
         margin-bottom: 10px !important;
     }
 }
 
+/* Mobil malý (≤360px) */
 @media (max-width: 360px) {
     .container {
         padding: 5px !important;
         gap: 8px !important;
+    }
+    
+    .game-area {
+        padding: 8px !important;
+    }
+    
+    .chat-panel {
+        padding: 8px !important;
+        height: 250px !important;
     }
     
     .game-title {
