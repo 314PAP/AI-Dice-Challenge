@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Importů - AI Kostková Výzva</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            padding: 2rem;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
+        }
+        .test-results {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .status {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .loading {
+            background: rgba(255, 255, 0, 0.2);
+            border-left: 4px solid #ffff00;
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            border-left: 4px solid #00ff00;
+        }
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            border-left: 4px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Importů JS Modulů</h1>
+    
+    <div class="test-results">
+        <div id="status" class="status loading">
+            🔄 Načítání testů...
+        </div>
+        <div id="results"></div>
+    </div>
+
+    <script type="module">
+        const statusDiv = document.getElementById('status');
+        const resultsDiv = document.getElementById('results');
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.textContent = message;
+            resultsDiv.appendChild(div);
+            console.log(message);
+        }
+
+        statusDiv.textContent = '🚀 Spouštím testy modulů...';
+        
+        // Test seznamu modulů
+        const modules = [
+            { path: './src/main.js', name: 'Main Entry Point' },
+            { path: './src/js/game/gameState.js', name: 'Game State' },
+            { path: './src/js/game/gameController.js', name: 'Game Controller' },
+            { path: './src/js/game/diceLogic.js', name: 'Dice Logic' },
+            { path: './src/ai/controllers/enhancedAIController.js', name: 'Enhanced AI Controller' },
+            { path: './src/js/ai/aiPlayer.js', name: 'AI Player' },
+            { path: './src/ui/gameUIController.js', name: 'Game UI Controller' },
+            { path: './src/js/ui/gameUI.js', name: 'Game UI' }
+        ];
+
+        async function testModules() {
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (const module of modules) {
+                try {
+                    addResult(`📍 Testování ${module.name}...`, 'loading');
+                    await import(module.path);
+                    addResult(`✅ ${module.name} - ÚSPĚCH`, 'success');
+                    successCount++;
+                } catch (error) {
+                    addResult(`❌ ${module.name} - CHYBA: ${error.message}`, 'error');
+                    console.error(`Error loading ${module.name}:`, error);
+                    errorCount++;
+                }
+            }
+
+            // Finální výsledek
+            const totalTests = modules.length;
+            const successRate = Math.round((successCount / totalTests) * 100);
+            
+            if (errorCount === 0) {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = `🎉 Všechny moduly načteny úspěšně! (${successCount}/${totalTests})`;
+            } else {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = `⚠️ Dokončeno s chybami: ${successCount} úspěšných, ${errorCount} chyb (${successRate}% úspěšnost)`;
+            }
+        }
+
+        testModules().catch(error => {
+            statusDiv.className = 'status error';
+            statusDiv.textContent = `💥 Kritická chyba při testování: ${error.message}`;
+            console.error('Critical testing error:', error);
+        });
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@ import { gameState, getCurrentPlayer } from '../game/gameState.js';
 import { rollDice, calculateScore, findBestScoringCombination } from '../game/diceLogic.js';
 import { updateGameDisplay } from '../ui/gameUI.js';
 // Use global addChatMessage instead of direct import
-import { generateAIGameReaction, enhancedAI } from './enhancedAIController.js';
+import { generateAIGameReaction, enhancedAI } from '../../ai/controllers/enhancedAIController.js';
 import { endTurn } from '../game/gameController.js';
 
 /**

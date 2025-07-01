@@ -4,7 +4,7 @@
  */
 
 import { gameState } from '../gameState.js';
-import { enhancedAI } from '../../ai/enhancedAIController.js';
+import { enhancedAI } from '../../../ai/controllers/enhancedAIController.js';
 
 /**
  * Spustí AI reakce po dobrém hodu

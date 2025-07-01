@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Console - AI Kostková Výzva</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 1rem;
+            margin: 0;
+        }
+        h1 {
+            color: #00ffff;
+            text-align: center;
+        }
+        #console {
+            background: #000;
+            border: 1px solid #333;
+            padding: 1rem;
+            height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin: 1rem 0;
+        }
+        .error { color: #ff4444; }
+        .success { color: #00ff00; }
+        .info { color: #44aaff; }
+        .warning { color: #ffaa00; }
+        button {
+            background: #333;
+            color: #fff;
+            border: 1px solid #666;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐛 Console Debug - AI Dice Game</h1>
+    
+    <div>
+        <button onclick="testMainImport()">Test Main Import</button>
+        <button onclick="testUIController()">Test UI Controller</button>
+        <button onclick="testAllModules()">Test All Modules</button>
+        <button onclick="clearConsole()">Clear</button>
+    </div>
+    
+    <div id="console"></div>
+
+    <script type="module">
+        const consoleDiv = document.getElementById('console');
+        
+        function log(message, type = 'info') {
+            const span = document.createElement('span');
+            span.className = type;
+            span.textContent = `[${new Date().toLocaleTimeString()}] ${message}\n`;
+            consoleDiv.appendChild(span);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+
+        window.log = log;
+        
+        window.clearConsole = () => {
+            consoleDiv.innerHTML = '';
+        };
+
+        window.testMainImport = async () => {
+            log('🧪 Testing main.js import...', 'info');
+            try {
+                await import('./src/main.js');
+                log('✅ Main.js imported successfully', 'success');
+            } catch (error) {
+                log(`❌ Main.js import failed: ${error.message}`, 'error');
+                log(`Stack: ${error.stack}`, 'error');
+            }
+        };
+
+        window.testUIController = async () => {
+            log('🧪 Testing UI Controller import...', 'info');
+            try {
+                const { GameUIController } = await import('./src/ui/gameUIController.js');
+                log('✅ UI Controller imported successfully', 'success');
+                
+                log('🧪 Creating UI Controller instance...', 'info');
+                const controller = new GameUIController();
+                log('✅ UI Controller instance created', 'success');
+                
+                log('🧪 Initializing UI Controller...', 'info');
+                await controller.initialize();
+                log('✅ UI Controller initialized successfully', 'success');
+                
+                window.testController = controller;
+                
+            } catch (error) {
+                log(`❌ UI Controller test failed: ${error.message}`, 'error');
+                log(`Stack: ${error.stack}`, 'error');
+            }
+        };
+
+        window.testAllModules = async () => {
+            const modules = [
+                { path: './src/js/game/gameState.js', name: 'Game State' },
+                { path: './src/js/game/gameController.js', name: 'Game Controller' },
+                { path: './src/js/game/diceLogic.js', name: 'Dice Logic' },
+                { path: './src/ai/controllers/enhancedAIController.js', name: 'Enhanced AI Controller' },
+                { path: './src/js/ai/aiPlayer.js', name: 'AI Player' },
+                { path: './src/ui/gameUIController.js', name: 'Game UI Controller' },
+                { path: './src/js/ui/gameUI.js', name: 'Game UI' }
+            ];
+
+            log('🧪 Testing all modules...', 'info');
+            
+            for (const module of modules) {
+                try {
+                    log(`📍 Testing ${module.name}...`, 'info');
+                    await import(module.path);
+                    log(`✅ ${module.name} - OK`, 'success');
+                } catch (error) {
+                    log(`❌ ${module.name} - ERROR: ${error.message}`, 'error');
+                }
+            }
+            
+            log('🏁 Module testing complete', 'info');
+        };
+
+        // Test na začátku
+        log('🚀 Debug console ready', 'info');
+        log('Click buttons above to run tests', 'info');
+    </script>
+</body>
+</html>
