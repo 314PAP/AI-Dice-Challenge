@@ -1,505 +1,132 @@
-/* Chat komponenty - Perfektní zarovnání s herní oblastí */
+/* =============================================================================
+   💬 CHAT KOMPONENTA
+   ============================================================================= */
 
+/* CHAT PANEL */
 .chat-panel {
-    background: var(--black-bg);
-    border: 2px solid var(--neon-green);
-    border-radius: 10px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-    position: relative;
-    animation: slideIn 0.5s ease-out;
-    height: fit-content; /* Přizpůsobí se obsahu */
-    min-height: 400px; /* Minimální výška */
-    align-self: start; /* Zarovnání na začátek gridu */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.9);
+  position: relative;
 }
 
-/* Pro desktop/tablet - chat se zarovná s herní oblastí */
-@media (min-width: 651px) {
-    .chat-panel {
-        /* Chat padding shodný s game-area pro perfektní zarovnání */
-        padding: 30px;
-        min-height: 500px;
-    }
-}
-
-/* Responzivní padding pro synchronizaci s game-area */
-@media (max-width: 1200px) {
-    .chat-panel {
-        padding: 20px; /* Shodný s game-area */
-    }
-}
-
-@media (max-width: 1000px) {
-    .chat-panel {
-        padding: 18px; /* Shodný s game-area */
-    }
-}
-
-@media (max-width: 850px) {
-    .chat-panel {
-        padding: 15px; /* Shodný s game-area */
-        min-height: 450px; /* Trochu menší pro úsporu místa */
-    }
-}
-
-/* Chat header - kompaktní */
 .chat-header {
-    text-align: center;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--neon-green);
+  position: relative;
 }
 
-.chat-header h2 {
-    color: var(--neon-green);
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
-    font-size: 16px;
-    margin: 0;
-    text-align: center;
-    text-shadow: 0 0 10px var(--neon-green);
+.chat-title {
+  color: var(--neon-green);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: var(--font-lg);
+  text-align: center;
+  margin: 0;
 }
 
-/* Tooltipka - responsivní velikost */
 .chat-toggle {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: transparent;
-    border: 1px solid var(--neon-green);
-    color: var(--neon-green);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    font-family: monospace;
-    line-height: 1;
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  width: 32px;
+  height: 32px;
+  background: var(--neon-green);
+  color: var(--black-bg);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: var(--font-lg);
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-base);
+  z-index: var(--z-elevated);
 }
 
 .chat-toggle:hover {
-    background: var(--neon-green);
-    color: var(--black-bg);
-    transform: scale(1.1);
+  background: var(--neon-orange);
+  box-shadow: 0 0 15px var(--neon-orange);
+  transform: scale(1.1);
 }
 
-/* Menší tooltipka na středních a malých displejích */
-@media (max-width: 850px) {
-    .chat-toggle {
-        width: 18px;
-        height: 18px;
-        font-size: 12px;
-        top: 6px;
-        right: 6px;
-    }
-}
-
-@media (max-width: 480px) {
-    .chat-toggle {
-        width: 16px;
-        height: 16px;
-        font-size: 11px;
-        top: 5px;
-        right: 5px;
-    }
-}
-
-@media (max-width: 360px) {
-    .chat-toggle {
-        width: 14px;
-        height: 14px;
-        font-size: 10px;
-        top: 4px;
-        right: 4px;
-    }
-}
-
-/* Kompaktní zprávy */
+/* CHAT MESSAGES */
 .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 8px; /* Menší margin pro úsporu místa */
-    padding: 8px;
-    background: var(--black-bg);
-    scrollbar-width: thin;
-    scrollbar-color: var(--neon-green) transparent;
-}
-
-.chat-messages::-webkit-scrollbar {
-    width: 8px;
-}
-
-.chat-messages::-webkit-scrollbar-track {
-    background: var(--black-bg);
-}
-
-.chat-messages::-webkit-scrollbar-thumb {
-    background: var(--neon-green);
-    border-radius: 4px;
+  flex: 1;
+  padding: var(--spacing-md);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .chat-message {
-    margin-bottom: 8px;
-    padding: 6px 10px;
-    border-radius: 6px;
-    background: var(--black-bg);
-    border: 1px solid var(--neon-green);
-    font-family: 'Orbitron', monospace;
-    font-size: 12px;
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-base);
+  border-left: 3px solid var(--neon-blue);
+  background: rgba(0, 255, 255, 0.05);
+  animation: message-slide-in 0.3s ease-out;
 }
 
-.message-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 4px;
-    font-size: 11px;
-    font-weight: 700;
+.chat-message-sender {
+  font-weight: 700;
+  color: var(--neon-orange);
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-sm);
 }
 
-.message-sender {
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: var(--neon-green);
+.chat-message-content {
+  color: var(--text-primary);
+  line-height: 1.4;
 }
 
-.message-time {
-    color: var(--text-secondary);
-    font-size: 10px;
-    margin-left: auto;
-    opacity: 0.8;
+/* RŮZNÉ TYPY ZPRÁV */
+.chat-message.system {
+  border-left-color: var(--neon-green);
+  background: rgba(0, 255, 0, 0.05);
 }
 
-.message-content {
-    color: var(--neon-green);
-    line-height: 1.4;
-    font-size: 12px;
-    font-weight: 400;
+.chat-message.ai {
+  border-left-color: var(--neon-purple);
+  background: rgba(138, 43, 226, 0.05);
 }
 
-/* Kompaktní input s tlačítkem uvnitř */
+.chat-message.player {
+  border-left-color: var(--neon-orange);
+  background: rgba(255, 140, 0, 0.05);
+}
+
+/* CHAT INPUT */
+.chat-input-area {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--neon-green);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.chat-input-container {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
 .chat-input {
-    position: relative;
-    border: 2px solid var(--neon-green);
-    border-radius: 20px;
-    background: var(--black-bg);
-    height: 40px;
-    display: flex;
-    align-items: center;
+  flex: 1;
+  padding: var(--spacing-sm);
+  background: var(--black-bg);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-base);
+  color: var(--text-primary);
+  font-family: 'Roboto Mono', monospace;
+  font-size: var(--font-sm);
 }
 
-.chat-input input {
-    flex: 1;
-    padding: 8px 50px 8px 15px; /* Místo pro tlačítko vpravo */
-    border: none;
-    background: transparent;
-    color: var(--neon-green);
-    font-family: 'Orbitron', monospace;
-    font-size: 13px;
-    border-radius: 20px;
+.chat-input:focus {
+  outline: none;
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 10px var(--neon-orange);
 }
 
-.chat-input input:focus {
-    outline: none;
-}
-
-.chat-input input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.7;
-}
-
-/* Tlačítko odeslat uvnitř inputu - lepší ikona */
 .chat-send-btn {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    bottom: 4px;
-    width: 32px;
-    background: var(--neon-green);
-    color: var(--black-bg);
-    border: none;
-    border-radius: 50%;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: monospace;
-}
-
-.chat-send-btn:hover {
-    background: var(--white);
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-}
-
-.chat-send-btn:active {
-    transform: scale(0.95);
-}
-
-/* Stav sbaleno/rozbaleno s animací */
-.chat-panel {
-    transition: height 0.3s ease;
-}
-
-.chat-panel.collapsed {
-    height: 40px !important; /* Menší sbalená výška */
-    overflow: hidden;
-}
-
-.chat-panel.collapsed .chat-messages,
-.chat-panel.collapsed .chat-input {
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.chat-messages,
-.chat-input {
-    transition: opacity 0.2s ease;
-    opacity: 1;
-}
-
-/* Pro velmi malé displeje - ještě menší sbalený stav */
-@media (max-width: 480px) {
-    .chat-panel.collapsed {
-        height: 35px !important;
-    }
-}
-
-/* Mobilní optimalizace - postupné zmenšování */
-@media (max-width: 1200px) and (min-width: 851px) {
-    .chat-panel {
-        height: 100%;
-        padding: 12px;
-    }
-    
-    .chat-header h2 {
-        font-size: 15px;
-    }
-    
-    .chat-messages {
-        margin-bottom: 6px;
-        padding: 6px;
-    }
-}
-
-@media (max-width: 850px) and (min-width: 701px) {
-    .chat-panel {
-        height: 100%;
-        padding: 10px;
-    }
-    
-    .chat-header h2 {
-        font-size: 14px;
-    }
-    
-    .chat-messages {
-        margin-bottom: 5px;
-        padding: 5px;
-    }
-    
-    .chat-message {
-        font-size: 11px;
-        padding: 3px 6px;
-        margin-bottom: 3px;
-    }
-    
-    .chat-input {
-        height: 32px;
-    }
-    
-    .chat-input input {
-        font-size: 11px;
-        padding: 5px 35px 5px 10px;
-    }
-    
-    .chat-send-btn {
-        width: 26px;
-        font-size: 11px;
-    }
-}
-
-@media (max-width: 700px) {
-    .chat-panel {
-        height: 400px; /* Pevná výška když je chat pod obsahem */
-        padding: 12px;
-        margin-bottom: 0;
-    }
-    
-    .chat-messages {
-        margin-bottom: 6px;
-        padding: 6px;
-    }
-    
-    .chat-input {
-        margin-bottom: 0;
-    }
-}
-
-@media (max-width: 768px) {
-    .chat-panel {
-        height: 350px;
-        padding: 10px;
-        margin-bottom: 0;
-    }
-    
-    .chat-header {
-        margin-bottom: 6px;
-        padding-bottom: 4px;
-    }
-    
-    .chat-header h2 {
-        font-size: 14px;
-    }
-    
-    .chat-messages {
-        margin-bottom: 5px;
-        padding: 5px;
-    }
-    
-    .chat-message {
-        font-size: 11px;
-        padding: 4px 8px;
-        margin-bottom: 4px;
-    }
-    
-    .message-header {
-        font-size: 10px;
-        margin-bottom: 2px;
-    }
-    
-    .message-content {
-        font-size: 11px;
-    }
-    
-    .chat-input {
-        height: 35px;
-        margin-bottom: 0;
-    }
-    
-    .chat-input input {
-        font-size: 12px;
-        padding: 6px 40px 6px 12px;
-    }
-    
-    .chat-send-btn {
-        width: 28px;
-        font-size: 12px;
-    }
-}
-
-/* Extra malé displeje - maximální úspora místa */
-@media (max-width: 480px) {
-    .chat-panel {
-        height: 280px;
-        padding: 8px;
-        margin-bottom: 0;
-    }
-    
-    .chat-header {
-        margin-bottom: 4px;
-        padding-bottom: 2px;
-    }
-    
-    .chat-header h2 {
-        font-size: 12px; /* Ještě menší nadpis */
-    }
-    
-    .chat-messages {
-        margin-bottom: 4px;
-        padding: 4px;
-    }
-    
-    .chat-message {
-        font-size: 10px;
-        padding: 3px 6px;
-        margin-bottom: 3px;
-    }
-    
-    .chat-input {
-        height: 32px;
-        margin-bottom: 0;
-    }
-    
-    .chat-input input {
-        font-size: 11px;
-        padding: 5px 35px 5px 10px;
-    }
-    
-    .chat-send-btn {
-        width: 26px;
-        font-size: 11px;
-    }
-}
-
-@media (max-width: 360px) {
-    .chat-panel {
-        height: 250px;
-        padding: 6px;
-    }
-    
-    .chat-header h2 {
-        font-size: 11px; /* Minimální velikost nadpisu */
-    }
-    
-    .chat-input {
-        height: 30px;
-    }
-    
-    .chat-send-btn {
-        width: 24px;
-        font-size: 10px;
-    }
-}
-
-/* Chat přesun dolů pod herní oblast */
-@media (max-width: 650px) {
-    .chat-panel {
-        width: 100%; /* Plná šířka když je dolů */
-        height: 300px; /* Trochu vyšší pro lepší použitelnost */
-        padding: 12px;
-        margin-top: 0; /* Žádný top margin */
-    }
-    
-    .chat-header h2 {
-        font-size: 16px; /* Větší nadpis když je chat široký */
-    }
-    
-    .chat-messages {
-        margin-bottom: 8px;
-        padding: 8px;
-    }
-    
-    .chat-message {
-        font-size: 13px; /* Trochu větší text */
-        padding: 6px 10px;
-        margin-bottom: 4px;
-    }
-    
-    .chat-input {
-        height: 40px; /* Vyšší input */
-    }
-    
-    .chat-input input {
-        font-size: 14px;
-        padding: 8px 45px 8px 15px;
-    }
-    
-    .chat-send-btn {
-        width: 32px;
-        font-size: 14px;
-    }
-    
-    /* Sbalený stav pro mobilní layout */
-    .chat-panel.collapsed {
-        height: 45px !important;
-    }
+  min-width: 60px;
 }

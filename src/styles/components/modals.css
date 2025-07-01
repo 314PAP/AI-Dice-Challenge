@@ -1,0 +1,141 @@
+/* =============================================================================
+   🔲 MODALS KOMPONENTY
+   ============================================================================= */
+
+/* MODAL OVERLAY */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-base);
+}
+
+.modal-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* MODAL CONTAINER */
+.modal-container {
+  background: var(--black-bg);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.8);
+  transition: var(--transition-base);
+}
+
+.modal-overlay.visible .modal-container {
+  transform: scale(1);
+  animation: modal-fade-in 0.3s ease-out;
+}
+
+/* MODAL HEADER */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--neon-blue);
+}
+
+.modal-title {
+  color: var(--neon-blue);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: var(--font-2xl);
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--neon-red);
+  font-size: var(--font-2xl);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-base);
+  border-radius: var(--radius-base);
+}
+
+.modal-close:hover {
+  color: var(--neon-orange);
+  background: rgba(255, 140, 0, 0.1);
+  transform: scale(1.1);
+}
+
+/* MODAL BODY */
+.modal-body {
+  margin-bottom: var(--spacing-lg);
+}
+
+.modal-body p {
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+}
+
+/* MODAL ACTIONS */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* GAME OVER MODAL */
+.game-over-modal .modal-container {
+  border-color: var(--neon-orange);
+  background: linear-gradient(135deg, var(--black-bg) 0%, rgba(255, 140, 0, 0.1) 100%);
+}
+
+.game-over-modal .modal-title {
+  color: var(--neon-orange);
+  animation: neon-glow 2s ease-in-out infinite;
+}
+
+/* HALL OF FAME MODAL */
+.hall-of-fame-modal .modal-container {
+  max-width: 600px;
+  border-color: var(--neon-green);
+}
+
+.hall-of-fame-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* RESPONZIVNÍ MODALS */
+@media (max-width: 480px) {
+  .modal-container {
+    padding: var(--spacing-lg);
+    width: 95%;
+  }
+  
+  .modal-title {
+    font-size: var(--font-xl);
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+}

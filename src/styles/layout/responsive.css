@@ -1,0 +1,89 @@
+/* =============================================================================
+   📱 RESPONZIVNÍ DESIGN
+   ============================================================================= */
+
+/* TABLET LAYOUT */
+@media (max-width: 1200px) {
+  .main-layout {
+    grid-template-columns: 1fr 320px;
+    gap: var(--spacing-md);
+  }
+  
+  .game-area, .chat-area {
+    padding: var(--spacing-md);
+  }
+  
+  .heading-1 {
+    font-size: var(--font-4xl);
+  }
+}
+
+/* MOBILE LAYOUT */
+@media (max-width: 768px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  
+  .chat-area {
+    height: 300px;
+    order: 2;
+  }
+  
+  .game-area {
+    order: 1;
+  }
+  
+  .app-container {
+    padding: var(--spacing-xs);
+  }
+  
+  .heading-1 {
+    font-size: var(--font-3xl);
+  }
+  
+  .player-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+}
+
+/* MALÉ MOBILY */
+@media (max-width: 480px) {
+  .main-layout {
+    gap: var(--spacing-sm);
+  }
+  
+  .game-area, .chat-area {
+    padding: var(--spacing-sm);
+  }
+  
+  .heading-1 {
+    font-size: var(--font-2xl);
+  }
+  
+  .player-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .controls-section {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* LANDSCAPE ORIENTACE */
+@media (orientation: landscape) and (max-height: 600px) {
+  .app-container {
+    padding: var(--spacing-xs);
+  }
+  
+  .main-layout {
+    gap: var(--spacing-sm);
+  }
+  
+  .heading-1 {
+    font-size: var(--font-2xl);
+    margin-bottom: var(--spacing-sm);
+  }
+}

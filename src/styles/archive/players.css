@@ -1,0 +1,225 @@
+/**
+ * AI Dice Challenge - Players Components
+ * Styly pro zobrazení hráčů
+ */
+
+/* Skrýt velké panely hráčů - používáme jen avatary v hlavičce */
+.players-container {
+    display: none !important;
+}
+
+/* Jednotlivý hráč */
+.player {
+    background: var(--black-bg);
+    border: 2px solid var(--neon-green);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    min-width: 110px;
+    transition: all 0.3s ease;
+}
+
+.player.active {
+    border-color: var(--neon-orange);
+    box-shadow: 0 0 15px var(--neon-orange);
+}
+
+/* Avatar hráče */
+.player-head {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.player-head img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 3px solid var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-green);
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.player.active .player-head img {
+    border-color: var(--neon-orange);
+    box-shadow: 0 0 15px var(--neon-orange);
+}
+
+/* Specifické nastavení pro ikonu mozku */
+.human-player .player-head img {
+    object-fit: fill;
+    transform: scale(1.3);
+}
+
+/* Jméno hráče */
+.player-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--neon-green);
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+/* Skóre hráče */
+.player-score {
+    font-family: 'Orbitron', monospace;
+    font-weight: 400;
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* Barvy hráčů podle typu */
+.human-player .player-head { 
+    border-color: var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green);
+}
+
+.human-player.active .player-name {
+    color: var(--neon-green);
+}
+
+.gemini-player .player-head { 
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px var(--neon-blue);
+}
+
+.gemini-player.active .player-name {
+    color: var(--neon-blue);
+}
+
+.chatgpt-player .player-head { 
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+.chatgpt-player.active .player-name {
+    color: var(--neon-pink);
+}
+
+.claude-player .player-head { 
+    border-color: var(--neon-orange);
+    box-shadow: 0 0 20px var(--neon-orange);
+}
+
+.claude-player.active .player-name {
+    color: var(--neon-orange);
+}
+
+/* Player jména a skóre */
+.player-name, .player-score {
+    color: var(--neon-green);
+    font-weight: 700;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.player.active .player-name,
+.player.active .player-score {
+    color: var(--neon-orange);
+}
+
+/* Kruhový stůl pro desktop - skrytý ve výchozím stavu */
+.players-table {
+    display: none;
+}
+
+/* Desktop verze s kruhovým stolem */
+@media (min-width: 769px) {
+    .players-table {
+        display: block;
+        background: var(--black-bg);
+        border: 2px solid var(--neon-blue);
+        border-radius: 50%;
+        height: 350px;
+        width: 100%;
+        max-width: 500px;
+        margin: 25px auto;
+        position: relative;
+        box-shadow: 0 0 20px var(--neon-blue);
+    }
+    
+    .players-container {
+        display: none;
+    }
+    
+    .player {
+        position: absolute;
+    }
+    
+    /* Pozice hráčů na kruhu */
+    .player:nth-child(1) { 
+        top: 10%; 
+        left: 50%; 
+        transform: translateX(-50%); 
+    }
+
+    .player:nth-child(2) { 
+        top: 50%; 
+        left: 10%; 
+        transform: translateY(-50%); 
+    }
+
+    .player:nth-child(3) { 
+        bottom: 10%; 
+        left: 50%; 
+        transform: translateX(-50%); 
+    }
+
+    .player:nth-child(4) { 
+        top: 50%; 
+        right: 10%; 
+        transform: translateY(-50%); 
+    }
+}
+
+/* Responzivní styly pro menší obrazovky */
+@media (max-width: 768px) {
+    .players-container {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .player-head {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .player-name {
+        font-size: 10px;
+    }
+    
+    .player-score {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 480px) {
+    .players-container {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .player-head {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .player-name {
+        font-size: 9px;
+    }
+    
+    .player-score {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 360px) {
+    .player-head {
+        width: 40px;
+        height: 40px;
+    }
+}

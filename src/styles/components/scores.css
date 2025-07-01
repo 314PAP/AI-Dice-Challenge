@@ -1,0 +1,137 @@
+/* =============================================================================
+   📊 SCORES KOMPONENTY
+   ============================================================================= */
+
+/* TARGET SCORE SETUP */
+.target-score-setup {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: rgba(0, 255, 255, 0.05);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.target-score-setup label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  color: var(--neon-blue);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-lg);
+}
+
+.target-score-setup input {
+  background: var(--black-bg);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-base);
+  color: var(--text-primary);
+  padding: var(--spacing-sm);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: var(--font-lg);
+  text-align: center;
+  width: 150px;
+}
+
+.target-score-setup input:focus {
+  outline: none;
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 15px var(--neon-orange);
+}
+
+/* GAME CONTROLS */
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.turn-info {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--neon-green);
+}
+
+.current-player {
+  color: var(--neon-orange);
+  font-size: var(--font-xl);
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+}
+
+.current-turn-score {
+  color: var(--neon-green);
+  font-size: var(--font-lg);
+  font-weight: 700;
+}
+
+/* SCORE DISPLAY */
+.score-display {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  flex-wrap: wrap;
+}
+
+.score-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-lg);
+  min-width: 120px;
+}
+
+.score-label {
+  color: var(--neon-blue);
+  font-size: var(--font-sm);
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.score-value {
+  color: var(--text-primary);
+  font-size: var(--font-2xl);
+  font-weight: 900;
+  font-family: 'Orbitron', monospace;
+}
+
+.score-increase {
+  animation: score-increase 0.6s ease-out;
+}
+
+/* HALL OF FAME */
+.hall-of-fame-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  background: rgba(0, 255, 0, 0.05);
+  border: 1px solid var(--neon-green);
+  border-radius: var(--radius-base);
+}
+
+.hall-of-fame-name {
+  color: var(--neon-orange);
+  font-weight: 700;
+  font-size: var(--font-lg);
+}
+
+.hall-of-fame-score {
+  color: var(--neon-green);
+  font-weight: 900;
+  font-family: 'Orbitron', monospace;
+  font-size: var(--font-xl);
+}
+
+.hall-of-fame-date {
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+}

@@ -1,225 +1,305 @@
-/**
- * AI Dice Challenge - Players Components
- * Styly pro zobrazení hráčů
- */
+/* =============================================================================
+   👥 PLAYERS - Hráči s avatary a skóre
+   ============================================================================= */
 
-/* Skrýt velké panely hráčů - používáme jen avatary v hlavičce */
+/* PLAYERS CONTAINER */
 .players-container {
-    display: none !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5em;
+  margin: 2em 0;
+  padding: 1.5em;
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--neon-blue);
+  border-radius: 1em;
 }
 
-/* Jednotlivý hráč */
+/* JEDNOTLIVÍ HRÁČI */
 .player {
-    background: var(--black-bg);
-    border: 2px solid var(--neon-green);
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-    min-width: 110px;
-    transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5em;
+  background: var(--black-bg);
+  border: 2px solid var(--gray-text);
+  border-radius: 1em;
+  transition: var(--transition-base);
+  position: relative;
 }
 
+.player:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* AKTIVNÍ HRÁČ */
 .player.active {
-    border-color: var(--neon-orange);
-    box-shadow: 0 0 15px var(--neon-orange);
+  border-color: var(--neon-green);
+  box-shadow: 
+    0 0 20px var(--neon-green),
+    0 0 40px rgba(57, 255, 20, 0.3);
+  animation: player-active-pulse 2s ease-in-out infinite;
 }
 
-/* Avatar hráče */
+.player.active::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--neon-green), var(--neon-blue), var(--neon-green));
+  border-radius: 1em;
+  z-index: -1;
+  animation: border-rotate 3s linear infinite;
+}
+
+/* PLAYER HEAD (AVATAR) */
 .player-head {
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid currentColor;
+  margin-bottom: 1em;
+  position: relative;
 }
 
 .player-head img {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    border: 3px solid var(--neon-green);
-    box-shadow: 0 0 10px var(--neon-green);
-    object-fit: cover;
-    transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-base);
 }
 
-.player.active .player-head img {
-    border-color: var(--neon-orange);
-    box-shadow: 0 0 15px var(--neon-orange);
+.player.active .player-head {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green);
 }
 
-/* Specifické nastavení pro ikonu mozku */
-.human-player .player-head img {
-    object-fit: fill;
-    transform: scale(1.3);
+.player:hover .player-head img {
+  transform: scale(1.1);
 }
 
-/* Jméno hráče */
+/* PLAYER NAME */
 .player-name {
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
-    font-size: 12px;
-    color: var(--neon-green);
-    margin-bottom: 4px;
-    text-align: center;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  color: var(--white-text);
+  text-align: center;
 }
 
-/* Skóre hráče */
+.player.active .player-name {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+/* PLAYER SCORE */
 .player-score {
-    font-family: 'Orbitron', monospace;
-    font-weight: 400;
-    font-size: 10px;
-    color: var(--text-secondary);
-    text-align: center;
+  font-size: 1rem;
+  color: var(--gray-text);
+  text-align: center;
+  margin-bottom: 0.5em;
 }
 
-/* Barvy hráčů podle typu */
-.human-player .player-head { 
-    border-color: var(--neon-green);
-    box-shadow: 0 0 20px var(--neon-green);
+.player-score span {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--neon-blue);
 }
 
-.human-player.active .player-name {
-    color: var(--neon-green);
+.player.active .player-score span {
+  color: var(--neon-green);
 }
 
-.gemini-player .player-head { 
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 20px var(--neon-blue);
+/* PLAYER AVATARS SECTION (MINI AVATARS) */
+.player-avatars-section {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  margin: 1em 0;
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0.5em;
 }
 
-.gemini-player.active .player-name {
-    color: var(--neon-blue);
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
 }
 
-.chatgpt-player .player-head { 
-    border-color: var(--neon-pink);
-    box-shadow: 0 0 20px var(--neon-pink);
+.avatar-mini {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--gray-text);
+  transition: var(--transition-base);
+  cursor: pointer;
 }
 
-.chatgpt-player.active .player-name {
-    color: var(--neon-pink);
+.avatar-mini:hover {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue);
+  transform: scale(1.1);
 }
 
-.claude-player .player-head { 
-    border-color: var(--neon-orange);
-    box-shadow: 0 0 20px var(--neon-orange);
+.avatar-mini.active {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green);
 }
 
-.claude-player.active .player-name {
-    color: var(--neon-orange);
+.avatar-name {
+  font-size: 0.8rem;
+  color: var(--gray-text);
+  text-align: center;
 }
 
-/* Player jména a skóre */
-.player-name, .player-score {
-    color: var(--neon-green);
-    font-weight: 700;
-    margin: 5px 0;
-    font-size: 14px;
+.avatar-container:hover .avatar-name {
+  color: var(--white-text);
 }
 
-.player.active .player-name,
-.player.active .player-score {
-    color: var(--neon-orange);
+/* PLAYER SPECIFIC COLORS */
+.human-player {
+  border-color: var(--neon-green);
 }
 
-/* Kruhový stůl pro desktop - skrytý ve výchozím stavu */
-.players-table {
-    display: none;
+.gemini-player {
+  border-color: var(--neon-blue);
 }
 
-/* Desktop verze s kruhovým stolem */
-@media (min-width: 769px) {
-    .players-table {
-        display: block;
-        background: var(--black-bg);
-        border: 2px solid var(--neon-blue);
-        border-radius: 50%;
-        height: 350px;
-        width: 100%;
-        max-width: 500px;
-        margin: 25px auto;
-        position: relative;
-        box-shadow: 0 0 20px var(--neon-blue);
-    }
-    
-    .players-container {
-        display: none;
-    }
-    
-    .player {
-        position: absolute;
-    }
-    
-    /* Pozice hráčů na kruhu */
-    .player:nth-child(1) { 
-        top: 10%; 
-        left: 50%; 
-        transform: translateX(-50%); 
-    }
-
-    .player:nth-child(2) { 
-        top: 50%; 
-        left: 10%; 
-        transform: translateY(-50%); 
-    }
-
-    .player:nth-child(3) { 
-        bottom: 10%; 
-        left: 50%; 
-        transform: translateX(-50%); 
-    }
-
-    .player:nth-child(4) { 
-        top: 50%; 
-        right: 10%; 
-        transform: translateY(-50%); 
-    }
+.chatgpt-player {
+  border-color: var(--neon-orange);
 }
 
-/* Responzivní styly pro menší obrazovky */
+.claude-player {
+  border-color: var(--neon-purple);
+}
+
+.human-player.active {
+  box-shadow: 0 0 20px var(--neon-green);
+}
+
+.gemini-player.active {
+  box-shadow: 0 0 20px var(--neon-blue);
+}
+
+.chatgpt-player.active {
+  box-shadow: 0 0 20px var(--neon-orange);
+}
+
+.claude-player.active {
+  box-shadow: 0 0 20px var(--neon-purple);
+}
+
+/* PLAYER STATUS INDICATORS */
+.player-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--neon-red);
+  animation: status-pulse 1.5s ease-in-out infinite;
+}
+
+.player-status.thinking {
+  background: var(--neon-orange);
+}
+
+.player-status.winning {
+  background: var(--neon-green);
+}
+
+/* ANIMATIONS */
+@keyframes player-active-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px var(--neon-green),
+      0 0 40px rgba(57, 255, 20, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px var(--neon-green),
+      0 0 60px rgba(57, 255, 20, 0.5);
+  }
+}
+
+@keyframes border-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* RESPONSIVE PLAYERS */
 @media (max-width: 768px) {
-    .players-container {
-        padding: 15px;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    
-    .player-head {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .player-name {
-        font-size: 10px;
-    }
-    
-    .player-score {
-        font-size: 9px;
-    }
+  .players-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    padding: 1em;
+  }
+  
+  .player {
+    padding: 1em;
+  }
+  
+  .player-head {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .player-name {
+    font-size: 1rem;
+  }
+  
+  .avatar-mini {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .avatar-name {
+    font-size: 0.7rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .players-container {
-        padding: 10px;
-        gap: 10px;
-    }
-    
-    .player-head {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .player-name {
-        font-size: 9px;
-    }
-    
-    .player-score {
-        font-size: 8px;
-    }
-}
-
-@media (max-width: 360px) {
-    .player-head {
-        width: 40px;
-        height: 40px;
-    }
+  .players-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8em;
+  }
+  
+  .player {
+    padding: 0.8em;
+  }
+  
+  .player-head {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .player-name {
+    font-size: 0.9rem;
+  }
+  
+  .player-score {
+    font-size: 0.9rem;
+  }
+  
+  .player-avatars-section {
+    gap: 0.5em;
+  }
+  
+  .avatar-mini {
+    width: 35px;
+    height: 35px;
+  }
 }

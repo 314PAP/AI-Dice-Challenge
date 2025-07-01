@@ -1,90 +1,95 @@
-/**
- * AI Dice Challenge - CSS Reset
- * Základní reset stylů bez proměnných (ty jsou v themes/neon.css)
- */
+/* =============================================================================
+   🔄 CSS RESET - Moderní reset pro konzistentní zobrazení
+   ============================================================================= */
 
-/* Font imports */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+/* MODERN CSS RESET BASED ON JOSH W. COMEAU'S RESET */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
-/* CSS Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Body base styles */
+html, body {
+  height: 100%;
+}
+
 body {
-    font-family: 'Orbitron', monospace;
-    background: var(--black-bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-    line-height: 1.4;
-    overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Základní animace */
-@keyframes neonPulse {
-    from { 
-        text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor; 
-    }
-    to { 
-        text-shadow: 0 0 15px currentColor, 0 0 25px currentColor, 0 0 35px currentColor; 
-    }
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+input, button, textarea, select {
+  font: inherit;
 }
 
-@keyframes slideIn {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
 }
 
-/* Utility classes */
-.hidden {
-    display: none !important;
+#root, #__next {
+  isolation: isolate;
 }
 
-.text-center {
-    text-align: center;
+/* CUSTOM RESETS PRO NAŠI APLIKACI */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
-.text-left {
-    text-align: left;
+button:disabled {
+  cursor: not-allowed;
 }
 
-.text-right {
-    text-align: right;
+input:focus,
+button:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
 }
 
-.uppercase {
-    text-transform: uppercase;
+/* SCROLLBAR STYLING */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.neon-icon {
-    color: var(--neon-orange);
-    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
-    animation: neonPulse 2s ease-in-out infinite alternate;
+::-webkit-scrollbar-track {
+  background: var(--black-bg);
 }
 
-/* Responsive breakpoints pomocné třídy */
-.mobile-only {
-    display: block;
+::-webkit-scrollbar-thumb {
+  background: var(--neon-green);
+  border-radius: 4px;
 }
 
-.desktop-only {
-    display: none;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-blue);
 }
 
-@media (min-width: 769px) {
-    .mobile-only {
-        display: none;
-    }
-    
-    .desktop-only {
-        display: block;
-    }
+/* FIREFOX SCROLLBAR */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-green) var(--black-bg);
+}
+
+/* SELECTION COLORS */
+::selection {
+  background: var(--neon-green);
+  color: var(--black-bg);
+}
+
+::-moz-selection {
+  background: var(--neon-green);
+  color: var(--black-bg);
 }

@@ -1,127 +1,197 @@
-/**
- * Typography
- * Nastavení fontů a textových stylů
- */
+/* =============================================================================
+   ✍️ TYPOGRAPHY - Písma a textové styly
+   ============================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-
-/* Základní font nastavení */
+/* ZÁKLADNÍ TYPOGRAPHY */
 body {
-    font-family: 'Orbitron', monospace;
-    font-weight: 400;
-    line-height: 1.4;
-    color: var(--text-primary);
+  font-family: 'Roboto Mono', monospace;
+  font-size: var(--font-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--black-bg);
 }
 
-/* Headings */
+/* HEADINGS */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-base);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--white-text);
+  margin-bottom: var(--spacing-md);
 }
 
 h1 {
-    font-size: var(--font-size-3xl);
-    font-weight: 900;
+  font-size: var(--font-4xl);
+  font-weight: 900;
 }
 
 h2 {
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
+  font-size: var(--font-3xl);
+  font-weight: 700;
 }
 
 h3 {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
+  font-size: var(--font-2xl);
+  font-weight: 700;
 }
 
 h4 {
-    font-size: var(--font-size-lg);
-    font-weight: 700;
+  font-size: var(--font-xl);
+  font-weight: 600;
 }
 
 h5 {
-    font-size: var(--font-size-base);
-    font-weight: 700;
+  font-size: var(--font-lg);
+  font-weight: 600;
 }
 
 h6 {
-    font-size: var(--font-size-sm);
-    font-weight: 700;
+  font-size: var(--font-base);
+  font-weight: 600;
 }
 
-/* Hlavní nadpis hry */
+/* GAME TITLE */
 .game-title {
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 900;
-    margin-bottom: 30px;
-    color: var(--neon-green);
-    letter-spacing: 2px;
-    text-shadow: 0 0 15px var(--neon-green);
+  font-family: 'Orbitron', monospace;
+  font-size: var(--font-4xl);
+  font-weight: 900;
+  text-align: center;
+  color: var(--neon-green);
+  text-shadow: 
+    0 0 10px var(--neon-green),
+    0 0 20px var(--neon-green),
+    0 0 30px var(--neon-green);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
 }
 
-/* Text utility třídy */
-.text-xs { font-size: var(--font-size-xs); }
-.text-sm { font-size: var(--font-size-sm); }
-.text-base { font-size: var(--font-size-base); }
-.text-lg { font-size: var(--font-size-lg); }
-.text-xl { font-size: var(--font-size-xl); }
-.text-2xl { font-size: var(--font-size-2xl); }
-.text-3xl { font-size: var(--font-size-3xl); }
+/* PARAGRAPHS */
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
 
-.font-light { font-weight: 400; }
-.font-bold { font-weight: 700; }
-.font-black { font-weight: 900; }
-
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-light { color: var(--text-light); }
-
-.text-green { color: var(--neon-green); }
-.text-orange { color: var(--neon-orange); }
-.text-blue { color: var(--neon-blue); }
-.text-pink { color: var(--neon-pink); }
-.text-purple { color: var(--neon-purple); }
-.text-yellow { color: var(--neon-yellow); }
-.text-red { color: var(--neon-red); }
-
-/* Links */
+/* LINKS */
 a {
-    color: var(--neon-blue);
-    text-decoration: none;
-    transition: var(--transition-fast);
+  color: var(--neon-blue);
+  text-decoration: none;
+  transition: var(--transition-base);
 }
 
 a:hover {
-    color: var(--neon-orange);
-    text-shadow: 0 0 10px currentColor;
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green);
 }
 
-/* Emphasize text */
-.neon-text {
-    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
-    animation: neonPulse 2s ease-in-out infinite alternate;
+a:focus {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
 }
 
-@keyframes neonPulse {
-    0% { text-shadow: 0 0 10px currentColor, 0 0 20px currentColor; }
-    100% { text-shadow: 0 0 15px currentColor, 0 0 30px currentColor; }
+/* TEXT UTILITY CLASSES */
+.text-xs { font-size: var(--font-xs); }
+.text-sm { font-size: var(--font-sm); }
+.text-base { font-size: var(--font-base); }
+.text-lg { font-size: var(--font-lg); }
+.text-xl { font-size: var(--font-xl); }
+.text-2xl { font-size: var(--font-2xl); }
+.text-3xl { font-size: var(--font-3xl); }
+.text-4xl { font-size: var(--font-4xl); }
+
+/* TEXT WEIGHT */
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-extrabold { font-weight: 800; }
+.font-black { font-weight: 900; }
+
+/* TEXT ALIGNMENT */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-justify { text-align: justify; }
+
+/* TEXT TRANSFORM */
+.uppercase { text-transform: uppercase; }
+.lowercase { text-transform: lowercase; }
+.capitalize { text-transform: capitalize; }
+
+/* TEXT DECORATION */
+.underline { text-decoration: underline; }
+.no-underline { text-decoration: none; }
+
+/* LETTER SPACING */
+.tracking-tight { letter-spacing: -0.025em; }
+.tracking-normal { letter-spacing: 0; }
+.tracking-wide { letter-spacing: 0.025em; }
+.tracking-wider { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.1em; }
+
+/* NEONOVÉ TEXT EFEKTY */
+.text-neon-green {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
 }
 
-/* Monospace pro čísla a kódy */
-.mono {
-    font-family: 'Courier New', monospace;
+.text-neon-blue {
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px var(--neon-blue);
 }
 
-/* Uppercase text */
-.uppercase {
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.text-neon-orange {
+  color: var(--neon-orange);
+  text-shadow: 0 0 10px var(--neon-orange);
+}
+
+.text-neon-red {
+  color: var(--neon-red);
+  text-shadow: 0 0 10px var(--neon-red);
+}
+
+.text-neon-purple {
+  color: var(--neon-purple);
+  text-shadow: 0 0 10px var(--neon-purple);
+}
+
+/* GAME SPECIFIC TEXT */
+.score-text {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.player-name {
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chat-text {
+  font-family: 'Roboto Mono', monospace;
+  font-size: var(--font-sm);
+  line-height: 1.4;
+}
+
+/* RESPONSIVE TYPOGRAPHY */
+@media (max-width: 768px) {
+  body {
+    font-size: var(--font-sm);
+  }
+  
+  .game-title {
+    font-size: var(--font-2xl);
+  }
+  
+  h1 { font-size: var(--font-3xl); }
+  h2 { font-size: var(--font-2xl); }
+  h3 { font-size: var(--font-xl); }
+  h4 { font-size: var(--font-lg); }
 }

@@ -1,192 +1,242 @@
-/**
- * AI Dice Challenge - Button Components
- * Všechny styly pro tlačítka
- */
+/* =============================================================================
+   🔘 BUTTONS - Neonové tlačítka s animacemi
+   ============================================================================= */
 
-/* Základní tlačítko */
+/* ZÁKLADNÍ BUTTON TŘÍDY */
 .btn {
-    background: var(--neon-green);
-    color: var(--black-bg);
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 0 15px var(--neon-green);
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.75em 1.5em;
+  border: 2px solid;
+  border-radius: 0.5em;
+  background: var(--black-bg);
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
 }
 
-.btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px var(--neon-green);
+.btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
 
-.btn:active {
-    transform: scale(0.98);
+.btn:hover:before {
+  left: 100%;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.3);
 }
 
 .btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(50%);
 }
 
-/* Varianty tlačítek */
+.btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* PRIMARY BUTTONS */
 .btn-primary {
-    background: var(--neon-green);
-    box-shadow: 0 0 15px var(--neon-green);
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+  box-shadow: 
+    0 0 10px var(--neon-green),
+    inset 0 0 10px rgba(57, 255, 20, 0.1);
 }
 
 .btn-primary:hover {
-    box-shadow: 0 0 25px var(--neon-green);
+  box-shadow: 
+    0 0 20px var(--neon-green),
+    0 0 30px var(--neon-green),
+    inset 0 0 20px rgba(57, 255, 20, 0.2);
+  transform: translateY(-2px);
 }
 
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 0 15px var(--neon-green),
+    inset 0 0 15px rgba(57, 255, 20, 0.3);
+}
+
+/* SECONDARY BUTTONS */
 .btn-secondary {
-    background: var(--neon-orange);
-    box-shadow: 0 0 15px var(--neon-orange);
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  box-shadow: 
+    0 0 10px var(--neon-blue),
+    inset 0 0 10px rgba(0, 191, 255, 0.1);
 }
 
 .btn-secondary:hover {
-    box-shadow: 0 0 25px var(--neon-orange);
+  box-shadow: 
+    0 0 20px var(--neon-blue),
+    0 0 30px var(--neon-blue),
+    inset 0 0 20px rgba(0, 191, 255, 0.2);
+  transform: translateY(-2px);
 }
 
+/* SUCCESS BUTTONS */
+.btn-success {
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+  background: rgba(57, 255, 20, 0.1);
+}
+
+.btn-success:hover {
+  background: rgba(57, 255, 20, 0.2);
+  box-shadow: 
+    0 0 20px var(--neon-green),
+    0 0 30px var(--neon-green);
+}
+
+/* WARNING BUTTONS */
+.btn-warning {
+  color: var(--neon-orange);
+  border-color: var(--neon-orange);
+  box-shadow: 
+    0 0 10px var(--neon-orange),
+    inset 0 0 10px rgba(255, 165, 0, 0.1);
+}
+
+.btn-warning:hover {
+  box-shadow: 
+    0 0 20px var(--neon-orange),
+    0 0 30px var(--neon-orange),
+    inset 0 0 20px rgba(255, 165, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* DANGER BUTTONS */
 .btn-danger {
-    background: #ff4444;
-    color: white;
-    border: 2px solid #ff4444;
-    box-shadow: 0 0 15px #ff4444;
+  color: var(--neon-red);
+  border-color: var(--neon-red);
+  box-shadow: 
+    0 0 10px var(--neon-red),
+    inset 0 0 10px rgba(255, 0, 64, 0.1);
 }
 
 .btn-danger:hover {
-    background: transparent;
-    color: #ff4444;
-    box-shadow: 0 0 15px #ff4444;
+  box-shadow: 
+    0 0 20px var(--neon-red),
+    0 0 30px var(--neon-red),
+    inset 0 0 20px rgba(255, 0, 64, 0.2);
+  transform: translateY(-2px);
 }
 
-.btn-info {
-    background: var(--neon-blue);
-    box-shadow: 0 0 15px var(--neon-blue);
-}
-
-.btn-info:hover {
-    box-shadow: 0 0 25px var(--neon-blue);
-}
-
-/* Velikosti tlačítek */
+/* BUTTON VELIKOSTI */
 .btn-small {
-    padding: 8px 16px;
-    font-size: 12px;
+  padding: 0.5em 1em;
+  font-size: 0.875rem;
 }
 
 .btn-large {
-    padding: 16px 32px;
-    font-size: 16px;
+  padding: 1em 2em;
+  font-size: 1.125rem;
 }
 
-/* Speciální tlačítka */
-.btn-roll {
-    background: var(--neon-green);
-    min-width: 120px;
+/* BUTTON SPECIÁLNÍ STYLY */
+.btn-ghost {
+  background: transparent;
+  border: 2px solid currentColor;
 }
 
-.btn-bank {
-    background: var(--neon-blue);
-    min-width: 120px;
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
-.btn-end-turn {
-    background: var(--neon-orange);
-    min-width: 120px;
+.btn-rounded {
+  border-radius: 2em;
 }
 
-.btn-quit {
-    background: #ff4444;
-    min-width: 120px;
+/* TOGGLE BUTTONS */
+.btn-toggle {
+  position: relative;
 }
 
-/* Skupina tlačítek */
-.btn-group {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
+.btn-toggle.active {
+  background: rgba(57, 255, 20, 0.2);
+  color: var(--neon-green);
+  border-color: var(--neon-green);
 }
 
-.btn-group .btn {
-    flex: 1;
-    min-width: 100px;
+/* FLOATING ACTION BUTTON */
+.btn-fab {
+  width: 3.5em;
+  height: 3.5em;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  z-index: 1000;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 20px var(--neon-green);
 }
 
-/* Lepší spacing pro hlavní tlačítka */
-.target-score-setup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px; /* Mezery mezi prvky */
-    margin-bottom: 20px;
+.btn-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 
+    0 6px 25px rgba(0, 0, 0, 0.4),
+    0 0 30px var(--neon-green);
 }
 
-.target-score-setup .btn {
-    margin: 5px 8px; /* Mezery mezi tlačítky */
-    min-width: 140px;
+/* CHAT SEND BUTTON */
+.chat-send-btn {
+  padding: 0.5em;
+  background: var(--black-bg);
+  border: 2px solid var(--neon-green);
+  border-radius: 0.25em;
+  color: var(--neon-green);
+  cursor: pointer;
+  transition: var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Responsivní tlačítka */
+.chat-send-btn:hover {
+  background: rgba(57, 255, 20, 0.1);
+  box-shadow: 0 0 10px var(--neon-green);
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE BUTTON ADJUSTMENTS */
 @media (max-width: 768px) {
-    .btn {
-        padding: 10px 20px;
-        font-size: 13px;
-    }
-    
-    .btn-group {
-        gap: 8px;
-    }
-    
-    .btn-group .btn {
-        min-width: 80px;
-    }
-    
-    .target-score-setup {
-        gap: 12px;
-    }
-    
-    .target-score-setup .btn {
-        margin: 4px 6px;
-        min-width: 120px;
-    }
-}
-
-@media (max-width: 480px) {
-    .btn {
-        padding: 8px 16px;
-        font-size: 12px;
-    }
-    
-    .btn-group {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .btn-group .btn {
-        width: 100%;
-        max-width: 200px;
-    }
-    
-    .target-score-setup {
-        gap: 10px;
-    }
-    
-    .target-score-setup .btn {
-        margin: 3px 4px;
-        min-width: 100px;
-        width: 90%;
-        max-width: 200px;
-    }
+  .btn {
+    padding: 0.6em 1.2em;
+    font-size: 0.9rem;
+  }
+  
+  .btn-large {
+    padding: 0.8em 1.6em;
+    font-size: 1rem;
+  }
+  
+  .btn-fab {
+    width: 3em;
+    height: 3em;
+    bottom: 1.5em;
+    right: 1.5em;
+  }
 }

@@ -1,143 +1,42 @@
-/**
- * 🎨 Main CSS - Modular Architecture Entry Point
- * 
- * Hlavní vstupní bod pro celou CSS architekturu projektu AI Kostková Výzva.
- * Organizuje importy v logickém pořadí pro optimální načítání a kaskádování.
- * 
- * Import struktura:
- * 1. Base      → CSS proměnné, reset, typografie (základ)
- * 2. Layout    → Grid systém, kontejnery, layout utility
- * 3. Components→ Komponenty UI (tlačítka, chat, kostky, hráči)
- * 4. Game      → Herní specifické styly (dice, skoreboard atd.)
- * 5. Utilities → Helper třídy pro rychlé stylování
- * 6. Themes    → Neonový design theme
- * 
- * Pravidla:
- * - Žádné inline styly v HTML
- * - Maximálně 150 řádků per soubor
- * - Modulární, znovupoužitelný kód
- * - Jasné jmenné konvence
- * 
- * @author AI Assistant & pipap
- * @version 2.0 - Kompletně refaktorováno
- * @date 2025-07-01
- */
+/* =============================================================================
+   🎨 MODULÁRNÍ CSS SYSTÉM - AI Kostková Výzva
+   Kompletně nový modulární systém - pouze importy, žádný inline CSS
+   ============================================================================= */
 
-/* Base styles */
+/* 🎯 ZÁKLADNÍ MODULY - Proměnné, reset, typography */
 @import './base/variables.css';
 @import './base/reset.css';
 @import './base/typography.css';
 
-/* Layout */
-@import './layout/main.css';
+/* 🎮 LAYOUT SYSTÉM - Grid, containers, responzivita */
 @import './layout/grid.css';
+@import './layout/containers.css';
+@import './layout/responsive.css';
 
-/* Components */
+/* 🧩 KOMPONENTY - UI elementy */
 @import './components/buttons.css';
+@import './components/forms.css';
+@import './components/modals.css';
 @import './components/chat.css';
 @import './components/dice.css';
 @import './components/players.css';
+@import './components/scores.css';
 
-/* Game specific styles */
-@import './game.css';
+/* ✨ ANIMACE & EFEKTY */
+@import './animations/keyframes.css';
+@import './animations/transitions.css';
+@import './animations/neon-effects.css';
 
-/* Utilities */
-@import './utils/utilities.css';
+/* 🎨 IKONY & GRAFIKA */
+@import './icons/neon-icons.css';
+@import './icons/game-icons.css';
 
-/* Themes */
-@import './themes/neon.css';
+/* 🎪 TÉMATA */
+@import './themes/neon-dark.css';
 
-/* Legacy styles that don't fit elsewhere */
+/* 🛠️ UTILITY TŘÍDY */
+@import './utils/spacing.css';
+@import './utils/colors.css';
+@import './utils/visibility.css';
 
-/* Neonové ikony */
-.neon-icon {
-    color: var(--neon-orange);
-    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
-    animation: neonPulse 2s ease-in-out infinite alternate;
-}
-
-/* Game Over Modal - čistý */
-.game-over {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-}
-
-.game-over-content {
-    background: var(--black-bg);
-    border: 2px solid var(--neon-blue);
-    border-radius: 10px;
-    padding: 40px;
-    text-align: center;
-    max-width: 500px;
-    width: 90%;
-}
-
-.game-over-content h2 {
-    font-size: 2.5rem;
-    color: var(--neon-blue);
-    margin-bottom: 20px;
-    font-weight: 900;
-}
-
-.signature-input {
-    margin: 25px 0;
-}
-
-.signature-input input {
-    width: 100%;
-    max-width: 350px;
-    padding: 12px 20px;
-    border: 2px solid var(--neon-green);
-    border-radius: 8px;
-    background: var(--black-bg);
-    color: var(--text-primary);
-    font-family: 'Orbitron', monospace;
-    font-size: 16px;
-    text-align: center;
-}
-
-.signature-input input:focus {
-    outline: none;
-    border-color: var(--neon-orange);
-    box-shadow: 0 0 20px var(--neon-orange);
-}
-
-.final-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-/* Coffee link styling */
-.coffee-icon {
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
-    margin-right: 8px;
-    filter: drop-shadow(0 0 8px var(--neon-orange));
-}
-
-/* Roll first message animation */
-@keyframes rollFirstPulse {
-    0%, 100% { 
-        background: var(--neon-yellow);
-        box-shadow: 0 0 15px var(--neon-yellow);
-    }
-    50% { 
-        background: var(--neon-orange);
-        box-shadow: 0 0 25px var(--neon-orange);
-    }
-}
-
-.roll-first-message {
-    animation: rollFirstPulse 2s ease-in-out infinite;
-}
+/* ============================================================================= */

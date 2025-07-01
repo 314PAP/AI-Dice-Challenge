@@ -1,73 +1,110 @@
-/**
- * CSS Variables
- * Definice barev, velikostí a dalších proměnných
- */
+/* =============================================================================
+   🎨 CSS PROMĚNNÉ - Neonové barvy a základní hodnoty
+   ============================================================================= */
 
 :root {
-    /* Neonové barvy - hlavní paleta */
-    --neon-green: #39ff14;
-    --neon-orange: #ff6600;
-    --neon-blue: #0099ff;
-    --neon-pink: #ff00ff;
-    --neon-purple: #8000ff;
-    --neon-yellow: #ffff00;
-    --neon-red: #ff0040;
-    
-    /* Základní barvy */
-    --black-bg: #000000;
-    --dark-gray: #1a1a1a;
-    --gray-text: #666666;
-    
-    /* Text barvy */
-    --text-primary: #39ff14;
-    --text-secondary: #39ff14;
-    --text-light: #cccccc;
-    
-    /* Velikosti */
-    --font-size-xs: 10px;
-    --font-size-sm: 12px;
-    --font-size-base: 14px;
-    --font-size-lg: 16px;
-    --font-size-xl: 18px;
-    --font-size-2xl: 24px;
-    --font-size-3xl: 32px;
-    
-    /* Mezery */
-    --spacing-xs: 5px;
-    --spacing-sm: 10px;
-    --spacing-base: 15px;
-    --spacing-lg: 20px;
-    --spacing-xl: 25px;
-    --spacing-2xl: 30px;
-    
-    /* Border radius */
-    --radius-sm: 4px;
-    --radius-base: 8px;
-    --radius-lg: 12px;
-    --radius-full: 50%;
-    
-    /* Shadows */
-    --shadow-sm: 0 0 10px;
-    --shadow-base: 0 0 15px;
-    --shadow-lg: 0 0 20px;
-    --shadow-xl: 0 0 30px;
-    
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-base: 0.3s ease;
-    --transition-slow: 0.5s ease;
-    
-    /* Z-index layers */
-    --z-modal: 1000;
-    --z-overlay: 900;
-    --z-dropdown: 800;
-    --z-fixed: 700;
-    --z-base: 1;
-    
-    /* Container sizes */
-    --container-xs: 400px;
-    --container-sm: 600px;
-    --container-md: 800px;
-    --container-lg: 1200px;
-    --container-xl: 1400px;
+  /* 🌈 NEONOVÉ BARVY */
+  --neon-green: #39ff14;
+  --neon-blue: #00bfff;
+  --neon-orange: #ff8c00;
+  --neon-red: #ff0040;
+  --neon-purple: #8a2be2;
+  --neon-cyan: #00ffff;
+  --neon-pink: #ff1493;
+  --neon-yellow: #ffff00;
+
+  /* 🎨 ZÁKLADNÍ BARVY */
+  --black-bg: #0a0a0a;
+  --dark-bg: #1a1a1a;
+  --gray-bg: #2a2a2a;
+  --white-text: #ffffff;
+  --gray-text: #999999;
+  --dark-text: #333333;
+
+  /* 📝 TEXT BARVY */
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #999999;
+  --text-success: #39ff14;
+  --text-warning: #ff8c00;
+  --text-danger: #ff0040;
+
+  /* 📏 VELIKOSTI PÍSMA */
+  --font-xs: 0.75rem;   /* 12px */
+  --font-sm: 0.875rem;  /* 14px */
+  --font-base: 1rem;    /* 16px */
+  --font-lg: 1.125rem;  /* 18px */
+  --font-xl: 1.25rem;   /* 20px */
+  --font-2xl: 1.5rem;   /* 24px */
+  --font-3xl: 1.875rem; /* 30px */
+  --font-4xl: 2.25rem;  /* 36px */
+
+  /* 📐 ROZESTUPY */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-2xl: 3rem;    /* 48px */
+  --spacing-3xl: 4rem;    /* 64px */
+
+  /* 🔄 RÁDIUSY */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-base: 0.5rem;  /* 8px */
+  --radius-lg: 1rem;      /* 16px */
+  --radius-xl: 1.5rem;    /* 24px */
+  --radius-full: 50%;
+
+  /* ⚡ PŘECHODY */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-base: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+
+  /* 🎞️ ANIMACE */
+  --animation-duration-fast: 0.2s;
+  --animation-duration-base: 0.5s;
+  --animation-duration-slow: 1s;
+
+  /* 📐 Z-INDEX VRSTVY */
+  --z-base: 1;
+  --z-elevated: 10;
+  --z-overlay: 100;
+  --z-modal: 1000;
+  --z-toast: 10000;
+
+  /* 📱 BREAKPOINTS */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* 🔥 NEONOVÉ EFEKTY */
+  --neon-glow-sm: 0 0 5px currentColor;
+  --neon-glow-base: 0 0 10px currentColor;
+  --neon-glow-lg: 0 0 20px currentColor;
+  --neon-glow-xl: 0 0 30px currentColor;
+
+  /* 🌟 GRADIENTS */
+  --gradient-neon: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+  --gradient-fire: linear-gradient(45deg, var(--neon-orange), var(--neon-red));
+  --gradient-electric: linear-gradient(45deg, var(--neon-purple), var(--neon-cyan));
+  --gradient-rainbow: linear-gradient(90deg, 
+    var(--neon-red), 
+    var(--neon-orange), 
+    var(--neon-yellow), 
+    var(--neon-green), 
+    var(--neon-blue), 
+    var(--neon-purple)
+  );
+
+  /* 🎪 SHADOWS */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-base: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.4);
+
+  /* 🎮 GAME SPECIFIC */
+  --dice-size: 60px;
+  --player-avatar-size: 80px;
+  --chat-width: 300px;
 }

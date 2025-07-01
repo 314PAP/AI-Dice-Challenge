@@ -1,103 +1,210 @@
-/**
- * Grid System
- * CSS Grid a Flexbox utility classes
- */
+/* =============================================================================
+   📐 GRID LAYOUT - Mřížkový systém pro layout
+   ============================================================================= */
 
-/* Grid containers */
+/* MAIN LAYOUT GRID */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "game chat";
+  height: 100vh;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--black-bg);
+}
+
+.game-area {
+  grid-area: game;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  min-width: 0; /* Prevents grid item from overflowing */
+}
+
+.chat-panel {
+  grid-area: chat;
+  width: var(--chat-width);
+  min-width: 250px;
+  max-width: 400px;
+}
+
+/* GAME LAYOUT COMPONENTS */
+.game-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-lg);
+}
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--neon-green);
+  border-radius: var(--radius-lg);
+}
+
+/* FLEX UTILITIES PRO KOMPONENTY */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flex-around {
+  justify-content: space-around;
+}
+
+.flex-evenly {
+  justify-content: space-evenly;
+}
+
+.items-start { align-items: flex-start; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.items-stretch { align-items: stretch; }
+
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+
+.flex-1 { flex: 1; }
+.flex-auto { flex: auto; }
+.flex-initial { flex: initial; }
+.flex-none { flex: none; }
+
+/* GRID UTILITIES */
 .grid {
-    display: grid;
+  display: grid;
 }
 
 .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
 .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
 .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
-.grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
 .grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
 
-/* Grid gaps */
-.gap-0 { gap: 0; }
 .gap-1 { gap: var(--spacing-xs); }
 .gap-2 { gap: var(--spacing-sm); }
-.gap-3 { gap: var(--spacing-base); }
-.gap-4 { gap: var(--spacing-lg); }
-.gap-5 { gap: var(--spacing-xl); }
-.gap-6 { gap: var(--spacing-2xl); }
+.gap-4 { gap: var(--spacing-md); }
+.gap-6 { gap: var(--spacing-lg); }
+.gap-8 { gap: var(--spacing-xl); }
 
-/* Flex containers */
-.flex {
-    display: flex;
+/* ROLL CONTROLS LAYOUT */
+.roll-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-lg);
 }
 
-.flex-col {
-    display: flex;
-    flex-direction: column;
+/* TURN INFO LAYOUT */
+.turn-info {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--neon-orange);
+  border-radius: var(--radius-lg);
+  color: var(--neon-orange);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: var(--font-lg);
 }
 
-.flex-row {
-    display: flex;
-    flex-direction: row;
+.current-turn-score {
+  text-align: center;
+  padding: var(--spacing-sm);
+  color: var(--neon-green);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: var(--font-xl);
 }
 
-.flex-wrap {
-    flex-wrap: wrap;
+.target-info {
+  text-align: center;
+  padding: var(--spacing-sm);
+  color: var(--neon-blue);
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
 }
 
-.flex-nowrap {
-    flex-wrap: nowrap;
+/* RESPONSIVE GRID ADJUSTMENTS */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "game"
+      "chat";
+    grid-template-rows: 1fr auto;
+  }
+  
+  .chat-panel {
+    width: 100%;
+    max-height: 300px;
+  }
 }
 
-/* Justify content */
-.justify-start { justify-content: flex-start; }
-.justify-end { justify-content: flex-end; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.justify-around { justify-content: space-around; }
-.justify-evenly { justify-content: space-evenly; }
-
-/* Align items */
-.items-start { align-items: flex-start; }
-.items-end { align-items: flex-end; }
-.items-center { align-items: center; }
-.items-baseline { align-items: baseline; }
-.items-stretch { align-items: stretch; }
-
-/* Align self */
-.self-start { align-self: flex-start; }
-.self-end { align-self: flex-end; }
-.self-center { align-self: center; }
-.self-stretch { align-self: stretch; }
-
-/* Flex grow/shrink */
-.flex-1 { flex: 1 1 0%; }
-.flex-auto { flex: 1 1 auto; }
-.flex-initial { flex: 0 1 auto; }
-.flex-none { flex: none; }
-
-.grow { flex-grow: 1; }
-.grow-0 { flex-grow: 0; }
-
-.shrink { flex-shrink: 1; }
-.shrink-0 { flex-shrink: 0; }
-
-/* Responsive grid */
 @media (max-width: 768px) {
-    .grid-cols-2-md { grid-template-columns: repeat(2, 1fr); }
-    .grid-cols-1-md { grid-template-columns: repeat(1, 1fr); }
-    
-    .flex-col-md {
-        flex-direction: column;
-    }
-    
-    .flex-row-md {
-        flex-direction: row;
-    }
+  .main-layout {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+  
+  .roll-controls {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .roll-controls .btn {
+    width: 100%;
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 480px) {
-    .grid-cols-1-sm { grid-template-columns: repeat(1, 1fr); }
-    
-    .flex-col-sm {
-        flex-direction: column;
-    }
+  .main-layout {
+    padding: var(--spacing-xs);
+  }
+  
+  .game-header,
+  .game-controls {
+    padding: var(--spacing-md);
+  }
+  
+  .players-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
