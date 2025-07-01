@@ -2,18 +2,20 @@
    💬 CHAT INPUT - Input pole a send tlačítko (využívá utility knihovny)
    ============================================================================= */
 
-/* CHAT INPUT */
+/* CHAT INPUT - MINIMALISTICKÝ, SPOJENÝ S CHATEM */
 .chat-input {
   position: relative;
   flex-shrink: 0;
+  border-top: 1px solid rgba(0, 255, 0, 0.2);
+  padding-top: var(--spacing-xs);
 }
 
 .chat-input input {
   width: 100%;
-  background: var(--dark-bg);
-  border: 2px solid var(--gray-text);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-sm) 2.5em var(--spacing-sm) var(--spacing-sm);
+  background: transparent;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-xs) 2.5em var(--spacing-xs) var(--spacing-xs);
   color: var(--text-primary);
   font-family: 'Roboto Mono', monospace;
   font-size: var(--font-size-sm);
@@ -24,14 +26,11 @@
 .chat-input input:focus {
   outline: none;
   border-color: var(--neon-green);
-  background: var(--dark-bg);
-  /* Využívá neon glow effect */
-  box-shadow: 0 0 10px var(--neon-green), 
-              0 0 20px rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
 }
 
 .chat-input input::placeholder {
-  color: rgba(0, 255, 0, 0.5);
+  color: rgba(0, 255, 0, 0.4);
   font-style: italic;
 }
 
@@ -41,7 +40,7 @@
   filter: grayscale(50%);
 }
 
-/* SEND BUTTON - neonová šipka s efekty */
+/* SEND BUTTON - minimalistický */
 .chat-send-btn {
   position: absolute;
   right: 5px;
@@ -50,23 +49,18 @@
   background: transparent;
   color: var(--neon-green);
   border: none;
-  border-radius: 0;
-  width: 32px;
-  height: 32px;
-  font-size: 18px;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: var(--transition-base);
-  /* Využívá neon text-shadow effect */
-  text-shadow: 0 0 10px var(--neon-green);
 }
 
 .chat-send-btn:hover {
   color: var(--neon-orange);
-  text-shadow: 0 0 15px var(--neon-orange), 
-               0 0 25px rgba(255, 140, 0, 0.5);
   transform: translateY(-50%) scale(1.1);
 }
 

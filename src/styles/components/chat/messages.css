@@ -2,50 +2,43 @@
    💬 CHAT MESSAGES - Zprávy a scrollbar (využívá utility knihovny)
    ============================================================================= */
 
-/* CHAT MESSAGES CONTAINER */
+/* CHAT MESSAGES CONTAINER - MINIMALISTICKÝ */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   padding: var(--spacing-sm);
-  margin-bottom: var(--spacing-md);
-  background: var(--dark-bg);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(0, 255, 0, 0.2);
+  background: transparent;
   scroll-behavior: smooth;
-  transition: var(--transition-base);
+  /* Bez rámečků a pozadí pro čistý vzhled */
 }
 
-/* SCROLLBAR STYLING - využívá neon colors */
+/* SCROLLBAR STYLING - jemný */
 .chat-messages::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background: var(--dark-bg);
-  border-radius: var(--radius-sm);
+  background: transparent;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: var(--neon-green);
+  background: rgba(0, 255, 0, 0.3);
   border-radius: var(--radius-sm);
-  transition: var(--transition-base);
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-orange);
-  box-shadow: 0 0 8px var(--neon-orange);
+  background: rgba(0, 255, 0, 0.5);
 }
 
-/* CHAT MESSAGE - využívá spacing a transition utilities */
+/* CHAT MESSAGE - minimalistické */
 .chat-message {
-  margin-bottom: var(--spacing-sm);
-  padding: var(--spacing-sm);
-  border-radius: var(--radius-sm);
-  background: rgba(0, 0, 0, 0.3);
-  border-left: 3px solid var(--neon-green);
+  margin-bottom: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  background: transparent;
+  border: none;
+  border-left: 2px solid var(--neon-green);
   transition: var(--transition-base);
-  position: relative;
 }
 
 .chat-message:hover {
@@ -54,12 +47,49 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* MESSAGE TYPE COLORS - využívá color variables */
-.chat-message.system { border-left-color: var(--neon-blue); }
-.chat-message.gemini { border-left-color: var(--neon-blue); }
-.chat-message.chatgpt { border-left-color: var(--neon-pink); }
-.chat-message.claude { border-left-color: var(--neon-orange); }
-.chat-message.human { border-left-color: var(--neon-green); }
+/* TYPY ZPRÁV - barevné odlišení bez rámečků */
+.chat-message.system {
+  border-left-color: var(--neon-orange);
+  color: var(--neon-orange);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.chat-message.user {
+  border-left-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.chat-message.gemini {
+  border-left-color: var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+.chat-message.chatgpt {
+  border-left-color: var(--neon-pink);
+  color: var(--neon-pink);
+}
+
+.chat-message.claude {
+  border-left-color: var(--neon-orange);
+  color: var(--neon-orange);
+}
+
+/* ANIMACE ZPRÁV - jemné */
+.chat-message.new {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* MESSAGE METADATA */
 .message-meta {
