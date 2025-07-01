@@ -8,10 +8,11 @@
   flex-direction: column;
   gap: var(--spacing-md);
   background: rgba(0, 0, 0, 0.8);
-  border: 2px solid var(--neon-blue);
+  border: 2px solid var(--neon-green);
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   margin: var(--spacing-md) 0;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
 }
 
 /* GAME INFO */

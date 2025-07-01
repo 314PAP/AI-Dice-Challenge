@@ -2,49 +2,36 @@
    📱 RESPONZIVNÍ DESIGN
    ============================================================================= */
 
-/* TABLET LAYOUT */
+/* DESKTOP - velkých obrazovkách */
 @media (max-width: 1200px) {
   .main-layout {
     grid-template-columns: 1fr 320px;
-    gap: var(--spacing-md);
-  }
-  
-  .game-area, .chat-area {
-    padding: var(--spacing-md);
-  }
-  
-  .heading-1 {
-    font-size: var(--font-4xl);
   }
 }
 
-/* MOBILE LAYOUT */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .main-layout {
+    grid-template-columns: 1fr 280px;
+  }
+}
+
+/* MOBILE/TABLET - menší zařízení */
+@media (max-width: 650px) {
   .main-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
-  }
-  
-  .chat-area {
-    height: 300px;
-    order: 2;
+    gap: 10px;
+    height: auto;
   }
   
   .game-area {
     order: 1;
   }
   
-  .app-container {
-    padding: var(--spacing-xs);
-  }
-  
-  .heading-1 {
-    font-size: var(--font-3xl);
-  }
-  
-  .player-section {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-sm);
+  .chat-panel {
+    order: 2;
+    min-width: unset;
+    max-width: unset;
+    height: 400px;
   }
 }
 

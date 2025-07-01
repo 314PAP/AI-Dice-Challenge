@@ -219,12 +219,3 @@ function setupKeyboardShortcuts() {
         }
     });
 }
-
-/**
- * Ukončí aktuální hru a vrátí se do menu
- */
-function quitGame() {
-    if (confirm('Opravdu chcete ukončit aktuální hru?')) {
-        returnToMainMenu();
-    }
-}
