@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Funkční Test - AI Kostková Výzva</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            padding: 2rem;
+            margin: 0;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
+        }
+        .test-section {
+            max-width: 1000px;
+            margin: 1rem auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .test-item {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .test-button {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+        .status {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        .success { background: rgba(0, 255, 0, 0.2); color: #00ff00; }
+        .error { background: rgba(255, 0, 0, 0.2); color: #ff4444; }
+        .info { background: rgba(0, 150, 255, 0.2); color: #44aaff; }
+        .warning { background: rgba(255, 165, 0, 0.2); color: #ffaa00; }
+        #results {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Kompletní Funkční Test</h1>
+    <h2>AI Kostková Výzva - Modulární Verze</h2>
+    
+    <div class="test-section">
+        <h3>📋 Systémové Testy</h3>
+        <div class="test-grid">
+            <div class="test-item">
+                <h4>🧩 Import Modulů</h4>
+                <button class="test-button" onclick="testModuleImports()">Test All Imports</button>
+                <button class="test-button" onclick="testMainEntryPoint()">Test Main Entry</button>
+                <button class="test-button" onclick="testUIController()">Test UI Controller</button>
+            </div>
+            
+            <div class="test-item">
+                <h4>🎮 Herní Logika</h4>
+                <button class="test-button" onclick="testGameState()">Test Game State</button>
+                <button class="test-button" onclick="testDiceLogic()">Test Dice Logic</button>
+                <button class="test-button" onclick="testGameController()">Test Game Controller</button>
+            </div>
+            
+            <div class="test-item">
+                <h4>🤖 AI Systém</h4>
+                <button class="test-button" onclick="testAIController()">Test AI Controller</button>
+                <button class="test-button" onclick="testAIPersonalities()">Test AI Personalities</button>
+                <button class="test-button" onclick="testAIReactions()">Test AI Reactions</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>🖱️ UI Funkčnost</h3>
+        <div class="test-grid">
+            <div class="test-item">
+                <h4>🔲 Tlačítka</h4>
+                <button class="test-button" onclick="testStartButton()">Test Start Game</button>
+                <button class="test-button" onclick="testHallOfFameButton()">Test Hall of Fame</button>
+                <button class="test-button" onclick="testGameButtons()">Test Game Buttons</button>
+            </div>
+            
+            <div class="test-item">
+                <h4>💬 Chat Systém</h4>
+                <button class="test-button" onclick="testChatInput()">Test Chat Input</button>
+                <button class="test-button" onclick="testChatFunctions()">Test Chat Functions</button>
+                <button class="test-button" onclick="testAIChat()">Test AI Chat</button>
+            </div>
+            
+            <div class="test-item">
+                <h4>🎯 DOM Elementy</h4>
+                <button class="test-button" onclick="testDOMElements()">Test All Elements</button>
+                <button class="test-button" onclick="testEventListeners()">Test Event Listeners</button>
+                <button class="test-button" onclick="clearResults()">Clear Results</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>📊 Výsledky Testů</h3>
+        <div id="results"></div>
+    </div>
+
+    <script type="module">
+        const resultsDiv = document.getElementById('results');
+        
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `status ${type}`;
+            div.innerHTML = `[${new Date().toLocaleTimeString()}] ${message}`;
+            resultsDiv.appendChild(div);
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+            console.log(message);
+        }
+
+        window.log = log;
+        window.clearResults = () => resultsDiv.innerHTML = '';
+
+        // Module Import Tests
+        window.testModuleImports = async () => {
+            log('🧪 Testing all module imports...', 'info');
+            
+            const modules = [
+                { path: './src/js/game/gameState.js', name: 'Game State' },
+                { path: './src/js/game/gameController.js', name: 'Game Controller' },
+                { path: './src/js/game/diceLogic.js', name: 'Dice Logic' },
+                { path: './src/ai/controllers/enhancedAIController.js', name: 'Enhanced AI Controller' },
+                { path: './src/js/ai/aiPlayer.js', name: 'AI Player' },
+                { path: './src/ui/gameUIController.js', name: 'Game UI Controller' },
+                { path: './src/js/ui/gameUI.js', name: 'Game UI' }
+            ];
+
+            let success = 0;
+            for (const module of modules) {
+                try {
+                    await import(module.path);
+                    log(`✅ ${module.name} - imported successfully`, 'success');
+                    success++;
+                } catch (error) {
+                    log(`❌ ${module.name} - import failed: ${error.message}`, 'error');
+                }
+            }
+            
+            log(`📊 Import test complete: ${success}/${modules.length} successful`, success === modules.length ? 'success' : 'warning');
+        };
+
+        window.testMainEntryPoint = async () => {
+            log('🧪 Testing main entry point...', 'info');
+            try {
+                await import('./src/main.js');
+                log('✅ Main.js imported successfully', 'success');
+                
+                // Check for global objects
+                setTimeout(() => {
+                    const globals = {
+                        uiController: !!window.uiController,
+                        gameController: !!window.gameController,
+                        addChatMessage: !!window.addChatMessage
+                    };
+                    
+                    log(`🔍 Global objects: ${JSON.stringify(globals)}`, 'info');
+                    
+                    if (globals.uiController && globals.gameController) {
+                        log('✅ Main entry point fully loaded with controllers', 'success');
+                    } else {
+                        log('⚠️ Main entry point loaded but controllers missing', 'warning');
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                log(`❌ Main entry point failed: ${error.message}`, 'error');
+            }
+        };
+
+        window.testUIController = async () => {
+            log('🧪 Testing UI Controller...', 'info');
+            try {
+                const { GameUIController } = await import('./src/ui/gameUIController.js');
+                log('✅ UI Controller class imported', 'success');
+                
+                const controller = new GameUIController();
+                log('✅ UI Controller instance created', 'success');
+                
+                await controller.initialize();
+                log('✅ UI Controller initialized successfully', 'success');
+                
+                window.testUIController = controller;
+                
+            } catch (error) {
+                log(`❌ UI Controller test failed: ${error.message}`, 'error');
+            }
+        };
+
+        window.testGameState = async () => {
+            log('🧪 Testing Game State...', 'info');
+            try {
+                const gameState = await import('./src/js/game/gameState.js');
+                log('✅ Game State imported', 'success');
+                
+                if (gameState.gameState) {
+                    log('✅ Game State object available', 'success');
+                    log(`🔍 Current player count: ${gameState.gameState.players.length}`, 'info');
+                    log(`🔍 Game state: ${gameState.gameState.isGameStarted ? 'Started' : 'Not started'}`, 'info');
+                } else {
+                    log('❌ Game State object not found', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Game State test failed: ${error.message}`, 'error');
+            }
+        };
+
+        window.testDiceLogic = async () => {
+            log('🧪 Testing Dice Logic...', 'info');
+            try {
+                const diceLogic = await import('./src/js/game/diceLogic.js');
+                log('✅ Dice Logic imported', 'success');
+                
+                if (diceLogic.rollDice && diceLogic.calculateScore) {
+                    log('✅ Key dice functions available', 'success');
+                    
+                    // Test basic functionality
+                    const testDice = diceLogic.rollDice(6);
+                    log(`🎲 Test roll: [${testDice.join(', ')}]`, 'info');
+                    
+                    const score = diceLogic.calculateScore(testDice);
+                    log(`🔢 Test score: ${score}`, 'info');
+                    
+                } else {
+                    log('❌ Key dice functions missing', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ Dice Logic test failed: ${error.message}`, 'error');
+            }
+        };
+
+        window.testAIController = async () => {
+            log('🧪 Testing AI Controller...', 'info');
+            try {
+                const aiController = await import('./src/ai/controllers/enhancedAIController.js');
+                log('✅ AI Controller imported', 'success');
+                
+                if (aiController.enhancedAI && aiController.generateAIGameReaction) {
+                    log('✅ Key AI functions available', 'success');
+                    
+                    // Test AI reaction
+                    const reaction = aiController.generateAIGameReaction('ChatGPT', 'roll', 'test');
+                    log(`🤖 Test AI reaction: ${reaction}`, 'info');
+                    
+                } else {
+                    log('❌ Key AI functions missing', 'error');
+                }
+                
+            } catch (error) {
+                log(`❌ AI Controller test failed: ${error.message}`, 'error');
+            }
+        };
+
+        window.testStartButton = () => {
+            log('🧪 Testing Start Button...', 'info');
+            const startBtn = document.getElementById ? null : document.querySelector('#startGameBtn');
+            
+            if (startBtn) {
+                log('✅ Start button found in DOM', 'success');
+                startBtn.click();
+                log('🖱️ Start button clicked programmatically', 'info');
+            } else {
+                log('❌ Start button not found in DOM', 'error');
+            }
+        };
+
+        window.testDOMElements = () => {
+            log('🧪 Testing DOM Elements...', 'info');
+            
+            const elements = [
+                'startGameBtn', 'hallOfFameBtn', 'chatInput', 'sendMessageBtn',
+                'targetScoreSetup', 'gameControls', 'rollDiceBtn', 'bankDiceBtn', 'endTurnBtn'
+            ];
+            
+            let found = 0;
+            elements.forEach(id => {
+                const element = document.getElementById ? null : document.querySelector(`#${id}`);
+                if (element) {
+                    log(`✅ #${id} found`, 'success');
+                    found++;
+                } else {
+                    log(`❌ #${id} missing`, 'error');
+                }
+            });
+            
+            log(`📊 DOM test complete: ${found}/${elements.length} elements found`, found === elements.length ? 'success' : 'warning');
+        };
+
+        // Add more test functions...
+        window.testChatInput = () => {
+            log('🧪 Testing Chat Input...', 'info');
+            log('💬 Chat input test - implementation needed', 'info');
+        };
+
+        window.testHallOfFameButton = () => {
+            log('🧪 Testing Hall of Fame Button...', 'info');
+            log('🏆 Hall of Fame button test - implementation needed', 'info');
+        };
+
+        window.testGameButtons = () => {
+            log('🧪 Testing Game Buttons...', 'info');
+            log('🎮 Game buttons test - implementation needed', 'info');
+        };
+
+        // Initialize test interface
+        log('🚀 Function Test Interface Ready', 'success');
+        log('Click buttons above to run specific tests', 'info');
+    </script>
+</body>
+</html>
