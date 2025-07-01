@@ -1,0 +1,57 @@
+/* =============================================================================
+   💬 CHAT HEADER & TOGGLE - Nadpis a tlačítko pro sbalení
+   ============================================================================= */
+
+/* CHAT TOGGLE BUTTON */
+.chat-toggle {
+  position: absolute;
+  top: var(--spacing-xs);
+  right: var(--spacing-xs);
+  background: var(--neon-blue);
+  color: var(--black-bg);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.chat-toggle:hover {
+  background: var(--neon-orange);
+  transform: scale(1.1);
+}
+
+.chat-toggle:active {
+  transform: scale(0.95);
+}
+
+.chat-toggle:focus-visible {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+/* CHAT HEADER */
+.chat-header {
+  text-align: center;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgba(0, 255, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.chat-header h2 {
+  color: var(--neon-green);
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0;
+  text-shadow: 0 0 10px var(--neon-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}

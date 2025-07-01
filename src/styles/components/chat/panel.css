@@ -1,0 +1,53 @@
+/* =============================================================================
+   💬 CHAT PANEL - Základní layout a panel styly
+   ============================================================================= */
+
+/* CHAT PANEL */
+.chat-panel {
+  background: var(--black-bg);
+  border: 2px solid var(--neon-green);
+  border-radius: 1em;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  height: calc(100vh - 40px);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.chat-panel.collapsed {
+  width: 200px;
+  height: 80px;
+  min-width: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-panel.collapsed .chat-header {
+  display: block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.chat-panel.collapsed .chat-header h2 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.chat-panel.collapsed .chat-messages,
+.chat-panel.collapsed .chat-input {
+  display: none;
+}
+
+.chat-panel.collapsed .chat-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: 0;
+}

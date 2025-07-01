@@ -1,0 +1,9 @@
+/* =============================================================================
+   💬 CHAT INDEX - Importy všech chat modulů
+   ============================================================================= */
+
+@import './panel.css';
+@import './header.css';
+@import './messages.css';
+@import './input.css';
+@import './responsive.css';
