@@ -3,28 +3,28 @@
  * Tento soubor má vyšší specificity a přepíše všechny konflikty
  */
 
-/* Vyšší specificity pro container */
+/* DESKTOP - Optimální poměr, chat zarovnaný */
 html body .container,
 body .container,
 .container {
     max-width: 1400px !important;
     margin: 0 auto !important;
-    padding: 20px !important;
+    padding: 15px !important; /* Menší padding */
     display: grid !important;
-    grid-template-columns: 1fr 350px !important;
-    gap: 30px !important;
+    grid-template-columns: 1fr 280px !important; /* MENŠÍ chat, více pro hru */
+    gap: 15px !important; /* Menší gap */
     min-height: 100vh !important;
-    align-items: start !important;
+    align-items: stretch !important; /* Chat se roztáhne na výšku game-area */
 }
 
-/* Vyšší specificity pro game-area */
+/* Game-area optimalizovaná */
 html body .game-area,
 body .game-area,
 .container .game-area {
     background: var(--black-bg) !important;
     border: 2px solid var(--neon-green) !important;
     border-radius: 10px !important;
-    padding: 30px !important;
+    padding: 20px !important; /* Menší padding */
     display: flex !important;
     flex-direction: column !important;
     min-width: 0 !important;
@@ -32,22 +32,31 @@ body .game-area,
     height: fit-content !important;
 }
 
-/* Vyšší specificity pro chat-panel */
+/* Chat-panel - STEJNÁ VÝŠKA a padding jako game-area */
 html body .chat-panel,
 body .chat-panel,
 .container .chat-panel {
     background: var(--black-bg) !important;
     border: 2px solid var(--neon-green) !important;
     border-radius: 10px !important;
-    padding: 30px !important;
+    padding: 20px !important; /* STEJNÝ padding jako game-area */
     display: flex !important;
     flex-direction: column !important;
-    height: fit-content !important;
-    min-height: 400px !important;
-    align-self: start !important;
+    height: 100% !important; /* Vyplní celou dostupnou výšku */
+    min-height: auto !important; /* Bez min-height */
+    align-self: stretch !important; /* Roztáhne se na výšku */
 }
 
-/* Kompaktnější nadpis */
+/* Kompaktní nadpis - desktop */
+.game-title {
+    text-align: center !important;
+    font-size: 2.2rem !important; /* Menší pro úsporu místa */
+    font-weight: 900 !important;
+    margin-bottom: 12px !important; /* Menší mezera */
+    color: var(--neon-green) !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.0 !important; /* Těsné řádkování */
+}
 .game-title {
     text-align: center !important;
     font-size: 3rem !important;
@@ -58,34 +67,13 @@ body .chat-panel,
     line-height: 1.1 !important;
 }
 
-/* Responzivní pravidla s !important - SPRÁVNÉ POŘADÍ */
-
-/* Desktop velký (>1200px) - používá default styles nahoře */
+/* Responzivní pravidla - SPRÁVNÉ POMĚRY */
 
 /* Tablet velký (1001px-1200px) */
 @media (max-width: 1200px) and (min-width: 1001px) {
     .container {
-        grid-template-columns: 1fr 300px !important;
-        gap: 20px !important;
-        padding: 15px !important;
-    }
-    
-    .game-area, .chat-panel {
-        padding: 20px !important;
-    }
-    
-    .game-title {
-        font-size: 2.2rem !important;
-        margin-bottom: 15px !important;
-        letter-spacing: 1px !important;
-    }
-}
-
-/* Tablet střední (851px-1000px) */
-@media (max-width: 1000px) and (min-width: 851px) {
-    .container {
-        grid-template-columns: 1fr 280px !important;
-        gap: 15px !important;
+        grid-template-columns: 1fr 250px !important; /* Ještě menší chat */
+        gap: 12px !important;
         padding: 12px !important;
     }
     
@@ -94,17 +82,17 @@ body .chat-panel,
     }
     
     .game-title {
-        font-size: 1.9rem !important;
-        margin-bottom: 12px !important;
-        letter-spacing: 0.5px !important;
+        font-size: 2.0rem !important;
+        margin-bottom: 10px !important;
+        letter-spacing: 0px !important;
     }
 }
 
-/* Tablet malý (651px-850px) - poslední s chatem vpravo */
-@media (max-width: 850px) and (min-width: 651px) {
+/* Tablet střední (801px-1000px) */
+@media (max-width: 1000px) and (min-width: 801px) {
     .container {
-        grid-template-columns: 1fr 250px !important;
-        gap: 12px !important;
+        grid-template-columns: 1fr 220px !important; /* Optimální poměr */
+        gap: 10px !important;
         padding: 10px !important;
     }
     
@@ -113,67 +101,89 @@ body .chat-panel,
     }
     
     .game-title {
-        font-size: 1.6rem !important;
-        margin-bottom: 10px !important;
-        letter-spacing: 0px !important;
+        font-size: 1.8rem !important;
+        margin-bottom: 8px !important;
     }
 }
 
-/* MOBIL - Chat dolů (≤650px) */
+/* Tablet malý (651px-800px) - poslední s chatem vpravo */
+@media (max-width: 800px) and (min-width: 651px) {
+    .container {
+        grid-template-columns: 1fr 200px !important; /* Minimální chat vpravo */
+        gap: 8px !important;
+        padding: 8px !important;
+    }
+    
+    .game-area, .chat-panel {
+        padding: 12px !important;
+    }
+    
+    .game-title {
+        font-size: 1.6rem !important; /* Jeden řádek */
+        margin-bottom: 6px !important;
+        line-height: 1.0 !important;
+    }
+}
+
+/* MOBIL - Chat dolů, kompaktní (≤650px) */
 @media (max-width: 650px) {
     .container {
         grid-template-columns: 1fr !important; /* JEDNA KOLONA */
         grid-template-rows: auto auto !important; /* Dva řádky */
-        gap: 15px !important;
-        padding: 10px !important;
+        gap: 8px !important; /* Minimální mezery */
+        padding: 8px !important;
     }
     
     .game-area {
         grid-row: 1 !important; /* První řádek */
-        padding: 15px !important;
+        padding: 12px !important;
+        margin-bottom: 0 !important; /* Žádná extra mezera */
     }
     
     .chat-panel {
         grid-row: 2 !important; /* Druhý řádek */
         width: 100% !important;
-        height: 300px !important;
-        padding: 12px !important;
-        min-height: 250px !important;
+        height: 250px !important; /* Menší výška, ale viditelná */
+        padding: 10px !important;
+        min-height: 200px !important;
+        margin-top: 0 !important; /* Žádná extra mezera */
     }
     
     .game-title {
-        font-size: 1.8rem !important;
-        margin-bottom: 15px !important;
+        font-size: 1.4rem !important; /* JEDEN ŘÁDEK na mobilu */
+        margin-bottom: 5px !important;
+        line-height: 1.0 !important;
+        letter-spacing: 0px !important;
     }
 }
 
 /* Mobil střední (≤480px) */
 @media (max-width: 480px) {
     .container {
-        padding: 8px !important;
-        gap: 10px !important;
+        padding: 6px !important;
+        gap: 6px !important; /* Ještě menší mezery */
     }
     
     .game-area {
-        padding: 12px !important;
+        padding: 10px !important;
     }
     
     .chat-panel {
-        padding: 10px !important;
-        height: 280px !important;
+        padding: 8px !important;
+        height: 220px !important; /* Kompaktní ale funkční */
     }
     
     .game-title {
-        font-size: 1.4rem !important;
-        margin-bottom: 10px !important;
+        font-size: 1.2rem !important; /* Malý ale čitelný */
+        margin-bottom: 4px !important;
     }
 }
 
 /* Mobil malý (≤360px) */
 @media (max-width: 360px) {
     .container {
-        padding: 5px !important;
-        gap: 8px !important;
+        padding: 4px !important;
+        gap: 4px !important; /* Minimální mezery */
     }
     
     .game-area {
@@ -181,12 +191,93 @@ body .chat-panel,
     }
     
     .chat-panel {
-        padding: 8px !important;
-        height: 250px !important;
+        padding: 6px !important;
+        height: 200px !important; /* Stále viditelný */
     }
     
     .game-title {
-        font-size: 1.2rem !important;
-        margin-bottom: 8px !important;
+        font-size: 1.1rem !important; /* Minimální ale funkční */
+        margin-bottom: 3px !important;
+    }
+}
+
+/* KOMPAKTNÍ HERNÍ KOMPONENTY */
+.target-score-setup {
+    margin-bottom: 8px !important; /* Menší mezera */
+    padding: 10px !important; /* Menší padding */
+}
+
+.target-score-setup label {
+    margin-bottom: 6px !important; /* Menší mezera */
+    font-size: 1.0rem !important; /* Kompaktnější text */
+}
+
+.player-avatars-section {
+    margin: 8px 0 !important; /* Menší margin */
+    padding: 8px !important; /* Menší padding */
+    gap: 8px !important; /* Menší mezery mezi avatary */
+}
+
+/* Kompaktní avatary na mobilu */
+@media (max-width: 650px) {
+    .target-score-setup {
+        margin-bottom: 4px !important;
+        padding: 6px !important;
+    }
+    
+    .target-score-setup label {
+        margin-bottom: 4px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .player-avatars-section {
+        margin: 4px 0 !important;
+        padding: 6px !important;
+        gap: 6px !important;
+    }
+    
+    .avatar-mini {
+        width: 45px !important; /* Menší avatary na mobilu */
+        height: 45px !important;
+    }
+    
+    .avatar-name {
+        font-size: 10px !important; /* Menší text jmen */
+    }
+}
+
+@media (max-width: 480px) {
+    .target-score-setup {
+        margin-bottom: 3px !important;
+        padding: 4px !important;
+    }
+    
+    .player-avatars-section {
+        margin: 3px 0 !important;
+        padding: 4px !important;
+        gap: 4px !important;
+    }
+    
+    .avatar-mini {
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .target-score-setup {
+        margin-bottom: 2px !important;
+        padding: 3px !important;
+    }
+    
+    .player-avatars-section {
+        margin: 2px 0 !important;
+        padding: 3px !important;
+        gap: 3px !important;
+    }
+    
+    .avatar-mini {
+        width: 35px !important;
+        height: 35px !important;
     }
 }
