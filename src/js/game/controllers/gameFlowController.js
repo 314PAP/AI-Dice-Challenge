@@ -230,7 +230,10 @@ export function endGame(winner) {
         signatureSection.style.display = 'none';
     }
     
-    document.getElementById('gameOverModal').style.display = 'flex';
+    // Zobrazit modální okno konce hry
+    const gameOverModal = document.getElementById('gameOverModal');
+    gameOverModal.classList.remove('hidden');
+    gameOverModal.classList.add('visible');
     
     // AI reakce na konec hry
     gameState.players.forEach(player => {
@@ -251,7 +254,11 @@ export function startNewGame() {
     
     resetGameState();
     
-    document.getElementById('gameOverModal').style.display = 'none';
+    // Skrytí modálního okna
+    const gameOverModal = document.getElementById('gameOverModal');
+    gameOverModal.classList.add('hidden');
+    gameOverModal.classList.remove('visible');
+    
     document.getElementById('targetScoreInput').value = newTargetScore;
     
     // Automaticky spustit hru s novým cílovým skóre
@@ -375,7 +382,10 @@ export function returnToMainMenu() {
     // Odstraň game-active třídu pro zobrazení avatarů
     document.body.classList.remove('game-active');
     
-    if (gameOverModal) gameOverModal.classList.add('hidden');
+    if (gameOverModal) {
+        gameOverModal.classList.add('hidden');
+        gameOverModal.classList.remove('visible');
+    }
     if (gameControls) gameControls.classList.add('hidden');
     if (targetScoreSetup) targetScoreSetup.classList.remove('hidden');
     
