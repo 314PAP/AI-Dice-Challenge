@@ -425,22 +425,46 @@ export function saveScore() {
     const gameResult = createGameResult(gameState, signature, gameState.gameStartTime, gameState.totalTurns || 0);
     saveGameResult(gameResult);
     
-    // Hide game over modal
-    const gameOverModal = document.getElementById('gameOverModal');
-    if (gameOverModal) {
-        gameOverModal.classList.add('hidden');
-        gameOverModal.classList.remove('visible');
+    // Clear signature input after saving
+    const signatureInput = document.getElementById('winnerSignature');
+    if (signatureInput) {
+        signatureInput.value = '';
+    }
+    
+    // Hide signature section since score is now saved
+    const signatureSection = document.getElementById('signatureSection');
+    if (signatureSection) {
+        signatureSection.classList.add('hidden');
     }
     
     // Show success message
     window.addChatMessage('system', `🏆 Skóre uloženo do síně slávy jako "${signature}"!`);
     
-    // Show hall of fame and set flag that we came from game over
-    setTimeout(() => {
-        displayHallOfFame();
-        // Mark that we came from game over so close button can return properly
-        window.hallOfFameFromGameOver = true;
-    }, 500);
+    // Show success feedback in the modal
+    const gameOverModal = document.getElementById('gameOverModal');
+    if (gameOverModal) {
+        const modalBody = gameOverModal.querySelector('.modal-body');
+        if (modalBody) {
+            // Add success message to modal
+            let successMsg = modalBody.querySelector('.save-success');
+            if (!successMsg) {
+                successMsg = document.createElement('div');
+                successMsg.className = 'save-success';
+                successMsg.style.cssText = `
+                    color: var(--neon-green);
+                    background: rgba(57, 255, 20, 0.1);
+                    border: 1px solid var(--neon-green);
+                    border-radius: 5px;
+                    padding: 10px;
+                    margin: 10px 0;
+                    text-align: center;
+                    animation: neon-glow 2s ease-in-out infinite;
+                `;
+                modalBody.insertBefore(successMsg, modalBody.querySelector('.modal-actions'));
+            }
+            successMsg.innerHTML = `🏆 Skóre úspěšně uloženo do Síně slávy jako "<strong>${signature}</strong>"!<br><small>Můžete si nyní vybrat další akci:</small>`;
+        }
+    }
     
     console.log('🏆 Skóre uloženo do síně slávy!');
 }
