@@ -382,3 +382,11 @@ const _calculateRiskFactor = cond([
     [(dice) => dice === 1, always(0.8)],
     [T, always(1.0)]
 ]);
+
+// 🔄 AI TURN CLEANUP - For external use when player changes
+export const endAITurn = () => {
+    console.log('🔄 Ending AI turn - cleaning up state');
+    aiTurnInProgress = false;
+    currentAIPlayer = null;
+    // Don't clear timeouts here - let them finish naturally with validation
+};

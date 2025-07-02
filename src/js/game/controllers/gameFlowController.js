@@ -6,7 +6,7 @@
 import { gameState, resetGameState, nextPlayer as _nextPlayer, getCurrentPlayer } from '../gameState.js';
 import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
 import { enhancedAI } from '../../ai/enhancedAIController.js';
-import { playAITurn, clearAllAITimeouts, createAITimeout } from '../../ai/aiPlayer.js';
+import { playAITurn, clearAllAITimeouts, createAITimeout, endAITurn } from '../../ai/aiPlayer.js';
 import { saveGameResult, createGameResult } from '../../utils/hallOfFame.js';
 import { resetEventListeners } from './eventSetupController.js';
 
