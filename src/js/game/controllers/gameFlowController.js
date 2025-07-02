@@ -234,19 +234,23 @@ export function endTurn(scored = true) {
             const aiPlayer = getCurrentPlayer();
             console.log('🔍 Scheduling AI actions for:', aiPlayer.name);
             
-            createAITimeout(() => {
+            // Only use the gameFlowController timeouts for AI reactions, not AI gameplay
+            setTimeout(() => {
                 console.log('🤖 AI reaction timeout fired');
                 const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'playerTurnStart');
                 if (reaction) window.addChatMessage(aiPlayer.type, reaction);
             }, 500);
             
-            createAITimeout(() => {
+            setTimeout(() => {
                 console.log('🤖 AI turn timeout fired, calling playAITurn...');
                 playAITurn();
             }, 1500);
             
         } else {
             console.log('👤 Human player turn - waiting for manual action');
+            // End any active AI turn when switching to human player
+            endAITurn();
+            
             // Update UI to show it's the human player's turn but don't auto-start
             updateActivePlayer();
             updateGameDisplay();
