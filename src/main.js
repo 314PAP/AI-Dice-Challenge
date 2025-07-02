@@ -50,8 +50,8 @@ whenDOMReady(() => {
             // Inicializuj game controller
             initializeGame();
             
-            // Zpřístupni chat globálně pro kompatibilitu
-            window.addChatMessage = chatController.addMessage.bind(chatController);
+            // Zpřístupni chat globálně pro kompatibilitu - opravena signatura
+            window.addChatMessage = (sender, message) => chatController.addMessage(sender, message);
             window.chatController = chatController;
             
             // Explicitně nastavíme všechny event listenery pomocí nového inicializátoru

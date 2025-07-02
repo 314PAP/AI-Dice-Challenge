@@ -3,7 +3,32 @@
  * Kombinuje event handlery z modulárních komponent
  */
 
-import { debounce, memoize } from 'lodash-es';
+// Jednoduché implementace pro debounce a memoize
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+const memoize = (func) => {
+    const cache = new Map();
+    return function (...args) {
+        const key = JSON.stringify(args);
+        if (cache.has(key)) {
+            return cache.get(key);
+        }
+        const result = func.apply(this, args);
+        cache.set(key, result);
+        return result;
+    };
+};
+
 import { emitter, EVENTS } from './events/eventCore.js';
 import { showModal, hideModal, showHallOfFame, hideHallOfFameWithContext } from './events/modalHandlers.js';
 import { createEventHandler, createNewGameHandler, createMenuHandler, createSaveScoreHandler } from './events/gameHandlers.js';
