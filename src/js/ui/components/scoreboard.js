@@ -35,7 +35,9 @@ const updatePlayerElement = (player, index) => {
 };
 
 // 🎯 ACTIVE PLAYER INDICATOR - Oprava pro správné barvy a zobrazení aktivního hráče
-const updatePlayerActiveState = (_player, _index) => {
+// Nyní je tato funkce nahrazena přímo v updateActivePlayer
+// Ponecháváme ji zde jako referenci
+const _updatePlayerActiveState = (_player, _index) => {
     // Mapování typů hráčů na CSS třídy - uspořádané podle indexů hráčů
     const playerClasses = [
         'human-player',  // Index 0 - lidský hráč
@@ -85,6 +87,24 @@ export const updateScoreboard = pipe(
 
 // 🎯 ACTIVE PLAYER UPDATER
 export const updateActivePlayer = pipe(
-    () => console.log('🎯 Updating active player...'),
-    () => gameState.players.forEach(updatePlayerActiveState)
+    () => {
+        console.log('🎯 Updating active player...');
+        console.log(`🎯 Current player index: ${gameState.currentPlayer}, name: ${gameState.players[gameState.currentPlayer]?.name}`);
+        
+        // Odstraníme třídu active ze všech hráčů
+        document.querySelectorAll('.player').forEach(p => {
+            p.classList.remove('active');
+        });
+        
+        // Přidáme třídu active pouze aktuálnímu hráči
+        const playerTypes = ['human-player', 'gemini-player', 'chatgpt-player', 'claude-player'];
+        const currentPlayerClass = playerTypes[gameState.currentPlayer];
+        if (currentPlayerClass) {
+            const activePlayer = document.querySelector(`.${currentPlayerClass}`);
+            if (activePlayer) {
+                activePlayer.classList.add('active');
+                console.log(`🎯 Přidána třída active hráči: ${currentPlayerClass}`);
+            }
+        }
+    }
 );

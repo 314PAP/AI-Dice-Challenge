@@ -4,7 +4,7 @@
  */
 
 import { gameState, resetGameState, nextPlayer as _nextPlayer, getCurrentPlayer } from '../gameState.js';
-import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
+import { updateGameDisplay, updateScoreboard, updateActivePlayer, updateGameInfo } from '../../ui/gameUI.js';
 import { enhancedAI } from '../../ai/enhancedAIController.js';
 import { playAITurn, clearAllAITimeouts, createAITimeout, endAITurn } from '../../ai/aiPlayer.js';
 import { saveGameResult, createGameResult } from '../../utils/hallOfFame.js';
@@ -221,10 +221,17 @@ export function endTurn(scored = true) {
         
         // Reset current turn score
         console.log(`🔄 Resetting currentTurnScore from ${gameState.currentTurnScore} to 0`);
+        // Reset turn score, dice state, and banked dice
         gameState.currentTurnScore = 0;
+        gameState.availableDice = 6;
+        gameState.diceValues = [];
+        gameState.selectedDice = [];
+        gameState.bankedDiceThisTurn = [];
+        gameState.mustBankDice = false;
         
-        // Aktualizujeme scoreboard před změnou hráče
+        // Aktualizujeme scoreboard a herní informace před změnou hráče
         updateScoreboard();
+        updateGameInfo(); // Zajistí aktualizaci skóre tahu na 0
         console.log('🔄 Moving to next player...');
         _nextPlayer();
         console.log(`🔄 Next player is: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
