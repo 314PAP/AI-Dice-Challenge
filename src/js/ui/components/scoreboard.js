@@ -24,7 +24,7 @@ const updatePlayerElement = (player, index) => {
 };
 
 // 🎯 ACTIVE PLAYER INDICATOR - Přepracovaný s spolehlivou detekci a správnými barvami hráčů
-const updatePlayerActiveState = (player, index) => {
+const updatePlayerActiveState = (player, _index) => {
     // Mapování typů hráčů na CSS třídy - uspořádané podle indexů hráčů
     const playerClasses = [
         'human-player',  // Index 0 - lidský hráč
