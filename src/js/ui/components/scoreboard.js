@@ -25,15 +25,30 @@ const updatePlayerElement = (player, index) => {
 
 // 🎯 ACTIVE PLAYER INDICATOR - Functional highlighting
 const updatePlayerActiveState = (player, index) => {
-    const playerId = index === 0 ? 'humanPlayer' : `aiPlayer${index}`;
-    const playerElement = safeGetElement(playerId);
+    // Map player types to correct CSS classes
+    const playerClasses = [
+        '.human-player',
+        '.gemini-player', 
+        '.chatgpt-player',
+        '.claude-player'
+    ];
+    
+    const playerElement = document.querySelector(playerClasses[index]);
     
     when(
         Boolean,
         (element) => {
             const isActive = gameState.currentPlayer === index;
+            
+            // Remove active from all players first
+            if (isActive) {
+                document.querySelectorAll('.player').forEach(p => p.classList.remove('active'));
+            }
+            
             element.classList.toggle('active', isActive);
             element.classList.toggle('inactive', !isActive);
+            
+            console.log(`🎯 Player ${index} (${player.name}) - Active: ${isActive}`);
         }
     )(playerElement);
 };
