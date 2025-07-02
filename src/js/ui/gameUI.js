@@ -25,6 +25,7 @@ export const updateGameDisplay = debounce(() => {
     updateDiceContainer();
     updateControlsState();
     updateScoreboard(); // Přidáno pro aktualizaci skóre u avatarů
+    updateActivePlayer(); // Zajistí správné zvýraznění aktivního hráče
 }, 50);
 
 // 🔄 COMPREHENSIVE UPDATE FUNCTION - Combines all updates
