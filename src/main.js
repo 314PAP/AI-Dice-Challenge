@@ -8,7 +8,7 @@ console.log('🔍 Document ready state:', document.readyState);
 
 // Import UI controlleru pro řízení celé aplikace
 import { setupUI } from './js/ui/uiController.js';
-import { initGameController } from './js/game/gameController.js';
+import { initializeGame } from './js/game/gameController.js';
 import { initializeChat } from './js/ui/enhancedChatController.js';
 
 /**
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const chatController = initializeChat();
         
         // Inicializuj game controller
-        initGameController();
+        initializeGame();
         
         // Zpřístupni chat globálně
         window.addChatMessage = chatController.addMessage.bind(chatController);

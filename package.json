@@ -24,8 +24,10 @@
     "cssnano": "^7.0.7",
     "eslint": "^9.30.0",
     "postcss": "^8.5.6",
+    "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",
     "prettier": "^3.6.2",
+    "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "vite": "^7.0.0"
   },
@@ -36,16 +38,17 @@
     "aos": "^2.3.4",
     "cssremedy": "^0.1.0-beta.2",
     "date-fns": "^4.1.0",
+    "event-emitter3": "^1.0.4",
     "hover.css": "^2.3.2",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.525.0",
     "magic.css": "^1.4.8",
+    "mitt": "^3.0.1",
     "modern-css-reset": "^1.4.0",
     "normalize.css": "^8.0.1",
     "prismjs": "^1.30.0",
     "ramda": "^0.31.3",
-    "tailwindcss": "^4.1.11",
     "utility-types": "^3.11.0"
   }
 }

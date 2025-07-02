@@ -1,157 +1,205 @@
 /**
- * Game UI Controller
- * Řídí zobrazení herních prvků
+ * 🎮 Game UI Controller - Modernized with Functional Programming
+ * Maximizes Ramda + Lodash-ES for clean, performant UI updates
  */
 
+import { pipe, when, unless, cond, always, T, isEmpty, map, filter, prop } from 'ramda';
+import { debounce, throttle, partial, memoize } from 'lodash-es';
 import { gameState } from '../game/gameState.js';
 import { calculateScore } from '../game/diceLogic.js';
+import { safeGetElement, debouncedUpdateUI } from '../utils/gameUtils.js';
 
-/**
- * Aktualizuje zobrazení hry
- */
-export function updateGameDisplay() {
-    // Update dice display - minimalist single row design
-    const diceContainer = document.getElementById('diceContainer');
-    if (!diceContainer) return;
+// 🎲 DICE RENDERING - Functional approach with Ramda/Lodash
+const createDiceElement = (value, index, type = 'current') => {
+    const dieElement = document.createElement('div');
     
-    diceContainer.innerHTML = '';
+    const classes = pipe(
+        () => ['dice'],
+        when(() => type === 'banked', (classes) => [...classes, 'banked']),
+        when(() => type === 'current' && gameState.selectedDice.includes(index), 
+             (classes) => [...classes, 'selected']),
+        when(() => type === 'current' && 
+                   !gameState.selectedDice.includes(index) && 
+                   gameState.currentPlayer === 0 && 
+                   calculateScore([value]) > 0,
+             (classes) => [...classes, 'scoring']),
+        (classes) => classes.join(' ')
+    )();
     
-    // Create single row container for all dice
-    const allDiceContainer = document.createElement('div');
-    allDiceContainer.className = 'all-dice-container';
+    dieElement.className = classes;
+    dieElement.textContent = value;
     
-    // First, show banked dice from this turn (dimmed and non-interactive)
-    if (gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0) {
-        gameState.bankedDiceThisTurn.forEach(value => {
-            const dieElement = document.createElement('div');
-            dieElement.className = 'dice banked';
-            dieElement.textContent = value;
-            // Banked dice are not clickable
-            allDiceContainer.appendChild(dieElement);
-        });
-    }
-    
-    // Then, show current dice roll (interactive)
-    if (gameState.diceValues.length > 0) {
-        gameState.diceValues.forEach((value, index) => {
-            const dieElement = document.createElement('div');
-            
-            // Určení CSS tříd pro kostku
-            let classes = 'dice';
-            if (gameState.selectedDice.includes(index)) classes += ' selected';
-            
-            // Zvýraznění bodujících kostek (pokud nejsou vybrané a hra je aktivní)
-            if (!gameState.selectedDice.includes(index) && gameState.currentPlayer === 0) {
-                const singleDieScore = calculateScore([value]);
-                if (singleDieScore > 0) {
-                    classes += ' scoring';
-                }
-            }
-            
-            dieElement.className = classes;
-            dieElement.textContent = value;
+    // Add click handler for current dice only
+    when(
+        () => type === 'current' && gameState.currentPlayer === 0,
+        () => {
             dieElement.addEventListener('click', () => {
-                if (gameState.currentPlayer === 0 && gameState.mustBankDice) {
-                    // Emit custom event to avoid circular dependency
-                    const event = new CustomEvent('dieSelected', { detail: { index } });
-                    document.dispatchEvent(event);
-                }
+                if (window.selectDie) window.selectDie(index);
             });
-            allDiceContainer.appendChild(dieElement);
-        });
+        }
+    )();
+    
+    return dieElement;
+};
+
+// 🎯 DICE CONTAINER UPDATER - Optimized with functional composition
+const updateDiceContainer = pipe(
+    () => safeGetElement('diceContainer'),
+    unless(Boolean, () => {
+        console.warn('🚫 Dice container not found');
+        return null;
+    }),
+    (container) => {
+        container.innerHTML = '';
+        
+        const allDiceContainer = document.createElement('div');
+        allDiceContainer.className = 'all-dice-container';
+        
+        // Render banked dice first (if any)
+        when(
+            () => !isEmpty(gameState.bankedDiceThisTurn),
+            () => {
+                gameState.bankedDiceThisTurn.forEach(value => {
+                    const dieElement = createDiceElement(value, -1, 'banked');
+                    allDiceContainer.appendChild(dieElement);
+                });
+            }
+        )();
+        
+        // Render current dice roll
+        when(
+            () => !isEmpty(gameState.diceValues),
+            () => {
+                gameState.diceValues.forEach((value, index) => {
+                    const dieElement = createDiceElement(value, index, 'current');
+                    allDiceContainer.appendChild(dieElement);
+                });
+            }
+        )();
+        
+        container.appendChild(allDiceContainer);
+        return container;
     }
+);
+
+// 🎮 MAIN UPDATE FUNCTION - Debounced for performance
+export const updateGameDisplay = debounce(() => {
+    console.log('🔄 Updating game display...');
+    updateDiceContainer();
+}, 50);
+
+// 📊 SCOREBOARD UPDATER - Functional approach
+const updatePlayerElement = (player, index) => {
+    const playerId = index === 0 ? 'humanPlayer' : `aiPlayer${index}`;
+    const playerElement = safeGetElement(playerId);
     
-    diceContainer.appendChild(allDiceContainer);
+    when(
+        Boolean,
+        (element) => {
+            const nameElement = element.querySelector('.player-name');
+            const scoreElement = element.querySelector('.player-score');
+            
+            when(Boolean, (el) => { el.textContent = player.name; })(nameElement);
+            when(Boolean, (el) => { el.textContent = player.score; })(scoreElement);
+        }
+    )(playerElement);
+};
+
+export const updateScoreboard = pipe(
+    () => console.log('📊 Updating scoreboard...'),
+    () => gameState.players.forEach(updatePlayerElement)
+);
+
+// 🎯 ACTIVE PLAYER INDICATOR - Functional highlighting
+const updatePlayerActiveState = (player, index) => {
+    const playerId = index === 0 ? 'humanPlayer' : `aiPlayer${index}`;
+    const playerElement = safeGetElement(playerId);
     
-    // Update current turn score
-    const currentTurnScore = document.getElementById('currentTurnScore');
-    if (currentTurnScore) {
-        currentTurnScore.textContent = `Skóre tahu: ${gameState.currentTurnScore}`;
-    }
-    
-    // Update button states
+    when(
+        Boolean,
+        (element) => {
+            const isActive = gameState.currentPlayer === index;
+            element.classList.toggle('active', isActive);
+            element.classList.toggle('inactive', !isActive);
+        }
+    )(playerElement);
+};
+
+export const updateActivePlayer = pipe(
+    () => console.log('🎯 Updating active player...'),
+    () => gameState.players.forEach(updatePlayerActiveState)
+);
+
+// 🎮 GAME CONTROLS UPDATER - Functional button state management
+const updateControlsState = () => {
     const selectedValues = gameState.selectedDice.map(index => gameState.diceValues[index]);
     const canBank = gameState.selectedDice.length > 0 && calculateScore(selectedValues) > 0;
-    const canEndTurn = gameState.currentTurnScore >= 300 && !gameState.mustBankDice; // Musí odložit kostky před ukončením
+    const canEndTurn = gameState.currentTurnScore >= 300 && !gameState.mustBankDice;
     const canRoll = gameState.availableDice > 0 && !gameState.mustBankDice && gameState.currentPlayer === 0;
+    const isHumanTurn = gameState.currentPlayer === 0;
     
-    const bankBtn = document.getElementById('bankBtn');
-    const rollBtn = document.getElementById('rollBtn');
-    const endTurnBtn = document.getElementById('endTurnBtn');
+    // Button state updaters
+    const buttonUpdaters = [
+        ['bankBtn', !canBank || !isHumanTurn],
+        ['rollBtn', !canRoll],
+        ['endTurnBtn', !canEndTurn || !isHumanTurn]
+    ];
     
-    if (bankBtn) bankBtn.disabled = !canBank || gameState.currentPlayer !== 0;
-    if (rollBtn) rollBtn.disabled = !canRoll;
-    if (endTurnBtn) endTurnBtn.disabled = !canEndTurn || gameState.currentPlayer !== 0;
-    
-    // Update available dice display
-    const availableDiceDisplay = document.getElementById('availableDice');
-    if (availableDiceDisplay) {
-        availableDiceDisplay.textContent = `Volné kostky: ${gameState.availableDice}`;
-    }
-    
-    // Zobrazit varování, pokud musí hráč odložit kostky
-    const humanStatus = document.getElementById('humanPlayerStatus');
-    if (gameState.mustBankDice && gameState.currentPlayer === 0) {
-        if (humanStatus) {
-            humanStatus.textContent = '⚠️ Musíte odložit alespoň jednu bodující kombinaci!';
-            humanStatus.style.color = 'var(--neon-orange)';
-        }
-    } else if (humanStatus && gameState.currentPlayer === 0) {
-        // Reset status when no warning needed
-        humanStatus.textContent = '';
-    }
-}
-
-/**
- * Aktualizuje tabulku skóre
- */
-export function updateScoreboard() {
-    // Aktualizuj skóre všech hráčů
-    const scoreElements = {
-        0: document.getElementById('humanScore'),
-        1: document.getElementById('geminiScore'), 
-        2: document.getElementById('chatgptScore'),
-        3: document.getElementById('claudeScore')
-    };
-    
-    gameState.players.forEach((player, index) => {
-        const scoreElement = scoreElements[index];
-        if (scoreElement) {
-            scoreElement.textContent = player.score;
-        }
+    buttonUpdaters.forEach(([id, disabled]) => {
+        when(
+            Boolean,
+            (btn) => { btn.disabled = disabled; }
+        )(safeGetElement(id));
     });
-    
-    // Aktualizuj current turn score
-    const currentTurnScore = document.getElementById('currentTurnScore');
-    if (currentTurnScore) {
-        currentTurnScore.textContent = `Skóre tahu: ${gameState.currentTurnScore}`;
-    }
-}
+};
 
-/**
- * Aktualizuje zobrazení aktivního hráče
- */
-export function updateActivePlayer() {
-    // Odstraň active třídu ze všech hráčů
-    document.querySelectorAll('.player').forEach(player => {
-        player.classList.remove('active');
+// 📊 GAME INFO UPDATER - Functional info display
+const updateGameInfo = () => {
+    const infoUpdaters = [
+        ['currentTurnScore', `Skóre tahu: ${gameState.currentTurnScore}`],
+        ['availableDice', `Volné kostky: ${gameState.availableDice}`],
+        ['turnInfo', `${gameState.players[gameState.currentPlayer]?.name || 'Neznámý'} na tahu!`]
+    ];
+    
+    infoUpdaters.forEach(([id, text]) => {
+        when(
+            Boolean,
+            (el) => { el.textContent = text; }
+        )(safeGetElement(id));
     });
+};
+
+// ⚠️ PLAYER STATUS UPDATER - Functional warning system
+const updatePlayerStatus = () => {
+    const humanStatus = safeGetElement('humanPlayerStatus');
     
-    // Přidej active třídu k aktuálnímu hráči
-    const playerClasses = ['human-player', 'gemini-player', 'chatgpt-player', 'claude-player'];
-    const currentPlayerClass = playerClasses[gameState.currentPlayer];
-    
-    if (currentPlayerClass) {
-        const currentPlayerElement = document.querySelector(`.${currentPlayerClass}`);
-        if (currentPlayerElement) {
-            currentPlayerElement.classList.add('active');
+    when(
+        Boolean,
+        (statusEl) => {
+            if (gameState.mustBankDice && gameState.currentPlayer === 0) {
+                statusEl.textContent = '⚠️ Musíte odložit alespoň jednu bodující kombinaci!';
+                statusEl.style.color = 'var(--neon-orange)';
+            } else if (gameState.currentPlayer === 0) {
+                statusEl.textContent = '';
+                statusEl.style.color = '';
+            }
         }
-    }
-    
-    // Aktualizuj turn info
-    const turnInfo = document.getElementById('turnInfo');
-    if (turnInfo) {
-        const playerName = gameState.players[gameState.currentPlayer]?.name || 'Neznámý';
-        turnInfo.textContent = `${playerName} na tahu!`;
-    }
-}
+    )(humanStatus);
+};
+
+// 🔄 COMPREHENSIVE UPDATE FUNCTION - Combines all updates
+export const updateCompleteGameDisplay = debounce(pipe(
+    () => console.log('🔄 Complete game display update...'),
+    updateDiceContainer,
+    updateControlsState,
+    updateGameInfo,
+    updatePlayerStatus
+), 100);
+
+// 📤 EXPORT MODERNIZED FUNCTIONS
+export {
+    updateControlsState,
+    updateGameInfo,
+    updatePlayerStatus,
+    createDiceElement
+};

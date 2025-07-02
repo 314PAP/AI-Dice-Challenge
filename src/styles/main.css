@@ -1,15 +1,22 @@
 /* =============================================================================
-   🎨 MODULÁRNÍ CSS SYSTÉM - AI Kostková Výzva s KNIHOVNAMI
-   Kompletně nový modulární systém s maximálním využitím utility knihoven
+   🎨 OPTIMALIZOVANÝ CSS SYSTÉM - AI Kostková Výzva
+   Maximální využití knihoven - všechny @import na začátku
    ============================================================================= */
 
+/* 📦 LIBRARY IMPORTS - MUSÍ BÝT PRVNÍ */
 @import './utils/libraries.css';
+
+/* 🎯 BASE SYSTEM */
 @import './base/variables.css';
 @import './base/reset.css';
 @import './base/typography.css';
+
+/* 📐 LAYOUT SYSTEM */
 @import './layout/grid.css';
 @import './layout/containers.css';
 @import './layout/responsive.css';
+
+/* 🧩 COMPONENTS */
 @import './components/buttons.css';
 @import './components/forms.css';
 @import './components/modals.css';
@@ -18,15 +25,19 @@
 @import './components/players.css';
 @import './components/scores.css';
 @import './components/game.css';
+
+/* ✨ ANIMATIONS & EFFECTS */
 @import './animations/keyframes.css';
 @import './animations/transitions.css';
 @import './animations/neon-effects.css';
+
+/* 🎨 ICONS & THEMES */
 @import './icons/neon-icons.css';
 @import './icons/game-icons.css';
 @import './themes/neon-dark.css';
+
+/* 🔧 UTILITIES */
 @import './utils/spacing.css';
 @import './utils/colors.css';
 @import './utils/visibility.css';
 @import './utils/neon-effects.css';
-
-/* ============================================================================= */

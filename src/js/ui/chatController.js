@@ -1,246 +1,280 @@
 /**
- * Chat Controller
- * Řídí chat systém a AI komunikaci
+ * 💬 Chat Controller - Modernized with Functional Programming
+ * Enhanced with Ramda + Lodash-ES for optimal chat performance
  */
 
+import { pipe, when, unless, cond, always, T, curry, compose } from 'ramda';
+import { debounce, throttle, memoize, isEmpty, escape } from 'lodash-es';
 import { aiPersonalities } from '../ai/personalities.js';
 import { generateAIChatResponse } from '../ai/aiController.js';
 import { gameState } from '../game/gameState.js';
+import { safeGetElement, safeExecute } from '../utils/gameUtils.js';
+import { emitter, EVENTS } from '../utils/optimizedEvents.js';
 
-/**
- * Inicializuje chat systém
- */
-export function initializeChat() {
-    console.log('💬 Inicializace chatu...');
-    
-    const chatInput = document.getElementById('chatInput');
-    const sendMessageBtn = document.getElementById('sendMessageBtn');
-    const chatToggle = document.getElementById('chatToggle');
-    
-    if (chatInput) {
-        chatInput.addEventListener('keypress', handleChatKeyPress);
-    }
-    
-    if (sendMessageBtn) {
-        sendMessageBtn.addEventListener('click', sendMessage);
-    }
-    
-    if (chatToggle) {
-        chatToggle.addEventListener('click', toggleChat);
-    }
-    
-    // Load chat history
-    loadChatHistory();
-    
-    // Welcome message
-    addChatMessage('system', '🎲 Vítejte v AI Kostkové Výzvě! Nastavte své cílové skóre a začněte hrát!');
-    
-    console.log('✅ Chat systém inicializován');
-}
+// 🎨 CHAT STYLING MAP - Functional color/icon assignment
+const chatStyleMap = {
+    system: { color: 'var(--neon-yellow)', icon: '🎲', border: 'var(--neon-yellow)' },
+    human: { color: 'var(--neon-blue)', icon: '👤', border: 'var(--neon-blue)' },
+    gemini: { color: 'var(--neon-green)', icon: '🤖', border: 'var(--neon-orange)' },
+    chatgpt: { color: 'var(--neon-green)', icon: '🧠', border: 'var(--neon-blue)' },
+    claude: { color: 'var(--neon-green)', icon: '⚡', border: 'var(--neon-orange)' }
+};
 
-/**
- * Přidá zprávu do chatu
- * @param {string} senderType - Typ odesílatele
- * @param {string} message - Zpráva
- */
-export function addChatMessage(senderType, message) {
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) return;
-    
+// 📜 CHAT HISTORY - Functional storage
+let chatHistory = [];
+const maxChatHistory = 100;
+
+// 🎯 INITIALIZE CHAT SYSTEM - Functional setup
+export const initializeChat = pipe(
+    () => console.log('💬 Initializing modernized chat system...'),
+    () => {
+        const chatHandlers = [
+            ['chatInput', 'keypress', handleChatKeyPress],
+            ['sendMessageBtn', 'click', sendMessage],
+            ['chatToggle', 'click', toggleChat]
+        ];
+        
+        chatHandlers.forEach(([id, event, handler]) => {
+            when(
+                Boolean,
+                (element) => element.addEventListener(event, debounce(handler, 200))
+            )(safeGetElement(id));
+        });
+    },
+    () => loadChatHistory(),
+    () => addChatMessage('system', '🎲 Vítejte v AI Kostkové Výzvě! Nastavte své cílové skóre a začněte hrát!'),
+    () => console.log('✅ Modernized chat system ready!')
+);
+
+// 💬 MESSAGE CREATOR - Functional message rendering
+const createChatMessage = curry((senderType, message) => {
     const messageDiv = document.createElement('div');
-    const timestamp = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+    const style = chatStyleMap[senderType] || chatStyleMap.system;
     
-    // Získání informací o odesílateli
-    const personality = aiPersonalities[senderType.toLowerCase()];
-    const senderName = personality ? personality.name : (senderType.charAt(0).toUpperCase() + senderType.slice(1));
-    
-    // Mapování na nové ikony
-    const getIconPath = (type) => {
-        switch(type.toLowerCase()) {
-            case 'human': return '/ai-icons/mind.jpeg';
-            case 'gemini': return '/ai-icons/gemini.jpeg';
-            case 'chatgpt': return '/ai-icons/gpt.jpeg';
-            case 'claude': return '/ai-icons/claude.jpeg';
-            case 'system': return '/ai-icons/system.jpeg';
-            default: return '';
-        }
-    };
-    
-    const iconPath = getIconPath(senderType);
-    
-    messageDiv.className = 'chat-message';
+    messageDiv.className = `chat-message ${senderType}-message`;
+    messageDiv.style.borderLeft = `3px solid ${style.border}`;
     
     messageDiv.innerHTML = `
-        <div class="message-header">
-            ${iconPath ? `<img src="${iconPath}" style="width:20px; height:20px; border-radius:50%; object-fit:cover;" alt="${senderName}">` : ''}
-            <span class="message-sender">${senderName}</span>
-            <span class="message-time">${timestamp}</span>
+        <div class="chat-message-header">
+            <span class="chat-icon">${style.icon}</span>
+            <span class="chat-sender" style="color: ${style.color};">
+                ${getSenderName(senderType)}
+            </span>
+            <span class="chat-time">${new Date().toLocaleTimeString()}</span>
         </div>
-        <div class="message-content">${message}</div>
+        <div class="chat-message-content" style="color: ${style.color};">
+            ${escape(message)}
+        </div>
     `;
     
-    chatMessages.appendChild(messageDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    
-    // Uložení do localStorage pro zachování historie
-    saveChatMessage(senderType, message, timestamp);
-}
+    return messageDiv;
+});
 
-/**
- * Odešle zprávu od uživatele
- */
-function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const message = input.value.trim();
+// 🏷️ SENDER NAME RESOLVER - Functional name mapping
+const getSenderName = cond([
+    [(type) => type === 'system', always('Systém')],
+    [(type) => type === 'human', always('Vy')],
+    [(type) => type === 'gemini', always('Gemini')],
+    [(type) => type === 'chatgpt', always('ChatGPT')],
+    [(type) => type === 'claude', always('Claude')],
+    [T, (type) => type.charAt(0).toUpperCase() + type.slice(1)]
+]);
+
+// 📤 ADD CHAT MESSAGE - Enhanced with functional composition
+export const addChatMessage = curry((senderType, message) => {
+    const chatMessages = safeGetElement('chatMessages');
     
-    if (message) {
-        addChatMessage('human', message);
+    unless(
+        Boolean,
+        () => {
+            console.warn('⚠️ Chat messages container not found');
+            return;
+        }
+    )(chatMessages);
+    
+    when(
+        Boolean,
+        (container) => {
+            const messageElement = createChatMessage(senderType, message);
+            container.appendChild(messageElement);
+            
+            // Add to history
+            chatHistory.push({ senderType, message, timestamp: new Date() });
+            
+            // Limit history size
+            if (chatHistory.length > maxChatHistory) {
+                chatHistory = chatHistory.slice(-maxChatHistory);
+            }
+            
+            // Auto-scroll to bottom with smooth animation
+            setTimeout(() => {
+                container.scrollTop = container.scrollHeight;
+            }, 100);
+            
+            // Emit chat event
+            emitter.emit(EVENTS.CHAT_MESSAGE, { senderType, message });
+        }
+    )(chatMessages);
+    
+    // Save to localStorage
+    saveChatHistory();
+});
+
+// 📨 SEND MESSAGE HANDLER - Functional message processing
+const sendMessage = pipe(
+    () => safeGetElement('chatInput'),
+    unless(Boolean, () => {
+        console.warn('⚠️ Chat input not found');
+        return '';
+    }),
+    (input) => {
+        const message = input.value.trim();
         input.value = '';
-        
-        // Nech AI reagovat s malým zpožděním
-        const aiToRespondIds = ['gemini', 'chatgpt', 'claude'];
-        const respondingAIId = aiToRespondIds[Math.floor(Math.random() * aiToRespondIds.length)];
+        return message;
+    },
+    when(
+        (message) => !isEmpty(message),
+        (message) => {
+            addChatMessage('human', message);
+            triggerAIResponses(message);
+        }
+    )
+);
 
-        const aiResponseDelay = 800 + Math.random() * 1500;
-        
-        // Získání aktuálních skóre pro předání AI
-        const currentPlayersScores = {};
-        gameState.players.forEach(p => {
-            currentPlayersScores[p.name] = p.score;
-        });
-
+// 🤖 AI RESPONSE TRIGGER - Enhanced response system
+const triggerAIResponses = throttle((userMessage) => {
+    const aiTypes = ['gemini', 'chatgpt', 'claude'];
+    
+    aiTypes.forEach((aiType, index) => {
         setTimeout(() => {
-            const aiResponse = generateAIChatResponse(respondingAIId, message, currentPlayersScores, gameState.targetScore);
-            if (aiResponse) {
-                addChatMessage(aiResponse.senderType, aiResponse.message);
-            }
-        }, aiResponseDelay);
-
-        // Volitelné: Nech další AI reagovat s delším zpožděním
-        aiToRespondIds.forEach(aiId => {
-            if (aiId !== respondingAIId && Math.random() < 0.4) {
-                const followUpDelay = aiResponseDelay + 1000 + Math.random() * 1000;
-                setTimeout(() => {
-                    const aiResponse = generateAIChatResponse(aiId, "random comment trigger", currentPlayersScores, gameState.targetScore);
-                    if (aiResponse && aiResponse.message) {
-                        addChatMessage(aiResponse.senderType, aiResponse.message);
-                    }
-                }, followUpDelay);
-            }
-        });
-    }
-}
-
-/**
- * Zpracovává stisk klávesy v chat inputu
- * @param {KeyboardEvent} event - Keyboard event
- */
-function handleChatKeyPress(event) {
-    if (event.key === 'Enter') {
-        sendMessage();
-    }
-}
-
-/**
- * Uloží zprávu do localStorage
- * @param {string} senderType - Typ odesílatele
- * @param {string} message - Zpráva
- * @param {string} timestamp - Časová značka
- */
-function saveChatMessage(senderType, message, timestamp) {
-    const chatHistory = JSON.parse(localStorage.getItem('diceGameChat') || '[]');
-    chatHistory.push({
-        senderType: senderType,
-        message: message,
-        timestamp: timestamp
+            safeExecute(() => {
+                const response = generateAIChatResponse(aiType, userMessage);
+                if (response) {
+                    addChatMessage(aiType, response);
+                }
+            }, null, `AI Response ${aiType}`);
+        }, 800 + (index * 400));
     });
+}, 1000);
+
+// ⌨️ KEYBOARD HANDLER - Functional key handling
+const handleChatKeyPress = (event) => {
+    when(
+        () => event.key === 'Enter' && !event.shiftKey,
+        () => {
+            event.preventDefault();
+            sendMessage();
+        }
+    )();
+};
+
+// 🔄 CHAT TOGGLE - Functional visibility management
+const toggleChat = () => {
+    const chatContainer = safeGetElement('chatContainer');
     
-    // Udržování max 50 zpráv v historii
-    if (chatHistory.length > 50) {
-        chatHistory.shift();
-    }
+    when(
+        Boolean,
+        (container) => {
+            const isHidden = container.classList.contains('hidden');
+            container.classList.toggle('hidden', !isHidden);
+            
+            // Focus input when opening
+            when(
+                () => !isHidden,
+                () => {
+                    const input = safeGetElement('chatInput');
+                    when(Boolean, (el) => el.focus())(input);
+                }
+            )();
+        }
+// 🔄 CHAT TOGGLE - Functional visibility management
+const toggleChat = () => {
+    const chatContainer = safeGetElement('chatContainer');
     
-    localStorage.setItem('diceGameChat', JSON.stringify(chatHistory));
+    when(
+        Boolean,
+        (container) => {
+            const isHidden = container.classList.contains('hidden');
+            container.classList.toggle('hidden', !isHidden);
+            
+            // Focus input when opening
+            when(
+                () => !isHidden,
+                () => {
+                    const input = safeGetElement('chatInput');
+                    when(Boolean, (el) => el.focus())(input);
+                }
+            )();
+        }
+    )(chatContainer);
+};
+
+// 💾 CHAT STORAGE - Functional persistence
+const saveChatHistory = throttle(() => {
+    safeExecute(() => {
+        localStorage.setItem('aiDiceChatHistory', JSON.stringify(chatHistory));
+    }, null, 'Save Chat History');
+}, 1000);
+
+const loadChatHistory = () => {
+    safeExecute(() => {
+        const stored = localStorage.getItem('aiDiceChatHistory');
+        if (stored) {
+            chatHistory = JSON.parse(stored);
+            // Restore messages to UI
+            chatHistory.forEach(({ senderType, message }) => {
+                const messageElement = createChatMessage(senderType, message);
+                const chatMessages = safeGetElement('chatMessages');
+                when(Boolean, (container) => container.appendChild(messageElement))(chatMessages);
+            });
+        }
+    }, null, 'Load Chat History');
+};
+
+// 🧹 CLEAR CHAT - Functional chat cleanup
+export const clearChat = () => {
+    chatHistory = [];
+    const chatMessages = safeGetElement('chatMessages');
+    
+    when(
+        Boolean,
+        (container) => {
+            container.innerHTML = '';
+            saveChatHistory();
+        }
+    )(chatMessages);
+};
+
+// 📤 EXPORT MODERNIZED FUNCTIONS
+export {
+    sendMessage,
+    handleChatKeyPress,
+    toggleChat,
+    saveChatHistory,
+    loadChatHistory,
+    createChatMessage,
+    getSenderName
+};
+
+// 🌐 GLOBAL WINDOW FUNCTIONS - Legacy support
+if (typeof window !== 'undefined') {
+    window.addChatMessage = addChatMessage;
+    window.sendMessage = sendMessage;
+    window.toggleChat = toggleChat;
+    window.clearChat = clearChat;
+    window.initializeChat = initializeChat;
 }
 
-/**
- * Načte historii chatu z localStorage
- */
-function loadChatHistory() {
-    const chatHistory = JSON.parse(localStorage.getItem('diceGameChat') || '[]');
-    const chatMessages = document.getElementById('chatMessages');
-    
-    if (!chatMessages) return;
-    
-    chatHistory.slice(-20).forEach(msg => {
-        const messageDiv = document.createElement('div');
-        
-        let actualSenderType = msg.senderType || msg.sender;
-        const personality = aiPersonalities[actualSenderType.toLowerCase()];
-        const senderName = personality ? personality.name : (actualSenderType.charAt(0).toUpperCase() + actualSenderType.slice(1));
-        
-        // Mapování na nové ikony
-        const getIconPath = (type) => {
-            switch(type.toLowerCase()) {
-                case 'human': return '/ai-icons/mind.jpeg';
-                case 'gemini': return '/ai-icons/gemini.jpeg';
-                case 'chatgpt': return '/ai-icons/gpt.jpeg';
-                case 'claude': return '/ai-icons/claude.jpeg';
-                case 'system': return '/ai-icons/system.jpeg';
-                default: return '';
-            }
-        };
-        
-        const iconPath = getIconPath(actualSenderType);
-
-        messageDiv.className = 'chat-message';
-        
-        messageDiv.innerHTML = `
-            <div class="message-header">
-                ${iconPath ? `<img src="${iconPath}" style="width:20px; height:20px; border-radius:50%; object-fit:cover;" alt="${senderName}">` : ''}
-                <span class="message-sender">${senderName}</span>
-                <span class="message-time">${msg.timestamp}</span>
-            </div>
-            <div class="message-content">${msg.message}</div>
-        `;
-        
-        chatMessages.appendChild(messageDiv);
-    });
-    
-    // Scroll to bottom after loading messages
-    scrollToBottom();
-}
-
-/**
- * Rozbalí/sbalí chat panel
- */
-function toggleChat() {
-    const chatPanel = document.getElementById('chatPanel');
-    const chatToggle = document.getElementById('chatToggle');
-    
-    if (!chatPanel || !chatToggle) return;
-    
-    const isCollapsed = chatPanel.classList.contains('collapsed');
-    
-    if (isCollapsed) {
-        chatPanel.classList.remove('collapsed');
-        chatToggle.textContent = '−';
-        chatToggle.title = 'Sbalit chat';
-    } else {
-        chatPanel.classList.add('collapsed');
-        chatToggle.textContent = '+';
-        chatToggle.title = 'Rozbalit chat';
-    }
-    
-    console.log(`💬 Chat ${isCollapsed ? 'rozbalen' : 'sbalen'}`);
-}
-
-/**
- * Posune chat dolů na nejnovější zprávu
- */
-function scrollToBottom() {
-    const chatMessages = document.getElementById('chatMessages');
-    if (chatMessages) {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-}
+// 📊 DEFAULT EXPORT - Complete chat controller
+export default {
+    initializeChat,
+    addChatMessage,
+    sendMessage,
+    handleChatKeyPress,
+    toggleChat,
+    saveChatHistory,
+    loadChatHistory,
+    createChatMessage,
+    getSenderName,
+    clearChat
+};
