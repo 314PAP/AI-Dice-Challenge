@@ -2,7 +2,7 @@
  * 🎯 Game Event Handlers (New Game, Menu, etc.)
  */
 
-import { curry, pipe } from 'ramda';
+import { curry } from 'ramda';
 import { emitter, EVENTS } from './eventCore.js';
 import { hideAllModals } from './modalHandlers.js';
 import { safeExecute } from '../gameUtils.js';
