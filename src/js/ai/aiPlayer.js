@@ -295,24 +295,40 @@ const makeAIDecision = (rollScore, aiPlayer) => {
     }
 };
 
-//  SCORING COMBINATION FINDER - Optimized with Ramda
-const findBestScoringCombination = pipe(
-    (diceValues) => {
-        if (isEmpty(diceValues)) return null;
-        
-        const allCombinations = getAllScoringCombinations(diceValues);
-        
-        if (!isEmpty(allCombinations)) {
-            // Return highest scoring combination
-            return allCombinations.reduce((best, current) => 
-                current.score > best.score ? current : best
-            );
-        }
-        
-        // Fallback: individual scoring dice
-        return findIndividualScoringDice(diceValues);
+//  🎯 SCORING COMBINATION FINDER - Fixed logic
+const findBestScoringCombination = (diceValues) => {
+    if (isEmpty(diceValues)) {
+        console.log('❌ No dice values provided');
+        return null;
     }
-);
+    
+    console.log(`🔍 Finding best combination for: [${diceValues.join(', ')}]`);
+    
+    // First try to get all scoring combinations
+    const allCombinations = getAllScoringCombinations(diceValues);
+    console.log('🎯 All combinations found:', allCombinations);
+    
+    if (!isEmpty(allCombinations)) {
+        // Return highest scoring combination
+        const bestCombo = allCombinations.reduce((best, current) => 
+            current.score > best.score ? current : best
+        );
+        console.log('✅ Best combination selected:', bestCombo);
+        return bestCombo;
+    }
+    
+    // Fallback: find individual scoring dice
+    console.log('🔄 Trying individual scoring dice...');
+    const individualDice = findIndividualScoringDice(diceValues);
+    
+    if (individualDice) {
+        console.log('✅ Individual scoring dice found:', individualDice);
+        return individualDice;
+    }
+    
+    console.log('❌ No scoring combinations found');
+    return null;
+};
 
 // 🎲 INDIVIDUAL DICE SCORING - Functional approach
 const findIndividualScoringDice = (diceValues) => {
