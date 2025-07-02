@@ -17,7 +17,26 @@ export function displayHallOfFame() {
 
 export function closeHallOfFame() {
     const modal = document.getElementById('hallOfFameModal');
-    if (modal) modal.style.display = 'none';
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.add('hidden');
+        modal.classList.remove('visible');
+    }
+    
+    // Kontrola, zda je hra již ukončena, abychom zabránili emergency módu
+    // při návratu z Hall of Fame po konci hry
+    if (window.gameState && window.gameState.gameEnded) {
+        // Zajistíme, že se neaktivuje emergency mód
+        console.log('🔍 Hra je ukončena, zabráněno aktivaci emergency módu');
+        
+        // Zobrazíme znovu modal konce hry, pokud byl otevřen Hall of Fame po konci hry
+        const gameOverModal = document.getElementById('gameOverModal');
+        if (gameOverModal) {
+            gameOverModal.style.display = 'block';
+            gameOverModal.classList.remove('hidden');
+            gameOverModal.classList.add('visible');
+        }
+    }
 }
 
 export function saveScore() {
