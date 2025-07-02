@@ -183,7 +183,7 @@ const playAIRoll = pipe(
     }
 );
 
-// 🎯 AI ROLL RESULT HANDLER - Conditional logic with Ramda
+// 🎯 AI ROLL RESULT HANDLER - Enhanced with proper cleanup
 const handleAIRollResult = cond([
     // FARKLE - No scoring dice
     [(rollScore) => rollScore === 0, (rollScore, aiPlayer) => {
@@ -195,7 +195,10 @@ const handleAIRollResult = cond([
         if (reaction) debouncedChatMessage(aiPlayer.type, reaction);
         
         console.log('🏁 AI ending turn due to FARKLE');
-        createAITimeout(() => safeExecute(endTurn, null, 'AI Farkle End Turn'), random(1500, 2500));
+        createAITimeout(() => {
+            aiTurnInProgress = false;
+            safeExecute(endTurn, null, 'AI Farkle End Turn');
+        }, random(1500, 2500));
         return 'farkle';
     }],
     
@@ -214,8 +217,9 @@ const handleAIRollResult = cond([
         if (reaction) debouncedChatMessage(aiPlayer.type, reaction);
         
         // AI decision making with delay
-        console.log(`🧠 AI making decision in ${random(1000, 2000)}ms...`);
-        createAITimeout(() => makeAIDecision(rollScore, aiPlayer), random(1000, 2000));
+        const decisionDelay = random(1000, 2000);
+        console.log(`🧠 AI making decision in ${decisionDelay}ms...`);
+        createAITimeout(() => makeAIDecision(rollScore, aiPlayer), decisionDelay);
         return 'success';
     }]
 ]);
