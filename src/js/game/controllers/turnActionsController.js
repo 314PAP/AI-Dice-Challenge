@@ -196,6 +196,10 @@ export function bankAIDice(combination) {
     gameState.bankedDiceThisTurn.push(...dice);
     console.log('🎲 Banked dice this turn:', gameState.bankedDiceThisTurn);
     
+    // Okamžitě aktualizovat UI skóre a informace
+    updateScoreboard();
+    updateGameInfo();
+    
     // Remove banked dice from available dice
     gameState.availableDice -= dice.length;
     console.log('🎯 Available dice AFTER banking:', gameState.availableDice);
