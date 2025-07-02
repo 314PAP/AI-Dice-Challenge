@@ -19,11 +19,11 @@ const hasAvailableDice = () => gt(gameState.availableDice, 0);
 const getCurrentTurnScore = () => pathOr(0, ['currentTurnScore'], gameState);
 const getPlayerScore = (player) => pathOr(0, ['score'], player);
 
-// 🎲 AI DECISION MATRIX - Risk vs Reward calculation
+// 🎲 AI DECISION MATRIX - Risk vs Reward calculation (FARKLE Rules: min 300 to bank)
 const aiDecisionMatrix = {
-    conservative: { riskThreshold: 300, bankThreshold: 250 },
-    moderate: { riskThreshold: 400, bankThreshold: 350 },
-    aggressive: { riskThreshold: 600, bankThreshold: 500 }
+    conservative: { riskThreshold: 500, bankThreshold: 300 },
+    moderate: { riskThreshold: 600, bankThreshold: 400 },
+    aggressive: { riskThreshold: 800, bankThreshold: 500 }
 };
 
 // 🧠 AI PERSONALITY RISK ASSESSMENT - Functional approach
