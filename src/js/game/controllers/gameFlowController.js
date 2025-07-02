@@ -145,13 +145,30 @@ export function endTurn(scored = true) {
     console.log(`🎯 Final Round: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator}`);
     
     try {
-        if (scored && gameState.currentTurnScore >= 300) { // FARKLE PRAVIDLO: 300 bodů minimum pro všechny
-            const previousScore = gameState.players[gameState.currentPlayer].score;
-            gameState.players[gameState.currentPlayer].score += gameState.currentTurnScore;
-            console.log(`💰 SCORE ADDED: ${gameState.currentTurnScore} to player ${gameState.currentPlayer}`);
-            console.log(`💰 Player total AFTER: ${gameState.players[gameState.currentPlayer].score} (was ${previousScore})`);
+        // Přidání skóre - kontrola vstupního minima pouze pro první vstup do hry
+        if (scored && gameState.currentTurnScore > 0) {
+            const currentPlayer = gameState.players[gameState.currentPlayer];
             
-            window.addChatMessage('system', `${gameState.players[gameState.currentPlayer].name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${gameState.players[gameState.currentPlayer].score}.`);
+            // Pro vstup do hry je potřeba minimálně 300 bodů
+            if (!currentPlayer.hasEnteredGame && gameState.currentTurnScore < 300) {
+                console.log(`❌ ENTRY GAME: ${gameState.currentTurnScore} < 300 (first entry requires 300+)`);
+                window.addChatMessage('system', `${currentPlayer.name} potřebuje minimálně 300 bodů pro vstup do hry. Tah končí s 0 body.`);
+            } else {
+                // Hráč může bankovat - buď už je v hře, nebo má >= 300 bodů
+                const previousScore = currentPlayer.score;
+                currentPlayer.score += gameState.currentTurnScore;
+                
+                // Označit jako vstoupivší do hry (pokud dosud nebyl)
+                if (!currentPlayer.hasEnteredGame) {
+                    currentPlayer.hasEnteredGame = true;
+                    console.log(`🎮 ENTRY GAME: ${currentPlayer.name} vstoupil do hry s ${gameState.currentTurnScore} body!`);
+                    window.addChatMessage('system', `🎮 ${currentPlayer.name} vstoupil do hry!`);
+                }
+                
+                console.log(`💰 SCORE ADDED: ${gameState.currentTurnScore} to player ${gameState.currentPlayer}`);
+                console.log(`💰 Player total AFTER: ${currentPlayer.score} (was ${previousScore})`);
+                
+                window.addChatMessage('system', `${currentPlayer.name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${currentPlayer.score}.`);
             
             // AI reakce na skóre (pouze pokud je to lidský hráč)
             if (gameState.currentPlayer === 0) {
