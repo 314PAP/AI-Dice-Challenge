@@ -169,48 +169,46 @@ export function endTurn(scored = true) {
                 console.log(`💰 Player total AFTER: ${currentPlayer.score} (was ${previousScore})`);
                 
                 window.addChatMessage('system', `${currentPlayer.name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${currentPlayer.score}.`);
-            
-            // AI reakce na skóre (pouze pokud je to lidský hráč)
-            if (gameState.currentPlayer === 0) {
-                // Import these functions when needed from AI reactions controller
-                if (window.triggerAIAfterGoodRoll && gameState.currentTurnScore >= 300) {
-                    window.triggerAIAfterGoodRoll(gameState.currentTurnScore, 'Vy');
-                } else if (window.triggerAIAfterBadRoll && gameState.currentTurnScore < 200) {
-                    window.triggerAIAfterBadRoll(gameState.currentTurnScore, 'Vy');
+                
+                // AI reakce na skóre (pouze pokud je to lidský hráč)
+                if (gameState.currentPlayer === 0) {
+                    // Import these functions when needed from AI reactions controller
+                    if (window.triggerAIAfterGoodRoll && gameState.currentTurnScore >= 300) {
+                        window.triggerAIAfterGoodRoll(gameState.currentTurnScore, 'Vy');
+                    } else if (window.triggerAIAfterBadRoll && gameState.currentTurnScore < 200) {
+                        window.triggerAIAfterBadRoll(gameState.currentTurnScore, 'Vy');
+                    }
+                    
+                    // Aktivovat náhodné aktivity
+                    if (window.triggerRandomAITrashTalk) window.triggerRandomAITrashTalk();
+                    if (window.triggerAIBanter) window.triggerAIBanter();
+                    if (window.triggerAIHighTensionComment) window.triggerAIHighTensionComment();
                 }
                 
-                // Aktivovat náhodné aktivity
-                if (window.triggerRandomAITrashTalk) window.triggerRandomAITrashTalk();
-                if (window.triggerAIBanter) window.triggerAIBanter();
-                if (window.triggerAIHighTensionComment) window.triggerAIHighTensionComment();
-            }
-            
-            // Kontrola dosažení cílového skóre
-            if (gameState.players[gameState.currentPlayer].score >= gameState.targetScore && !gameState.finalRound) {
-                gameState.finalRound = true;
-                gameState.finalRoundInitiator = gameState.currentPlayer;
-                console.log(`🏆 FINÁLNÍ KOLO SPUŠTĚNO! Iniciátor: ${gameState.finalRoundInitiator} (${gameState.players[gameState.currentPlayer].name})`);
-                window.addChatMessage('system', `🏆 ${gameState.players[gameState.currentPlayer].name} dosáhl cílového skóre ${gameState.targetScore}! Ostatní hráči mají ještě jednu šanci!`);
-                
-                // AI reakce na finální kolo
-                gameState.players.forEach(player => {
-                    if (player.type !== 'human') {
-                        const reaction = enhancedAI.generateAIResponse(player.type, 'finalRound');
-                        if (reaction) {
-                            createAITimeout(() => window.addChatMessage(player.type, reaction), 1000 + Math.random() * 500);
+                // Kontrola dosažení cílového skóre
+                if (currentPlayer.score >= gameState.targetScore && !gameState.finalRound) {
+                    gameState.finalRound = true;
+                    gameState.finalRoundInitiator = gameState.currentPlayer;
+                    console.log(`🏆 FINÁLNÍ KOLO SPUŠTĚNO! Iniciátor: ${gameState.finalRoundInitiator} (${currentPlayer.name})`);
+                    window.addChatMessage('system', `🏆 ${currentPlayer.name} dosáhl cílového skóre ${gameState.targetScore}! Ostatní hráči mají ještě jednu šanci!`);
+                    
+                    // AI reakce na finální kolo
+                    gameState.players.forEach(player => {
+                        if (player.type !== 'human') {
+                            const reaction = enhancedAI.generateAIResponse(player.type, 'finalRound');
+                            if (reaction) {
+                                createAITimeout(() => window.addChatMessage(player.type, reaction), 1000 + Math.random() * 500);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
-            
-            // Kontrola konce finálního kola
-            // POZOR: Tato kontrola se NESMÍ dělat ve stejném tahu, kdy se finální kolo spustilo!
-            // Musí se dělat AŽ po nextPlayer()
         } else if (scored) {
-            console.log(`❌ INSUFFICIENT SCORE: ${gameState.currentTurnScore} < 300`);
-            window.addChatMessage('system', `${gameState.players[gameState.currentPlayer].name} nezískal minimálních 300 bodů. Tah končí s 0 body.`);
+            console.log(`❌ NO SCORE: Turn score is ${gameState.currentTurnScore}`);
+            window.addChatMessage('system', `${gameState.players[gameState.currentPlayer].name} nezískal žádné body. Tah končí.`);
         } else {
             console.log('💀 FARKLE: No score added');
+            window.addChatMessage('system', `💀 FARKLE! ${gameState.players[gameState.currentPlayer].name} nezískal žádné body a končí tah.`);
         }
         
         // Reset current turn score
