@@ -123,6 +123,9 @@ export function bankSelectedDice() {
     // HOT DICE: Check if all dice are banked
     if (gameState.availableDice === 0) {
         gameState.availableDice = 6; // Reset to 6 dice
+        gameState.diceValues = []; // Clear previous dice display
+        gameState.selectedDice = []; // Clear selected dice
+        gameState.mustBankDice = false; // Player can roll immediately
         window.addChatMessage('system', "🔥 HOT DICE! Všechny kostky odloženy! Můžete pokračovat v házení všech 6 kostek.");
     }
     
