@@ -3,11 +3,10 @@
  * Handles player actions during turns: rolling dice, selecting dice, banking dice
  */
 
-import { gameState, nextPlayer, getCurrentPlayer } from '../gameState.js';
-import { rollDice, calculateScore, hasScoringDice, validateDiceSelection } from '../diceLogic.js';
+import { gameState } from '../gameState.js';
+import { rollDice, calculateScore } from '../diceLogic.js';
 import { updateGameDisplay } from '../../ui/gameUI.js';
-import { playerTurn } from './gameFlowController.js';
-import { clearDiceState, debouncedChatMessage, safeExecute } from '../../utils/gameUtils.js';
+import { clearDiceState, debouncedChatMessage } from '../../utils/gameUtils.js';
 
 /**
  * Hod kostkami pro lidského hráče
@@ -37,7 +36,7 @@ export function rollDiceForPlayer() {
     if (rollScore === 0) {
         // Farkle - no scoring dice
         console.log('❌ FARKLE detected! Ending turn...');
-        window.addChatMessage('system', `❌ FARKLE! Žádné bodující kostky! Tah končí s 0 body.`);
+        window.addChatMessage('system', '❌ FARKLE! Žádné bodující kostky! Tah končí s 0 body.');
         
         // Update UI for farkle display
         const humanStatus = document.getElementById('humanPlayerStatus');
@@ -92,7 +91,7 @@ export function selectDie(index) {
  */
 export function bankSelectedDice() {
     if (gameState.selectedDice.length === 0) {
-        window.addChatMessage('system', "Vyberte kostky, které chcete odložit.");
+        window.addChatMessage('system', 'Vyberte kostky, které chcete odložit.');
         return;
     }
     
@@ -101,7 +100,7 @@ export function bankSelectedDice() {
     const score = calculateScore(selectedValues);
     
     if (score === 0) {
-        window.addChatMessage('system', "Vybrané kostky nenesou žádné body! Vyberte platné bodující kostky.");
+        window.addChatMessage('system', 'Vybrané kostky nenesou žádné body! Vyberte platné bodující kostky.');
         return;
     }
     
@@ -129,7 +128,7 @@ export function bankSelectedDice() {
         gameState.availableDice = 6; // Reset to 6 dice
         // Use optimized clear function
         clearDiceState(gameState);
-        debouncedChatMessage('system', "🔥 HOT DICE! Všechny kostky odloženy! Můžete pokračovat v házení všech 6 kostek.");
+        debouncedChatMessage('system', '🔥 HOT DICE! Všechny kostky odloženy! Můžete pokračovat v házení všech 6 kostek.');
     }
     
     updateGameDisplay();

@@ -291,11 +291,15 @@ export function safeGetElement(id, required = false) {
 // =============================================================================
 
 /**
- * Request animation frame wrapper
+ * Request animation frame wrapper with fallback
  */
 export function nextFrame(callback) {
     return new Promise(resolve => {
-        requestAnimationFrame(() => {
+        const raf = typeof window !== 'undefined' && window.requestAnimationFrame 
+            ? window.requestAnimationFrame 
+            : (cb) => setTimeout(cb, 16);
+            
+        raf(() => {
             if (typeof callback === 'function') {
                 callback();
             }
