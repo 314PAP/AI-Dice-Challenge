@@ -1,11 +1,19 @@
 /**
- * Game Flow Controller
+ import { gameState, resetGameState, nextPlayer as _nextPlayer, getCurrentPlayer } from '../gameState.js';
+import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
+import { enhancedAI, generateAIGameReaction } from '../../ai/enhancedAIController.js';
+import { playAITurn, clearAllAITimeouts, createAITimeout } from '../../ai/aiPlayer.js';
+import { saveGameResult, createGameResult } from '../../utils/hallOfFame.js';
+import { resetEventListeners } from './eventSetupController.js';
+
+// Re-export potřebných funkcí pro použití v jiných modulech
+export { _nextPlayer as nextPlayer }; Flow Controller
  * Manages game lifecycle: initialization, start, end, and player turns
  */
 
 import { gameState, resetGameState, nextPlayer, getCurrentPlayer, checkForWinner } from '../gameState.js';
 import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
-import { enhancedAI, generateAIGameReaction } from '../../ai/enhancedAIController.js';
+import { enhancedAI } from '../../ai/enhancedAIController.js';
 import { playAITurn, clearAllAITimeouts, createAITimeout } from '../../ai/aiPlayer.js';
 import { saveGameResult, displayHallOfFame, createGameResult } from '../../utils/hallOfFame.js';
 import { resetEventListeners } from './eventSetupController.js';
