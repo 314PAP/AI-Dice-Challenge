@@ -88,7 +88,22 @@ export function displayHallOfFame() {
  */
 export function hideHallOfFame() {
     const modal = document.getElementById('hallOfFameModal');
-    if (modal) modal.classList.add('hidden');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('visible');
+    }
+    
+    // Kontrola, zda je hra již ukončena, abychom zabránili spuštění emergency módu
+    // při návratu z Hall of Fame po konci hry
+    const gameState = window.gameState || {};
+    if (gameState.gameEnded) {
+        // Zobrazíme znovu modal konce hry, pokud byl otevřen Hall of Fame po konci hry
+        const gameOverModal = document.getElementById('gameOverModal');
+        if (gameOverModal) {
+            gameOverModal.classList.remove('hidden');
+            gameOverModal.classList.add('visible');
+        }
+    }
 }
 
 /**
