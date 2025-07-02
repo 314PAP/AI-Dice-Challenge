@@ -33,6 +33,13 @@ export function startGame() {
     gameState.gameStarted = true;
     gameState.gameStartTime = new Date(); // Nastavit čas začátku hry
     
+    // Reset stavu hry pro nový začátek
+    gameState.currentTurnScore = 0;
+    gameState.availableDice = 6;
+    gameState.diceValues = [];
+    gameState.selectedDice = [];
+    gameState.bankedDiceThisTurn = [];
+    
     // Přidej game-active třídu pro skrytí avatarů
     document.body.classList.add('game-active');
     
