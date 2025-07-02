@@ -425,18 +425,21 @@ export function saveScore() {
     const gameResult = createGameResult(gameState, signature, gameState.gameStartTime, gameState.totalTurns || 0);
     saveGameResult(gameResult);
     
-    // Hide game over modal and show hall of fame
+    // Hide game over modal
     const gameOverModal = document.getElementById('gameOverModal');
     if (gameOverModal) {
         gameOverModal.classList.add('hidden');
         gameOverModal.classList.remove('visible');
     }
     
-    // Show success message and then hall of fame
+    // Show success message
     window.addChatMessage('system', `🏆 Skóre uloženo do síně slávy jako "${signature}"!`);
     
+    // Show hall of fame and set flag that we came from game over
     setTimeout(() => {
         displayHallOfFame();
+        // Mark that we came from game over so close button can return properly
+        window.hallOfFameFromGameOver = true;
     }, 500);
     
     console.log('🏆 Skóre uloženo do síně slávy!');

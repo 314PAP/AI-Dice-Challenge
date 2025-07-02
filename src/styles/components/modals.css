@@ -96,10 +96,15 @@
 
 /* MODAL ACTIONS */
 .modal-actions {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--spacing-md);
-  flex-wrap: wrap;
+  margin-top: var(--spacing-xl);
+}
+
+.modal-actions .btn {
+  min-width: 140px;
+  justify-self: center;
 }
 
 /* GAME OVER MODAL */
@@ -124,7 +129,132 @@
   overflow-y: auto;
 }
 
-/* RESPONZIVNÍ MODALS */
+/* SIGNATURE SECTION */
+.signature-section {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
+  background: rgba(57, 255, 20, 0.05);
+  border: 1px solid var(--neon-green);
+  border-radius: var(--radius-base);
+  text-align: center;
+}
+
+.signature-section h3 {
+  color: var(--neon-orange);
+  font-family: 'Orbitron', monospace;
+  margin-bottom: var(--spacing-md);
+  animation: neon-glow 2s ease-in-out infinite;
+}
+
+.signature-section p {
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.8;
+}
+
+.signature-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+/* NEON INPUT FIELD */
+.signature-input input[type="text"] {
+  background: var(--black-bg);
+  border: 2px solid var(--neon-blue);
+  border-radius: var(--radius-base);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--neon-green);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: var(--font-base);
+  font-weight: 500;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  transition: all var(--transition-base);
+  outline: none;
+}
+
+.signature-input input[type="text"]:focus {
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+  color: var(--neon-orange);
+  transform: scale(1.02);
+}
+
+.signature-input input[type="text"]::placeholder {
+  color: rgba(57, 255, 20, 0.5);
+  font-style: italic;
+}
+
+/* HALL OF FAME SPECIFIC STYLES */
+.hall-of-fame-entry {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--neon-blue);
+  border-radius: var(--radius-base);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--spacing-md);
+  align-items: center;
+  transition: all var(--transition-base);
+}
+
+.hall-of-fame-entry:hover {
+  border-color: var(--neon-green);
+  transform: translateX(5px);
+}
+
+.hall-of-fame-entry.winner {
+  border-color: var(--neon-orange);
+  background: rgba(255, 140, 0, 0.1);
+}
+
+.rank-number {
+  color: var(--neon-orange);
+  font-family: 'Orbitron', monospace;
+  font-weight: bold;
+  font-size: var(--font-lg);
+  min-width: 40px;
+  text-align: center;
+}
+
+.entry-header {
+  color: var(--neon-green);
+  font-weight: bold;
+  font-size: var(--font-lg);
+}
+
+.entry-stats {
+  color: var(--text-primary);
+  font-size: var(--font-sm);
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.entry-details {
+  color: var(--neon-blue);
+  font-size: var(--font-xs);
+  text-align: right;
+  opacity: 0.8;
+}
+
+/* HALL OF FAME ACTIONS */
+.hall-of-fame-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+.hall-of-fame-actions .btn {
+  min-width: 120px;
+  justify-self: center;
+}
+
+/* RESPONSIVE IMPROVEMENTS */
 @media (max-width: 480px) {
   .modal-container {
     padding: var(--spacing-lg);
@@ -136,6 +266,32 @@
   }
   
   .modal-actions {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .signature-input {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .signature-input input[type="text"] {
+    max-width: 100%;
+  }
+  
+  .hall-of-fame-entry {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .entry-details {
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .hall-of-fame-actions {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
   }
 }

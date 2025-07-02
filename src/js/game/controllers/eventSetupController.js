@@ -113,10 +113,13 @@ export function setupEventListeners() {
                     hallOfFameModal.classList.remove('visible');
                 }
                 
-                // Only show game over modal if game has ended (not from main page)
-                if (gameOverModal && gameState.gameEnded) {
+                // Check if we came from game over (after saving score)
+                if (window.hallOfFameFromGameOver && gameOverModal && gameState.gameEnded) {
+                    // Show game over modal again for other actions
                     gameOverModal.classList.remove('hidden');
                     gameOverModal.classList.add('visible');
+                    // Reset the flag
+                    window.hallOfFameFromGameOver = false;
                 }
                 // If opened from main page (game not ended), just close hall of fame
             });
@@ -259,3 +262,39 @@ export function resetEventListeners() {
     console.log('🔄 Resetuji flag pro event listenery');
     eventListenersSetup = false;
 }
+
+// New Game from Hall of Fame
+        const newGameFromHallBtn = document.getElementById('newGameFromHallBtn');
+        if (newGameFromHallBtn) {
+            console.log('✅ Přidávám event listener pro New Game from Hall');
+            newGameFromHallBtn.addEventListener('click', () => {
+                // Hide hall of fame modal
+                const hallOfFameModal = document.getElementById('hallOfFameModal');
+                if (hallOfFameModal) {
+                    hallOfFameModal.classList.add('hidden');
+                    hallOfFameModal.classList.remove('visible');
+                }
+                // Start new game
+                startNewGame();
+                // Reset the flag
+                window.hallOfFameFromGameOver = false;
+            });
+        }
+        
+        // Main Menu from Hall of Fame
+        const mainMenuFromHallBtn = document.getElementById('mainMenuFromHallBtn');
+        if (mainMenuFromHallBtn) {
+            console.log('✅ Přidávám event listener pro Main Menu from Hall');
+            mainMenuFromHallBtn.addEventListener('click', () => {
+                // Hide hall of fame modal
+                const hallOfFameModal = document.getElementById('hallOfFameModal');
+                if (hallOfFameModal) {
+                    hallOfFameModal.classList.add('hidden');
+                    hallOfFameModal.classList.remove('visible');
+                }
+                // Return to main menu
+                returnToMainMenu();
+                // Reset the flag
+                window.hallOfFameFromGameOver = false;
+            });
+        }
