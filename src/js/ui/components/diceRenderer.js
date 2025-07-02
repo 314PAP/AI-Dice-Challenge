@@ -1,42 +1,50 @@
 /**
- * 🎲 Dice Rendering Module - Funkcionální přístup k zobrazování kostek
+ * 🎲 Dice Rendering Module - Zjednodušená implementace
  */
 
-import { pipe, when, unless } from 'ramda';
-import { isEmpty } from 'lodash-es';
 import { gameState } from '../../game/gameState.js';
 import { calculateScore } from '../../game/diceLogic.js';
-import { safeGetElement } from '../../utils/gameUtils.js';
 
-// 🎲 DICE ELEMENT CREATION - Functional approach
+// 🎲 DICE ELEMENT CREATION - Simplified implementation
 export const createDiceElement = (value, index, type = 'current') => {
     const dieElement = document.createElement('div');
     
-    const classes = pipe(
-        () => ['dice'],
-        when(() => type === 'banked', (classes) => [...classes, 'banked']),
-        when(() => type === 'current' && gameState.selectedDice.includes(index), 
-             (classes) => [...classes, 'selected']),
-        when(() => type === 'current' && 
-                   !gameState.selectedDice.includes(index) && 
-                   gameState.currentPlayer === 0 && 
-                   calculateScore([value]) > 0,
-             (classes) => [...classes, 'scoring']),
-        (classes) => classes.join(' ')
-    )();
+    // Build CSS classes
+    const classes = ['dice'];
     
-    dieElement.className = classes;
+    if (type === 'banked') {
+        classes.push('banked');
+    }
+    
+    if (type === 'current') {
+        if (gameState.selectedDice && gameState.selectedDice.includes(index)) {
+            classes.push('selected');
+        }
+        
+        if (!gameState.selectedDice.includes(index) && 
+            gameState.currentPlayer === 0 && 
+            calculateScore([value]) > 0) {
+            classes.push('scoring');
+        }
+    }
+    
+    dieElement.className = classes.join(' ');
     dieElement.textContent = value;
     
     // Add click handler for current dice only
-    when(
-        () => type === 'current' && gameState.currentPlayer === 0,
-        () => {
-            dieElement.addEventListener('click', () => {
-                if (window.selectDie) window.selectDie(index);
-            });
-        }
-    )();
+    if (type === 'current' && gameState.currentPlayer === 0) {
+        dieElement.addEventListener('click', async () => {
+            console.log(`🎲 Die ${index} clicked (value: ${value})`);
+            try {
+                const { selectDie } = await import('../../game/controllers/turnActionsController.js');
+                selectDie(index);
+            } catch (error) {
+                console.error('Error selecting die:', error);
+            }
+        });
+        dieElement.style.cursor = 'pointer';
+        console.log(`✅ Click handler added to die ${index} with value ${value}`);
+    }
     
     return dieElement;
 };

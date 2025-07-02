@@ -54,6 +54,17 @@ whenDOMReady(() => {
             window.addChatMessage = (sender, message) => chatController.addMessage(sender, message);
             window.chatController = chatController;
             
+            // Zpřístupni herní funkce globálně pro kompatibilitu
+            window.selectDie = async (index) => {
+                const { selectDie } = await import('./js/game/controllers/turnActionsController.js');
+                selectDie(index);
+            };
+            
+            window.bankSelectedDice = async () => {
+                const { bankSelectedDice } = await import('./js/game/controllers/turnActionsController.js');
+                bankSelectedDice();
+            };
+            
             // Explicitně nastavíme všechny event listenery pomocí nového inicializátoru
             console.log('🎮 Inicializuji všechny event listenery pomocí nového systému...');
             initializeAllEventListeners();

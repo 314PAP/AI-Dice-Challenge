@@ -1,9 +1,89 @@
 /**
- * Game Utilities - Optimized helper functions with Lodash
+ * Game Utilities - Optimized helper functions with custom implementations
  * Utility funkce pro optimalizaci herního kódu
  */
 
-import { debounce, throttle, cloneDeep, isEmpty, isEqual } from 'lodash-es';
+// =============================================================================
+// 🔧 CUSTOM UTILITY FUNCTIONS
+// =============================================================================
+
+/**
+ * Custom debounce implementation
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+/**
+ * Custom throttle implementation
+ */
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+/**
+ * Deep clone function
+ */
+function cloneDeep(obj) {
+    if (obj === null || typeof obj !== 'object') return obj;
+    if (obj instanceof Date) return new Date(obj.getTime());
+    if (obj instanceof Array) return obj.map(item => cloneDeep(item));
+    if (typeof obj === 'object') {
+        const cloned = {};
+        Object.keys(obj).forEach(key => {
+            cloned[key] = cloneDeep(obj[key]);
+        });
+        return cloned;
+    }
+}
+
+/**
+ * Check if value is empty
+ */
+function isEmpty(value) {
+    if (value == null) return true;
+    if (Array.isArray(value) || typeof value === 'string') return value.length === 0;
+    if (typeof value === 'object') return Object.keys(value).length === 0;
+    return false;
+}
+
+/**
+ * Deep equality check
+ */
+function isEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (typeof a !== typeof b) return false;
+    
+    if (Array.isArray(a) && Array.isArray(b)) {
+        if (a.length !== b.length) return false;
+        return a.every((item, index) => isEqual(item, b[index]));
+    }
+    
+    if (typeof a === 'object') {
+        const keysA = Object.keys(a);
+        const keysB = Object.keys(b);
+        if (keysA.length !== keysB.length) return false;
+        return keysA.every(key => isEqual(a[key], b[key]));
+    }
+    
+    return false;
+}
 
 // =============================================================================
 // 🔧 DEBOUNCED & THROTTLED FUNCTIONS

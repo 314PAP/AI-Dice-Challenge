@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Test výběru kostek - AI Kostková Výzva</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #111;
+            color: #0f0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #0f0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .dice-test-area {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            background: #222;
+        }
+        .dice {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #0f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #333;
+            transition: all 0.3s ease;
+        }
+        .dice.selected {
+            background: #0f0;
+            color: #000;
+            border-color: #fff;
+        }
+        .dice.scoring {
+            border-color: #ff0;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+        }
+        .dice.banked {
+            background: #555;
+            color: #aaa;
+            cursor: default;
+            border-color: #666;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            background: #333;
+            border-left: 4px solid #0f0;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+        }
+        button:hover {
+            background: #fff;
+        }
+        button:disabled {
+            background: #666;
+            color: #333;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎲 Test výběru kostek</h1>
+        
+        <div class="status" id="gameStatus">
+            Počáteční stav - klikněte na "Hodit kostkami" pro začátek
+        </div>
+        
+        <div class="controls">
+            <button id="rollBtn">🎲 Hodit kostkami</button>
+            <button id="bankBtn" disabled>🏦 Odložit vybrané</button>
+            <button id="endTurnBtn" disabled>✋ Ukončit tah</button>
+            <button id="resetBtn">🔄 Reset hry</button>
+        </div>
+        
+        <div class="dice-test-area">
+            <h3>Kostky:</h3>
+            <div id="diceContainer"></div>
+        </div>
+        
+        <div class="status">
+            <strong>Aktuální skóre tahu:</strong> <span id="turnScore">0</span><br>
+            <strong>Zbývá kostek:</strong> <span id="availableDice">6</span><br>
+            <strong>Vybrané kostky:</strong> <span id="selectedDiceInfo">žádné</span><br>
+            <strong>Odložené kostky tohoto tahu:</strong> <span id="bankedDiceInfo">žádné</span>
+        </div>
+        
+        <div class="status">
+            <h3>Debug informace:</h3>
+            <div id="debugInfo"></div>
+        </div>
+        
+        <div class="status">
+            <h3>Console log:</h3>
+            <div id="consoleLog" style="height: 200px; overflow-y: auto; background: #000; padding: 10px; font-size: 12px;"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import modular game logic
+        import { gameState, setPlayer, getCurrentPlayer } from './src/js/game/gameState.js';
+        import { rollDice, calculateScore } from './src/js/game/diceLogic.js';
+        import { rollDiceForPlayer, selectDie, bankSelectedDice } from './src/js/game/controllers/turnActionsController.js';
+        import { createDiceElement, updateDiceContainer } from './src/js/ui/components/diceRenderer.js';
+
+        // Global references for debugging
+        window.gameState = gameState;
+        window.selectDie = selectDie;
+        window.bankSelectedDice = bankSelectedDice;
+
+        // Override console.log to display in page
+        const originalLog = console.log;
+        const logContainer = document.getElementById('consoleLog');
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const logEntry = document.createElement('div');
+            logEntry.textContent = args.join(' ');
+            logEntry.style.color = '#0f0';
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        };
+
+        // Initialize game state for testing
+        function initTestGame() {
+            // Set player as human
+            gameState.currentPlayer = 0;
+            gameState.players = [
+                { name: 'Hráč', type: 'human', score: 0 },
+                { name: 'AI', type: 'ai', score: 0 }
+            ];
+            gameState.availableDice = 6;
+            gameState.currentTurnScore = 0;
+            gameState.mustBankDice = false;
+            gameState.selectedDice = [];
+            gameState.diceValues = [];
+            gameState.bankedDiceThisTurn = [];
+            
+            updateDisplay();
+            console.log('✅ Test game initialized');
+        }
+
+        // Custom updateGameDisplay for testing
+        function updateDisplay() {
+            // Update dice container
+            const container = document.getElementById('diceContainer');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            // Render banked dice
+            if (gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0) {
+                gameState.bankedDiceThisTurn.forEach((value, index) => {
+                    const dieElement = createDiceElement(value, -1, 'banked');
+                    container.appendChild(dieElement);
+                });
+            }
+            
+            // Render current dice
+            if (gameState.diceValues && gameState.diceValues.length > 0) {
+                gameState.diceValues.forEach((value, index) => {
+                    const dieElement = createDiceElement(value, index, 'current');
+                    container.appendChild(dieElement);
+                });
+            }
+            
+            // Update status
+            document.getElementById('turnScore').textContent = gameState.currentTurnScore;
+            document.getElementById('availableDice').textContent = gameState.availableDice;
+            document.getElementById('selectedDiceInfo').textContent = 
+                gameState.selectedDice.length > 0 ? 
+                gameState.selectedDice.map(i => gameState.diceValues[i]).join(', ') : 
+                'žádné';
+            document.getElementById('bankedDiceInfo').textContent = 
+                gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0 ? 
+                gameState.bankedDiceThisTurn.join(', ') : 
+                'žádné';
+                
+            // Update debug info
+            document.getElementById('debugInfo').innerHTML = `
+                <strong>mustBankDice:</strong> ${gameState.mustBankDice}<br>
+                <strong>currentPlayer:</strong> ${gameState.currentPlayer}<br>
+                <strong>selectedDice array:</strong> [${gameState.selectedDice.join(', ')}]<br>
+                <strong>diceValues:</strong> [${gameState.diceValues.join(', ')}]
+            `;
+            
+            // Update buttons
+            const rollBtn = document.getElementById('rollBtn');
+            const bankBtn = document.getElementById('bankBtn');
+            const endTurnBtn = document.getElementById('endTurnBtn');
+            
+            rollBtn.disabled = gameState.mustBankDice || gameState.availableDice === 0;
+            bankBtn.disabled = !gameState.mustBankDice || gameState.selectedDice.length === 0;
+            endTurnBtn.disabled = !gameState.mustBankDice;
+        }
+
+        // Event handlers
+        document.getElementById('rollBtn').addEventListener('click', () => {
+            console.log('🎲 Rolling dice...');
+            rollDiceForPlayer();
+            updateDisplay();
+        });
+
+        document.getElementById('bankBtn').addEventListener('click', () => {
+            console.log('🏦 Banking selected dice...');
+            bankSelectedDice();
+            updateDisplay();
+        });
+
+        document.getElementById('endTurnBtn').addEventListener('click', () => {
+            console.log('✋ Ending turn...');
+            // Reset for next turn simulation
+            gameState.mustBankDice = false;
+            gameState.selectedDice = [];
+            gameState.diceValues = [];
+            gameState.availableDice = 6;
+            gameState.currentTurnScore = 0;
+            gameState.bankedDiceThisTurn = [];
+            updateDisplay();
+            document.getElementById('gameStatus').textContent = 'Tah ukončen - můžete hodit znovu';
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            console.log('🔄 Resetting game...');
+            initTestGame();
+            document.getElementById('gameStatus').textContent = 'Hra resetována - klikněte na "Hodit kostkami"';
+        });
+
+        // Mock addChatMessage for compatibility
+        window.addChatMessage = (sender, message) => {
+            console.log(`💬 ${sender}: ${message}`);
+        };
+
+        // Initialize on load
+        initTestGame();
+        
+        console.log('🎮 Dice selection test loaded');
+        console.log('📋 Návod: 1) Hoďte kostkami 2) Vyberte bodující kostky kliknutím 3) Odložte je 4) Případně házejte znovu');
+    </script>
+</body>
+</html>

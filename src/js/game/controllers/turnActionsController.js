@@ -25,7 +25,7 @@ export function rollDiceForPlayer() {
     const diceResults = rollDice(gameState.availableDice);
     gameState.diceValues = diceResults.map(die => die.value);
     gameState.selectedDice = []; // Clear selection
-    gameState.mustBankDice = false; // Reset flag
+    // Don't reset mustBankDice here - it will be set based on roll result
     
     const rollScore = calculateScore(gameState.diceValues);
     
@@ -109,6 +109,9 @@ export function bankSelectedDice() {
     gameState.currentTurnScore += score;
     
     // Store banked dice for visual display
+    if (!gameState.bankedDiceThisTurn) {
+        gameState.bankedDiceThisTurn = [];
+    }
     gameState.bankedDiceThisTurn.push(...selectedValues);
     
     // Remove banked dice from available dice
