@@ -61,9 +61,16 @@ export const setupOptimizedEvents = memoize(() => {
             EVENTS.HALL_OF_FAME_SHOW,
             () => {
                 console.log('🏆 Game over Hall of Fame clicked');
+                
+                // Explicitně nastavit flag před skrytím game over modalu
+                window.hallOfFameFromGameOver = true;
+                console.log('🏆 Flag hallOfFameFromGameOver nastaven na true');
+                
+                // Nejprve skrýt game over modal
                 hideModal('gameOverModal', 'show-hof');
+                
+                // Poté zobrazit Hall of Fame
                 setTimeout(() => {
-                    window.hallOfFameFromGameOver = true; // Important: FROM game over
                     displayHallOfFame();
                 }, 300);
             }
