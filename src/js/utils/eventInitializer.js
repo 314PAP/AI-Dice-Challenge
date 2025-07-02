@@ -3,7 +3,7 @@
  * Tento soubor řeší problémy s event handlery po refaktoringu
  */
 
-import { startGame, resetGame, returnToMainMenu } from '../game/controllers/gameFlowController.js';
+import { startGame, nextPlayer, resetGame, returnToMainMenu } from '../game/controllers/gameFlowController.js';
 import { rollDiceForPlayer, bankSelectedDice } from '../game/controllers/turnActionsController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
 import { setupEventListeners as setupGameEventListeners } from '../game/controllers/eventSetupController.js';
@@ -93,7 +93,7 @@ function setupBackupEventListeners() {
     if (endTurnBtn && !endTurnBtn._hasClickListener) {
         endTurnBtn.addEventListener('click', () => {
             console.log('⏭️ End Turn button clicked (backup listener)');
-            nextPlayer();
+            nextPlayer(); // Používáme importovanou funkci nextPlayer
         });
         endTurnBtn._hasClickListener = true;
         console.log('✅ Záložní listener přidán k End Turn Button');
@@ -108,6 +108,28 @@ function setupBackupEventListeners() {
         });
         hallBtn._hasClickListener = true;
         console.log('✅ Záložní listener přidán k Hall of Fame Button');
+    }
+    
+    // Reset Game Button
+    const resetBtn = document.getElementById('resetGameBtn');
+    if (resetBtn && !resetBtn._hasClickListener) {
+        resetBtn.addEventListener('click', () => {
+            console.log('🔄 Reset Game button clicked (backup listener)');
+            resetGame();
+        });
+        resetBtn._hasClickListener = true;
+        console.log('✅ Záložní listener přidán k Reset Game Button');
+    }
+    
+    // Return to Main Menu Button
+    const menuBtn = document.getElementById('mainMenuBtn');
+    if (menuBtn && !menuBtn._hasClickListener) {
+        menuBtn.addEventListener('click', () => {
+            console.log('🏠 Return to Main Menu button clicked (backup listener)');
+            returnToMainMenu();
+        });
+        menuBtn._hasClickListener = true;
+        console.log('✅ Záložní listener přidán k Return to Main Menu Button');
     }
 }
 
@@ -161,8 +183,8 @@ function sendChatMessage() {
     chatInput.value = '';
 }
 
-// Pomocná funkce pro další herní akce
-function nextPlayer() {
+// Pomocná funkce pro další herní akce - přejmenováno na handleEndTurn kvůli konfliktu
+function handleEndTurn() {
     try {
         if (typeof window.endTurn === 'function') {
             window.endTurn();
@@ -172,6 +194,8 @@ function nextPlayer() {
                 .then(module => {
                     if (typeof module.endTurn === 'function') {
                         module.endTurn();
+                    } else if (typeof module.nextPlayer === 'function') {
+                        module.nextPlayer();
                     }
                 })
                 .catch(err => console.error('❌ Chyba při importu endTurn:', err));

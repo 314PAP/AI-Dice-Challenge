@@ -5,8 +5,7 @@
 
 import { gameState, resetGameState, nextPlayer, getCurrentPlayer, checkForWinner } from '../gameState.js';
 import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
-import { enhancedAI } from '../../ai/enhancedAIController.js';
-import { generateAIGameReaction } from '../../ai/aiController.js';
+import { enhancedAI, generateAIGameReaction } from '../../ai/enhancedAIController.js';
 import { playAITurn, clearAllAITimeouts, createAITimeout } from '../../ai/aiPlayer.js';
 import { saveGameResult, displayHallOfFame, createGameResult } from '../../utils/hallOfFame.js';
 import { resetEventListeners } from './eventSetupController.js';
@@ -234,7 +233,7 @@ export function endGame(winner) {
         winner.type === 'human' ? '🎉 Gratulujeme! Vyhrál(a) jste!' : `🏆 Vítězem se stává ${winner.name}!`;
     
     // Dynamicky vygeneruje zprávu o skóre
-    let finalScoresHTML = `<strong>Konečné skóre:</strong><br>`;
+    let finalScoresHTML = '<strong>Konečné skóre:</strong><br>';
     gameState.players.forEach(player => {
         finalScoresHTML += `${player.name}: ${player.score} bodů<br>`;
     });

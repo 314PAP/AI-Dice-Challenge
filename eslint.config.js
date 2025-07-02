@@ -8,11 +8,18 @@ import js from '@eslint/js';
 
 // Definujeme vlastní pravidla
 const customRules = {
-  'no-unused-vars': 'warn',      // Pouze varuje při nepoužitých proměnných
-  'no-console': 'off',           // Povoluje konzolové výpisy
-  'no-debugger': 'warn',         // Varuje před debugger příkazy
-  'quotes': ['warn', 'single'],  // Preferuje jednoduché uvozovky, pouze warning
-  'semi': ['warn', 'always']     // Vyžaduje středníky, pouze warning
+  'no-unused-vars': ['warn', {
+    'vars': 'all',
+    'args': 'after-used',
+    'ignoreRestSiblings': true,
+    'varsIgnorePattern': '^_',
+    'argsIgnorePattern': '^_'
+  }],                           // Pouze varuje při nepoužitých proměnných s lepší kontrolou
+  'no-console': 'off',          // Povoluje konzolové výpisy
+  'no-debugger': 'warn',        // Varuje před debugger příkazy
+  'quotes': ['warn', 'single'], // Preferuje jednoduché uvozovky, pouze warning
+  'semi': ['warn', 'always'],   // Vyžaduje středníky, pouze warning
+  'no-undef': 'warn'           // Pouze varování pro nedefinované proměnné
 };
 
 // Exportujeme finální konfiguraci
@@ -39,6 +46,15 @@ export default [
         'alert': 'readonly',
         'setTimeout': 'readonly',
         'clearTimeout': 'readonly',
+        'setInterval': 'readonly',
+        'clearInterval': 'readonly',
+        'localStorage': 'readonly',
+        'sessionStorage': 'readonly',
+        'fetch': 'readonly',
+        'MutationObserver': 'readonly',
+        'HTMLElement': 'readonly',
+        'CustomEvent': 'readonly',
+        'Event': 'readonly',
       }
     },
     rules: customRules,

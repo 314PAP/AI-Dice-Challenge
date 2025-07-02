@@ -70,3 +70,14 @@ export const enhancedAI = {
         return responses;
     }
 };
+
+/**
+ * Generuje reakci AI na herní událost
+ * @param {string} aiType - Typ AI (gemini, chatgpt, claude)
+ * @param {string} reactionType - Typ reakce
+ * @param {...any} args - Dodatečné argumenty pro reakci
+ * @returns {Object|null} Objekt s reaction obsahující senderType a message
+ */
+export function generateAIGameReaction(aiType, reactionType, ...args) {
+    return enhancedAI.generateAIResponse(aiType, reactionType, args[0] || {});
+}
