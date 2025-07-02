@@ -223,10 +223,15 @@ export function endTurn(scored = true) {
         console.log(`🔄 Resetting currentTurnScore from ${gameState.currentTurnScore} to 0`);
         gameState.currentTurnScore = 0;
         
+        // Aktualizujeme scoreboard před změnou hráče
         updateScoreboard();
         console.log('🔄 Moving to next player...');
         _nextPlayer();
         console.log(`🔄 Next player is: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
+        
+        // Aktualizujeme scoreboard ještě jednou po změně hráče
+        updateActivePlayer();
+        updateScoreboard();
         
         // KONTROLA KONCE FINÁLNÍHO KOLA AŽ PO NEXTPLAYER()
         if (gameState.finalRound) {

@@ -84,9 +84,11 @@ export function displayHallOfFame() {
 }
 
 /**
- * Skryje síň slávy
+ * Skryje síň slávy s vylepšeným zabezpečením proti emergency módu
  */
 export function hideHallOfFame() {
+    console.log('🏆 Skrývám Hall of Fame modal...');
+    
     const modal = document.getElementById('hallOfFameModal');
     if (modal) {
         modal.classList.add('hidden');
@@ -97,11 +99,24 @@ export function hideHallOfFame() {
     // při návratu z Hall of Fame po konci hry
     const gameState = window.gameState || {};
     if (gameState.gameEnded) {
+        console.log('🎮 Hra je již ukončena, zobrazuji Game Over modal');
+        
         // Zobrazíme znovu modal konce hry, pokud byl otevřen Hall of Fame po konci hry
         const gameOverModal = document.getElementById('gameOverModal');
         if (gameOverModal) {
             gameOverModal.classList.remove('hidden');
             gameOverModal.classList.add('visible');
+        }
+        
+        // Prevence emergency módu - zrušení všech AI timeoutů
+        if (window.endAITurn) {
+            console.log('🛑 Preventivně ukončuji AI tahy');
+            window.endAITurn();
+        }
+        
+        if (window.clearAllAITimeouts) {
+            console.log('🛑 Čistím všechny AI timeouty');
+            window.clearAllAITimeouts();
         }
     }
 }
