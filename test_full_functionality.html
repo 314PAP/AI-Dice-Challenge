@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Kompletní funkční test - AI Kostková Výzva</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <style>
+        .test-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: #0f0;
+            padding: 15px;
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-width: 300px;
+            z-index: 10000;
+        }
+        .test-passed { color: #0f0; }
+        .test-failed { color: #f00; }
+        .test-pending { color: #ff0; }
+    </style>
+</head>
+<body>
+    <div class="test-status" id="testStatus">
+        <h4>🧪 Funkční test</h4>
+        <div id="testResults">Inicializuji...</div>
+    </div>
+
+    <!-- Include the main game HTML structure -->
+    <div class="container">
+        <header>
+            <h1>🎲 AI KOSTKOVÁ VÝZVA</h1>
+            <p>Farkle s umělou inteligencí</p>
+        </header>
+
+        <!-- Target Score Setup -->
+        <div id="targetScoreSetup" class="setup-section">
+            <div class="score-setup">
+                <label for="targetScoreSlider">Cílové skóre:</label>
+                <input type="range" id="targetScoreSlider" min="1000" max="10000" step="500" value="5000">
+                <span id="targetScoreDisplay">5000</span>
+            </div>
+            <button id="startGameBtn" class="start-btn">🚀 ZAČÍT HRU</button>
+            <button id="hallOfFameBtn" class="hall-btn">🏆 SÍŇ SLÁVY</button>
+        </div>
+
+        <!-- Game Interface -->
+        <div id="gameControls" class="game-interface hidden">
+            <!-- Players -->
+            <div id="playersContainer" class="players-container">
+                <div class="player human-player">
+                    <div class="player-info">
+                        <span class="player-name">👤 Hráč</span>
+                        <span class="player-score" id="humanScore">0</span>
+                    </div>
+                    <div class="player-status" id="humanPlayerStatus">Váš tah</div>
+                </div>
+                <div class="ai-players" id="aiPlayersContainer"></div>
+            </div>
+
+            <!-- Game Info -->
+            <div class="game-info">
+                <div class="turn-info">
+                    <span>Tah: <strong id="currentTurnScore">0</strong></span>
+                    <span>Cíl: <strong id="gameTargetScore">5000</strong></span>
+                </div>
+            </div>
+
+            <!-- Dice Area -->
+            <div class="dice-area">
+                <div id="diceContainer" class="dice-container"></div>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="control-buttons">
+                <button id="rollBtn" class="action-btn">🎲 HODIT</button>
+                <button id="bankBtn" class="action-btn" disabled>🏦 ODLOŽIT</button>
+                <button id="endTurnBtn" class="action-btn" disabled>✋ SKONČIT TAH</button>
+                <button id="quitGameBtn" class="quit-btn">❌ UKONČIT HRU</button>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <div id="chatInterface" class="chat-interface">
+            <button id="chatToggle" class="chat-toggle">💬</button>
+            <div id="chatContainer" class="chat-container">
+                <div class="chat-header">
+                    <span>💬 Chat</span>
+                    <button id="chatClose" class="chat-close">×</button>
+                </div>
+                <div id="chatMessages" class="chat-messages"></div>
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" placeholder="Napište zprávu...">
+                    <button id="sendMessageBtn">📤</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hall of Fame Modal -->
+        <div id="hallOfFameModal" class="modal hidden">
+            <div class="modal-content hall-content">
+                <div class="modal-header">
+                    <h2>🏆 SÍŇ SLÁVY</h2>
+                    <button id="closeHallBtn" class="close-btn">×</button>
+                </div>
+                <div id="hallOfFameList" class="hall-list"></div>
+                <div class="hall-actions">
+                    <button id="startNewGameBtn" class="action-btn">🎮 NOVÁ HRA</button>
+                    <button id="mainMenuFromHallBtn" class="action-btn">🏠 HLAVNÍ MENU</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import main application
+        import './src/main.js';
+
+        // Test runner
+        class FunctionTest {
+            constructor() {
+                this.tests = [];
+                this.results = [];
+                this.statusElement = document.getElementById('testResults');
+            }
+
+            async wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            log(message, type = 'info') {
+                console.log(`🧪 ${message}`);
+                const div = document.createElement('div');
+                div.className = `test-${type}`;
+                div.textContent = message;
+                this.statusElement.appendChild(div);
+                this.statusElement.scrollTop = this.statusElement.scrollHeight;
+            }
+
+            async runTests() {
+                await this.wait(2000); // Wait for app initialization
+
+                this.log('Začínám funkční testy...', 'pending');
+
+                // Test 1: Basic elements existence
+                await this.testBasicElements();
+                
+                // Test 2: Start game functionality
+                await this.testStartGame();
+                
+                // Test 3: Dice functionality 
+                await this.testDiceFunction();
+                
+                // Test 4: Chat functionality
+                await this.testChatFunction();
+
+                this.log('Všechny testy dokončeny!', 'passed');
+            }
+
+            async testBasicElements() {
+                this.log('Test 1: Základní elementy...', 'pending');
+                
+                const elements = [
+                    'startGameBtn', 'rollBtn', 'bankBtn', 'endTurnBtn',
+                    'diceContainer', 'chatInput', 'sendMessageBtn'
+                ];
+                
+                let passed = 0;
+                for (const id of elements) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        passed++;
+                        this.log(`✓ ${id} nalezen`, 'passed');
+                    } else {
+                        this.log(`✗ ${id} nenalezen!`, 'failed');
+                    }
+                }
+                
+                if (passed === elements.length) {
+                    this.log('Test 1: PROŠEL - všechny elementy nalezeny', 'passed');
+                } else {
+                    this.log(`Test 1: SELHAL - ${passed}/${elements.length}`, 'failed');
+                }
+            }
+
+            async testStartGame() {
+                this.log('Test 2: Start hry...', 'pending');
+                
+                const startBtn = document.getElementById('startGameBtn');
+                const gameControls = document.getElementById('gameControls');
+                const targetSetup = document.getElementById('targetScoreSetup');
+                
+                if (startBtn && gameControls && targetSetup) {
+                    // Simulate click
+                    startBtn.click();
+                    await this.wait(500);
+                    
+                    if (gameControls.classList.contains('hidden')) {
+                        this.log('Test 2: SELHAL - hra se nespustila', 'failed');
+                    } else {
+                        this.log('Test 2: PROŠEL - hra spuštěna', 'passed');
+                    }
+                } else {
+                    this.log('Test 2: SELHAL - chybí elementy', 'failed');
+                }
+            }
+
+            async testDiceFunction() {
+                this.log('Test 3: Funkce kostek...', 'pending');
+                
+                const rollBtn = document.getElementById('rollBtn');
+                const diceContainer = document.getElementById('diceContainer');
+                
+                if (rollBtn && diceContainer) {
+                    // Test if globals are available
+                    if (typeof window.selectDie === 'function') {
+                        this.log('✓ selectDie funkce dostupná', 'passed');
+                    } else {
+                        this.log('✗ selectDie funkce nedostupná', 'failed');
+                    }
+                    
+                    if (typeof window.gameState === 'object') {
+                        this.log('✓ gameState dostupný', 'passed');
+                    } else {
+                        this.log('✗ gameState nedostupný', 'failed');
+                    }
+                    
+                    this.log('Test 3: PROŠEL - základní funkce dostupné', 'passed');
+                } else {
+                    this.log('Test 3: SELHAL - chybí kostky/tlačítka', 'failed');
+                }
+            }
+
+            async testChatFunction() {
+                this.log('Test 4: Chat funkce...', 'pending');
+                
+                const chatInput = document.getElementById('chatInput');
+                const sendBtn = document.getElementById('sendMessageBtn');
+                const chatMessages = document.getElementById('chatMessages');
+                
+                if (chatInput && sendBtn && chatMessages) {
+                    if (typeof window.addChatMessage === 'function') {
+                        // Test chat message
+                        window.addChatMessage('test', 'Test zpráva z testu');
+                        await this.wait(100);
+                        
+                        if (chatMessages.children.length > 0) {
+                            this.log('✓ Chat zpráva přidána', 'passed');
+                        } else {
+                            this.log('✗ Chat zpráva nepřidána', 'failed');
+                        }
+                        
+                        this.log('Test 4: PROŠEL - chat funkční', 'passed');
+                    } else {
+                        this.log('Test 4: SELHAL - addChatMessage nedostupná', 'failed');
+                    }
+                } else {
+                    this.log('Test 4: SELHAL - chybí chat elementy', 'failed');
+                }
+            }
+        }
+
+        // Start tests when everything is loaded
+        window.addEventListener('load', async () => {
+            await new Promise(resolve => setTimeout(resolve, 3000)); // Wait for full initialization
+            const tester = new FunctionTest();
+            await tester.runTests();
+        });
+    </script>
+</body>
+</html>

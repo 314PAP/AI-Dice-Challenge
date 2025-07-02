@@ -23,6 +23,7 @@ const debounce = (func, wait) => {
 export const updateGameDisplay = debounce(() => {
     console.log('🔄 Updating game display...');
     updateDiceContainer();
+    updateControlsState();
 }, 50);
 
 // 🔄 COMPREHENSIVE UPDATE FUNCTION - Combines all updates

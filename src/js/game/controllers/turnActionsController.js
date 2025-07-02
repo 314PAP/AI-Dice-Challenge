@@ -90,7 +90,13 @@ export function selectDie(index) {
  * Odloží vybrané kostky
  */
 export function bankSelectedDice() {
+    console.log('🏦 bankSelectedDice called');
+    console.log('🎲 Selected dice:', gameState.selectedDice);
+    console.log('🎮 Current player:', gameState.currentPlayer);
+    console.log('🎯 Must bank dice:', gameState.mustBankDice);
+    
     if (gameState.selectedDice.length === 0) {
+        console.log('❌ No dice selected');
         window.addChatMessage('system', 'Vyberte kostky, které chcete odložit.');
         return;
     }
@@ -99,10 +105,16 @@ export function bankSelectedDice() {
     const selectedValues = gameState.selectedDice.map(index => gameState.diceValues[index]);
     const score = calculateScore(selectedValues);
     
+    console.log('🎲 Selected values:', selectedValues);
+    console.log('💰 Calculated score:', score);
+    
     if (score === 0) {
+        console.log('❌ Selected dice have no score');
         window.addChatMessage('system', 'Vybrané kostky nenesou žádné body! Vyberte platné bodující kostky.');
         return;
     }
+    
+    console.log('✅ Banking dice with score:', score);
     
     // Add score to turn total
     gameState.currentTurnScore += score;

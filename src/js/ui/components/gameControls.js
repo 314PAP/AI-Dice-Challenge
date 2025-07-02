@@ -10,7 +10,7 @@ import { safeGetElement } from '../../utils/gameUtils.js';
 // 🎮 GAME CONTROLS STATE UPDATER - Functional button management
 export const updateControlsState = () => {
     const selectedValues = gameState.selectedDice.map(index => gameState.diceValues[index]);
-    const canBank = gameState.selectedDice.length > 0 && calculateScore(selectedValues) > 0;
+    const canBank = gameState.mustBankDice && gameState.selectedDice.length > 0 && calculateScore(selectedValues) > 0;
     const canEndTurn = gameState.currentTurnScore >= 300 && !gameState.mustBankDice;
     const canRoll = gameState.availableDice > 0 && !gameState.mustBankDice && gameState.currentPlayer === 0;
     const isHumanTurn = gameState.currentPlayer === 0;
