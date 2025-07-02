@@ -46,16 +46,26 @@ export function showFarkleMessage(playerIndex) {
     const playerClasses = ['.human-player', '.gemini-player', '.chatgpt-player', '.claude-player'];
     const playerElement = document.querySelector(playerClasses[playerIndex]);
     
-    // Zobrazit FARKLE zprávu na delší dobu (3 sekundy)
+    // Zobrazit FARKLE zprávu ve výrazné podobě
     showSpeechBubble(playerIndex, '💥 FARKLE!');
     
     if (playerElement) {
-        // Červené podsvícení na 3 sekundy místo 2 sekund
-        playerElement.style.boxShadow = '0 0 20px #ff0040';
+        // Přidat třídu pro FARKLE efekt místo inline stylů
+        playerElement.classList.add('farkle-effect');
         
-        // Synchronizujeme dobu trvání se showSpeechBubble (3 sekundy)
+        // Zvýrazníme avatar a zajistíme, že bude zpráva viditelná
+        const playerAvatars = ['.player-head'];
+        const avatarElement = playerElement.querySelector(playerAvatars);
+        if (avatarElement) {
+            avatarElement.classList.add('farkle-glow');
+        }
+        
+        // Synchronizujeme dobu trvání se showSpeechBubble (4 sekundy pro jistotu)
         setTimeout(() => {
-            playerElement.style.boxShadow = '';
-        }, 3000); 
+            playerElement.classList.remove('farkle-effect');
+            if (avatarElement) {
+                avatarElement.classList.remove('farkle-glow');
+            }
+        }, 4000); 
     }
 }
