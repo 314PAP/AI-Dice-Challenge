@@ -9,6 +9,7 @@ import { enhancedAI } from '../../ai/enhancedAIController.js';
 import { playAITurn, clearAllAITimeouts, createAITimeout, endAITurn } from '../../ai/aiPlayer.js';
 import { saveGameResult, createGameResult } from '../../utils/hallOfFame.js';
 import { resetEventListeners } from './eventSetupController.js';
+import { showFarkleMessage } from '../../ui/speechBubbles.js';
 
 // Re-export potřebných funkcí pro použití v jiných modulech
 export { _nextPlayer as nextPlayer };
