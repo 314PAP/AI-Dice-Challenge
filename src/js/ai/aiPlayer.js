@@ -134,6 +134,7 @@ function playAIRoll() {
             gameState.availableDice = 6; // Reset to 6 dice
             gameState.diceValues = []; // Clear previous dice display
             gameState.selectedDice = []; // Clear selected dice
+            gameState.bankedDiceThisTurn = []; // Clear banked dice visual
             gameState.mustBankDice = false; // AI can roll immediately
             window.addChatMessage && window.addChatMessage('system', 
                 `🔥 ${aiPlayer.name} odložil všechny kostky! HOT DICE! Pokračuje s novými kostkami.`);

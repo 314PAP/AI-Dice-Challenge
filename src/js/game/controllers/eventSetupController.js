@@ -137,6 +137,9 @@ export function setupEventListeners() {
                     gameOverModal.classList.remove('visible');
                 }
                 
+                // Mark that we came from game over
+                window.hallOfFameFromGameOver = true;
+                
                 // Show hall of fame modal
                 displayHallOfFame();
             });

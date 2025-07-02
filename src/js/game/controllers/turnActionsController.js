@@ -7,6 +7,7 @@ import { gameState, nextPlayer, getCurrentPlayer } from '../gameState.js';
 import { rollDice, calculateScore, hasScoringDice, validateDiceSelection } from '../diceLogic.js';
 import { updateGameDisplay } from '../../ui/gameUI.js';
 import { playerTurn } from './gameFlowController.js';
+import { clearDiceState, debouncedChatMessage, safeExecute } from '../../utils/gameUtils.js';
 
 /**
  * Hod kostkami pro lidského hráče
@@ -123,10 +124,9 @@ export function bankSelectedDice() {
     // HOT DICE: Check if all dice are banked
     if (gameState.availableDice === 0) {
         gameState.availableDice = 6; // Reset to 6 dice
-        gameState.diceValues = []; // Clear previous dice display
-        gameState.selectedDice = []; // Clear selected dice
-        gameState.mustBankDice = false; // Player can roll immediately
-        window.addChatMessage('system', "🔥 HOT DICE! Všechny kostky odloženy! Můžete pokračovat v házení všech 6 kostek.");
+        // Use optimized clear function
+        clearDiceState(gameState);
+        debouncedChatMessage('system', "🔥 HOT DICE! Všechny kostky odloženy! Můžete pokračovat v házení všech 6 kostek.");
     }
     
     updateGameDisplay();
