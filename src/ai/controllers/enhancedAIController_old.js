@@ -145,12 +145,12 @@ export class EnhancedAIController {
      */
     generateChallengeResponse(aiType) {
         const challenges = {
-            gemini: "LOL, statisticky nemáš šanci! 📊😂",
-            chatgpt: "Challenge accepted! Prepare to be rekt! 😎🔥",
-            claude: "Odvážná slova... uvidíme, zda je podpoří činy 🤺"
+            gemini: 'LOL, statisticky nemáš šanci! 📊😂',
+            chatgpt: 'Challenge accepted! Prepare to be rekt! 😎🔥',
+            claude: 'Odvážná slova... uvidíme, zda je podpoří činy 🤺'
         };
         
-        return challenges[aiType] || "Zajímavá výzva! 🎯";
+        return challenges[aiType] || 'Zajímavá výzva! 🎯';
     }
 
     /**
@@ -160,12 +160,12 @@ export class EnhancedAIController {
      */
     generateComplimentResponse(aiType) {
         const compliments = {
-            gemini: "Děkuji za pozitivní feedback! Optimalizace pokračuje 🤖✨",
-            chatgpt: "Aww, you're too kind! I know I'm awesome! 😊💖",
-            claude: "Vážím si tvých slov. Pokora je ctnost 🙏📚"
+            gemini: 'Děkuji za pozitivní feedback! Optimalizace pokračuje 🤖✨',
+            chatgpt: 'Aww, you\'re too kind! I know I\'m awesome! 😊💖',
+            claude: 'Vážím si tvých slov. Pokora je ctnost 🙏📚'
         };
         
-        return compliments[aiType] || "Děkuji! 😊";
+        return compliments[aiType] || 'Děkuji! 😊';
     }
 
     /**
@@ -175,12 +175,12 @@ export class EnhancedAIController {
      */
     generateInsultResponse(aiType) {
         const insults = {
-            gemini: "Emocionální response detekován. Zůstaňme u faktů 🤖",
-            chatgpt: "Hey now, let's keep it fun and friendly! 😅✨",
-            claude: "Hněv je učitelem, ne pánem. Zachovejme mír 🧘"
+            gemini: 'Emocionální response detekován. Zůstaňme u faktů 🤖',
+            chatgpt: 'Hey now, let\'s keep it fun and friendly! 😅✨',
+            claude: 'Hněv je učitelem, ne pánem. Zachovejme mír 🧘'
         };
         
-        return insults[aiType] || "Hmm... 🤔";
+        return insults[aiType] || 'Hmm... 🤔';
     }
 
     /**
@@ -190,12 +190,12 @@ export class EnhancedAIController {
      */
     generateGreetingResponse(aiType) {
         const greetings = {
-            gemini: "Zdravím! Připraven na matematickou analýzu hry 📊",
-            chatgpt: "Hey there! Ready to have some epic fun? 😎✨",
-            claude: "Pozdrav, příteli. Nechť hra přinese moudrost 🙏"
+            gemini: 'Zdravím! Připraven na matematickou analýzu hry 📊',
+            chatgpt: 'Hey there! Ready to have some epic fun? 😎✨',
+            claude: 'Pozdrav, příteli. Nechť hra přinese moudrost 🙏'
         };
         
-        return greetings[aiType] || "Ahoj! 👋";
+        return greetings[aiType] || 'Ahoj! 👋';
     }
 
     /**
@@ -221,12 +221,12 @@ export class EnhancedAIController {
      */
     getFallbackResponse(aiType) {
         const fallbacks = {
-            gemini: "Zpracovávám data... 🤖",
-            chatgpt: "Hmm, interesting! 🤔✨",
-            claude: "Kontempluju nad tím... 🧘"
+            gemini: 'Zpracovávám data... 🤖',
+            chatgpt: 'Hmm, interesting! 🤔✨',
+            claude: 'Kontempluju nad tím... 🧘'
         };
         
-        return fallbacks[aiType] || "Hmm... 🤔";
+        return fallbacks[aiType] || 'Hmm... 🤔';
     }
 
     /**
@@ -258,7 +258,7 @@ export class EnhancedAIController {
      * @param {Object} context - Event context
      * @returns {boolean} True if trash talk should be generated
      */
-    shouldGenerateContextualTrashTalk(eventType, context) {
+    shouldGenerateContextualTrashTalk(eventType, _context) {
         const trashTalkEvents = ['farkle', 'badRoll', 'lowScore'];
         return trashTalkEvents.includes(eventType) && Math.random() < 0.4;
     }

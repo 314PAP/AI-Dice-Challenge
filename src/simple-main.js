@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     dice.push(Math.floor(Math.random() * 6) + 1);
                 }
                 
-                diceContainer.innerHTML = dice.map((value, index) => `
+                diceContainer.innerHTML = dice.map((value, _index) => `
                     <div class="die" style="display: inline-block; width: 50px; height: 50px; margin: 5px; background: #000; border: 2px solid #39ff14; border-radius: 8px; text-align: center; line-height: 46px; color: #39ff14; font-size: 24px; cursor: pointer;">
                         ${value}
                     </div>
@@ -100,9 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // AI odpověď
             setTimeout(() => {
                 const aiResponses = [
-                    "Gemini: Zajímavé pozorování! 📊",
-                    "ChatGPT: Haha, to bylo vtipné! 😂",
-                    "Claude: Hluboká myšlenka... 🤔"
+                    'Gemini: Zajímavé pozorování! 📊',
+                    'ChatGPT: Haha, to bylo vtipné! 😂',
+                    'Claude: Hluboká myšlenka... 🤔'
                 ];
                 const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
                 

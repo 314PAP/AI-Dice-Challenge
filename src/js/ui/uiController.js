@@ -35,7 +35,7 @@ export function saveScore() {
 
 export function startNewGame() {
     document.getElementById('gameOverModal').style.display = 'none';
-    location.reload();
+    window.location.reload();
 }
 
 export function returnToMainMenu() {

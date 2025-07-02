@@ -3,7 +3,7 @@
  * Pokročilý systém pro zpracování chyb s využitím funkcionálního programování
  */
 
-import { curry, pipe, tap, tryCatch, identity } from 'ramda';
+import { curry, pipe, tap, tryCatch } from 'ramda';
 
 /**
  * Vlastní typy chyb pro lepší klasifikaci
@@ -115,7 +115,7 @@ export const validateInput = curry((schema, value) => {
     // Kontrola formátu pomocí regulárního výrazu
     if (schema.pattern && !schema.pattern.test(value)) {
       result.isValid = false;
-      result.errors.push(`String does not match required pattern`);
+      result.errors.push('String does not match required pattern');
     }
   }
   

@@ -3,8 +3,7 @@
  * Vylepšený startovací mechanismus hry s validací a error handlingem
  */
 
-import { pipe, curry, tap } from 'ramda';
-import { createValidator, tryCatchWithLogging, GameError } from '../utils/errorHandling.js';
+import { createValidator, tryCatchWithLogging } from '../utils/errorHandling.js';
 import { eventBus, GAME_EVENTS } from '../utils/eventBus.js';
 import { startGame as startGameOriginal } from './controllers/gameFlowController.js';
 

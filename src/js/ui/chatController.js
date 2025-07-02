@@ -3,11 +3,9 @@
  * Enhanced with Ramda + Lodash-ES for optimal chat performance
  */
 
-import { pipe, when, unless, cond, always, T, curry, compose } from 'ramda';
-import { debounce, throttle, memoize, isEmpty, escape } from 'lodash-es';
-import { aiPersonalities } from '../ai/enhancedPersonalities.js';
+import { pipe, when, unless, cond, always, T, curry } from 'ramda';
+import { debounce, throttle, isEmpty, escape } from 'lodash-es';
 import { generateAIChatResponse } from '../ai/aiController.js';
-import { gameState } from '../game/gameState.js';
 import { safeGetElement, safeExecute } from '../utils/gameUtils.js';
 import { emitter, EVENTS } from '../utils/optimizedEvents.js';
 

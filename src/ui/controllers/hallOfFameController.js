@@ -198,7 +198,7 @@ export class HallOfFameController {
      * Clears all hall of fame data
      */
     clearHallOfFame() {
-        if (confirm('Opravdu chcete vymazat všechny záznamy ze síně slávy?')) {
+        if (window.confirm('Opravdu chcete vymazat všechny záznamy ze síně slávy?')) {
             localStorage.removeItem(this.storageKey);
             this.addChatMessage('Systém', '🗑️ Síň slávy byla vymazána');
             this.displayHallOfFame(); // Refresh display

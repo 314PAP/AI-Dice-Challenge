@@ -66,7 +66,7 @@ export function throttle(func, limit) {
  */
 export async function copyToClipboard(text) {
     try {
-        await navigator.clipboard.writeText(text);
+        await window.navigator.clipboard.writeText(text);
         return true;
     } catch (err) {
         console.error('Nepodařilo se zkopírovat text: ', err);
@@ -83,7 +83,7 @@ export async function copyToClipboard(text) {
 export function animateNumber(element, target, duration = 1000) {
     const start = parseInt(element.textContent) || 0;
     const range = target - start;
-    const startTime = performance.now();
+    const startTime = window.performance.now();
     
     function updateNumber(currentTime) {
         const elapsed = currentTime - startTime;
@@ -96,13 +96,13 @@ export function animateNumber(element, target, duration = 1000) {
         element.textContent = formatNumber(current);
         
         if (progress < 1) {
-            requestAnimationFrame(updateNumber);
+            window.requestAnimationFrame(updateNumber);
         } else {
             element.textContent = formatNumber(target);
         }
     }
     
-    requestAnimationFrame(updateNumber);
+    window.requestAnimationFrame(updateNumber);
 }
 
 /**

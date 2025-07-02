@@ -91,7 +91,7 @@ export function playerTurn() {
     gameState.diceValues = [];
     gameState.selectedDice = [];
     gameState.bankedDiceThisTurn = []; // Clear banked dice display at start of new turn
-    
+
     if (gameState.currentPlayer === 0) {
         // Lidský hráč - clear any leftover UI state and show fresh turn
         console.log('🎮 Human player turn starting');
@@ -233,7 +233,7 @@ export function endGame(winner) {
         winner.type === 'human' ? '🎉 Gratulujeme! Vyhrál(a) jste!' : `🏆 Vítězem se stává ${winner.name}!`;
     
     // Dynamicky vygeneruje zprávu o skóre
-    let finalScoresHTML = `<strong>Konečné skóre:</strong><br>`;
+    let finalScoresHTML = '<strong>Konečné skóre:</strong><br>';
     gameState.players.forEach(player => {
         finalScoresHTML += `${player.name}: ${player.score} bodů<br>`;
     });

@@ -101,7 +101,7 @@ export class AIResponseGenerator {
      * @param {Object} context - Event context
      * @returns {boolean} True if trash talk should be generated
      */
-    shouldGenerateContextualTrashTalk(eventType, context) {
+    shouldGenerateContextualTrashTalk(eventType, _context) {
         const trashTalkEvents = ['farkle', 'badRoll', 'lowScore'];
         return trashTalkEvents.includes(eventType) && Math.random() < 0.4;
     }
@@ -113,28 +113,28 @@ export class AIResponseGenerator {
      */
     getFallbackResponse(aiType) {
         const fallbacks = {
-            gemini: "Zpracovávám data... 🤖",
-            chatgpt: "Hmm, interesting! 🤔✨",
-            claude: "Kontempluju nad tím... 🧘"
+            gemini: 'Zpracovávám data... 🤖',
+            chatgpt: 'Hmm, interesting! 🤔✨',
+            claude: 'Kontempluju nad tím... 🧘'
         };
         
-        return fallbacks[aiType] || "Hmm... 🤔";
+        return fallbacks[aiType] || 'Hmm... 🤔';
     }
 
     /**
      * Placeholder methods - to be implemented by specialized modules
      */
-    generateTrashTalkResponse(aiType) {
+    generateTrashTalkResponse(_aiType) {
         // To be implemented by TrashTalk module
         return null;
     }
 
-    generateBanterResponse(aiType) {
+    generateBanterResponse(_aiType) {
         // To be implemented by Banter module
         return null;
     }
 
-    generateContextualTrashTalk(aiType, eventType, context) {
+    generateContextualTrashTalk(_aiType, _eventType, _context) {
         // To be implemented by TrashTalk module
         return null;
     }

@@ -3,7 +3,6 @@ import { initializeGame, setupEventListeners, startGame, saveScore as saveGameSc
 import { EnhancedChatController } from './ui/enhancedChatController.js';
 import { setupUI, displayHallOfFame, closeHallOfFame } from './ui/uiController.js';
 import { updateScoreboard, updateActivePlayer } from './ui/gameUI.js';
-import { enhancedAI } from '../ai/controllers/enhancedAIController.js';
 
 // Wrapper class for game controller
 class GameController {

@@ -132,12 +132,12 @@ export class AISystemCoordinator {
      */
     getErrorFallback(aiType) {
         const errorFallbacks = {
-            gemini: "System error. Restarting protocols... 🤖⚠️",
-            chatgpt: "Oops! Something went wrong! Let me recalibrate... 😅🔧",
-            claude: "Něco se pokazilo... meditace nad chybou... 🧘⚠️"
+            gemini: 'System error. Restarting protocols... 🤖⚠️',
+            chatgpt: 'Oops! Something went wrong! Let me recalibrate... 😅🔧',
+            claude: 'Něco se pokazilo... meditace nad chybou... 🧘⚠️'
         };
         
-        return errorFallbacks[aiType] || "Error... 🤖❌";
+        return errorFallbacks[aiType] || 'Error... 🤖❌';
     }
 
     /**

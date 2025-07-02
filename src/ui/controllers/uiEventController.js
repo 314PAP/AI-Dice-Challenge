@@ -68,7 +68,7 @@ export class UIEventController {
      * Handles quit game action
      */
     handleQuitGame() {
-        if (confirm('Opravdu chcete opustit hru?')) {
+        if (window.confirm('Opravdu chcete opustit hru?')) {
             const setup = document.getElementById('targetScoreSetup');
             const controls = document.getElementById('gameControls');
             if (setup && controls) {

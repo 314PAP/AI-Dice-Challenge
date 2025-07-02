@@ -4,7 +4,7 @@
  */
 
 import { pipe, curry } from 'ramda';
-import { memoize, once } from 'lodash-es';
+import { once } from 'lodash-es';
 import { safeExecute } from '../utils/gameUtils.js';
 
 // 🎯 MODULAR IMPORTS - Functional game flow

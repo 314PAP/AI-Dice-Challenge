@@ -128,7 +128,7 @@ export class GameStateController {
         const quitGameBtn = document.getElementById('quitGameBtn');
         if (quitGameBtn) {
             quitGameBtn.addEventListener('click', () => {
-                if (confirm('Opravdu chcete opustit hru?')) {
+                if (window.confirm('Opravdu chcete opustit hru?')) {
                     document.getElementById('gameControls').style.display = 'none';
                     document.getElementById('targetScoreSetup').style.display = 'block';
                     this.addChatMessage('Systém', '🚪 Hra byla opuštěna');

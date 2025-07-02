@@ -4,13 +4,13 @@
  */
 
 import { pipe, when, unless, cond, always, T, gt, gte, lt, prop, pathOr } from 'ramda';
-import { isEmpty, random, sample, clamp, debounce } from 'lodash-es';
-import { gameState, getCurrentPlayer, nextPlayer } from '../game/gameState.js';
+import { isEmpty, random } from 'lodash-es';
+import { gameState, getCurrentPlayer } from '../game/gameState.js';
 import { rollDice, calculateScore, getAllScoringCombinations } from '../game/diceLogic.js';
 import { updateGameDisplay } from '../ui/gameUI.js';
 import { enhancedAI } from './enhancedAIController.js';
-import { generateAIGameReaction } from './aiController.js';
 import { endTurn } from '../game/gameController.js';
+import { bankAIDice } from '../game/controllers/turnActionsController.js';
 import { safeExecute, debouncedChatMessage } from '../utils/gameUtils.js';
 
 // 🎯 FUNCTIONAL AI LOGIC - Ramda-based decision making
@@ -47,16 +47,23 @@ export const clearAllAITimeouts = () => {
 };
 
 export const createAITimeout = (callback, delay) => {
-    const timeoutId = setTimeout(
-        pipe(
-            () => activeAITimeouts.filter(id => id !== timeoutId),
-            (filtered) => { activeAITimeouts = filtered; },
-            () => when(isGameRunning, callback)()
-        ),
-        delay
-    );
+    console.log(`🔧 Creating AI timeout with delay: ${delay}ms`);
+    const timeoutId = setTimeout(() => {
+        console.log('⏰ AI timeout fired!');
+        // Remove timeout from active list
+        activeAITimeouts = activeAITimeouts.filter(id => id !== timeoutId);
+        
+        // Only execute if game is still running
+        if (isGameRunning()) {
+            console.log('✅ Game is running, executing AI callback');
+            callback();
+        } else {
+            console.log('❌ Game not running, skipping AI callback');
+        }
+    }, delay);
     
     activeAITimeouts.push(timeoutId);
+    console.log(`📝 Added timeout ${timeoutId} to active list. Total: ${activeAITimeouts.length}`);
     return timeoutId;
 };
 
@@ -74,15 +81,30 @@ const resetAITurnState = () => {
 
 // 🎯 MAIN AI TURN FUNCTION - Functional composition
 export const playAITurn = pipe(
-    () => console.log('🤖 AI Turn Check...'),
+    () => console.log('🤖 === AI TURN START ==='),
+    () => console.log('🔍 AI Debug - Game State Check:'),
+    () => console.log(`   - gameEnded: ${gameState.gameEnded}`),
+    () => console.log(`   - gameStarted: ${gameState.gameStarted}`),
+    () => console.log(`   - currentPlayer: ${gameState.currentPlayer}`),
+    () => console.log(`   - availableDice: ${gameState.availableDice}`),
     unless(isGameRunning, () => {
         console.log('🚫 AI turn cancelled - game not running');
         return false;
     }),
     () => {
         const aiPlayer = getCurrentPlayer();
-        console.log(`🤖 Starting AI turn for ${aiPlayer.name}`);
+        
+        // KRITICKÁ KONTROLA: AI nesmí hrát za lidského hráče!
+        if (gameState.currentPlayer === 0 || aiPlayer.type === 'human') {
+            console.log('🚫 AI turn cancelled - current player is human!');
+            console.log(`   - currentPlayer: ${gameState.currentPlayer}, type: ${aiPlayer.type}`);
+            return false;
+        }
+        console.log(`🤖 Starting AI turn for ${aiPlayer.name} (player ${gameState.currentPlayer})`);
+        console.log(`🎮 Game state - ended: ${gameState.gameEnded}, started: ${gameState.gameStarted}`);
+        console.log('🎯 Current scores:', gameState.players.map(p => `${p.name}: ${p.score}`));
         resetAITurnState();
+        console.log(`🎲 Rolling in ${random(800, 1200)}ms...`);
         createAITimeout(() => playAIRoll(), random(800, 1200));
         return true;
     }
@@ -90,33 +112,31 @@ export const playAITurn = pipe(
 
 // 🎲 AI ROLL LOGIC - Functional decision making
 const playAIRoll = pipe(
-    () => console.log('🎲 AI Roll Check...'),
+    () => console.log('🎲 === AI ROLL START ==='),
     unless(isGameRunning, () => {
         console.log('🚫 AI roll cancelled - game not running');
         return false;
     }),
     unless(hasAvailableDice, () => {
         const aiPlayer = getCurrentPlayer();
-        console.warn(`AI ${aiPlayer.name} cannot roll: no available dice`);
+        console.warn(`AI ${aiPlayer.name} cannot roll: no available dice (${gameState.availableDice})`);
+        console.log('🏁 AI ending turn due to no available dice');
+        createAITimeout(() => safeExecute(endTurn, null, 'AI No Dice End Turn'), 1000);
         return false;
     }),
     () => {
         const aiPlayer = getCurrentPlayer();
-        const diceCount = gameState.availableDice;
+        console.log(`🎲 AI ${aiPlayer.name} rolling ${gameState.availableDice} dice...`);
         
-        console.log(`🎲 AI ${aiPlayer.name} rolling ${diceCount} dice...`);
+        const diceResults = rollDice(gameState.availableDice);
+        gameState.diceValues = diceResults.map(die => die.value);
         
-        // Execute roll with functional flow
-        const diceResults = rollDice(diceCount);
-        gameState.diceValues = diceResults.map(prop('value'));
-        gameState.selectedDice = [];
+        console.log(`🎲 AI rolled: [${gameState.diceValues.join(', ')}]`);
         
         const rollScore = calculateScore(gameState.diceValues);
+        console.log(`💰 Roll score: ${rollScore}`);
         
-        // Use debounced chat message
-        debouncedChatMessage('system', 
-            `${aiPlayer.name} hodil: ${gameState.diceValues.join(', ')} - Možné body z hodu: ${rollScore}`
-        );
+        updateGameDisplay();
         
         return handleAIRollResult(rollScore, aiPlayer);
     }
@@ -126,11 +146,14 @@ const playAIRoll = pipe(
 const handleAIRollResult = cond([
     // FARKLE - No scoring dice
     [(rollScore) => rollScore === 0, (rollScore, aiPlayer) => {
-        console.log(`❌ AI ${aiPlayer.name}: FARKLE!`);
+        console.log(`💥 AI ${aiPlayer.name}: FARKLE! No scoring dice`);
+        
+        debouncedChatMessage('system', `💥 FARKLE! ${aiPlayer.name} nezískal žádné body a končí tah.`);
         
         const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
         if (reaction) debouncedChatMessage(aiPlayer.type, reaction);
         
+        console.log('🏁 AI ending turn due to FARKLE');
         createAITimeout(() => safeExecute(endTurn, null, 'AI Farkle End Turn'), random(1500, 2500));
         return 'farkle';
     }],
@@ -150,6 +173,7 @@ const handleAIRollResult = cond([
         if (reaction) debouncedChatMessage(aiPlayer.type, reaction);
         
         // AI decision making with delay
+        console.log(`🧠 AI making decision in ${random(1000, 2000)}ms...`);
         createAITimeout(() => makeAIDecision(rollScore, aiPlayer), random(1000, 2000));
         return 'success';
     }]
@@ -157,24 +181,41 @@ const handleAIRollResult = cond([
 
 // 🧠 AI DECISION MAKING - Functional approach with risk assessment
 const makeAIDecision = (rollScore, aiPlayer) => {
+    console.log('🧠 === AI DECISION START ===');
+    console.log(`🤖 AI: ${aiPlayer.name} (type: ${aiPlayer.type})`);
+    console.log(`🎲 Roll score: ${rollScore}`);
+    console.log(`💰 Current turn total: ${getCurrentTurnScore()}`);
+    console.log(`🎯 Available dice: ${gameState.availableDice}`);
+    
     const riskProfile = calculateRiskLevel();
-    const currentTurn = getCurrentTurnScore();
-    const playerTotal = getPlayerScore(aiPlayer);
+    
+    console.log('📊 Risk profile:', riskProfile);
     
     // Find best scoring combination
     const bestCombination = findBestScoringCombination(gameState.diceValues);
     
+    console.log('🎯 Best combination found:', bestCombination);
+    
     if (!bestCombination || bestCombination.score <= 0) {
-        console.warn(`No valid scoring combination found for AI ${aiPlayer.name}`);
+        console.warn(`❌ No valid scoring combination found for AI ${aiPlayer.name}`);
+        console.log('🏁 AI ending turn due to no valid combination');
         return createAITimeout(() => safeExecute(endTurn, null, 'AI No Combination End Turn'), 1000);
     }
     
-    // Bank the best scoring combination
-    bankAIScoring(bestCombination, aiPlayer);
+    console.log(`🏦 Banking combination: ${bestCombination.dice.join(', ')} for ${bestCombination.score} points`);
+    
+    // Bank the best scoring combination using the new AI banking function
+    const bankingSuccess = bankAIDice(bestCombination);
+    
+    if (!bankingSuccess) {
+        console.warn(`❌ Failed to bank combination for AI ${aiPlayer.name}`);
+        console.log('🏁 AI ending turn due to banking failure');
+        return createAITimeout(() => safeExecute(endTurn, null, 'AI Banking Failure End Turn'), 1000);
+    }
     
     // Decide whether to continue or end turn
     const shouldContinue = pipe(
-        () => ({ currentTurn: currentTurn + bestCombination.score, riskProfile, availableDice: gameState.availableDice }),
+        () => ({ currentTurn: gameState.currentTurnScore, riskProfile, availableDice: gameState.availableDice }),
         cond([
             // Always continue with Hot Dice
             [({ availableDice }) => availableDice === 0, always(true)],
@@ -191,9 +232,14 @@ const makeAIDecision = (rollScore, aiPlayer) => {
         ])
     )();
     
+    console.log(`🤔 Should continue rolling? ${shouldContinue}`);
+    console.log(`🎯 Available dice after banking: ${gameState.availableDice}`);
+    
     if (shouldContinue && gameState.availableDice > 0) {
+        console.log('🎲 AI decided to continue rolling');
         createAITimeout(() => playAIRoll(), random(1200, 2000));
     } else {
+        console.log('🏁 AI decided to end turn');
         const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'endTurn', {
             turnScore: getCurrentTurnScore(),
             totalScore: getPlayerScore(aiPlayer)
@@ -204,47 +250,7 @@ const makeAIDecision = (rollScore, aiPlayer) => {
     }
 };
 
-// 🏦 AI BANKING LOGIC - Functional scoring combination banking
-const bankAIScoring = (combination, aiPlayer) => {
-    // Update game state functionally
-    Object.assign(gameState, {
-        currentTurnScore: gameState.currentTurnScore + combination.score,
-        availableDice: gameState.availableDice - combination.dice.length,
-        diceValues: [],
-        selectedDice: []
-    });
-    
-    gameState.bankedDiceThisTurn.push(...combination.dice);
-    
-    debouncedChatMessage('system', 
-        `${aiPlayer.name} odložil: ${combination.dice.join(', ')} za ${combination.score} bodů. Aktuální skóre tahu: ${gameState.currentTurnScore}.`
-    );
-    
-    // Handle Hot Dice scenario
-    when(
-        () => gameState.availableDice === 0,
-        () => {
-            Object.assign(gameState, {
-                availableDice: 6,
-                diceValues: [],
-                selectedDice: [],
-                bankedDiceThisTurn: [],
-                mustBankDice: false
-            });
-            
-            debouncedChatMessage('system', 
-                `🔥 ${aiPlayer.name} odložil všechny kostky! HOT DICE! Pokračuje s novými kostkami.`
-            );
-            
-            const hotDiceReaction = enhancedAI.generateAIResponse(aiPlayer.type, 'hotDice');
-            if (hotDiceReaction) {
-                createAITimeout(() => debouncedChatMessage(aiPlayer.type, hotDiceReaction), 500);
-            }
-        }
-    )();
-};
-
-// 🎯 SCORING COMBINATION FINDER - Optimized with Ramda
+//  SCORING COMBINATION FINDER - Optimized with Ramda
 const findBestScoringCombination = pipe(
     (diceValues) => {
         if (isEmpty(diceValues)) return null;
@@ -279,8 +285,8 @@ const findIndividualScoringDice = (diceValues) => {
     };
 };
 
-// 🧮 RISK CALCULATION - Functional risk assessment
-const calculateRiskFactor = cond([
+// 🧮 RISK CALCULATION - Functional risk assessment (for future use)
+const _calculateRiskFactor = cond([
     [(dice) => dice === 6, always(0.1)],
     [(dice) => dice === 5, always(0.2)],
     [(dice) => dice === 4, always(0.3)],

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 Test odložení kostek - AI Kostková Výzva</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #111;
+            color: #0f0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border: 2px solid #0f0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .step-guide {
+            background: #222;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #0f0;
+        }
+        .status-panel {
+            background: #333;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .dice-area {
+            min-height: 100px;
+            border: 2px dashed #555;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        button:hover:not(:disabled) {
+            background: #fff;
+            transform: scale(1.05);
+        }
+        button:disabled {
+            background: #666;
+            color: #333;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .dice {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #0f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            background: #333;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        .dice.selected {
+            background: #0f0;
+            color: #000;
+            border-color: #fff;
+            transform: scale(1.1);
+        }
+        .dice.scoring {
+            border-color: #ff0;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+        }
+        .dice.banked {
+            background: #555;
+            color: #aaa;
+            cursor: default;
+            border-color: #666;
+        }
+        .log-panel {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            font-size: 12px;
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            margin: 15px 0;
+        }
+        .success { color: #0f0; }
+        .error { color: #f00; }
+        .warning { color: #ff0; }
+        .info { color: #0af; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🏦 Test odložení kostek</h1>
+        
+        <div class="step-guide">
+            <h3>📋 Návod k testování:</h3>
+            <ol>
+                <li><strong>Hodit kostkami</strong> - Kliknete na "🎲 Hodit kostkami"</li>
+                <li><strong>Vybrat bodující kostky</strong> - Klikněte na kostky s hodnotou 1, 5 nebo trojice</li>
+                <li><strong>Odložit kostky</strong> - Kliknete na "🏦 Odložit vybrané" (aktivuje se po výběru)</li>
+                <li><strong>Pokračovat v hození</strong> - Můžete hodit znovu nebo ukončit tah</li>
+            </ol>
+        </div>
+        
+        <div class="status-panel">
+            <div>
+                <strong>🎮 Herní stav:</strong><br>
+                Skóre tahu: <span id="turnScore">0</span><br>
+                Dostupné kostky: <span id="availableDice">6</span><br>
+                mustBankDice: <span id="mustBankDice">false</span>
+            </div>
+            <div>
+                <strong>🎲 Kostky:</strong><br>
+                Vybrané: <span id="selectedInfo">žádné</span><br>
+                Odložené: <span id="bankedInfo">žádné</span><br>
+                Možné body: <span id="scoreInfo">0</span>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="rollBtn">🎲 Hodit kostkami</button>
+            <button id="bankBtn" disabled>🏦 Odložit vybrané</button>
+            <button id="endTurnBtn" disabled>✋ Ukončit tah</button>
+            <button id="resetBtn">🔄 Reset</button>
+        </div>
+        
+        <div class="dice-area" id="diceContainer">
+            Hoďte kostkami pro začátek...
+        </div>
+        
+        <div class="log-panel" id="logPanel"></div>
+    </div>
+
+    <script type="module">
+        // Import game modules
+        import { gameState } from './src/js/game/gameState.js';
+        import { rollDice, calculateScore } from './src/js/game/diceLogic.js';
+        import { rollDiceForPlayer, selectDie, bankSelectedDice } from './src/js/game/controllers/turnActionsController.js';
+        import { createDiceElement } from './src/js/ui/components/diceRenderer.js';
+        import { updateControlsState } from './src/js/ui/components/gameControls.js';
+
+        // Global access for debugging
+        window.gameState = gameState;
+        window.selectDie = selectDie;
+        window.bankSelectedDice = bankSelectedDice;
+
+        // Enhanced logging
+        const logPanel = document.getElementById('logPanel');
+        function addLog(message, type = 'info') {
+            console.log(message);
+            const div = document.createElement('div');
+            div.className = type;
+            div.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            logPanel.appendChild(div);
+            logPanel.scrollTop = logPanel.scrollHeight;
+        }
+
+        // Override console methods for better debugging
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            if (args[0] && typeof args[0] === 'string') {
+                let type = 'info';
+                if (args[0].includes('❌') || args[0].includes('Error')) type = 'error';
+                else if (args[0].includes('⚠️') || args[0].includes('Warning')) type = 'warning';
+                else if (args[0].includes('✅') || args[0].includes('SUCCESS')) type = 'success';
+                
+                addLog(args.join(' '), type);
+            }
+        };
+
+        // Initialize game state
+        function initGame() {
+            gameState.currentPlayer = 0;
+            gameState.players = [
+                { name: 'Test Hráč', type: 'human', score: 0 }
+            ];
+            gameState.availableDice = 6;
+            gameState.currentTurnScore = 0;
+            gameState.mustBankDice = false;
+            gameState.selectedDice = [];
+            gameState.diceValues = [];
+            gameState.bankedDiceThisTurn = [];
+            updateDisplay();
+        }
+
+        // Update display
+        function updateDisplay() {
+            // Update status
+            document.getElementById('turnScore').textContent = gameState.currentTurnScore;
+            document.getElementById('availableDice').textContent = gameState.availableDice;
+            document.getElementById('mustBankDice').textContent = gameState.mustBankDice;
+            
+            // Update dice info
+            const selectedValues = gameState.selectedDice.map(i => gameState.diceValues[i]);
+            document.getElementById('selectedInfo').textContent = 
+                selectedValues.length > 0 ? selectedValues.join(', ') : 'žádné';
+            document.getElementById('bankedInfo').textContent = 
+                gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0 ? 
+                gameState.bankedDiceThisTurn.join(', ') : 'žádné';
+            document.getElementById('scoreInfo').textContent = 
+                selectedValues.length > 0 ? calculateScore(selectedValues) : 0;
+                
+            // Update dice container
+            const container = document.getElementById('diceContainer');
+            container.innerHTML = '';
+            
+            // Render banked dice
+            if (gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0) {
+                gameState.bankedDiceThisTurn.forEach((value) => {
+                    const die = createDiceElement(value, -1, 'banked');
+                    container.appendChild(die);
+                });
+            }
+            
+            // Render current dice
+            if (gameState.diceValues && gameState.diceValues.length > 0) {
+                gameState.diceValues.forEach((value, index) => {
+                    const die = createDiceElement(value, index, 'current');
+                    container.appendChild(die);
+                });
+            }
+            
+            // Update controls
+            updateControlsState();
+        }
+
+        // Event handlers
+        document.getElementById('rollBtn').addEventListener('click', () => {
+            addLog('🎲 Rolling dice...', 'info');
+            rollDiceForPlayer();
+            updateDisplay();
+        });
+
+        document.getElementById('bankBtn').addEventListener('click', () => {
+            addLog('🏦 Banking selected dice...', 'info');
+            bankSelectedDice();
+            updateDisplay();
+        });
+
+        document.getElementById('endTurnBtn').addEventListener('click', () => {
+            addLog('✋ Ending turn...', 'info');
+            gameState.mustBankDice = false;
+            gameState.selectedDice = [];
+            gameState.diceValues = [];
+            gameState.availableDice = 6;
+            gameState.currentTurnScore = 0;
+            gameState.bankedDiceThisTurn = [];
+            updateDisplay();
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            addLog('🔄 Resetting game...', 'info');
+            initGame();
+        });
+
+        // Mock addChatMessage
+        window.addChatMessage = (sender, message) => {
+            addLog(`💬 ${sender}: ${message}`, 'info');
+        };
+
+        // Initialize
+        initGame();
+        addLog('🎮 Bank test loaded - ready to test!', 'success');
+    </script>
+</body>
+</html>

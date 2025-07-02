@@ -90,10 +90,12 @@ export function selectDie(index) {
  * Odloží vybrané kostky
  */
 export function bankSelectedDice() {
-    console.log('🏦 bankSelectedDice called');
+    console.log('🏦 === BANKING DICE START ===');
     console.log('🎲 Selected dice:', gameState.selectedDice);
-    console.log('🎮 Current player:', gameState.currentPlayer);
+    console.log('🎮 Current player:', gameState.currentPlayer, gameState.players[gameState.currentPlayer]?.name);
     console.log('🎯 Must bank dice:', gameState.mustBankDice);
+    console.log('💰 Current turn score BEFORE:', gameState.currentTurnScore);
+    console.log('🎯 Available dice BEFORE:', gameState.availableDice);
     
     if (gameState.selectedDice.length === 0) {
         console.log('❌ No dice selected');
@@ -118,15 +120,18 @@ export function bankSelectedDice() {
     
     // Add score to turn total
     gameState.currentTurnScore += score;
+    console.log('💰 Current turn score AFTER adding:', gameState.currentTurnScore);
     
     // Store banked dice for visual display
     if (!gameState.bankedDiceThisTurn) {
         gameState.bankedDiceThisTurn = [];
     }
     gameState.bankedDiceThisTurn.push(...selectedValues);
+    console.log('🎲 Banked dice this turn:', gameState.bankedDiceThisTurn);
     
     // Remove banked dice from available dice
     gameState.availableDice -= gameState.selectedDice.length;
+    console.log('🎯 Available dice AFTER banking:', gameState.availableDice);
     
     // Clear current roll and selection
     gameState.diceValues = [];
@@ -137,11 +142,80 @@ export function bankSelectedDice() {
     
     // HOT DICE: Check if all dice are banked
     if (gameState.availableDice === 0) {
+        console.log('🔥 HOT DICE detected - resetting dice count');
         gameState.availableDice = 6; // Reset to 6 dice
         // Use optimized clear function
         clearDiceState(gameState);
         debouncedChatMessage('system', '🔥 HOT DICE! Všechny kostky odloženy! Můžete pokračovat v házení všech 6 kostek.');
     }
     
+    console.log('🎮 Updating game display...');
     updateGameDisplay();
+    console.log('🏦 === BANKING DICE END ===');
+}
+
+/**
+ * Odloží kostky pro AI na základě kombinace
+ * @param {Object} combination - Kombinace s dice a score
+ * @param {Array} combination.dice - Hodnoty kostek k odložení
+ * @param {number} combination.score - Skóre kombinace
+ */
+export function bankAIDice(combination) {
+    console.log('🤖🏦 === AI BANKING DICE START ===');
+    console.log('🎲 AI Banking combination:', combination);
+    console.log('🎮 Current player:', gameState.currentPlayer, gameState.players[gameState.currentPlayer]?.name);
+    console.log('💰 Current turn score BEFORE:', gameState.currentTurnScore);
+    console.log('🎯 Available dice BEFORE:', gameState.availableDice);
+    
+    if (!combination || !combination.dice || combination.dice.length === 0) {
+        console.log('❌ No valid combination provided');
+        return false;
+    }
+    
+    const { dice, score } = combination;
+    
+    if (score === 0) {
+        console.log('❌ Combination has no score');
+        return false;
+    }
+    
+    console.log('✅ AI Banking dice with score:', score);
+    
+    // Add score to turn total
+    gameState.currentTurnScore += score;
+    console.log('💰 Current turn score AFTER adding:', gameState.currentTurnScore);
+    
+    // Store banked dice for visual display
+    if (!gameState.bankedDiceThisTurn) {
+        gameState.bankedDiceThisTurn = [];
+    }
+    gameState.bankedDiceThisTurn.push(...dice);
+    console.log('🎲 Banked dice this turn:', gameState.bankedDiceThisTurn);
+    
+    // Remove banked dice from available dice
+    gameState.availableDice -= dice.length;
+    console.log('🎯 Available dice AFTER banking:', gameState.availableDice);
+    
+    // Clear current roll and selection
+    gameState.diceValues = [];
+    gameState.selectedDice = [];
+    gameState.mustBankDice = false;
+    
+    const playerName = gameState.players[gameState.currentPlayer]?.name || 'AI';
+    window.addChatMessage('system', `${playerName} odložil: ${dice.join(', ')} za ${score} bodů. Aktuální skóre tahu: ${gameState.currentTurnScore}.`);
+    
+    // HOT DICE: Check if all dice are banked
+    if (gameState.availableDice === 0) {
+        console.log('🔥 HOT DICE detected for AI - resetting dice count');
+        gameState.availableDice = 6; // Reset to 6 dice
+        // Use optimized clear function
+        clearDiceState(gameState);
+        debouncedChatMessage('system', `🔥 HOT DICE! ${playerName} odložil všechny kostky! Pokračuje s novými kostkami.`);
+    }
+    
+    console.log('🎮 Updating game display...');
+    updateGameDisplay();
+    console.log('🤖🏦 === AI BANKING DICE END ===');
+    
+    return true;
 }

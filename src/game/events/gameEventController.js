@@ -6,7 +6,6 @@
 import { gameFlowController } from '../flow/gameFlowController.js';
 import { playerTurnController } from '../turns/playerTurnController.js';
 import { diceInteractionController } from '../dice/diceInteractionController.js';
-import { enhancedChatController } from '../../ui/chat/enhancedChatController.js';
 
 export class GameEventController {
     constructor() {
@@ -186,11 +185,12 @@ export class GameEventController {
                 case '3':
                 case '4':
                 case '5':
-                case '6':
+                case '6': {
                     event.preventDefault();
                     const diceIndex = parseInt(event.key) - 1;
                     diceInteractionController.selectDie(diceIndex);
                     break;
+                }
             }
         });
     }
@@ -304,7 +304,7 @@ export class GameEventController {
      * Removes all event listeners
      */
     removeAllListeners() {
-        this.eventListeners.forEach((listener, elementId) => {
+        this.eventListeners.forEach((listener, _elementId) => {
             listener.element.removeEventListener(listener.type, listener.handler);
         });
         

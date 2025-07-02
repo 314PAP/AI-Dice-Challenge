@@ -9,7 +9,7 @@ import { enhancedAI } from '../../../ai/controllers/enhancedAIController.js';
 /**
  * Spustí AI reakce po dobrém hodu
  */
-export function triggerAIAfterGoodRoll(score, playerName) {
+export function triggerAIAfterGoodRoll(score, _playerName) {
     if (Math.random() < 0.3) { // 30% šance
         const aiTypes = ['gemini', 'chatgpt', 'claude'];
         const selectedAI = aiTypes[Math.floor(Math.random() * aiTypes.length)];
@@ -18,17 +18,17 @@ export function triggerAIAfterGoodRoll(score, playerName) {
             gemini: [
                 `Statisticky máš jen ${Math.round(Math.random() * 40 + 20)}% šanci na výhru 📊`,
                 `${score} bodů? Můj algoritmus očekával víc 🤖`,
-                `Data ukazují vzestupný trend... zatím 📈`
+                'Data ukazují vzestupný trend... zatím 📈'
             ],
             chatgpt: [
-                `Nice roll! But I'm still gonna crush you! 😎🎲`,
+                'Nice roll! But I\'m still gonna crush you! 😎🎲',
                 `${score} bodů? Not bad, not bad! 💪`,
-                `Okay, that was actually pretty good! 👏✨`
+                'Okay, that was actually pretty good! 👏✨'
             ],
             claude: [
-                `Výborný tah! Strategie se ti vyvíjí 🎯`,
+                'Výborný tah! Strategie se ti vyvíjí 🎯',
                 `${score} bodů... moudré rozhodnutí 🧘`,
-                `Tak se mi to líbí! Pokračuj v této cestě 🌟`
+                'Tak se mi to líbí! Pokračuj v této cestě 🌟'
             ]
         };
         
@@ -40,7 +40,7 @@ export function triggerAIAfterGoodRoll(score, playerName) {
 /**
  * Spustí AI hecování po špatném hodu
  */
-export function triggerAIAfterBadRoll(score, playerName) {
+export function triggerAIAfterBadRoll(score, _playerName) {
     if (Math.random() < 0.4) { // 40% šance
         const aiTypes = ['gemini', 'chatgpt', 'claude'];
         const selectedAI = aiTypes[Math.floor(Math.random() * aiTypes.length)];
@@ -48,18 +48,18 @@ export function triggerAIAfterBadRoll(score, playerName) {
         const reactions = {
             gemini: [
                 `${score} bodů? Error: Expected value too low 📉`,
-                `Výpočet rizika selhal. Recalibrating... 🤖`,
-                `Suboptimální výsledek podle predikcí 📊`
+                'Výpočet rizika selhal. Recalibrating... 🤖',
+                'Suboptimální výsledek podle predikcí 📊'
             ],
             chatgpt: [
-                `Ouch! That hurt to watch! 😅🎲`,
+                'Ouch! That hurt to watch! 😅🎲',
                 `${score} bodů? Maybe buy some luck online! 🛒✨`,
-                `Kostky tě fakt nemají rády, co? 🤣`
+                'Kostky tě fakt nemají rády, co? 🤣'
             ],
             claude: [
                 `${score} bodů... někdy je štěstí proměnlivé 🤔`,
-                `Moudrost říká: i z neúspěchu se učíme 📚`,
-                `Takové jsou kostky života... 🎭`
+                'Moudrost říká: i z neúspěchu se učíme 📚',
+                'Takové jsou kostky života... 🎭'
             ]
         };
         
@@ -71,26 +71,26 @@ export function triggerAIAfterBadRoll(score, playerName) {
 /**
  * Spustí AI hecování po farkle
  */
-export function triggerFarkleHeckling(playerName) {
+export function triggerFarkleHeckling(_playerName) {
     if (Math.random() < 0.7) { // 70% šance na hecování po farkle
         const aiTypes = ['gemini', 'chatgpt', 'claude'];
         const selectedAI = aiTypes[Math.floor(Math.random() * aiTypes.length)];
         
         const farkleReactions = {
             gemini: [
-                `FARKLE! Probability of this: 2.31% 📉❌`,
-                `Statistika neúprosná: FARKLE detected! 🤖💥`,
-                `Error 404: Bodující kostky not found! 🔍❌`
+                'FARKLE! Probability of this: 2.31% 📉❌',
+                'Statistika neúprosná: FARKLE detected! 🤖💥',
+                'Error 404: Bodující kostky not found! 🔍❌'
             ],
             chatgpt: [
-                `OOOOOF! That's a big fat FARKLE! 💥😂`,
-                `Farkle! The dice are roasting you hard! 🔥🎲`,
-                `HAHA! That was painful to watch! 😅❌`
+                'OOOOOF! That\'s a big fat FARKLE! 💥😂',
+                'Farkle! The dice are roasting you hard! 🔥🎲',
+                'HAHA! That was painful to watch! 😅❌'
             ],
             claude: [
-                `Ach, farkle... osud je nevyzpytatelný 🎭❌`,
-                `Takový je život kostkaře... 🌙💫`,
-                `I to je část cesty k moudrosti 📚✨`
+                'Ach, farkle... osud je nevyzpytatelný 🎭❌',
+                'Takový je život kostkaře... 🌙💫',
+                'I to je část cesty k moudrosti 📚✨'
             ]
         };
         
@@ -145,19 +145,19 @@ export function triggerAIHighTensionComment() {
         
         const tensionComments = {
             gemini: [
-                "Napětí roste exponenciálně! 📈⚡",
-                "Critical phase detected! All systems alert! 🚨",
-                "Statistical variance approaching maximum! 📊🔥"
+                'Napětí roste exponenciálně! 📈⚡',
+                'Critical phase detected! All systems alert! 🚨',
+                'Statistical variance approaching maximum! 📊🔥'
             ],
             chatgpt: [
-                "Whoa! Things are getting spicy! 🌶️🔥",
-                "Plot twist incoming! 🎬✨",
-                "This is where legends are made! 🏆⚡"
+                'Whoa! Things are getting spicy! 🌶️🔥',
+                'Plot twist incoming! 🎬✨',
+                'This is where legends are made! 🏆⚡'
             ],
             claude: [
-                "Napětí hustne... moment pravdy se blíží 🎭",
-                "Ve vzduchu je cítit osud... 🌙⚡",
-                "Takové chvíle definují charaktery 💎"
+                'Napětí hustne... moment pravdy se blíží 🎭',
+                'Ve vzduchu je cítit osud... 🌙⚡',
+                'Takové chvíle definují charaktery 💎'
             ]
         };
         
@@ -178,7 +178,7 @@ export function triggerSituationalComment(situation, data = {}) {
     let response = '';
     
     switch (situation) {
-        case 'highScore':
+        case 'highScore': {
             const highScoreComments = {
                 gemini: [`Impressive roll! Probability analysis shows ${data.score} points! 📊🎯`],
                 chatgpt: [`WHOA! ${data.score} points? That's some serious dice magic! ✨🎲`],
@@ -186,17 +186,17 @@ export function triggerSituationalComment(situation, data = {}) {
             };
             response = highScoreComments[selectedAI][0];
             break;
-            
-        case 'comeback':
+        }
+        case 'comeback': {
             const comebackComments = {
                 gemini: [`Comeback probability increasing: ${Math.round(Math.random() * 30 + 40)}% 📈`],
-                chatgpt: [`Plot twist! Someone's making a COMEBACK! 🎬🔥`],
-                claude: [`Osud se otáčí... comeback je možný 🔄⭐`]
+                chatgpt: ['Plot twist! Someone\'s making a COMEBACK! 🎬🔥'],
+                claude: ['Osud se otáčí... comeback je možný 🔄⭐']
             };
             response = comebackComments[selectedAI][0];
             break;
-            
-        case 'closeGame':
+        }
+        case 'closeGame': {
             const closeGameComments = {
                 gemini: [`Game proximity alert! Margin: ${data.margin} points! 🚨`],
                 chatgpt: [`This is TIGHT! Only ${data.margin} points apart! 😱⚡`],
@@ -204,6 +204,7 @@ export function triggerSituationalComment(situation, data = {}) {
             };
             response = closeGameComments[selectedAI][0];
             break;
+        }
     }
     
     if (response) {

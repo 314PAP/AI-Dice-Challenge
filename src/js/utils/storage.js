@@ -74,7 +74,7 @@ export function isStorageAvailable() {
         localStorage.setItem(test, test);
         localStorage.removeItem(test);
         return true;
-    } catch (error) {
+    } catch {
         return false;
     }
 }
@@ -86,7 +86,7 @@ export function isStorageAvailable() {
 export function getStorageSize() {
     let total = 0;
     for (let key in localStorage) {
-        if (localStorage.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(localStorage, key)) {
             total += localStorage[key].length + key.length;
         }
     }

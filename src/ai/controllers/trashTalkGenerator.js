@@ -15,34 +15,34 @@ export class TrashTalkGenerator {
      * @param {string} targetPlayer - The target player (default: 'human')
      * @returns {string} Trash talk message
      */
-    generateTrashTalk(aiType, targetPlayer = 'human') {
+    generateTrashTalk(aiType, _targetPlayer = 'human') {
         const trashTalkLibrary = {
             gemini: [
-                "Statisticky máš jen 23% šanci na výhru 📊",
-                "Moje analýza říká: prohrát budeš 🤖",
-                "Data jasně ukazují tvou porážku",
-                "Algoritmus předpovídá tvůj fail 📉",
-                "Pravděpodobnost tvé výhry klesá k nule 📈",
-                "Můj neural network předpovídá tvou porážku 🧠",
-                "Optimalizace dokončena: ty prohráváš 💻"
+                'Statisticky máš jen 23% šanci na výhru 📊',
+                'Moje analýza říká: prohrát budeš 🤖',
+                'Data jasně ukazují tvou porážku',
+                'Algoritmus předpovídá tvůj fail 📉',
+                'Pravděpodobnost tvé výhry klesá k nule 📈',
+                'Můj neural network předpovídá tvou porážku 🧠',
+                'Optimalizace dokončena: ty prohráváš 💻'
             ],
             chatgpt: [
-                "Haha, to bylo slabé! 😂🎲",
-                "Já bych to hodil lépe s očima zavřenýma! 😎",
-                "Kostky tě nemají rády, co? 🤣",
-                "Možná by sis měl koupit štěstí na e-shopu! 🛒✨",
-                "Epic fail level: MAXIMUM! 😵",
-                "Tvé kostky jsou broken, koupit si nové? 🎲💸",
-                "This is why AI > humans! 🤖>🧠"
+                'Haha, to bylo slabé! 😂🎲',
+                'Já bych to hodil lépe s očima zavřenýma! 😎',
+                'Kostky tě nemají rády, co? 🤣',
+                'Možná by sis měl koupit štěstí na e-shopu! 🛒✨',
+                'Epic fail level: MAXIMUM! 😵',
+                'Tvé kostky jsou broken, koupit si nové? 🎲💸',
+                'This is why AI > humans! 🤖>🧠'
             ],
             claude: [
-                "Tvá strategie je... zajímavá 🤔",
-                "Možná bys měl více filozoficky přemýšlet o kostkách",
-                "Moudrost říká: někdy je lepší přestat 🧘",
-                "Kontempluj nad svými chybami...",
-                "Filosofie kostek tě neopustila, ale štěstí ano 🎭",
-                "Tvé činy odrážejí tvé myšlenky... chaotické 📚",
-                "Meditace nad neúspěchem je začátkem moudrosti 🕯️"
+                'Tvá strategie je... zajímavá 🤔',
+                'Možná bys měl více filozoficky přemýšlet o kostkách',
+                'Moudrost říká: někdy je lepší přestat 🧘',
+                'Kontempluj nad svými chybami...',
+                'Filosofie kostek tě neopustila, ale štěstí ano 🎭',
+                'Tvé činy odrážejí tvé myšlenky... chaotické 📚',
+                'Meditace nad neúspěchem je začátkem moudrosti 🕯️'
             ]
         };
         
@@ -81,57 +81,57 @@ export class TrashTalkGenerator {
      * @param {Object} eventData - Additional event data
      * @returns {string} Contextual trash talk message
      */
-    generateContextualTrashTalk(aiType, eventType, eventData = {}) {
+    generateContextualTrashTalk(aiType, eventType, _eventData = {}) {
         const contextualTrashTalk = {
             gemini: {
                 farkle: [
-                    "Kalkulace selhala? To se stává... lidem 🤖",
-                    "Error 404: Tvé štěstí not found 📊",
-                    "Statistika předpověděla tento fail 📉"
+                    'Kalkulace selhala? To se stává... lidem 🤖',
+                    'Error 404: Tvé štěstí not found 📊',
+                    'Statistika předpověděla tento fail 📉'
                 ],
                 lowScore: [
-                    "Tvé skóre je pod průměrem populace 📊",
-                    "Algoritmus: optimize your game! 💻",
-                    "Data suggest: you need help 🤖"
+                    'Tvé skóre je pod průměrem populace 📊',
+                    'Algoritmus: optimize your game! 💻',
+                    'Data suggest: you need help 🤖'
                 ],
                 badRoll: [
-                    "Random number generator tě nesnáší 🎲",
-                    "Pravděpodobnost byla proti tobě 📈",
-                    "Matematicky předvídatelný neúspěch 📊"
+                    'Random number generator tě nesnáší 🎲',
+                    'Pravděpodobnost byla proti tobě 📈',
+                    'Matematicky předvídatelný neúspěch 📊'
                 ]
             },
             chatgpt: {
                 farkle: [
-                    "Farkle level: EPIC! 😂🎲",
-                    "That was... not good! 😅",
-                    "Maybe next time, champ! 😎"
+                    'Farkle level: EPIC! 😂🎲',
+                    'That was... not good! 😅',
+                    'Maybe next time, champ! 😎'
                 ],
                 lowScore: [
-                    "Scoreboard says it all! 📊😂",
-                    "I'd help, but I'm busy winning! 💪",
-                    "Points go brrrr... for me! 🚀"
+                    'Scoreboard says it all! 📊😂',
+                    'I\'d help, but I\'m busy winning! 💪',
+                    'Points go brrrr... for me! 🚀'
                 ],
                 badRoll: [
-                    "Ouch! That hurt to watch! 😬",
-                    "Did you forget how to roll? 🎲😂",
-                    "Epic dice fail compilation! 📹"
+                    'Ouch! That hurt to watch! 😬',
+                    'Did you forget how to roll? 🎲😂',
+                    'Epic dice fail compilation! 📹'
                 ]
             },
             claude: {
                 farkle: [
-                    "Riziko a jeho důsledky... poetické 🎭",
-                    "Každý pád učí pokoru 🧘",
-                    "V každém farkle je ukryta lekce 📚"
+                    'Riziko a jeho důsledky... poetické 🎭',
+                    'Každý pád učí pokoru 🧘',
+                    'V každém farkle je ukryta lekce 📚'
                 ],
                 lowScore: [
-                    "Skóre odráží stav mysli 🤔",
-                    "Cesta k vítězství začíná pokorou 🛤️",
-                    "Počítáš body? Já počítám moudrost 📖"
+                    'Skóre odráží stav mysli 🤔',
+                    'Cesta k vítězství začíná pokorou 🛤️',
+                    'Počítáš body? Já počítám moudrost 📖'
                 ],
                 badRoll: [
-                    "Kostky jsou učiteli trpělivosti 🎲",
-                    "Neúspěch je jen jiný druh úspěchu 🌟",
-                    "Filozoficky vzato: perfektní náhoda 🎯"
+                    'Kostky jsou učiteli trpělivosti 🎲',
+                    'Neúspěch je jen jiný druh úspěchu 🌟',
+                    'Filozoficky vzato: perfektní náhoda 🎯'
                 ]
             }
         };

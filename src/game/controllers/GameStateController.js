@@ -86,7 +86,7 @@ export class GameStateController {
     quitGame() {
         console.log('❌ Předčasné ukončení hry');
         
-        const confirmQuit = confirm('Opravdu chcete ukončit současnou hru?');
+        const confirmQuit = window.confirm('Opravdu chcete ukončit současnou hru?');
         if (!confirmQuit) return;
         
         this.gameController.addChatMessage('Systém', MESSAGES.GAME_QUIT);

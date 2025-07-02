@@ -653,7 +653,7 @@ export class MainGameController {
      * Opustí hru
      */
     quitGame() {
-        if (confirm('Opravdu chcete opustit hru?')) {
+        if (window.confirm('Opravdu chcete opustit hru?')) {
             document.getElementById('gameControls').style.display = 'none';
             document.getElementById('targetScoreSetup').style.display = 'block';
             this.gameStarted = false;

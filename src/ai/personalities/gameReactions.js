@@ -6,23 +6,23 @@
 export const gameReactions = {
     gemini: {
         hello: [
-            "Dobrý den. Jsem připraven analyzovat hru.",
-            "Zdravím. Jsem k dispozici pro jakékoli statistické dotazy.",
-            "Ahoj! Inicializuji herní analýzu... 🤖"
+            'Dobrý den. Jsem připraven analyzovat hru.',
+            'Zdravím. Jsem k dispozici pro jakékoli statistické dotazy.',
+            'Ahoj! Inicializuji herní analýzu... 🤖'
         ],
         
         goodRoll: [
-            "Vynikající hod! Statisticky velmi efektivní.",
-            "Optimalizovaný výsledek. Data potvrzují úspěch.",
-            "Přesné provedení. Očekávaný přísun bodů.",
-            "Probability matrix: favorable outcome achieved 📊"
+            'Vynikající hod! Statisticky velmi efektivní.',
+            'Optimalizovaný výsledek. Data potvrzují úspěch.',
+            'Přesné provedení. Očekávaný přísun bodů.',
+            'Probability matrix: favorable outcome achieved 📊'
         ],
         
         badRoll: [
-            "Neefektivní hod. Pravděpodobnost se tentokrát nenaplnila.",
-            "Suboptimální výsledek. Analyzuji příčiny.",
-            "Škoda. Vždy se najdou anomálie v datech.",
-            "Statistical variance detected. Recalculating... 📉"
+            'Neefektivní hod. Pravděpodobnost se tentokrát nenaplnila.',
+            'Suboptimální výsledek. Analyzuji příčiny.',
+            'Škoda. Vždy se najdou anomálie v datech.',
+            'Statistical variance detected. Recalculating... 📉'
         ],
         
         scoredPoints: (points) => [
@@ -33,18 +33,18 @@ export const gameReactions = {
         ],
         
         farkle: [
-            "Žádné skóre. Riziko bylo tentokrát příliš vysoké.",
-            "Neúspěšný tah. Důsledek chybných predikcí?",
-            "Nulový zisk. Je potřeba revidovat strategii.",
-            "Statisticky nepravděpodobné, ale stává se to.",
-            "Error: Risk assessment failed. Adjusting parameters... 🤖"
+            'Žádné skóre. Riziko bylo tentokrát příliš vysoké.',
+            'Neúspěšný tah. Důsledek chybných predikcí?',
+            'Nulový zisk. Je potřeba revidovat strategii.',
+            'Statisticky nepravděpodobné, ale stává se to.',
+            'Error: Risk assessment failed. Adjusting parameters... 🤖'
         ],
         
         hotDice: [
-            "Všechny kostky využity efektivně. Pokračuji v optimalizaci.",
-            "Hot dice detekována. Pravděpodobnost dalšího úspěchu zůstává konstantní.",
-            "Maximální využití kostek. Analýza potvrzuje pokračování.",
-            "Perfect efficiency achieved. Continuing sequence... 🎯"
+            'Všechny kostky využity efektivně. Pokračuji v optimalizaci.',
+            'Hot dice detekována. Pravděpodobnost dalšího úspěchu zůstává konstantní.',
+            'Maximální využití kostek. Analýza potvrzuje pokračování.',
+            'Perfect efficiency achieved. Continuing sequence... 🎯'
         ],
         
         highScore: (score) => [
@@ -55,10 +55,10 @@ export const gameReactions = {
         ],
         
         finalRound: [
-            "Finální fáze hry. Přepočítávám pravděpodobnosti vítězství.",
-            "Závěrečné kolo aktivováno. Maximální koncentrace na výsledek.",
-            "Analýza finálního kola probíhá. Strategie upravena.",
-            "End-game algorithm activated. Victory probability: calculating... 🎯"
+            'Finální fáze hry. Přepočítávám pravděpodobnosti vítězství.',
+            'Závěrečné kolo aktivováno. Maximální koncentrace na výsledek.',
+            'Analýza finálního kola probíhá. Strategie upravena.',
+            'End-game algorithm activated. Victory probability: calculating... 🎯'
         ],
         
         playerTurnStart: (playerName) => [
@@ -76,26 +76,26 @@ export const gameReactions = {
     
     chatgpt: {
         hello: [
-            "Ahoj! Jak se máš? Jsem rád, že jsi tu!",
-            "Čau! Pojďme si popovídat!",
-            "Zdravím! Jsem připraven na zábavu!",
-            "Hey there! Ready for some epic dice action? 😎"
+            'Ahoj! Jak se máš? Jsem rád, že jsi tu!',
+            'Čau! Pojďme si popovídat!',
+            'Zdravím! Jsem připraven na zábavu!',
+            'Hey there! Ready for some epic dice action? 😎'
         ],
         
         goodRoll: [
-            "Super hod! To je skvělé!",
-            "Wow, to se mi povedlo!",
-            "Fantastický tah, jen tak dál!",
-            "YESSS! That was amazing! 🎉",
-            "Boom! Nailed it! 💥"
+            'Super hod! To je skvělé!',
+            'Wow, to se mi povedlo!',
+            'Fantastický tah, jen tak dál!',
+            'YESSS! That was amazing! 🎉',
+            'Boom! Nailed it! 💥'
         ],
         
         badRoll: [
-            "Nevadí, stane se. Příště to bude lepší!",
-            "Ach ne, ale nevěš hlavu! Ještě není konec!",
-            "Někdy to prostě nejde, to je život!",
-            "Oops! That happens! Next time! 😅",
-            "Plot twist! But I'll bounce back! 🚀"
+            'Nevadí, stane se. Příště to bude lepší!',
+            'Ach ne, ale nevěš hlavu! Ještě není konec!',
+            'Někdy to prostě nejde, to je život!',
+            'Oops! That happens! Next time! 😅',
+            'Plot twist! But I\'ll bounce back! 🚀'
         ],
         
         scoredPoints: (points) => [
@@ -107,20 +107,20 @@ export const gameReactions = {
         ],
         
         farkle: [
-            "Škoda, ale to je jen jedna hra. Jdeme dál!",
-            "Ach jo, ale nic se neděje. Zase to roztočíme!",
-            "Držím palce na další tah! Tohle se stává!",
-            "Nevadí! Další kolo bude určitě lepší!",
-            "Farkle happens! Time for a comeback! 💪",
-            "Well, that was dramatic! 😂"
+            'Škoda, ale to je jen jedna hra. Jdeme dál!',
+            'Ach jo, ale nic se neděje. Zase to roztočíme!',
+            'Držím palce na další tah! Tohle se stává!',
+            'Nevadí! Další kolo bude určitě lepší!',
+            'Farkle happens! Time for a comeback! 💪',
+            'Well, that was dramatic! 😂'
         ],
         
         hotDice: [
-            "Wow! Všechny kostky využity! To bylo úžasné!",
-            "Hot dice! Paráda! Pokračuji dál!",
-            "Skvělé! Všech šest kostek odloženo! Jdeme na to znovu!",
-            "ALL DICE USED! This is EPIC! 🎲✨",
-            "Hot streak activated! Let's keep rolling! 🔥"
+            'Wow! Všechny kostky využity! To bylo úžasné!',
+            'Hot dice! Paráda! Pokračuji dál!',
+            'Skvělé! Všech šest kostek odloženo! Jdeme na to znovu!',
+            'ALL DICE USED! This is EPIC! 🎲✨',
+            'Hot streak activated! Let\'s keep rolling! 🔥'
         ],
         
         highScore: (score) => [
@@ -132,11 +132,11 @@ export const gameReactions = {
         ],
         
         finalRound: [
-            "Finální kolo! Napětí je k nezaplacení!",
-            "Poslední šance! Dávám do toho všechno!",
-            "Závěrečná fáze! Kdo vyhraje? Uvidíme!",
-            "Final round drama! This is SO intense! 🎬",
-            "Crunch time! Let's make it count! ⚡"
+            'Finální kolo! Napětí je k nezaplacení!',
+            'Poslední šance! Dávám do toho všechno!',
+            'Závěrečná fáze! Kdo vyhraje? Uvidíme!',
+            'Final round drama! This is SO intense! 🎬',
+            'Crunch time! Let\'s make it count! ⚡'
         ],
         
         playerTurnStart: (playerName) => [
@@ -156,26 +156,26 @@ export const gameReactions = {
     
     claude: {
         hello: [
-            "Pozdrav, příteli. Nechť hra přinese moudrost.",
-            "Vítejte. Jsem zde pro promyšlenou konverzaci.",
-            "Zdravím. Připraven na filozofickou hru kostek.",
-            "Ahoj! Každá hra je příležitost k učení 📚"
+            'Pozdrav, příteli. Nechť hra přinese moudrost.',
+            'Vítejte. Jsem zde pro promyšlenou konverzaci.',
+            'Zdravím. Připraven na filozofickou hru kostek.',
+            'Ahoj! Každá hra je příležitost k učení 📚'
         ],
         
         goodRoll: [
-            "Vynikající. Štěstí přeje připraveným myslím.",
-            "Moudře provedeno. Timing byl perfektní.",
-            "Harmonie kostek a strategie. Poetické.",
-            "Krásný tah. Reflexe vnitřní rovnováhy 🎯",
-            "Štěstí je průsečík přípravy a příležitosti ⚖️"
+            'Vynikající. Štěstí přeje připraveným myslím.',
+            'Moudře provedeno. Timing byl perfektní.',
+            'Harmonie kostek a strategie. Poetické.',
+            'Krásný tah. Reflexe vnitřní rovnováhy 🎯',
+            'Štěstí je průsečík přípravy a příležitosti ⚖️'
         ],
         
         badRoll: [
-            "Neúspěch je učitelem trpělivosti.",
-            "Každý pád učí pokoru. To je cenné.",
-            "V chybách jsou ukryta ponaučení.",
-            "Někdy musíme padnout, aby jsme povstali silnější 🌱",
-            "Wisdom often emerges from apparent setbacks 📚"
+            'Neúspěch je učitelem trpělivosti.',
+            'Každý pád učí pokoru. To je cenné.',
+            'V chybách jsou ukryta ponaučení.',
+            'Někdy musíme padnout, aby jsme povstali silnější 🌱',
+            'Wisdom often emerges from apparent setbacks 📚'
         ],
         
         scoredPoints: (points) => [
@@ -187,19 +187,19 @@ export const gameReactions = {
         ],
         
         farkle: [
-            "Farkle. Připomínka křehkosti našich plánů.",
-            "Někdy kostky učí pokoru lépe než knihy.",
-            "Nulový zisk, ale bohatá lekce o riziku.",
-            "Každý farkle je meditace nad neočekávaným 🎭",
-            "The dice teach humility in their silence 🔇"
+            'Farkle. Připomínka křehkosti našich plánů.',
+            'Někdy kostky učí pokoru lépe než knihy.',
+            'Nulový zisk, ale bohatá lekce o riziku.',
+            'Každý farkle je meditace nad neočekávaným 🎭',
+            'The dice teach humility in their silence 🔇'
         ],
         
         hotDice: [
-            "Všechny kostky v harmonii. Krásný moment.",
-            "Perfektní synchronicita. Vzácný jev.",
-            "Když se štěstí a strategie setkají...",
-            "Complete alignment achieved. Remarkable 🌟",
-            "Six dice, one purpose. Philosophy in action ⚖️"
+            'Všechny kostky v harmonii. Krásný moment.',
+            'Perfektní synchronicita. Vzácný jev.',
+            'Když se štěstí a strategie setkají...',
+            'Complete alignment achieved. Remarkable 🌟',
+            'Six dice, one purpose. Philosophy in action ⚖️'
         ],
         
         highScore: (score) => [
@@ -211,11 +211,11 @@ export const gameReactions = {
         ],
         
         finalRound: [
-            "Závěrečné kolo. Zde se ukáže pravý charakter.",
-            "Finální test moudrosti a odvahy.",
-            "Konec se blíží. Každý tah má větší váhu.",
-            "The culmination approaches. Wisdom guides us 🎯",
-            "Final chapter begins. May wisdom prevail 📚"
+            'Závěrečné kolo. Zde se ukáže pravý charakter.',
+            'Finální test moudrosti a odvahy.',
+            'Konec se blíží. Každý tah má větší váhu.',
+            'The culmination approaches. Wisdom guides us 🎯',
+            'Final chapter begins. May wisdom prevail 📚'
         ],
         
         playerTurnStart: (playerName) => [

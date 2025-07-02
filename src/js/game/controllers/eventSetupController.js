@@ -3,7 +3,7 @@
  * Manages all event listeners and DOM event bindings for the game
  */
 
-import { startGame, resetGame, saveScore, startNewGame, returnToMainMenu, endTurn } from './gameFlowController.js';
+import { startGame, saveScore, startNewGame, returnToMainMenu, endTurn } from './gameFlowController.js';
 import { rollDiceForPlayer, selectDie, bankSelectedDice } from './turnActionsController.js';
 import { displayHallOfFame } from '../../utils/hallOfFame.js';
 
@@ -15,7 +15,7 @@ let eventListenersSetup = false;
  */
 function quitGame() {
     console.log('🚪 Ukončuji hru...');
-    if (confirm('Opravdu chcete ukončit hru?')) {
+    if (window.confirm('Opravdu chcete ukončit hru?')) {
         returnToMainMenu();
     }
 }
@@ -114,7 +114,7 @@ export function setupEventListeners() {
                 }
                 
                 // Check if we came from game over (after saving score)
-                if (window.hallOfFameFromGameOver && gameOverModal && gameState.gameEnded) {
+                if (window.hallOfFameFromGameOver && gameOverModal && window.gameState && window.gameState.gameEnded) {
                     // Show game over modal again for other actions
                     gameOverModal.classList.remove('hidden');
                     gameOverModal.classList.add('visible');

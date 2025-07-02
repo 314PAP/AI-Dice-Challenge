@@ -155,20 +155,20 @@ export function validateDiceSelection(allDice, selectedDice) {
     const selectedScore = calculateScore(selectedDice);
     
     if (selectedScore === 0) {
-        return { valid: false, message: "Vybrané kostky nenesou žádné body!" };
+        return { valid: false, message: 'Vybrané kostky nenesou žádné body!' };
     }
     
     if (allScore === 0) {
-        return { valid: false, message: "FARKLE! Žádné bodující kostky!" };
+        return { valid: false, message: 'FARKLE! Žádné bodující kostky!' };
     }
     
     // Kontrola, zda jsou vybrané kostky validní kombinace
-    const scoringCombinations = getAllScoringCombinations(allDice);
+    getAllScoringCombinations(allDice);
     
     // Můžete odložit jen kompletní bodující kombinace
     // Například: pokud máte 1,1,1,2,3,4 - musíte odložit všechny tři jedničky najednou
     
-    return { valid: true, message: "Validní výběr" };
+    return { valid: true, message: 'Validní výběr' };
 }
 
 /**

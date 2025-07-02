@@ -24,18 +24,26 @@ const customRules = {
 
 // Exportujeme finální konfiguraci
 export default [
-  // Výchozí ESLint pravidla
-  js.configs.recommended,
-  
-  // Vlastní nastavení a přepisy pro projekt
+  // Ignore pravidla - MUSÍ být na prvním místě
   {
     ignores: [
       'node_modules/**',
       'dist/**',
       'build/**',
-      'archive/**',
-      '*.min.js',
-    ],
+      'archive/**/*',
+      '**/*.min.js',
+      'backend-example.js',
+      'emergency-fix.js',
+      'debug-functions.js',
+      'postcss.config.js'
+    ]
+  },
+  
+  // Výchozí ESLint pravidla
+  js.configs.recommended,
+  
+  // Vlastní nastavení a přepisy pro projekt
+  {
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',

@@ -4,8 +4,7 @@
  */
 
 import mitt from 'mitt';
-import { curry, pipe, tap } from 'ramda';
-import { memoize } from 'lodash-es';
+import { curry } from 'ramda';
 import { safeExecute } from './gameUtils.js';
 
 // Vytvoření instance mitt eventemitteru
@@ -45,7 +44,7 @@ export const GAME_EVENTS = {
 export const createEventHandler = curry((eventType, handler) => {
   return (...args) => {
     console.log(`🎮 Event triggered: ${eventType}`, ...args);
-    return safeExecute(handler, null, `Event handler for ${eventType}`)(...args);
+    return safeExecute(() => handler(...args), null, `Event handler for ${eventType}`);
   };
 });
 

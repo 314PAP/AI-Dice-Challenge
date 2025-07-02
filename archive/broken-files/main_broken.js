@@ -124,20 +124,6 @@ function setupEmergencyFallback() {
     
     console.log('✅ Emergency fallback setup complete');
 }
-            gameControls.classList.remove('hidden');
-            gameControls.style.display = 'block';
-        });
-    }
-    
-    // Základní quit game funkcionalita
-    const quitBtn = document.getElementById('quitGameBtn');
-    if (quitBtn) {
-        quitBtn.addEventListener('click', () => {
-            if (confirm('Opravdu chcete opustit hru?')) {
-                gameControls.style.display = 'none';
-                gameControls.classList.add('hidden');
-                targetScoreSetup.style.display = 'block';
-            }
         });
     }
     

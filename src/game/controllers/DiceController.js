@@ -16,7 +16,7 @@
  * @date 2025-07-01
  */
 
-import { CSS_CLASSES, GAME_CONSTANTS } from '../../core/constants.js';
+import { CSS_CLASSES } from '../../core/constants.js';
 
 export class DiceController {
     constructor(gameController) {

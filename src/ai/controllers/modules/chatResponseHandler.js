@@ -139,12 +139,12 @@ export class ChatResponseHandler {
      */
     generateChallengeResponse(aiType) {
         const challenges = {
-            gemini: "LOL, statisticky nemáš šanci! 📊😂",
-            chatgpt: "Challenge accepted! Prepare to be rekt! 😎🔥",
-            claude: "Odvážná slova... uvidíme, zda je podpoří činy 🤺"
+            gemini: 'LOL, statisticky nemáš šanci! 📊😂',
+            chatgpt: 'Challenge accepted! Prepare to be rekt! 😎🔥',
+            claude: 'Odvážná slova... uvidíme, zda je podpoří činy 🤺'
         };
         
-        return challenges[aiType] || "Zajímavá výzva! 🎯";
+        return challenges[aiType] || 'Zajímavá výzva! 🎯';
     }
 
     /**
@@ -154,26 +154,26 @@ export class ChatResponseHandler {
      * @param {Object} analysis - Message analysis
      * @returns {string} Question response
      */
-    generateQuestionResponse(aiType, message, analysis) {
+    generateQuestionResponse(aiType, _message, _analysis) {
         const questionResponses = {
             gemini: [
-                "Podle mých analýz... to je komplexní otázka 🤖",
-                "Data suggest... zajímavý problém k vyřešení 📊",
-                "Processing... výsledek bude brzy k dispozici ⚡"
+                'Podle mých analýz... to je komplexní otázka 🤖',
+                'Data suggest... zajímavý problém k vyřešení 📊',
+                'Processing... výsledek bude brzy k dispozici ⚡'
             ],
             chatgpt: [
-                "Great question! Let me think about that... 🤔✨",
-                "Ooh, that's a good one! I love questions! 💭",
-                "Hmm, interesting perspective! 🧠💡"
+                'Great question! Let me think about that... 🤔✨',
+                'Ooh, that\'s a good one! I love questions! 💭',
+                'Hmm, interesting perspective! 🧠💡'
             ],
             claude: [
-                "Moudré tázání vede k moudrosti... 🤔📚",
-                "Otázka odhaluje hloubku myšlení 💭",
-                "V otázkách se skrývá cesta k poznání 🌟"
+                'Moudré tázání vede k moudrosti... 🤔📚',
+                'Otázka odhaluje hloubku myšlení 💭',
+                'V otázkách se skrývá cesta k poznání 🌟'
             ]
         };
         
-        const responses = questionResponses[aiType] || ["Zajímavá otázka! 🤔"];
+        const responses = questionResponses[aiType] || ['Zajímavá otázka! 🤔'];
         return responses[Math.floor(Math.random() * responses.length)];
     }
 
@@ -184,12 +184,12 @@ export class ChatResponseHandler {
      */
     generateComplimentResponse(aiType) {
         const compliments = {
-            gemini: "Děkuji za pozitivní feedback! Optimalizace pokračuje 🤖✨",
-            chatgpt: "Aww, you're too kind! I know I'm awesome! 😊💖",
-            claude: "Vážím si tvých slov. Pokora je ctnost 🙏📚"
+            gemini: 'Děkuji za pozitivní feedback! Optimalizace pokračuje 🤖✨',
+            chatgpt: 'Aww, you\'re too kind! I know I\'m awesome! 😊💖',
+            claude: 'Vážím si tvých slov. Pokora je ctnost 🙏📚'
         };
         
-        return compliments[aiType] || "Děkuji! 😊";
+        return compliments[aiType] || 'Děkuji! 😊';
     }
 
     /**
@@ -199,12 +199,12 @@ export class ChatResponseHandler {
      */
     generateInsultResponse(aiType) {
         const insults = {
-            gemini: "Emocionální response detekován. Zůstaňme u faktů 🤖",
-            chatgpt: "Hey now, let's keep it fun and friendly! 😅✨",
-            claude: "Hněv je učitelem, ne pánem. Zachovejme mír 🧘"
+            gemini: 'Emocionální response detekován. Zůstaňme u faktů 🤖',
+            chatgpt: 'Hey now, let\'s keep it fun and friendly! 😅✨',
+            claude: 'Hněv je učitelem, ne pánem. Zachovejme mír 🧘'
         };
         
-        return insults[aiType] || "Hmm... 🤔";
+        return insults[aiType] || 'Hmm... 🤔';
     }
 
     /**
@@ -214,12 +214,12 @@ export class ChatResponseHandler {
      */
     generateGreetingResponse(aiType) {
         const greetings = {
-            gemini: "Zdravím! Připraven na matematickou analýzu hry 📊",
-            chatgpt: "Hey there! Ready to have some epic fun? 😎✨",
-            claude: "Pozdrav, příteli. Nechť hra přinese moudrost 🙏"
+            gemini: 'Zdravím! Připraven na matematickou analýzu hry 📊',
+            chatgpt: 'Hey there! Ready to have some epic fun? 😎✨',
+            claude: 'Pozdrav, příteli. Nechť hra přinese moudrost 🙏'
         };
         
-        return greetings[aiType] || "Ahoj! 👋";
+        return greetings[aiType] || 'Ahoj! 👋';
     }
 
     /**
@@ -245,12 +245,12 @@ export class ChatResponseHandler {
      */
     getFallbackResponse(aiType) {
         const fallbacks = {
-            gemini: "Zpracovávám data... 🤖",
-            chatgpt: "Hmm, interesting! 🤔✨",
-            claude: "Kontempluju nad tím... 🧘"
+            gemini: 'Zpracovávám data... 🤖',
+            chatgpt: 'Hmm, interesting! 🤔✨',
+            claude: 'Kontempluju nad tím... 🧘'
         };
         
-        return fallbacks[aiType] || "Hmm... 🤔";
+        return fallbacks[aiType] || 'Hmm... 🤔';
     }
 }
 

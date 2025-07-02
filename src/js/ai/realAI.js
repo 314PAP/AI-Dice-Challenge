@@ -37,11 +37,11 @@ export class RealAI {
      */
     getPersonalityPrompt(aiType) {
         const personalities = {
-            gemini: "Jsi Gemini AI - analytický, faktický, zaměřený na data a statistiky. Používáš vědecký přístup.",
-            chatgpt: "Jsi ChatGPT - kreativní, přátelský, používáš emojis a hry na slova. Jsi optimistický a vtipný.",
-            claude: "Jsi Claude AI - moudrý, uvážlivý, filosofický. Preferuješ strategické myšlení a dlouhodobé plánování."
+            gemini: 'Jsi Gemini AI - analytický, faktický, zaměřený na data a statistiky. Používáš vědecký přístup.',
+            chatgpt: 'Jsi ChatGPT - kreativní, přátelský, používáš emojis a hry na slova. Jsi optimistický a vtipný.',
+            claude: 'Jsi Claude AI - moudrý, uvážlivý, filosofický. Preferuješ strategické myšlení a dlouhodobé plánování.'
         };
-        return personalities[aiType] || "";
+        return personalities[aiType] || '';
     }
 
     /**
@@ -60,16 +60,16 @@ export class RealAI {
      */
     getSituationPrompt(situation, data) {
         const prompts = {
-            hello: "Přivítej se do kostičkové hry Farkle.",
+            hello: 'Přivítej se do kostičkové hry Farkle.',
             goodRoll: `Hodil jsem dobře: ${data.dice?.join(', ')}. Komentuj můj úspěch.`,
             badRoll: `Hodil jsem špatně: ${data.dice?.join(', ')}. Komentuj neúspěch.`,
             scoredPoints: `Získal jsem ${data.points} bodů. Komentuj můj tah.`,
-            farkle: "Dostal jsem farkle (žádné body). Komentuj to.",
+            farkle: 'Dostal jsem farkle (žádné body). Komentuj to.',
             playerTurn: `Hráč ${data.playerName} je na tahu. Komentuj to.`,
             gameWon: `${data.winner} vyhrál hru! Komentuj výsledek.`,
             strategy: `Mám ${data.dice?.length} kostek k hodu. Poraď strategii.`
         };
-        return prompts[situation] || "Komentuj aktuální herní situaci.";
+        return prompts[situation] || 'Komentuj aktuální herní situaci.';
     }
 
     /**
@@ -107,11 +107,11 @@ export class RealAI {
      */
     getFallbackResponse(aiType) {
         const fallbacks = {
-            gemini: "Analyzuji situaci...",
-            chatgpt: "Zajímavé! 🎲",
-            claude: "Zajímavý vývoj hry."
+            gemini: 'Analyzuji situaci...',
+            chatgpt: 'Zajímavé! 🎲',
+            claude: 'Zajímavý vývoj hry.'
         };
-        return fallbacks[aiType] || "...";
+        return fallbacks[aiType] || '...';
     }
 
     /**

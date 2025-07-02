@@ -130,7 +130,7 @@ export class TurnManager {
      */
     setupEventListeners() {
         // Poslouchej události z dice systému
-        this.events.on(GAME_EVENTS.FARKLE, (data) => {
+        this.events.on(GAME_EVENTS.FARKLE, (_data) => {
             console.log('💥 FARKLE detekováno!');
             this.endTurn(true);
         });

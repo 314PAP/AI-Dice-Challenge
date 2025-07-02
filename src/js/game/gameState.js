@@ -65,8 +65,8 @@ export function nextPlayer() {
     gameState.currentPlayer = (gameState.currentPlayer + 1) % 4; // 4 hráči celkem
     console.log(`🔄 NextPlayer: ${previousPlayer} → ${gameState.currentPlayer} (FinalRound: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator})`);
     
-    // Reset turn state
-    gameState.currentTurnScore = 0;
+    // Reset turn state (but NOT currentTurnScore - that's handled in endTurn)
+    // gameState.currentTurnScore = 0; // MOVED to endTurn() after points are added
     gameState.diceValues = [];
     gameState.selectedDice = [];
     // NOTE: bankedDiceThisTurn will be cleared in playerTurn() for proper visual timing

@@ -16,7 +16,7 @@
  * @date 2025-07-01
  */
 
-import { GAME_CONSTANTS, MESSAGES } from '../../core/constants.js';
+import { GAME_CONSTANTS } from '../../core/constants.js';
 
 export class ScoreController {
     constructor(gameController) {

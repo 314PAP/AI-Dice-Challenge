@@ -77,7 +77,7 @@ class GameUIController {
         const quitBtn = document.getElementById('quitGameBtn');
         if (quitBtn) {
             quitBtn.addEventListener('click', () => {
-                if (confirm('Opravdu chcete opustit hru?')) {
+                if (window.confirm('Opravdu chcete opustit hru?')) {
                     const setup = document.getElementById('targetScoreSetup');
                     const controls = document.getElementById('gameControls');
                     if (setup && controls) {
@@ -380,7 +380,7 @@ class GameUIController {
         });
         
         document.getElementById('quitGameBtn')?.addEventListener('click', () => {
-            if (confirm('Opravdu chcete opustit hru?')) {
+            if (window.confirm('Opravdu chcete opustit hru?')) {
                 document.getElementById('gameControls').style.display = 'none';
                 document.getElementById('targetScoreSetup').style.display = 'block';
                 this.addChatMessage('Systém', '🚪 Hra byla opuštěna');

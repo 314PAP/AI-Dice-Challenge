@@ -177,7 +177,7 @@ export class AIResponseHandler {
      * @param {Object} eventData - Event data
      * @returns {Array} Array of AI types that should react
      */
-    determineGameEventReactors(eventType, eventData) {
+    determineGameEventReactors(eventType, _eventData) {
         const allAIs = ['gemini', 'chatgpt', 'claude'];
         
         // High-impact events get more reactions

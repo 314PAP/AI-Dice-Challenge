@@ -69,7 +69,7 @@ export class EnhancedChatController {
         }
     }
     
-    generateAIResponse(userMessage) {
+    generateAIResponse(_userMessage) {
         const aiTypes = ['gemini', 'chatgpt', 'claude'];
         const randomAI = aiTypes[Math.floor(Math.random() * aiTypes.length)];
         

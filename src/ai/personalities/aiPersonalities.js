@@ -97,7 +97,7 @@ export function getPersonality(type) {
  */
 export function getAIPersonalities() {
     return Object.entries(aiPersonalities)
-        .filter(([key, personality]) => personality.type === 'ai')
+        .filter(([_key, personality]) => personality.type === 'ai')
         .map(([key, personality]) => ({ key, ...personality }));
 }
 

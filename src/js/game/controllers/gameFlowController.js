@@ -76,6 +76,16 @@ export function startGame() {
  * Spustí tah hráče
  */
 export function playerTurn() {
+    console.log('🎮 === PLAYER TURN START ===');
+    console.log(`🎮 Current player: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
+    console.log(`🎮 Turn score at start: ${gameState.currentTurnScore}`);
+    
+    // BEZPEČNOSTNÍ RESET - ujistíme se, že turn score je 0 na začátku tahu
+    if (gameState.currentTurnScore !== 0) {
+        console.warn(`⚠️ WARNING: currentTurnScore was ${gameState.currentTurnScore}, resetting to 0`);
+        gameState.currentTurnScore = 0;
+    }
+    
     updateActivePlayer();
     
     // Aktualizovat status hráčů
@@ -94,27 +104,26 @@ export function playerTurn() {
     gameState.diceValues = [];
     gameState.selectedDice = [];
     gameState.bankedDiceThisTurn = []; // Clear banked dice display at start of new turn
+    gameState.availableDice = 6;
+    gameState.mustBankDice = false;
+    
+    console.log(`🎮 Turn state reset complete. Available dice: ${gameState.availableDice}`);
 
+    console.log(`🔍 Current player check: ${gameState.currentPlayer} === 0? ${gameState.currentPlayer === 0}`);
+    
     if (gameState.currentPlayer === 0) {
         // Lidský hráč - clear any leftover UI state and show fresh turn
         console.log('🎮 Human player turn starting');
     } else {
-        // AI hráč
+        // AI hráč - but AI actions are handled in endTurn, not here
         const aiPlayer = getCurrentPlayer();
-        console.log(`🤖 AI player turn starting: ${aiPlayer.name}`);
-        
-        // AI reakce na začátek tahu
-        createAITimeout(() => {
-            const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'playerTurnStart');
-            if (reaction) window.addChatMessage(aiPlayer.type, reaction);
-        }, 500);
-        
-        // Spustí AI tah
-        createAITimeout(() => playAITurn(), 1500);
+        console.log(`🤖 AI player turn setup: ${aiPlayer.name}`);
+        console.log('🔍 AI Player object:', aiPlayer);
     }
     
     // Update the game display for all players
     updateGameDisplay();
+    console.log('🎮 === PLAYER TURN END ===');
 }
 
 /**
@@ -128,12 +137,21 @@ export function endTurn(scored = true) {
     }
     
     gameState.endTurnProcessing = true;
-    console.log(`🎯 EndTurn: Player ${gameState.currentPlayer}, Score: ${gameState.currentTurnScore}, FinalRound: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator}`);
+    console.log('🎯 === ENDTURN START ===');
+    console.log(`🎯 Player: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
+    console.log(`🎯 Scored: ${scored}`); 
+    console.log(`🎯 Current turn score: ${gameState.currentTurnScore}`);
+    console.log(`🎯 Player total BEFORE: ${gameState.players[gameState.currentPlayer]?.score}`);
+    console.log(`🎯 Final Round: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator}`);
     
     try {
         if (scored && gameState.currentTurnScore >= 300) { // FARKLE PRAVIDLO: 300 bodů minimum pro všechny
+            const previousScore = gameState.players[gameState.currentPlayer].score;
             gameState.players[gameState.currentPlayer].score += gameState.currentTurnScore;
-            window.addChatMessage('system', `${getCurrentPlayer().name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${gameState.players[gameState.currentPlayer].score}.`);
+            console.log(`💰 SCORE ADDED: ${gameState.currentTurnScore} to player ${gameState.currentPlayer}`);
+            console.log(`💰 Player total AFTER: ${gameState.players[gameState.currentPlayer].score} (was ${previousScore})`);
+            
+            window.addChatMessage('system', `${gameState.players[gameState.currentPlayer].name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${gameState.players[gameState.currentPlayer].score}.`);
             
             // AI reakce na skóre (pouze pokud je to lidský hráč)
             if (gameState.currentPlayer === 0) {
@@ -154,8 +172,8 @@ export function endTurn(scored = true) {
             if (gameState.players[gameState.currentPlayer].score >= gameState.targetScore && !gameState.finalRound) {
                 gameState.finalRound = true;
                 gameState.finalRoundInitiator = gameState.currentPlayer;
-                console.log(`🏆 FINÁLNÍ KOLO SPUŠTĚNO! Iniciátor: ${gameState.finalRoundInitiator} (${getCurrentPlayer().name})`);
-                window.addChatMessage('system', `🏆 ${getCurrentPlayer().name} dosáhl cílového skóre ${gameState.targetScore}! Ostatní hráči mají ještě jednu šanci!`);
+                console.log(`🏆 FINÁLNÍ KOLO SPUŠTĚNO! Iniciátor: ${gameState.finalRoundInitiator} (${gameState.players[gameState.currentPlayer].name})`);
+                window.addChatMessage('system', `🏆 ${gameState.players[gameState.currentPlayer].name} dosáhl cílového skóre ${gameState.targetScore}! Ostatní hráči mají ještě jednu šanci!`);
                 
                 // AI reakce na finální kolo
                 gameState.players.forEach(player => {
@@ -172,11 +190,20 @@ export function endTurn(scored = true) {
             // POZOR: Tato kontrola se NESMÍ dělat ve stejném tahu, kdy se finální kolo spustilo!
             // Musí se dělat AŽ po nextPlayer()
         } else if (scored) {
-            window.addChatMessage('system', `${getCurrentPlayer().name} nezískal minimálních 300 bodů. Tah končí s 0 body.`);
+            console.log(`❌ INSUFFICIENT SCORE: ${gameState.currentTurnScore} < 300`);
+            window.addChatMessage('system', `${gameState.players[gameState.currentPlayer].name} nezískal minimálních 300 bodů. Tah končí s 0 body.`);
+        } else {
+            console.log('💀 FARKLE: No score added');
         }
         
+        // Reset current turn score
+        console.log(`🔄 Resetting currentTurnScore from ${gameState.currentTurnScore} to 0`);
+        gameState.currentTurnScore = 0;
+        
         updateScoreboard();
+        console.log('🔄 Moving to next player...');
         _nextPlayer();
+        console.log(`🔄 Next player is: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
         
         // KONTROLA KONCE FINÁLNÍHO KOLA AŽ PO NEXTPLAYER()
         if (gameState.finalRound) {
@@ -199,8 +226,27 @@ export function endTurn(scored = true) {
         // Only automatically continue for AI players
         // For human players, wait for them to start their turn manually
         if (gameState.currentPlayer !== 0) {
+            console.log(`🤖 AI player turn starting for: ${gameState.players[gameState.currentPlayer].name}`);
+            // Start AI player turn immediately
             playerTurn();
+            
+            // Schedule AI actions after playerTurn sets up the turn
+            const aiPlayer = getCurrentPlayer();
+            console.log('🔍 Scheduling AI actions for:', aiPlayer.name);
+            
+            createAITimeout(() => {
+                console.log('🤖 AI reaction timeout fired');
+                const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'playerTurnStart');
+                if (reaction) window.addChatMessage(aiPlayer.type, reaction);
+            }, 500);
+            
+            createAITimeout(() => {
+                console.log('🤖 AI turn timeout fired, calling playAITurn...');
+                playAITurn();
+            }, 1500);
+            
         } else {
+            console.log('👤 Human player turn - waiting for manual action');
             // Update UI to show it's the human player's turn but don't auto-start
             updateActivePlayer();
             updateGameDisplay();
@@ -214,7 +260,12 @@ export function endTurn(scored = true) {
             // Clear banked dice display for new turn
             gameState.bankedDiceThisTurn = [];
             updateGameDisplay();
+            
+            // Start human player turn
+            playerTurn();
         }
+        
+        console.log('🎯 === ENDTURN END ===');
     } finally {
         // Vždy resetuje flag, i pokud se stane chyba
         gameState.endTurnProcessing = false;
