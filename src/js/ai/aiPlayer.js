@@ -8,7 +8,8 @@ import { isEmpty, random, sample, clamp, debounce } from 'lodash-es';
 import { gameState, getCurrentPlayer, nextPlayer } from '../game/gameState.js';
 import { rollDice, calculateScore, getAllScoringCombinations } from '../game/diceLogic.js';
 import { updateGameDisplay } from '../ui/gameUI.js';
-import { generateAIGameReaction, enhancedAI } from '../../ai/controllers/enhancedAIController.js';
+import { enhancedAI } from './enhancedAIController.js';
+import { generateAIGameReaction } from './aiController.js';
 import { endTurn } from '../game/gameController.js';
 import { safeExecute, debouncedChatMessage } from '../utils/gameUtils.js';
 

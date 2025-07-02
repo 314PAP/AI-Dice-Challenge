@@ -5,7 +5,7 @@
 
 import { pipe, when, unless, cond, always, T, curry, compose } from 'ramda';
 import { debounce, throttle, memoize, isEmpty, escape } from 'lodash-es';
-import { aiPersonalities } from '../ai/personalities.js';
+import { aiPersonalities } from '../ai/enhancedPersonalities.js';
 import { generateAIChatResponse } from '../ai/aiController.js';
 import { gameState } from '../game/gameState.js';
 import { safeGetElement, safeExecute } from '../utils/gameUtils.js';
@@ -187,9 +187,7 @@ const toggleChat = () => {
                 }
             )();
         }
-// 🔄 CHAT TOGGLE - Functional visibility management
-const toggleChat = () => {
-    const chatContainer = safeGetElement('chatContainer');
+    )(chatContainer);
     
     when(
         Boolean,

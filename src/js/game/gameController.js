@@ -3,7 +3,7 @@
  * Functional architecture coordinating all game modules with Ramda/Lodash
  */
 
-import { pipe, curry, memoize as ramdaMemoize } from 'ramda';
+import { pipe, curry } from 'ramda';
 import { memoize, once } from 'lodash-es';
 import { safeExecute } from '../utils/gameUtils.js';
 

@@ -16,7 +16,12 @@
     "preview": "vite preview",
     "serve": "vite preview --port 3000",
     "start": "python3 -m http.server 8000",
-    "lint": "echo 'ESLint není nakonfigurován' && exit 0",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "hooks:lenient": "./toggle-git-hooks.sh lenient",
+    "hooks:strict": "./toggle-git-hooks.sh strict",
+    "hooks:status": "./toggle-git-hooks.sh status",
+    "prepare": "husky install",
     "pnpm:dev": "pnpm run dev",
     "pnpm:build": "pnpm run build",
     "pnpm:preview": "pnpm run preview",
@@ -29,6 +34,8 @@
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.0.7",
     "eslint": "^9.30.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "postcss": "^8.5.6",
     "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",
@@ -56,5 +63,14 @@
     "prismjs": "^1.30.0",
     "ramda": "^0.31.3",
     "utility-types": "^3.11.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings=100",
+      "prettier --write --loglevel warn"
+    ],
+    "*.{css,scss}": [
+      "prettier --write --loglevel warn"
+    ]
   }
 }

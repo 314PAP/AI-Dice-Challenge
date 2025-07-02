@@ -3,7 +3,7 @@
  * Řídí reakce a odpovědi AI
  */
 
-import { aiPersonalities } from './personalities.js';
+import { aiPersonalities } from './enhancedPersonalities.js';
 
 /**
  * Získá náhodnou odpověď z pole odpovědí

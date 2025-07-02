@@ -3,7 +3,7 @@
  * Řídí zobrazení bublinek nad hlavami hráčů
  */
 
-import { aiPersonalities } from '../ai/personalities.js';
+import { aiPersonalities } from '../ai/enhancedPersonalities.js';
 
 /**
  * Zobrazí bublinu s textem nad hráčem

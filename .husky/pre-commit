@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Alternativní pre-commit hook s tolerancí k chybám
+echo "🔍 Kontrola kódu před commitem (tolerantní režim)..."
+
+# Spuštění lint-staged, ale ignorujeme chyby (exit 0 zajistí úspěšný výsledek)
+npx lint-staged || echo "⚠️ Lint sice našel některé problémy, ale commit pokračuje."
+
+# Vždy skončíme s úspěšným kódem, aby commit mohl pokračovat
+exit 0

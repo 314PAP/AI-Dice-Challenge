@@ -1,6 +1,7 @@
 /**
  * AI Dice Challenge - Main Application Entry Point
- * Hlavní vstupní bod aplikace - čistá modulární verze
+ * Hlavní vstupní bod aplikace - čistá modulární verze s rozšířeným error handlingem
+ * a spolehlivým načítáním DOM elementů
  */
 
 console.log('🎲 AI Kostková Výzva - Loading main.js...');
@@ -11,40 +12,76 @@ import { setupUI } from './js/ui/uiController.js';
 import { initializeGame } from './js/game/gameController.js';
 import { initializeChat } from './js/ui/enhancedChatController.js';
 import { setupOptimizedEvents } from './js/utils/optimizedEvents.js';
+import { initializeAllEventListeners } from './js/utils/eventInitializer.js';
+import { tryCatchWithLogging } from './js/utils/errorHandling.js';
+import { eventBus, GAME_EVENTS } from './js/utils/eventBus.js';
+import enhancedGameStarter from './js/game/enhancedGameStarter.js';
+import { whenDOMReady } from './js/utils/domReadyObserver.js';
 
 /**
- * Inicializace aplikace po načtení DOM
+ * Inicializace aplikace se spolehlivým načítáním DOM
+ * Využívá observer pro zajištění, že všechny potřebné elementy jsou dostupné
  */
-document.addEventListener('DOMContentLoaded', async () => {
-    console.log('✅ DOM loaded, initializing application...');
-    console.log('🔍 Checking elements...');
-    
-    // Test existence důležitých elementů
-    const startBtn = document.getElementById('startGameBtn');
-    const hallBtn = document.getElementById('hallOfFameBtn');
-    const chatInput = document.getElementById('chatInput');
-    
-    console.log('🔍 startGameBtn:', !!startBtn);
-    console.log('🔍 hallOfFameBtn:', !!hallBtn);
-    console.log('🔍 chatInput:', !!chatInput);
+console.log('🔄 Inicializace aplikace se spolehlivým načítáním...');
+
+// Použijeme whenDOMReady namísto standardního DOMContentLoaded event listeneru
+whenDOMReady(() => {
+    console.log('✅ DOM a všechny klíčové elementy jsou načteny, inicializuji aplikaci...');
     
     try {
-        console.log('🚀 Initializing UI and Game Controllers...');
+        // Používáme bezpečnou funkci pro inicializaci s error handlingem
+        const initializeApp = tryCatchWithLogging(() => {
+            console.log('🚀 Initializing UI and Game Controllers...');
+            
+            // Inicializuj UI
+            setupUI();
+            
+            // Inicializace event systému
+            setupOptimizedEvents();
+            
+            // Registrace globálního event listeneru pro debugging
+            eventBus.on(GAME_EVENTS.GAME_STARTED, data => {
+                console.log('🎮 Game started with settings:', data);
+            });
+            
+            // Inicializuj chat
+            const chatController = initializeChat();
+            
+            // Inicializuj game controller
+            initializeGame();
+            
+            // Zpřístupni chat globálně pro kompatibilitu
+            window.addChatMessage = chatController.addMessage.bind(chatController);
+            window.chatController = chatController;
+            
+            // Explicitně nastavíme všechny event listenery pomocí nového inicializátoru
+            console.log('🎮 Inicializuji všechny event listenery pomocí nového systému...');
+            initializeAllEventListeners();
+            
+            // Vylepšené listenery pro start hry
+            enhancedGameStarter.attachGameStartListeners();
+            
+            // Relogujeme úspěšnost event listenerů
+            setTimeout(() => {
+                console.log('🔍 Kontrola event listenerů po inicializaci:');
+                
+                ['startGameBtn', 'rollBtn', 'bankBtn', 'endTurnBtn', 'chatInput'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        console.log(`✅ Element ${id} je dostupný`);
+                    } else {
+                        console.error(`❌ Element ${id} není dostupný!`);
+                    }
+                });
+            }, 500);
+            
+            console.log('✅ AI Kostková Výzva ready!');
+            
+            return true;
+        }, false, 'Application Initialization');
         
-        // Inicializuj UI
-        setupUI();
-        setupOptimizedEvents(); // <-- Přidáno: inicializace event systému
-        
-        // Inicializuj chat
-        const chatController = initializeChat();
-        
-        // Inicializuj game controller
-        initializeGame();
-        
-        // Zpřístupni chat globálně
-        window.addChatMessage = chatController.addMessage.bind(chatController);
-        
-        console.log('✅ AI Kostková Výzva ready!');
+        // Spustíme inicializaci
+        initializeApp();
         console.log('🔍 Global objects:', {
             gameController: !!window.gameController,
             addChatMessage: !!window.addChatMessage
