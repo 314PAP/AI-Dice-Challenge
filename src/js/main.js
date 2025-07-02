@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.saveScore = saveGameScore;
     window.startNewGame = startNewGameController;
     window.returnToMainMenu = returnToMainMenuController;
+    window.endAITurn = endAITurn; // AI turn cleanup function
     
     // Initialize the application
     await gameCtrl.initialize();
