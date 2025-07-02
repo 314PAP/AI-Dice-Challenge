@@ -33,6 +33,15 @@
   box-shadow: 0 0 20px #ff0040 !important;
 }
 
+/* Speciální FARKLE overlay zpráva */
+.farkle-overlay-message {
+  font-family: 'Orbitron', monospace;
+  letter-spacing: 1px;
+  animation: farkle-message-pulse 1s infinite alternate;
+  border: 2px solid #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #f00;
+}
+
 @keyframes farkle-pulse {
   0% { box-shadow: 0 0 20px #ff0040; }
   100% { box-shadow: 0 0 30px #ff2060; }
@@ -41,4 +50,15 @@
 @keyframes farkle-avatar-pulse {
   0% { box-shadow: 0 0 15px #ff0040; }
   100% { box-shadow: 0 0 25px #ff2060; }
+}
+
+@keyframes farkle-message-pulse {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+  }
 }
