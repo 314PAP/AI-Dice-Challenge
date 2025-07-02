@@ -182,25 +182,3 @@ function sendChatMessage() {
     
     chatInput.value = '';
 }
-
-// Pomocná funkce pro další herní akce - přejmenováno na handleEndTurn kvůli konfliktu
-function handleEndTurn() {
-    try {
-        if (typeof window.endTurn === 'function') {
-            window.endTurn();
-        } else {
-            // Pokusíme se importovat a zavolat funkci endTurn
-            import('../game/controllers/gameFlowController.js')
-                .then(module => {
-                    if (typeof module.endTurn === 'function') {
-                        module.endTurn();
-                    } else if (typeof module.nextPlayer === 'function') {
-                        module.nextPlayer();
-                    }
-                })
-                .catch(err => console.error('❌ Chyba při importu endTurn:', err));
-        }
-    } catch (e) {
-        console.error('❌ Chyba při volání endTurn:', e);
-    }
-}

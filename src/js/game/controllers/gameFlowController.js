@@ -1,5 +1,9 @@
 /**
- import { gameState, resetGameState, nextPlayer as _nextPlayer, getCurrentPlayer } from '../gameState.js';
+ * Game Flow Controller
+ * Manages game lifecycle: initialization, start, end, and player turns
+ */
+
+import { gameState, resetGameState, nextPlayer as _nextPlayer, getCurrentPlayer } from '../gameState.js';
 import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
 import { enhancedAI, generateAIGameReaction } from '../../ai/enhancedAIController.js';
 import { playAITurn, clearAllAITimeouts, createAITimeout } from '../../ai/aiPlayer.js';
@@ -7,16 +11,7 @@ import { saveGameResult, createGameResult } from '../../utils/hallOfFame.js';
 import { resetEventListeners } from './eventSetupController.js';
 
 // Re-export potřebných funkcí pro použití v jiných modulech
-export { _nextPlayer as nextPlayer }; Flow Controller
- * Manages game lifecycle: initialization, start, end, and player turns
- */
-
-import { gameState, resetGameState, nextPlayer, getCurrentPlayer, checkForWinner } from '../gameState.js';
-import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
-import { enhancedAI } from '../../ai/enhancedAIController.js';
-import { playAITurn, clearAllAITimeouts, createAITimeout } from '../../ai/aiPlayer.js';
-import { saveGameResult, displayHallOfFame, createGameResult } from '../../utils/hallOfFame.js';
-import { resetEventListeners } from './eventSetupController.js';
+export { _nextPlayer as nextPlayer };
 
 /**
  * Inicializuje herní logiku
@@ -181,11 +176,11 @@ export function endTurn(scored = true) {
         }
         
         updateScoreboard();
-        nextPlayer();
+        _nextPlayer();
         
         // KONTROLA KONCE FINÁLNÍHO KOLA AŽ PO NEXTPLAYER()
         if (gameState.finalRound) {
-            console.log(`🔍 Kontrola konce finálního kola PO nextPlayer(): CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
+            console.log(`🔍 Kontrola konce finálního kola PO _nextPlayer(): CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
             // Všichni hráči včetně iniciátora finálního kola už hráli
             // Finální kolo končí po tom, co se vrátíme k iniciátorovi
             if (gameState.currentPlayer === gameState.finalRoundInitiator) {
