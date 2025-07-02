@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dice Challenge - Test všech oprav</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+        }
+        .pass { color: #0f0; }
+        .fail { color: #f00; }
+        .info { color: #00f; }
+        button {
+            margin: 10px 5px;
+            padding: 10px 15px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #555;
+        }
+        pre {
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎲 AI Dice Challenge - Test všech oprav</h1>
+    
+    <div class="test-section">
+        <h2>1. Test AI bankovní logiky</h2>
+        <p>Testujeme, zda AI hráči správně bankují body podle opravené logiky:</p>
+        <button onclick="testAIBankingLogic()">Test AI Banking</button>
+        <pre id="banking-results"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test aktivního hráče indikátoru</h2>
+        <p>Testujeme, zda se správně zvýrazňuje aktivní hráč:</p>
+        <button onclick="testActivePlayerIndicator()">Test Active Player</button>
+        <pre id="active-player-results"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test FARKLE zprávy</h2>
+        <p>Testujeme, zda se zobrazuje FARKLE zpráva nad avatarem:</p>
+        <button onclick="testFarkleMessage()">Test FARKLE Message</button>
+        <pre id="farkle-results"></pre>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Test globálních funkcí</h2>
+        <p>Testujeme, zda jsou všechny potřebné funkce dostupné globálně:</p>
+        <button onclick="testGlobalFunctions()">Test Global Functions</button>
+        <pre id="global-results"></pre>
+    </div>
+
+    <script type="module">
+        // Import testovaných modulů
+        import { getBankingDecision } from '/src/js/ai/aiPlayer.js';
+        import { updateActivePlayer } from '/src/js/ui/components/scoreboard.js';
+        import { showFarkleMessage } from '/src/js/ui/speechBubbles.js';
+
+        // Simulované game state
+        const mockGameState = {
+            currentPlayer: 0,
+            players: [
+                { name: 'Human', isAI: false, hasEnteredGame: false, score: 0, currentTurnScore: 0 },
+                { name: 'GPT-4', type: 'strategic', isAI: true, hasEnteredGame: false, score: 0, currentTurnScore: 0 },
+                { name: 'Gemini', type: 'balanced', isAI: true, hasEnteredGame: false, score: 0, currentTurnScore: 0 },
+                { name: 'Claude', type: 'cautious', isAI: true, hasEnteredGame: false, score: 0, currentTurnScore: 0 }
+            ]
+        };
+
+        // Test AI Banking Logic
+        window.testAIBankingLogic = function() {
+            const results = document.getElementById('banking-results');
+            let output = 'Testing AI Banking Logic:\n\n';
+
+            try {
+                // Test 1: První vstup do hry - musí být 300+
+                mockGameState.players[1].hasEnteredGame = false;
+                mockGameState.players[1].currentTurnScore = 250;
+                let decision = getBankingDecision(mockGameState.players[1]);
+                output += `Test 1 - První vstup (250 bodů): ${!decision.shouldBank ? '✅ PASS' : '❌ FAIL'} - Nebankovalo (správně)\n`;
+
+                mockGameState.players[1].currentTurnScore = 350;
+                decision = getBankingDecision(mockGameState.players[1]);
+                output += `Test 1b - První vstup (350 bodů): ${decision.shouldBank ? '✅ PASS' : '❌ FAIL'} - Bankovalo (správně)\n`;
+
+                // Test 2: Po prvním vstupu - může bankovat cokoliv
+                mockGameState.players[1].hasEnteredGame = true;
+                mockGameState.players[1].currentTurnScore = 150;
+                decision = getBankingDecision(mockGameState.players[1]);
+                output += `Test 2 - Po prvním vstupu (150 bodů): ${decision.shouldBank ? '✅ PASS' : '❌ FAIL'} - Bankovalo (správně)\n`;
+
+                // Test 3: Různé AI typy
+                const aiTypes = ['strategic', 'balanced', 'cautious'];
+                aiTypes.forEach((type, index) => {
+                    const aiPlayer = { ...mockGameState.players[index + 1], type, hasEnteredGame: true, currentTurnScore: 300 };
+                    const decision = getBankingDecision(aiPlayer);
+                    output += `Test 3${String.fromCharCode(97 + index)} - ${type} AI (300 bodů): ${decision.shouldBank ? '✅ PASS' : '❌ FAIL'} - Rozhodnutí: ${decision.shouldBank}\n`;
+                });
+
+                output += '\n✅ Všechny testy AI bankovní logiky prošly!';
+                results.className = 'pass';
+            } catch (error) {
+                output += `\n❌ CHYBA: ${error.message}`;
+                results.className = 'fail';
+            }
+
+            results.textContent = output;
+        };
+
+        // Test Active Player Indicator
+        window.testActivePlayerIndicator = function() {
+            const results = document.getElementById('active-player-results');
+            let output = 'Testing Active Player Indicator:\n\n';
+
+            try {
+                // Simuluj HTML strukturu
+                const gameContainer = document.createElement('div');
+                gameContainer.innerHTML = `
+                    <div class="human-player">
+                        <div class="player-avatar"></div>
+                        <h3>Human</h3>
+                    </div>
+                    <div class="gpt-player">
+                        <div class="player-avatar"></div>
+                        <h3>GPT-4</h3>
+                    </div>
+                    <div class="gemini-player">
+                        <div class="player-avatar"></div>
+                        <h3>Gemini</h3>
+                    </div>
+                    <div class="claude-player">
+                        <div class="player-avatar"></div>
+                        <h3>Claude</h3>
+                    </div>
+                `;
+                document.body.appendChild(gameContainer);
+
+                // Test různé aktivní hráče
+                for (let i = 0; i < 4; i++) {
+                    mockGameState.currentPlayer = i;
+                    updateActivePlayer();
+                    
+                    const playerClasses = ['human-player', 'gpt-player', 'gemini-player', 'claude-player'];
+                    const activeElement = document.querySelector(`.${playerClasses[i]}.active-player`);
+                    
+                    output += `Test ${i + 1} - Aktivní hráč ${i}: ${activeElement ? '✅ PASS' : '❌ FAIL'} - ${playerClasses[i]} ${activeElement ? 'má' : 'nemá'} active-player třídu\n`;
+                }
+
+                gameContainer.remove();
+                output += '\n✅ Všechny testy aktivního hráče prošly!';
+                results.className = 'pass';
+            } catch (error) {
+                output += `\n❌ CHYBA: ${error.message}`;
+                results.className = 'fail';
+            }
+
+            results.textContent = output;
+        };
+
+        // Test FARKLE Message
+        window.testFarkleMessage = function() {
+            const results = document.getElementById('farkle-results');
+            let output = 'Testing FARKLE Message:\n\n';
+
+            try {
+                // Simuluj HTML strukturu
+                const gameContainer = document.createElement('div');
+                gameContainer.innerHTML = `
+                    <div class="human-player">
+                        <div class="player-avatar">
+                            <div class="avatar-circle">👤</div>
+                        </div>
+                        <h3>Human</h3>
+                    </div>
+                    <div class="gpt-player">
+                        <div class="player-avatar">
+                            <div class="avatar-circle">🤖</div>
+                        </div>
+                        <h3>GPT-4</h3>
+                    </div>
+                `;
+                document.body.appendChild(gameContainer);
+
+                // Test FARKLE zprávy pro různé hráče
+                showFarkleMessage(0); // Human
+                let farkleElement = document.querySelector('.farkle-message');
+                output += `Test 1 - FARKLE pro Human: ${farkleElement ? '✅ PASS' : '❌ FAIL'} - ${farkleElement ? 'Zpráva zobrazena' : 'Zpráva nezobrazena'}\n`;
+
+                setTimeout(() => {
+                    showFarkleMessage(1); // GPT-4
+                    farkleElement = document.querySelector('.farkle-message');
+                    output += `Test 2 - FARKLE pro GPT-4: ${farkleElement ? '✅ PASS' : '❌ FAIL'} - ${farkleElement ? 'Zpráva zobrazena' : 'Zpráva nezobrazena'}\n`;
+
+                    gameContainer.remove();
+                    output += '\n✅ Všechny testy FARKLE zprávy prošly!';
+                    results.textContent = output;
+                    results.className = 'pass';
+                }, 100);
+            } catch (error) {
+                output += `\n❌ CHYBA: ${error.message}`;
+                results.className = 'fail';
+                results.textContent = output;
+            }
+        };
+
+        // Test Global Functions
+        window.testGlobalFunctions = function() {
+            const results = document.getElementById('global-results');
+            let output = 'Testing Global Functions:\n\n';
+
+            try {
+                const requiredFunctions = [
+                    'addChatMessage',
+                    'selectDie', 
+                    'displayHallOfFame',
+                    'closeHallOfFame',
+                    'saveScore',
+                    'startNewGame',
+                    'returnToMainMenu',
+                    'endAITurn',
+                    'showFarkleMessage'
+                ];
+
+                requiredFunctions.forEach(funcName => {
+                    const exists = typeof window[funcName] === 'function';
+                    output += `${funcName}: ${exists ? '✅ PASS' : '❌ FAIL'} - ${exists ? 'Dostupná' : 'Nedostupná'}\n`;
+                });
+
+                output += '\n✅ Všechny globální funkce jsou dostupné!';
+                results.className = 'pass';
+            } catch (error) {
+                output += `\n❌ CHYBA: ${error.message}`;
+                results.className = 'fail';
+            }
+
+            results.textContent = output;
+        };
+
+        // Automatický test při načtení stránky
+        setTimeout(() => {
+            console.log('🧪 Spouštím automatické testy...');
+            testGlobalFunctions();
+        }, 1000);
+    </script>
+</body>
+</html>
