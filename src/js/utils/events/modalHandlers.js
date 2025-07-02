@@ -30,15 +30,27 @@ export const showHallOfFame = pipe(
     () => displayHallOfFame()
 );
 
-export const hideHallOfFameWithContext = cond([
-    [() => window.hallOfFameFromGameOver && isGameEnded(), 
-     () => pipe(
-         () => hideHallOfFame(),
-         () => showModal('gameOverModal', 'return-from-hof'),
-         () => setHallOfFameFlag(false)
-     )()],
-    [T, () => hideHallOfFame()]
-]);
+// Opravená funkce bez použití pipe a cond, aby nedocházelo k chybám
+export const hideHallOfFameWithContext = () => {
+    // Skrýt Hall of Fame
+    hideHallOfFame();
+    
+    // Pokud jsme přišli z konce hry a hra je ukončená
+    if (window.hallOfFameFromGameOver && isGameEnded()) {
+        // Zobrazit znovu game over modal
+        setTimeout(() => {
+            const gameOverModal = document.getElementById('gameOverModal');
+            if (gameOverModal) {
+                gameOverModal.classList.remove('hidden');
+                gameOverModal.classList.add('visible');
+                emitter.emit(EVENTS.MODAL_SHOW, { modalId: 'gameOverModal', context: 'return-from-hof' });
+            }
+        }, 300);
+    }
+    
+    // Resetovat flag
+    window.hallOfFameFromGameOver = false;
+};
 
 // 🧹 UTILITY FUNCTIONS
 export const hideAllModals = () => {
