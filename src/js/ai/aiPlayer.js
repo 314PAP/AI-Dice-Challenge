@@ -224,7 +224,7 @@ const handleAIRollResult = cond([
     }]
 ]);
 
-// 🧠 AI DECISION MAKING - Functional approach with risk assessment
+// 🧠 AI DECISION MAKING - Enhanced with proper state management
 const makeAIDecision = (rollScore, aiPlayer) => {
     console.log('🧠 === AI DECISION START ===');
     console.log(`🤖 AI: ${aiPlayer.name} (type: ${aiPlayer.type})`);
@@ -232,19 +232,26 @@ const makeAIDecision = (rollScore, aiPlayer) => {
     console.log(`💰 Current turn total: ${getCurrentTurnScore()}`);
     console.log(`🎯 Available dice: ${gameState.availableDice}`);
     
-    const riskProfile = calculateRiskLevel();
+    // Validate this is still the correct AI turn
+    if (currentAIPlayer !== aiPlayer || !aiTurnInProgress) {
+        console.log('🚫 AI decision cancelled - player changed');
+        return;
+    }
     
+    const riskProfile = calculateRiskLevel();
     console.log('📊 Risk profile:', riskProfile);
     
     // Find best scoring combination
     const bestCombination = findBestScoringCombination(gameState.diceValues);
-    
     console.log('🎯 Best combination found:', bestCombination);
     
     if (!bestCombination || bestCombination.score <= 0) {
         console.warn(`❌ No valid scoring combination found for AI ${aiPlayer.name}`);
         console.log('🏁 AI ending turn due to no valid combination');
-        return createAITimeout(() => safeExecute(endTurn, null, 'AI No Combination End Turn'), 1000);
+        return createAITimeout(() => {
+            aiTurnInProgress = false;
+            safeExecute(endTurn, null, 'AI No Combination End Turn');
+        }, 1000);
     }
     
     console.log(`🏦 Banking combination: ${bestCombination.dice.join(', ')} for ${bestCombination.score} points`);
@@ -255,25 +262,38 @@ const makeAIDecision = (rollScore, aiPlayer) => {
     if (!bankingSuccess) {
         console.warn(`❌ Failed to bank combination for AI ${aiPlayer.name}`);
         console.log('🏁 AI ending turn due to banking failure');
-        return createAITimeout(() => safeExecute(endTurn, null, 'AI Banking Failure End Turn'), 1000);
+        return createAITimeout(() => {
+            aiTurnInProgress = false;
+            safeExecute(endTurn, null, 'AI Banking Failure End Turn');
+        }, 1000);
     }
     
     // Decide whether to continue or end turn
     const shouldContinue = pipe(
-        () => ({ currentTurn: gameState.currentTurnScore, riskProfile, availableDice: gameState.availableDice }),
+        () => ({ 
+            currentTurn: gameState.currentTurnScore, 
+            riskProfile, 
+            availableDice: gameState.availableDice,
+            playerType: aiPlayer.type
+        }),
         cond([
-            // Always continue with Hot Dice
+            // Always continue with Hot Dice (all dice scored)
             [({ availableDice }) => availableDice === 0, always(true)],
-            // Conservative AI
-            [({ currentTurn, riskProfile }) => 
-                riskProfile.personality === 'conservative' && gte(currentTurn, riskProfile.bankThreshold), 
+            // Conservative AI - bank early
+            [({ currentTurn, riskProfile, playerType }) => 
+                (playerType === 'claude' || riskProfile.personality === 'conservative') && 
+                gte(currentTurn, riskProfile.bankThreshold), 
                 always(false)],
-            // Aggressive AI
-            [({ currentTurn, riskProfile }) => 
-                riskProfile.personality === 'aggressive' && lt(currentTurn, riskProfile.riskThreshold), 
+            // Aggressive AI - take more risks
+            [({ currentTurn, riskProfile, playerType }) => 
+                (playerType === 'chatgpt' || riskProfile.personality === 'aggressive') && 
+                lt(currentTurn, riskProfile.riskThreshold), 
                 always(true)],
-            // Default moderate behavior
-            [T, ({ currentTurn }) => random(0, 1) > (currentTurn / 1000)]
+            // Default moderate behavior with some randomness
+            [T, ({ currentTurn }) => {
+                const riskFactor = Math.min(currentTurn / 1000, 0.8);
+                return random(0, 1) > riskFactor;
+            }]
         ])
     )();
     
@@ -282,7 +302,8 @@ const makeAIDecision = (rollScore, aiPlayer) => {
     
     if (shouldContinue && gameState.availableDice > 0) {
         console.log('🎲 AI decided to continue rolling');
-        createAITimeout(() => playAIRoll(), random(1200, 2000));
+        const rollDelay = random(1200, 2000);
+        createAITimeout(() => playAIRoll(), rollDelay);
     } else {
         console.log('🏁 AI decided to end turn');
         const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'endTurn', {
@@ -291,7 +312,12 @@ const makeAIDecision = (rollScore, aiPlayer) => {
         });
         
         if (reaction) debouncedChatMessage(aiPlayer.type, reaction);
-        createAITimeout(() => safeExecute(endTurn, null, 'AI Decision End Turn'), random(1500, 2500));
+        
+        const endDelay = random(1500, 2500);
+        createAITimeout(() => {
+            aiTurnInProgress = false;
+            safeExecute(endTurn, null, 'AI Decision End Turn');
+        }, endDelay);
     }
 };
 
