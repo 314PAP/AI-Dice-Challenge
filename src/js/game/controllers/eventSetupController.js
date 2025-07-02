@@ -87,12 +87,14 @@ export function setupEventListeners() {
             saveScoreBtn.addEventListener('click', saveScore);
         }
         
-        // Hall of Fame button
+        // Hall of Fame button (main page)
         const hallOfFameBtn = document.getElementById('hallOfFameBtn');
         if (hallOfFameBtn) {
             console.log('✅ Přidávám event listener pro Hall of Fame');
             hallOfFameBtn.addEventListener('click', () => {
                 console.log('🏆 Hall of Fame button clicked!');
+                // For main page, we don't have a game over modal to return to
+                // So we just show hall of fame and let user close it normally
                 displayHallOfFame();
             });
         }
@@ -102,8 +104,21 @@ export function setupEventListeners() {
         if (closeHallOfFameBtn) {
             console.log('✅ Přidávám event listener pro Close Hall of Fame');
             closeHallOfFameBtn.addEventListener('click', () => {
-                const modal = document.getElementById('hallOfFameModal');
-                if (modal) modal.classList.add('hidden');
+                const hallOfFameModal = document.getElementById('hallOfFameModal');
+                const gameOverModal = document.getElementById('gameOverModal');
+                
+                // Hide hall of fame modal
+                if (hallOfFameModal) {
+                    hallOfFameModal.classList.add('hidden');
+                    hallOfFameModal.classList.remove('visible');
+                }
+                
+                // Only show game over modal if game has ended (not from main page)
+                if (gameOverModal && gameState.gameEnded) {
+                    gameOverModal.classList.remove('hidden');
+                    gameOverModal.classList.add('visible');
+                }
+                // If opened from main page (game not ended), just close hall of fame
             });
         }
         
@@ -112,6 +127,14 @@ export function setupEventListeners() {
         if (showHallOfFameBtn) {
             console.log('✅ Přidávám event listener pro Show Hall of Fame');
             showHallOfFameBtn.addEventListener('click', () => {
+                // Hide game over modal
+                const gameOverModal = document.getElementById('gameOverModal');
+                if (gameOverModal) {
+                    gameOverModal.classList.add('hidden');
+                    gameOverModal.classList.remove('visible');
+                }
+                
+                // Show hall of fame modal
                 displayHallOfFame();
             });
         }

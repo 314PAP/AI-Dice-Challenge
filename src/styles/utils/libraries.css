@@ -1,18 +1,13 @@
-/* =============================================================================
-   🔧 UTILITY LIBRARIES - Import všech utility knihoven
-   ============================================================================= */
-
-/* RESET A NORMALIZACE */
 @import 'normalize.css/normalize.css';
 @import 'modern-css-reset/dist/reset.min.css';
-
-/* ANIMAČNÍ KNIHOVNY */
 @import 'animate.css/animate.min.css';
 @import 'hover.css/css/hover-min.css';
 @import 'aos/dist/aos.css';
-
-/* MAGIC CSS PRO SPECIÁLNÍ EFEKTY */
 @import 'magic.css/dist/magic.min.css';
+
+/* =============================================================================
+   🔧 UTILITY LIBRARIES - Import všech utility knihoven
+   ============================================================================= */
 
 /* UTILITY TŘÍDY PRO RYCHLÉ POUŽITÍ */
 

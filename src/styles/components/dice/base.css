@@ -28,3 +28,45 @@
   border-color: var(--neon-blue);
   color: var(--neon-blue);
 }
+
+/* =============================================================================
+   🎲 DICE CONTAINERS - Kontejnery pro kostky
+   ============================================================================= */
+
+/* Minimalistický kontejner pro všechny kostky v jedné řadě */
+.all-dice-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  min-height: 100px;
+}
+
+/* Responzivní úprava pro menší obrazovky */
+@media (max-width: 768px) {
+  .all-dice-container {
+    gap: 8px;
+    padding: 15px;
+  }
+  
+  .dice {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .all-dice-container {
+    gap: 6px;
+    padding: 10px;
+  }
+  
+  .dice {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+}

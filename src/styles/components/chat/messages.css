@@ -119,6 +119,6 @@
 .message-content {
   color: var(--text-primary);
   line-height: 1.4;
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: var(--font-size-sm);
 }

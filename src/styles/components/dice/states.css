@@ -22,6 +22,24 @@
     inset 0 0 15px rgba(255, 165, 0, 0.2);
 }
 
+.dice.banked {
+  border-color: var(--gray-text);
+  color: var(--gray-text);
+  background: rgba(128, 128, 128, 0.1);
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.dice.banked:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--gray-text);
+  color: var(--gray-text);
+}
+
 .dice.locked {
   opacity: 0.6;
   cursor: not-allowed;

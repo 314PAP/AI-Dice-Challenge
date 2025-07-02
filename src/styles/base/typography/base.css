@@ -3,7 +3,7 @@
    ============================================================================= */
 
 body {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'Ubuntu Mono', monospace;
   font-size: var(--font-base);
   line-height: 1.6;
   color: var(--text-primary);

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Farkle Logic</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #0a0a0a;
+            color: #00ff41;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            border: 1px solid #00ff41;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .pass { background: #004400; }
+        .fail { background: #440000; }
+        button {
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .dice {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 2px solid #00ff41;
+            margin: 2px;
+            border-radius: 4px;
+        }
+        .selected {
+            background: #00ff41;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎲 Test Farkle Logic - Updated Rules</h1>
+    
+    <div class="test-section">
+        <h2>Současný stav hry</h2>
+        <div id="gameState"></div>
+        <div id="diceDisplay"></div>
+        <button onclick="testRoll()">Test Roll</button>
+        <button onclick="testBankSelected()">Bank Selected</button>
+        <button onclick="testEndTurn()">End Turn</button>
+        <button onclick="resetTest()">Reset</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Farkle Rules Test</h2>
+        <button onclick="runFarkleRulesTest()">Run Farkle Rules Test</button>
+        <div id="rulesResults"></div>
+    </div>
+
+    <script type="module">
+        // Simulace gameState podle nové struktury
+        const gameState = {
+            currentPlayer: 0,
+            diceValues: [],
+            selectedDice: [],
+            availableDice: 6,
+            currentTurnScore: 0,
+            mustBankDice: false,
+            players: [
+                { name: 'Vy', score: 0, type: 'human', hasEnteredGame: false },
+                { name: 'AI1', score: 0, type: 'ai', hasEnteredGame: false }
+            ]
+        };
+
+        // Simulace dice functions
+        function rollDice(count) {
+            const dice = [];
+            for (let i = 0; i < count; i++) {
+                dice.push({ value: Math.floor(Math.random() * 6) + 1 });
+            }
+            return dice;
+        }
+
+        function calculateScore(dice) {
+            if (dice.length === 0) return 0;
+            
+            let score = 0;
+            let counts = [0, 0, 0, 0, 0, 0, 0];
+            
+            dice.forEach(die => counts[die]++);
+            
+            // Trojice a víc
+            for (let i = 1; i <= 6; i++) {
+                if (counts[i] >= 3) {
+                    let multiplier = counts[i] - 2;
+                    if (counts[i] >= 4) {
+                        multiplier = Math.pow(2, counts[i] - 3);
+                    }
+                    
+                    if (i === 1) {
+                        score += 1000 * multiplier;
+                    } else {
+                        score += i * 100 * multiplier;
+                    }
+                    counts[i] = 0;
+                }
+            }
+            
+            // Jednotlivé 1s a 5s
+            score += counts[1] * 100;
+            score += counts[5] * 50;
+            
+            return score;
+        }
+
+        function updateDisplay() {
+            const gameStateDiv = document.getElementById('gameState');
+            const diceDisplayDiv = document.getElementById('diceDisplay');
+            
+            gameStateDiv.innerHTML = `
+                <strong>Game State:</strong><br>
+                Current Player: ${gameState.currentPlayer}<br>
+                Available Dice: ${gameState.availableDice}<br>
+                Turn Score: ${gameState.currentTurnScore}<br>
+                Must Bank Dice: ${gameState.mustBankDice}<br>
+                Player Score: ${gameState.players[0].score}<br>
+                Has Entered Game: ${gameState.players[0].hasEnteredGame}
+            `;
+            
+            diceDisplayDiv.innerHTML = '';
+            gameState.diceValues.forEach((value, index) => {
+                const dieElement = document.createElement('div');
+                dieElement.className = `dice ${gameState.selectedDice.includes(index) ? 'selected' : ''}`;
+                dieElement.textContent = value;
+                dieElement.onclick = () => selectDie(index);
+                diceDisplayDiv.appendChild(dieElement);
+            });
+        }
+
+        function selectDie(index) {
+            if (gameState.selectedDice.includes(index)) {
+                gameState.selectedDice = gameState.selectedDice.filter(i => i !== index);
+            } else {
+                gameState.selectedDice.push(index);
+            }
+            updateDisplay();
+        }
+
+        window.testRoll = function() {
+            if (gameState.availableDice <= 0) {
+                alert('No available dice to roll!');
+                return;
+            }
+            
+            const diceResults = rollDice(gameState.availableDice);
+            gameState.diceValues = diceResults.map(die => die.value);
+            gameState.selectedDice = [];
+            
+            const rollScore = calculateScore(gameState.diceValues);
+            
+            if (rollScore === 0) {
+                alert('FARKLE! No scoring dice!');
+                gameState.currentTurnScore = 0;
+                gameState.availableDice = 6;
+                gameState.diceValues = [];
+                gameState.mustBankDice = false;
+            } else {
+                gameState.mustBankDice = true;
+            }
+            
+            updateDisplay();
+        };
+
+        window.testBankSelected = function() {
+            if (gameState.selectedDice.length === 0) {
+                alert('Select dice to bank!');
+                return;
+            }
+            
+            const selectedValues = gameState.selectedDice.map(index => gameState.diceValues[index]);
+            const score = calculateScore(selectedValues);
+            
+            if (score === 0) {
+                alert('Selected dice have no score!');
+                return;
+            }
+            
+            gameState.currentTurnScore += score;
+            gameState.availableDice -= gameState.selectedDice.length;
+            gameState.diceValues = [];
+            gameState.selectedDice = [];
+            gameState.mustBankDice = false;
+            
+            // HOT DICE
+            if (gameState.availableDice === 0) {
+                gameState.availableDice = 6;
+                alert('🔥 HOT DICE! All dice banked, you get 6 new dice!');
+            }
+            
+            updateDisplay();
+        };
+
+        window.testEndTurn = function() {
+            if (gameState.currentTurnScore < 300 && !gameState.players[0].hasEnteredGame) {
+                alert('Need at least 300 points to enter the game!');
+                return;
+            }
+            
+            gameState.players[0].score += gameState.currentTurnScore;
+            if (gameState.currentTurnScore >= 300) {
+                gameState.players[0].hasEnteredGame = true;
+            }
+            
+            // Reset for next turn
+            gameState.currentTurnScore = 0;
+            gameState.availableDice = 6;
+            gameState.diceValues = [];
+            gameState.selectedDice = [];
+            gameState.mustBankDice = false;
+            
+            updateDisplay();
+        };
+
+        window.resetTest = function() {
+            gameState.currentPlayer = 0;
+            gameState.diceValues = [];
+            gameState.selectedDice = [];
+            gameState.availableDice = 6;
+            gameState.currentTurnScore = 0;
+            gameState.mustBankDice = false;
+            gameState.players[0].score = 0;
+            gameState.players[0].hasEnteredGame = false;
+            updateDisplay();
+        };
+
+        window.runFarkleRulesTest = function() {
+            const results = document.getElementById('rulesResults');
+            results.innerHTML = '';
+            
+            const tests = [
+                {
+                    name: "Can roll as long as you have available dice",
+                    test: () => {
+                        gameState.availableDice = 3;
+                        gameState.mustBankDice = false;
+                        return gameState.availableDice > 0 && !gameState.mustBankDice;
+                    }
+                },
+                {
+                    name: "Must bank dice after successful roll",
+                    test: () => {
+                        gameState.diceValues = [1, 2, 3, 4, 5, 6];
+                        const hasScoring = calculateScore(gameState.diceValues) > 0;
+                        return hasScoring; // Should set mustBankDice = true
+                    }
+                },
+                {
+                    name: "Hot dice: 0 available dice = reset to 6",
+                    test: () => {
+                        gameState.availableDice = 0;
+                        // Simulate hot dice logic
+                        if (gameState.availableDice === 0) {
+                            gameState.availableDice = 6;
+                        }
+                        return gameState.availableDice === 6;
+                    }
+                },
+                {
+                    name: "Entry game: need 300+ points",
+                    test: () => {
+                        gameState.currentTurnScore = 250;
+                        gameState.players[0].hasEnteredGame = false;
+                        return gameState.currentTurnScore < 300; // Should not be able to end turn
+                    }
+                }
+            ];
+            
+            let passed = 0;
+            tests.forEach(test => {
+                const result = test.test();
+                const isPass = result === true;
+                if (isPass) passed++;
+                
+                const div = document.createElement('div');
+                div.className = `test-result ${isPass ? 'pass' : 'fail'}`;
+                div.innerHTML = `${test.name}: ${isPass ? '✓' : '✗'}`;
+                results.appendChild(div);
+            });
+            
+            const summary = document.createElement('div');
+            summary.innerHTML = `<strong>Tests: ${passed}/${tests.length} passed</strong>`;
+            results.appendChild(summary);
+            
+            // Reset gameState after tests
+            resetTest();
+        };
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>

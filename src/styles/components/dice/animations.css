@@ -33,12 +33,12 @@
   50% { transform: scale(1.2); }
 }
 
+/* IMPORT ANIMATE.CSS PRO POKROČILÉ ANIMACE */
+@import 'animate.css/animate.min.css';
+
 /* =============================================================================
    🎞️ DICE ANIMATIONS - Animace kostek s animate.css knihovnou
    ============================================================================= */
-
-/* IMPORT ANIMATE.CSS PRO POKROČILÉ ANIMACE */
-@import 'animate.css/animate.min.css';
 
 /* ANIMATE.CSS TŘÍDY PRO KOSTKY */
 .dice.animate__rubberBand {

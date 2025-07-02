@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Test - Opravy kostek a síně slávy</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="ui-panel">
+            <h1 class="neon-glow text-center">🧪 Test oprav</h1>
+            
+            <div class="ui-section">
+                <h3>Testování oprav:</h3>
+                
+                <div class="test-controls">
+                    <button id="testHallOfFame" class="btn btn-primary">🏆 Test síň slávy (main page)</button>
+                    <button id="testDiceDisplay" class="btn btn-warning">🎲 Test zobrazení kostek</button>
+                    <button id="simulateGameEnd" class="btn btn-danger">🏁 Simulovat konec hry</button>
+                </div>
+                
+                <div class="test-info">
+                    <h4>Co testujeme:</h4>
+                    <ul>
+                        <li>✅ <strong>Síň slávy z main page</strong> - nevrací do ukončené hry</li>
+                        <li>✅ <strong>Zobrazení kostek AI</strong> - max 6 kostek najednou</li>
+                        <li>✅ <strong>Hall of Fame error</strong> - `finalScores` undefined opraveno</li>
+                        <li>✅ <strong>Modal přepínání</strong> - správný kontext při zavírání</li>
+                    </ul>
+                </div>
+                
+                <div id="testResults" class="test-results">
+                    <h4>Výsledky testu:</h4>
+                    <div id="testLog"></div>
+                </div>
+            </div>
+            
+            <!-- Mock dice display for testing -->
+            <div class="dice-test-area">
+                <h4>Simulace zobrazení kostek:</h4>
+                <div id="diceContainer">
+                    <div class="all-dice-container">
+                        <div class="dice banked">1</div>
+                        <div class="dice banked">5</div>
+                        <div class="dice">2</div>
+                        <div class="dice">3</div>
+                        <div class="dice">4</div>
+                        <div class="dice">6</div>
+                    </div>
+                </div>
+                <p class="test-note">↑ Správně: 6 kostek celkem (2 banked + 4 active)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hall of Fame Modal -->
+    <div id="hallOfFameModal" class="modal-overlay hidden">
+        <div class="modal-container hall-of-fame-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🏆 Síň slávy (Test)</h2>
+            </div>
+            <div class="modal-body">
+                <div id="hallOfFameContent">
+                    <div id="hallOfFameList">
+                        <div style="text-align: center; padding: 40px; color: var(--neon-green);">
+                            <h3>🏆 Test síň slávy</h3>
+                            <p>Síň slávy je prázdná nebo obsahuje testovací data...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="closeHallOfFameBtn" class="btn btn-secondary">✖️ Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOverModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">🎮 Test - Konec hry</h2>
+            </div>
+            <div class="modal-body">
+                <div id="winnerAnnouncement" class="winner-announcement">🎉 Test konec hry</div>
+                <div id="finalScores" class="final-scores">Test skóre...</div>
+                <div id="gameStats" class="game-stats">Test statistiky...</div>
+                
+                <div class="modal-actions">
+                    <button id="showHallOfFameBtn" class="btn btn-primary">🏆 Zobrazit síň slávy</button>
+                    <button id="startNewGameBtn" class="btn btn-secondary">🔄 Nová hra</button>
+                    <button id="returnToMenuBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import pro testování
+        import { displayHallOfFame } from './src/js/utils/hallOfFame.js';
+        import { gameState } from './src/js/game/gameState.js';
+        
+        let testLog = document.getElementById('testLog');
+        
+        function log(message) {
+            console.log(message);
+            testLog.innerHTML += `<div class="test-log-item">${message}</div>`;
+        }
+
+        // Test controls
+        document.getElementById('testHallOfFame').addEventListener('click', () => {
+            log('🧪 Testování síně slávy z main page...');
+            gameState.gameEnded = false; // Simulace main page (hra není ukončená)
+            displayHallOfFame();
+            log('✅ Síň slávy otevřena z main page');
+        });
+
+        document.getElementById('testDiceDisplay').addEventListener('click', () => {
+            log('🧪 Testování zobrazení kostek...');
+            const diceContainer = document.getElementById('diceContainer');
+            const dice = diceContainer.querySelectorAll('.dice');
+            log(`📊 Počet zobrazených kostek: ${dice.length}`);
+            if (dice.length <= 6) {
+                log('✅ Počet kostek je správný (≤ 6)');
+            } else {
+                log('❌ Příliš mnoho kostek zobrazeno!');
+            }
+        });
+
+        document.getElementById('simulateGameEnd').addEventListener('click', () => {
+            log('🧪 Simulování konce hry...');
+            gameState.gameEnded = true;
+            const gameOverModal = document.getElementById('gameOverModal');
+            gameOverModal.classList.remove('hidden');
+            gameOverModal.classList.add('visible');
+            log('✅ Game over modal zobrazen');
+        });
+
+        // Modal event listeners
+        document.getElementById('closeHallOfFameBtn').addEventListener('click', () => {
+            const hallOfFameModal = document.getElementById('hallOfFameModal');
+            const gameOverModal = document.getElementById('gameOverModal');
+            
+            hallOfFameModal.classList.add('hidden');
+            hallOfFameModal.classList.remove('visible');
+            
+            if (gameState.gameEnded) {
+                gameOverModal.classList.remove('hidden');
+                gameOverModal.classList.add('visible');
+                log('✅ Vráceno na game over modal (hra ukončená)');
+            } else {
+                log('✅ Síň slávy zavřena, návrat na main page');
+            }
+        });
+
+        document.getElementById('showHallOfFameBtn').addEventListener('click', () => {
+            log('🧪 Test síně slávy z game over modal...');
+            const gameOverModal = document.getElementById('gameOverModal');
+            gameOverModal.classList.add('hidden');
+            gameOverModal.classList.remove('visible');
+            displayHallOfFame();
+            log('✅ Přepnuto z game over na síň slávy');
+        });
+
+        // Close modals
+        ['startNewGameBtn', 'returnToMenuBtn'].forEach(id => {
+            document.getElementById(id).addEventListener('click', () => {
+                const gameOverModal = document.getElementById('gameOverModal');
+                gameOverModal.classList.add('hidden');
+                gameOverModal.classList.remove('visible');
+                log(`✅ ${id} clicked - game over modal zavřen`);
+            });
+        });
+
+        log('🎮 Test page připraven!');
+    </script>
+
+    <style>
+        .test-controls {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .test-info, .test-results {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--neon-blue);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .test-info ul {
+            color: var(--neon-green);
+            margin: 10px 0;
+        }
+        
+        .test-info li {
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+        
+        .dice-test-area {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--neon-orange);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .test-note {
+            color: var(--neon-orange);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .test-log-item {
+            color: var(--neon-green);
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 2px solid var(--neon-blue);
+            padding-left: 10px;
+        }
+    </style>
+</body>
+</html>

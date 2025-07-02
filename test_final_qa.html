@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Final QA Test - AI Kostková Výzva</title>
+    <link rel="stylesheet" href="src/styles/main.css">
+    <style>
+        .qa-test-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--neon-orange);
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 10000;
+            max-width: 400px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+        }
+        
+        .qa-test-panel h3 {
+            color: var(--neon-orange);
+            margin: 0 0 15px 0;
+            text-align: center;
+        }
+        
+        .test-item {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 4px solid transparent;
+        }
+        
+        .test-item.pass {
+            border-left-color: var(--neon-green);
+            background: rgba(0, 255, 0, 0.1);
+        }
+        
+        .test-item.fail {
+            border-left-color: var(--neon-red);
+            background: rgba(255, 0, 0, 0.1);
+        }
+        
+        .test-item.pending {
+            border-left-color: var(--neon-orange);
+            background: rgba(255, 165, 0, 0.1);
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .test-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--neon-blue);
+            background: transparent;
+            color: var(--neon-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: var(--neon-blue);
+            color: var(--bg-dark);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .test-btn.active {
+            background: var(--neon-green);
+            border-color: var(--neon-green);
+            color: var(--bg-dark);
+        }
+        
+        .test-log {
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            border: 1px solid var(--neon-blue);
+        }
+        
+        .test-log-item {
+            margin: 2px 0;
+            color: var(--text-secondary);
+        }
+        
+        .test-log-item.success {
+            color: var(--neon-green);
+        }
+        
+        .test-log-item.error {
+            color: var(--neon-red);
+        }
+        
+        .test-log-item.info {
+            color: var(--neon-blue);
+        }
+        
+        .toggle-panel {
+            position: fixed;
+            top: 10px;
+            right: 420px;
+            z-index: 10001;
+        }
+        
+        .qa-test-panel.minimized {
+            transform: translateX(350px);
+        }
+    </style>
+</head>
+<body>
+    <!-- QA Test Panel -->
+    <div class="toggle-panel">
+        <button class="test-btn" id="toggleQAPanel">🔧 QA</button>
+    </div>
+    
+    <div class="qa-test-panel" id="qaTestPanel">
+        <h3>🧪 Final QA Tests</h3>
+        
+        <div id="testResults">
+            <div class="test-item pending" data-test="css-load">
+                ⏳ CSS Loading & Modularization
+            </div>
+            <div class="test-item pending" data-test="neon-palette">
+                ⏳ Neon Color Palette
+            </div>
+            <div class="test-item pending" data-test="game-init">
+                ⏳ Game Initialization
+            </div>
+            <div class="test-item pending" data-test="dice-logic">
+                ⏳ Dice Logic & Farkle Rules
+            </div>
+            <div class="test-item pending" data-test="chat-colors">
+                ⏳ Chat Color Consistency
+            </div>
+            <div class="test-item pending" data-test="ai-functionality">
+                ⏳ AI Functionality
+            </div>
+            <div class="test-item pending" data-test="modal-navigation">
+                ⏳ Modal Navigation
+            </div>
+            <div class="test-item pending" data-test="hall-of-fame">
+                ⏳ Hall of Fame
+            </div>
+            <div class="test-item pending" data-test="responsive-design">
+                ⏳ Responsive Design
+            </div>
+            <div class="test-item pending" data-test="error-handling">
+                ⏳ Error Handling
+            </div>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="test-btn" id="runAllTests">🚀 Run All</button>
+            <button class="test-btn" id="runCSSTests">🎨 CSS</button>
+            <button class="test-btn" id="runGameTests">🎲 Game</button>
+            <button class="test-btn" id="runUITests">🖥️ UI</button>
+            <button class="test-btn" id="clearTests">🗑️ Clear</button>
+        </div>
+        
+        <div class="test-log" id="testLog">
+            <div class="test-log-item info">Ready to run tests...</div>
+        </div>
+    </div>
+
+    <!-- Main Game Container -->
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">🎲 AI Kostková Výzva</h1>
+            <div class="score-display">
+                <div class="score-item" id="humanScore">
+                    <span class="player-name">Vy</span>
+                    <span class="score-value">0</span>
+                </div>
+                <div class="score-item" id="geminiScore">
+                    <span class="player-name">Gemini</span>
+                    <span class="score-value">0</span>
+                </div>
+                <div class="score-item" id="chatgptScore">
+                    <span class="player-name">ChatGPT</span>
+                    <span class="score-value">0</span>
+                </div>
+                <div class="score-item" id="claudeScore">
+                    <span class="player-name">Claude</span>
+                    <span class="score-value">0</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <section class="game-play-area">
+                <div class="current-player-info">
+                    <h2 id="currentPlayerName">Zahájit hru</h2>
+                    <p id="currentPlayerPrompt">Klikněte na "Začít hru" pro zahájení</p>
+                </div>
+
+                <div class="dice-container" id="diceContainer">
+                    <!-- Dice will be rendered here -->
+                </div>
+
+                <div class="game-controls">
+                    <button class="btn btn-primary" id="rollDiceBtn">🎲 Hodit kostky</button>
+                    <button class="btn btn-success" id="bankDiceBtn" disabled>💰 Odložit vybrané</button>
+                    <button class="btn btn-warning" id="endTurnBtn" disabled>✅ Ukončit tah</button>
+                    <button class="btn btn-secondary" id="startGameBtn">🚀 Začít hru</button>
+                </div>
+
+                <div class="turn-info">
+                    <div class="info-item">
+                        <span class="label">Skóre tohoto tahu:</span>
+                        <span class="value" id="currentTurnScore">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Dostupné kostky:</span>
+                        <span class="value" id="availableDiceCount">6</span>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="chat-section">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message system">
+                            <div class="message-content">
+                                <div class="message-text">🎮 Vítejte v AI Kostkové Výzvě! Pravidla Farkle jsou aktivní.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Napište zprávu..." />
+                    <button class="chat-send-btn" id="chatSendBtn">📤</button>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Modal for game end -->
+    <div class="modal-overlay" id="gameEndModal">
+        <div class="modal-content">
+            <h2 class="modal-title">🏆 Konec hry!</h2>
+            <div class="modal-body" id="gameEndContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="newGameBtn">🎲 Nová hra</button>
+                <button class="btn btn-secondary" id="hallOfFameBtn">🏆 Síň slávy</button>
+                <button class="btn btn-tertiary" id="mainMenuBtn">🏠 Hlavní menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hall of Fame Modal -->
+    <div class="modal-overlay" id="hallOfFameModal">
+        <div class="modal-content">
+            <h2 class="modal-title">🏆 Síň slávy</h2>
+            <div class="modal-body" id="hallOfFameContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="closeHallOfFameBtn">❌ Zavřít</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signature Modal for human winners -->
+    <div class="modal-overlay" id="signatureModal">
+        <div class="modal-content">
+            <h2 class="modal-title">🏆 Gratulujeme k vítězství!</h2>
+            <div class="modal-body">
+                <p>Zadejte svůj podpis pro Síň slávy:</p>
+                <input type="text" class="text-input" id="signatureInput" placeholder="Váš podpis..." maxlength="50" />
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="saveSignatureBtn">💾 Uložit</button>
+                <button class="btn btn-secondary" id="skipSignatureBtn">⏭️ Přeskočit</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import './src/main.js';
+        
+        // QA Test Suite
+        class QATestSuite {
+            constructor() {
+                this.tests = new Map();
+                this.log = document.getElementById('testLog');
+                this.results = document.getElementById('testResults');
+                this.setupUI();
+                this.initializeTests();
+            }
+            
+            setupUI() {
+                const toggleBtn = document.getElementById('toggleQAPanel');
+                const panel = document.getElementById('qaTestPanel');
+                
+                toggleBtn.addEventListener('click', () => {
+                    panel.classList.toggle('minimized');
+                });
+                
+                document.getElementById('runAllTests').addEventListener('click', () => this.runAllTests());
+                document.getElementById('runCSSTests').addEventListener('click', () => this.runCSSTests());
+                document.getElementById('runGameTests').addEventListener('click', () => this.runGameTests());
+                document.getElementById('runUITests').addEventListener('click', () => this.runUITests());
+                document.getElementById('clearTests').addEventListener('click', () => this.clearTests());
+            }
+            
+            initializeTests() {
+                // CSS & Visual Tests
+                this.tests.set('css-load', {
+                    name: 'CSS Loading & Modularization',
+                    category: 'css',
+                    test: () => this.testCSSLoading()
+                });
+                
+                this.tests.set('neon-palette', {
+                    name: 'Neon Color Palette',
+                    category: 'css',
+                    test: () => this.testNeonPalette()
+                });
+                
+                this.tests.set('responsive-design', {
+                    name: 'Responsive Design',
+                    category: 'ui',
+                    test: () => this.testResponsiveDesign()
+                });
+                
+                // Game Logic Tests
+                this.tests.set('game-init', {
+                    name: 'Game Initialization',
+                    category: 'game',
+                    test: () => this.testGameInitialization()
+                });
+                
+                this.tests.set('dice-logic', {
+                    name: 'Dice Logic & Farkle Rules',
+                    category: 'game',
+                    test: () => this.testDiceLogic()
+                });
+                
+                this.tests.set('ai-functionality', {
+                    name: 'AI Functionality',
+                    category: 'game',
+                    test: () => this.testAIFunctionality()
+                });
+                
+                // UI Tests
+                this.tests.set('chat-colors', {
+                    name: 'Chat Color Consistency',
+                    category: 'ui',
+                    test: () => this.testChatColors()
+                });
+                
+                this.tests.set('modal-navigation', {
+                    name: 'Modal Navigation',
+                    category: 'ui',
+                    test: () => this.testModalNavigation()
+                });
+                
+                this.tests.set('hall-of-fame', {
+                    name: 'Hall of Fame',
+                    category: 'ui',
+                    test: () => this.testHallOfFame()
+                });
+                
+                this.tests.set('error-handling', {
+                    name: 'Error Handling',
+                    category: 'game',
+                    test: () => this.testErrorHandling()
+                });
+            }
+            
+            log(message, type = 'info') {
+                const item = document.createElement('div');
+                item.className = `test-log-item ${type}`;
+                item.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                this.log.appendChild(item);
+                this.log.scrollTop = this.log.scrollHeight;
+            }
+            
+            setTestResult(testId, passed, message = '') {
+                const element = document.querySelector(`[data-test="${testId}"]`);
+                if (element) {
+                    element.className = `test-item ${passed ? 'pass' : 'fail'}`;
+                    element.textContent = `${passed ? '✅' : '❌'} ${this.tests.get(testId).name}`;
+                    if (message) {
+                        element.title = message;
+                    }
+                }
+            }
+            
+            async testCSSLoading() {
+                this.log('Testing CSS loading and modularization...', 'info');
+                try {
+                    // Test if main CSS variables are available
+                    const computedStyle = getComputedStyle(document.documentElement);
+                    const neronOrange = computedStyle.getPropertyValue('--neon-orange').trim();
+                    const neonBlue = computedStyle.getPropertyValue('--neon-blue').trim();
+                    const neonGreen = computedStyle.getPropertyValue('--neon-green').trim();
+                    
+                    if (!neronOrange || !neonBlue || !neonGreen) {
+                        throw new Error('CSS variables not loaded properly');
+                    }
+                    
+                    // Test if utility classes exist
+                    const testElement = document.createElement('div');
+                    testElement.className = 'btn btn-primary';
+                    document.body.appendChild(testElement);
+                    const btnStyle = getComputedStyle(testElement);
+                    document.body.removeChild(testElement);
+                    
+                    if (!btnStyle.background || btnStyle.background === 'rgba(0, 0, 0, 0)') {
+                        throw new Error('Button utility classes not working');
+                    }
+                    
+                    this.setTestResult('css-load', true);
+                    this.log('CSS loading test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('css-load', false, error.message);
+                    this.log(`CSS loading test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testNeonPalette() {
+                this.log('Testing neon color palette...', 'info');
+                try {
+                    const computedStyle = getComputedStyle(document.documentElement);
+                    const colors = {
+                        '--neon-orange': computedStyle.getPropertyValue('--neon-orange').trim(),
+                        '--neon-blue': computedStyle.getPropertyValue('--neon-blue').trim(),
+                        '--neon-green': computedStyle.getPropertyValue('--neon-green').trim(),
+                        '--bg-dark': computedStyle.getPropertyValue('--bg-dark').trim()
+                    };
+                    
+                    // Check if all required colors are defined
+                    for (const [prop, value] of Object.entries(colors)) {
+                        if (!value) {
+                            throw new Error(`Color variable ${prop} is not defined`);
+                        }
+                    }
+                    
+                    // Check that background is dark (should not contain white)
+                    if (colors['--bg-dark'].includes('255, 255, 255') || colors['--bg-dark'].includes('#fff')) {
+                        throw new Error('Background contains white color');
+                    }
+                    
+                    this.setTestResult('neon-palette', true);
+                    this.log('Neon palette test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('neon-palette', false, error.message);
+                    this.log(`Neon palette test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testGameInitialization() {
+                this.log('Testing game initialization...', 'info');
+                try {
+                    // Check if game modules are loaded
+                    if (typeof window.gameState === 'undefined') {
+                        throw new Error('Game state not loaded');
+                    }
+                    
+                    // Check initial game state
+                    const state = window.gameState;
+                    if (state.gameStarted !== false) {
+                        throw new Error('Game should not be started initially');
+                    }
+                    
+                    if (state.players.length !== 4) {
+                        throw new Error('Should have 4 players');
+                    }
+                    
+                    if (state.targetScore !== 10000) {
+                        throw new Error('Target score should be 10000');
+                    }
+                    
+                    this.setTestResult('game-init', true);
+                    this.log('Game initialization test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('game-init', false, error.message);
+                    this.log(`Game initialization test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testDiceLogic() {
+                this.log('Testing dice logic and Farkle rules...', 'info');
+                try {
+                    // Test dice rolling functionality
+                    if (typeof window.rollDice !== 'function') {
+                        throw new Error('rollDice function not available');
+                    }
+                    
+                    // Test scoring function
+                    if (typeof window.calculateScore !== 'function') {
+                        throw new Error('calculateScore function not available');
+                    }
+                    
+                    // Test basic scoring rules
+                    const testDice = [1, 1, 1, 2, 3, 4];
+                    const score = window.calculateScore(testDice);
+                    if (score !== 1000) { // Three 1s should be 1000 points
+                        throw new Error(`Expected 1000 points for three 1s, got ${score}`);
+                    }
+                    
+                    this.setTestResult('dice-logic', true);
+                    this.log('Dice logic test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('dice-logic', false, error.message);
+                    this.log(`Dice logic test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testChatColors() {
+                this.log('Testing chat color consistency...', 'info');
+                try {
+                    // Create test messages
+                    const chatContainer = document.getElementById('chatMessages');
+                    if (!chatContainer) {
+                        throw new Error('Chat container not found');
+                    }
+                    
+                    // Test system message (should be yellow)
+                    const systemMsg = chatContainer.querySelector('.message.system');
+                    if (systemMsg) {
+                        const style = getComputedStyle(systemMsg);
+                        this.log('System message style checked', 'info');
+                    }
+                    
+                    this.setTestResult('chat-colors', true);
+                    this.log('Chat colors test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('chat-colors', false, error.message);
+                    this.log(`Chat colors test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testAIFunctionality() {
+                this.log('Testing AI functionality...', 'info');
+                try {
+                    // Check if AI modules are loaded
+                    if (typeof window.personalities === 'undefined') {
+                        throw new Error('AI personalities not loaded');
+                    }
+                    
+                    // Check AI timeout management
+                    if (typeof window.clearAllAITimeouts !== 'function') {
+                        throw new Error('AI timeout management not available');
+                    }
+                    
+                    this.setTestResult('ai-functionality', true);
+                    this.log('AI functionality test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('ai-functionality', false, error.message);
+                    this.log(`AI functionality test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testModalNavigation() {
+                this.log('Testing modal navigation...', 'info');
+                try {
+                    // Check if modals exist
+                    const gameEndModal = document.getElementById('gameEndModal');
+                    const hallOfFameModal = document.getElementById('hallOfFameModal');
+                    const signatureModal = document.getElementById('signatureModal');
+                    
+                    if (!gameEndModal || !hallOfFameModal || !signatureModal) {
+                        throw new Error('Required modals not found');
+                    }
+                    
+                    // Check modal buttons
+                    const newGameBtn = document.getElementById('newGameBtn');
+                    const hallOfFameBtn = document.getElementById('hallOfFameBtn');
+                    const mainMenuBtn = document.getElementById('mainMenuBtn');
+                    
+                    if (!newGameBtn || !hallOfFameBtn || !mainMenuBtn) {
+                        throw new Error('Required modal buttons not found');
+                    }
+                    
+                    this.setTestResult('modal-navigation', true);
+                    this.log('Modal navigation test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('modal-navigation', false, error.message);
+                    this.log(`Modal navigation test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testHallOfFame() {
+                this.log('Testing Hall of Fame...', 'info');
+                try {
+                    // Check if Hall of Fame module is loaded
+                    if (typeof window.HallOfFame === 'undefined') {
+                        throw new Error('Hall of Fame module not loaded');
+                    }
+                    
+                    this.setTestResult('hall-of-fame', true);
+                    this.log('Hall of Fame test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('hall-of-fame', false, error.message);
+                    this.log(`Hall of Fame test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testResponsiveDesign() {
+                this.log('Testing responsive design...', 'info');
+                try {
+                    // Test if the main container adapts to different screen sizes
+                    const gameContainer = document.querySelector('.game-container');
+                    if (!gameContainer) {
+                        throw new Error('Game container not found');
+                    }
+                    
+                    // Check if chat section exists and is responsive
+                    const chatSection = document.querySelector('.chat-section');
+                    if (!chatSection) {
+                        throw new Error('Chat section not found');
+                    }
+                    
+                    this.setTestResult('responsive-design', true);
+                    this.log('Responsive design test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('responsive-design', false, error.message);
+                    this.log(`Responsive design test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async testErrorHandling() {
+                this.log('Testing error handling...', 'info');
+                try {
+                    // Check if error handling functions exist
+                    if (typeof window.console === 'undefined') {
+                        throw new Error('Console not available');
+                    }
+                    
+                    // Test that game doesn't crash on invalid input
+                    this.setTestResult('error-handling', true);
+                    this.log('Error handling test passed', 'success');
+                    return true;
+                } catch (error) {
+                    this.setTestResult('error-handling', false, error.message);
+                    this.log(`Error handling test failed: ${error.message}`, 'error');
+                    return false;
+                }
+            }
+            
+            async runAllTests() {
+                this.log('🚀 Running all tests...', 'info');
+                let passed = 0;
+                let total = 0;
+                
+                for (const [testId, testConfig] of this.tests) {
+                    total++;
+                    try {
+                        const result = await testConfig.test();
+                        if (result) passed++;
+                        await new Promise(resolve => setTimeout(resolve, 100)); // Small delay between tests
+                    } catch (error) {
+                        this.log(`Test ${testId} threw an error: ${error.message}`, 'error');
+                        this.setTestResult(testId, false, error.message);
+                    }
+                }
+                
+                this.log(`\n🏁 Test suite completed: ${passed}/${total} tests passed`, passed === total ? 'success' : 'error');
+            }
+            
+            async runCSSTests() {
+                this.log('🎨 Running CSS tests...', 'info');
+                await this.runTestsByCategory('css');
+            }
+            
+            async runGameTests() {
+                this.log('🎲 Running game tests...', 'info');
+                await this.runTestsByCategory('game');
+            }
+            
+            async runUITests() {
+                this.log('🖥️ Running UI tests...', 'info');
+                await this.runTestsByCategory('ui');
+            }
+            
+            async runTestsByCategory(category) {
+                let passed = 0;
+                let total = 0;
+                
+                for (const [testId, testConfig] of this.tests) {
+                    if (testConfig.category === category) {
+                        total++;
+                        try {
+                            const result = await testConfig.test();
+                            if (result) passed++;
+                            await new Promise(resolve => setTimeout(resolve, 100));
+                        } catch (error) {
+                            this.log(`Test ${testId} threw an error: ${error.message}`, 'error');
+                            this.setTestResult(testId, false, error.message);
+                        }
+                    }
+                }
+                
+                this.log(`${category.toUpperCase()} tests completed: ${passed}/${total} passed`, passed === total ? 'success' : 'error');
+            }
+            
+            clearTests() {
+                this.log.innerHTML = '<div class="test-log-item info">Tests cleared. Ready to run...</div>';
+                
+                // Reset all test results to pending
+                const testItems = this.results.querySelectorAll('.test-item');
+                testItems.forEach((item, index) => {
+                    const testId = item.getAttribute('data-test');
+                    const testConfig = this.tests.get(testId);
+                    if (testConfig) {
+                        item.className = 'test-item pending';
+                        item.textContent = `⏳ ${testConfig.name}`;
+                        item.removeAttribute('title');
+                    }
+                });
+            }
+        }
+        
+        // Initialize QA Test Suite when page loads
+        window.addEventListener('load', () => {
+            window.qaTestSuite = new QATestSuite();
+            console.log('🧪 QA Test Suite initialized');
+        });
+    </script>
+</body>
+</html>

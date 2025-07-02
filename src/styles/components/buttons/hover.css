@@ -1,9 +1,9 @@
+/* IMPORT HOVER.CSS KNIHOVNY */
+@import 'hover.css/css/hover-min.css';
+
 /* =============================================================================
    🎯 BUTTONS HOVER - Hover efekty s animate.css a hover.css knihovnami
    ============================================================================= */
-
-/* IMPORT HOVER.CSS KNIHOVNY */
-@import 'hover.css/css/hover-min.css';
 
 /* HOVER.CSS UTILITY TŘÍDY PRO TLAČÍTKA */
 .btn.hvr-grow { 

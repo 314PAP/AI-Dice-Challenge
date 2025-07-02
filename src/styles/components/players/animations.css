@@ -1,9 +1,9 @@
+/* IMPORT AOS KNIHOVNY */
+@import 'aos/dist/aos.css';
+
 /* =============================================================================
    🎞️ PLAYER ANIMATIONS - Animace pro komponenty hráčů s AOS knihovnou
    ============================================================================= */
-
-/* IMPORT AOS KNIHOVNY */
-@import 'aos/dist/aos.css';
 
 /* AOS ANIMATIONS PRO HRÁČE */
 .player[data-aos="fade-up"] {

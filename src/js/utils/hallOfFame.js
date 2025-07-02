@@ -34,12 +34,6 @@ export function getHallOfFame() {
  * Zobrazí síň slávy v modalu
  */
 export function displayHallOfFame() {
-    // Nejprve zavřít všechny ostatní modaly
-    const gameOverModal = document.getElementById('gameOverModal');
-    if (gameOverModal) {
-        gameOverModal.classList.add('hidden');
-    }
-    
     const modal = document.getElementById('hallOfFameModal');
     const list = document.getElementById('hallOfFameList');
     const games = getHallOfFame();
@@ -79,7 +73,7 @@ export function displayHallOfFame() {
                     </div>
                     <div class="entry-details">
                         📅 ${formattedDate}<br>
-                        ${game.finalScores.map(p => `${p.name}: ${p.score}`).join('<br>')}
+                        ${game.finalScores ? game.finalScores.map(p => `${p.name}: ${p.score}`).join('<br>') : 'Skóre nedostupné'}
                     </div>
                 </div>
             `;

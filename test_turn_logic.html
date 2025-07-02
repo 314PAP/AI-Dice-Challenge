@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Turn Logic - AI Dice Challenge</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #000;
+            color: #0ff;
+            margin: 20px;
+        }
+        .debug {
+            border: 1px solid #0ff;
+            padding: 10px;
+            margin: 10px 0;
+            background: #001122;
+        }
+        .dice {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #0ff;
+            text-align: center;
+            line-height: 30px;
+            margin: 2px;
+            background: #002244;
+        }
+        .dice.banked {
+            background: #004400;
+            border-color: #0f0;
+        }
+        .dice.selected {
+            background: #440000;
+            border-color: #f00;
+        }
+        button {
+            background: #004444;
+            color: #0ff;
+            border: 1px solid #0ff;
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #log {
+            height: 200px;
+            overflow-y: scroll;
+            border: 1px solid #0ff;
+            background: #001;
+            padding: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎲 Test Turn Logic</h1>
+    
+    <div class="debug">
+        <h3>Game State</h3>
+        <div>Current Player: <span id="currentPlayer">0</span></div>
+        <div>Turn Score: <span id="turnScore">0</span></div>
+        <div>Available Dice: <span id="availableDice">6</span></div>
+        <div>Must Bank Dice: <span id="mustBankDice">false</span></div>
+        <div>Banked This Turn: <span id="bankedThisTurn">[]</span></div>
+    </div>
+    
+    <div class="debug">
+        <h3>Dice Display</h3>
+        <div id="diceContainer">No dice rolled yet</div>
+    </div>
+    
+    <div class="debug">
+        <h3>Controls</h3>
+        <button onclick="testRollDice()">Roll Dice</button>
+        <button onclick="testBankDice()" id="bankBtn" disabled>Bank Selected</button>
+        <button onclick="testEndTurn()" id="endTurnBtn" disabled>End Turn</button>
+        <button onclick="testReset()">Reset</button>
+    </div>
+    
+    <div class="debug">
+        <h3>Debug Log</h3>
+        <div id="log"></div>
+    </div>
+
+    <script type="module">
+        import { gameState, resetGameState, nextPlayer } from './src/js/game/gameState.js';
+        import { rollDice, calculateScore } from './src/js/game/diceLogic.js';
+        
+        // Make functions available globally for onclick
+        window.gameState = gameState;
+        window.log = [];
+        
+        function addLog(message) {
+            window.log.push(`[${new Date().toLocaleTimeString()}] ${message}`);
+            document.getElementById('log').innerHTML = window.log.slice(-10).join('<br>');
+            console.log(message);
+        }
+        
+        function updateDisplay() {
+            document.getElementById('currentPlayer').textContent = gameState.currentPlayer;
+            document.getElementById('turnScore').textContent = gameState.currentTurnScore;
+            document.getElementById('availableDice').textContent = gameState.availableDice;
+            document.getElementById('mustBankDice').textContent = gameState.mustBankDice;
+            document.getElementById('bankedThisTurn').textContent = JSON.stringify(gameState.bankedDiceThisTurn);
+            
+            // Update dice display
+            const container = document.getElementById('diceContainer');
+            container.innerHTML = '';
+            
+            // Show banked dice first
+            if (gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0) {
+                const bankedDiv = document.createElement('div');
+                bankedDiv.innerHTML = 'Banked: ' + gameState.bankedDiceThisTurn.map(value => 
+                    `<span class="dice banked">${value}</span>`
+                ).join('');
+                container.appendChild(bankedDiv);
+            }
+            
+            // Show current dice
+            if (gameState.diceValues && gameState.diceValues.length > 0) {
+                const currentDiv = document.createElement('div');
+                currentDiv.innerHTML = 'Current: ' + gameState.diceValues.map((value, index) => 
+                    `<span class="dice ${gameState.selectedDice.includes(index) ? 'selected' : ''}" onclick="selectDie(${index})">${value}</span>`
+                ).join('');
+                container.appendChild(currentDiv);
+            }
+            
+            // Update button states
+            const selectedValues = gameState.selectedDice.map(index => gameState.diceValues[index]);
+            const canBank = gameState.selectedDice.length > 0 && calculateScore(selectedValues) > 0;
+            const canEndTurn = gameState.currentTurnScore >= 300 && !gameState.mustBankDice;
+            
+            document.getElementById('bankBtn').disabled = !canBank;
+            document.getElementById('endTurnBtn').disabled = !canEndTurn;
+        }
+        
+        window.testRollDice = function() {
+            if (gameState.availableDice <= 0) {
+                addLog('❌ No available dice to roll!');
+                return;
+            }
+            
+            const diceResults = rollDice(gameState.availableDice);
+            gameState.diceValues = diceResults.map(die => die.value);
+            gameState.selectedDice = [];
+            gameState.mustBankDice = false;
+            
+            const rollScore = calculateScore(gameState.diceValues);
+            addLog(`🎲 Rolled: ${gameState.diceValues.join(', ')} - Score: ${rollScore}`);
+            
+            if (rollScore === 0) {
+                addLog('❌ FARKLE! No scoring dice!');
+                // Auto end turn on FARKLE
+                setTimeout(() => {
+                    testEndTurn(false);
+                }, 1000);
+            } else {
+                gameState.mustBankDice = true;
+                addLog('✅ Must bank dice before next action');
+            }
+            
+            updateDisplay();
+        };
+        
+        window.selectDie = function(index) {
+            if (!gameState.mustBankDice) return;
+            
+            if (gameState.selectedDice.includes(index)) {
+                gameState.selectedDice = gameState.selectedDice.filter(i => i !== index);
+                addLog(`➖ Deselected die ${index} (value: ${gameState.diceValues[index]})`);
+            } else {
+                gameState.selectedDice.push(index);
+                addLog(`➕ Selected die ${index} (value: ${gameState.diceValues[index]})`);
+            }
+            
+            updateDisplay();
+        };
+        
+        window.testBankDice = function() {
+            if (gameState.selectedDice.length === 0) {
+                addLog('❌ No dice selected to bank!');
+                return;
+            }
+            
+            const selectedValues = gameState.selectedDice.map(index => gameState.diceValues[index]);
+            const score = calculateScore(selectedValues);
+            
+            if (score === 0) {
+                addLog('❌ Selected dice have no score!');
+                return;
+            }
+            
+            // Add score and bank dice
+            gameState.currentTurnScore += score;
+            gameState.bankedDiceThisTurn.push(...selectedValues);
+            gameState.availableDice -= gameState.selectedDice.length;
+            
+            // Clear current roll
+            gameState.diceValues = [];
+            gameState.selectedDice = [];
+            gameState.mustBankDice = false;
+            
+            addLog(`💰 Banked: ${selectedValues.join(', ')} for ${score} points. Turn total: ${gameState.currentTurnScore}`);
+            
+            // HOT DICE check
+            if (gameState.availableDice === 0) {
+                gameState.availableDice = 6;
+                addLog('🔥 HOT DICE! All dice banked, can roll all 6 again!');
+            }
+            
+            updateDisplay();
+        };
+        
+        window.testEndTurn = function(scored = true) {
+            const player = gameState.currentPlayer;
+            const turnScore = scored ? gameState.currentTurnScore : 0;
+            
+            addLog(`🎯 Player ${player} ending turn with ${turnScore} points`);
+            
+            if (scored && gameState.currentTurnScore >= 300) {
+                gameState.players[player].score += gameState.currentTurnScore;
+                addLog(`✅ Added ${gameState.currentTurnScore} to player ${player}. Total: ${gameState.players[player].score}`);
+            } else if (scored) {
+                addLog(`❌ Not enough points (${gameState.currentTurnScore} < 300). No score added.`);
+            } else {
+                addLog(`💀 FARKLE! No points added.`);
+            }
+            
+            // Move to next player
+            nextPlayer();
+            addLog(`🔄 Next player: ${gameState.currentPlayer}`);
+            
+            // TEST: Check if banked dice are cleared
+            addLog(`🧹 Banked dice after nextPlayer: ${JSON.stringify(gameState.bankedDiceThisTurn)}`);
+            
+            updateDisplay();
+        };
+        
+        window.testReset = function() {
+            resetGameState();
+            addLog('🔄 Game state reset');
+            updateDisplay();
+        };
+        
+        // Initialize
+        addLog('🎲 Turn logic test initialized');
+        updateDisplay();
+    </script>
+</body>
+</html>

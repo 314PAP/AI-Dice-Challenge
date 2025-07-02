@@ -7,15 +7,17 @@ export const gameState = {
     targetScore: 10000,
     currentPlayer: 0, // 0=human, 1=gemini, 2=chatgpt, 3=claude
     players: [
-        { name: 'Vy', score: 0, type: 'human' },
-        { name: 'Gemini', score: 0, type: 'gemini' },
-        { name: 'ChatGPT', score: 0, type: 'chatgpt' },
-        { name: 'Claude', score: 0, type: 'claude' }
+        { name: 'Vy', score: 0, type: 'human', hasEnteredGame: false },
+        { name: 'Gemini', score: 0, type: 'gemini', hasEnteredGame: false },
+        { name: 'ChatGPT', score: 0, type: 'chatgpt', hasEnteredGame: false },
+        { name: 'Claude', score: 0, type: 'claude', hasEnteredGame: false }
     ],
     currentTurnScore: 0,
-    rollsLeft: 3,
-    dice: [],
-    bankedDice: [],
+    // REMOVED: rollsLeft - not used in Farkle, you can roll as long as you have unbanked dice
+    diceValues: [], // Current dice roll values [1,2,3,4,5,6]
+    selectedDice: [], // Indices of selected dice for banking
+    bankedDiceThisTurn: [], // Visual display of banked dice this turn
+    availableDice: 6, // Number of dice available to roll (6 minus banked dice)
     gameStarted: false,
     gameEnded: false,
     mustBankDice: false, // Flag indicating player must bank dice before next roll
@@ -34,15 +36,16 @@ export function resetGameState() {
     gameState.targetScore = 10000;
     gameState.currentPlayer = 0;
     gameState.players = [
-        { name: 'Vy', score: 0, type: 'human' },
-        { name: 'Gemini', score: 0, type: 'gemini' },
-        { name: 'ChatGPT', score: 0, type: 'chatgpt' },
-        { name: 'Claude', score: 0, type: 'claude' }
+        { name: 'Vy', score: 0, type: 'human', hasEnteredGame: false },
+        { name: 'Gemini', score: 0, type: 'gemini', hasEnteredGame: false },
+        { name: 'ChatGPT', score: 0, type: 'chatgpt', hasEnteredGame: false },
+        { name: 'Claude', score: 0, type: 'claude', hasEnteredGame: false }
     ];
     gameState.currentTurnScore = 0;
-    gameState.rollsLeft = 3;
-    gameState.dice = [];
-    gameState.bankedDice = [];
+    gameState.diceValues = [];
+    gameState.selectedDice = [];
+    gameState.bankedDiceThisTurn = [];
+    gameState.availableDice = 6;
     gameState.gameStarted = false;
     gameState.gameEnded = false;
     gameState.mustBankDice = false;
@@ -62,10 +65,12 @@ export function nextPlayer() {
     gameState.currentPlayer = (gameState.currentPlayer + 1) % 4; // 4 hráči celkem
     console.log(`🔄 NextPlayer: ${previousPlayer} → ${gameState.currentPlayer} (FinalRound: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator})`);
     
+    // Reset turn state
     gameState.currentTurnScore = 0;
-    gameState.rollsLeft = 3;
-    gameState.dice = [];
-    gameState.bankedDice = [];
+    gameState.diceValues = [];
+    gameState.selectedDice = [];
+    // NOTE: bankedDiceThisTurn will be cleared in playerTurn() for proper visual timing
+    gameState.availableDice = 6;
     gameState.mustBankDice = false;
     gameState.totalTurns++;
     

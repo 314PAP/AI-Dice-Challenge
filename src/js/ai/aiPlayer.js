@@ -1,237 +1,275 @@
 /**
- * AI Player Logic
- * Logika pro AI hráče
+ * AI Player Controller - Refactored for new gameState structure
+ * Handles AI player logic using new Farkle rules (no rollsLeft, uses availableDice)
  */
 
-import { gameState, getCurrentPlayer } from '../game/gameState.js';
-import { rollDice, calculateScore, findBestScoringCombination } from '../game/diceLogic.js';
+import { gameState, getCurrentPlayer, nextPlayer } from '../game/gameState.js';
+import { rollDice, calculateScore, getAllScoringCombinations } from '../game/diceLogic.js';
 import { updateGameDisplay } from '../ui/gameUI.js';
-// Use global addChatMessage instead of direct import
 import { generateAIGameReaction, enhancedAI } from '../../ai/controllers/enhancedAIController.js';
 import { endTurn } from '../game/gameController.js';
+
+// Array to track active AI timeouts
+let activeAITimeouts = [];
+
+/**
+ * Clears all active AI timeouts
+ */
+export function clearAllAITimeouts() {
+    console.log(`🚫 Clearing ${activeAITimeouts.length} active AI timeouts...`);
+    activeAITimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+    activeAITimeouts = [];
+}
+
+/**
+ * Wrapper for setTimeout that tracks timeouts
+ */
+export function createAITimeout(callback, delay) {
+    const timeoutId = setTimeout(() => {
+        // Remove from active timeouts when executed
+        activeAITimeouts = activeAITimeouts.filter(id => id !== timeoutId);
+        // Only execute if game is still running
+        if (!gameState.gameEnded && gameState.gameStarted) {
+            callback();
+        }
+    }, delay);
+    
+    activeAITimeouts.push(timeoutId);
+    return timeoutId;
+}
 
 /**
  * Spustí tah AI hráče
  */
 export function playAITurn() {
+    // Check if game is still running
+    if (gameState.gameEnded || !gameState.gameStarted) {
+        console.log('🚫 AI turn cancelled - game not running');
+        return;
+    }
+    
     const aiPlayer = getCurrentPlayer();
-    gameState.rollsLeft = 3;
+    console.log(`🤖 Starting AI turn for ${aiPlayer.name}`);
+    
+    // Reset turn state
     gameState.currentTurnScore = 0;
-    gameState.dice = [];
-    gameState.bankedDice = [];
+    gameState.diceValues = [];
+    gameState.selectedDice = [];
+    gameState.bankedDiceThisTurn = [];
+    gameState.availableDice = 6;
+    gameState.mustBankDice = false;
     
-    // Vymazat předchozí farkle značky
-    gameState.dice.forEach(die => delete die.farkle);
-    
-    playAIRoll();
+    // Start with first roll
+    createAITimeout(() => playAIRoll(), 1000);
 }
 
 /**
  * Provede hod kostkami pro AI
  */
 function playAIRoll() {
-    const aiPlayer = getCurrentPlayer();
-
-    // Roll dice
-    const diceToRoll = 6 - gameState.bankedDice.length;
-    gameState.dice = rollDice(diceToRoll);
-    gameState.rollsLeft--;
-    
-    // Vymazat předchozí farkle značky
-    gameState.dice.forEach(die => delete die.farkle);
-    
-    const diceValues = gameState.dice.map(d => d.value);
-    const rollScore = calculateScore(diceValues);
-    
-    window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} hodil: ${diceValues.join(', ')} - Možné body z hodu: ${rollScore}`);
-    
-    if (rollScore === 0) {
-        // Farkle - žádné bodující kostky
-        console.log(`❌ AI ${aiPlayer.name}: FARKLE detekován!`);
-        
-        // Označit kostky jako farkle pro vizuální efekt
-        gameState.dice.forEach(die => die.farkle = true);
-        
-        const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
-        if (reaction && window.addChatMessage) window.addChatMessage(aiPlayer.type, reaction);
-        window.addChatMessage && window.addChatMessage('system', `❌ ${aiPlayer.name} neměl žádné bodující kostky! FARKLE! Tah končí s 0 body.`);
-        
-        setTimeout(() => {
-            console.log(`🔄 AI ${aiPlayer.name}: Automaticky ukončuji tah po farkle...`);
-            endTurn(false);
-        }, 2000);
-        
-        updateGameDisplay();
+    // Check if game is still running
+    if (gameState.gameEnded || !gameState.gameStarted) {
+        console.log('🚫 AI roll cancelled - game not running');
         return;
     }
     
-    // AI strategy: find the best scoring combination and bank it
-    const bestCombination = findBestScoringCombination(diceValues);
+    const aiPlayer = getCurrentPlayer();
+
+    // Check if AI can roll
+    if (gameState.availableDice <= 0) {
+        console.warn(`AI ${aiPlayer.name} cannot roll: no available dice`);
+        return;
+    }
+    
+    console.log(`🎲 AI ${aiPlayer.name} rolling ${gameState.availableDice} dice...`);
+    
+    // Roll available dice
+    const diceResults = rollDice(gameState.availableDice);
+    gameState.diceValues = diceResults.map(die => die.value);
+    gameState.selectedDice = [];
+    
+    const rollScore = calculateScore(gameState.diceValues);
+    
+    window.addChatMessage && window.addChatMessage('system', 
+        `${aiPlayer.name} hodil: ${gameState.diceValues.join(', ')} - Možné body z hodu: ${rollScore}`);
+    
+    if (rollScore === 0) {
+        // FARKLE - no scoring dice
+        console.log(`❌ AI ${aiPlayer.name}: FARKLE!`);
+        
+        const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
+        if (reaction && window.addChatMessage) {
+            window.addChatMessage(aiPlayer.type, reaction);
+        }
+        
+        window.addChatMessage && window.addChatMessage('system', 
+            `❌ ${aiPlayer.name} neměl žádné bodující kostky! FARKLE! Tah končí s 0 body.`);
+        
+        createAITimeout(() => {
+            console.log(`🔄 AI ${aiPlayer.name}: Ending turn after FARKLE...`);
+            endTurn();
+        }, 2000);
+        
+        return;
+    }
+    
+    // Has scoring dice - decide what to bank
+    const bestCombination = findBestScoringCombination(gameState.diceValues);
     
     if (bestCombination && bestCombination.score > 0) {
         // Bank the best scoring combination
         gameState.currentTurnScore += bestCombination.score;
-        gameState.bankedDice = gameState.bankedDice.concat(bestCombination.dice);
+        gameState.bankedDiceThisTurn.push(...bestCombination.dice);
+        gameState.availableDice -= bestCombination.dice.length;
         
-        // Remove banked dice from current dice
-        let remainingDice = [...diceValues];
-        bestCombination.dice.forEach(value => {
-            let index = remainingDice.indexOf(value);
-            if (index > -1) remainingDice.splice(index, 1);
-        });
+        // Clear current roll data
+        gameState.diceValues = [];
+        gameState.selectedDice = [];
         
-        // Update dice state
-        gameState.dice = remainingDice.map(value => ({ value, selected: false }));
+        window.addChatMessage && window.addChatMessage('system', 
+            `${aiPlayer.name} odložil: ${bestCombination.dice.join(', ')} za ${bestCombination.score} bodů. Aktuální skóre tahu: ${gameState.currentTurnScore}.`);
         
-        window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} odložil: ${bestCombination.dice.join(', ')} za ${bestCombination.score} bodů. Aktuální skóre tahu: ${gameState.currentTurnScore}.`);
-        
-        // HOT DICE: Check if all dice are banked
-        if (gameState.bankedDice.length === 6) {
-            gameState.bankedDice = [];
-            gameState.rollsLeft = Math.max(gameState.rollsLeft, 1);
-            window.addChatMessage && window.addChatMessage('system', `🔥 ${aiPlayer.name} odložil všechny kostky! HOT DICE! Pokračuje s novými kostkami.`);
+        // Check for HOT DICE
+        if (gameState.availableDice === 0) {
+            gameState.availableDice = 6; // Reset to 6 dice
+            window.addChatMessage && window.addChatMessage('system', 
+                `🔥 ${aiPlayer.name} odložil všechny kostky! HOT DICE! Pokračuje s novými kostkami.`);
             
-            // AI reakce na hot dice
-            const hotDiceReaction = enhancedAI.generateAIResponse(aiPlayer.type, 'hotdice');
+            // AI reaction to hot dice
+            const hotDiceReaction = enhancedAI.generateAIResponse(aiPlayer.type, 'hotDice');
             if (hotDiceReaction) {
-                setTimeout(() => window.addChatMessage && window.addChatMessage(aiPlayer.type, hotDiceReaction), 500);
+                createAITimeout(() => window.addChatMessage && window.addChatMessage(aiPlayer.type, hotDiceReaction), 500);
             }
             
-            setTimeout(() => {
+            // Continue with new dice
+            createAITimeout(() => {
                 updateGameDisplay();
                 playAIRoll();
             }, 2000);
             return;
         }
         
-        // AI decides whether to continue or end turn
+        // Decide whether to continue or end turn
         const shouldContinue = decideAIAction(aiPlayer);
         
-        if (shouldContinue && gameState.rollsLeft > 0 && gameState.dice.length > 0) {
+        if (shouldContinue && gameState.availableDice > 0) {
             // Continue rolling
-            setTimeout(() => {
-                updateGameDisplay();
-                playAIRoll();
-            }, 2000);
-        } else if (gameState.bankedDice.length === 6 && gameState.rollsLeft > 0) {
-            // All dice banked, continue with fresh dice
-            gameState.bankedDice = [];
-            window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} odložil všechny kostky a pokračuje s novými.`);
-            setTimeout(() => {
-                updateGameDisplay();
+            createAITimeout(() => {
                 playAIRoll();
             }, 2000);
         } else {
             // End turn
-            const score = gameState.currentTurnScore;
-            let reaction;
-            
-            if (score >= 500) {
-                reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'highscore', { score });
-            } else {
-                reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'scoredPoints', { score });
-            }
-            
-            if (reaction && window.addChatMessage) window.addChatMessage(aiPlayer.type, reaction);
-            
-            setTimeout(() => endTurn(true), 2000);
+            createAITimeout(() => {
+                console.log(`🏁 AI ${aiPlayer.name}: Ending turn with ${gameState.currentTurnScore} points`);
+                
+                const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'endTurn', {
+                    score: gameState.currentTurnScore
+                });
+                if (reaction && window.addChatMessage) {
+                    window.addChatMessage(aiPlayer.type, reaction);
+                }
+                
+                endTurn();
+            }, 2000);
         }
-    } else {
-        // This shouldn't happen if rollScore > 0, but just in case
-        const reaction = enhancedAI.generateAIResponse(aiPlayer.type, 'farkle');
-        if (reaction && window.addChatMessage) window.addChatMessage(aiPlayer.type, reaction);
-        window.addChatMessage && window.addChatMessage('system', `${aiPlayer.name} neměl žádné bodující kostky! Tah končí.`);
-        
-        setTimeout(() => endTurn(false), 2000);
     }
-    
-    updateGameDisplay();
 }
 
 /**
- * Rozhoduje, zda má AI pokračovat v házení nebo ukončit tah
- * @param {Object} aiPlayer - AI hráč
- * @returns {boolean} True pokud má pokračovat
+ * AI decision logic - decides whether to continue rolling or end turn
  */
 function decideAIAction(aiPlayer) {
     const currentScore = gameState.currentTurnScore;
-    const rollsLeft = gameState.rollsLeft;
-    const diceLeft = gameState.dice.length;
-    const totalScore = gameState.players[gameState.currentPlayer].score;
+    const playerScore = aiPlayer.score;
     const targetScore = gameState.targetScore;
-    const isCloseToWinning = totalScore + currentScore >= targetScore * 0.8;
+    const diceLeft = gameState.availableDice;
     
-    // Faktory ovlivňující rozhodnutí
-    const riskFactor = calculateRiskFactor(diceLeft, rollsLeft);
-    const scorePressure = isCloseToWinning ? 0.8 : 1.0; // Méně rizika, když jsme blízko vítězství
+    // Calculate risk factor based on available dice
+    const riskFactor = calculateRiskFactor(diceLeft);
     
-    // Finální kolo - konzervatizmus
-    if (gameState.finalRound) {
-        const leadingScore = Math.max(...gameState.players.map(p => p.score));
-        const neededScore = leadingScore - totalScore + 50; // Pokusit se být o 50 bodů lepší
-        
-        if (currentScore >= neededScore) {
-            return false; // Končit, máme dost bodů
-        }
-        return currentScore < neededScore && rollsLeft > 0 && diceLeft >= 2;
-    }
-    
-    // Různé strategie pro různé AI typy
+    // Different AI personalities have different strategies
     switch (aiPlayer.type) {
         case 'gemini':
-            // Konzervativní, data-driven přístup - MUSÍ RESPEKTOVAT 300 MINIMUM
-            const geminiThreshold = Math.max(300, targetScore * 0.05) * scorePressure;
-            return currentScore < geminiThreshold && 
-                   rollsLeft > 0 && 
-                   diceLeft >= 3 && 
-                   riskFactor < 0.7;
+            // Conservative - stops early with good scores
+            return currentScore < 500 && diceLeft >= 3 && riskFactor < 0.4;
             
         case 'chatgpt':
-            // Mírně rizikový, přátelský přístup - MUSÍ RESPEKTOVAT 300 MINIMUM
-            const chatgptThreshold = Math.max(300, targetScore * 0.04) * scorePressure;
-            return currentScore < chatgptThreshold && 
-                   rollsLeft > 0 && 
-                   diceLeft >= 2 && 
-                   riskFactor < 0.8;
+            // Balanced - considers game state
+            const neededScore = targetScore - playerScore;
+            return currentScore < neededScore && diceLeft >= 2 && riskFactor < 0.5;
             
         case 'claude':
-            // Filozofický, vyvážený přístup - MUSÍ RESPEKTOVAT 300 MINIMUM
-            const claudeThreshold = Math.max(300, adaptiveThreshold(totalScore, targetScore)) * scorePressure;
-            return currentScore < claudeThreshold && 
-                   rollsLeft > 0 && 
-                   diceLeft >= 2 && 
-                   riskFactor < 0.75;
+            // Aggressive - takes more risks
+            return currentScore < 800 && diceLeft >= 1 && riskFactor < 0.6;
             
         default:
-            // VŠECHNA AI MUSÍ RESPEKTOVAT 300 BODOVÉ MINIMUM STEJNĚ JAKO HRÁČ
-            return currentScore < 300 && rollsLeft > 0 && diceLeft >= 2;
+            // Entry game logic - need at least 300 to enter
+            if (!aiPlayer.hasEnteredGame) {
+                return currentScore < 300 && diceLeft >= 2;
+            }
+            return currentScore < 400 && diceLeft >= 2;
     }
 }
 
 /**
- * Vypočítá rizikový faktor na základě počtu kostek a hodů
- * @param {number} diceLeft - Počet zbývajících kostek
- * @param {number} rollsLeft - Počet zbývajících hodů
- * @returns {number} Rizikový faktor 0-1 (0=bezpečné, 1=velmi rizikové)
+ * Calculate risk factor based on available dice
+ * @param {number} diceLeft - Number of dice left to roll
+ * @returns {number} Risk factor (0-1, higher = more risky)
  */
-function calculateRiskFactor(diceLeft, rollsLeft) {
-    if (diceLeft <= 1) return 0.9; // Velmi rizikové
-    if (diceLeft === 2) return 0.6; // Středně rizikové
-    if (diceLeft >= 4) return 0.2; // Relativně bezpečné
-    return 0.4; // Mírně rizikové
+function calculateRiskFactor(diceLeft) {
+    // More dice = lower risk, fewer dice = higher risk
+    switch (diceLeft) {
+        case 6: return 0.1;
+        case 5: return 0.2;
+        case 4: return 0.3;
+        case 3: return 0.4;
+        case 2: return 0.6;
+        case 1: return 0.8;
+        default: return 1.0;
+    }
 }
 
 /**
- * Adaptivní práh pro Claude AI na základě pozice ve hře
- * @param {number} currentTotal - Současné celkové skóre
- * @param {number} target - Cílové skóre
- * @returns {number} Doporučený práh pro ukončení tahu (minimálně 300)
+ * Find the best scoring combination from dice values
+ * @param {number[]} diceValues - Array of dice values
+ * @returns {Object|null} Best combination {dice: [], score: number}
  */
-function adaptiveThreshold(currentTotal, target) {
-    const progress = currentTotal / target;
+function findBestScoringCombination(diceValues) {
+    if (!diceValues || diceValues.length === 0) return null;
     
-    if (progress < 0.3) return Math.max(300, 500); // Začátek hry - agresivnější, ale min 300
-    if (progress < 0.6) return Math.max(300, 400); // Střed hry - vyvážené, ale min 300
-    if (progress < 0.8) return Math.max(300, 350); // Pozdní hra - opatrnější, ale min 300
-    return 300; // Konec hry - pouze minimum podle pravidel
+    const allCombinations = getAllScoringCombinations(diceValues);
+    
+    if (allCombinations.length === 0) {
+        // If no predefined combinations, try individual scoring dice
+        const scoringDice = [];
+        const counts = [0, 0, 0, 0, 0, 0, 0];
+        
+        diceValues.forEach(value => counts[value]++);
+        
+        // Add 1s (100 points each)
+        for (let i = 0; i < counts[1]; i++) {
+            scoringDice.push(1);
+        }
+        
+        // Add 5s (50 points each)  
+        for (let i = 0; i < counts[5]; i++) {
+            scoringDice.push(5);
+        }
+        
+        if (scoringDice.length > 0) {
+            return {
+                dice: scoringDice,
+                score: calculateScore(scoringDice)
+            };
+        }
+        
+        return null;
+    }
+    
+    // Return the combination with highest score
+    return allCombinations.reduce((best, current) => 
+        current.score > best.score ? current : best
+    );
 }
+
+export { findBestScoringCombination, decideAIAction, calculateRiskFactor };

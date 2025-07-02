@@ -22,7 +22,7 @@
   border: 2px solid var(--neon-green);
   border-radius: var(--radius-base);
   color: var(--text-primary);
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: var(--font-base);
   transition: var(--transition-base);
 }

@@ -91,7 +91,7 @@ export function playerTurn() {
     gameState.diceValues = [];
     gameState.selectedDice = [];
     gameState.bankedDiceThisTurn = []; // Clear banked dice display at start of new turn
-
+    
     if (gameState.currentPlayer === 0) {
         // Lidský hráč - clear any leftover UI state and show fresh turn
         console.log('🎮 Human player turn starting');
