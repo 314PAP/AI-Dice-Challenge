@@ -3,13 +3,7 @@
  */
 
 import { pipe, when, unless } from 'ramda';
-// Jednoduchá implementace isEmpty
-const isEmpty = (value) => {
-    if (Array.isArray(value)) return value.length === 0;
-    if (typeof value === 'object') return Object.keys(value).length === 0;
-    return !value;
-};
-
+import { isEmpty } from 'lodash-es';
 import { gameState } from '../../game/gameState.js';
 import { calculateScore } from '../../game/diceLogic.js';
 import { safeGetElement } from '../../utils/gameUtils.js';
@@ -47,42 +41,41 @@ export const createDiceElement = (value, index, type = 'current') => {
     return dieElement;
 };
 
-// 🎯 DICE CONTAINER UPDATER - Optimized with functional composition
-export const updateDiceContainer = pipe(
-    () => safeGetElement('diceContainer'),
-    unless(Boolean, () => {
+// 🎯 DICE CONTAINER UPDATER - Simplified and reliable
+export const updateDiceContainer = () => {
+    console.log('🎲 Updating dice container...');
+    const container = document.getElementById('diceContainer');
+    
+    if (!container) {
         console.warn('🚫 Dice container not found');
         return null;
-    }),
-    (container) => {
-        container.innerHTML = '';
-        
-        const allDiceContainer = document.createElement('div');
-        allDiceContainer.className = 'all-dice-container';
-        
-        // Render banked dice first (if any)
-        when(
-            () => !isEmpty(gameState.bankedDiceThisTurn),
-            () => {
-                gameState.bankedDiceThisTurn.forEach(value => {
-                    const dieElement = createDiceElement(value, -1, 'banked');
-                    allDiceContainer.appendChild(dieElement);
-                });
-            }
-        )();
-        
-        // Render current dice roll
-        when(
-            () => !isEmpty(gameState.diceValues),
-            () => {
-                gameState.diceValues.forEach((value, index) => {
-                    const dieElement = createDiceElement(value, index, 'current');
-                    allDiceContainer.appendChild(dieElement);
-                });
-            }
-        )();
-        
-        container.appendChild(allDiceContainer);
-        return container;
     }
-);
+    
+    // Clear container
+    container.innerHTML = '';
+    
+    const allDiceContainer = document.createElement('div');
+    allDiceContainer.className = 'all-dice-container';
+    
+    // Render banked dice first (if any)
+    if (gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0) {
+        console.log('🏦 Rendering banked dice:', gameState.bankedDiceThisTurn);
+        gameState.bankedDiceThisTurn.forEach(value => {
+            const dieElement = createDiceElement(value, -1, 'banked');
+            allDiceContainer.appendChild(dieElement);
+        });
+    }
+    
+    // Render current dice roll
+    if (gameState.diceValues && gameState.diceValues.length > 0) {
+        console.log('🎲 Rendering current dice:', gameState.diceValues);
+        gameState.diceValues.forEach((value, index) => {
+            const dieElement = createDiceElement(value, index, 'current');
+            allDiceContainer.appendChild(dieElement);
+        });
+    }
+    
+    container.appendChild(allDiceContainer);
+    console.log('✅ Dice container updated successfully');
+    return container;
+};

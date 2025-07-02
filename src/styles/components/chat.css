@@ -97,7 +97,7 @@
   color: var(--neon-green);
   font-family: 'Orbitron', monospace;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.2rem; /* Zvětšeno z 1rem na 1.2rem */
   margin: 0;
   text-shadow: 0 0 10px var(--neon-green);
   display: flex;
@@ -147,24 +147,10 @@
   background: rgba(0, 0, 0, 0.3);
   border-left: 3px solid var(--neon-green);
   transition: var(--transition-base);
-  font-size: var(--font-lg); /* Zvětšil písmo pro desktop */
-  line-height: 1.4;
 }
 
 .chat-message:hover {
   background: rgba(0, 0, 0, 0.5);
-}
-
-/* Chat header nadpis */
-.chat-header h2 {
-  font-size: var(--font-xl);
-  margin: 0 0 1em 0;
-  color: var(--neon-green);
-}
-
-/* Chat input větší písmo */
-.chat-input input {
-  font-size: var(--font-base);
 }
 
 .chat-message.system {
@@ -210,6 +196,7 @@
   color: var(--text-primary);
   line-height: 1.4;
   font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem; /* Přidáno pro lepší čitelnost na desktopu */
 }
 
 /* CHAT INPUT */

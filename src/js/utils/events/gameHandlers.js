@@ -3,17 +3,19 @@
  */
 
 import { curry, pipe } from 'ramda';
-import { debounce } from 'lodash-es';
 import { emitter, EVENTS } from './eventCore.js';
 import { hideAllModals } from './modalHandlers.js';
 import { safeExecute } from '../gameUtils.js';
 
 // 📝 OPTIMIZED EVENT HANDLERS - Using function composition
 export const createEventHandler = curry((eventType, handler) => 
-    pipe(
-        safeExecute,
-        () => emitter.emit(eventType)
-    )(handler)
+    (...args) => {
+        console.log(`🎯 Event handler called for: ${eventType}`);
+        pipe(
+            safeExecute,
+            () => emitter.emit(eventType)
+        )(handler)(...args);
+    }
 );
 
 // 🎮 GAME ACTION HANDLERS
@@ -38,6 +40,7 @@ export const createMenuHandler = () => createEventHandler(
 export const createSaveScoreHandler = () => createEventHandler(
     EVENTS.SCORE_SAVE,
     async () => {
+        console.log('💾 Save score handler triggered');
         const { saveScore } = await import('../../game/controllers/gameFlowController.js');
         saveScore();
     }
