@@ -7,14 +7,19 @@ import { emitter, EVENTS } from './eventCore.js';
 import { hideAllModals } from './modalHandlers.js';
 import { safeExecute } from '../gameUtils.js';
 
-// 📝 OPTIMIZED EVENT HANDLERS - Using function composition
+// 📝 OPTIMIZED EVENT HANDLERS - Simplified version without complex composition
 export const createEventHandler = curry((eventType, handler) => 
     (...args) => {
         console.log(`🎯 Event handler called for: ${eventType}`);
-        pipe(
-            safeExecute,
-            () => emitter.emit(eventType)
-        )(handler)(...args);
+        
+        // Spustit handler bezpečně
+        safeExecute(handler)(...args);
+        
+        // Emitovat událost
+        emitter.emit(eventType);
+        
+        // Pro debugging
+        console.log(`✅ Handler pro ${eventType} dokončen`);
     }
 );
 
