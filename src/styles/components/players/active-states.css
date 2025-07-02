@@ -2,11 +2,8 @@
    ⚡ ACTIVE STATES - Styly pro aktivního hráče
    ============================================================================= */
 
+/* Obecné styly aktivního hráče - používáno jako základ */
 .player.active {
-  border-color: var(--neon-green);
-  box-shadow: 
-    var(--glow-lg) var(--neon-green),
-    0 0 40px rgba(57, 255, 20, 0.3);
   animation: player-active-pulse 2s ease-in-out infinite;
 }
 
@@ -17,22 +14,112 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, var(--neon-green), var(--neon-blue), var(--neon-green));
   border-radius: 1em;
   z-index: -1;
   animation: border-rotate 3s linear infinite;
 }
 
-.player.active .player-head {
+/* Specifické barvy pro různé typy hráčů */
+/* Lidský hráč - zelená */
+.player.human-player.active {
+  border-color: var(--neon-green);
+  box-shadow: 
+    var(--glow-lg) var(--neon-green),
+    0 0 40px rgba(57, 255, 20, 0.3);
+}
+
+.player.human-player.active::before {
+  background: linear-gradient(45deg, var(--neon-green), var(--neon-blue), var(--neon-green));
+}
+
+.player.human-player.active .player-head {
   border-color: var(--neon-green);
   box-shadow: var(--glow-md) var(--neon-green);
 }
 
-.player.active .player-name {
+.player.human-player.active .player-name {
   color: var(--neon-green);
   text-shadow: var(--glow-sm) var(--neon-green);
 }
 
-.player.active .player-score span {
+.player.human-player.active .player-score span {
   color: var(--neon-green);
+}
+
+/* Gemini AI hráč - modrá */
+.player.gemini-player.active {
+  border-color: var(--neon-blue);
+  box-shadow: 
+    var(--glow-lg) var(--neon-blue),
+    0 0 40px rgba(30, 144, 255, 0.3);
+}
+
+.player.gemini-player.active::before {
+  background: linear-gradient(45deg, var(--neon-blue), var(--neon-green), var(--neon-blue));
+}
+
+.player.gemini-player.active .player-head {
+  border-color: var(--neon-blue);
+  box-shadow: var(--glow-md) var(--neon-blue);
+}
+
+.player.gemini-player.active .player-name {
+  color: var(--neon-blue);
+  text-shadow: var(--glow-sm) var(--neon-blue);
+}
+
+.player.gemini-player.active .player-score span {
+  color: var(--neon-blue);
+}
+
+/* ChatGPT AI hráč - růžová */
+.player.chatgpt-player.active {
+  border-color: var(--neon-pink);
+  box-shadow: 
+    var(--glow-lg) var(--neon-pink),
+    0 0 40px rgba(255, 105, 180, 0.3);
+}
+
+.player.chatgpt-player.active::before {
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue), var(--neon-pink));
+}
+
+.player.chatgpt-player.active .player-head {
+  border-color: var(--neon-pink);
+  box-shadow: var(--glow-md) var(--neon-pink);
+}
+
+.player.chatgpt-player.active .player-name {
+  color: var(--neon-pink);
+  text-shadow: var(--glow-sm) var(--neon-pink);
+}
+
+.player.chatgpt-player.active .player-score span {
+  color: var(--neon-pink);
+}
+
+/* Claude AI hráč - oranžová */
+.player.claude-player.active {
+  border-color: var(--neon-orange);
+  box-shadow: 
+    var(--glow-lg) var(--neon-orange),
+    0 0 40px rgba(255, 165, 0, 0.3);
+}
+
+.player.claude-player.active::before {
+  background: linear-gradient(45deg, var(--neon-orange), var(--neon-yellow), var(--neon-orange));
+}
+
+.player.claude-player.active .player-head {
+  border-color: var(--neon-orange);
+  box-shadow: var(--glow-md) var(--neon-orange);
+}
+
+.player.claude-player.active .player-name {
+  color: var(--neon-orange);
+  text-shadow: var(--glow-sm) var(--neon-orange);
+}
+
+.player.claude-player.active .player-score span {
+  color: var(--neon-orange);
 }
