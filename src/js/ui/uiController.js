@@ -16,6 +16,9 @@ export function displayHallOfFame() {
 }
 
 export function closeHallOfFame() {
+    console.log('🏆 Zavírání Hall of Fame z UI controlleru');
+    
+    // Nejprve skryjeme Hall of Fame modal
     const modal = document.getElementById('hallOfFameModal');
     if (modal) {
         modal.style.display = 'none';
@@ -23,19 +26,23 @@ export function closeHallOfFame() {
         modal.classList.remove('visible');
     }
     
-    // Kontrola, zda je hra již ukončena, abychom zabránili emergency módu
-    // při návratu z Hall of Fame po konci hry
-    if (window.gameState && window.gameState.gameEnded) {
-        // Zajistíme, že se neaktivuje emergency mód
-        console.log('🔍 Hra je ukončena, zabráněno aktivaci emergency módu');
+    // Kontrola pro Hall of Fame otevřený z game over
+    if (window.hallOfFameFromGameOver === true && window.gameState && window.gameState.gameEnded) {
+        console.log('🔍 Detekován návrat z Hall of Fame po konci hry');
         
-        // Zobrazíme znovu modal konce hry, pokud byl otevřen Hall of Fame po konci hry
-        const gameOverModal = document.getElementById('gameOverModal');
-        if (gameOverModal) {
-            gameOverModal.style.display = 'block';
-            gameOverModal.classList.remove('hidden');
-            gameOverModal.classList.add('visible');
-        }
+        // Resetovat flag
+        window.hallOfFameFromGameOver = false;
+        
+        // Zobrazit znovu game over modal
+        setTimeout(() => {
+            const gameOverModal = document.getElementById('gameOverModal');
+            if (gameOverModal) {
+                console.log('🎮 Znovu otevírání Game Over modalu');
+                gameOverModal.style.display = 'block';
+                gameOverModal.classList.remove('hidden');
+                gameOverModal.classList.add('visible');
+            }
+        }, 300);
     }
 }
 
