@@ -23,54 +23,38 @@ const updatePlayerElement = (player, index) => {
     )(playerElement);
 };
 
-// 🎯 ACTIVE PLAYER INDICATOR - Functional highlighting with player-specific colors
+// 🎯 ACTIVE PLAYER INDICATOR - Přepracovaný s spolehlivou detekci a správnými barvami hráčů
 const updatePlayerActiveState = (player, index) => {
-    // Map player types to correct CSS classes
+    // Mapování typů hráčů na CSS třídy - uspořádané podle indexů hráčů
     const playerClasses = [
-        '.human-player',
-        '.gemini-player', 
-        '.chatgpt-player',
-        '.claude-player'
+        'human-player',  // Index 0 - lidský hráč
+        'gemini-player', // Index 1 - Gemini AI
+        'chatgpt-player', // Index 2 - ChatGPT AI
+        'claude-player'   // Index 3 - Claude AI
     ];
     
-    // Player-specific color variables from CSS
-    const playerColors = [
-        '--neon-green',   // Human
-        '--neon-blue',    // Gemini
-        '--neon-pink',    // ChatGPT
-        '--neon-orange'   // Claude
-    ];
+    // Nejprve resetujeme všechny hráče - odstraníme třídu active
+    document.querySelectorAll('.player').forEach(p => {
+        p.classList.remove('active');
+    });
     
-    const playerElement = document.querySelector(playerClasses[index]);
+    // Najdeme aktuálního hráče a označíme ho jako aktivního
+    const currentPlayerClass = playerClasses[gameState.currentPlayer];
+    if (!currentPlayerClass) {
+        console.error(`🔴 Neplatný index hráče: ${gameState.currentPlayer}`);
+        return;
+    }
     
-    when(
-        Boolean,
-        (element) => {
-            const isActive = gameState.currentPlayer === index;
-            
-            // Remove active from all players first and reset custom styles
-            document.querySelectorAll('.player').forEach(p => {
-                p.classList.remove('active');
-                p.classList.add('inactive');
-                p.style.boxShadow = ''; // Reset any custom box shadows
-            });
-            
-            // Apply active/inactive classes and correct color for active player
-            if (isActive) {
-                element.classList.add('active');
-                element.classList.remove('inactive');
-                
-                // Use CSS variable for player's color
-                const playerColor = `var(${playerColors[index]})`;
-                element.style.boxShadow = `0 0 20px ${playerColor}`; 
-            } else {
-                element.classList.remove('active');
-                element.classList.add('inactive');
-            }
-            
-            console.log(`🎯 Player ${index} (${player.name}) - Active: ${isActive}`);
-        }
-    )(playerElement);
+    // Vyhledáme element aktivního hráče
+    const activePlayerElement = document.querySelector(`.${currentPlayerClass}`);
+    if (activePlayerElement) {
+        // Přidáme třídu active pro aktivního hráče
+        activePlayerElement.classList.add('active');
+        
+        console.log(`🎯 Aktivní hráč: ${gameState.currentPlayer} (${player.name}) - třída ${currentPlayerClass}`);
+    } else {
+        console.error(`🔴 Element hráče nenalezen pro třídu: .${currentPlayerClass}`);
+    }
 };
 
 // 📊 MAIN SCOREBOARD UPDATER
