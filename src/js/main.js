@@ -1,5 +1,6 @@
 // AI Dice Challenge - Main Application
 import { initializeGame, setupEventListeners, startGame, saveScore as saveGameScore, startNewGame as startNewGameController, returnToMainMenu as returnToMainMenuController } from './game/gameController.js';
+import { endAITurn } from './ai/aiPlayer.js';
 import { EnhancedChatController } from './ui/enhancedChatController.js';
 import { setupUI, displayHallOfFame, closeHallOfFame } from './ui/uiController.js';
 import { updateScoreboard, updateActivePlayer } from './ui/gameUI.js';

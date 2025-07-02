@@ -61,6 +61,11 @@ export function resetGameState() {
  * Přejde na dalšího hráče
  */
 export function nextPlayer() {
+    // End any active AI turn before switching players
+    if (typeof window !== 'undefined' && window.endAITurn) {
+        window.endAITurn();
+    }
+    
     const previousPlayer = gameState.currentPlayer;
     gameState.currentPlayer = (gameState.currentPlayer + 1) % 4; // 4 hráči celkem
     console.log(`🔄 NextPlayer: ${previousPlayer} → ${gameState.currentPlayer} (FinalRound: ${gameState.finalRound}, Initiator: ${gameState.finalRoundInitiator})`);
