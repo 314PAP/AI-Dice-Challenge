@@ -23,7 +23,7 @@ const updatePlayerElement = (player, index) => {
     )(playerElement);
 };
 
-// 🎯 ACTIVE PLAYER INDICATOR - Functional highlighting
+// 🎯 ACTIVE PLAYER INDICATOR - Functional highlighting with player-specific colors
 const updatePlayerActiveState = (player, index) => {
     // Map player types to correct CSS classes
     const playerClasses = [
@@ -33,8 +33,13 @@ const updatePlayerActiveState = (player, index) => {
         '.claude-player'
     ];
     
-    // CSS v themes.css již správně nastavuje barvy pro každého hráče
-    // Každý hráč má svoji specifickou barvu definovanou v CSS
+    // Player-specific color variables from CSS
+    const playerColors = [
+        '--neon-green',   // Human
+        '--neon-blue',    // Gemini
+        '--neon-pink',    // ChatGPT
+        '--neon-orange'   // Claude
+    ];
     
     const playerElement = document.querySelector(playerClasses[index]);
     
@@ -43,20 +48,26 @@ const updatePlayerActiveState = (player, index) => {
         (element) => {
             const isActive = gameState.currentPlayer === index;
             
-            // Remove active from all players first
+            // Remove active from all players first and reset custom styles
+            document.querySelectorAll('.player').forEach(p => {
+                p.classList.remove('active');
+                p.classList.add('inactive');
+                p.style.boxShadow = ''; // Reset any custom box shadows
+            });
+            
+            // Apply active/inactive classes and correct color for active player
             if (isActive) {
-                document.querySelectorAll('.player').forEach(p => {
-                    p.classList.remove('active');
-                    p.classList.add('inactive');
-                });
+                element.classList.add('active');
+                element.classList.remove('inactive');
+                
+                // Use CSS variable for player's color
+                const playerColor = `var(${playerColors[index]})`;
+                element.style.boxShadow = `0 0 20px ${playerColor}`; 
+            } else {
+                element.classList.remove('active');
+                element.classList.add('inactive');
             }
             
-            // Aplikovat třídy aktivního/neaktivního hráče
-            element.classList.toggle('active', isActive);
-            element.classList.toggle('inactive', !isActive);
-            
-            // Zajistíme, že CSS třída 'active' na prvku je aktuální
-            // (CSS v themes.css již správně nastavuje barvy)
             console.log(`🎯 Player ${index} (${player.name}) - Active: ${isActive}`);
         }
     )(playerElement);
