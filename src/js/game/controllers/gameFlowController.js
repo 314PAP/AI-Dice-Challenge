@@ -77,6 +77,7 @@ export function startGame() {
     updateGameDisplay();
     updateScoreboard();
     updateActivePlayer();
+    updateGameInfo(); // Přidáno pro zajištění aktualizace skóre tahu
     playerTurn();
 }
 
