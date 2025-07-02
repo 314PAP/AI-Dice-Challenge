@@ -209,6 +209,11 @@ export function endTurn(scored = true) {
         } else {
             console.log('💀 FARKLE: No score added');
             window.addChatMessage('system', `💀 FARKLE! ${gameState.players[gameState.currentPlayer].name} nezískal žádné body a končí tah.`);
+            
+            // Show FARKLE message above player avatar
+            if (typeof window !== 'undefined' && window.showFarkleMessage) {
+                window.showFarkleMessage(gameState.currentPlayer);
+            }
         }
         
         // Reset current turn score

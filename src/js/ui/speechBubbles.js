@@ -36,3 +36,22 @@ export function showSpeechBubble(playerIndex, message) {
         bubble.style.color = '';
     }, 3000);
 }
+
+/**
+ * Zobrazí FARKLE zprávu nad hráčem s speciálním stylem
+ * @param {number} playerIndex - Index hráče (0-3)
+ */
+export function showFarkleMessage(playerIndex) {
+    showSpeechBubble(playerIndex, '💥 FARKLE!');
+    
+    // Přidáme také červený efekt na hráče
+    const playerClasses = ['.human-player', '.gemini-player', '.chatgpt-player', '.claude-player'];
+    const playerElement = document.querySelector(playerClasses[playerIndex]);
+    
+    if (playerElement) {
+        playerElement.style.boxShadow = '0 0 20px #ff0040';
+        setTimeout(() => {
+            playerElement.style.boxShadow = '';
+        }, 2000);
+    }
+}
