@@ -33,13 +33,8 @@ const updatePlayerActiveState = (player, index) => {
         '.claude-player'
     ];
     
-    // Získat barvy hráče z CSS proměnných (pro konzistentnost použití)
-    const playerColors = [
-        'var(--neon-green)',   // Human
-        'var(--neon-blue)',    // Gemini
-        'var(--neon-pink)',    // ChatGPT
-        'var(--neon-orange)'   // Claude
-    ];
+    // CSS v themes.css již správně nastavuje barvy pro každého hráče
+    // Každý hráč má svoji specifickou barvu definovanou v CSS
     
     const playerElement = document.querySelector(playerClasses[index]);
     
