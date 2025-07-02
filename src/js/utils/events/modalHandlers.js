@@ -30,13 +30,16 @@ export const showHallOfFame = pipe(
     () => displayHallOfFame()
 );
 
-// Opravená funkce bez použití pipe a cond, aby nedocházelo k chybám
+// Opravená a vylepšená funkce pro bezpečný návrat z Hall of Fame
 export const hideHallOfFameWithContext = () => {
+    console.log('🏆 Zavírání Hall of Fame...');
+    
     // Skrýt Hall of Fame
     hideHallOfFame();
     
     // Pokud jsme přišli z konce hry a hra je ukončená
     if (window.hallOfFameFromGameOver && isGameEnded()) {
+        console.log('🎮 Návrat z Hall of Fame po konci hry - zobrazuji game over modal');
         // Zobrazit znovu game over modal
         setTimeout(() => {
             const gameOverModal = document.getElementById('gameOverModal');
@@ -46,10 +49,23 @@ export const hideHallOfFameWithContext = () => {
                 emitter.emit(EVENTS.MODAL_SHOW, { modalId: 'gameOverModal', context: 'return-from-hof' });
             }
         }, 300);
+    } else {
+        // Pokud jsme v hlavním menu nebo jiném kontextu
+        console.log('🎮 Návrat z Hall of Fame - standardní zavření');
     }
     
     // Resetovat flag
     window.hallOfFameFromGameOver = false;
+    
+    // Ujistíme se, že AI timeouty jsou vypnuty, aby nedošlo k emergency modu
+    if (window.endAITurn && typeof window.endAITurn === 'function') {
+        window.endAITurn();
+    }
+    
+    // Ujistíme se, že všechny ostatní timeouty jsou vymazány
+    if (window.clearAllAITimeouts && typeof window.clearAllAITimeouts === 'function') {
+        window.clearAllAITimeouts();
+    }
 };
 
 // 🧹 UTILITY FUNCTIONS
