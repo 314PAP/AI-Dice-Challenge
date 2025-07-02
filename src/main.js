@@ -17,6 +17,7 @@ import { tryCatchWithLogging } from './js/utils/errorHandling.js';
 import { eventBus, GAME_EVENTS } from './js/utils/eventBus.js';
 import enhancedGameStarter from './js/game/enhancedGameStarter.js';
 import { whenDOMReady } from './js/utils/domReadyObserver.js';
+import { selectDie } from './js/game/controllers/turnActionsController.js';
 
 /**
  * Inicializace aplikace se spolehlivým načítáním DOM
@@ -53,6 +54,9 @@ whenDOMReady(() => {
             // Zpřístupni chat globálně pro kompatibilitu - opravena signatura
             window.addChatMessage = (sender, message) => chatController.addMessage(sender, message);
             window.chatController = chatController;
+            
+            // Zpřístupni selectDie globálně pro kostky
+            window.selectDie = selectDie;
             
             // Explicitně nastavíme všechny event listenery pomocí nového inicializátoru
             console.log('🎮 Inicializuji všechny event listenery pomocí nového systému...');

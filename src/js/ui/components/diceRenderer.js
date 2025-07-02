@@ -3,7 +3,13 @@
  */
 
 import { pipe, when, unless } from 'ramda';
-import { isEmpty } from 'lodash-es';
+// Jednoduchá implementace isEmpty
+const isEmpty = (value) => {
+    if (Array.isArray(value)) return value.length === 0;
+    if (typeof value === 'object') return Object.keys(value).length === 0;
+    return !value;
+};
+
 import { gameState } from '../../game/gameState.js';
 import { calculateScore } from '../../game/diceLogic.js';
 import { safeGetElement } from '../../utils/gameUtils.js';

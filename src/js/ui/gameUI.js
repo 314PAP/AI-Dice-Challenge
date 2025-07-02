@@ -4,7 +4,19 @@
  */
 
 import { pipe } from 'ramda';
-import { debounce } from 'lodash-es';
+// Jednoduchá implementace debounce
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
 import { updateDiceContainer, createDiceElement } from './components/diceRenderer.js';
 import { updateScoreboard, updateActivePlayer } from './components/scoreboard.js';
 import { updateControlsState, updateGameInfo, updatePlayerStatus } from './components/gameControls.js';

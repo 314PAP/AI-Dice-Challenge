@@ -147,10 +147,24 @@
   background: rgba(0, 0, 0, 0.3);
   border-left: 3px solid var(--neon-green);
   transition: var(--transition-base);
+  font-size: var(--font-lg); /* Zvětšil písmo pro desktop */
+  line-height: 1.4;
 }
 
 .chat-message:hover {
   background: rgba(0, 0, 0, 0.5);
+}
+
+/* Chat header nadpis */
+.chat-header h2 {
+  font-size: var(--font-xl);
+  margin: 0 0 1em 0;
+  color: var(--neon-green);
+}
+
+/* Chat input větší písmo */
+.chat-input input {
+  font-size: var(--font-base);
 }
 
 .chat-message.system {
