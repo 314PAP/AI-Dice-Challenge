@@ -308,7 +308,11 @@ export function endGame(winner) {
     // Clear all AI timeouts
     clearAllAITimeouts();
     
+    // Označit hru jako ukončenou
     gameState.gameEnded = true;
+    
+    // Zajistit, že finální skóre je aktualizováno v UI
+    updateScoreboard();
     
     document.getElementById('winnerAnnouncement').innerHTML = 
         winner.type === 'human' ? '🎉 Gratulujeme! Vyhrál(a) jste!' : `🏆 Vítězem se stává ${winner.name}!`;
