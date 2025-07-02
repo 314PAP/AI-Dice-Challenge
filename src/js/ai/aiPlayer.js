@@ -140,22 +140,33 @@ export const playAITurn = pipe(
     }
 );
 
-// 🎲 AI ROLL LOGIC - Functional decision making
+// 🎲 AI ROLL LOGIC - Enhanced with proper validation
 const playAIRoll = pipe(
     () => console.log('🎲 === AI ROLL START ==='),
     unless(isGameRunning, () => {
         console.log('🚫 AI roll cancelled - game not running');
+        aiTurnInProgress = false;
         return false;
     }),
     unless(hasAvailableDice, () => {
         const aiPlayer = getCurrentPlayer();
         console.warn(`AI ${aiPlayer.name} cannot roll: no available dice (${gameState.availableDice})`);
         console.log('🏁 AI ending turn due to no available dice');
-        createAITimeout(() => safeExecute(endTurn, null, 'AI No Dice End Turn'), 1000);
+        createAITimeout(() => {
+            aiTurnInProgress = false;
+            safeExecute(endTurn, null, 'AI No Dice End Turn');
+        }, 1000);
         return false;
     }),
     () => {
         const aiPlayer = getCurrentPlayer();
+        
+        // Double check this is still the right AI player
+        if (currentAIPlayer !== aiPlayer || !aiTurnInProgress) {
+            console.log('🚫 AI roll cancelled - player changed');
+            return false;
+        }
+        
         console.log(`🎲 AI ${aiPlayer.name} rolling ${gameState.availableDice} dice...`);
         
         const diceResults = rollDice(gameState.availableDice);
