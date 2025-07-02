@@ -37,28 +37,43 @@ const calculateRiskLevel = pipe(
     (personality) => pathOr(aiDecisionMatrix.moderate, [personality], aiDecisionMatrix)
 );
 
-// 🎯 TIMEOUT MANAGEMENT - Functional array operations
+// 🎯 TIMEOUT MANAGEMENT - Enhanced with turn tracking
 let activeAITimeouts = [];
+let currentAIPlayer = null;
+let aiTurnInProgress = false;
 
 export const clearAllAITimeouts = () => {
     console.log(`🚫 Clearing ${activeAITimeouts.length} active AI timeouts...`);
     activeAITimeouts.forEach(clearTimeout);
-    activeAITimeouts.length = 0; // Clear array efficiently
+    activeAITimeouts.length = 0;
+    aiTurnInProgress = false;
+    currentAIPlayer = null;
 };
 
 export const createAITimeout = (callback, delay) => {
+    // Don't create timeout if AI turn is not in progress
+    if (!aiTurnInProgress) {
+        console.log('❌ AI timeout cancelled - no AI turn in progress');
+        return null;
+    }
+
     console.log(`🔧 Creating AI timeout with delay: ${delay}ms`);
     const timeoutId = setTimeout(() => {
         console.log('⏰ AI timeout fired!');
         // Remove timeout from active list
         activeAITimeouts = activeAITimeouts.filter(id => id !== timeoutId);
         
-        // Only execute if game is still running
-        if (isGameRunning()) {
-            console.log('✅ Game is running, executing AI callback');
-            callback();
+        // Only execute if game is still running and AI turn is still active
+        if (isGameRunning() && aiTurnInProgress) {
+            const currentPlayer = getCurrentPlayer();
+            if (currentPlayer && currentPlayer.type !== 'human' && currentPlayer === currentAIPlayer) {
+                console.log('✅ Valid AI callback execution');
+                callback();
+            } else {
+                console.log('❌ AI callback cancelled - player changed or invalid');
+            }
         } else {
-            console.log('❌ Game not running, skipping AI callback');
+            console.log('❌ Game not running or AI turn ended, skipping callback');
         }
     }, delay);
     
@@ -79,7 +94,7 @@ const resetAITurnState = () => {
     });
 };
 
-// 🎯 MAIN AI TURN FUNCTION - Functional composition
+// � MAIN AI TURN FUNCTION - Enhanced with proper controls
 export const playAITurn = pipe(
     () => console.log('🤖 === AI TURN START ==='),
     () => console.log('🔍 AI Debug - Game State Check:'),
@@ -87,6 +102,7 @@ export const playAITurn = pipe(
     () => console.log(`   - gameStarted: ${gameState.gameStarted}`),
     () => console.log(`   - currentPlayer: ${gameState.currentPlayer}`),
     () => console.log(`   - availableDice: ${gameState.availableDice}`),
+    () => console.log(`   - aiTurnInProgress: ${aiTurnInProgress}`),
     unless(isGameRunning, () => {
         console.log('🚫 AI turn cancelled - game not running');
         return false;
@@ -95,17 +111,31 @@ export const playAITurn = pipe(
         const aiPlayer = getCurrentPlayer();
         
         // KRITICKÁ KONTROLA: AI nesmí hrát za lidského hráče!
-        if (gameState.currentPlayer === 0 || aiPlayer.type === 'human') {
+        if (gameState.currentPlayer === 0 || !aiPlayer || aiPlayer.type === 'human') {
             console.log('🚫 AI turn cancelled - current player is human!');
-            console.log(`   - currentPlayer: ${gameState.currentPlayer}, type: ${aiPlayer.type}`);
+            console.log(`   - currentPlayer: ${gameState.currentPlayer}, type: ${aiPlayer?.type || 'undefined'}`);
             return false;
         }
+
+        // Check if AI turn is already in progress for this player
+        if (aiTurnInProgress && currentAIPlayer === aiPlayer) {
+            console.log('🚫 AI turn already in progress for this player');
+            return false;
+        }
+
+        // Set AI turn state
+        aiTurnInProgress = true;
+        currentAIPlayer = aiPlayer;
+        
         console.log(`🤖 Starting AI turn for ${aiPlayer.name} (player ${gameState.currentPlayer})`);
         console.log(`🎮 Game state - ended: ${gameState.gameEnded}, started: ${gameState.gameStarted}`);
         console.log('🎯 Current scores:', gameState.players.map(p => `${p.name}: ${p.score}`));
+        
         resetAITurnState();
-        console.log(`🎲 Rolling in ${random(800, 1200)}ms...`);
-        createAITimeout(() => playAIRoll(), random(800, 1200));
+        
+        const rollDelay = random(800, 1200);
+        console.log(`🎲 Rolling in ${rollDelay}ms...`);
+        createAITimeout(() => playAIRoll(), rollDelay);
         return true;
     }
 );
