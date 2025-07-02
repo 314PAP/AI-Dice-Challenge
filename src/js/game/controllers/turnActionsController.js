@@ -5,7 +5,7 @@
 
 import { gameState } from '../gameState.js';
 import { rollDice, calculateScore } from '../diceLogic.js';
-import { updateGameDisplay } from '../../ui/gameUI.js';
+import { updateGameDisplay, updateScoreboard, updateGameInfo } from '../../ui/gameUI.js';
 import { clearDiceState, debouncedChatMessage } from '../../utils/gameUtils.js';
 
 /**
@@ -128,6 +128,10 @@ export function bankSelectedDice() {
     }
     gameState.bankedDiceThisTurn.push(...selectedValues);
     console.log('🎲 Banked dice this turn:', gameState.bankedDiceThisTurn);
+    
+    // Okamžitě aktualizovat UI skóre a informace
+    updateScoreboard();
+    updateGameInfo();
     
     // Remove banked dice from available dice
     gameState.availableDice -= gameState.selectedDice.length;
