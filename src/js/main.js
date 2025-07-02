@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.startNewGame = startNewGameController;
     window.returnToMainMenu = returnToMainMenuController;
     window.endAITurn = endAITurn; // AI turn cleanup function
+    window.showFarkleMessage = showFarkleMessage; // FARKLE UI feedback
     
     // Initialize the application
     await gameCtrl.initialize();
