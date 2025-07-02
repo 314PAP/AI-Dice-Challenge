@@ -171,6 +171,9 @@ export function endTurn(scored = true) {
                 
                 window.addChatMessage('system', `${currentPlayer.name} získal ${gameState.currentTurnScore} bodů tento tah! Celkem: ${currentPlayer.score}.`);
                 
+                // Okamžitě aktualizovat skóre v UI
+                updateScoreboard();
+                
                 // AI reakce na skóre (pouze pokud je to lidský hráč)
                 if (gameState.currentPlayer === 0) {
                     // Import these functions when needed from AI reactions controller
