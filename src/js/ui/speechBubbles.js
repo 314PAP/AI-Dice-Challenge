@@ -42,16 +42,20 @@ export function showSpeechBubble(playerIndex, message) {
  * @param {number} playerIndex - Index hráče (0-3)
  */
 export function showFarkleMessage(playerIndex) {
-    showSpeechBubble(playerIndex, '💥 FARKLE!');
-    
-    // Přidáme také červený efekt na hráče
+    // Přidáme červený efekt na hráče
     const playerClasses = ['.human-player', '.gemini-player', '.chatgpt-player', '.claude-player'];
     const playerElement = document.querySelector(playerClasses[playerIndex]);
     
+    // Zobrazit FARKLE zprávu na delší dobu (3 sekundy)
+    showSpeechBubble(playerIndex, '💥 FARKLE!');
+    
     if (playerElement) {
+        // Červené podsvícení na 3 sekundy místo 2 sekund
         playerElement.style.boxShadow = '0 0 20px #ff0040';
+        
+        // Synchronizujeme dobu trvání se showSpeechBubble (3 sekundy)
         setTimeout(() => {
             playerElement.style.boxShadow = '';
-        }, 2000);
+        }, 3000); 
     }
 }

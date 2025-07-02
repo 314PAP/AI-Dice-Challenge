@@ -33,6 +33,14 @@ const updatePlayerActiveState = (player, index) => {
         '.claude-player'
     ];
     
+    // Získat barvy hráče z CSS proměnných (pro konzistentnost použití)
+    const playerColors = [
+        'var(--neon-green)',   // Human
+        'var(--neon-blue)',    // Gemini
+        'var(--neon-pink)',    // ChatGPT
+        'var(--neon-orange)'   // Claude
+    ];
+    
     const playerElement = document.querySelector(playerClasses[index]);
     
     when(
@@ -42,12 +50,18 @@ const updatePlayerActiveState = (player, index) => {
             
             // Remove active from all players first
             if (isActive) {
-                document.querySelectorAll('.player').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.player').forEach(p => {
+                    p.classList.remove('active');
+                    p.classList.add('inactive');
+                });
             }
             
+            // Aplikovat třídy aktivního/neaktivního hráče
             element.classList.toggle('active', isActive);
             element.classList.toggle('inactive', !isActive);
             
+            // Zajistíme, že CSS třída 'active' na prvku je aktuální
+            // (CSS v themes.css již správně nastavuje barvy)
             console.log(`🎯 Player ${index} (${player.name}) - Active: ${isActive}`);
         }
     )(playerElement);
