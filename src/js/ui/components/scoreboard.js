@@ -32,7 +32,6 @@ const updatePlayerElement = (player, index) => {
             scoreSpan.textContent = player.score;
         }
     }
-}
 };
 
 // 🎯 ACTIVE PLAYER INDICATOR - Oprava pro správné barvy a zobrazení aktivního hráče
