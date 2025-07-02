@@ -4,6 +4,7 @@ import { endAITurn } from './ai/aiPlayer.js';
 import { EnhancedChatController } from './ui/enhancedChatController.js';
 import { setupUI, displayHallOfFame, closeHallOfFame } from './ui/uiController.js';
 import { updateScoreboard, updateActivePlayer } from './ui/gameUI.js';
+import { showFarkleMessage } from './ui/speechBubbles.js';
 
 // Wrapper class for game controller
 class GameController {
