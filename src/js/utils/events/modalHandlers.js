@@ -2,7 +2,7 @@
  * 🎮 Modal and Hall of Fame Event Handlers
  */
 
-import { curry, pipe, cond, T } from 'ramda';
+import { curry, pipe } from 'ramda';
 import { emitter, EVENTS } from './eventCore.js';
 import { toggleModal } from '../gameUtils.js';
 import { displayHallOfFame, hideHallOfFame } from '../hallOfFame.js';
