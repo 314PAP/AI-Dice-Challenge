@@ -24,6 +24,7 @@ export const updateGameDisplay = debounce(() => {
     console.log('🔄 Updating game display...');
     updateDiceContainer();
     updateControlsState();
+    updateScoreboard(); // Přidáno pro aktualizaci skóre u avatarů
 }, 50);
 
 // 🔄 COMPREHENSIVE UPDATE FUNCTION - Combines all updates
