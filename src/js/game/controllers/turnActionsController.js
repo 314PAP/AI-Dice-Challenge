@@ -38,6 +38,9 @@ export function rollDiceForPlayer() {
         console.log('❌ FARKLE detected! Ending turn...');
         window.addChatMessage('system', '❌ FARKLE! Žádné bodující kostky! Tah končí s 0 body.');
         
+        // Reset the current turn score
+        gameState.currentTurnScore = 0;
+        
         // Update UI for farkle display
         const humanStatus = document.getElementById('humanPlayerStatus');
         
@@ -46,8 +49,10 @@ export function rollDiceForPlayer() {
             humanStatus.style.color = 'var(--neon-orange)';
         }
         
-        // Update display and end turn after delay
+        // Update display, scoreboard and end turn after delay
         updateGameDisplay();
+        updateScoreboard();
+        updateGameInfo();
         setTimeout(async () => {
             // Only continue if game is still running
             if (!gameState.gameEnded && gameState.gameStarted) {
