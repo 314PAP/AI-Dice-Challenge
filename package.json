@@ -16,7 +16,13 @@
     "preview": "vite preview",
     "serve": "vite preview --port 3000",
     "start": "python3 -m http.server 8000",
-    "lint": "echo 'ESLint není nakonfigurován' && exit 0"
+    "lint": "echo 'ESLint není nakonfigurován' && exit 0",
+    "pnpm:dev": "pnpm run dev",
+    "pnpm:build": "pnpm run build",
+    "pnpm:preview": "pnpm run preview",
+    "pnpm:install": "pnpm install",
+    "pnpm:add": "pnpm add",
+    "pnpm:remove": "pnpm remove"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",

@@ -5,7 +5,7 @@
 
 import { gameState, resetGameState, nextPlayer, getCurrentPlayer, checkForWinner } from '../gameState.js';
 import { updateGameDisplay, updateScoreboard, updateActivePlayer } from '../../ui/gameUI.js';
-import { enhancedAI, generateAIGameReaction } from '../../../ai/controllers/enhancedAIController.js';
+import { enhancedAI, generateAIGameReaction } from '../../ai/enhancedAIController.js';
 import { playAITurn, clearAllAITimeouts, createAITimeout } from '../../ai/aiPlayer.js';
 import { saveGameResult, displayHallOfFame, createGameResult } from '../../utils/hallOfFame.js';
 import { resetEventListeners } from './eventSetupController.js';

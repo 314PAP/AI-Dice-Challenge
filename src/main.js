@@ -10,6 +10,7 @@ console.log('🔍 Document ready state:', document.readyState);
 import { setupUI } from './js/ui/uiController.js';
 import { initializeGame } from './js/game/gameController.js';
 import { initializeChat } from './js/ui/enhancedChatController.js';
+import { setupOptimizedEvents } from './js/utils/optimizedEvents.js';
 
 /**
  * Inicializace aplikace po načtení DOM
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Inicializuj UI
         setupUI();
+        setupOptimizedEvents(); // <-- Přidáno: inicializace event systému
         
         // Inicializuj chat
         const chatController = initializeChat();
