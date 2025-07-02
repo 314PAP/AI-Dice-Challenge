@@ -23,8 +23,8 @@ const updatePlayerElement = (player, index) => {
     )(playerElement);
 };
 
-// 🎯 ACTIVE PLAYER INDICATOR - Přepracovaný s spolehlivou detekci a správnými barvami hráčů
-const updatePlayerActiveState = (player, _index) => {
+// 🎯 ACTIVE PLAYER INDICATOR - Oprava pro správné barvy a zobrazení aktivního hráče
+const updatePlayerActiveState = (_player, _index) => {
     // Mapování typů hráčů na CSS třídy - uspořádané podle indexů hráčů
     const playerClasses = [
         'human-player',  // Index 0 - lidský hráč
@@ -38,20 +38,28 @@ const updatePlayerActiveState = (player, _index) => {
         p.classList.remove('active');
     });
     
-    // Najdeme aktuálního hráče a označíme ho jako aktivního
-    const currentPlayerClass = playerClasses[gameState.currentPlayer];
-    if (!currentPlayerClass) {
+    // Získáme aktuálního hráče
+    const currentPlayer = gameState.players[gameState.currentPlayer];
+    if (!currentPlayer) {
         console.error(`🔴 Neplatný index hráče: ${gameState.currentPlayer}`);
         return;
     }
     
-    // Vyhledáme element aktivního hráče
+    // Správný element hráče najdeme pomocí jeho indexu, ne podle třídy
+    const currentPlayerClass = playerClasses[gameState.currentPlayer];
+    if (!currentPlayerClass) {
+        console.error(`🔴 Neplatná třída pro index hráče: ${gameState.currentPlayer}`);
+        return;
+    }
+    
+    // Vyhledáme element aktivního hráče podle správné třídy
     const activePlayerElement = document.querySelector(`.${currentPlayerClass}`);
     if (activePlayerElement) {
         // Přidáme třídu active pro aktivního hráče
         activePlayerElement.classList.add('active');
         
-        console.log(`🎯 Aktivní hráč: ${gameState.currentPlayer} (${player.name}) - třída ${currentPlayerClass}`);
+        // Debug log pro ověření správného označení
+        console.log(`🎯 Aktivní hráč: ${gameState.currentPlayer} (${currentPlayer.name}) - třída ${currentPlayerClass}`);
     } else {
         console.error(`🔴 Element hráče nenalezen pro třídu: .${currentPlayerClass}`);
     }
