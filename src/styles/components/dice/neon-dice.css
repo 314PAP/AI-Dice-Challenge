@@ -61,23 +61,27 @@
 /* Kostka s body (možné vybrat) */
 .dice.scoring {
   border-color: var(--neon-green);
-  box-shadow: 0 0 8px var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green), 0 0 15px var(--neon-green);
   color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  cursor: pointer;
 }
 
 /* Vybraná kostka */
 .dice.selected {
   border-color: var(--neon-blue);
-  box-shadow: 0 0 12px var(--neon-blue);
+  box-shadow: 0 0 12px var(--neon-blue), 0 0 20px var(--neon-blue);
   color: var(--neon-blue);
-  transform: translateY(-5px);
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--neon-blue);
+  transform: translateY(-5px) scale(1.05);
 }
 
 /* Odložená kostka */
 .dice.banked {
   border-color: var(--neon-pink);
-  box-shadow: 0 0 8px var(--neon-pink);
+  box-shadow: 0 0 8px var(--neon-pink), 0 0 15px var(--neon-pink);
   color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
   opacity: 0.8;
 }
 
