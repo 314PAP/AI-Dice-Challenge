@@ -61,38 +61,40 @@
                         </div>
                     </div>
 
-                    <div class="players-container d-flex flex-wrap justify-content-center gap-4 mb-4 hidden" id="playersContainer">
-                        <div class="player human-player active border-neon-green p-3 rounded text-center">
-                            <div class="player-head mb-2">
-                                <img src="/ai-icons/mind.jpeg" alt="Vy" class="rounded-circle" />
+                    <!-- HERNÍ STAV - avatary, kostky, tlačítka -->
+                    <div class="game-controls hidden" id="gameControls">
+                        <!-- Avatary hráčů -->
+                        <div class="players-container d-flex flex-wrap justify-content-center gap-4 mb-4" id="playersContainer">
+                            <div class="player human-player active border-neon-green p-3 rounded text-center">
+                                <div class="player-head mb-2">
+                                    <img src="/ai-icons/mind.jpeg" alt="Vy" class="rounded-circle" />
+                                </div>
+                                <div class="player-name neon-text neon-green mb-1">Vy</div>
+                                <div class="player-score neon-text neon-green">Skóre: <span id="humanScore" class="fw-bold">0</span></div>
                             </div>
-                            <div class="player-name neon-text neon-green mb-1">Vy</div>
-                            <div class="player-score neon-text neon-green">Skóre: <span id="humanScore" class="fw-bold">0</span></div>
-                        </div>
-                        <div class="player gemini-player border-neon-blue p-3 rounded text-center">
-                            <div class="player-head mb-2">
-                                <img src="/ai-icons/gemini.jpeg" alt="Gemini" class="rounded-circle" />
+                            <div class="player gemini-player border-neon-blue p-3 rounded text-center">
+                                <div class="player-head mb-2">
+                                    <img src="/ai-icons/gemini.jpeg" alt="Gemini" class="rounded-circle" />
+                                </div>
+                                <div class="player-name neon-text neon-blue mb-1">Gemini</div>
+                                <div class="player-score neon-text neon-blue">Skóre: <span id="geminiScore" class="fw-bold">0</span></div>
                             </div>
-                            <div class="player-name neon-text neon-blue mb-1">Gemini</div>
-                            <div class="player-score neon-text neon-blue">Skóre: <span id="geminiScore" class="fw-bold">0</span></div>
-                        </div>
-                        <div class="player chatgpt-player border-neon-orange p-3 rounded text-center">
-                            <div class="player-head mb-2">
-                                <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" class="rounded-circle" />
+                            <div class="player chatgpt-player border-neon-orange p-3 rounded text-center">
+                                <div class="player-head mb-2">
+                                    <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" class="rounded-circle" />
+                                </div>
+                                <div class="player-name neon-text neon-orange mb-1">ChatGPT</div>
+                                <div class="player-score neon-text neon-orange">Skóre: <span id="chatgptScore" class="fw-bold">0</span></div>
                             </div>
-                            <div class="player-name neon-text neon-orange mb-1">ChatGPT</div>
-                            <div class="player-score neon-text neon-orange">Skóre: <span id="chatgptScore" class="fw-bold">0</span></div>
-                        </div>
-                        <div class="player claude-player border-neon-pink p-3 rounded text-center">
-                            <div class="player-head mb-2">
-                                <img src="/ai-icons/claude.jpeg" alt="Claude" class="rounded-circle" />
+                            <div class="player claude-player border-neon-pink p-3 rounded text-center">
+                                <div class="player-head mb-2">
+                                    <img src="/ai-icons/claude.jpeg" alt="Claude" class="rounded-circle" />
+                                </div>
+                                <div class="player-name neon-text neon-pink mb-1">Claude</div>
+                                <div class="player-score neon-text neon-pink">Skóre: <span id="claudeScore" class="fw-bold">0</span></div>
                             </div>
-                            <div class="player-name neon-text neon-pink mb-1">Claude</div>
-                            <div class="player-score neon-text neon-pink">Skóre: <span id="claudeScore" class="fw-bold">0</span></div>
                         </div>
-                    </div>
-
-                    <div class="game-controls hidden mt-4" id="gameControls">
+                        
                         <div class="turn-info p-2 mb-3 border-neon-green neon-text bg-dark-80 rounded text-center" id="turnInfo">Váš tah!</div>
                         <div class="current-turn-score p-2 mb-3 border-neon-green neon-text bg-dark-80 rounded text-center" id="currentTurnScore">Skóre tahu: 0</div>
                         <div class="target-info p-2 mb-3 border-neon-green neon-text bg-dark-80 rounded text-center" id="targetInfo">

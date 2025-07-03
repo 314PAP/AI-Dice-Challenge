@@ -9,6 +9,11 @@
    Pro většinu layoutu a stylování používejte přímo Bootstrap utility třídy v HTML.
 */
 
+/* Utility třídy pro 90% velikost kontejneru */
+.mw-90 { max-width: 90% !important; }
+.mh-90 { max-height: 90% !important; }
+.vh-90 { height: 90vh !important; }
+
 /* Herní box - speciální efekty */
 .game-box {
   border-radius: 8px;
