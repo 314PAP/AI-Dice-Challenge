@@ -21,6 +21,18 @@ AI Kostková Výzva je interaktivní webová hra založená na pravidlech hry Fa
 - Modulární JavaScript s oddělením UI, herní logiky a AI
 - Interaktivní chat s různými AI osobnostmi
 - Síň slávy pro sledování historických výsledků
+- Dvoupanelové rozložení: levý panel pro hru/menu, pravý panel pro chat
+
+### Design koncept
+Aplikace používá konzistentní dvoupanelové rozložení napříč všemi stavy:
+
+**Hlavní menu stav:**
+- **Levý panel (70%)**: Menu s nastavením cílového skóre, avatary hráčů, tlačítka pro start hry a síň slávy
+- **Pravý panel (30%)**: Chat okno pro komunikaci s AI
+
+**Herní stav:**
+- **Levý panel (70%)**: Herní oblast s kostkami, tlačítky pro hraní, skóre hráčů
+- **Pravý panel (30%)**: Stejné chat okno, které zůstává aktivní během hry
 
 ## Architektura a struktura
 
