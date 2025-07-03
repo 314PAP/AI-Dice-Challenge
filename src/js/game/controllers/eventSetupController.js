@@ -526,14 +526,24 @@ function sendMobileChatMessage() {
     const message = chatInput.value.trim();
     console.log('📱 Odesílám zprávu z mobilního chatu:', message);
     
-    // Přidat zprávu do chatu
+    // Přidat zprávu do chatu s neonovým efektem
     const chatMessages = document.getElementById('chatMessagesMobile');
     if (chatMessages) {
         const newMessage = document.createElement('div');
-        newMessage.className = 'chat-message text-light mb-1';
-        newMessage.style.fontSize = '0.75rem';
-        newMessage.innerHTML = `<strong>Vy:</strong> ${message}`;
+        newMessage.className = 'chat-message mb-2 small';
+        newMessage.innerHTML = '<strong class="neon-green">Vy:</strong> <span class="neon-green">' + message + '</span>';
         chatMessages.appendChild(newMessage);
+        
+        // Přidat odpověď AI pro demonstraci (později bude napojeno na skutečnou AI)
+        setTimeout(() => {
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'chat-message mb-2 small';
+            aiMessage.innerHTML = '<strong class="neon-blue">Gemini:</strong> <span class="neon-green">Zajímavá strategie!</span>';
+            chatMessages.appendChild(aiMessage);
+            
+            // Scroll na konec
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 500);
         
         // Vyčistit input
         chatInput.value = '';
