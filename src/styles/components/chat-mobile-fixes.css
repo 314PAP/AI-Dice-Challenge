@@ -1,0 +1,67 @@
+/* 
+ * Chat styles pro mobilní zařízení - zajišťuje správné zobrazení chat inputu
+ */
+
+/* Zajištění zobrazení vstupního pole v mobilním chatu */
+@media (max-width: 767.98px) {
+  #chatPanelMobile {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  #chatPanelMobile .chat-messages {
+    flex: 1 !important;
+    overflow-y: auto !important;
+  }
+  
+  #chatPanelMobile .chat-input {
+    display: flex !important;
+    padding: 0.5rem !important;
+    height: auto !important;
+    min-height: 45px;
+  }
+  
+  #chatPanelMobile .input-group {
+    display: flex !important;
+    width: 100% !important;
+  }
+  
+  #chatPanelMobile .input-group input {
+    display: flex !important;
+    height: 32px !important;
+  }
+  
+  #chatPanelMobile .input-group button {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Zvýšení výšky chat kontejneru */
+  .h-20.mt-1 {
+    margin-top: 0.5rem !important;
+    height: 25% !important; /* Zvýšení výšky z 20% na 25% */
+    min-height: 200px !important;
+  }
+  
+  /* Snížení výšky menu, abychom měli více prostoru pro chat */
+  .h-75 {
+    height: 70% !important; /* Snížení výšky z 75% na 70% */
+  }
+}
+
+/* Fixní nastavení pro velmi malé obrazovky */
+@media (max-width: 400px) {
+  #chatPanelMobile .chat-input {
+    min-height: 40px;
+  }
+  
+  #chatPanelMobile .input-group input {
+    height: 28px !important;
+    font-size: 0.8rem !important;
+  }
+  
+  #chatPanelMobile .input-group button i {
+    font-size: 1.2rem !important;
+  }
+}
