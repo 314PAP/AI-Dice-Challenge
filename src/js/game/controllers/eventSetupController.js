@@ -514,7 +514,6 @@ function toggleMobileChat() {
     console.log('📱 Přepínám mobilní chat');
     const chatBox = document.getElementById('chatPanelMobile');
     const toggleIcon = document.getElementById('toggleChatIcon');
-    const chatContainer = chatBox.closest('.chat-container');
     
     if (!chatBox || !toggleIcon) return;
     
@@ -584,3 +583,5 @@ function sendMobileChatMessage() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 }
+
+
