@@ -13,17 +13,14 @@
 .mw-90 { max-width: 90% !important; }
 .mh-90 { max-height: 90% !important; }
 .vh-90 { height: 90vh !important; }
+
+/* Výškové třídy pro rozložení */
+.h-70 { height: 70% !important; }
+.h-30 { height: 30% !important; }
+
+/* Už nepoužíváme, ale necháme pro zpětnou kompatibilitu */
 .h-60 { height: 60% !important; }
 .h-40 { height: 40% !important; }
-
-/* Výškové třídy pro mobilní layout */
-.h-70 {
-  height: 70% !important;
-}
-
-.h-30 {
-  height: 30% !important;
-}
 
 /* Responzivní úpravy pro utility třídy */
 @media (max-width: 768px) {
@@ -442,34 +439,20 @@
    📱 MOBILNÍ LAYOUT - Bootstrap-first přístup
    ============================================================================= */
 
-/* Chat stavy pro mobilní zařízení - využití Bootstrap tříd */
-.chat-collapsed .chat-messages {
+/* Optimalizované zobrazení chatu s využitím Bootstrap tříd */
+#chatPanelMobile .chat-messages {
+  max-height: 100% !important;
+  overflow-y: auto !important;
+}
+
+/* Pouze pro desktop má chat rozbalený a sbalený stav */
+#chatPanel.collapsed .chat-messages {
   max-height: 90px !important;
   overflow-y: auto !important;
 }
 
-.chat-collapsed .chat-messages .chat-message:nth-child(n+3) {
+#chatPanel.collapsed .chat-messages .chat-message:nth-child(n+3) {
   display: none !important;
-}
-
-.chat-expanded {
-  position: relative !important;
-  width: 100% !important;
-  height: 70vh !important;
-  z-index: 100 !important;
-  background-color: rgba(0, 0, 0, 0.85) !important;
-  padding: 1rem !important;
-  transition: height 0.3s ease;
-}
-
-.chat-expanded .chat-messages {
-  max-height: calc(100vh - 120px) !important;
-  overflow-y: auto !important;
-}
-
-.chat-expanded .chat-messages {
-  max-height: calc(100vh - 160px) !important;
-  overflow-y: auto !important;
 }
 
 /* Mobilní layout - zobrazení pod sebou */
