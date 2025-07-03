@@ -12,7 +12,24 @@
 /* Utility třídy pro 90% velikost kontejneru */
 .mw-90 { max-width: 90% !important; }
 .mh-90 { max-height: 90% !important; }
-.vh-90 { height: 90vh !important; }
+.vh-90 { height: 90vh !important; min-height: 600px; }
+
+/* Responzivní úpravy pro utility třídy */
+@media (max-width: 768px) {
+  .mw-90 { max-width: 95% !important; }
+  .mh-90 { max-height: 95% !important; }
+  .vh-90 { height: 95vh !important; min-height: 500px; }
+}
+
+@media (max-width: 576px) {
+  .mw-90 { max-width: 98% !important; }
+  .mh-90 { max-height: 98% !important; }
+  .vh-90 { height: 98vh !important; min-height: 450px; }
+}
+
+@media (max-height: 600px) {
+  .vh-90 { height: 100vh !important; min-height: auto; }
+}
 
 /* Utility třída pro skrývání prvků */
 .hidden { display: none !important; }
