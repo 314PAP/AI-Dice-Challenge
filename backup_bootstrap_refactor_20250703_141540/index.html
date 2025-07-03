@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Kostková Výzva</title>
+    <link rel="icon" type="image/svg+xml" href="/dice.svg" />
+    
+    <!-- MODERNÍ MODULÁRNÍ CSS SYSTÉM -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+    
+    <!-- GOOGLE FONTS PRO NEONOVÝ VZHLED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- REMIX ICON - OUTLINE IKONY PRO NEONOVÉ EFEKTY -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-black m-0 p-0 overflow-hidden min-vh-100 max-vh-100 d-flex justify-content-center align-items-center">
+    <div class="container-fluid vh-100 p-0 m-0 d-flex flex-column overflow-hidden bg-dark-80 neon-border">
+        <div class="d-flex flex-column flex-md-row h-100 w-100 overflow-hidden">
+        <div class="w-100 h-100 order-1 overflow-auto p-3 p-sm-2 p-md-3" style="flex: 0 0 65%; max-width: 100%; max-width: 65%;">
+            <div class="game-header">
+                <h1 class="game-title animate-neon-glow">
+                    <span class="neon-icon icon-dice large pulse"></span> 
+                    AI Kostková Výzva
+                    <a href="https://buymeacoffee.com/pipap" target="_blank" class="neon-icon icon-coffee hover-glow" title="Kup mi kávu">
+                    </a>
+                </h1>
+                <div class="target-score-setup" id="targetScoreSetup">
+                    <label>
+                        <span class="neon-icon icon-star small"></span>
+                        Cílové skóre: 
+                        <input type="number" id="targetScoreInput" value="10000" min="1000" step="1000">
+                    </label>
+                    <button class="btn btn-primary" id="startGameBtn">
+                        <span class="neon-icon icon-gaming small"></span>
+                        Začít hru
+                    </button>
+                    <button class="btn btn-secondary" id="hallOfFameBtn">
+                        <span class="neon-icon icon-star small"></span>
+                        🏆 Síň slávy
+                    </button>
+                </div>
+                
+                <!-- Avatary s jmény pod tlačítky -->
+                <div class="player-avatars-section">
+                    <div class="avatar-container">
+                        <img src="/ai-icons/mind.jpeg" alt="Vy" class="avatar-mini active" title="Vy">
+                        <div class="avatar-name">Vy</div>
+                    </div>
+                    <div class="avatar-container">
+                        <img src="/ai-icons/gemini.jpeg" alt="Gemini" class="avatar-mini" title="Gemini">
+                        <div class="avatar-name">Gemini</div>
+                    </div>
+                    <div class="avatar-container">
+                        <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" class="avatar-mini" title="ChatGPT">
+                        <div class="avatar-name">ChatGPT</div>
+                    </div>
+                    <div class="avatar-container">
+                        <img src="/ai-icons/claude.jpeg" alt="Claude" class="avatar-mini" title="Claude">
+                        <div class="avatar-name">Claude</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="players-container hidden" id="playersContainer">
+                <div class="player human-player active">
+                    <div class="player-head">
+                        <img src="/ai-icons/mind.jpeg" alt="Vy" />
+                    </div>
+                    <div class="player-name">Vy</div>
+                    <div class="player-score">Skóre: <span id="humanScore">0</span></div>
+                </div>
+                <div class="player gemini-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/gemini.jpeg" alt="Gemini" />
+                    </div>
+                    <div class="player-name">Gemini</div>
+                    <div class="player-score">Skóre: <span id="geminiScore">0</span></div>
+                </div>
+                <div class="player chatgpt-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" />
+                    </div>
+                    <div class="player-name">ChatGPT</div>
+                    <div class="player-score">Skóre: <span id="chatgptScore">0</span></div>
+                </div>
+                <div class="player claude-player">
+                    <div class="player-head">
+                        <img src="/ai-icons/claude.jpeg" alt="Claude" />
+                    </div>
+                    <div class="player-name">Claude</div>
+                    <div class="player-score">Skóre: <span id="claudeScore">0</span></div>
+                </div>
+            </div>
+
+            <div class="game-controls hidden mt-4 px-3" id="gameControls">
+                <div class="turn-info" id="turnInfo">Váš tah!</div>
+                <div class="current-turn-score" id="currentTurnScore">Skóre tahu: 0</div>
+                <div class="target-info" id="targetInfo">
+                    Cíl: <span id="targetScoreDisplay">10000</span>
+                </div>
+                
+                <div class="dice-container" id="diceContainer"></div>
+                
+                <div class="roll-controls">
+                    <button class="btn btn-primary" id="rollBtn">
+                        <span class="neon-icon icon-dice small"></span>
+                        Hodit kostky
+                    </button>
+                    <button class="btn btn-secondary" id="bankBtn" disabled>
+                        <span class="neon-icon icon-star small"></span>
+                        Odložit vybrané
+                    </button>
+                    <button class="btn btn-warning" id="endTurnBtn" disabled>
+                        <span class="neon-icon icon-gaming small"></span>
+                        Ukončit tah
+                    </button>
+                    <button class="btn btn-danger" id="quitGameBtn">
+                        <span class="neon-icon icon-brain small"></span>
+                        Opustit hru
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-100 order-2 d-md-block overflow-hidden neon-border" id="chatPanel" style="height: 40vh; flex: 0 0 35%; max-width: 35%;">
+            <button class="chat-toggle" id="chatToggle" title="Sbalit/rozbalit chat">−</button>
+            <div class="chat-header">
+                <h2><i class="ri-message-2-line neon-icon green"></i> AI CHAT</h2>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages"></div>
+            
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Napište zprávu..." maxlength="200">
+                <button id="sendMessageBtn" class="chat-send-btn" title="Odeslat zprávu"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOverModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">🎮 Konec hry</h2>
+            </div>
+            <div class="modal-body">
+                <div id="winnerAnnouncement" class="winner-announcement"></div>
+                <div id="finalScores" class="final-scores"></div>
+                <div id="gameStats" class="game-stats"></div>
+                
+                <!-- Signature section for human winners -->
+                <div id="signatureSection" class="signature-section hidden">
+                    <h3>🏆 Gratulujeme k vítězství!</h3>
+                    <p>Zadejte svůj podpis pro zápis do síně slávy:</p>
+                    <div class="signature-input">
+                        <input type="text" id="winnerSignature" placeholder="Váš podpis" maxlength="30">
+                        <button id="saveScoreBtn" class="btn btn-success">💾 Uložit skóre</button>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="showHallOfFameBtn" class="btn btn-primary">🏆 Zobrazit síň slávy</button>
+                    <button id="startNewGameBtn" class="btn btn-secondary">🔄 Nová hra</button>
+                    <button id="returnToMenuBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hall of Fame Modal -->
+    <div id="hallOfFameModal" class="modal-overlay hall-of-fame-modal hidden">
+        <div class="modal-container hall-of-fame-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🏆 Síň slávy</h2>
+            </div>
+            <div class="modal-body">
+                <div id="hallOfFameContent">
+                    <div id="hallOfFameList"></div>
+                </div>
+                <div class="modal-actions hall-of-fame-actions">
+                    <button id="closeHallOfFameBtn" class="btn btn-primary">🔙 Zpět</button>
+                    <button id="newGameFromHallBtn" class="btn btn-success">🎮 Nová hra</button>
+                    <button id="mainMenuFromHallBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CSS Debug Script -->
+    <script>
+        // Debug CSS proměnných
+        window.addEventListener('DOMContentLoaded', () => {
+            const root = document.documentElement;
+            const computedStyle = getComputedStyle(root);
+            
+            console.log('🎨 CSS Proměnné:');
+            console.log('--neon-green:', computedStyle.getPropertyValue('--neon-green'));
+            console.log('--neon-blue:', computedStyle.getPropertyValue('--neon-blue'));
+            console.log('--neon-pink:', computedStyle.getPropertyValue('--neon-pink'));
+            console.log('--neon-orange:', computedStyle.getPropertyValue('--neon-orange'));
+            
+            // Debug players container
+            const playersContainer = document.querySelector('.players-container');
+            console.log('👥 Players container:', playersContainer);
+            console.log('Hidden class:', playersContainer?.classList.contains('hidden'));
+            console.log('Display style:', getComputedStyle(playersContainer)?.display);
+        });
+    </script>
+    
+    <!-- Main Application Script -->
+    <script type="module" src="/src/main.js"></script>
+        </div> <!-- Konec main-layout -->
+    </div> <!-- Konec app-container -->
+</body>
+</html>
