@@ -221,7 +221,7 @@ export function setupEventListeners() {
                             chatToggle.title = 'Rozbalit chat';
                             // Zajistit zobrazení posledních zpráv
                             setTimeout(() => {
-                                this.showLastMessages();
+                                showLastMessages();
                             }, 100);
                         }
                     } else {
@@ -243,6 +243,10 @@ export function setupEventListeners() {
                     chatBox.classList.add('chat-collapsed');
                     chatToggle.textContent = '+';
                     chatToggle.title = 'Rozbalit chat';
+                    // Zajistit zobrazení posledních zpráv
+                    setTimeout(() => {
+                        showLastMessages();
+                    }, 200);
                 } else if (chatBox) {
                     // Na desktopu je chat rozbalený
                     chatBox.classList.remove('chat-collapsed', 'chat-expanded');
@@ -390,3 +394,23 @@ export function resetEventListeners() {
                 window.hallOfFameFromGameOver = false;
             });
         }
+        
+        /**
+ * Show last messages in collapsed chat on mobile
+ */
+function showLastMessages() {
+    const chatMessages = document.querySelector('#chatPanel .chat-messages');
+    if (!chatMessages) return;
+    
+    const messages = chatMessages.querySelectorAll('.chat-message');
+    if (messages.length <= 2) return;
+    
+    // Hide all but last 2 messages
+    messages.forEach((message, index) => {
+        if (index < messages.length - 2) {
+            message.style.display = 'none';
+        } else {
+            message.style.display = 'block';
+        }
+    });
+}
