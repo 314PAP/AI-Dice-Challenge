@@ -489,3 +489,77 @@ function showLastMessages() {
         }
     });
 }
+
+/**
+ * Toggle mobile chat - přepíná mezi sbaleným a rozbaleným chatem na mobilních zařízeních
+ */
+function toggleMobileChat() {
+    console.log('📱 Přepínám mobilní chat');
+    const chatBox = document.getElementById('chatPanelMobile');
+    const toggleIcon = document.getElementById('toggleChatIcon');
+    
+    if (!chatBox || !toggleIcon) return;
+    
+    if (chatBox.classList.contains('chat-collapsed')) {
+        // Rozbalení chatu
+        chatBox.classList.remove('chat-collapsed');
+        chatBox.classList.add('chat-expanded');
+        toggleIcon.classList.remove('ri-arrow-up-line');
+        toggleIcon.classList.add('ri-arrow-down-line');
+        
+        // Zobrazit všechny zprávy
+        const messages = chatBox.querySelectorAll('.chat-message');
+        messages.forEach(message => {
+            message.style.display = 'block';
+        });
+        
+        // Scroll na konec
+        setTimeout(() => {
+            const chatMessages = document.getElementById('chatMessagesMobile');
+            if (chatMessages) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }, 100);
+    } else {
+        // Sbalení chatu
+        chatBox.classList.remove('chat-expanded');
+        chatBox.classList.add('chat-collapsed');
+        toggleIcon.classList.remove('ri-arrow-down-line');
+        toggleIcon.classList.add('ri-arrow-up-line');
+        
+        // Zobrazit jen poslední zprávy
+        setTimeout(() => {
+            showLastMessages();
+        }, 100);
+    }
+}
+
+/**
+ * Odeslat zprávu z mobilního chatu
+ */
+function sendMobileChatMessage() {
+    const chatInput = document.getElementById('chatInputMobile');
+    if (!chatInput || !chatInput.value.trim()) return;
+    
+    // Zde by byla logika pro odeslání zprávy do chatu
+    // TODO: Implementovat správnou logiku pro AI chat
+    
+    const message = chatInput.value.trim();
+    console.log('📱 Odesílám zprávu z mobilního chatu:', message);
+    
+    // Přidat zprávu do chatu
+    const chatMessages = document.getElementById('chatMessagesMobile');
+    if (chatMessages) {
+        const newMessage = document.createElement('div');
+        newMessage.className = 'chat-message text-light mb-1';
+        newMessage.style.fontSize = '0.75rem';
+        newMessage.innerHTML = `<strong>Vy:</strong> ${message}`;
+        chatMessages.appendChild(newMessage);
+        
+        // Vyčistit input
+        chatInput.value = '';
+        
+        // Scroll na konec
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+}
