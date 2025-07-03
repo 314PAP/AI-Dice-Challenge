@@ -33,6 +33,9 @@ export const gameState = {
  * Resetuje stav hry do výchozího nastavení
  */
 export function resetGameState() {
+    console.log('🔄 Resetuji stav hry do výchozího nastavení...');
+    
+    // Reset základních herních hodnot
     gameState.targetScore = 10000;
     gameState.currentPlayer = 0;
     gameState.players = [
@@ -51,10 +54,36 @@ export function resetGameState() {
     gameState.mustBankDice = false;
     gameState.finalRound = false;
     gameState.finalRoundInitiator = null;
-    gameState.endTurnProcessing = false;
     gameState.gameStartTime = null;
     gameState.totalTurns = 0;
     gameState.playerTurns = { human: 0, gemini: 0, chatgpt: 0, claude: 0 };
+    gameState.endTurnProcessing = false;
+    
+    // Resetování UI stavu při návratu do menu
+    try {
+        // Odstranění všech aktivních tříd u hráčů
+        document.querySelectorAll('.player').forEach(p => {
+            p.classList.remove('active', 'winner');
+            
+            // Reset inline stylů
+            p.style.borderColor = '';
+            p.style.boxShadow = '';
+            p.style.animation = '';
+            p.style.transform = '';
+        });
+        
+        // Reset informačních polí
+        const infoElements = ['currentTurnScore', 'availableDice', 'turnInfo'];
+        infoElements.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = '';
+        });
+        
+        console.log('✅ Reset hry dokončen');
+    } catch (error) {
+        console.error('⚠️ Chyba při resetování UI stavu:', error);
+        // Pokračujeme i při chybě, aby se hra nezasekla
+    }
 }
 
 /**

@@ -433,7 +433,7 @@ export function endGame(winner) {
         `;
         
         // Zkontrolujeme, že animace a styly byly správně aplikovány
-        console.log(`🎯 Styly vítěze aplikovány na element:`, winnerElement);
+        console.log('🎯 Styly vítěze aplikovány na element:', winnerElement);
         console.log(`🎯 Barva vítěze: ${color}`);
     } else {
         console.error(`⚠️ Nepodařilo se najít element vítěze pro typ: ${winnerType}`);
