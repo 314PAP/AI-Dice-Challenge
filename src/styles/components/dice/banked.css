@@ -5,12 +5,13 @@
 /* Kontejner pro odložené kostky - zprava doleva */
 .banked-dice-container {
   display: flex;
-  flex-direction: row-reverse; /* Zprava doleva */
+  flex-direction: row-reverse; /* Zprava doleva - nové kostky se přidávají vlevo */
   gap: 8px;
-  justify-content: flex-end;
-  margin-right: 10px;
-  border-right: 2px dotted rgba(0, 128, 255, 0.3);
-  padding-right: 10px;
+  justify-content: flex-start;
+  margin-left: 15px;
+  border-left: 2px solid rgba(0, 128, 255, 0.5);
+  padding-left: 15px;
+  box-shadow: -2px 0 10px rgba(0, 128, 255, 0.3);
 }
 
 /* Responzivní úprava pro menší obrazovky */

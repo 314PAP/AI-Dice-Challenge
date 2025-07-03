@@ -76,25 +76,21 @@ export const updateDiceContainer = () => {
     
     // Render banked dice from right to left after current dice
     if (gameState.bankedDiceThisTurn && gameState.bankedDiceThisTurn.length > 0) {
-        console.log('� Rendering banked dice (right to left):', gameState.bankedDiceThisTurn);
+        console.log('🎲 Rendering banked dice (right to left):', gameState.bankedDiceThisTurn);
         
         // Create a separate container for banked dice so we can control their order
         const bankedContainer = document.createElement('div');
         bankedContainer.className = 'banked-dice-container';
-        bankedContainer.style.display = 'flex';
-        bankedContainer.style.flexDirection = 'row-reverse'; // Display from right to left
         
+        // Using CSS from banked.css for flex-direction: row-reverse
+        // Nově odložené kostky se přidají vlevo (díky row-reverse se zobrazují zprava doleva)
         gameState.bankedDiceThisTurn.forEach(value => {
             const dieElement = createDiceElement(value, -1, 'banked');
             bankedContainer.appendChild(dieElement);
         });
         
-        // Prepend banked dice (they'll appear on the right since we're using flex-direction: row-reverse)
-        if (allDiceContainer.firstChild) {
-            allDiceContainer.insertBefore(bankedContainer, allDiceContainer.firstChild);
-        } else {
-            allDiceContainer.appendChild(bankedContainer);
-        }
+        // Banked dice jsou na pravé straně, aktivní kostky na levé
+        allDiceContainer.appendChild(bankedContainer);
     }
     
     container.appendChild(allDiceContainer);
