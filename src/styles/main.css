@@ -48,7 +48,7 @@
 @import './themes/bootstrap-neon.css';
 
 /* 🔧 UTILITIES */
-@import './utils/fullscreen-fix.css';
+/* Fullscreen fix přesunut do archivu - používáme Bootstrap utility třídy */
 @import './utils/spacing.css';
 @import './utils/colors.css';
 @import './utils/visibility.css';
