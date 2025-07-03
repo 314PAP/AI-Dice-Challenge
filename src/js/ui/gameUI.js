@@ -2,6 +2,7 @@
  * 🎮 Game UI Controller - Zjednodušená implementace
  */
 
+import { gameState } from '../game/gameState.js';
 import { updateDiceContainer, createDiceElement } from './components/diceRenderer.js';
 import { updateScoreboard, updateActivePlayer } from './components/scoreboard.js';
 import { updateControlsState, updateGameInfo, updatePlayerStatus } from './components/gameControls.js';
