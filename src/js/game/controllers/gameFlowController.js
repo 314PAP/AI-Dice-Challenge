@@ -145,7 +145,18 @@ export function endTurn(scored = true) {
         return;
     }
     
+    // Nastavení příznaku zpracování
     gameState.endTurnProcessing = true;
+    
+    // Bezpečnostní mechanismus - resetujeme příznak po určitém čase v každém případě
+    // abychom předešli "zaseknutí" stavu
+    setTimeout(() => {
+        if (gameState.endTurnProcessing) {
+            console.warn('⚠️ Bezpečnostní reset endTurnProcessing po timeoutu');
+            gameState.endTurnProcessing = false;
+        }
+    }, 2000);
+    
     console.log('🎯 === ENDTURN START ===');
     console.log(`🎯 Player: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
     console.log(`🎯 Scored: ${scored}`); 
@@ -257,9 +268,9 @@ export function endTurn(scored = true) {
         updateActivePlayer();
         updateScoreboard();
         
-        // KONTROLA KONCE FINÁLNÍHO KOLA AŽ PO NEXTPLAYER()
+        // KONTROLA KONCE FINÁLNÍHO KOLA SPUŠTĚNO
         if (gameState.finalRound) {
-            console.log(`🔍 Kontrola konce finálního kola PO _nextPlayer(): CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
+            console.log(`🔍 Kontrola konce finálního kola: CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
             
             // Zdůrazněné logování pro debug
             console.log(`🔄 FINÁLNÍ KOLO STATUS: currentPlayer=${gameState.currentPlayer}, initiator=${gameState.finalRoundInitiator}`);
