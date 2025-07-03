@@ -2,6 +2,18 @@
 
 Tento dokument obsahuje zásady a tipy pro práci s designem a vizuálním stylem v projektu AIDICE.
 
+## 🔄 Aktualizace: Minimalistický design
+
+Projekt byl aktualizován na minimalistický design s následujícími principy:
+
+1. **Bootstrap-first přístup** - Využití utility tříd Bootstrapu pro layout
+2. **Oddělené herní a chatovací boxy** - Každá část má vlastní neonový rámeček
+3. **Čistý vzhled chatu** - Minimalistický chat s polem vždy dole
+4. **Responsivní design** - Optimalizace pro všechny velikosti obrazovek
+5. **Konzistence neonových efektů** - Sjednocení vizuálního stylu
+
+Více informací v dokumentu [MINIMALIST_LAYOUT_UPDATE.md](./MINIMALIST_LAYOUT_UPDATE.md)
+
 ## 🎨 Barevná paleta
 
 ### Základní barvy
