@@ -6,6 +6,7 @@
 .game-box {
   border-radius: 8px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(var(--neon-green-rgb, 0, 255, 0), 0.3);
 }
 
 .game-box:hover {
@@ -23,12 +24,31 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Zprávy v chatu - více prostoru pro obsah */
 #chatMessages {
   padding: 0.75rem;
   border-radius: 4px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--neon-green-rgb, 0, 255, 0), 0.5) rgba(0, 0, 0, 0.2);
+}
+
+/* Tenké scrollbary pro chat */
+#chatMessages::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chatMessages::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#chatMessages::-webkit-scrollbar-thumb {
+  background: rgba(var(--neon-green-rgb, 0, 255, 0), 0.5);
+  border-radius: 3px;
 }
 
 /* Vstupní pole v chatu - lépe integrované s tlačítkem */
@@ -38,6 +58,7 @@
   flex-wrap: nowrap;
   align-items: stretch;
   width: 100%;
+  margin-bottom: 0;
 }
 
 #chatPanel .input-group .form-control-neon {
@@ -45,6 +66,8 @@
   border-right: none;
   flex: 1 1 auto;
   margin: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(var(--neon-green-rgb, 0, 255, 0), 0.4);
 }
 
 #chatPanel .input-group .btn {
@@ -66,6 +89,7 @@
   
   #chatMessages {
     padding: 0.5rem;
+    max-height: 200px;
   }
   
   #chatPanel .chat-header {
@@ -74,5 +98,29 @@
   
   #chatPanel .chat-input {
     padding: 0.5rem;
+    position: sticky;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(var(--neon-green-rgb, 0, 255, 0), 0.3);
   }
+}
+
+/* Herní ovládací prvky - lepší zarovnání a vzhled */
+.roll-controls .btn {
+  min-width: 120px;
+}
+
+/* Vylepšení herních prvků pro lepší Bootstrap integraci */
+.dice-container {
+  min-height: 100px;
+}
+
+/* Herní informace */
+.turn-info, .current-turn-score, .target-info {
+  border: 1px solid rgba(var(--neon-green-rgb, 0, 255, 0), 0.3);
+  transition: all 0.3s ease;
+}
+
+.turn-info:hover, .current-turn-score:hover, .target-info:hover {
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb, 0, 255, 0), 0.3);
 }
