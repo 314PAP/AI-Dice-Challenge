@@ -114,6 +114,7 @@ function adjustLayoutForOrientation() {
 }
 
 // Inicializace event listenerů
+// Inicializace event listenerů
 function initEventListeners() {
     // Animace po najetí na tlačítka
     document.querySelectorAll('.btn-neon').forEach(btn => {
@@ -133,34 +134,205 @@ function initEventListeners() {
     if (chatInputMobile && sendChatBtnMobile) {
         // Odeslání zprávy kliknutím na tlačítko
         sendChatBtnMobile.addEventListener('click', () => {
-            sendChatMessage(chatInputMobile);
+            sendChatMessage(chatInputMobile, 'mobile');
         });
         
         // Odeslání zprávy stisknutím Enter
         chatInputMobile.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                sendChatMessage(chatInputMobile);
+                sendChatMessage(chatInputMobile, 'mobile');
             }
+        });
+        
+        // Focus efekty pro vstupní pole
+        chatInputMobile.addEventListener('focus', () => {
+            const chatBox = document.querySelector('#chatPanelMobile');
+            if (chatBox) chatBox.classList.add('input-focused');
+        });
+        
+        chatInputMobile.addEventListener('blur', () => {
+            const chatBox = document.querySelector('#chatPanelMobile');
+            if (chatBox) chatBox.classList.remove('input-focused');
         });
     }
     
-    // Další event listenery podle potřeby
-    // ...
+    // Event listenery pro desktop chat
+    const chatInputDesktop = document.getElementById('chatInput');
+    const sendChatBtn = document.getElementById('sendChatBtn');
+    
+    if (chatInputDesktop && sendChatBtn) {
+        // Odeslání zprávy kliknutím na tlačítko
+        sendChatBtn.addEventListener('click', () => {
+            sendChatMessage(chatInputDesktop, 'desktop');
+        });
+        
+        // Odeslání zprávy stisknutím Enter
+        chatInputDesktop.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendChatMessage(chatInputDesktop, 'desktop');
+            }
+        });
+        
+        // Focus efekty pro vstupní pole
+        chatInputDesktop.addEventListener('focus', () => {
+            const chatBox = document.querySelector('#chatPanel').closest('.chat-box');
+            if (chatBox) chatBox.classList.add('input-focused');
+        });
+        
+        chatInputDesktop.addEventListener('blur', () => {
+            const chatBox = document.querySelector('#chatPanel').closest('.chat-box');
+            if (chatBox) chatBox.classList.remove('input-focused');
+        });
+    }
+    
+    // Odposlech změny velikosti okna
+    window.addEventListener('resize', handleWindowResize);
+    
+    // Inicializace menu tlačítek
+    initMenuButtons();
+    
+    // Přidání třídy pro postupné objevení tlačítek
+    document.querySelectorAll('.btn').forEach((btn, index) => {
+        if (!btn.classList.contains('animate__animated')) {
+            btn.classList.add('animate__animated', 'animate__fadeIn');
+            btn.style.animationDelay = `${index * 0.1 + 0.5}s`;
+        }
+    });
+}
+
+// Zpracování změny velikosti okna
+function handleWindowResize() {
+    // Zavoláme přizpůsobení layoutu
+    adjustLayoutForOrientation();
+    
+    // Detekce extrémně malých zařízení
+    detectExtremelySmallScreen();
+    
+    // Pro velmi malá zařízení, na která se nevejdou standardní ovládací prvky
+    if (window.innerWidth < 320 || window.innerHeight < 480) {
+        console.log('Detekováno extrémně malé zařízení, optimalizuji UI');
+        document.body.classList.add('xs-device');
+        
+        // Skryjeme některé dekorační prvky
+        document.querySelectorAll('.hide-on-xs').forEach(el => {
+            el.style.display = 'none';
+        });
+    } else {
+        document.body.classList.remove('xs-device');
+        
+        // Obnovíme viditelnost prvků
+        document.querySelectorAll('.hide-on-xs').forEach(el => {
+            el.style.display = '';
+        });
+    }
+}
+
+// Detekce extrémně malých obrazovek
+function detectExtremelySmallScreen() {
+    const isXS = window.innerWidth < 320 || window.innerHeight < 480;
+    const deviceInfo = `Šířka: ${window.innerWidth}px, Výška: ${window.innerHeight}px, Typ: ${isXS ? 'Extrémně malé zařízení' : 'Standardní zařízení'}`;
+    console.log(deviceInfo);
+    
+    // Přizpůsobíme prvky pro velmi malé obrazovky
+    if (isXS) {
+        document.querySelectorAll('.game-title').forEach(title => {
+            title.classList.add('fs-6');
+            title.classList.remove('fs-3', 'fs-4', 'fs-5');
+        });
+        
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.classList.add('btn-sm');
+            btn.classList.add('py-1');
+        });
+    }
+}
+
+// Inicializace menu tlačítek
+function initMenuButtons() {
+    // Inicializace pro desktop tlačítka
+    const startGameBtn = document.getElementById('startGameBtn');
+    if (startGameBtn) {
+        startGameBtn.addEventListener('click', () => {
+            console.log('Start game requested');
+            addChatMessage('Systém', 'Hra začíná...', 'system');
+        });
+    }
+    
+    // Inicializace pro mobilní tlačítka
+    const startGameBtnMobile = document.getElementById('startGameBtnMobile');
+    if (startGameBtnMobile) {
+        startGameBtnMobile.addEventListener('click', () => {
+            console.log('Start game requested (mobile)');
+            addChatMessage('Systém', 'Hra začíná...', 'system');
+        });
+    }
 }
 
 // Funkce pro odeslání zprávy
-function sendChatMessage(inputElement) {
+function sendChatMessage(inputElement, source = 'desktop') {
     const message = inputElement.value.trim();
     if (message) {
         // Zde by byla reálná implementace odesílání zprávy
-        console.log('Sending message:', message);
+        console.log(`Sending message from ${source}:`, message);
+        
+        // Přidáme efekt pulzování k tlačítku odeslání
+        const sendButton = inputElement.nextElementSibling;
+        if (sendButton) {
+            sendButton.classList.add('animate__animated', 'animate__pulse');
+            setTimeout(() => {
+                sendButton.classList.remove('animate__animated', 'animate__pulse');
+            }, 500);
+        }
         
         // Vyčištění vstupu
         inputElement.value = '';
         
         // Přidání zprávy do chatu pro demonstrační účely
-        addChatMessage('Player', message);
+        addChatMessage('Player', message, 'player');
+        
+        // Simulace odpovědi AI (pro demonstrační účely)
+        simulateAiResponse();
     }
+}
+
+// Simulace odpovědi AI
+function simulateAiResponse() {
+    const aiResponses = [
+        "Zajímavý tah! Co uděláš dál?",
+        "Skvělá strategie!",
+        "Vidím, že hraješ opatrně.",
+        "Zkus to znovu s větším rizikem!",
+        "To byla troufalá volba!",
+        "Jsem zvědavý, jak to dopadne...",
+        "Počítám pravděpodobnost tvého úspěchu."
+    ];
+    
+    // Náhodná odpověď
+    const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+    
+    // Přidání zpoždění pro realističtější konverzaci
+    setTimeout(() => {
+        // Přidání indikátoru psaní
+        addChatMessage('AI', 'Přemýšlím...', 'system');
+        
+        // Odpověď AI po chvíli
+        setTimeout(() => {
+            // Odebereme poslední zprávu (indikátor psaní)
+            const mobileMessages = document.getElementById('chatMessagesMobile');
+            const desktopMessages = document.getElementById('chatMessages');
+            
+            if (mobileMessages && mobileMessages.lastChild) {
+                mobileMessages.removeChild(mobileMessages.lastChild);
+            }
+            
+            if (desktopMessages && desktopMessages.lastChild) {
+                desktopMessages.removeChild(desktopMessages.lastChild);
+            }
+            
+            // Přidáme skutečnou odpověď
+            addChatMessage('Gemini', randomResponse, 'ai');
+        }, 1500);
+    }, 700);
 }
 
 // Funkce pro přidání zprávy do chatu s vylepšenými animacemi a třídami
