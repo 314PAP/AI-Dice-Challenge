@@ -14,14 +14,14 @@
 /* Animace pro vítěze */
 @keyframes winner-pulse {
     0% {
-        box-shadow: var(--glow-lg) currentColor, 0 0 20px currentColor;
+        box-shadow: var(--glow-large) currentColor, 0 0 25px currentColor, 0 0 40px currentColor;
     }
     50% {
-        box-shadow: var(--glow-xl) currentColor, 0 0 30px currentColor;
+        box-shadow: var(--glow-intense) currentColor, 0 0 35px currentColor, 0 0 50px currentColor;
         opacity: 1;
     }
     100% {
-        box-shadow: var(--glow-lg) currentColor, 0 0 20px currentColor;
+        box-shadow: var(--glow-large) currentColor, 0 0 25px currentColor, 0 0 40px currentColor;
         opacity: 0.9;
     }
 }

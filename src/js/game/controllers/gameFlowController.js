@@ -427,7 +427,7 @@ export function endGame(winner) {
         winnerElement.style.cssText = `
             background: rgba(0, 0, 0, 0.8) !important;
             border-color: ${color} !important;
-            box-shadow: 0 0 15px ${color}, 0 0 30px ${color} !important;
+            box-shadow: 0 0 20px ${color}, 0 0 40px ${color}, 0 0 60px ${color} !important;
             transform: scale(1.05) !important;
             z-index: 10 !important;
             animation: winner-pulse 1.5s ease-in-out infinite !important;
