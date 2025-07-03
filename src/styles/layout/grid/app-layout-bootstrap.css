@@ -1,0 +1,143 @@
+/* =============================================================================
+   📏 APP LAYOUT - Hlavní rozvržení celé aplikace - CELÁ OBRAZOVKA
+   Bootstrap + Neonový design - Optimalizovaná verze
+   ============================================================================= */
+
+/* 
+   Základní styly pro celou obrazovku 
+   Využívá Bootstrap třídy s custom neonovým vzhledem
+*/
+body {
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 
+   Aplikace vyplňuje celou obrazovku 
+   Kombinuje Bootstrap container-fluid s neonovým efektem
+*/
+.app-container {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 
+   Hlavní rozložení 
+   Používá Bootstrap flexbox utility
+*/
+.main-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 
+   Responzivní přizpůsobení - zachováváme poměr na šířku i při celé obrazovce 
+   Používá Bootstrap breakpointy a utility třídy
+*/
+@media (min-width: 1200px) {
+  .main-layout {
+    flex-direction: row;
+  }
+  
+  .game-area {
+    flex: 0 0 65%;
+    max-width: 65%;
+    height: 100%;
+  }
+  
+  .chat-panel {
+    flex: 0 0 35%;
+    max-width: 35%;
+    height: 100%;
+  }
+}
+
+/* Tablety a menší desktopy */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+  .main-layout {
+    flex-direction: row;
+  }
+  
+  .game-area {
+    flex: 0 0 68%;
+    max-width: 68%;
+  }
+  
+  .chat-panel {
+    flex: 0 0 32%;
+    max-width: 32%;
+  }
+}
+
+/* Mobilní zařízení */
+@media (max-width: 767.98px) {
+  .main-layout {
+    flex-direction: column;
+    height: auto;
+    min-height: 100%;
+  }
+  
+  .game-area {
+    width: 100%;
+    order: 1;
+    flex: 1 0 auto;
+  }
+  
+  .chat-panel {
+    width: 100%;
+    order: 2;
+    flex: 0 0 auto;
+    height: 40vh;
+  }
+}
+
+/* Extra malá mobilní zařízení */
+@media (max-width: 575.98px) {
+  .main-layout {
+    height: auto;
+    min-height: 100%;
+  }
+  
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .chat-panel {
+    height: 35vh;
+  }
+}
+
+/*
+   Třída pro použití v HTML k náhradě vlastních CSS tříd
+   
+   <!-- Pro .app-container -->
+   <div class="container-fluid vh-100 p-0 m-0 d-flex flex-column overflow-hidden bg-dark-80 neon-border">
+   
+   <!-- Pro .main-layout na desktopu -->
+   <div class="d-flex h-100 w-100 overflow-hidden">
+   
+   <!-- Pro .game-area a .chat-panel na desktopu -->
+   <div class="flex-grow-1 flex-shrink-0 h-100" style="flex-basis: 65%;">
+   <div class="flex-grow-0 flex-shrink-0 h-100" style="flex-basis: 35%;">
+   
+   <!-- Pro mobilní verzi -->
+   <div class="d-flex flex-column h-100">
+   <div class="w-100 order-1 flex-grow-1">
+   <div class="w-100 order-2 h-40vh">
+*/
