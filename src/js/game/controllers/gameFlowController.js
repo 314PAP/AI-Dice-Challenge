@@ -197,15 +197,15 @@ export function endTurn(scored = true) {
                     if (currentPlayer.type === 'human') {
                         const humanPlayerElement = document.getElementById('humanPlayer');
                         if (humanPlayerElement) {
-                            // Krátká animace "záblesku" pro vstup do hry
+                            // Krátká animace "záblesku" pro vstup do hry - bez změny velikosti
                             const originalTransition = humanPlayerElement.style.transition;
-                            humanPlayerElement.style.transition = 'all 0.5s ease-in-out';
-                            humanPlayerElement.style.transform = 'scale(1.15)';
-                            humanPlayerElement.style.boxShadow = '0 0 30px var(--neon-green), 0 0 50px var(--neon-green)';
+                            humanPlayerElement.style.transition = 'border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out';
+                            humanPlayerElement.style.borderColor = 'var(--neon-green)';
+                            humanPlayerElement.style.boxShadow = '0 0 15px var(--neon-green), 0 0 25px var(--neon-green)';
                             
                             setTimeout(() => {
-                                humanPlayerElement.style.transform = '';
                                 humanPlayerElement.style.boxShadow = '';
+                                humanPlayerElement.style.borderColor = '';
                                 humanPlayerElement.style.transition = originalTransition;
                             }, 800);
                         }
