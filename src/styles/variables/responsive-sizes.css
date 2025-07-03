@@ -1,0 +1,93 @@
+/* 
+ * CSS třídy pro malé displeje - definice potřebných velikostí
+ * Ideální pro použití s Bootstrap breakpointy
+ */
+
+/* Základní responzivní velikosti písma */
+.fs-xxs {
+  font-size: 0.65rem !important;
+}
+
+.fs-xs {
+  font-size: 0.75rem !important;
+}
+
+/* Responsivní velikost tlačítek - pomocné třídy pro malé displeje */
+@media (max-height: 600px) {
+  .btn-sm-compact {
+    padding: 0.15rem 0.5rem !important;
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .icon-sm-compact {
+    font-size: 0.75em !important;
+  }
+  
+  .mb-sm-mini {
+    margin-bottom: 0.15rem !important;
+  }
+  
+  .py-sm-mini {
+    padding-top: 0.15rem !important;
+    padding-bottom: 0.15rem !important;
+  }
+}
+
+/* Vertikální zarovnání pro různé výšky */
+@media (max-height: 700px) and (min-height: 600px) {
+  .vh-spacing-md {
+    margin-bottom: 0.3rem !important;
+  }
+}
+
+@media (max-height: 599px) {
+  .vh-spacing-sm {
+    margin-bottom: 0.15rem !important;
+  }
+}
+
+/* Výška kontejneru - responzivní úpravy pro různé výšky */
+@media (max-height: 700px) {
+  .mh-90 {
+    max-height: 95vh !important;
+  }
+  
+  .vh-90 {
+    height: 95vh !important;
+  }
+}
+
+/* Oprava neonové ikony kostky pro různé velikosti obrazovky */
+.dice-icon {
+  font-size: 2rem;
+}
+
+@media (max-height: 700px) {
+  .dice-icon {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .dice-icon {
+    font-size: 1.2rem;
+  }
+}
+
+/* Score label velikost pro malé displeje */
+.score-label {
+  font-size: 0.8rem;
+}
+
+@media (max-height: 700px) {
+  .score-label {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .score-label {
+    font-size: 0.65rem;
+  }
+}
