@@ -157,6 +157,7 @@ body {
     height: 100%;
     gap: var(--small-gap);
     overflow: hidden; /* Zabrání přetečení obsahu */
+    justify-content: space-between; /* Lepší rozložení obsahu */
   }
   
   /* Nadpisy a texty - plynulá změna velikosti s lepší responzivitou na výšku */
