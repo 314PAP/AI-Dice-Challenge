@@ -1,14 +1,14 @@
-<!-- Mobile Game Menu Component - Vylepšená verze s plynulou responzivitou -->
+<!-- Mobile Game Menu Component - Vylepšená verze s plynulou responzivitou a optimálním využitím místa -->
 <div class="game-header text-center d-block d-md-none" id="gameHeaderMobile">
-    <!-- Nadpis uprostřed nahoře - super responzivní -->
+    <!-- Nadpis uprostřed nahoře - super responzivní, přizpůsobí se výšce -->
     <h1 class="game-title neon-text">
         <i class="ri-dice-line me-1"></i>
         <span class="title-text">AI Kostková Výzva</span>
     </h1>
     
-    <!-- Neonová kostka pod nadpisem - plynulá velikost -->
+    <!-- Neonová kostka pod nadpisem - plynulá velikost, skryje se při malé výšce -->
     <div class="neon-dice-decoration">
-        <i class="ri-dice-6-line dice-icon neon-green" style="font-size: clamp(1.5rem, calc(1.2rem + 1.5vw), 2.5rem);"></i>
+        <i class="ri-dice-6-line dice-icon neon-green" style="font-size: clamp(1rem, calc(0.8rem + 1vh + 0.5vw), 2rem);"></i>
     </div>
     
     <!-- Nápis "Cílové skóre" bez rámečku - responzivní -->
@@ -16,10 +16,10 @@
         <i class="ri-star-line me-1"></i><span class="score-label-text">Cílové skóre</span>
     </div>
     
-    <!-- Orámečkované nastavení skóre - vylepšená responzivita -->
+    <!-- Orámečkované nastavení skóre - kompaktní a responzivní -->
     <div class="target-score-input">
         <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center w-75 mx-auto" 
-               value="10000" min="1000" step="1000">
+               value="10000" min="1000" step="1000" style="min-height: clamp(1.5rem, calc(1.2rem + 1vh), 2.5rem);">
     </div>
     
     <!-- Tlačítka s konzistentními mezerami a plynulou responzivitou -->
