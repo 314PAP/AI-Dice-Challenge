@@ -298,13 +298,13 @@ function sendChatMessage(inputElement, source = 'desktop') {
 // Simulace odpovědi AI
 function simulateAiResponse() {
     const aiResponses = [
-        "Zajímavý tah! Co uděláš dál?",
-        "Skvělá strategie!",
-        "Vidím, že hraješ opatrně.",
-        "Zkus to znovu s větším rizikem!",
-        "To byla troufalá volba!",
-        "Jsem zvědavý, jak to dopadne...",
-        "Počítám pravděpodobnost tvého úspěchu."
+        'Zajímavý tah! Co uděláš dál?',
+        'Skvělá strategie!',
+        'Vidím, že hraješ opatrně.',
+        'Zkus to znovu s větším rizikem!',
+        'To byla troufalá volba!',
+        'Jsem zvědavý, jak to dopadne...',
+        'Počítám pravděpodobnost tvého úspěchu.'
     ];
     
     // Náhodná odpověď
