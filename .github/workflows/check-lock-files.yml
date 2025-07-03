@@ -2,49 +2,49 @@ name: 🔍 Check Lock Files - AI Dice Challenge
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   check-files:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 📁 Checkout code
-      uses: actions/checkout@v4
+      - name: 📁 Checkout code
+        uses: actions/checkout@v4
 
-    - name: 📋 List directory contents
-      run: ls -la
+      - name: 📋 List directory contents
+        run: ls -la
 
-    - name: 🔍 Check for lock files
-      run: |
-        echo "🔎 Checking for package lock files..."
-        
-        if [ -f "package-lock.json" ]; then
-          echo "✅ package-lock.json exists"
-        else
-          echo "❌ package-lock.json does not exist"
-        fi
-        
-        if [ -f "yarn.lock" ]; then
-          echo "✅ yarn.lock exists"
-        else
-          echo "❌ yarn.lock does not exist"
-        fi
-        
-        if [ -f "pnpm-lock.yaml" ]; then
-          echo "✅ pnpm-lock.yaml exists"
-        else
-          echo "❌ pnpm-lock.yaml does not exist"
-        fi
-        
-        if [ -f "npm-shrinkwrap.json" ]; then
-          echo "✅ npm-shrinkwrap.json exists"
-        else
-          echo "❌ npm-shrinkwrap.json does not exist"
-        fi
-        
-        # Výpis package.json
-        echo "📄 Contents of package.json:"
-        cat package.json
+      - name: 🔍 Check for lock files
+        run: |
+          echo "🔎 Checking for package lock files..."
+
+          if [ -f "package-lock.json" ]; then
+            echo "✅ package-lock.json exists"
+          else
+            echo "❌ package-lock.json does not exist"
+          fi
+
+          if [ -f "yarn.lock" ]; then
+            echo "✅ yarn.lock exists"
+          else
+            echo "❌ yarn.lock does not exist"
+          fi
+
+          if [ -f "pnpm-lock.yaml" ]; then
+            echo "✅ pnpm-lock.yaml exists"
+          else
+            echo "❌ pnpm-lock.yaml does not exist"
+          fi
+
+          if [ -f "npm-shrinkwrap.json" ]; then
+            echo "✅ npm-shrinkwrap.json exists"
+          else
+            echo "❌ npm-shrinkwrap.json does not exist"
+          fi
+
+          # Výpis package.json
+          echo "📄 Contents of package.json:"
+          cat package.json
