@@ -242,9 +242,9 @@
 /* Target score input styling */
 .target-score-input input {
   width: 100%;
-  max-width: 280px;
-  height: 50px;
-  font-size: 1.3rem;
+  max-width: 320px;
+  height: 52px;
+  font-size: 1.4rem;
   font-weight: bold;
   border: 2px solid rgba(0, 255, 65, 0.5);
   margin: 0 auto;
@@ -260,32 +260,25 @@
 /* Responzivní úpravy pro target score input */
 @media (max-width: 768px) {
   .target-score-input input {
-    max-width: 220px;
-    height: 42px;
-    font-size: 1rem;
+    max-width: 280px;
+    height: 48px;
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 576px) {
   .target-score-input input {
-    max-width: 180px;
-    height: 38px;
-    font-size: 0.9rem;
+    max-width: 240px;
+    height: 44px;
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
   .target-score-input input {
-    max-width: 160px;
-    height: 36px;
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-height: 600px) {
-  .target-score-input input {
-    height: 32px;
-    font-size: 0.8rem;
+    max-width: 200px;
+    height: 40px;
+    font-size: 1rem;
   }
 }
 
@@ -363,46 +356,6 @@
   display: inline;
 }
 
-/* Speciální úpravy pro velmi malé obrazovky - skrývání nebo zkracování textů */
-@media (max-width: 400px) {
-  .title-text {
-    display: none;
-  }
-  
-  .menu-btn-text {
-    font-size: 0.6rem;
-  }
-  
-  .score-label-text {
-    display: none;
-  }
-  
-  .game-title {
-    font-size: 1.2rem !important;
-  }
-  
-  .dice-icon {
-    font-size: 1.2rem;
-  }
-  
-  .menu-btn {
-    max-width: 140px;
-    min-height: 30px;
-    padding: 0.2rem 0.3rem;
-  }
-}
-
-@media (max-width: 350px) {
-  .menu-btn {
-    max-width: 120px;
-    min-height: 28px;
-  }
-  
-  .menu-btn-text {
-    font-size: 0.55rem;
-  }
-}
-
 /* Responzivní úpravy pro hlavní layout */
 @media (max-width: 768px) {
   .game-box {
@@ -445,15 +398,7 @@
 
 /* Game header styling pro responzivitu */
 .game-header {
-  overflow: hidden;
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Zajistit, že se všechny prvky vejdou do kontejneru */
-.game-header * {
-  max-width: 100%;
   box-sizing: border-box;
 }
 
