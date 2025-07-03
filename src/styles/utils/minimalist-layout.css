@@ -12,9 +12,7 @@
 /* Utility třídy pro 90% velikost kontejneru */
 .mw-90 { max-width: 90% !important; }
 .mh-90 { max-height: 90% !important; }
-.vh-90 { height: 90vh !important; min-height: 600px; }
-
-/* Bootstrap rozšíření - custom výšky */
+.vh-90 { height: 90vh !important; }
 .h-60 { height: 60% !important; }
 .h-40 { height: 40% !important; }
 

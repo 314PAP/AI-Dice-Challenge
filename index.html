@@ -412,30 +412,30 @@
             <div class="col-12 h-100 p-2 pt-0">
                 <div class="h-100 border-neon-green bg-dark-80 rounded d-flex flex-column chat-collapsed" id="chatPanelMobile">
                     <!-- Chat header s tlačítkem pro rozbalení -->
-                    <div class="chat-header d-flex justify-content-between align-items-center p-2 border-bottom border-success bg-dark-80">
-                        <h2 class="neon-text neon-green m-0" style="font-size: 0.9rem;">
-                            <i class="ri-message-3-line me-2"></i>AI CHAT
+                    <div class="chat-header d-flex justify-content-between align-items-center p-1 p-sm-2 border-bottom border-success bg-dark-80">
+                        <h2 class="neon-text neon-green m-0 fs-6">
+                            <i class="ri-message-3-line me-1"></i>AI CHAT
                         </h2>
-                        <button class="btn btn-sm btn-neon neon-green" id="toggleChatBtn" style="font-size: 0.7rem; padding: 0.2rem 0.4rem;">
+                        <button class="btn btn-sm btn-neon neon-green" id="toggleChatBtn">
                             <i class="ri-arrow-up-line" id="toggleChatIcon"></i>
                         </button>
                     </div>
                     
                     <!-- Chat zprávy - v sbaleném stavu zobrazuje pouze poslední 2 -->
-                    <div class="chat-messages flex-grow-1 p-2 scrollbar-neon" id="chatMessagesMobile" style="overflow-y: auto;">
-                        <div class="chat-message text-info mb-1" style="font-size: 0.75rem;">
+                    <div class="chat-messages flex-grow-1 p-1 p-sm-2 scrollbar-neon" id="chatMessagesMobile" style="overflow-y: auto;">
+                        <div class="chat-message text-info mb-1 small">
                             <strong>Systém:</strong> Vítejte v AI Kostkové Výzvě!
                         </div>
-                        <div class="chat-message text-warning mb-1" style="font-size: 0.75rem;">
+                        <div class="chat-message text-warning mb-1 small">
                             <strong>AI:</strong> Připraven na hru?
                         </div>
                     </div>
                     
                     <!-- Chat input -->
-                    <div class="chat-input p-2 border-top border-success">
-                        <div class="input-group">
-                            <input type="text" class="form-control form-control-neon" id="chatInputMobile" placeholder="Napište zprávu..." style="font-size: 0.8rem;">
-                            <button class="btn btn-neon neon-green" type="button" id="sendChatBtnMobile" style="font-size: 0.8rem;">
+                    <div class="chat-input p-1 border-top border-success">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control form-control-neon small" id="chatInputMobile" placeholder="Napište zprávu...">
+                            <button class="btn btn-neon neon-green" type="button" id="sendChatBtnMobile">
                                 <i class="ri-send-plane-line"></i>
                             </button>
                         </div>
