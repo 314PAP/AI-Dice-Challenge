@@ -30,9 +30,3 @@
  * - xl: >= 1200px
  * - xxl: >= 1400px
  */
-
-/* Scrollbars s neonovým vzhledem
- * .chat-messages::-webkit-scrollbar, .game-area::-webkit-scrollbar
- * Alternativa: 
- * .overflow-auto::-webkit-scrollbar, .overflow-scroll::-webkit-scrollbar
- */

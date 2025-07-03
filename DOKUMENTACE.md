@@ -84,22 +84,25 @@ AI Kostková Výzva je interaktivní webová hra založená na pravidlech hry Fa
 ## Responzivní design
 
 ### Breakpointy (Bootstrap)
-| Breakpoint | Třída | Rozměr | Layout |
-|------------|-------|--------|--------|
-| Extra Small | .col-* | <576px | Stacked (vertikální) |
-| Small | .col-sm-* | ≥576px | Stacked (vertikální) |
-| Medium | .col-md-* | ≥768px | Stacked (vertikální) |
-| Large | .col-lg-* | ≥992px | Horizontální (65:35) |
-| Extra Large | .col-xl-* | ≥1200px | Horizontální (65:35) |
+| Breakpoint | Rozměr | Layout | Bootstrap třídy |
+|------------|--------|--------|-----------------|
+| Extra Small | <576px | Stacked (vertikální) | `.order-1`, `.order-0` |
+| Small | ≥576px | Stacked (vertikální) | `.p-sm-2` |
+| Medium | ≥768px | Horizontální (65:35) | `.flex-md-row`, `.order-md-2` |
+| Large | ≥992px | Horizontální (65:35) | `.p-lg-4` |
+| Extra Large | ≥1200px | Horizontální (65:35) | `.p-xl-5` |
 
-### Kontejner aplikace
-- **Desktop**: 90% šířky/výšky obrazovky
-- **Tablet**: 95% šířky/výšky obrazovky
-- **Mobil**: 98% šířky/výšky obrazovky
+### Kontejner aplikace (Bootstrap třídy)
+- `container-fluid` - Full-width kontejner
+- `vh-100` - 100% výšky viewport
+- `d-flex flex-column` - Flexbox vertikální layout
+- `bg-dark-80` - Tmavé pozadí s 80% opacity
+- `neon-border` - Neonový rámeček
 
-### Rozložení hry a chatu
-- **Desktop**: Horizontální layout (65% hra, 35% chat)
-- **Mobil**: Vertikální layout (hra nad chatem)
+### Rozložení hry a chatu (Bootstrap třídy)
+- **Základní**: `.d-flex flex-column flex-md-row h-100 w-100 overflow-hidden`
+- **Hra**: `.w-100 h-100 order-1 overflow-auto p-3 p-sm-2 p-md-3` s flexem `flex: 0 0 65%`
+- **Chat**: `.w-100 h-100 order-0 order-md-2 overflow-hidden d-flex flex-column` s flexem `flex: 0 0 35%`
 
 ### Responzivní prvky
 - **Kostky**: 60×60px (desktop), 50×50px (tablet), 40×40px (mobil)
