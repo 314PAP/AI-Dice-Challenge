@@ -1,8 +1,10 @@
 /* =============================================================================
    📏 APP LAYOUT - Hlavní rozvržení celé aplikace - CELÁ OBRAZOVKA
+   Alternativa: Použít Bootstrap utility třídy (viz BOOTSTRAP_REFACTOR_GUIDE.md)
    ============================================================================= */
 
 /* Základní styly pro celou obrazovku */
+/* Bootstrap alternativa: <body class="bg-black m-0 p-0 overflow-hidden min-vh-100 max-vh-100 d-flex justify-content-center align-items-center"> */
 body {
   background-color: #000000;
   margin: 0;
@@ -16,6 +18,7 @@ body {
 }
 
 /* Aplikace vyplňuje celou obrazovku */
+/* Bootstrap alternativa: <div class="container-fluid vh-100 p-0 m-0 d-flex flex-column overflow-hidden bg-dark-80 neon-border"> */
 .app-container {
   box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.8);
@@ -29,6 +32,7 @@ body {
 }
 
 /* Hlavní rozložení */
+/* Bootstrap alternativa: <div class="d-flex flex-column flex-md-row h-100 w-100 overflow-hidden"> */
 .main-layout {
   display: flex;
   width: 100%;
