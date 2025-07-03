@@ -3,25 +3,19 @@
    ============================================================================= */
 
 :root {
-  /* 🌈 NEONOVÉ BARVY */
-  --neon-green: #00ff00;
-  --neon-blue: #0080ff;
-  --neon-orange: #ff8000;
-  --neon-red: #ff0040;
-  --neon-purple: #8a2be2;
-  --neon-cyan: #00ffff;
-  --neon-pink: #ff1493;
-  --neon-yellow: #ffff00;
+  /* 🌈 NEONOVÉ BARVY - Základní barvy používané v projektu */
+  --neon-green: #39ff14;  /* Zelená pro člověka, primární barva */
+  --neon-blue: #00bfff;   /* Modrá pro Gemini, sekundární barva */
+  --neon-orange: #ff8c00; /* Oranžová pro Claude */
+  --neon-pink: #ff1493;   /* Růžová pro ChatGPT */
+  --neon-red: #ff3131;    /* Červená pro chyby/varování */
 
   /* RGB varianty pro použití s opacity */
-  --neon-green-rgb: 0, 255, 0;
-  --neon-blue-rgb: 0, 128, 255;
-  --neon-orange-rgb: 255, 128, 0;
-  --neon-red-rgb: 255, 0, 64;
-  --neon-purple-rgb: 138, 43, 226;
-  --neon-cyan-rgb: 0, 255, 255;
+  --neon-green-rgb: 57, 255, 20;
+  --neon-blue-rgb: 0, 191, 255;
+  --neon-orange-rgb: 255, 140, 0;
+  --neon-red-rgb: 255, 49, 49;
   --neon-pink-rgb: 255, 20, 147;
-  --neon-yellow-rgb: 255, 255, 0;
 
   /* 🎨 ZÁKLADNÍ BARVY */
   --black-bg: #000000;
