@@ -20,9 +20,11 @@
   border: 2px solid var(--neon-green);
   object-fit: cover;
   transition: all 0.2s ease;
-  opacity: 0.7;
+  opacity: 0.85;
   background-color: rgba(0, 0, 0, 0.8) !important; /* Tmavé pozadí pod avatarem */
   padding: 2px; /* Malý padding pro vytvoření vnitřního okraje */
+  box-shadow: 0 0 10px var(--neon-green);
+  border-radius: 50%; /* Zaoblení do kruhu */
 }
 
 /* Hover efekt na mini-avataru */
