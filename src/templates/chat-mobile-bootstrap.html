@@ -1,0 +1,34 @@
+<!-- Mobile Chat Component - Bootstrap optimalizovaná verze -->
+<div class="chat-box h-100" id="chatPanelMobile">
+  <div class="chat-container">
+    <!-- Chat Header -->
+    <div class="d-flex align-items-center justify-content-center mb-2">
+      <h2 class="neon-text neon-green m-0 fs-5">
+        <i class="ri-message-3-line me-1"></i>AI CHAT
+      </h2>
+    </div>
+    
+    <!-- Chat Messages - s garantovanou výškou -->
+    <div class="chat-messages" id="chatMessagesMobile">
+      <!-- Systémová zpráva -->
+      <div class="chat-message small">
+        <strong class="neon-yellow">Systém:</strong> <span class="neon-yellow">Vítejte v AI Kostkové Výzvě!</span>
+      </div>
+      
+      <!-- AI zpráva -->
+      <div class="chat-message small">
+        <strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Připraven na hru?</span>
+      </div>
+    </div>
+    
+    <!-- Chat Input - vždy viditelný díky mt-auto -->
+    <div class="chat-input">
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control bg-black text-neon-green border-neon" id="chatInputMobile" placeholder="Napište zprávu...">
+        <button class="btn btn-outline-success d-flex align-items-center justify-content-center" type="button" id="sendChatBtnMobile">
+          <i class="ri-send-plane-fill"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
