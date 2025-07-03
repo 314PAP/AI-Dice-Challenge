@@ -39,9 +39,7 @@
   box-shadow: var(--glow-md) var(--neon-pink);
 }
 
-.chatgpt-player.active {
-  box-shadow: var(--glow-lg) var(--neon-pink);
-}
+/* Odstranění přepisu pro active state - ty jsou definovány v active-states.css */
 
 /* CLAUDE PLAYER */
 .claude-player {
@@ -54,6 +52,4 @@
   box-shadow: var(--glow-md) var(--neon-orange);
 }
 
-.claude-player.active {
-  box-shadow: var(--glow-lg) var(--neon-orange);
-}
+/* Odstranění přepisu pro active state - ty jsou definovány v active-states.css */

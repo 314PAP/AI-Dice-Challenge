@@ -3,11 +3,11 @@
    ============================================================================= */
 
 /* Obecné styly aktivního hráče - používáno jako základ */
-.player.active {
+#playersContainer .player.active {
   animation: player-active-pulse 2s ease-in-out infinite;
 }
 
-.player.active::before {
+#playersContainer .player.active::before {
   content: '';
   position: absolute;
   top: -2px;
@@ -21,7 +21,7 @@
 
 /* Specifické barvy pro různé typy hráčů */
 /* Lidský hráč - zelená */
-.player.human-player.active {
+#playersContainer .player.human-player.active {
   border-color: var(--neon-green);
   box-shadow: 
     var(--glow-lg) var(--neon-green),
