@@ -426,3 +426,85 @@
     text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
   }
 }
+
+/* =============================================================================
+   📱 MOBILNÍ LAYOUT - Speciální úpravy pro mobilní zařízení
+   ============================================================================= */
+
+/* Mobilní layout - skrytí vnějšího rámečku a změna layoutu */
+@media (max-width: 767.98px) {
+  /* Skrytí vnějšího orámování na mobilu */
+  .container-fluid.mw-90 {
+    border: none !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Body úpravy pro mobil */
+  body {
+    align-items: stretch !important;
+    padding: 0 !important;
+  }
+  
+  /* Změna layoutu na vertikální */
+  .row.h-100 {
+    flex-direction: column !important;
+    height: 100vh !important;
+  }
+  
+  /* Menu box zabírá horní část */
+  .col-12.col-md-7 {
+    height: auto !important;
+    min-height: 60vh !important;
+    padding: 0.5rem !important;
+    overflow: visible !important;
+  }
+  
+  /* Chat panel zabírá spodní část */
+  .col-12.col-md-5 {
+    height: auto !important;
+    min-height: 40vh !important;
+    padding: 0.5rem !important;
+    padding-top: 0 !important;
+  }
+  
+  /* Chat box úpravy pro mobil */
+  #chatPanel .h-100 {
+    height: auto !important;
+    min-height: 35vh !important;
+  }
+  
+  /* Sbalený chat stav */
+  .chat-collapsed {
+    min-height: 120px !important;
+    max-height: 120px !important;
+  }
+  
+  .chat-collapsed .chat-messages {
+    max-height: 60px !important;
+    overflow: hidden !important;
+  }
+  
+  /* Rozbalený chat stav */
+  .chat-expanded {
+    min-height: 35vh !important;
+    max-height: 35vh !important;
+  }
+  
+  .chat-expanded .chat-messages {
+    max-height: calc(35vh - 120px) !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Ještě menší mobily */
+@media (max-width: 575.98px) {
+  .col-12.col-md-7 {
+    min-height: 65vh !important;
+  }
+  
+  .col-12.col-md-5 {
+    min-height: 35vh !important;
+  }
+}
