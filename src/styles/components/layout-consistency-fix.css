@@ -1,0 +1,170 @@
+/**
+ * Layout Consistency Fix
+ * 
+ * Tento soubor řeší problém s nekonzistentním paddingem rámečku a špatnou responzivitou
+ * textu a tlačítek na malých displejích. Poskytuje jednotný systém paddingů a responzivity.
+ */
+
+/* ============================================================================
+   KONZISTENTNÍ PADDING MODEL - 3 hlavní velikosti: normal, compact, ultra-compact
+   ========================================================================== */
+
+/* Základní padding model pro všechny kontejnery */
+.container-fluid.mw-90.mh-90.vh-90 {
+  /* Všechny kontejnery mají konzistentní padding 1rem (Bootstrap p-3) */
+  padding: var(--space-md) !important;
+}
+
+/* Vnitřní odsazení pro hlavní sekce (game box, chat panel) */
+.game-box, 
+.chat-container {
+  padding: var(--space-sm) !important;
+  border-width: var(--border-width-sm) !important;
+  border-radius: var(--border-radius-md) !important;
+}
+
+/* Mobilní verze má kompaktnější padding */
+@media (max-width: 767.98px) {
+  .container-fluid.mw-90.mh-90.vh-90 {
+    padding: 0.75rem !important;
+    gap: 0.75rem !important;
+    height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Konzistentní velikost okrajů */
+  .game-box, 
+  .chat-container, 
+  #chatPanelMobile {
+    border-width: 1px !important;
+    border-radius: 0.375rem !important;
+  }
+}
+
+/* Extra kompaktní režim pro velmi malé obrazovky */
+@media (max-width: 767.98px) and (max-height: 600px) {
+  .container-fluid.mw-90.mh-90.vh-90 {
+    padding: 0.5rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  .game-box, 
+  .chat-container, 
+  #chatPanelMobile {
+    padding: 0.375rem !important;
+  }
+}
+
+/* ============================================================================
+   RESPONZIVITA TEXTU A TLAČÍTEK - automatické škálování podle velikosti obrazovky
+   ========================================================================== */
+
+/* Responzivní velikost nadpisů a textu */
+.game-title {
+  font-size: clamp(0.8rem, 2vw, 1.5rem) !important;
+}
+
+.menu-btn-text, 
+.chat-header h2, 
+.score-label {
+  font-size: clamp(0.65rem, 1.8vw, 1rem) !important;
+}
+
+/* Responzivní velikost vstupních polí */
+input[type="number"],
+input[type="text"] {
+  font-size: clamp(0.7rem, 1.7vw, 0.9rem) !important;
+  height: clamp(28px, 4vh, 38px) !important;
+}
+
+/* Responzivní velikost tlačítek */
+.menu-buttons .btn {
+  padding-top: clamp(0.15rem, 1vh, 0.5rem) !important;
+  padding-bottom: clamp(0.15rem, 1vh, 0.5rem) !important;
+  height: clamp(26px, 5vh, 38px) !important;
+}
+
+/* Konzistentní mezery mezi prvky */
+.menu-buttons {
+  gap: clamp(0.25rem, 1vh, 0.5rem) !important;
+}
+
+/* ============================================================================
+   OPRAVA MOBILNÍHO LAYOUTU - správný poměr výšek a struktura
+   ========================================================================== */
+
+/* Oprava pro konzistentní poměry výšek v mobilním layoutu */
+@media (max-width: 767.98px) {
+  /* Výška kontejnerů - přechod na flexbox s flex růstem */
+  .row.g-0.h-75 {
+    flex: 3 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .row.g-0.h-20 {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: 30vh !important;
+  }
+
+  /* Odstranění nechtěných margin a padding hodnot */
+  .row.g-0.h-75, 
+  .row.g-0.h-20,
+  .row.g-0.h-75 .col-12, 
+  .row.g-0.h-20 .col-12 {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Celá výška pro všechny kontejnery */
+  .game-box, 
+  #chatPanelMobile,
+  .row.g-0.h-75 .col-12,
+  .row.g-0.h-20 .col-12 {
+    height: 100% !important;
+  }
+  
+  /* Konzistentní vycentrování prvků */
+  .game-box {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  
+  /* Chat panel - správné rozvržení */
+  #chatPanelMobile {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Zprávy v chatu - flexibilní výška */
+  #chatMessagesMobile {
+    flex: 1 !important;
+    min-height: 0 !important;
+  }
+  
+  /* Vstupní pole v chatu */
+  .chat-input {
+    flex-shrink: 0 !important;
+  }
+}
+
+/* Optimalizace pro různé poměry stran */
+@media (max-width: 767.98px) and (min-aspect-ratio: 5/6) {
+  .container-fluid.mw-90.mh-90.vh-90 {
+    flex-direction: row !important;
+  }
+  
+  .row.g-0.h-75 {
+    flex: 3 !important;
+    margin-right: 0.75rem !important;
+  }
+  
+  .row.g-0.h-20 {
+    flex: 2 !important;
+    max-height: none !important;
+  }
+}
