@@ -190,7 +190,7 @@ export function setupEventListeners() {
         });
 
         // Chat inicializace - upraveno pro minimalistický vzhled
-        const initializeChat = () => {
+        const setupChatScrolling = () => {
             // Funkce pro automatické scrollování chatu na konec po přidání zprávy
             const scrollChatToBottom = () => {
                 const chatMessages = document.getElementById('chatMessages');
@@ -223,7 +223,8 @@ export function setupEventListeners() {
         };
         
         // Inicializace chatu při načtení stránky
-        initializeChat();
+        setupLocalChat();
+        setupChatScrolling();
         
         // Target score input change
         const targetScoreInput = document.getElementById('targetScoreInput');
@@ -434,9 +435,9 @@ export function resetEventListeners() {
         }
         
         /**
- * Funkce pro inicializaci chatu (náhrada za showLastMessages)
+ * Funkce pro inicializaci lokálního chatu (náhrada za showLastMessages)
  */
-function initializeChat() {
+function setupLocalChat() {
     // Pro desktop chat - pouze desktop chat může být sbalený
     const chatMessages = document.querySelector('#chatPanel .chat-messages');
     if (!chatMessages) return;
