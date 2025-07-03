@@ -1,0 +1,31 @@
+/* =============================================================================
+   🏦 BANKED DICE - Styly pro odložené kostky
+   ============================================================================= */
+
+/* Kontejner pro odložené kostky - zprava doleva */
+.banked-dice-container {
+  display: flex;
+  flex-direction: row-reverse; /* Zprava doleva */
+  gap: 8px;
+  justify-content: flex-end;
+  margin-right: 10px;
+  border-right: 2px dotted rgba(0, 128, 255, 0.3);
+  padding-right: 10px;
+}
+
+/* Responzivní úprava pro menší obrazovky */
+@media (max-width: 768px) {
+  .banked-dice-container {
+    gap: 6px;
+    margin-right: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banked-dice-container {
+    gap: 4px;
+    margin-right: 6px;
+    padding-right: 6px;
+  }
+}
