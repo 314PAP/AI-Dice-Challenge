@@ -1,0 +1,22 @@
+/* =============================================================================
+   🎮 GAME AREA - Hlavní herní oblast
+   ============================================================================= */
+
+.game-area {
+  background: var(--black-bg);
+  border-radius: 1em 0 0 1em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: auto;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+/* Responzivní přizpůsobení herní oblasti */
+@media (max-width: 800px) {
+  .game-area {
+    border-radius: 1em 1em 0 0;
+    border-bottom: 2px solid var(--neon-green);
+  }
+}
