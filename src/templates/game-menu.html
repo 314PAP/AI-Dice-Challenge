@@ -1,0 +1,56 @@
+<!-- MENU STAV - uspořádané menu (výchozí viditelný) -->
+<div class="game-header text-center" id="gameHeader">
+    <!-- Nadpis uprostřed nahoře -->
+    <h1 class="game-title neon-text fs-neon-1 mb-2 mb-md-3">
+        <i class="ri-dice-line me-1 me-md-2"></i>
+        <span class="title-text">AI Kostková Výzva</span>
+    </h1>
+    
+    <!-- Neonová kostka pod nadpisem -->
+    <div class="neon-dice-decoration mb-2 mb-md-4">
+        <i class="ri-dice-6-line dice-icon neon-green"></i>
+    </div>
+    
+    <!-- Nápis "Cílové skóre" bez rámečku -->
+    <div class="score-label neon-text mb-2 mb-md-3">
+        <i class="ri-star-line me-1 me-md-2"></i><span class="score-label-text">Cílové skóre</span>
+    </div>
+    
+    <!-- Orámečkované nastavení skóre -->
+    <div class="target-score-input mb-2 mb-md-4">
+        <input type="number" id="targetScoreInput" class="form-control-neon text-center" value="10000" min="1000" step="1000">
+    </div>
+    
+    <!-- Tlačítka ve správném pořadí s střídajícími se barvami -->
+    <div class="menu-buttons d-flex flex-column align-items-center gap-1 gap-md-2">
+        <!-- Začít hru - Zelená -->
+        <button class="btn btn-neon neon-green menu-btn" id="startGameBtn">
+            <i class="ri-gamepad-line me-1 me-md-2"></i>
+            <span class="menu-btn-text">Začít hru</span>
+        </button>
+        
+        <!-- Pravidla - Modrá -->
+        <button class="btn btn-neon neon-blue menu-btn" id="rulesBtn">
+            <i class="ri-book-open-line me-1 me-md-2"></i>
+            <span class="menu-btn-text">Pravidla</span>
+        </button>
+        
+        <!-- Síň slávy - Oranžová -->
+        <button class="btn btn-neon neon-orange menu-btn" id="hallOfFameBtn">
+            <i class="ri-trophy-line me-1 me-md-2"></i>
+            <span class="menu-btn-text">Síň slávy</span>
+        </button>
+        
+        <!-- Kup mi kávu - Zelená -->
+        <a href="https://buymeacoffee.com/pipap" target="_blank" class="btn btn-neon neon-green menu-btn text-decoration-none">
+            <i class="ri-cup-line me-1 me-md-2"></i>
+            <span class="menu-btn-text">Kup mi kávu</span>
+        </a>
+        
+        <!-- Opustit hru - Červená -->
+        <button class="btn btn-neon neon-red menu-btn" id="exitGameBtn">
+            <i class="ri-logout-box-line me-1 me-md-2"></i>
+            <span class="menu-btn-text">Opustit hru</span>
+        </button>
+    </div>
+</div>
