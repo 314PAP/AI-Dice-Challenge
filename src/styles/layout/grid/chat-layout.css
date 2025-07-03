@@ -1,67 +1,30 @@
 /* =============================================================================
-   💬 CHAT LAYOUT - Responzivní layout pro chat
+   💬 CHAT LAYOUT - Responzivní layout pro chat s Bootstrap
    ============================================================================= */
 
-/* Základní rozložení hlavní plochy a chatu */
-.main-layout {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
+/* Většina layoutu je řešena v index.html pomocí Bootstrap tříd:
+   - Desktopy: col-lg-8 pro game-area, col-lg-4 pro chat-panel
+   - Mobilní zařízení: col-md-12 pro oba (stacked)
+*/
+
+/* Přidáváme pouze doplňkové styly, které Bootstrap nemá */
+
+.game-area {
+  overflow-y: auto;
   height: 100%;
-  margin: 0 auto;
 }
 
-@media (min-width: 1201px) {
-  .main-layout {
-    flex-direction: row;
-  }
-  
+.chat-panel {
+  height: 100%;
+}
+
+/* Na mobilech optimalizujeme výšku pro lepší UX */
+@media (max-width: 992px) {
   .game-area {
-    flex: 0 0 65%;
-    max-width: 65%;
-    height: 100%;
-    overflow-y: auto;
+    min-height: 65vh;
   }
   
   .chat-panel {
-    flex: 0 0 35%;
-    max-width: 35%;
-    height: 100%;
-  }
-}
-
-/* Tablety a menší desktopy */
-@media (min-width: 801px) and (max-width: 1200px) {
-  .main-layout {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  
-  .game-area {
-    flex: 0 0 68%;
-    max-width: 68%;
-  }
-  
-  .chat-panel {
-    flex: 0 0 32%;
-    max-width: 32%;
-  }
-}
-
-/* Mobilní zařízení */
-@media (max-width: 800px) {
-  .main-layout {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .game-area {
-    width: 100%;
-    order: 1;
-  }
-  
-  .chat-panel {
-    width: 100%;
-    order: 2;
+    min-height: 35vh;
   }
 }
