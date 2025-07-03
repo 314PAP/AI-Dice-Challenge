@@ -1,52 +1,22 @@
 /* =============================================================================
-   📱 RESPONZIVNÍ DESIGN
+   📱 RESPONZIVNÍ DESIGN - Doplňující responzivní pravidla
    ============================================================================= */
-
-/* DESKTOP - velkých obrazovkách */
-@media (max-width: 1200px) {
-  .main-layout {
-    grid-template-columns: 1fr 320px;
-  }
-}
-
-@media (max-width: 900px) {
-  .main-layout {
-    grid-template-columns: 1fr 280px;
-  }
-}
-
-/* MOBILE/TABLET - menší zařízení */
-@media (max-width: 650px) {
-  .main-layout {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    height: auto;
-  }
-  
-  .game-area {
-    order: 1;
-  }
-  
-  .chat-panel {
-    order: 2;
-    min-width: unset;
-    max-width: unset;
-    height: 400px;
-  }
-}
 
 /* MALÉ MOBILY */
 @media (max-width: 480px) {
-  .main-layout {
-    gap: var(--spacing-sm);
+  /* Úpravy typografie */
+  h1, .heading-1 {
+    font-size: 1.5rem;
   }
   
-  .game-area, .chat-area {
-    padding: var(--spacing-sm);
+  h2, .heading-2 {
+    font-size: 1.25rem;
   }
   
-  .heading-1 {
-    font-size: var(--font-2xl);
+  /* Úpravy prvků hry */
+  .game-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
   }
   
   .player-section {
@@ -56,21 +26,52 @@
   .controls-section {
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Tlačítka na malých obrazovkách */
+  .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Úpravy herní plochy */
+  .game-header {
+    padding: 0.5rem;
+  }
+  
+  .dice-container {
+    gap: 0.25rem;
+    padding: 0.5rem;
+  }
+  
+  .dice {
+    width: 35px;
+    height: 35px;
   }
 }
 
 /* LANDSCAPE ORIENTACE */
 @media (orientation: landscape) and (max-height: 600px) {
+  /* Minimální výšky a úpravy paddingů */
   .app-container {
-    padding: var(--spacing-xs);
-  }
-  
-  .main-layout {
-    gap: var(--spacing-sm);
+    height: 100vh;
+    overflow: auto;
   }
   
   .heading-1 {
-    font-size: var(--font-2xl);
-    margin-bottom: var(--spacing-sm);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Zvýšení výšky chatu na landscape orientaci */
+  .main-layout {
+    min-height: 100%;
+  }
+  
+  /* Zmenšení kostek a prvků pro landscape orientaci */
+  .dice {
+    width: 30px;
+    height: 30px;
   }
 }
