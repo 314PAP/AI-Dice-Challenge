@@ -51,7 +51,8 @@
   border-color: var(--neon-blue);
   box-shadow: 
     var(--glow-lg) var(--neon-blue),
-    0 0 40px rgba(30, 144, 255, 0.3);
+    0 0 30px var(--neon-blue),
+    0 0 50px rgba(30, 144, 255, 0.6);
 }
 
 #playersContainer .player.gemini-player.active::before {
