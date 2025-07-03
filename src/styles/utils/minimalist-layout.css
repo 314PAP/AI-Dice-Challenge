@@ -432,161 +432,30 @@
 }
 
 /* =============================================================================
-   📱 MOBILNÍ LAYOUT - Speciální úpravy pro mobilní zařízení
+   📱 MOBILNÍ LAYOUT - Bootstrap-first přístup
    ============================================================================= */
 
-/* Mobilní layout - skrytí vnějšího rámečku a změna layoutu */
-@media (max-width: 767.98px) {
-  /* Skrytí vnějšího orámování na mobilu */
-  .container-fluid.mw-90 {
-    border: none !important;
-    max-width: 100% !important;
-    height: 100vh !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* Body úpravy pro mobil */
-  body {
-    align-items: stretch !important;
-    padding: 0 !important;
-  }
-  
-  /* Hlavní row musí být flex-column */
-  .row.h-100 {
-    flex-direction: column !important;
-    height: 100vh !important;
-    margin: 0 !important;
-  }
-  
-  /* Menu box zabírá horní část - 60% výšky */
-  .col-12.col-md-7 {
-    flex: 0 0 60% !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    height: 60vh !important;
-    padding: 0.5rem !important;
-    overflow: visible !important;
-  }
-  
-  /* Chat panel zabírá spodní část - 40% výšky */
-  .col-12.col-md-5 {
-    flex: 0 0 40% !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    height: 40vh !important;
-    padding: 0.5rem !important;
-    padding-top: 0 !important;
-  }
-  
-  /* Chat box úpravy pro mobil */
-  .game-box {
-    height: 100% !important;
-    padding: 0.5rem !important;
-    border: 1px solid rgba(var(--neon-green-rgb, 0, 255, 0), 0.3) !important;
-  }
-  
-  #chatPanel .h-100 {
-    height: 100% !important;
-    min-height: auto !important;
-  }
-  
-  /* Sbalený chat stav */
-  .chat-collapsed {
-    min-height: 140px !important;
-    max-height: 140px !important;
-  }
-  
-  .chat-collapsed .chat-messages {
-    max-height: 80px !important;
-    overflow: hidden !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-end !important;
-  }
-  
-  .chat-collapsed .chat-messages .chat-message {
-    margin-bottom: 0.25rem !important;
-  }
-  
-  .chat-collapsed .chat-messages .chat-message:nth-last-child(n+3) {
-    display: none !important;
-  }
-  
-  /* Rozbalený chat stav */
-  .chat-expanded {
-    min-height: 35vh !important;
-    max-height: 35vh !important;
-  }
-  
-  .chat-expanded .chat-messages {
-    max-height: calc(35vh - 120px) !important;
-    overflow-y: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  
-  /* Chat zprávy styling pro mobilní */
-  .chat-messages .chat-message {
-    font-size: 0.8rem !important;
-    padding: 0.25rem !important;
-    margin-bottom: 0.5rem !important;
-    line-height: 1.2 !important;
-  }
-  
-  .chat-input {
-    padding: 0.5rem !important;
-  }
-  
-  .chat-input .form-control {
-    font-size: 0.85rem !important;
-    padding: 0.4rem !important;
-  }
-  
-  .chat-input .btn {
-    font-size: 0.8rem !important;
-    padding: 0.4rem 0.6rem !important;
-  }
-  
-  .chat-header {
-    padding: 0.5rem !important;
-  }
-  
-  .chat-header h2 {
-    font-size: 1rem !important;
-  }
+/* Chat stavy pro mobilní zařízení */
+.chat-collapsed .chat-messages {
+  max-height: 60px !important;
+  overflow: hidden !important;
 }
 
-/* Ještě menší mobily */
-@media (max-width: 575.98px) {
-  .col-12.col-md-7 {
-    min-height: 65vh !important;
-  }
-  
-  .col-12.col-md-5 {
-    min-height: 35vh !important;
-  }
+.chat-collapsed .chat-messages .chat-message:nth-child(n+3) {
+  display: none !important;
 }
 
-/* Reset pro desktop - ujistit se, že se nemící mobilní a desktop styly */
-@media (min-width: 768px) {
-  .chat-collapsed,
-  .chat-expanded {
-    min-height: auto !important;
-    max-height: none !important;
-  }
-  
-  .chat-collapsed .chat-messages,
-  .chat-expanded .chat-messages {
-    max-height: none !important;
-    overflow-y: auto !important;
-    display: block !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-  }
-  
-  .chat-collapsed .chat-messages .chat-message,
-  .chat-expanded .chat-messages .chat-message {
-    display: block !important;
-  }
+.chat-expanded {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1000 !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+.chat-expanded .chat-messages {
+  max-height: calc(100vh - 160px) !important;
+  overflow-y: auto !important;
 }
