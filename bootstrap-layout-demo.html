@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Kostková Výzva - Bootstrap Layout Demo</title>
+    <link rel="icon" type="image/svg+xml" href="/dice.svg" />
+    
+    <!-- MODERNÍ MODULÁRNÍ CSS SYSTÉM -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+    
+    <!-- GOOGLE FONTS PRO NEONOVÝ VZHLED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- REMIX ICON - OUTLINE IKONY PRO NEONOVÉ EFEKTY -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-black m-0 p-0 overflow-hidden min-vh-100 max-vh-100 d-flex justify-content-center align-items-center">
+    <!-- Aplikace s neonovým rámečkem -->
+    <div class="container-fluid vh-100 p-0 m-0 d-flex flex-column overflow-hidden bg-dark-80 neon-border">
+        <!-- Hlavní rozložení s responzivním přepínáním -->
+        <div class="d-flex flex-column flex-md-row h-100 w-100 overflow-hidden">
+            <!-- Herní oblast - na mobilech nahoře, na desktopu vlevo -->
+            <div class="w-100 h-100 order-1 overflow-auto p-3 p-sm-2 p-md-3" style="flex: 0 0 65%; max-width: 100%; max-width: 65%;">
+                <!-- Obsah herní oblasti -->
+                <div class="game-header">
+                    <h1 class="text-center neon-text neon-green mb-3">
+                        <i class="ri-gamepad-line me-2 animate-pulse"></i>
+                        AI Kostková Výzva
+                        <a href="https://buymeacoffee.com/pipap" target="_blank" class="ms-2 text-decoration-none neon-text neon-orange neon-grow" title="Kup mi kávu">
+                            <i class="ri-cup-line"></i>
+                        </a>
+                    </h1>
+                    <!-- Ovládací prvky -->
+                    <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+                        <button class="btn btn-neon neon-green">Nová hra</button>
+                        <button class="btn btn-neon neon-blue">Pravidla</button>
+                        <button class="btn btn-neon neon-orange">Síň slávy</button>
+                    </div>
+                </div>
+                
+                <!-- Herní plocha -->
+                <div class="game-board p-2 neon-border mb-3">
+                    <h3 class="neon-text text-center">Herní plocha</h3>
+                    <div class="dice-area d-flex flex-wrap justify-content-center gap-3 my-4">
+                        <!-- Demo kostky -->
+                        <div class="dice neon-green">1</div>
+                        <div class="dice neon-green">2</div>
+                        <div class="dice neon-green">3</div>
+                        <div class="dice neon-green">4</div>
+                        <div class="dice neon-green">5</div>
+                        <div class="dice neon-green">6</div>
+                    </div>
+                    <div class="d-flex justify-content-center gap-3 my-3">
+                        <button class="btn btn-neon neon-green">Hodit</button>
+                        <button class="btn btn-neon neon-orange">Ukončit tah</button>
+                    </div>
+                </div>
+                
+                <!-- Skóre -->
+                <div class="score-board p-2 neon-border">
+                    <h3 class="neon-text text-center">Skóre</h3>
+                    <div class="d-flex flex-wrap justify-content-around">
+                        <div class="p-2 text-center neon-text">
+                            <div>Hráč</div>
+                            <div>1000</div>
+                        </div>
+                        <div class="p-2 text-center neon-text neon-blue">
+                            <div>Gemini</div>
+                            <div>750</div>
+                        </div>
+                        <div class="p-2 text-center neon-text neon-orange">
+                            <div>ChatGPT</div>
+                            <div>800</div>
+                        </div>
+                        <div class="p-2 text-center neon-text neon-pink">
+                            <div>Claude</div>
+                            <div>950</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat panel - na mobilech dole, na desktopu vpravo -->
+            <div class="w-100 order-2 d-md-block overflow-hidden neon-border" style="height: 40vh; flex: 0 0 35%; max-width: 35%;">
+                <div class="d-flex flex-column h-100 p-2">
+                    <!-- Chat header -->
+                    <div class="d-flex justify-content-between align-items-center pb-2 border-bottom neon-border">
+                        <h2 class="neon-text m-0 fs-5">Chat s AI</h2>
+                        <button class="btn btn-sm btn-neon neon-green">
+                            <i class="ri-chat-3-line"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Chat messages -->
+                    <div class="chat-messages flex-grow-1 overflow-auto p-2 my-2">
+                        <div class="mb-2">
+                            <span class="neon-text">Systém:</span> Vítejte ve hře!
+                        </div>
+                        <div class="mb-2">
+                            <span class="neon-text neon-blue">Gemini:</span> Analyzuji pravděpodobnosti...
+                        </div>
+                        <div class="mb-2">
+                            <span class="neon-text neon-orange">ChatGPT:</span> To byla skvělá strategie!
+                        </div>
+                        <div class="mb-2">
+                            <span class="neon-text neon-pink">Claude:</span> Zajímavá volba, přemýšlím nad tvou strategií.
+                        </div>
+                    </div>
+                    
+                    <!-- Chat input -->
+                    <div class="chat-input d-flex">
+                        <input type="text" class="form-control-neon flex-grow-1 me-2" placeholder="Napište zprávu...">
+                        <button class="btn btn-neon neon-green">
+                            <i class="ri-send-plane-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ukázka modálu s neonovým designem -->
+    <div class="modal fade" id="neonModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark-80 neon-border">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title neon-text">Neonový Modál</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="neon-text">Toto je ukázkový neonový modál s využitím Bootstrap tříd</p>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-neon neon-orange" data-bs-dismiss="modal">Zavřít</button>
+                    <button type="button" class="btn btn-neon neon-green">Potvrdit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
