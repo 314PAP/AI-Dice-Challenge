@@ -457,6 +457,35 @@
   }
 }
 
+/* Game header styling pro responzivitu */
+.game-header {
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Zajistit, že se všechny prvky vejdou do kontejneru */
+.game-header * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Flexibilní spacing pro game-header */
+@media (max-height: 600px) {
+  .game-header .mb-2 {
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .game-header .mb-md-3 {
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .game-header .mb-md-4 {
+    margin-bottom: 0.5rem !important;
+  }
+}
+
 /* Neon pulse animace */
 @keyframes neon-pulse {
   0% {
