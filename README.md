@@ -1,10 +1,12 @@
 # 🎲 AI Kostková Výzva (AI Dice Challenge)
 
-Interaktivní kostková hra proti třem AI protivníkům s různými osobnostmi!
+Moderní interaktivní kostková hra s neonovým designem, kde hrajete proti třem AI protivníkům s různými osobnostmi!
 
 ![AI Dice Challenge](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![Version](https://img.shields.io/badge/Version-2.0.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+![Responsive](https://img.shields.io/badge/Responsive-All%20Devices-orange)
+![Framework](https://img.shields.io/badge/Framework-Bootstrap-purple)
 
 ## 🎮 O hře
 
