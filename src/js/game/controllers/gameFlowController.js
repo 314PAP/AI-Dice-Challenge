@@ -158,6 +158,12 @@ export function endTurn(scored = true) {
         if (scored && gameState.currentTurnScore > 0) {
             const currentPlayer = gameState.players[gameState.currentPlayer];
             
+            // Důležitý debug log pro sledování hráče a jeho skóre
+            console.log(`🔍 Aktuální hráč: ${currentPlayer.name} (${currentPlayer.type}), 
+                         Skóre tahu: ${gameState.currentTurnScore}, 
+                         Celkové skóre: ${currentPlayer.score}, 
+                         Vstoupil do hry: ${currentPlayer.hasEnteredGame}`);
+            
             // Pro vstup do hry je potřeba minimálně 300 bodů
             if (!currentPlayer.hasEnteredGame && gameState.currentTurnScore < 300) {
                 console.log(`❌ ENTRY GAME: ${gameState.currentTurnScore} < 300 (first entry requires 300+)`);
@@ -166,6 +172,9 @@ export function endTurn(scored = true) {
                 // Hráč může bankovat - buď už je v hře, nebo má >= 300 bodů
                 const previousScore = currentPlayer.score;
                 currentPlayer.score += gameState.currentTurnScore;
+                
+                // Důkladné logování aktualizace skóre
+                console.log(`💰 SKÓRE AKTUALIZOVÁNO: ${previousScore} + ${gameState.currentTurnScore} = ${currentPlayer.score} (hráč: ${currentPlayer.name})`);
                 
                 // Označit jako vstoupivší do hry (pokud dosud nebyl)
                 if (!currentPlayer.hasEnteredGame) {
