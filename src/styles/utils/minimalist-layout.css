@@ -530,6 +530,23 @@
   color: rgba(57, 255, 20, 0.5) !important;
 }
 
+/* Opravené odesílací tlačítko bez neonového efektu */
+.ri-send-plane-fill,
+.ri-send-plane-line {
+  font-size: 1.5rem !important;
+  text-shadow: none !important;
+}
+
+.chat-input button.bg-transparent:hover {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.chat-input button.bg-transparent:hover i {
+  text-shadow: none !important;
+}
+
 /* Oprava odesílacího tlačítka */
 #sendMessageBtn,
 #sendChatBtnMobile {
@@ -570,5 +587,29 @@
 @media (max-width: 767.98px) {
   .mt-1 {
     margin-top: 0.5rem !important;
+  }
+}
+
+/* Finální úpravy pro chat */
+#chatPanel,
+#chatPanelMobile {
+  border-radius: 0.5rem !important;
+  overflow: hidden;
+}
+
+/* Oprava estetiky mobilní verze */
+@media (max-width: 767.98px) {
+  .chat-messages {
+    max-height: calc(25vh - 80px) !important;
+    min-height: 100px !important;
+  }
+  
+  .mt-1 {
+    margin-top: 0.5rem !important;
+  }
+  
+  .rounded-3 {
+    border-radius: 0.5rem !important;
+    overflow: hidden;
   }
 }
