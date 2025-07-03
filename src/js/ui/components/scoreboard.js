@@ -154,6 +154,7 @@ export const updateActivePlayer = pipe(
             // Použijeme !important pro zajištění, že žádná jiná pravidla nepřepíší tyto styly
             const color = `var(${typeConfig.color})`;
             activePlayer.style.cssText = `
+                background: rgba(0, 0, 0, 0.8) !important;
                 border-color: ${color} !important;
                 box-shadow: 0 0 10px ${color}, 0 0 20px ${color} !important;
                 animation: player-active-pulse 2s ease-in-out infinite !important;
