@@ -68,18 +68,20 @@ body {
   padding: var(--container-padding);
   margin: auto;
   background-color: rgba(0, 0, 0, 0.9);
-}
-
-/* Herní box a chat kontejner - konzistentní styly */
+}  /* Herní box a chat kontejner - konzistentní styly */
 .game-box, .chat-container, #chatPanelMobile {
-  border: var(--border-width) solid var(--neon-green);
-  border-radius: var(--border-radius);
   padding: var(--element-padding);
   background-color: rgba(0, 0, 0, 0.9);
-  box-shadow: var(--neon-glow);
-  
-  /* Plynulá změna velikosti rámečku a paddingu */
-  transition: padding 0.3s ease, border-width 0.3s ease;
+  transition: padding 0.3s ease;
+}
+
+/* Pouze pro desktop verzi aplikujeme rámečky na jednotlivé boxy */
+@media (min-width: 768px) {
+  .game-box, .chat-container, #chatPanelMobile {
+    border: var(--border-width) solid var(--neon-green);
+    border-radius: var(--border-radius);
+    box-shadow: var(--neon-glow);
+  }
 }
 
 /* Konsistentní mezery mezi řádky */
@@ -155,27 +157,30 @@ body {
     flex-direction: column;
     height: 100%;
     gap: var(--small-gap);
+    overflow: hidden; /* Zabrání přetečení obsahu */
   }
   
-  /* Nadpisy a texty - plynulá změna velikosti */
+  /* Nadpisy a texty - plynulá změna velikosti s lepší responzivitou na výšku */
   .game-title {
-    font-size: clamp(1rem, calc(0.8rem + 2vw), 1.5rem);
+    font-size: clamp(0.8rem, calc(0.6rem + 1.5vh + 0.5vw), 1.5rem);
     margin-bottom: var(--small-gap);
+    white-space: nowrap; /* Zabrání zalomení textu */
   }
   
   .score-label {
-    font-size: clamp(0.7rem, calc(0.6rem + 1vw), 1rem);
+    font-size: clamp(0.6rem, calc(0.5rem + 0.8vh + 0.3vw), 1rem);
     margin-bottom: var(--small-gap);
   }
   
-  /* Menu tlačítka - responzivní velikost a mezery */
+  /* Menu tlačítka - responzivní velikost a mezery s lepší adaptací na výšku */
   .menu-buttons {
     display: flex;
     flex-direction: column;
-    gap: var(--small-gap);
+    gap: clamp(0.1rem, calc(0.1rem + 0.3vh), 0.4rem); /* Dynamická mezera podle výšky */
     flex: 1;
     justify-content: center;
-    padding: var(--small-gap) 0;
+    padding: clamp(0.1rem, calc(0.1rem + 0.3vh), 0.4rem) 0;
+    overflow-y: auto; /* Pro velmi malé výšky, umožní scrollování */
   }
   
   .menu-buttons .btn {
@@ -183,7 +188,10 @@ body {
     margin-left: auto;
     margin-right: auto;
     flex-shrink: 0;
-    font-size: clamp(0.75rem, calc(0.7rem + 0.5vw), 1rem);
+    font-size: clamp(0.7rem, calc(0.5rem + 0.5vh + 0.3vw), 1rem); /* Více reaguje na výšku */
+    padding-top: clamp(0.1rem, 0.2vh, 0.3rem);
+    padding-bottom: clamp(0.1rem, 0.2vh, 0.3rem);
+    min-height: clamp(1.5rem, calc(1.2rem + 1.5vh), 3rem); /* Lépe se přizpůsobuje výšce */
   }
   
   /* Vstupní pole - konzistentní velikost */
@@ -219,27 +227,77 @@ body {
   /* Speciální pravidla pro velmi malé výšky */
   @media (max-height: 600px) {
     .game-title {
-      font-size: clamp(0.8rem, calc(0.7rem + 1vw), 1.2rem);
+      font-size: clamp(0.6rem, calc(0.5rem + 0.8vh), 1rem);
+      margin-bottom: calc(var(--small-gap) * 0.5);
+    }
+    
+    .score-label {
+      font-size: clamp(0.5rem, calc(0.4rem + 0.5vh), 0.8rem);
+      margin-bottom: calc(var(--small-gap) * 0.5);
     }
     
     .menu-buttons .btn {
-      min-height: clamp(1.5rem, calc(1.2rem + 1.5vh), 2.5rem);
+      min-height: clamp(1.2rem, calc(1rem + 1vh), 2rem);
+      margin-bottom: 0.1rem;
     }
     
     .container-fluid.d-block.d-md-none.mw-90.mh-90.vh-90 {
-      gap: calc(var(--content-gap) * 0.75);
+      gap: clamp(0.2rem, 0.3vh, 0.5rem);
+      padding: clamp(0.3rem, 0.5vh, 0.8rem);
+    }
+    
+    .neon-dice-decoration {
+      display: none; /* Skryjeme ikonu pro úsporu místa */
     }
   }
   
   /* Speciální pravidla pro velmi malé šířky */
   @media (max-width: 350px) {
     .menu-buttons .btn {
-      width: 90%;
-      font-size: clamp(0.7rem, calc(0.6rem + 0.5vw), 0.9rem);
+      width: 95%;
+      font-size: clamp(0.6rem, calc(0.5rem + 0.3vw), 0.8rem);
     }
     
     :root {
-      --base-unit: clamp(0.4rem, calc(0.4rem + 0.7vh), 1rem);
+      --base-unit: clamp(0.3rem, calc(0.3rem + 0.5vh), 0.8rem);
+    }
+  }
+  
+  /* Speciální pravidla pro landscape orientaci na mobilních zařízeních */
+  @media (max-width: 767.98px) and (orientation: landscape) {
+    /* Změna layoutu na horizontální */
+    .container-fluid.d-block.d-md-none.mw-90.mh-90.vh-90 {
+      flex-direction: row;
+      height: 90vh;
+    }
+    
+    /* Menu vlevo */
+    .row.g-0.h-75 {
+      flex: 1;
+      height: 100%;
+      min-width: 60%;
+      margin-right: var(--small-gap);
+    }
+    
+    /* Chat vpravo */
+    .row.g-0.h-20 {
+      flex: 1;
+      height: 100%;
+      max-height: none;
+      min-height: auto;
+      min-width: 35%;
+    }
+    
+    .menu-buttons {
+      gap: clamp(0.1rem, 0.2vh, 0.3rem);
+    }
+    
+    .menu-buttons .btn {
+      min-height: clamp(1.5rem, calc(1.2rem + 1vh), 2rem);
+    }
+    
+    .game-title {
+      font-size: clamp(0.7rem, calc(0.6rem + 0.5vh + 0.3vw), 1.2rem);
     }
   }
 }
