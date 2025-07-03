@@ -12,6 +12,32 @@
   font-size: 0.75rem !important;
 }
 
+/* Nové responzivní utility třídy pro konzistentní mezery */
+.p-consistent {
+  padding: 0.75rem !important;
+}
+
+.p-consistent-sm {
+  padding: 0.5rem !important;
+}
+
+.p-consistent-xs {
+  padding: 0.375rem !important;
+}
+
+/* Konzistentní mezery mezi prvky */
+.gap-consistent {
+  gap: 0.75rem !important;
+}
+
+.gap-consistent-sm {
+  gap: 0.5rem !important;
+}
+
+.gap-consistent-xs {
+  gap: 0.375rem !important;
+}
+
 /* Responsivní velikost tlačítek - pomocné třídy pro malé displeje */
 @media (max-height: 600px) {
   .btn-sm-compact {

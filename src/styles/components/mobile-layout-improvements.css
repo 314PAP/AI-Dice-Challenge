@@ -1,0 +1,112 @@
+/**
+ * Mobile layout improvements
+ * Zajišťuje konzistentní odsazení, rámečky a mezery na mobilních zařízeních
+ */
+
+/* Konzistentní mezery mezi containery na mobilních zařízeních */
+@media (max-width: 767.98px) {
+  /* Konzistentní paddingový model pro mobilní zobrazení */
+  .container-fluid.mw-90.mh-90.vh-90 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    padding: 0.75rem !important;
+    height: 100vh !important;
+  }
+
+  /* Upravená výška herního boxu a chatu */
+  .row.g-0.h-75 {
+    flex: 3 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .row.g-0.h-20 {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: 30vh !important;
+  }
+
+  /* Zajistit, že všechny vnořené prvky mají konzistentní výšku */
+  .row.g-0.h-75 .col-12,
+  .row.g-0.h-20 .col-12 {
+    height: 100% !important;
+  }
+
+  /* Kompaktnější rozložení pro malé obrazovky */
+  @media (max-height: 600px) {
+    .container-fluid.mw-90.mh-90.vh-90 {
+      gap: 0.5rem !important;
+      padding: 0.5rem !important;
+    }
+    
+    /* Ještě více prostoru pro herní oblast na úkor chatu */
+    .row.g-0.h-75 {
+      flex: 4 !important;
+    }
+    
+    .row.g-0.h-20 {
+      flex: 1 !important;
+      max-height: 20vh !important;
+    }
+  }
+
+  /* Konzistentní styl rámečků a stínů pro všechny komponenty */
+  .game-box,
+  #chatPanelMobile {
+    border-radius: 0.375rem !important;
+    border-width: 1px !important;
+  }
+  
+  /* Vycentrování obsahu v herním boxu */
+  .game-box {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+}
+
+/* Oprava menších komponent pro lepší konzistenci */
+@media (max-width: 767.98px) {
+  .menu-buttons {
+    width: 100% !important;
+    max-width: 300px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Konzistentní velikost tlačítek v menu */
+  .menu-buttons .btn-neon {
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* Menší velikost pro velmi malé obrazovky */
+  @media (max-height: 600px) {
+    .menu-buttons .btn-neon {
+      height: 30px !important;
+      font-size: 0.7rem !important;
+    }
+  }
+}
+
+/* Flexibilnější rozložení pro různé poměry stran */
+@media (max-width: 767.98px) and (min-aspect-ratio: 2/3) {
+  .container-fluid.mw-90.mh-90.vh-90 {
+    flex-direction: row !important;
+  }
+  
+  .row.g-0.h-75 {
+    flex: 2 !important;
+    width: 65% !important;
+    margin-right: 0.75rem !important;
+  }
+  
+  .row.g-0.h-20 {
+    flex: 1 !important;
+    width: 30% !important;
+    max-height: none !important;
+  }
+}
