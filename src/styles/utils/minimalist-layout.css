@@ -16,6 +16,15 @@
 .h-60 { height: 60% !important; }
 .h-40 { height: 40% !important; }
 
+/* Výškové třídy pro mobilní layout */
+.h-70 {
+  height: 70% !important;
+}
+
+.h-30 {
+  height: 30% !important;
+}
+
 /* Responzivní úpravy pro utility třídy */
 @media (max-width: 768px) {
   .mw-90 { max-width: 95% !important; }
@@ -484,14 +493,14 @@
   
   /* Výška herní oblasti a chatu */
   .game-content {
-    height: 70vh !important;
+    height: 60vh !important;
     overflow-y: auto;
     position: relative;
   }
   
   /* Chat oblast - menší než herní */
   .chat-container {
-    height: 30vh !important;
+    height: 40vh !important;
     overflow-y: hidden;
     position: relative;
     border-top: 2px solid var(--neon-green);
@@ -499,13 +508,13 @@
   
   /* Sbalený chat */
   .chat-collapsed {
-    height: 60px !important;
+    height: 120px !important;
     overflow: hidden;
   }
   
   /* Rozbalený chat */
   .chat-expanded {
-    height: 70vh !important;
+    height: 40vh !important;
     position: relative;
     width: 100%;
     z-index: 100;
@@ -520,7 +529,7 @@
   
   /* Přizpůsobení výšky zpráv pro rozbalený chat */
   .chat-expanded .chat-messages {
-    height: calc(70vh - 70px) !important;
+    height: calc(40vh - 70px) !important;
     max-height: none !important;
     overflow-y: auto !important;
   }

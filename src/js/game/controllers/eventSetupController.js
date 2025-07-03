@@ -514,6 +514,7 @@ function toggleMobileChat() {
     console.log('📱 Přepínám mobilní chat');
     const chatBox = document.getElementById('chatPanelMobile');
     const toggleIcon = document.getElementById('toggleChatIcon');
+    const chatContainer = chatBox.closest('.chat-container');
     
     if (!chatBox || !toggleIcon) return;
     
@@ -543,6 +544,9 @@ function toggleMobileChat() {
         chatBox.classList.add('chat-collapsed');
         toggleIcon.classList.remove('ri-arrow-down-line');
         toggleIcon.classList.add('ri-arrow-up-line');
+        
+        // Zobrazit pouze poslední dvě zprávy
+        showLastMessages();
         
         // Zobrazit jen poslední zprávy
         setTimeout(() => {
