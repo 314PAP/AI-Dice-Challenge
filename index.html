@@ -29,7 +29,8 @@
             <div class="col-12 col-md-7 h-100 overflow-auto p-3">
                 <!-- Herní box s vlastním neonovým orámováním -->
                 <div class="h-100 game-box p-3 rounded border border-neon-green shadow-neon d-flex flex-column justify-content-center">
-                    <!-- MENU STAV - jen základní menu -->
+                    
+                    <!-- MENU STAV - jen základní menu (výchozí viditelný) -->
                     <div class="game-header text-center" id="gameHeader">
                         <h1 class="game-title neon-text fs-neon-1 mb-4">
                             <i class="ri-dice-line me-2"></i>
@@ -61,10 +62,10 @@
                         </div>
                     </div>
 
-                    <!-- HERNÍ STAV - avatary, kostky, tlačítka -->
+                    <!-- HERNÍ STAV - avatary, kostky, tlačítka (skrytý na začátku) -->
                     <div class="game-controls hidden" id="gameControls">
                         <!-- Avatary hráčů -->
-                        <div class="players-container d-flex flex-wrap justify-content-center gap-4 mb-4" id="playersContainer">
+                        <div class="players-container d-flex flex-wrap justify-content-center gap-4 mb-4">
                             <div class="player human-player active border-neon-green p-3 rounded text-center">
                                 <div class="player-head mb-2">
                                     <img src="/ai-icons/mind.jpeg" alt="Vy" class="rounded-circle" />
@@ -122,6 +123,7 @@
                             </button>
                         </div>
                     </div>
+                    
                 </div>
             </div>
             
