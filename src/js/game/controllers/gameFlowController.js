@@ -351,6 +351,12 @@ export function endTurn(scored = true) {
 export function endGame(winner) {
     console.log('🏁 Ending game...');
     
+    // Zabraňuje vícenásobnému volání
+    if (gameState.gameEnded) {
+        console.warn('⚠️ Hra je již ukončena, ignoruji další volání endGame');
+        return;
+    }
+    
     // Clear all AI timeouts
     clearAllAITimeouts();
     
@@ -359,6 +365,36 @@ export function endGame(winner) {
     
     // Zajistit, že finální skóre je aktualizováno v UI
     updateScoreboard();
+    
+    // Zvýrazníme vítěze a odstraníme active stav ze všech hráčů
+    document.querySelectorAll('.player').forEach(p => {
+        p.classList.remove('winner');
+        p.classList.remove('active');
+        // Vyčistíme všechny styly
+        p.style = '';
+    });
+    
+    // Najdeme element vítěze a zvýrazníme ho
+    const winnerType = winner.type;
+    const winnerElement = document.querySelector(`.player.${winnerType}-player`);
+    if (winnerElement) {
+        winnerElement.classList.add('winner');
+        // Přidáme speciální zvýraznění pro vítěze
+        const winnerColors = {
+            'human': 'var(--neon-green)',
+            'gemini': 'var(--neon-blue)',
+            'chatgpt': 'var(--neon-pink)',
+            'claude': 'var(--neon-orange)'
+        };
+        
+        const color = winnerColors[winnerType] || 'var(--neon-yellow)';
+        winnerElement.style.cssText = `
+            border-color: ${color} !important;
+            box-shadow: 0 0 15px ${color}, 0 0 30px ${color}, 0 0 45px ${color} !important;
+            transform: scale(1.1) !important;
+            z-index: 10 !important;
+        `;
+    }
     
     document.getElementById('winnerAnnouncement').innerHTML = 
         winner.type === 'human' ? '🎉 Gratulujeme! Vyhrál(a) jste!' : `🏆 Vítězem se stává ${winner.name}!`;
