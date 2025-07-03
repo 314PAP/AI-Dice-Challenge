@@ -1,0 +1,67 @@
+/* =============================================================================
+   🎨 CSS PROMĚNNÉ - Neonové barvy a základní hodnoty
+   ============================================================================= */
+
+:root {
+  /* 🌈 NEONOVÉ BARVY */
+  --neon-green: #00ff00;
+  --neon-blue: #0080ff;
+  --neon-orange: #ff8000;
+  --neon-red: #ff0040;
+  --neon-purple: #8a2be2;
+  --neon-cyan: #00ffff;
+  --neon-pink: #ff1493;
+  --neon-yellow: #ffff00;
+
+  /* RGB varianty pro použití s opacity */
+  --neon-green-rgb: 0, 255, 0;
+  --neon-blue-rgb: 0, 128, 255;
+  --neon-orange-rgb: 255, 128, 0;
+  --neon-red-rgb: 255, 0, 64;
+  --neon-purple-rgb: 138, 43, 226;
+  --neon-cyan-rgb: 0, 255, 255;
+  --neon-pink-rgb: 255, 20, 147;
+  --neon-yellow-rgb: 255, 255, 0;
+
+  /* 🎨 ZÁKLADNÍ BARVY */
+  --black-bg: #000000;
+  --dark-bg: #1a1a1a;
+  --gray-bg: #2a2a2a;
+  --dark-bg-80: rgba(26, 26, 26, 0.8);
+  --gray-text: #666666;
+  --dark-text: #333333;
+
+  /* 📝 TEXT BARVY */
+  --text-primary: var(--neon-green);
+  --text-secondary: var(--neon-blue);
+  --text-muted: var(--gray-text);
+  --text-success: var(--neon-green);
+  --text-warning: var(--neon-yellow);
+  --text-danger: var(--neon-red);
+  
+  /* Předvolené CSS proměnné Bootstrapu pro doplnění */
+  --bs-primary: var(--neon-blue);
+  --bs-success: var(--neon-green);
+  --bs-danger: var(--neon-red);
+  --bs-warning: var(--neon-orange);
+  --bs-info: var(--neon-cyan);
+
+  /* Obecné hodnoty pro použití s box-shadow neon efekty */
+  --glow-small: 0 0 5px;
+  --glow-medium: 0 0 10px;
+  --glow-large: 0 0 15px;
+  --glow-intense: 0 0 20px;
+
+  /* Neon shadow barvy */
+  --shadow-neon-green: 0 0 10px var(--neon-green);
+  --shadow-neon-blue: 0 0 10px var(--neon-blue);
+  --shadow-neon-pink: 0 0 10px var(--neon-pink);
+  --shadow-neon-orange: 0 0 10px var(--neon-orange);
+}
+
+/* Tmavý režim (už je výchozí pro neonový vzhled) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Tmavý režim je výchozí pro neonový vzhled, žádné změny */
+  }
+}
