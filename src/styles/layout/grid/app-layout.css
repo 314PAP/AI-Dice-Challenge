@@ -2,82 +2,55 @@
    🏗️ APP LAYOUT - Bootstrap rozložení aplikace s neonovými efekty
    ============================================================================= */
 
-/* Hlavní kontejner - 90% velikosti obrazovky vertikálně i horizontálně */
-.container-fluid {
-  max-width: 90vw !important; /* Maximálně 90% šířky obrazovky */
-  max-height: 90vh !important; /* Maximálně 90% výšky obrazovky */
-  height: 90vh !important;
-  margin: auto !important;
+/*
+  Tento soubor NEPOUŽÍVÁ vlastní CSS s !important pravidly.
+  Místo toho je layout kompletně definován Bootstrap utility třídami v HTML.
+  
+  Základní struktura aplikace:
+  
+  <body class="bg-black min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="container-fluid mw-90 mh-90 vh-90 d-flex">
+      <div class="row w-100 h-100">
+        <div class="col-md-8 col-lg-8 h-100 overflow-auto p-3">
+          <!-- Hlavní herní obsah (70-75% šířky) -->
+        </div>
+        <div class="col-md-4 col-lg-4 h-100 overflow-auto p-3">
+          <!-- Chat panel (25-30% šířky) -->
+        </div>
+      </div>
+    </div>
+  </body>
+  
+  Utility třídy:
+  - mw-90, mh-90, vh-90: Vlastní Bootstrap rozšíření pro 90% šířku/výšku
+  - col-md-8 (66.66%) a col-md-4 (33.33%) nebo col-lg-9 (75%) a col-lg-3 (25%)
+    podle požadovaného rozložení 70/30
+*/
+
+/* Vlastní rozšíření Bootstrap utility tříd */
+.mw-90 {
+  max-width: 90vw;
 }
 
-/* Flexbox rozložení pro hlavní obsah a chat */
-.d-flex.flex-column.flex-md-row {
-  height: 100% !important;
-  width: 100% !important;
+.mh-90 {
+  max-height: 90vh;
 }
 
-/* Hlavní herní obsah - 70% šířky */
-.order-1 {
-  flex: 0 0 70% !important; 
-  max-width: 70% !important;
-  width: 70% !important;
+.vh-90 {
+  height: 90vh;
 }
 
-/* Chat panel - 30% šířky */
-.order-2 {
-  flex: 0 0 30% !important;
-  max-width: 30% !important;
-  width: 30% !important;
-  height: 100% !important; /* Plná výška kontejneru */
-}
-
-/* Společné vlastnosti pro obě části */
-.order-1, .order-2 {
-  overflow: auto;
-  height: 100% !important;
-  padding: 1rem;
-}
-
-/* Centrování obsahu ve středu obrazovky */
-body {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  min-height: 100vh !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-}
-
-/* Vylepšený neonový border kolem hlavního kontejneru */
-.neon-border {
-  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green), 0 0 15px var(--neon-green-dim);
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-/* Responzivní úpravy */
-@media (max-width: 768px) {
-  .container-fluid {
-    max-width: 95vw !important;
-    max-height: 95vh !important;
-    height: 95vh !important;
+/* Mobilní rozložení - pod 768px se panely skládají pod sebe */
+@media (max-width: 767.98px) {
+  .mw-90 {
+    max-width: 95vw;
   }
   
-  .order-1, .order-2 {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    width: 100% !important;
+  .mh-90 {
+    max-height: 95vh;
   }
   
-  .order-1 {
-    height: 60% !important;
-  }
-  
-  .order-2 {
-    height: 40% !important;
-  }
-  
-  .d-flex.flex-column.flex-md-row {
-    flex-direction: column !important;
+  .vh-90 {
+    height: 95vh;
   }
 }
