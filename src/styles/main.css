@@ -32,6 +32,7 @@
 @import './components/players/winner.css';
 @import './components/scores.css';
 @import './components/game.css';
+@import './components/game/farkle-bootstrap.css';
 
 /* ✨ ANIMATIONS & EFFECTS */
 @import './animations/keyframes.css';
