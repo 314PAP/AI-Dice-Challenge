@@ -37,25 +37,42 @@ export const hideHallOfFameWithContext = () => {
     // Skrýt Hall of Fame
     hideHallOfFame();
     
+    // Pevně uloženou proměnnou si uložíme lokálně pro zpracování
+    const fromGameOver = window.hallOfFameFromGameOver;
+    
+    // Kontrola aktuálního stavu hry přímo z modulu, nikoliv přes globální proměnnou
+    const gameIsEnded = isGameEnded();
+    
+    console.log(`🏆 Návrat ze Síně slávy - gameOver flag: ${fromGameOver}, hra ukončena: ${gameIsEnded}`);
+    
     // Pokud jsme přišli z konce hry a hra je ukončená
-    if (window.hallOfFameFromGameOver && isGameEnded()) {
+    if (fromGameOver && gameIsEnded) {
         console.log('🎮 Návrat z Hall of Fame po konci hry - zobrazuji game over modal');
-        // Zobrazit znovu game over modal
+        // Zobrazit znovu game over modal s delším čekáním pro jistotu
         setTimeout(() => {
             const gameOverModal = document.getElementById('gameOverModal');
             if (gameOverModal) {
+                // Přímé nastavení stylu pro zajištění viditelnosti
+                gameOverModal.style.display = 'flex';
                 gameOverModal.classList.remove('hidden');
                 gameOverModal.classList.add('visible');
                 emitter.emit(EVENTS.MODAL_SHOW, { modalId: 'gameOverModal', context: 'return-from-hof' });
+                
+                console.log('🏆 Game over modal znovu zobrazen');
+            } else {
+                console.error('❌ Game over modal nenalezen!');
             }
-        }, 300);
+        }, 500);
     } else {
         // Pokud jsme v hlavním menu nebo jiném kontextu
         console.log('🎮 Návrat z Hall of Fame - standardní zavření');
     }
     
-    // Resetovat flag
-    window.hallOfFameFromGameOver = false;
+    // Resetovat flag až na konci celého procesu
+    setTimeout(() => {
+        window.hallOfFameFromGameOver = false;
+        console.log('🏆 Flag hallOfFameFromGameOver resetován');
+    }, 600);
     
     // Ujistíme se, že AI timeouty jsou vypnuty, aby nedošlo k emergency modu
     if (window.endAITurn && typeof window.endAITurn === 'function') {
