@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Kostková Výzva</title>
+    <link rel="icon" type="image/svg+xml" href="/dice.svg" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- GOOGLE FONTS PRO NEONOVÝ VZHLED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- REMIX ICON - OUTLINE IKONY PRO NEONOVÉ EFEKTY -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- CSS importy -->
+    <link rel="stylesheet" href="/src/styles/main-optimized.css">
+    
+    <!-- Proměnné -->
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
+    <link rel="stylesheet" href="/src/styles/variables/sizes.css">
+    <link rel="stylesheet" href="/src/styles/variables/animations.css">
+    
+    <!-- Nový Bootstrap responzivní soubor -->
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+</head>
+<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center">
+    <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->
+    <div class="container-fluid p-0 vh-90 vw-90">
+    
+        <!-- Desktop layout - zobrazí se pouze na md a větších -->
+        <div class="d-none d-md-flex h-100">
+            <div class="row mx-0 w-100 h-100 g-3">
+                <!-- Herní oblast - 70% šířky -->
+                <div class="col-8 h-100">
+                    <div class="game-box h-100">
+                        <!-- Zde se načte herní obsah -->
+                        <div id="gameContent" class="h-100 d-flex flex-column"></div>
+                    </div>
+                </div>
+                
+                <!-- Chat panel - 30% šířky -->
+                <div class="col-4 h-100">
+                    <div class="chat-box h-100">
+                        <!-- Zde se načte desktop chat -->
+                        <div id="chatPanel" class="h-100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
+        <div class="d-md-none h-100 mobile-landscape-flex-row">
+            <!-- První část - herní menu (na výšku plná výška minus prostor pro chat, na šířku 60%) -->
+            <div class="mb-3">
+                <!-- Zde se načte mobilní herní menu -->
+                <div id="gameMobileContent" class="h-100"></div>
+            </div>
+            
+            <!-- Druhá část - chat (na výšku kompaktní, na šířku 40%) -->
+            <div>
+                <!-- Zde se načte mobilní chat -->
+                <div id="chatPanelMobileContainer" class="h-100"></div>
+            </div>
+        </div>
+        
+        <!-- Modální okna se načtou zde -->
+        <div id="modalsContainer"></div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main Application Script -->
+    <script type="module" src="/src/main-modular.js"></script>
+</body>
+</html>
