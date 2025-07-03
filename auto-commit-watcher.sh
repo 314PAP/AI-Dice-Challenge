@@ -3,6 +3,21 @@
 # Auto-commit watcher skript pro AIDICE projekt
 # Sleduje změny v projektu a automaticky je potvrzuje
 
+# Dotaz na potvrzení spuštění
+echo "🤖 Auto-commit watcher"
+echo "======================="
+echo "Tento skript bude sledovat změny v projektu a automaticky je commitovat."
+read -p "Chcete spustit sledování změn? (y/n): " confirmation
+
+# Převod odpovědi na malá písmena pro lepší porovnání
+confirmation=$(echo "$confirmation" | tr '[:upper:]' '[:lower:]')
+
+# Kontrola odpovědi
+if [[ "$confirmation" != "y" && "$confirmation" != "yes" ]]; then
+    echo "❌ Spuštění skriptu bylo zrušeno."
+    exit 0
+fi
+
 echo "👁️ Spouštím sledování změn pro automatické potvrzení..."
 
 # Nastavíme interval kontroly (v sekundách)
