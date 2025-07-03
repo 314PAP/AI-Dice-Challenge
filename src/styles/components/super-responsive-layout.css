@@ -204,6 +204,8 @@ body {
   .target-score-input input {
     height: var(--input-height);
     font-size: clamp(0.8rem, calc(0.7rem + 0.5vw), 1rem);
+    border-radius: calc(var(--border-radius) * 0.7); /* Konzistentní zaoblení */
+    border: var(--border-width) solid var(--neon-green); /* Konzistentní rámeček */
   }
   
   /* Mobilní chat - plynulá responzivita */
@@ -235,9 +237,10 @@ body {
     min-height: clamp(2.2rem, calc(2rem + 1vh), 3rem); /* Zajištění minimální výšky */
   }
   
-  .chat-input .form-control {
+  .chat-input .form-control, #chatInputMobile {
     height: clamp(1.8rem, calc(1.5rem + 1vh), 2.5rem); /* Konzistentnější výška inputu */
     font-size: clamp(0.7rem, calc(0.6rem + 0.3vh + 0.2vw), 1rem); /* Responsivní font */
+    border-radius: calc(var(--border-radius) * 0.7); /* Konzistentní zaoblení */
   }
   
   .chat-message {
