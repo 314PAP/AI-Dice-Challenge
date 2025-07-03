@@ -42,13 +42,21 @@ body {
   .main-layout {
     flex-direction: row;
   }
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   .game-area {
     flex: 0 0 65%;
     max-width: 65%;
     height: 100%;
   }
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   .chat-panel {
     flex: 0 0 35%;
     max-width: 35%;
@@ -61,12 +69,20 @@ body {
   .main-layout {
     flex-direction: row;
   }
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   .game-area {
     flex: 0 0 68%;
     max-width: 68%;
   }
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   .chat-panel {
     flex: 0 0 32%;
     max-width: 32%;
@@ -78,12 +94,20 @@ body {
   .main-layout {
     flex-direction: column;
   }
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   .game-area {
     width: 100%;
     order: 1;
   }
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   .chat-panel {
     width: 100%;
     order: 2;

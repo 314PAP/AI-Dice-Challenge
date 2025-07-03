@@ -1,12 +1,20 @@
 /* =============================================================================
-   💬 CHAT PANEL - Základní layout a panel styly s Bootstrap
+   💬 CHAT PANEL - Základní layout a panel styly (využívá utility knihovny)
    ============================================================================= */
 
-/* CHAT PANEL - BOOTSTRAP DESIGN */
+/* CHAT PANEL - MINIMALISTICKÝ DESIGN */
 .chat-panel {
   background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-green);
+  border-radius: var(--radius-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  transition: var(--transition-base);
+  /* Jemný neon glow */
   box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
-  transition: all 0.3s ease;
 }
 
 /* HOVER EFEKT */
@@ -14,16 +22,28 @@
   box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
 }
 
-/* COLLAPSED STATE - kompaktní design s Bootstrap třídami */
+/* COLLAPSED STATE - kompaktní design */
 .chat-panel.collapsed {
   width: 200px;
   height: 80px;
   min-width: 200px;
-  transition: all 0.3s ease;
+  padding: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-base);
+}
+
+.chat-panel.collapsed .chat-header {
+  display: block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .chat-panel.collapsed .chat-header h2 {
-  font-size: 1rem;
+  font-size: var(--font-size-sm);
   margin: 0;
   text-shadow: 0 0 8px var(--neon-green);
 }
@@ -33,10 +53,9 @@
   display: none;
 }
 
-/* Responzivní přizpůsobení */
-@media (max-width: 576px) {
-  .chat-panel.collapsed {
-    width: 150px;
-    height: 60px;
-  }
+.chat-panel.collapsed .chat-toggle {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  margin: 0;
 }
