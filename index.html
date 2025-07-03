@@ -147,29 +147,35 @@
 
     <!-- Game Over Modal -->
     <div id="gameOverModal" class="modal-overlay hidden">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">🎮 Konec hry</h2>
+        <div class="modal-container bg-dark-90 neon-border rounded">
+            <div class="modal-header border-bottom neon-border p-3">
+                <h2 class="modal-title neon-text m-0"><i class="ri-gamepad-line me-2"></i>Konec hry</h2>
             </div>
-            <div class="modal-body">
-                <div id="winnerAnnouncement" class="winner-announcement"></div>
-                <div id="finalScores" class="final-scores"></div>
-                <div id="gameStats" class="game-stats"></div>
+            <div class="modal-body p-4">
+                <div id="winnerAnnouncement" class="winner-announcement neon-text text-center mb-4"></div>
+                <div id="finalScores" class="final-scores mb-3"></div>
+                <div id="gameStats" class="game-stats mb-4"></div>
                 
                 <!-- Signature section for human winners -->
-                <div id="signatureSection" class="signature-section hidden">
-                    <h3>🏆 Gratulujeme k vítězství!</h3>
-                    <p>Zadejte svůj podpis pro zápis do síně slávy:</p>
-                    <div class="signature-input">
-                        <input type="text" id="winnerSignature" placeholder="Váš podpis" maxlength="30">
-                        <button id="saveScoreBtn" class="btn btn-success">💾 Uložit skóre</button>
+                <div id="signatureSection" class="signature-section hidden bg-dark-80 p-3 rounded neon-border mb-4">
+                    <h3 class="neon-text"><i class="ri-trophy-line me-2"></i>Gratulujeme k vítězství!</h3>
+                    <p class="text-light">Zadejte svůj podpis pro zápis do síně slávy:</p>
+                    <div class="signature-input d-flex gap-2">
+                        <input type="text" id="winnerSignature" class="form-control-neon" placeholder="Váš podpis" maxlength="30">
+                        <button id="saveScoreBtn" class="btn btn-neon neon-green"><i class="ri-save-line me-2"></i>Uložit skóre</button>
                     </div>
                 </div>
                 
-                <div class="modal-actions">
-                    <button id="showHallOfFameBtn" class="btn btn-primary">🏆 Zobrazit síň slávy</button>
-                    <button id="startNewGameBtn" class="btn btn-secondary">🔄 Nová hra</button>
-                    <button id="returnToMenuBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
+                <div class="modal-actions d-flex flex-wrap justify-content-center gap-3 mt-3">
+                    <button id="showHallOfFameBtn" class="btn btn-neon neon-blue">
+                        <i class="ri-trophy-line me-2"></i>Zobrazit síň slávy
+                    </button>
+                    <button id="startNewGameBtn" class="btn btn-neon neon-green">
+                        <i class="ri-refresh-line me-2"></i>Nová hra
+                    </button>
+                    <button id="returnToMenuBtn" class="btn btn-neon neon-orange">
+                        <i class="ri-home-line me-2"></i>Hlavní menu
+                    </button>
                 </div>
             </div>
         </div>
