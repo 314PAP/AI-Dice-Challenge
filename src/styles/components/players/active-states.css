@@ -11,7 +11,7 @@
 }
 
 #playersContainer .player.active::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
@@ -26,14 +26,19 @@
 /* Lidský hráč - zelená */
 #playersContainer .player.human-player.active {
   border-color: var(--neon-green);
-  box-shadow: 
+  box-shadow:
     var(--glow-lg) var(--neon-green),
     0 0 30px var(--neon-green),
     0 0 50px rgba(57, 255, 20, 0.6);
 }
 
 #playersContainer .player.human-player.active::before {
-  background: linear-gradient(45deg, var(--neon-green), var(--neon-blue), var(--neon-green));
+  background: linear-gradient(
+    45deg,
+    var(--neon-green),
+    var(--neon-blue),
+    var(--neon-green)
+  );
 }
 
 #playersContainer .player.human-player.active .player-head {
@@ -53,14 +58,19 @@
 /* Gemini AI hráč - modrá */
 #playersContainer .player.gemini-player.active {
   border-color: var(--neon-blue);
-  box-shadow: 
+  box-shadow:
     var(--glow-lg) var(--neon-blue),
     0 0 30px var(--neon-blue),
     0 0 50px rgba(30, 144, 255, 0.6);
 }
 
 #playersContainer .player.gemini-player.active::before {
-  background: linear-gradient(45deg, var(--neon-blue), var(--neon-green), var(--neon-blue));
+  background: linear-gradient(
+    45deg,
+    var(--neon-blue),
+    var(--neon-green),
+    var(--neon-blue)
+  );
 }
 
 #playersContainer .player.gemini-player.active .player-head {
@@ -80,14 +90,19 @@
 /* ChatGPT AI hráč - růžová */
 #playersContainer .player.chatgpt-player.active {
   border-color: var(--neon-pink);
-  box-shadow: 
+  box-shadow:
     var(--glow-lg) var(--neon-pink),
     0 0 30px var(--neon-pink),
     0 0 50px rgba(255, 105, 180, 0.6);
 }
 
 #playersContainer .player.chatgpt-player.active::before {
-  background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue), var(--neon-pink));
+  background: linear-gradient(
+    45deg,
+    var(--neon-pink),
+    var(--neon-blue),
+    var(--neon-pink)
+  );
 }
 
 #playersContainer .player.chatgpt-player.active .player-head {
@@ -107,14 +122,19 @@
 /* Claude AI hráč - oranžová */
 #playersContainer .player.claude-player.active {
   border-color: var(--neon-orange);
-  box-shadow: 
+  box-shadow:
     var(--glow-lg) var(--neon-orange),
     0 0 30px var(--neon-orange),
     0 0 50px rgba(255, 165, 0, 0.6);
 }
 
 #playersContainer .player.claude-player.active::before {
-  background: linear-gradient(45deg, var(--neon-orange), var(--neon-yellow), var(--neon-orange));
+  background: linear-gradient(
+    45deg,
+    var(--neon-orange),
+    var(--neon-yellow),
+    var(--neon-orange)
+  );
 }
 
 #playersContainer .player.claude-player.active .player-head {
