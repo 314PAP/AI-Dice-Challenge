@@ -29,33 +29,29 @@
 #playersContainer .player.human-player.winner {
     border-color: var(--neon-green);
     box-shadow: 
-        var(--glow-xl) var(--neon-green),
-        0 0 40px var(--neon-green),
-        0 0 60px rgba(57, 255, 20, 0.6);
+        var(--glow-lg) var(--neon-green),
+        0 0 25px var(--neon-green);
 }
 
 #playersContainer .player.gemini-player.winner {
     border-color: var(--neon-blue);
     box-shadow: 
-        var(--glow-xl) var(--neon-blue),
-        0 0 40px var(--neon-blue),
-        0 0 60px rgba(30, 144, 255, 0.6);
+        var(--glow-lg) var(--neon-blue),
+        0 0 25px var(--neon-blue);
 }
 
 #playersContainer .player.chatgpt-player.winner {
     border-color: var(--neon-pink);
     box-shadow: 
-        var(--glow-xl) var(--neon-pink),
-        0 0 40px var(--neon-pink),
-        0 0 60px rgba(255, 105, 180, 0.6);
+        var(--glow-lg) var(--neon-pink),
+        0 0 25px var(--neon-pink);
 }
 
 #playersContainer .player.claude-player.winner {
     border-color: var(--neon-orange);
     box-shadow: 
-        var(--glow-xl) var(--neon-orange),
-        0 0 40px var(--neon-orange),
-        0 0 60px rgba(255, 165, 0, 0.6);
+        var(--glow-lg) var(--neon-orange),
+        0 0 25px var(--neon-orange);
 }
 
 /* Zvýraznění jména a skóre vítěze */
