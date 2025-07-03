@@ -381,37 +381,38 @@ export function endTurn(scored = true) {
 }
 
 /**
- * Ukončí hru
+ * Ukončí hru a zobrazí vítěze
  */
 export function endGame(winner) {
-    console.log('🏁 Ending game...');
-    
-    // Zabraňuje vícenásobnému volání
-    if (gameState.gameEnded) {
-        console.warn('⚠️ Hra je již ukončena, ignoruji další volání endGame');
-        return;
-    }
-    
-    // Clear all AI timeouts
-    clearAllAITimeouts();
-    
-    // Označit hru jako ukončenou
+    console.log('🏁 Hra skončila!');
     gameState.gameEnded = true;
     
-    // Zajistit, že finální skóre je aktualizováno v UI
-    updateScoreboard();
+    // Zajistíme, že endTurnProcessing je resetován
+    gameState.endTurnProcessing = false;
     
-    // Zvýrazníme vítěze a odstraníme active stav ze všech hráčů
-    document.querySelectorAll('.player').forEach(p => {
-        p.classList.remove('winner');
-        p.classList.remove('active');
-        // Vyčistíme všechny styly
-        p.style = '';
+    console.log(`🏆 Vítěz: ${winner.name} (${winner.type}) s ${winner.score} body`);
+    
+    // Vyčistíme všechny AI timeouty
+    clearAllAITimeouts();
+    
+    // Resetování aktivního hráče - zajistíme, že žádný hráč není označen jako aktivní
+    document.querySelectorAll('.player').forEach(player => {
+        player.classList.remove('active');
+        player.style.boxShadow = '';
+        player.style.borderColor = '';
+        player.style.animation = '';
+        player.style.transform = '';
     });
     
-    // Najdeme element vítěze a zvýrazníme ho
+    // Získáme typ vítěze a příslušný element
     const winnerType = winner.type;
-    const winnerElement = document.querySelector(`.player.${winnerType}-player`);
+    const winnerSelector = winnerType === 'human' ? '.human-player' : 
+                          winnerType === 'gemini' ? '.gemini-player' : 
+                          winnerType === 'chatgpt' ? '.chatgpt-player' : 
+                          winnerType === 'claude' ? '.claude-player' : null;
+    
+    const winnerElement = winnerSelector ? document.querySelector(winnerSelector) : null;
+    
     if (winnerElement) {
         winnerElement.classList.add('winner');
         // Přidáme speciální zvýraznění pro vítěze
@@ -425,10 +426,17 @@ export function endGame(winner) {
         const color = winnerColors[winnerType] || 'var(--neon-yellow)';
         winnerElement.style.cssText = `
             border-color: ${color} !important;
-            box-shadow: 0 0 15px ${color}, 0 0 30px ${color}, 0 0 45px ${color} !important;
+            box-shadow: 0 0 15px ${color}, 0 0 30px ${color}, 0 0 45px ${color}, 0 0 60px ${color} !important;
             transform: scale(1.1) !important;
             z-index: 10 !important;
+            animation: winner-pulse 1.5s ease-in-out infinite !important;
         `;
+        
+        // Zkontrolujeme, že animace a styly byly správně aplikovány
+        console.log(`🎯 Styly vítěze aplikovány na element:`, winnerElement);
+        console.log(`🎯 Barva vítěze: ${color}`);
+    } else {
+        console.error(`⚠️ Nepodařilo se najít element vítěze pro typ: ${winnerType}`);
     }
     
     document.getElementById('winnerAnnouncement').innerHTML = 
