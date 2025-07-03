@@ -1,0 +1,68 @@
+/* =============================================================================
+   👥 PLAYER AVATARS - Neonové avatary ve stylu Bootstrapu
+   ============================================================================= */
+
+.player-avatars-section {
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Avatary kontejner */
+.avatar-container {
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+/* Základní styl pro mini-avatary */
+.avatar-mini {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--neon-green);
+  object-fit: cover;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+  background-color: rgba(0, 0, 0, 0.5); /* Tmavé pozadí pod avatarem */
+  padding: 2px; /* Malý padding pro vytvoření vnitřního okraje */
+}
+
+/* Hover efekt na mini-avataru */
+.avatar-mini:hover {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 8px var(--neon-blue);
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* Aktivní avatar */
+.avatar-mini.active {
+  opacity: 1;
+  box-shadow: 0 0 12px var(--neon-green);
+  transform: scale(1.1);
+}
+
+/* Jméno pod avatarem */
+.avatar-name {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+/* Specifické barvy pro jednotlivé AI */
+.avatar-name.neon-blue {
+  color: var(--neon-blue);
+}
+
+.avatar-name.neon-pink {
+  color: var(--neon-pink);
+}
+
+.avatar-name.neon-orange {
+  color: var(--neon-orange);
+}
+
+/* Skrytí avatarů během hry, pokud je potřeba */
+.game-active .hide-during-game {
+  display: none;
+}
