@@ -36,10 +36,11 @@ Moderní interaktivní kostková hra s neonovým designem, kde hrajete proti tř
 - **Osobní podpisy** - Zapište se do historie
 
 ### 🎨 Moderní UI/UX
-- **Neon design** - Futuristický vzhled
-- **Responsive layout** - Funguje na všech zařízeních
-- **Smooth animations** - Plynulé přechody a efekty
-- **Intuitive controls** - Jednoduché ovládání
+- **Neon design** - Futuristický vzhled v tmavém režimu s neonovými prvky
+- **Responsive layout** - Plně responzivní na všech zařízeních pomocí Bootstrap frameworku
+- **Smooth animations** - Plynulé přechody a efekty s využitím animate.css a hover.css
+- **Intuitive controls** - Jednoduché ovládání s touch podporou
+- **Fullscreen mode** - Optimalizovaný layout na celou obrazovku
 
 ## 🚀 Jak začít
 
@@ -50,6 +51,34 @@ Zahrajte si přímo v prohlížeči: [AI Dice Challenge](https://314pap.github.i
 
 ```bash
 # Klonování repozitáře
+git clone https://github.com/314pap/AI-Dice-Challenge.git
+cd AI-Dice-Challenge
+
+# Spuštění hry
+# Jednoduše otevřete index.html v moderním prohlížeči
+```
+
+## 🧹 Čištění a správa projektu
+
+Pro vyčištění projektu a odstranění starých/záložních souborů spusťte:
+
+```bash
+./cleanup-project.sh
+```
+
+## 📄 Dokumentace
+
+Podrobnou dokumentaci projektu najdete v [DOKUMENTACE.md](DOKUMENTACE.md).
+
+## 🔧 Technologie
+
+- **HTML5** - Moderní značkovací jazyk
+- **CSS3** - Modulární CSS s Bootstrap frameworkem
+- **JavaScript** - Modulární struktura s ES6+ funkcemi
+- **Bootstrap** - Pro responzivní design a komponenty
+- **Remix Icon** - Pro neonové ikony
+- **Animate.css** - Pro plynulé animace
+- **Hover.css** - Pro interaktivní efekty
 git clone https://github.com/314PAP/AI-Dice-Challenge.git
 cd AI-Dice-Challenge
 
