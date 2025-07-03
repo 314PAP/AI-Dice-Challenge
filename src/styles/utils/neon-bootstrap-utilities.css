@@ -267,3 +267,88 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
+/* -------------------------------------------------------------------------- */
+/* 🔄 NOVÉ BOOTSTRAP ROZŠIŘUJÍCÍ UTILITY                                      */
+/* -------------------------------------------------------------------------- */
+
+/* Neonové okraje pro různé barvy (bootstrap-like) */
+.border-neon-green {
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb, 0, 255, 0), 0.3) !important;
+}
+
+.border-neon-blue {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-blue-rgb, 0, 191, 255), 0.3) !important;
+}
+
+.border-neon-pink {
+  border-color: var(--neon-pink) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-pink-rgb, 255, 0, 255), 0.3) !important;
+}
+
+.border-neon-orange {
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-orange-rgb, 255, 136, 0), 0.3) !important;
+}
+
+/* Bootstrap-like shadow utility třídy s neonovými barvami */
+.shadow-neon-sm {
+  box-shadow: 0 0 5px rgba(var(--neon-color-rgb, 0, 255, 0), 0.2) !important;
+}
+
+.shadow-neon {
+  box-shadow: 0 0 10px rgba(var(--neon-color-rgb, 0, 255, 0), 0.3) !important;
+}
+
+.shadow-neon-lg {
+  box-shadow: 0 0 15px rgba(var(--neon-color-rgb, 0, 255, 0), 0.4) !important;
+}
+
+/* Barevné stíny */
+.shadow-green {
+  box-shadow: 0 0 10px rgba(var(--neon-green-rgb, 0, 255, 0), 0.3) !important;
+}
+
+.shadow-blue {
+  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb, 0, 191, 255), 0.3) !important;
+}
+
+.shadow-pink {
+  box-shadow: 0 0 10px rgba(var(--neon-pink-rgb, 255, 0, 255), 0.3) !important;
+}
+
+.shadow-orange {
+  box-shadow: 0 0 10px rgba(var(--neon-orange-rgb, 255, 136, 0), 0.3) !important;
+}
+
+/* Sticky elementy pro chat */
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+}
+
+.sticky-top {
+  position: sticky;
+  top: 0;
+}
+
+/* Vylepšené scrollbary pro neonový vzhled */
+.scrollbar-neon {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--neon-green-rgb, 0, 255, 0), 0.5) rgba(0, 0, 0, 0.2);
+}
+
+.scrollbar-neon::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-neon::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.scrollbar-neon::-webkit-scrollbar-thumb {
+  background: rgba(var(--neon-green-rgb, 0, 255, 0), 0.5);
+  border-radius: 3px;
+}
