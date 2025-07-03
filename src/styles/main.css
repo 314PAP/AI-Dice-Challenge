@@ -36,6 +36,7 @@
 /* 🎨 ICONS & THEMES */
 @import './icons/neon-icons.css';
 @import './icons/game-icons.css';
+@import './components/icons.css';
 @import './themes/neon-dark.css';
 
 /* 🔧 UTILITIES */
