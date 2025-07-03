@@ -28,19 +28,21 @@
                     <a href="https://buymeacoffee.com/pipap" target="_blank" class="neon-icon icon-coffee hover-glow" title="Kup mi kávu">
                     </a>
                 </h1>
-                <div class="target-score-setup" id="targetScoreSetup">
-                    <label>
-                        <span class="neon-icon icon-star small"></span>
-                        Cílové skóre: 
-                        <input type="number" id="targetScoreInput" value="10000" min="1000" step="1000">
-                    </label>
-                    <button class="btn btn-primary" id="startGameBtn">
-                        <span class="neon-icon icon-gaming small"></span>
+                <div class="target-score-setup d-flex flex-wrap justify-content-center align-items-center gap-3 mb-3" id="targetScoreSetup">
+                    <div class="input-group w-auto">
+                        <span class="input-group-text bg-dark-80 neon-border neon-text">
+                            <i class="ri-star-line"></i>
+                            Cílové skóre: 
+                        </span>
+                        <input type="number" id="targetScoreInput" class="form-control-neon" value="10000" min="1000" step="1000">
+                    </div>
+                    <button class="btn btn-neon neon-green" id="startGameBtn">
+                        <i class="ri-gamepad-line me-2"></i>
                         Začít hru
                     </button>
-                    <button class="btn btn-secondary" id="hallOfFameBtn">
-                        <span class="neon-icon icon-star small"></span>
-                        🏆 Síň slávy
+                    <button class="btn btn-neon neon-blue" id="hallOfFameBtn">
+                        <i class="ri-trophy-line me-2"></i>
+                        Síň slávy
                     </button>
                 </div>
                 
@@ -97,21 +99,21 @@
             </div>
 
             <div class="game-controls hidden mt-4 px-3" id="gameControls">
-                <div class="turn-info" id="turnInfo">Váš tah!</div>
-                <div class="current-turn-score" id="currentTurnScore">Skóre tahu: 0</div>
-                <div class="target-info" id="targetInfo">
-                    Cíl: <span id="targetScoreDisplay">10000</span>
+                <div class="turn-info p-2 mb-3 neon-border neon-text bg-dark-80 rounded text-center" id="turnInfo">Váš tah!</div>
+                <div class="current-turn-score p-2 mb-3 neon-border neon-text bg-dark-80 rounded text-center" id="currentTurnScore">Skóre tahu: 0</div>
+                <div class="target-info p-2 mb-3 neon-border neon-text bg-dark-80 rounded text-center" id="targetInfo">
+                    Cíl: <span id="targetScoreDisplay" class="fw-bold">10000</span>
                 </div>
                 
-                <div class="dice-container" id="diceContainer"></div>
+                <div class="dice-container d-flex flex-wrap justify-content-center gap-3 my-4" id="diceContainer"></div>
                 
-                <div class="roll-controls">
-                    <button class="btn btn-primary" id="rollBtn">
-                        <span class="neon-icon icon-dice small"></span>
+                <div class="roll-controls d-flex flex-wrap justify-content-center gap-3 my-3">
+                    <button class="btn btn-neon neon-green" id="rollBtn">
+                        <i class="ri-dice-line me-2"></i>
                         Hodit kostky
                     </button>
-                    <button class="btn btn-secondary" id="bankBtn" disabled>
-                        <span class="neon-icon icon-star small"></span>
+                    <button class="btn btn-neon neon-blue" id="bankBtn" disabled>
+                        <i class="ri-save-line me-2"></i>
                         Odložit vybrané
                     </button>
                     <button class="btn btn-warning" id="endTurnBtn" disabled>
