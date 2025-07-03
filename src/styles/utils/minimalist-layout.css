@@ -444,8 +444,8 @@
 
 /* Chat stavy pro mobilní zařízení - využití Bootstrap tříd */
 .chat-collapsed .chat-messages {
-  max-height: 60px !important;
-  overflow: hidden !important;
+  max-height: 90px !important;
+  overflow-y: auto !important;
 }
 
 .chat-collapsed .chat-messages .chat-message:nth-child(n+3) {
