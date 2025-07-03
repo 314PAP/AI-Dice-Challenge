@@ -1,13 +1,13 @@
 <!-- Mobile Chat Component -->
 <div class="chat-container border border-neon-green bg-dark-90 rounded-3 shadow-neon d-flex flex-column" id="chatPanelMobile">
-  <!-- Chat Header -->
-  <div class="chat-header d-flex justify-content-center align-items-center p-1">
-    <h2 class="neon-text neon-green m-0 fs-6">
+  <!-- Chat Header - zmenšený a konzistentní padding -->
+  <div class="chat-header d-flex justify-content-center align-items-center py-1 px-2">
+    <h2 class="neon-text neon-green m-0">
       <i class="ri-message-3-line me-1"></i>AI CHAT
     </h2>
   </div>
   
-  <!-- Chat Messages - snížená výška pro lepší zobrazení inputu -->
+  <!-- Chat Messages - automatická flexibilní výška -->
   <div class="chat-messages p-2 scrollbar-neon" id="chatMessagesMobile" style="overflow-y: auto; flex: 1;">
     <!-- Systémová zpráva -->
     <div class="chat-message mb-2 small">
@@ -22,12 +22,12 @@
     <!-- Zprávy se budou dynamicky přidávat zde -->
   </div>
   
-  <!-- Chat Input - upraveno pro zajištění viditelnosti na mobilu -->
-  <div class="chat-input p-1 bg-dark-90">
+  <!-- Chat Input - vylepšené pro lepší konzistenci a responzivitu -->
+  <div class="chat-input p-2 bg-dark-90">
     <div class="input-group input-group-sm border-0">
-      <input type="text" class="form-control border-0 bg-black text-neon-green small" id="chatInputMobile" placeholder="Napište zprávu...">
-      <button class="btn border-0 bg-transparent" type="button" id="sendChatBtnMobile">
-        <i class="ri-send-plane-fill" style="font-size: 1.2rem; color: #39ff14;"></i>
+      <input type="text" class="form-control border-0 bg-black text-neon-green" id="chatInputMobile" placeholder="Napište zprávu...">
+      <button class="btn border-0 bg-transparent d-flex align-items-center justify-content-center" type="button" id="sendChatBtnMobile">
+        <i class="ri-send-plane-fill neon-green" style="font-size: 1.2rem;"></i>
       </button>
     </div>
   </div>
