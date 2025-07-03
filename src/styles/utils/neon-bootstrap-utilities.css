@@ -126,10 +126,10 @@
 
 /* Základní pulsující efekt */
 .neon-pulse {
-  animation: neonPulse 2s infinite;
+  animation: neon-pulse 2s infinite;
 }
 
-@keyframes neonPulse {
+@keyframes neon-pulse {
   0% {
     text-shadow: 0 0 5px var(--neon-color, var(--neon-green)), 
                 0 0 10px var(--neon-color, var(--neon-green));
