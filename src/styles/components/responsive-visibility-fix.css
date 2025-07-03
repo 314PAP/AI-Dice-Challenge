@@ -1,53 +1,43 @@
 /**
- * Responsive Visibility Fix
+ * Responzivní zobrazení - jednoduché řešení
  * 
- * Tento soubor zajišťuje správné zobrazení a skrytí komponent v závislosti na velikosti obrazovky.
- * Řeší problém s duplicitním zobrazením komponent v mobilním zobrazení.
+ * Tento soubor obsahuje minimální CSS pro zajištění správné responzivity
+ * bez zbytečných složitostí a přepisování Bootstrap tříd.
  */
 
-/* Zajištění, že desktopové komponenty jsou viditelné pouze na středních a větších obrazovkách */
-.d-none.d-md-block {
-  display: none !important;
+/* Vyčištění float a zabránění překrývání elementů */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
-@media (min-width: 768px) {
+/* Jednoduchá úprava pro mobilní zobrazení */
+@media (max-width: 767.98px) {
+  /* Zajištění, že desktopový kontejner je skutečně skrytý */
   .d-none.d-md-block {
+    display: none !important;
+  }
+  
+  /* Zajištění, že mobilní komponenty jsou viditelné */
+  .d-block.d-md-none {
     display: block !important;
   }
 }
 
-/* Zajištění, že mobilní komponenty jsou viditelné pouze na malých obrazovkách */
-.d-block.d-md-none {
-  display: block !important;
-}
-
+/* Pro větší zařízení */
 @media (min-width: 768px) {
+  /* Desktopové komponenty jsou viditelné */
+  .d-none.d-md-block {
+    display: block !important;
+  }
+  
+  /* Mobilní komponenty jsou skryté */
   .d-block.d-md-none {
     display: none !important;
   }
 }
-
-/* Řešení pro speciální prvky, které mohou mít vlastní zobrazovací pravidla */
-.game-header.d-none.d-md-block,
-.chat-container.d-none.d-md-block {
-  display: none !important;
 }
-
-@media (min-width: 768px) {
-  .game-header.d-none.d-md-block,
-  .chat-container.d-none.d-md-block {
-    display: block !important;
-  }
-}
-
-.game-header.d-block.d-md-none,
-.chat-container.d-block.d-md-none {
-  display: block !important;
-}
-
-@media (min-width: 768px) {
-  .game-header.d-block.d-md-none,
-  .chat-container.d-block.d-md-none {
     display: none !important;
   }
 }
