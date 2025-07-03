@@ -1,4 +1,4 @@
-# Rozložení na celou obrazovku + Neonový design
+# Rozložení na celou obrazovku + Neonový design (Bez Bootstrapu)
 
 ## 📱 Responzivní layout na celou obrazovku
 

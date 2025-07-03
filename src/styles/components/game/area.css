@@ -1,10 +1,9 @@
 /* =============================================================================
-   🎮 GAME AREA - Hlavní herní oblast
+   🎮 GAME AREA - Hlavní herní oblast s neonovým designem
    ============================================================================= */
 
 .game-area {
   background: var(--black-bg);
-  border-radius: 1em 0 0 1em;
   padding: 1em;
   display: flex;
   flex-direction: column;
@@ -13,10 +12,40 @@
   box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
 }
 
+/* Herní informace */
+.turn-info, .current-turn-score, .target-info {
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: var(--neon-green);
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.2);
+}
+
+/* Herní ovládací prvky */
+.roll-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
 /* Responzivní přizpůsobení herní oblasti */
 @media (max-width: 800px) {
   .game-area {
-    border-radius: 1em 1em 0 0;
     border-bottom: 2px solid var(--neon-green);
+  }
+  
+  .roll-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .roll-controls button {
+    width: 100%;
+    margin: 0.25rem 0;
   }
 }
