@@ -25,7 +25,8 @@
   border-color: var(--neon-green);
   box-shadow: 
     var(--glow-lg) var(--neon-green),
-    0 0 40px rgba(57, 255, 20, 0.3);
+    0 0 30px var(--neon-green),
+    0 0 50px rgba(57, 255, 20, 0.6);
 }
 
 #playersContainer .player.human-player.active::before {
@@ -78,7 +79,8 @@
   border-color: var(--neon-pink);
   box-shadow: 
     var(--glow-lg) var(--neon-pink),
-    0 0 40px rgba(255, 105, 180, 0.3);
+    0 0 30px var(--neon-pink),
+    0 0 50px rgba(255, 105, 180, 0.6);
 }
 
 #playersContainer .player.chatgpt-player.active::before {
@@ -104,7 +106,8 @@
   border-color: var(--neon-orange);
   box-shadow: 
     var(--glow-lg) var(--neon-orange),
-    0 0 40px rgba(255, 165, 0, 0.3);
+    0 0 30px var(--neon-orange),
+    0 0 50px rgba(255, 165, 0, 0.6);
 }
 
 #playersContainer .player.claude-player.active::before {
