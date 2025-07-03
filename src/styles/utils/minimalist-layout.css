@@ -698,3 +698,12 @@
     font-size: 1.5rem !important;
   }
 }
+
+/* Neonové textové barvy */
+.text-neon-green {
+  color: #39ff14 !important;
+}
+
+.bg-black {
+  background-color: #000 !important;
+}
