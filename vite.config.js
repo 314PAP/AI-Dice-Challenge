@@ -20,7 +20,7 @@ export default defineConfig({
   },
   // Explicitně ignorujeme záložní adresáře a testovací soubory
   optimizeDeps: {
-    exclude: ['**/backup_*/**', '**/archive/**', 'test-*', 'test_*'],
+    exclude: ['backup_*', 'archive', 'test-*', 'test_*'],
   },
   // Nastavení pro skenování souborů
   resolve: {
