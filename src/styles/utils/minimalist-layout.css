@@ -492,8 +492,8 @@
 @media (max-width: 767.98px) {
   .h-20 {
     height: 20% !important;
-    max-height: 180px;
-    min-height: 150px;
+    max-height: 220px;
+    min-height: 180px;
   }
   
   .h-75 {
@@ -636,8 +636,8 @@
 /* Oprava estetiky mobilní verze */
 @media (max-width: 767.98px) {
   .chat-messages {
-    max-height: calc(25vh - 80px) !important;
-    min-height: 100px !important;
+    max-height: calc(25vh - 90px) !important;
+    min-height: 80px !important;
   }
   
   .mt-1 {
