@@ -155,7 +155,7 @@ export const updateActivePlayer = pipe(
             const color = `var(${typeConfig.color})`;
             activePlayer.style.cssText = `
                 border-color: ${color} !important;
-                box-shadow: 0 0 15px ${color}, 0 0 30px ${color}, 0 0 45px ${color} !important;
+                box-shadow: 0 0 10px ${color}, 0 0 20px ${color} !important;
                 animation: player-active-pulse 2s ease-in-out infinite !important;
             `;
             
