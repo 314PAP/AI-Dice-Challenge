@@ -62,26 +62,37 @@
 /* Neonové barvy pro Bootstrap */
 .neon-green {
   --neon-color: var(--neon-green, #00ff00);
+  --neon-color-rgb: var(--neon-green-rgb, 0, 255, 0);
   color: var(--neon-green);
   text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
 }
 
 .neon-blue {
   --neon-color: var(--neon-blue, #00ffff);
+  --neon-color-rgb: var(--neon-blue-rgb, 0, 255, 255);
   color: var(--neon-blue);
   text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
 }
 
 .neon-pink {
   --neon-color: var(--neon-pink, #ff00ff);
+  --neon-color-rgb: var(--neon-pink-rgb, 255, 0, 255);
   color: var(--neon-pink);
   text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
 }
 
 .neon-orange {
   --neon-color: var(--neon-orange, #ff8800);
+  --neon-color-rgb: var(--neon-orange-rgb, 255, 140, 0);
   color: var(--neon-orange);
   text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange);
+}
+
+.neon-red {
+  --neon-color: var(--neon-red, #ff3131);
+  --neon-color-rgb: var(--neon-red-rgb, 255, 49, 49);
+  color: var(--neon-red);
+  text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red);
 }
 
 /* Neonové Bootstrap komponenty */
