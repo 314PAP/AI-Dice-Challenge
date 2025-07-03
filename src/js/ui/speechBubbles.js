@@ -62,7 +62,7 @@ export function showFarkleMessage(playerIndex) {
     farkleMessage.innerHTML = '💥 FARKLE!';
     farkleMessage.style.cssText = `
         position: absolute;
-        top: -40px;
+        top: -60px;
         left: 50%;
         transform: translateX(-50%);
         background-color: transparent;
