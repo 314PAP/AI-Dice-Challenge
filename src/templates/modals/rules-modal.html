@@ -1,0 +1,89 @@
+<!-- Rules Modal -->
+<div id="rulesModal" class="modal-overlay hidden">
+    <div class="modal-container bg-dark-90 border-neon-blue rounded">
+        <div class="modal-header border-bottom border-neon-blue p-3">
+            <h2 class="modal-title neon-text neon-blue m-0"><i class="ri-book-open-line me-2"></i>Pravidla hry Farkle</h2>
+        </div>
+        <div class="modal-body p-4">
+            <div class="rules-content">
+                <h3 class="neon-text neon-green mb-3">🎯 Cíl hry</h3>
+                <p class="text-light mb-4">Jako první dosáhněte cílového skóre (obvykle 10 000 bodů).</p>
+                
+                <h3 class="neon-text neon-orange mb-3">🎲 Jak se hraje</h3>
+                <div class="text-light mb-4">
+                    <p>• V každém tahu hodíte 6 kostkami</p>
+                    <p>• Vyberte kostky, které chcete odložit pro body</p>
+                    <p>• Můžete pokračovat a hodit znovu zbývajícími kostkami</p>
+                    <p>• Nebo ukončit tah a přidat body ke svému celkovému skóre</p>
+                    <p>• Pokud nehodíte žádné bodující kostky = <strong class="neon-red">FARKLE</strong> (ztratíte všechny body z tahu)</p>
+                </div>
+                
+                <h3 class="neon-text neon-pink mb-3">💎 Bodování kombinací</h3>
+                <div class="scoring-table bg-dark-80 p-3 rounded border border-neon-green mb-4">
+                    <div class="row text-light">
+                        <div class="col-6"><strong>Kombinace</strong></div>
+                        <div class="col-6"><strong>Body</strong></div>
+                    </div>
+                    <hr class="border-neon-green">
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Každá 1</div>
+                        <div class="col-6 neon-green">100 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Každá 5</div>
+                        <div class="col-6 neon-green">50 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Tři 1</div>
+                        <div class="col-6 neon-orange">1 000 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Tři 2</div>
+                        <div class="col-6 neon-orange">200 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Tři 3</div>
+                        <div class="col-6 neon-orange">300 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Tři 4</div>
+                        <div class="col-6 neon-orange">400 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Tři 5</div>
+                        <div class="col-6 neon-orange">500 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Tři 6</div>
+                        <div class="col-6 neon-orange">600 bodů</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Čtyři stejné</div>
+                        <div class="col-6 neon-pink">Trojice × 2</div>
+                    </div>
+                    <div class="row text-light mb-2">
+                        <div class="col-6">Pět stejných</div>
+                        <div class="col-6 neon-pink">Trojice × 4</div>
+                    </div>
+                    <div class="row text-light">
+                        <div class="col-6">Šest stejných</div>
+                        <div class="col-6 neon-pink">Trojice × 8</div>
+                    </div>
+                </div>
+                
+                <h3 class="neon-text neon-blue mb-3">⚠️ Důležitá pravidla</h3>
+                <div class="text-light">
+                    <p>• <strong class="neon-red">FARKLE:</strong> Když nehodíte žádné bodující kostky, ztratíte všechny body z aktuálního tahu</p>
+                    <p>• <strong class="neon-green">Strategie:</strong> Ukončete tah včas, abyste si zajistili body</p>
+                    <p>• <strong class="neon-orange">Riziko:</strong> Čím více hodů, tím větší šance na FARKLE</p>
+                </div>
+            </div>
+            
+            <div class="modal-actions d-flex justify-content-center gap-3 mt-4">
+                <button id="closeRulesBtn" class="btn btn-neon neon-blue">
+                    <i class="ri-arrow-left-line me-2"></i>Zpět do menu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
