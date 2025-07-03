@@ -23,6 +23,7 @@
 @import './components/chat/index.css';
 @import './components/dice.css';
 @import './components/players.css';
+@import './components/players/winner.css';
 @import './components/scores.css';
 @import './components/game.css';
 

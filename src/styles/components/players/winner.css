@@ -1,0 +1,71 @@
+/* =============================================================================
+   🏆 WINNER STYLES - Styly pro vítěze hry
+   ============================================================================= */
+
+/* Základní styly pro vítěze */
+#playersContainer .player.winner {
+    animation: winner-pulse 1.5s ease-in-out infinite;
+    transform: scale(1.1);
+    z-index: 10;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Animace pro vítěze */
+@keyframes winner-pulse {
+    0% {
+        box-shadow: var(--glow-lg) currentColor, 0 0 30px currentColor;
+    }
+    50% {
+        box-shadow: var(--glow-xl) currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
+        transform: scale(1.15);
+    }
+    100% {
+        box-shadow: var(--glow-lg) currentColor, 0 0 30px currentColor;
+    }
+}
+
+/* Speciální barvy pro různé typy vítězů */
+#playersContainer .player.human-player.winner {
+    border-color: var(--neon-green);
+    box-shadow: 
+        var(--glow-xl) var(--neon-green),
+        0 0 40px var(--neon-green),
+        0 0 60px rgba(57, 255, 20, 0.6);
+}
+
+#playersContainer .player.gemini-player.winner {
+    border-color: var(--neon-blue);
+    box-shadow: 
+        var(--glow-xl) var(--neon-blue),
+        0 0 40px var(--neon-blue),
+        0 0 60px rgba(30, 144, 255, 0.6);
+}
+
+#playersContainer .player.chatgpt-player.winner {
+    border-color: var(--neon-pink);
+    box-shadow: 
+        var(--glow-xl) var(--neon-pink),
+        0 0 40px var(--neon-pink),
+        0 0 60px rgba(255, 105, 180, 0.6);
+}
+
+#playersContainer .player.claude-player.winner {
+    border-color: var(--neon-orange);
+    box-shadow: 
+        var(--glow-xl) var(--neon-orange),
+        0 0 40px var(--neon-orange),
+        0 0 60px rgba(255, 165, 0, 0.6);
+}
+
+/* Zvýraznění jména a skóre vítěze */
+#playersContainer .player.winner .player-name {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.1em;
+}
+
+#playersContainer .player.winner .player-score span {
+    font-weight: bold;
+    font-size: 1.2em;
+}
