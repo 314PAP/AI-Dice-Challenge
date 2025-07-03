@@ -6,18 +6,17 @@
   0% {
     box-shadow:
       var(--glow-lg) currentColor,
-      0 0 30px currentColor;
+      0 0 20px currentColor;
   }
   50% {
     box-shadow:
       var(--glow-xl) currentColor,
-      0 0 40px currentColor;
-    border-width: 4px;
+      0 0 25px currentColor;
   }
   100% {
     box-shadow:
       var(--glow-lg) currentColor,
-      0 0 30px currentColor;
+      0 0 20px currentColor;
   }
 }
 
@@ -33,16 +32,16 @@
   }
 }
 
-/* Další vylepšená animace pro hráče */
-@keyframes active-player-highlight {
+/* Statický neonový efekt bez změny velikosti */
+@keyframes active-player-neon {
   0% {
-    transform: scale(1.03);
+    opacity: 0.85;
   }
   50% {
-    transform: scale(1.07);
+    opacity: 1;
   }
   100% {
-    transform: scale(1.03);
+    opacity: 0.85;
   }
 }
 
