@@ -340,11 +340,11 @@
     </div> <!-- Konec desktop kontejneru -->
     
     <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
-    <div class="container-fluid d-block d-md-none mw-90 mh-90 vh-90">
+    <div class="container-fluid d-block d-md-none mw-90 mh-90 vh-90 p-consistent d-flex flex-column gap-consistent">
         <!-- Menu section - horní část -->
-        <div class="row g-0 h-75">
+        <div class="row g-0 h-75 flex-grow-1">
             <div class="col-12 h-100">
-                <div class="h-100 game-box p-1 p-sm-2 rounded border border-neon-green shadow-neon d-flex flex-column justify-content-center">
+                <div class="h-100 game-box rounded border border-neon-green shadow-neon d-flex flex-column justify-content-center">
                     <!-- Stejný obsah jako desktop menu -->
                     <div class="game-header text-center" id="gameHeaderMobile">
                         <!-- Nadpis uprostřed nahoře - vylepšená responzivita -->
