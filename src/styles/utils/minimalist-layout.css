@@ -1,0 +1,78 @@
+/* =============================================================================
+   🎮 MINIMALISTICKÝ LAYOUT - Doplňkové styly pro minimalistický vzhled
+   ============================================================================= */
+
+/* Herní box - vnitřní neonový rámeček */
+.game-box {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.game-box:hover {
+  box-shadow: 0 0 15px rgba(var(--neon-green-rgb, 0, 255, 0), 0.4);
+}
+
+/* Chat panel - vylepšení pro minimalistický vzhled */
+#chatPanel .chat-toggle {
+  font-size: 1rem;
+  width: 28px;
+  height: 28px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+/* Zprávy v chatu - více prostoru pro obsah */
+#chatMessages {
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
+/* Vstupní pole v chatu - lépe integrované s tlačítkem */
+#chatPanel .input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+#chatPanel .input-group .form-control-neon {
+  border-radius: 4px 0 0 4px;
+  border-right: none;
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+#chatPanel .input-group .btn {
+  border-radius: 0 4px 4px 0;
+  padding: 0.375rem 0.75rem;
+  margin: 0;
+}
+
+/* Vylepšený hover efekt pro input pole */
+#chatPanel .input-group:hover .form-control-neon {
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb, 0, 255, 0), 0.3);
+}
+
+/* Responzivní úpravy */
+@media (max-width: 767.98px) {
+  #chatPanel {
+    padding: 0.5rem !important;
+  }
+  
+  #chatMessages {
+    padding: 0.5rem;
+  }
+  
+  #chatPanel .chat-header {
+    padding: 0.5rem;
+  }
+  
+  #chatPanel .chat-input {
+    padding: 0.5rem;
+  }
+}
