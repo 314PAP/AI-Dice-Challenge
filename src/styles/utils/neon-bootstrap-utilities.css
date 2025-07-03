@@ -235,10 +235,12 @@
 .bg-dark-40 { background-color: rgba(0, 0, 0, 0.4) !important; }
 
 /* Neonové pozadí s mírnými odlesky (vynikne ve tmě) */
-.bg-neon-green { background-color: rgba(0, 255, 0, 0.05) !important; }
-.bg-neon-blue { background-color: rgba(0, 255, 255, 0.05) !important; }
-.bg-neon-pink { background-color: rgba(255, 0, 255, 0.05) !important; }
-.bg-neon-orange { background-color: rgba(255, 136, 0, 0.05) !important; }
+.bg-neon-green { background-color: rgba(var(--neon-green-rgb), 0.05) !important; }
+.bg-neon-blue { background-color: rgba(var(--neon-blue-rgb), 0.05) !important; }
+.bg-neon-pink { background-color: rgba(var(--neon-pink-rgb), 0.05) !important; }
+.bg-neon-orange { background-color: rgba(var(--neon-orange-rgb), 0.05) !important; }
+.bg-neon-red { background-color: rgba(var(--neon-red-rgb), 0.05) !important; }
+.bg-neon-yellow { background-color: rgba(var(--neon-yellow-rgb), 0.05) !important; }
 
 /* -------------------------------------------------------------------------- */
 /* 🧰 DALŠÍ UŽITEČNÉ UTILITY (NENAHRAZENÉ BOOTSTRAPEM)                        */
