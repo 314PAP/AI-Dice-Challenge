@@ -61,7 +61,5 @@
 
 /* Tmavý režim (už je výchozí pro neonový vzhled) */
 @media (prefers-color-scheme: dark) {
-  :root {
-    /* Tmavý režim je výchozí pro neonový vzhled, žádné změny */
-  }
+  /* Tmavý režim je výchozí pro neonový vzhled, žádné změny */
 }
