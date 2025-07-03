@@ -223,6 +223,17 @@ export function setupEventListeners() {
         
         // Inicializace chatu při načtení stránky
         initializeChat();
+        
+        // Target score input change
+        const targetScoreInput = document.getElementById('targetScoreInput');
+        if (targetScoreInput) {
+            targetScoreInput.addEventListener('change', () => {
+                const targetScoreDisplay = document.getElementById('targetScoreDisplay');
+                if (targetScoreDisplay) {
+                    targetScoreDisplay.textContent = targetScoreInput.value;
+                }
+            });
+        }
         }
         
         // Target score input change
