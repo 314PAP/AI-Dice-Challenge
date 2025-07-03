@@ -36,11 +36,37 @@
   background-color: rgba(0, 0, 0, 0.9);
   padding: 1rem;
   overflow: hidden;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
+/* Vylepšený hover efekt s jemným světlem uvnitř */
 .game-box:hover, .chat-box:hover {
   box-shadow: var(--neon-glow-strong);
+  border-color: var(--neon-green);
+}
+
+/* Přidání pseudo prvku pro jemný neonový efekt uvnitř při hoveru */
+.game-box::before, .chat-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(57, 255, 20, 0.03) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+}
+
+.game-box:hover::before, .chat-box:hover::before {
+  opacity: 1;
 }
 
 /* Chat kontejnery */
@@ -231,14 +257,30 @@
     margin-bottom: 0.15rem;
     min-height: 1.8rem;
     font-size: 0.7rem;
+    width: 100% !important; /* Širší tlačítka pro lepší dostupnost */
   }
   
   .chat-message {
     font-size: 0.7rem;
+    line-height: 1.2;
+    margin-bottom: 0.3rem;
   }
   
   .chat-input input {
     height: 1.8rem;
+  }
+  
+  /* Redukce paddingů v input group */
+  .chat-input .input-group {
+    padding: 0.1rem;
+  }
+  
+  /* Optimalizace pro zachování viditelnosti chat inputu */
+  .chat-input {
+    position: sticky;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 5;
   }
 }
 
@@ -250,31 +292,60 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  backdrop-filter: blur(2px); /* Jemný blur efekt pro lepší kontrast */
 }
 
+/* Světelný efekt uvnitř tlačítka */
 .btn-neon::after {
   content: '';
   position: absolute;
-  left: 0;
+  left: -100%;
   top: 0;
   height: 100%;
-  width: 0;
-  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
   z-index: -1;
-  transition: width 0.3s ease;
+  transition: transform 0.6s ease;
 }
 
+/* Animovaný přeběh světla přes tlačítko při hoveru */
 .btn-neon:hover::after {
-  width: 100%;
+  transform: translateX(200%);
 }
 
 .btn-neon:hover {
   box-shadow: 0 0 8px currentColor, 0 0 15px currentColor;
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.02);
+  border-color: currentColor;
+  letter-spacing: 0.03em; /* Jemné roztažení textu */
 }
 
 .btn-neon:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, inset 0 0 5px rgba(255, 255, 255, 0.2);
+  transition: all 0.1s ease;
+}
+
+/* Přidání pulzování ikony v tlačítku */
+.btn-neon:hover i {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Speciální třídy pro různé barvy tlačítek */
