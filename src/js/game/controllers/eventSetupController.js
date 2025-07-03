@@ -512,7 +512,7 @@ function sendMobileChatMessage() {
         setTimeout(() => {
             const aiMessage = document.createElement('div');
             aiMessage.className = 'chat-message mb-2 small';
-            aiMessage.innerHTML = '<strong class="neon-blue">Gemini:</strong> <span class="neon-green">Zajímavá strategie!</span>';
+            aiMessage.innerHTML = '<strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Zajímavá strategie!</span>';
             chatMessages.appendChild(aiMessage);
             
             // Scroll na konec
