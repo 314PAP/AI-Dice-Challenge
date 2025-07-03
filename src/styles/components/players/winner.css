@@ -30,8 +30,9 @@
 #playersContainer .player.human-player.winner {
     border-color: var(--neon-green);
     box-shadow: 
-        var(--glow-lg) var(--neon-green),
-        0 0 25px var(--neon-green);
+        var(--glow-intense) var(--neon-green),
+        0 0 35px var(--neon-green),
+        0 0 55px var(--neon-green);
 }
 
 #playersContainer .player.gemini-player.winner {
