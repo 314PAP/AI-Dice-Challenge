@@ -99,19 +99,35 @@ export const updateActivePlayer = pipe(
             'claude': { class: 'claude-player', color: '--neon-orange' }
         };
         
-        // Odstraníme třídu active a inline styly ze všech hráčů
+        // DŮLEŽITÉ: Důkladně vyčistíme všechna aktivní zvýraznění a inline styly
+        // Tím zajistíme, že žádné předchozí styly nebudou přetrvávat
         document.querySelectorAll('.player').forEach(p => {
+            // Odstranění třídy active
             p.classList.remove('active');
+            
+            // Kompletní reset inline stylů
             p.style.borderColor = '';
             p.style.boxShadow = '';
+            p.style.animation = '';
+            p.style.transform = '';
+            
+            // Odstranění jakýchkoliv dalších potenciálních tříd pro aktivní stav
+            p.classList.remove('player-active');
+            p.classList.remove('active-player');
         });
         
         // Získáme aktuálního hráče
         const currentPlayer = gameState.players[gameState.currentPlayer];
-        if (!currentPlayer) return; // Ochrana proti chybám
+        if (!currentPlayer) {
+            console.error('🚨 Aktuální hráč nenalezen v gameState');
+            return; // Ochrana proti chybám
+        }
         
         const currentPlayerType = currentPlayer.type;
-        if (!currentPlayerType) return; // Ochrana proti chybám
+        if (!currentPlayerType) {
+            console.error('🚨 Aktuální hráč nemá definovaný typ');
+            return; // Ochrana proti chybám
+        }
         
         // Získáme mapování pro tento typ hráče
         const typeConfig = playerTypeMapping[currentPlayerType];
@@ -131,9 +147,14 @@ export const updateActivePlayer = pipe(
         activePlayer.classList.add('active');
         
         // Explicitně nastavíme barvy pomocí inline stylů jako zálohu
-        activePlayer.style.borderColor = `var(${typeConfig.color})`;
-        activePlayer.style.boxShadow = `0 0 10px var(${typeConfig.color}), 0 0 20px var(${typeConfig.color})`;
+        // Použijeme !important pro zajištění, že žádná jiná pravidla nepřepíší tyto styly
+        const color = `var(${typeConfig.color})`;
+        activePlayer.style.cssText = `
+            border-color: ${color} !important;
+            box-shadow: 0 0 10px ${color}, 0 0 20px ${color} !important;
+        `;
         
         console.log(`🎯 Přidána třída active hráči: ${typeConfig.class} s typem: ${currentPlayerType}`);
+        console.log(`🎯 Nastavena barva: ${color}`);
     }
 );
