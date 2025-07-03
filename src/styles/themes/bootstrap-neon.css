@@ -126,7 +126,7 @@
 /* Neonové varianty input fields */
 .form-control-neon {
   background-color: rgba(0, 0, 0, 0.6);
-  color: white;
+  color: var(--neon-green);
 }
 
 .form-control-neon-success {
