@@ -1,0 +1,129 @@
+/* =============================================================================
+   💬 CHAT - Styly pro chatovací rozhraní
+   ============================================================================= */
+
+/* Hlavní kontejner chatu */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+/* Hlavička chatu */
+.chat-header {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  text-align: center;
+}
+
+/* Oblast se zprávami */
+.chat-messages {
+  flex-grow: 1;
+  padding: 0.5rem;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.85);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--neon-green-rgb), 0.5) rgba(0, 0, 0, 0.2);
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: rgba(var(--neon-green-rgb), 0.5);
+  border-radius: 3px;
+}
+
+/* Jednotlivé zprávy */
+.chat-message {
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+/* Patička chatu s vstupním polem */
+.chat-input {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 0.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.chat-input .form-control {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: var(--neon-green);
+}
+
+.chat-input .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(var(--neon-green-rgb), 0.25);
+}
+
+.chat-input .form-control::placeholder {
+  color: rgba(var(--neon-green-rgb), 0.5);
+}
+
+/* Odesílací tlačítko */
+.chat-input button {
+  background: transparent;
+  border: none;
+  color: var(--neon-green);
+}
+
+.chat-input button:hover {
+  color: var(--neon-green);
+  text-shadow: var(--neon-green-shadow);
+}
+
+.chat-input button i {
+  font-size: 1.5rem;
+}
+
+/* Barevné rozlišení zpráv */
+.chat-message .neon-green {
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green);
+}
+
+.chat-message .neon-blue {
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.chat-message .neon-orange {
+  color: var(--neon-orange);
+  text-shadow: 0 0 5px var(--neon-orange);
+}
+
+.chat-message .neon-pink {
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.chat-message .neon-yellow {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 5px var(--neon-yellow);
+}
+
+/* Responzivní úpravy */
+@media (max-width: 767.98px) {
+  .chat-container {
+    height: 100%;
+    border-radius: 0.5rem;
+  }
+  
+  .chat-messages {
+    max-height: calc(20vh - 75px);
+    min-height: 70px;
+  }
+  
+  .chat-input button i {
+    font-size: 1.5rem;
+  }
+}
