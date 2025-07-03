@@ -59,23 +59,27 @@ AI Kostková Výzva je interaktivní webová hra založená na pravidlech hry Fa
 - **Neonové efekty** - Vlastní CSS utility třídy pro neonový vzhled kompatibilní s Bootstrapem
 
 ### Importovaný CSS framework
-- Bootstrap 5 - Primárně pro grid systém a utility třídy
+- Bootstrap 5 - Základ pro celý layout a systém utility tříd
 - Bootstrap Icons - Pro ikonografii
 - Remix Icon - Pro outline ikony s neonovým efektem
 
-### Custom CSS moduly
+### Architektura CSS
 1. **Base** - Základní styly, reset, proměnné
-2. **Layout** - Rozložení aplikace, grid, kontejnery
+2. **Layout** - Bootstrap-based layout a grid systém
+   - `bootstrap-alternatives.css` - Dokumentace a mapování Bootstrap utility tříd
 3. **Components** - Tlačítka, formy, modály, chat, kostky
 4. **Animations** - Animace, keyframes, přechody
 5. **Themes** - Neonové téma a barevné varianty
-6. **Utils** - Utility třídy pro spacing, barvy, viditelnost
+6. **Utils** - Utility třídy včetně `neon-bootstrap-utilities.css` pro neonové efekty
 
-### Neonové efekty
-- Text glow efekty pomocí `text-shadow`
-- Box glow efekty pomocí `box-shadow`
-- Pulsující animace pomocí `@keyframes`
-- Barevné varianty: neon-green, neon-blue, neon-orange, neon-pink
+### Neonové efekty integrované s Bootstrapem
+- `neon-text` pro neonový text
+- `neon-border` pro neonový okraj
+- `neon-green`, `neon-blue`, `neon-pink`, `neon-orange` pro barvy
+- `neon-pulse`, `neon-blink`, `neon-wave` pro animace
+- `btn-neon` pro neonová tlačítka
+- `form-control-neon` pro neonové vstupní prvky
+- `bg-dark-*` pro tmavá pozadí s průhledností
 
 ## Responzivní design
 
