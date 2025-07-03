@@ -4,11 +4,12 @@
 
 .game-area {
   background: var(--black-bg);
-  padding: 1em;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
 }
 
@@ -30,22 +31,58 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Scrollbary pro herní oblast */
+.game-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.game-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.game-area::-webkit-scrollbar-thumb {
+  background-color: var(--neon-green);
+  border-radius: 3px;
 }
 
 /* Responzivní přizpůsobení herní oblasti */
 @media (max-width: 800px) {
   .game-area {
     border-bottom: 2px solid var(--neon-green);
+    padding: 0.75rem;
   }
   
   .roll-controls {
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
   }
   
   .roll-controls button {
     width: 100%;
-    margin: 0.25rem 0;
+    margin: 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Extra malá zařízení */
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
   }
 }
