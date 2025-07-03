@@ -5,6 +5,9 @@
 /* Obecné styly aktivního hráče - používáno jako základ */
 #playersContainer .player.active {
   animation: player-active-pulse 2s ease-in-out infinite;
+  transform: scale(1.05);
+  z-index: 5;
+  transition: all 0.3s ease-in-out;
 }
 
 #playersContainer .player.active::before {

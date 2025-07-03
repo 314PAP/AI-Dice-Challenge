@@ -1,0 +1,47 @@
+/* =============================================================================
+   ⚡ ANIMACE PRO AKTIVNÍHO HRÁČE
+   ============================================================================= */
+
+@keyframes player-active-pulse {
+  0% {
+    box-shadow: var(--glow-lg) currentColor, 0 0 30px currentColor;
+  }
+  50% {
+    box-shadow: var(--glow-xl) currentColor, 0 0 40px currentColor;
+    border-width: 4px;
+  }
+  100% {
+    box-shadow: var(--glow-lg) currentColor, 0 0 30px currentColor;
+  }
+}
+
+@keyframes border-rotate {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+/* Další vylepšená animace pro hráče */
+@keyframes active-player-highlight {
+  0% {
+    transform: scale(1.03);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1.03);
+  }
+}
+
+/* Aplikace nové animace na aktivní hráče */
+#playersContainer .player.active {
+  animation: player-active-pulse 2s ease-in-out infinite, 
+             active-player-highlight 3s ease-in-out infinite;
+}

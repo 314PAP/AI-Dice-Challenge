@@ -260,6 +260,12 @@ export function endTurn(scored = true) {
         // KONTROLA KONCE FINÁLNÍHO KOLA AŽ PO NEXTPLAYER()
         if (gameState.finalRound) {
             console.log(`🔍 Kontrola konce finálního kola PO _nextPlayer(): CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
+            
+            // Zdůrazněné logování pro debug
+            console.log(`🔄 FINÁLNÍ KOLO STATUS: currentPlayer=${gameState.currentPlayer}, initiator=${gameState.finalRoundInitiator}`);
+            console.log(`🔄 Hráč který začal finální kolo: ${gameState.players[gameState.finalRoundInitiator]?.name}`);
+            console.log(`🔄 Aktuální hráč: ${gameState.players[gameState.currentPlayer]?.name}`);
+            
             // Všichni hráči včetně iniciátora finálního kola už hráli
             // Finální kolo končí po tom, co se vrátíme k iniciátorovi
             if (gameState.currentPlayer === gameState.finalRoundInitiator) {
@@ -268,10 +274,21 @@ export function endTurn(scored = true) {
                 const winner = gameState.players.reduce((prev, current) => 
                     (prev.score > current.score) ? prev : current);
                 console.log(`🏆 VÍTĚZ: ${winner.name} s ${winner.score} body`);
+                
+                // Aktualizujeme skóre ještě před ukončením hry
+                updateScoreboard();
+                
+                // Voláme endGame až po všech aktualizacích
                 endGame(winner);
                 return;
             }
         }
+        
+        // Důležité: resetujeme příznak zpracování tahu až po všech operacích
+        setTimeout(() => {
+            gameState.endTurnProcessing = false;
+            console.log('🎯 === ENDTURN COMPLETE ===');
+        }, 100); // Krátké zpoždění pro zajištění dokončení ostatních operací
         
         updateGameDisplay();
         
