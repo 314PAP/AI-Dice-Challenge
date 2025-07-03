@@ -1,0 +1,63 @@
+/* =============================================================================
+   👥 PLAYER CARDS - Karty hráčů s černým pozadím a neonovým orámováním
+   ============================================================================= */
+
+/* 
+   Tento soubor zajišťuje, že karty hráčů (včetně avatarů) mají vždy černé pozadí
+   a neonový rámeček v barvě příslušného hráče/AI.
+*/
+
+/* Základní styly pro karty hráčů */
+.player {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: none; /* Výchozí stav bez stínu */
+}
+
+/* Velikost a zarovnání obrázku */
+.player-head img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid rgba(0, 0, 0, 0.8); /* Černý okraj kolem avatarů */
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.5); /* Tmavé pozadí pod avatarem */
+}
+
+/* Aktivní hráč */
+.player.active {
+  z-index: 2;
+  transform: scale(1.05);
+}
+
+/* Pulzující animace pro aktivního hráče */
+@keyframes player-active-pulse {
+  0% {
+    box-shadow: 0 0 10px var(--neon-color, var(--neon-green));
+  }
+  50% {
+    box-shadow: 0 0 20px var(--neon-color, var(--neon-green)),
+               0 0 30px var(--neon-color, var(--neon-green));
+  }
+  100% {
+    box-shadow: 0 0 10px var(--neon-color, var(--neon-green));
+  }
+}
+
+/* Specifické barvy podle typu hráče - vše musí mít černé pozadí */
+.player.human-player {
+  --neon-color: var(--neon-green);
+}
+
+.player.gemini-player {
+  --neon-color: var(--neon-blue);
+}
+
+.player.chatgpt-player {
+  --neon-color: var(--neon-orange);
+}
+
+.player.claude-player {
+  --neon-color: var(--neon-pink);
+}
