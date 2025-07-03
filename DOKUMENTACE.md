@@ -41,7 +41,7 @@ Aplikace používá konzistentní dvoupanelové rozložení napříč všemi sta
 /src/
   /js/
     /game/     - Core game logic, state management, dice mechanics
-    /ai/       - AI personalities, chat responses, reactions
+    /ai/       - AI personalities, chat responses, reactions  
     /ui/       - DOM manipulation, event handlers, animations
     /utils/    - Utility functions, helpers, constants
   /styles/
@@ -52,15 +52,76 @@ Aplikace používá konzistentní dvoupanelové rozložení napříč všemi sta
     /themes/   - Neonové téma a barevné varianty
     /utils/    - Utility třídy
     main.css   - Hlavní importovací soubor
+  main.js      - Hlavní vstupní bod aplikace
+```
+
+### HTML struktura (index.html)
+```html
+<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center">
+  <div class="container-fluid mw-90 mh-90 vh-90 border border-neon-green rounded">
+    <div class="row h-100">
+      
+      <!-- LEVÝ PANEL: Menu/Herní oblast (70%) -->
+      <div class="col-12 col-md-7 h-100 overflow-auto p-3">
+        <div class="h-100 game-box p-3 rounded border border-neon-green shadow-neon">
+          
+          <!-- HLAVNÍ MENU STAV (výchozí viditelný) -->
+          <div class="game-header text-center mb-4">
+            <!-- Nadpis hry + donate link -->
+            <!-- Nastavení cílového skóre -->
+            <!-- Tlačítka: Start, Síň slávy -->
+            <!-- Avatary hráčů -->
+          </div>
+          
+          <!-- HERNÍ STAV (skrytý, zobrazí se po startu) -->
+          <div class="game-controls hidden mt-4" id="gameControls">
+            <!-- Info o tahu -->
+            <!-- Scoreboard hráčů --> 
+            <!-- Kostky -->
+            <!-- Herní tlačítka -->
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- PRAVÝ PANEL: Chat (30%) -->
+      <div class="col-12 col-md-5 h-100 p-3" id="chatPanel">
+        <div class="h-100 border-neon-green bg-dark-80 rounded d-flex flex-column">
+          <!-- Chat header -->
+          <!-- Chat messages (flex-grow-1) -->
+          <!-- Chat input (sticky bottom) -->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Modální okna (Game Over, Hall of Fame) -->
+</body>
 ```
 
 ### Klíčové soubory
-- `index.html` - Hlavní HTML struktura
-- `src/js/game/gameState.js` - Správa herního stavu
-- `src/js/game/diceLogic.js` - Logika kostek a výpočet skóre
+- `index.html` - Hlavní HTML struktura s dvoupanelovým layoutem
+- `src/main.js` - Hlavní vstupní bod, inicializace aplikace
+- `src/js/game/gameState.js` - Správa herního stavu a přechodů
+- `src/js/game/diceLogic.js` - Logika kostek a výpočet skóre  
 - `src/js/game/gameFlowController.js` - Řízení herního průběhu
 - `src/js/ai/personalities.js` - AI osobnosti a chování
 - `src/js/ui/gameUI.js` - UI komponenty a manipulace s DOM
+- `src/js/ui/chatUI.js` - Chat komponenty a správa zpráv
+
+### JavaScript architektura
+**Modularní ES6+ struktura:**
+- Každý modul má jasně definovanou odpovědnost
+- Import/export syntaxe pro propojení modulů
+- Oddělení logiky od UI manipulace
+- Centralizovaná správa stavu
+
+**Hlavní moduly:**
+1. **Game modules** - herní logika, pravidla, stav
+2. **AI modules** - umělá inteligence, osobnosti, chat
+3. **UI modules** - manipulace s DOM, animace, eventi
+4. **Utils modules** - pomocné funkce, konstanty
 
 ## CSS a styly
 
@@ -381,17 +442,87 @@ Aplikace používá konzistentní dvoupanelové rozložení založené na Bootst
 
 ## Chat systém
 
+### Umístění a layout
+- **Pozice**: Pravý panel aplikace (30% šířky na desktopu)
+- **Persistence**: Chat zůstává aktivní napříč všemi stavy aplikace
+- **Responzivita**: Na mobilu se zobrazuje nahoře, na desktopu vpravo
+
+### Struktura chat panelu
+```html
+<div class="h-100 border-neon-green bg-dark-80 rounded d-flex flex-column">
+  <!-- Header s tlačítkem pro sbalení -->
+  <div class="chat-header">
+    <h2 class="neon-green">AI CHAT</h2>
+    <button class="chat-toggle">−</button>
+  </div>
+  
+  <!-- Scrollovatelná oblast zpráv -->
+  <div class="chat-messages flex-grow-1 overflow-auto scrollbar-neon">
+    <!-- Zprávy se zobrazují zde -->
+  </div>
+  
+  <!-- Input pole (sticky na dně) -->
+  <div class="chat-input sticky-bottom">
+    <input class="form-control-neon" placeholder="Napište zprávu...">
+    <button class="btn btn-neon neon-green">Odeslat</button>
+  </div>
+</div>
+```
+
 ### Funkce chatu
-- Komunikace s AI hráči
-- Systémové zprávy o herních událostech
-- Barevné odlišení různých typů zpráv
+
+#### Komunikace s AI
+- **4 AI osobnosti**: Gemini (modrá), ChatGPT (oranžová), Claude (růžová), + další
+- **Kontextové reakce**: AI reagují na herní události (začátek hry, dobrý/špatný hod, výhra)
+- **Osobnostní rozdíly**: Každé AI má svůj komunikační styl
+- **Proaktivní chování**: AI mohou začít konverzaci i bez podnětu hráče
+
+#### Typy zpráv
+1. **Hráčské zprávy**: Napsané uživatelem, bílý text
+2. **AI zprávy**: Barevně odlišené podle AI (modrá, oranžová, růžová, zelená)
+3. **Systémové zprávy**: Herní události, šedý text, kurzíva
+
+#### Interaktivní funkce
+- **Vstup zpráv**: Textové pole s placeholder "Napište zprávu..."
+- **Odeslání**: Enter klávesa nebo tlačítko s ikonou
+- **Automatické scrollování**: Na nové zprávy
+- **Maximální délka**: 200 znaků na zprávu
 
 ### Vizuální aspekty
-- Barevné rozlišení jmen hráčů
-- Neonový design odpovídající celkové estetice
-- Responzivní vzhled na všech zařízeních
+
+#### Barevné schéma
+- **Vy (hráč)**: Zelená (`neon-green`)
+- **Gemini**: Modrá (`neon-blue`) 
+- **ChatGPT**: Oranžová (`neon-orange`)
+- **Claude**: Růžová (`neon-pink`)
+- **Systém**: Šedá s kurzívou
+
+#### Neonový design
+- Konzistentní s celkovou estetikou aplikace
+- Neonové orámování chat panelu
+- Neonové efekty na input poli a tlačítku
+- Tmavé pozadí s průhledností (`bg-dark-80`)
+
+#### Responzivní chování
+- **Desktop**: Pravý panel, fixní šířka 30%
+- **Tablet**: Pravý panel, přizpůsobená šířka
+- **Mobil**: Horní panel, plná šířka, omezenená výška
 
 ### Chat optimalizace
-- Automatické scrollování na nové zprávy
-- Možnost schování/zobrazení chatu na mobilních zařízeních
-- Kompaktní design maximalizující využití prostoru
+
+#### UX vylepšení
+- **Sbalení/rozbalení**: Tlačítko pro skrytí chatu na malých obrazovkách
+- **Smooth scrolling**: Plynulé posouvání na nové zprávy
+- **Input focus**: Automatické zaměření po odeslání zprávy
+- **Enter to send**: Klávesa Enter pro rychlé odeslání
+
+#### Performance
+- **Limitovaná historie**: Maximální počet zobrazených zpráv
+- **Lazy loading**: Postupné načítání starších zpráv
+- **Debounced input**: Optimalizace zadávání textu
+
+### Integrace s herní logikou
+- Chat zůstává aktivní během celé aplikace
+- AI reagují na herní události v reálném čase
+- Systémové zprávy informují o průběhu hry
+- Hráč může chatovat i během svého tahu
