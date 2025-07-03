@@ -95,29 +95,49 @@
                 </div>
             </div>
 
-            <div class="game-controls hidden" id="gameControls">
-                <div class="turn-info" id="turnInfo">Váš tah!</div>
-                <div class="current-turn-score" id="currentTurnScore">Skóre tahu: 0</div>
-                <div class="target-info" id="targetInfo">
-                    Cíl: <span id="targetScoreDisplay">10000</span>
+            <div class="game-controls hidden mt-4 px-3" id="gameControls">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <div class="card bg-dark text-light border-success">
+                            <div class="card-body p-2 text-center">
+                                <h5 class="turn-info mb-0" id="turnInfo">Váš tah!</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 mb-2">
+                        <div class="card bg-dark text-light border-success">
+                            <div class="card-body p-2 text-center">
+                                <div class="current-turn-score mb-0" id="currentTurnScore">Skóre tahu: 0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 mb-2">
+                        <div class="card bg-dark text-light border-success">
+                            <div class="card-body p-2 text-center">
+                                <div class="target-info mb-0" id="targetInfo">
+                                    Cíl: <span id="targetScoreDisplay">10000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="dice-container" id="diceContainer"></div>
+                <div class="dice-container my-4 d-flex flex-wrap justify-content-center" id="diceContainer"></div>
                 
-                <div class="roll-controls">
-                    <button class="btn btn-primary" id="rollBtn">
+                <div class="roll-controls d-flex flex-wrap justify-content-center gap-2">
+                    <button class="btn btn-outline-success" id="rollBtn">
                         <span class="neon-icon icon-dice small"></span>
                         Hodit kostky
                     </button>
-                    <button class="btn btn-secondary" id="bankBtn" disabled>
+                    <button class="btn btn-outline-info" id="bankBtn" disabled>
                         <span class="neon-icon icon-star small"></span>
                         Odložit vybrané
                     </button>
-                    <button class="btn btn-warning" id="endTurnBtn" disabled>
+                    <button class="btn btn-outline-warning" id="endTurnBtn" disabled>
                         <span class="neon-icon icon-gaming small"></span>
                         Ukončit tah
                     </button>
-                    <button class="btn btn-danger" id="quitGameBtn">
+                    <button class="btn btn-outline-danger" id="quitGameBtn">
                         <span class="neon-icon icon-brain small"></span>
                         Opustit hru
                     </button>
@@ -125,20 +145,23 @@
             </div>
         </div>
 
-        <div class="chat-panel" id="chatPanel">
-            <button class="chat-toggle" id="chatToggle" title="Sbalit/rozbalit chat">−</button>
-            <div class="chat-header">
-                <h2><i class="ri-message-2-line neon-icon green"></i> AI CHAT</h2>
+        <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12 d-flex flex-column chat-panel border border-success rounded" id="chatPanel">
+            <button class="btn btn-sm btn-outline-success chat-toggle position-absolute top-0 end-0 m-2" id="chatToggle" title="Sbalit/rozbalit chat">−</button>
+            <div class="chat-header p-2 border-bottom border-success">
+                <h2 class="m-0"><i class="bi bi-chat-dots-fill text-success"></i> AI CHAT</h2>
             </div>
             
-            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-messages flex-grow-1 p-2 overflow-auto" id="chatMessages"></div>
             
-            <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Napište zprávu..." maxlength="200">
-                <button id="sendMessageBtn" class="chat-send-btn" title="Odeslat zprávu"></button>
+            <div class="chat-input d-flex p-2 border-top border-success">
+                <input type="text" id="chatInput" class="form-control bg-dark text-light border-success me-2" placeholder="Napište zprávu..." maxlength="200">
+                <button id="sendMessageBtn" class="btn btn-outline-success" title="Odeslat zprávu">
+                    <i class="bi bi-send-fill"></i>
+                </button>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Game Over Modal -->
     <div id="gameOverModal" class="modal-overlay hidden">
