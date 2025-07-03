@@ -120,16 +120,46 @@
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 0.25rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  transition: all 0.3s ease;
+  border-top: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+/* Mírné zvýraznění chat inputu při aktivním stavu */
+.chat-input:focus-within {
+  background-color: rgba(0, 0, 0, 0.95);
+  border-top-color: rgba(57, 255, 20, 0.5);
+  box-shadow: 0 -2px 10px rgba(57, 255, 20, 0.1);
 }
 
 /* Vstupní pole pro chat */
 .chat-input .form-control {
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  box-shadow: 0 0 2px var(--neon-green);
 }
 
 .chat-input .form-control:focus {
   border-color: var(--neon-green);
   box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--neon-green);
+  outline: none;
+}
+
+/* Animace pulsujícího placeholder textu */
+.chat-input .form-control::placeholder {
+  color: rgba(57, 255, 20, 0.5);
+  animation: pulsePlaceholder 2s infinite;
+}
+
+@keyframes pulsePlaceholder {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
 }
 
 /* Neonové texty */
@@ -173,13 +203,13 @@
     display: flex !important;
     flex-direction: row !important;
     height: 90vh !important;
+    gap: 0.75rem;
   }
   
   /* První child (menu) 60% */
   .mobile-landscape-flex-row > div:first-child {
     width: 60%;
     height: 90vh;
-    padding-right: 0.75rem;
     margin-bottom: 0 !important; /* Přepíše mb-3 v landscape */
   }
   
@@ -194,6 +224,13 @@
     padding: 0.3rem 0.5rem;
     margin-bottom: 0.3rem;
     min-height: 2.5rem;
+    font-size: 0.9rem;
+    max-width: 90%; /* Omezení maximální šířky tlačítek v landscape */
+  }
+
+  /* Nadpis v landscape módu */
+  .game-title {
+    font-size: 1.1rem !important;
   }
   
   /* Úpravy výšky v landscape módu */
@@ -203,6 +240,31 @@
   
   .h-20 {
     height: 100% !important;
+  }
+  
+  /* Optimalizace výšky zpráv v chatu pro landscape */
+  .chat-messages {
+    max-height: 75vh;
+  }
+  
+  /* Zachování prostoru pro chat input v landscape */
+  .chat-input {
+    padding: 0.25rem;
+  }
+  
+  /* Zajištění viditelnosti chat inputu v landscape režimu */
+  .chat-input .input-group {
+    max-height: 2.2rem;
+  }
+  
+  /* Animace pro přechod do landscape módu */
+  .mobile-landscape-flex-row {
+    animation: fadeInLandscape 0.5s ease-in-out forwards;
+  }
+  
+  @keyframes fadeInLandscape {
+    from { opacity: 0.5; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }
 
