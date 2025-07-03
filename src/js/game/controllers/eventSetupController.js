@@ -474,6 +474,23 @@ export function resetEventListeners() {
  * Show last messages in collapsed chat on mobile
  */
 function showLastMessages() {
+    // Pro mobilní chat
+    const chatMessagesMobile = document.getElementById('chatMessagesMobile');
+    if (chatMessagesMobile) {
+        const messagesMobile = chatMessagesMobile.querySelectorAll('.chat-message');
+        if (messagesMobile.length <= 2) return;
+        
+        // Hide all but last 2 messages
+        messagesMobile.forEach((message, index) => {
+            if (index < messagesMobile.length - 2) {
+                message.style.display = 'none';
+            } else {
+                message.style.display = 'block';
+            }
+        });
+    }
+    
+    // Pro desktop chat
     const chatMessages = document.querySelector('#chatPanel .chat-messages');
     if (!chatMessages) return;
     
