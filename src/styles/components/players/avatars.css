@@ -27,19 +27,48 @@
   border-radius: 50%; /* Zaoblení do kruhu */
 }
 
+/* Barevné varianty avatarů */
+.avatar-mini.avatar-green {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 10px var(--neon-green);
+}
+
+.avatar-mini.avatar-blue {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.avatar-mini.avatar-orange {
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 10px var(--neon-orange);
+}
+
+.avatar-mini.avatar-pink {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink);
+}
+
 /* Hover efekt na mini-avataru */
 .avatar-mini:hover {
-  border-color: var(--neon-blue);
-  box-shadow: 0 0 8px var(--neon-blue);
   transform: scale(1.05);
-  opacity: 0.9;
+  opacity: 1;
 }
 
 /* Aktivní avatar */
 .avatar-mini.active {
   opacity: 1;
-  box-shadow: 0 0 12px var(--neon-green);
+  box-shadow: 0 0 12px var(--neon-green), 0 0 20px var(--neon-green);
   transform: scale(1.1);
+  animation: avatar-pulse 1.5s infinite alternate;
+}
+
+@keyframes avatar-pulse {
+  from {
+    box-shadow: 0 0 10px var(--neon-green), 0 0 15px var(--neon-green);
+  }
+  to {
+    box-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green);
+  }
 }
 
 /* Jméno pod avatarem */
