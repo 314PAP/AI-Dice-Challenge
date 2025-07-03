@@ -275,11 +275,17 @@ export function endTurn(scored = true) {
                     (prev.score > current.score) ? prev : current);
                 console.log(`🏆 VÍTĚZ: ${winner.name} s ${winner.score} body`);
                 
+                // Důležité: Zajistíme okamžitou aktualizaci skóre a resetování endTurnProcessing
+                // aby nedošlo k "zaseknutí" stavu při přechodu do konečných obrazovek
+                gameState.endTurnProcessing = false;
+                
                 // Aktualizujeme skóre ještě před ukončením hry
                 updateScoreboard();
                 
-                // Voláme endGame až po všech aktualizacích
-                endGame(winner);
+                // Voláme endGame až po všech aktualizacích s mírným zpožděním
+                setTimeout(() => {
+                    endGame(winner);
+                }, 100);
                 return;
             }
         }
