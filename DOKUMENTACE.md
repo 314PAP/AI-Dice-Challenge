@@ -55,8 +55,8 @@ AI Kostková Výzva je interaktivní webová hra založená na pravidlech hry Fa
 ### Základní principy
 - **Modulární CSS** - Rozdělené do logických komponent a modulů
 - **Dark mode** - Tmavé pozadí s neonovými prvky
-- **Bootstrap integrace** - Využití Bootstrap utilit pro layout a komponenty
-- **Custom neonové efekty** - Vlastní CSS pro neonový vzhled
+- **Bootstrap utility třídy** - Maximální využití Bootstrap utility tříd pro layout a responzivitu
+- **Neonové efekty** - Vlastní CSS utility třídy pro neonový vzhled kompatibilní s Bootstrapem
 
 ### Importovaný CSS framework
 - Bootstrap 5 - Primárně pro grid systém a utility třídy
