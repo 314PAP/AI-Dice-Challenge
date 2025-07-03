@@ -65,9 +65,13 @@ export function startNewGame() {
 }
 
 export function returnToMainMenu() {
-    document.getElementById('gameOverModal').style.display = 'none';
-    document.getElementById('gameControls').style.display = 'none';
-    document.getElementById('targetScoreSetup').style.display = 'block';
+    const gameOverModal = document.getElementById('gameOverModal');
+    const gameHeader = document.getElementById('gameHeader');
+    const gameControls = document.getElementById('gameControls');
+    
+    if (gameOverModal) gameOverModal.style.display = 'none';
+    if (gameControls) gameControls.classList.add('hidden');
+    if (gameHeader) gameHeader.classList.remove('hidden');
 }
 
 // Dice selection helper

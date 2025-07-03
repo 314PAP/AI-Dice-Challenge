@@ -545,14 +545,12 @@ export function returnToMainMenu() {
             hallOfFameModal.classList.remove('visible');
         }
         
-        // Show target score setup and hide game controls
-        const targetScoreSetup = document.getElementById('targetScoreSetup');
+        // Show menu and hide game controls
+        const gameHeader = document.getElementById('gameHeader');
         const gameControls = document.getElementById('gameControls');
-        const playersContainer = document.querySelector('.players-container');
         
-        if (targetScoreSetup) targetScoreSetup.classList.remove('hidden');
+        if (gameHeader) gameHeader.classList.remove('hidden');
         if (gameControls) gameControls.classList.add('hidden');
-        if (playersContainer) playersContainer.classList.add('hidden');
         
         // Remove game-active class to show avatars
         document.body.classList.remove('game-active');
