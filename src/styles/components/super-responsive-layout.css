@@ -60,6 +60,16 @@ body {
   transition: padding 0.3s ease;
 }
 
+/* Vnější rámeček kolem celé aplikace */
+.outer-neon-border {
+  border: calc(var(--border-width) * 2) solid var(--neon-green);
+  box-shadow: var(--neon-glow);
+  border-radius: var(--border-radius);
+  padding: var(--container-padding);
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
 /* Herní box a chat kontejner - konzistentní styly */
 .game-box, .chat-container, #chatPanelMobile {
   border: var(--border-width) solid var(--neon-green);
