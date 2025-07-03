@@ -135,41 +135,15 @@
 /* Responzivní úpravy pro menší obrazovky */
 @media (max-width: 768px) {
   .menu-btn {
-    max-width: 240px;
-    min-height: 44px;
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
-  }
-  
-  .menu-buttons {
-    padding: 0 1rem;
-    max-width: 280px;
-  }
-  
-  .dice-icon {
-    font-size: 3rem;
-  }
-  
-  .game-title {
-    font-size: 1.8rem !important;
-  }
-  
-  .score-label {
-    font-size: 1rem !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .menu-btn {
-    max-width: 200px;
-    min-height: 40px;
+    max-width: 220px;
+    min-height: 42px;
     font-size: 0.85rem;
-    padding: 0.3rem 0.6rem;
+    padding: 0.4rem 0.6rem;
   }
   
   .menu-buttons {
     padding: 0 0.5rem;
-    max-width: 240px;
+    max-width: 260px;
   }
   
   .dice-icon {
@@ -177,7 +151,39 @@
   }
   
   .game-title {
-    font-size: 1.5rem !important;
+    font-size: 1.4rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .score-label {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .menu-btn {
+    max-width: 180px;
+    min-height: 38px;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  .menu-buttons {
+    padding: 0 0.25rem;
+    max-width: 200px;
+  }
+  
+  .dice-icon {
+    font-size: 2rem;
+  }
+  
+  .game-title {
+    font-size: 1.1rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .score-label {
+    font-size: 0.8rem !important;
   }
 }
 
