@@ -31,6 +31,10 @@
   /* Barvy a efekty */
   --neon-green: #39ff14;
   --neon-glow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  
+  /* Responzivní vlastnosti pro malá zařízení */
+  --button-font-size: clamp(0.7rem, calc(0.6rem + 0.4vh + 0.3vw), 1rem);
+  --header-font-size: clamp(0.8rem, calc(0.7rem + 0.5vh + 0.4vw), 1.2rem);
 }
 
 /* ====== ZÁKLADNÍ NASTAVENÍ STRÁNKY ====== */
