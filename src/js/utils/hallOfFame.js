@@ -84,7 +84,7 @@ export function displayHallOfFame() {
 }
 
 /**
- * Skryje síň slávy s vylepšeným zabezpečením proti emergency módu
+ * Skryje síň slávy a správně ošetří návrat na odpovídající obrazovku
  */
 export function hideHallOfFame() {
     console.log('🏆 Skrývám Hall of Fame modal...');
@@ -95,18 +95,12 @@ export function hideHallOfFame() {
         modal.classList.remove('visible');
     }
     
-    // Kontrola, zda je hra již ukončena, abychom zabránili spuštění emergency módu
-    // při návratu z Hall of Fame po konci hry
+    // Získáme aktuální stav hry
     const gameState = window.gameState || {};
+    
+    // Pokud byla hra ukončena, vrátíme se na hlavní menu místo zobrazení modalu konce hry
     if (gameState.gameEnded) {
-        console.log('🎮 Hra je již ukončena, zobrazuji Game Over modal');
-        
-        // Zobrazíme znovu modal konce hry, pokud byl otevřen Hall of Fame po konci hry
-        const gameOverModal = document.getElementById('gameOverModal');
-        if (gameOverModal) {
-            gameOverModal.classList.remove('hidden');
-            gameOverModal.classList.add('visible');
-        }
+        console.log('🎮 Hra byla již ukončena - vracím se do hlavního menu');
         
         // Prevence emergency módu - zrušení všech AI timeoutů
         if (window.endAITurn) {
@@ -117,6 +111,30 @@ export function hideHallOfFame() {
         if (window.clearAllAITimeouts) {
             console.log('🛑 Čistím všechny AI timeouty');
             window.clearAllAITimeouts();
+        }
+        
+        // Vracíme se přímo do hlavního menu
+        if (window.returnToMainMenu) {
+            console.log('� Vracím se do hlavního menu po zobrazení síně slávy');
+            window.returnToMainMenu();
+        } else {
+            // Fallback pokud funkce returnToMainMenu není dostupná
+            console.error('⚠️ Funkce returnToMainMenu není dostupná, používám fallback řešení');
+            
+            // Základní skrytí všech modalů
+            const gameOverModal = document.getElementById('gameOverModal');
+            if (gameOverModal) {
+                gameOverModal.classList.add('hidden');
+            }
+            
+            // Zobrazíme hlavní menu komponenty
+            const targetScoreSetup = document.getElementById('targetScoreSetup');
+            if (targetScoreSetup) {
+                targetScoreSetup.classList.remove('hidden');
+            }
+            
+            // Resetujeme další prvky UI
+            document.body.classList.remove('game-active');
         }
     }
 }

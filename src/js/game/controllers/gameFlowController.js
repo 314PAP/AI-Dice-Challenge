@@ -426,8 +426,8 @@ export function endGame(winner) {
         const color = winnerColors[winnerType] || 'var(--neon-yellow)';
         winnerElement.style.cssText = `
             border-color: ${color} !important;
-            box-shadow: 0 0 15px ${color}, 0 0 30px ${color}, 0 0 45px ${color}, 0 0 60px ${color} !important;
-            transform: scale(1.1) !important;
+            box-shadow: 0 0 15px ${color}, 0 0 30px ${color} !important;
+            transform: scale(1.05) !important;
             z-index: 10 !important;
             animation: winner-pulse 1.5s ease-in-out infinite !important;
         `;
