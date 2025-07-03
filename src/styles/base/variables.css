@@ -5,17 +5,19 @@
 :root {
   /* 🌈 NEONOVÉ BARVY - Základní barvy používané v projektu */
   --neon-green: #39ff14;  /* Zelená pro člověka, primární barva */
-  --neon-blue: #3498ff;   /* Modrá pro Gemini, sekundární barva - upravený odstín */
+  --neon-blue: #00bfff;   /* Modrá pro Gemini, sekundární barva */
   --neon-orange: #ff8c00; /* Oranžová pro Claude */
   --neon-pink: #ff1493;   /* Růžová pro ChatGPT */
   --neon-red: #ff3131;    /* Červená pro chyby/varování */
+  --neon-yellow: #ffff00; /* Žlutá pro systémové zprávy */
 
   /* RGB varianty pro použití s opacity */
   --neon-green-rgb: 57, 255, 20;
-  --neon-blue-rgb: 52, 152, 255;
+  --neon-blue-rgb: 0, 191, 255;
   --neon-orange-rgb: 255, 140, 0;
   --neon-red-rgb: 255, 49, 49;
   --neon-pink-rgb: 255, 20, 147;
+  --neon-yellow-rgb: 255, 255, 0;
 
   /* 🎨 ZÁKLADNÍ BARVY */
   --black-bg: #000000;
@@ -38,7 +40,7 @@
   --bs-success: var(--neon-green);
   --bs-danger: var(--neon-red);
   --bs-warning: var(--neon-orange);
-  --bs-info: var(--neon-cyan);
+  --bs-info: var(--neon-blue);
 
   /* Obecné hodnoty pro použití s box-shadow neon efekty */
   --glow-small: 0 0 5px;
