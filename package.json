@@ -52,6 +52,8 @@
     "animate-on-scroll": "^1.2.5",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
+    "bootstrap": "^5.3.7",
+    "bootstrap-icons": "^1.13.1",
     "cssremedy": "^0.1.0-beta.2",
     "date-fns": "^4.1.0",
     "event-emitter3": "^1.0.4",

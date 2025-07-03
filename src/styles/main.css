@@ -3,7 +3,11 @@
    Maximální využití knihoven - všechny @import na začátku
    ============================================================================= */
 
-/* 📦 LIBRARY IMPORTS - MUSÍ BÝT PRVNÍ */
+/* 📦 BOOTSTRAP IMPORTS - MUSÍ BÝT PRVNÍ */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* 📦 DALŠÍ LIBRARY IMPORTS */
 @import './utils/libraries.css';
 
 /* 🎯 BASE SYSTEM */
