@@ -91,42 +91,49 @@ export const updateActivePlayer = pipe(
         console.log('🎯 Updating active player...');
         console.log(`🎯 Current player index: ${gameState.currentPlayer}, name: ${gameState.players[gameState.currentPlayer]?.name}`);
         
-        // Odstraníme třídu active ze všech hráčů
+        // Definujeme mapování typů hráčů na CSS třídy a neonové barvy
+        const playerTypeMapping = {
+            'human': { class: 'human-player', color: '--neon-green' },
+            'gemini': { class: 'gemini-player', color: '--neon-blue' },
+            'chatgpt': { class: 'chatgpt-player', color: '--neon-pink' },
+            'claude': { class: 'claude-player', color: '--neon-orange' }
+        };
+        
+        // Odstraníme třídu active a inline styly ze všech hráčů
         document.querySelectorAll('.player').forEach(p => {
             p.classList.remove('active');
+            p.style.borderColor = '';
+            p.style.boxShadow = '';
         });
         
-        // Přidáme třídu active pouze aktuálnímu hráči
-        const playerClasses = ['human-player', 'gemini-player', 'chatgpt-player', 'claude-player'];
-        const currentPlayerClass = playerClasses[gameState.currentPlayer];
-        const currentPlayerType = gameState.players[gameState.currentPlayer]?.type;
+        // Získáme aktuálního hráče
+        const currentPlayer = gameState.players[gameState.currentPlayer];
+        if (!currentPlayer) return; // Ochrana proti chybám
         
-        if (currentPlayerClass) {
-            const activePlayer = document.querySelector(`.${currentPlayerClass}`);
-            if (activePlayer) {
-                activePlayer.classList.add('active');
-                
-                // Aplikujeme specifické neonové barvy podle typu hráče
-                let playerColor;
-                if (currentPlayerType === 'human') {
-                    playerColor = '--neon-green';
-                } else if (currentPlayerType === 'gemini') {
-                    playerColor = '--neon-blue';
-                } else if (currentPlayerType === 'chatgpt') {
-                    playerColor = '--neon-pink';
-                } else if (currentPlayerType === 'claude') {
-                    playerColor = '--neon-orange';
-                }
-                
-                // Explicitně nastavíme barvy pomocí inline stylů pro zajištění, že budou mít přednost
-                // Toto je záložní řešení, kdyby CSS nebylo správně aplikováno
-                if (playerColor) {
-                    activePlayer.style.borderColor = `var(${playerColor})`;
-                    activePlayer.style.boxShadow = `0 0 10px var(${playerColor}), 0 0 20px var(${playerColor})`;
-                }
-                
-                console.log(`🎯 Přidána třída active hráči: ${currentPlayerClass} s typem: ${currentPlayerType}`);
-            }
+        const currentPlayerType = currentPlayer.type;
+        if (!currentPlayerType) return; // Ochrana proti chybám
+        
+        // Získáme mapování pro tento typ hráče
+        const typeConfig = playerTypeMapping[currentPlayerType];
+        if (!typeConfig) {
+            console.error(`🚨 Neznámý typ hráče: ${currentPlayerType}`);
+            return;
         }
+        
+        // Najdeme element hráče v DOM
+        const activePlayer = document.querySelector(`.${typeConfig.class}`);
+        if (!activePlayer) {
+            console.error(`🚨 Nenalezen element pro třídu: ${typeConfig.class}`);
+            return;
+        }
+        
+        // Aplikujeme třídu active
+        activePlayer.classList.add('active');
+        
+        // Explicitně nastavíme barvy pomocí inline stylů jako zálohu
+        activePlayer.style.borderColor = `var(${typeConfig.color})`;
+        activePlayer.style.boxShadow = `0 0 10px var(${typeConfig.color}), 0 0 20px var(${typeConfig.color})`;
+        
+        console.log(`🎯 Přidána třída active hráči: ${typeConfig.class} s typem: ${currentPlayerType}`);
     }
 );
