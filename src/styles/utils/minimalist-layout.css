@@ -551,3 +551,26 @@
     min-height: 35vh !important;
   }
 }
+
+/* Reset pro desktop - ujistit se, že se nemící mobilní a desktop styly */
+@media (min-width: 768px) {
+  .chat-collapsed,
+  .chat-expanded {
+    min-height: auto !important;
+    max-height: none !important;
+  }
+  
+  .chat-collapsed .chat-messages,
+  .chat-expanded .chat-messages {
+    max-height: none !important;
+    overflow-y: auto !important;
+    display: block !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+  
+  .chat-collapsed .chat-messages .chat-message,
+  .chat-expanded .chat-messages .chat-message {
+    display: block !important;
+  }
+}
