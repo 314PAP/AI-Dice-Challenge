@@ -6,6 +6,7 @@
 import { startGame, saveScore, startNewGame, returnToMainMenu, endTurn } from './gameFlowController.js';
 import { rollDiceForPlayer, selectDie, bankSelectedDice } from './turnActionsController.js';
 import { displayHallOfFame } from '../../utils/hallOfFame.js';
+import { initializeChat } from '../../ui/enhancedChatController.js';
 
 // Globální flag pro zabezpečení proti opakovanému nastavování event listenerů
 let eventListenersSetup = false;
