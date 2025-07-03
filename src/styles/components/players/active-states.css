@@ -99,7 +99,7 @@
 }
 
 /* Claude AI hráč - oranžová */
-.player.claude-player.active {
+#playersContainer .player.claude-player.active {
   border-color: var(--neon-orange);
   box-shadow: 
     var(--glow-lg) var(--neon-orange),
