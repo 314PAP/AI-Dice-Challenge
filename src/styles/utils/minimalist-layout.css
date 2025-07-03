@@ -615,3 +615,52 @@
     overflow: hidden;
   }
 }
+
+/* Vylepšení mobilního chatu */
+@media (max-width: 767.98px) {
+  /* Úprava poměrů pro mobilní verzi */
+  .vh-90 {
+    height: 93vh !important;
+  }
+  
+  /* Chat zprávy - lepší vzhled na mobilu */
+  #chatMessagesMobile .chat-message {
+    margin-bottom: 0.5rem !important;
+    line-height: 1.2;
+  }
+  
+  /* Systémové zprávy */
+  .chat-message .neon-yellow {
+    color: #ffff00;
+    text-shadow: 0 0 5px rgba(255, 255, 0, 0.6);
+  }
+  
+  /* Uživatelské zprávy */
+  .chat-message .neon-green {
+    color: #39ff14;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.6);
+  }
+  
+  /* AI zprávy */
+  .chat-message .neon-blue {
+    color: #194DD1;
+    text-shadow: 0 0 5px rgba(25, 77, 209, 0.6);
+  }
+  
+  /* Vstupní pole */
+  #chatInputMobile {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    color: #39ff14 !important;
+  }
+  
+  #chatInputMobile::placeholder {
+    color: rgba(57, 255, 20, 0.5) !important;
+  }
+  
+  /* Vlaštovka */
+  #sendChatBtnMobile i {
+    color: #39ff14;
+    text-shadow: none !important;
+    font-size: 1.5rem !important;
+  }
+}
