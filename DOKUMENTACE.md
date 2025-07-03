@@ -4,12 +4,14 @@
 
 1. [Přehled projektu](#přehled-projektu)
 2. [Architektura a struktura](#architektura-a-struktura)
-3. [CSS a styly](#css-a-styly)
-4. [Responzivní design](#responzivní-design)
-5. [Komponenty](#komponenty)
-6. [Herní logika](#herní-logika)
-7. [AI systém](#ai-systém)
-8. [Chat systém](#chat-systém)
+3. [Responzivní design](#responzivní-design)
+4. [Komponenty](#komponenty)
+5. [Přechody mezi stavy](#přechody-mezi-stavy)
+6. [CSS a styly](#css-a-styly)
+7. [Herní logika](#herní-logika)
+8. [AI systém](#ai-systém)
+9. [Chat systém](#chat-systém)
+10. [Technická implementace dvoupanelového designu](#technická-implementace-dvoupanelového-designu)
 
 ## Přehled projektu
 
@@ -526,3 +528,117 @@ Aplikace používá konzistentní dvoupanelové rozložení založené na Bootst
 - AI reagují na herní události v reálném čase
 - Systémové zprávy informují o průběhu hry
 - Hráč může chatovat i během svého tahu
+
+## Technická implementace dvoupanelového designu
+
+### Bootstrap Grid systém
+Aplikace využívá Bootstrap 5 grid systém pro responzivní dvoupanelové rozložení:
+
+```html
+<div class="container-fluid mw-90 mh-90 vh-90">
+  <div class="row h-100">
+    <div class="col-12 col-md-7">Levý panel</div>
+    <div class="col-12 col-md-5">Pravý panel</div>
+  </div>
+</div>
+```
+
+### CSS utility třídy pro layout
+```css
+/* Kontejner aplikace */
+.mw-90 { max-width: 90%; }
+.mh-90 { max-height: 90%; }
+.vh-90 { height: 90vh; }
+
+/* Neonové efekty */
+.border-neon-green { border: 1px solid #00ff41 !important; }
+.bg-dark-80 { background-color: rgba(0, 0, 0, 0.8) !important; }
+.shadow-neon { box-shadow: 0 0 20px rgba(0, 255, 65, 0.3); }
+
+/* Scrollbar styling */
+.scrollbar-neon::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.scrollbar-neon::-webkit-scrollbar-thumb {
+  background-color: #00ff41;
+  border-radius: 4px;
+}
+```
+
+### JavaScript řízení stavů
+```javascript
+// Přechod z menu do herního stavu
+function startGame() {
+  // Skryj menu komponenty
+  document.querySelector('.game-header').classList.add('hidden');
+  
+  // Zobraz herní komponenty  
+  document.querySelector('.game-controls').classList.remove('hidden');
+  
+  // Chat zůstává nezměněn
+  // Initialize game logic...
+}
+
+// Návrat do menu
+function returnToMenu() {
+  // Zobraz menu komponenty
+  document.querySelector('.game-header').classList.remove('hidden');
+  
+  // Skryj herní komponenty
+  document.querySelector('.game-controls').classList.add('hidden');
+  
+  // Reset game state...
+}
+```
+
+### Responzivní breakpointy
+```css
+/* Extra Small devices (phones, <576px) */
+@media (max-width: 575.98px) {
+  .avatar-mini { width: 40px; height: 40px; }
+  .fs-neon-1 { font-size: 1.5rem; }
+}
+
+/* Small devices (landscape phones, ≥576px) */
+@media (min-width: 576px) {
+  .avatar-mini { width: 50px; height: 50px; }
+}
+
+/* Medium devices (tablets, ≥768px) */
+@media (min-width: 768px) {
+  /* Horizontální layout se aktivuje */
+  .col-md-7 { flex: 0 0 58.333333%; }
+  .col-md-5 { flex: 0 0 41.666667%; }
+}
+
+/* Large devices (desktops, ≥992px) */
+@media (min-width: 992px) {
+  .avatar-mini { width: 60px; height: 60px; }
+  .fs-neon-1 { font-size: 2.5rem; }
+}
+```
+
+### Optimalizace pro mobilní zařízení
+```css
+/* Mobilní layout optimalizace */
+@media (max-width: 767.98px) {
+  /* Chat panel nahoře */
+  .col-12:first-child { order: 0; }
+  
+  /* Herní panel dole */  
+  .col-12:last-child { order: 1; }
+  
+  /* Omezenená výška chatu na mobilu */
+  #chatPanel { max-height: 40vh; }
+  
+  /* Kompaktnější tlačítka */
+  .btn { padding: 0.375rem 0.75rem; font-size: 0.875rem; }
+}
+```
+
+### Performance optimalizace
+- **CSS Grid fallback**: Pro starší prohlížeče
+- **Lazy loading**: Obrázky avatarů načítané až při potřebě
+- **Minimal DOM manipulation**: Pouze přepínání CSS tříd
+- **Efficient event handling**: Event delegation pro dynamické prvky
