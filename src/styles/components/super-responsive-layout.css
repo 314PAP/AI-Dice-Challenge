@@ -75,13 +75,11 @@ body {
   transition: padding 0.3s ease;
 }
 
-/* Pouze pro desktop verzi aplikujeme rámečky na jednotlivé boxy */
-@media (min-width: 768px) {
-  .game-box, .chat-container, #chatPanelMobile {
-    border: var(--border-width) solid var(--neon-green);
-    border-radius: var(--border-radius);
-    box-shadow: var(--neon-glow);
-  }
+/* Aplikujeme rámečky na jednotlivé boxy na všech zařízeních */
+.game-box, .chat-container, #chatPanelMobile {
+  border: var(--border-width) solid var(--neon-green);
+  border-radius: var(--border-radius);
+  box-shadow: var(--neon-glow);
 }
 
 /* Konsistentní mezery mezi řádky */
@@ -115,7 +113,7 @@ body {
     overflow: hidden;
   }
   
-  /* Mobilní kontejner - flexbox pro plynulé přizpůsobení */
+  /* Mobilní kontejner - flexbox pro plynulé přizpůsobení - bez vnějšího rámečku */
   .container-fluid.d-block.d-md-none.mw-90.mh-90.vh-90 {
     display: flex !important;
     flex-direction: column;
@@ -123,10 +121,9 @@ body {
     width: 90vw;
     padding: var(--container-padding);
     gap: var(--content-gap);
-    /* Pouze vnější rámeček, ne na vnitřních prvcích */
-    border: var(--border-width) solid var(--neon-green);
-    box-shadow: var(--neon-glow);
-    border-radius: var(--border-radius);
+    border: none; /* Odebráno orámování kontejneru */
+    box-shadow: none;
+    background-color: transparent;
   }
   
   /* Rozdělení obrazovky na dva panely s flexibilním poměrem pro portrét */
@@ -146,7 +143,9 @@ body {
   .row.g-0.h-75 .col-12,
   .row.g-0.h-75 .col-12 > .game-box,
   .row.g-0.h-20 .col-12,
-  #gameMobileContent {
+  .row.g-0.h-20 .col-12 > .chat-container,
+  #gameMobileContent,
+  #chatPanelMobile {
     height: 100% !important;
   }
   
