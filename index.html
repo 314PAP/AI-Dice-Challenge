@@ -22,7 +22,7 @@
 </head>
 <body class="bg-black min-vh-100 d-flex justify-content-center align-items-center">
     <!-- Hlavní kontejner - max 90% výšky a šířky obrazovky -->
-    <div class="container-fluid mw-90 mh-90 vh-90 border-neon-green bg-dark-80 rounded">
+    <div class="container-fluid mw-90 mh-90 vh-90 border border-neon-green rounded">
         <!-- Hlavní rozložení s Bootstrap grid systémem -->
         <div class="row h-100">
             <!-- Herní oblast - 70% šířky na středních a velkých obrazovkách -->
@@ -76,29 +76,29 @@
                         </div>
                     </div>
 
-                    <div class="players-container d-flex flex-wrap justify-content-center gap-3 mb-4 hidden" id="playersContainer">
-                        <div class="player human-player active border-neon-green bg-dark-80 p-3 rounded text-center">
+                    <div class="players-container d-flex flex-wrap justify-content-center gap-4 mb-4 hidden" id="playersContainer">
+                        <div class="player human-player active border-neon-green p-3 rounded text-center">
                             <div class="player-head mb-2">
                                 <img src="/ai-icons/mind.jpeg" alt="Vy" class="rounded-circle" />
                             </div>
-                            <div class="player-name neon-text mb-1">Vy</div>
-                            <div class="player-score neon-text">Skóre: <span id="humanScore" class="fw-bold">0</span></div>
+                            <div class="player-name neon-text neon-green mb-1">Vy</div>
+                            <div class="player-score neon-text neon-green">Skóre: <span id="humanScore" class="fw-bold">0</span></div>
                         </div>
-                        <div class="player gemini-player border-neon-blue bg-dark-80 p-3 rounded text-center">
+                        <div class="player gemini-player border-neon-blue p-3 rounded text-center">
                             <div class="player-head mb-2">
                                 <img src="/ai-icons/gemini.jpeg" alt="Gemini" class="rounded-circle" />
                             </div>
                             <div class="player-name neon-text neon-blue mb-1">Gemini</div>
                             <div class="player-score neon-text neon-blue">Skóre: <span id="geminiScore" class="fw-bold">0</span></div>
                         </div>
-                        <div class="player chatgpt-player border-neon-orange bg-dark-80 p-3 rounded text-center">
+                        <div class="player chatgpt-player border-neon-orange p-3 rounded text-center">
                             <div class="player-head mb-2">
                                 <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" class="rounded-circle" />
                             </div>
                             <div class="player-name neon-text neon-orange mb-1">ChatGPT</div>
                             <div class="player-score neon-text neon-orange">Skóre: <span id="chatgptScore" class="fw-bold">0</span></div>
                         </div>
-                        <div class="player claude-player border-neon-pink bg-dark-80 p-3 rounded text-center">
+                        <div class="player claude-player border-neon-pink p-3 rounded text-center">
                             <div class="player-head mb-2">
                                 <img src="/ai-icons/claude.jpeg" alt="Claude" class="rounded-circle" />
                             </div>
