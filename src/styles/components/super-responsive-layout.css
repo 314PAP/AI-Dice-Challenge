@@ -1,0 +1,298 @@
+/**
+ * Super plynulá responzivita pro AI Kostkovou Výzvu
+ *
+ * Tento soubor implementuje vylepšené plynulé responzivní chování pomocí kombinace:
+ * 1. CSS Flexbox pro pružné rozložení
+ * 2. CSS proměnných a calc() pro dynamické výpočty velikostí
+ * 3. Gradientních media queries místo ostrých přechodů
+ * 4. Relativních jednotek (vh, vw, %, rem) místo fixních (px)
+ * 5. Konzistentního paddingu a mezery ve všech zobrazeních
+ */
+
+/* ====== GLOBÁLNÍ NASTAVENÍ A CSS PROMĚNNÉ ====== */
+:root {
+  /* Základní velikosti - dynamicky se mění s velikostí viewportu */
+  --base-unit: clamp(0.5rem, calc(0.5rem + 1vh), 1.5rem);
+  
+  /* Odvozené proměnné pro konzistentní spacing v celé aplikaci */
+  --container-padding: var(--base-unit);
+  --content-gap: calc(var(--base-unit) * 0.75);
+  --element-padding: calc(var(--base-unit) * 0.5);
+  --small-gap: calc(var(--base-unit) * 0.25);
+  
+  /* Konzistentní rámečky */
+  --border-width: clamp(1px, calc(0.1rem + 0.1vh), 2px);
+  --border-radius: clamp(0.25rem, calc(0.25rem + 0.5vh), 0.75rem);
+  
+  /* Minimální výšky pro interaktivní prvky */
+  --min-button-height: clamp(2rem, calc(1.5rem + 2vh), 3.5rem);
+  --input-height: calc(var(--min-button-height) * 0.85);
+  
+  /* Barvy a efekty */
+  --neon-green: #39ff14;
+  --neon-glow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+}
+
+/* ====== ZÁKLADNÍ NASTAVENÍ STRÁNKY ====== */
+body {
+  overflow-x: hidden;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ====== SPOLEČNÁ PRAVIDLA PRO VŠECHNY VELIKOSTI OBRAZOVKY ====== */
+
+/* Hlavní kontejnery - společné vlastnosti */
+.container-fluid.mw-90.mh-90.vh-90 {
+  margin: auto;
+  box-sizing: border-box;
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--neon-green);
+  box-shadow: var(--neon-glow);
+  padding: var(--container-padding);
+  max-width: 90vw;
+  max-height: 90vh;
+  
+  /* Plynulá změna paddingu s velikostí viewportu */
+  transition: padding 0.3s ease;
+}
+
+/* Herní box a chat kontejner - konzistentní styly */
+.game-box, .chat-container, #chatPanelMobile {
+  border: var(--border-width) solid var(--neon-green);
+  border-radius: var(--border-radius);
+  padding: var(--element-padding);
+  background-color: rgba(0, 0, 0, 0.9);
+  box-shadow: var(--neon-glow);
+  
+  /* Plynulá změna velikosti rámečku a paddingu */
+  transition: padding 0.3s ease, border-width 0.3s ease;
+}
+
+/* Konsistentní mezery mezi řádky */
+.row + .row {
+  margin-top: var(--content-gap);
+}
+
+/* Tlačítka - plně responzivní */
+.btn-neon {
+  min-height: var(--min-button-height);
+  padding: var(--small-gap) var(--element-padding);
+  margin-bottom: var(--small-gap);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--border-radius) * 0.8);
+  
+  /* Plynulá změna velikosti */
+  transition: min-height 0.3s ease, padding 0.3s ease;
+}
+
+/* ====== MOBILNÍ LAYOUT ====== */
+@media (max-width: 767.98px) {
+  /* Zajištění, že desktopový layout je skutečně skrytý */
+  .container-fluid.d-none.d-md-block {
+    display: none !important;
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  /* Mobilní kontejner - flexbox pro plynulé přizpůsobení */
+  .container-fluid.d-block.d-md-none.mw-90.mh-90.vh-90 {
+    display: flex !important;
+    flex-direction: column;
+    height: 90vh;
+    width: 90vw;
+    padding: var(--container-padding);
+    gap: var(--content-gap);
+  }
+  
+  /* Rozdělení obrazovky na dva panely s flexibilním poměrem */
+  .row.g-0.h-75 {
+    flex: 3;
+    min-height: 0;
+    margin-bottom: 0;
+  }
+  
+  .row.g-0.h-20 {
+    flex: 1;
+    min-height: min(120px, 25vh);
+    max-height: 35vh;
+  }
+  
+  /* Zajištění plné výšky pro kontejnery */
+  .row.g-0.h-75 .col-12,
+  .row.g-0.h-75 .col-12 > .game-box,
+  .row.g-0.h-20 .col-12,
+  #gameMobileContent {
+    height: 100% !important;
+  }
+  
+  /* Mobilní menu - plně responzivní a flexibilní */
+  .game-header.d-block.d-md-none {
+    padding: var(--element-padding);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: var(--small-gap);
+  }
+  
+  /* Nadpisy a texty - plynulá změna velikosti */
+  .game-title {
+    font-size: clamp(1rem, calc(0.8rem + 2vw), 1.5rem);
+    margin-bottom: var(--small-gap);
+  }
+  
+  .score-label {
+    font-size: clamp(0.7rem, calc(0.6rem + 1vw), 1rem);
+    margin-bottom: var(--small-gap);
+  }
+  
+  /* Menu tlačítka - responzivní velikost a mezery */
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-gap);
+    flex: 1;
+    justify-content: center;
+    padding: var(--small-gap) 0;
+  }
+  
+  .menu-buttons .btn {
+    width: clamp(75%, calc(70% + 1vw), 90%);
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+    font-size: clamp(0.75rem, calc(0.7rem + 0.5vw), 1rem);
+  }
+  
+  /* Vstupní pole - konzistentní velikost */
+  .target-score-input input {
+    height: var(--input-height);
+    font-size: clamp(0.8rem, calc(0.7rem + 0.5vw), 1rem);
+  }
+  
+  /* Mobilní chat - plynulá responzivita */
+  .chat-container {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    padding: var(--element-padding);
+  }
+  
+  .chat-header {
+    padding: var(--small-gap);
+    font-size: clamp(0.8rem, calc(0.7rem + 1vw), 1.2rem);
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    padding: var(--small-gap);
+  }
+  
+  .chat-input {
+    padding: var(--small-gap);
+  }
+  
+  /* Speciální pravidla pro velmi malé výšky */
+  @media (max-height: 600px) {
+    .game-title {
+      font-size: clamp(0.8rem, calc(0.7rem + 1vw), 1.2rem);
+    }
+    
+    .menu-buttons .btn {
+      min-height: clamp(1.5rem, calc(1.2rem + 1.5vh), 2.5rem);
+    }
+    
+    .container-fluid.d-block.d-md-none.mw-90.mh-90.vh-90 {
+      gap: calc(var(--content-gap) * 0.75);
+    }
+  }
+  
+  /* Speciální pravidla pro velmi malé šířky */
+  @media (max-width: 350px) {
+    .menu-buttons .btn {
+      width: 90%;
+      font-size: clamp(0.7rem, calc(0.6rem + 0.5vw), 0.9rem);
+    }
+    
+    :root {
+      --base-unit: clamp(0.4rem, calc(0.4rem + 0.7vh), 1rem);
+    }
+  }
+}
+
+/* ====== DESKTOP LAYOUT ====== */
+@media (min-width: 768px) {
+  /* Zajištění, že mobilní layout je skutečně skrytý */
+  .container-fluid.d-block.d-md-none {
+    display: none !important;
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  /* Desktop kontejner - grid layout */
+  .container-fluid.d-none.d-md-block.mw-90.mh-90.vh-90 {
+    display: block !important;
+    height: 90vh;
+    padding: var(--container-padding);
+  }
+  
+  /* Nadpisy a texty - desktop velikosti */
+  .game-title {
+    font-size: clamp(1.2rem, calc(1rem + 1.5vw), 2rem);
+    margin-bottom: var(--content-gap);
+  }
+  
+  .score-label {
+    font-size: clamp(0.9rem, calc(0.8rem + 0.8vw), 1.3rem);
+    margin-bottom: var(--small-gap);
+  }
+  
+  /* Desktop tlačítka */
+  .menu-buttons .btn {
+    width: clamp(60%, calc(55% + 1vw), 80%);
+    margin-left: auto;
+    margin-right: auto;
+    min-height: var(--min-button-height);
+  }
+  
+  /* Mezera mezi sloupci na desktopu */
+  .g-3 {
+    gap: var(--content-gap) !important;
+  }
+}
+
+/* ====== POMOCNÉ UTILITY TŘÍDY ====== */
+.d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.p-consistent {
+  padding: var(--element-padding);
+}
+
+.gap-consistent {
+  gap: var(--content-gap);
+}
