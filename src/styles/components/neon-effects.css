@@ -1,0 +1,133 @@
+/**
+ * Neon Effects - speciální efekty pro neonový vzhled
+ * Odděleno od ostatních stylů pro lepší přehlednost
+ */
+
+/* Neonové texty v různých barvách */
+.neon-text {
+  text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-glow);
+}
+
+.neon-green {
+  --neon-color: var(--neon-green);
+  --neon-glow: var(--neon-green-glow);
+  color: var(--neon-green);
+}
+
+.neon-blue {
+  --neon-color: var(--neon-blue);
+  --neon-glow: var(--neon-blue-glow);
+  color: var(--neon-blue);
+}
+
+.neon-orange {
+  --neon-color: var(--neon-orange);
+  --neon-glow: var(--neon-orange-glow);
+  color: var(--neon-orange);
+}
+
+.neon-pink {
+  --neon-color: var(--neon-pink);
+  --neon-glow: var(--neon-pink-glow);
+  color: var(--neon-pink);
+}
+
+.neon-red {
+  --neon-color: var(--neon-red);
+  --neon-glow: var(--neon-red-glow);
+  color: var(--neon-red);
+}
+
+.neon-yellow {
+  --neon-color: var(--neon-yellow);
+  --neon-glow: var(--neon-yellow-glow);
+  color: var(--neon-yellow);
+}
+
+/* Neonové tlačítka */
+.btn-neon {
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  border: 1px solid var(--neon-color);
+  color: var(--neon-color);
+  text-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-glow);
+  box-shadow: 0 0 5px var(--neon-color), 0 0 10px var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-glow);
+  color: var(--neon-color);
+}
+
+.btn-neon:active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-neon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Neonové inputy */
+.form-control-neon {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green-glow);
+  transition: all 0.3s ease;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.form-control-neon:focus {
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green-glow);
+  outline: none;
+}
+
+/* Neonové rámečky a stíny */
+.border-neon-green {
+  border-color: var(--neon-green) !important;
+}
+
+.border-neon-blue {
+  border-color: var(--neon-blue) !important;
+}
+
+.border-neon-orange {
+  border-color: var(--neon-orange) !important;
+}
+
+.border-neon-pink {
+  border-color: var(--neon-pink) !important;
+}
+
+.border-neon-red {
+  border-color: var(--neon-red) !important;
+}
+
+.shadow-neon {
+  box-shadow: 0 0 10px var(--neon-green), 0 0 15px var(--neon-green-glow);
+}
+
+/* Neonový scrollbar */
+.scrollbar-neon::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-neon::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.scrollbar-neon::-webkit-scrollbar-thumb {
+  background: var(--neon-green);
+  border-radius: 3px;
+}
+
+.scrollbar-neon::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green-bright);
+}
