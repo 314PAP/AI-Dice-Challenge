@@ -364,6 +364,99 @@
   opacity: 0.6;
 }
 
+/* Text styling pro responzivní menu */
+.menu-btn-text {
+  display: inline;
+}
+
+.title-text {
+  display: inline;
+}
+
+.score-label-text {
+  display: inline;
+}
+
+/* Speciální úpravy pro velmi malé obrazovky - skrývání nebo zkracování textů */
+@media (max-width: 400px) {
+  .title-text {
+    display: none;
+  }
+  
+  .menu-btn-text {
+    font-size: 0.6rem;
+  }
+  
+  .score-label-text {
+    display: none;
+  }
+  
+  .game-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .dice-icon {
+    font-size: 1.2rem;
+  }
+  
+  .menu-btn {
+    max-width: 140px;
+    min-height: 30px;
+    padding: 0.2rem 0.3rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .menu-btn {
+    max-width: 120px;
+    min-height: 28px;
+  }
+  
+  .menu-btn-text {
+    font-size: 0.55rem;
+  }
+}
+
+/* Responzivní úpravy pro hlavní layout */
+@media (max-width: 768px) {
+  .game-box {
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .game-box {
+    padding: 0.5rem !important;
+  }
+  
+  .col-12 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .game-box {
+    padding: 0.25rem !important;
+  }
+  
+  .col-12 {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+}
+
+/* Úpravy pro velmi malé výšky */
+@media (max-height: 500px) {
+  .vh-90 {
+    height: 100vh !important;
+  }
+  
+  .game-box {
+    padding: 0.25rem !important;
+  }
+}
+
 /* Neon pulse animace */
 @keyframes neon-pulse {
   0% {
