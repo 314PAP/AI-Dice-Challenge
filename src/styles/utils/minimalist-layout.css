@@ -14,6 +14,9 @@
 .mh-90 { max-height: 90% !important; }
 .vh-90 { height: 90vh !important; }
 
+/* Utility třída pro skrývání prvků */
+.hidden { display: none !important; }
+
 /* Herní box - speciální efekty */
 .game-box {
   border-radius: 8px;

@@ -49,11 +49,11 @@ export function startGame() {
         targetScoreDisplay.textContent = gameState.targetScore;
     }
 
-    // Hide target score setup and show game controls
-    const targetScoreSetup = document.getElementById('targetScoreSetup');
+    // Hide menu and show game controls
+    const gameHeader = document.getElementById('gameHeader');
     const gameControls = document.getElementById('gameControls');
     
-    if (targetScoreSetup) targetScoreSetup.classList.add('hidden');
+    if (gameHeader) gameHeader.classList.add('hidden');
     if (gameControls) gameControls.classList.remove('hidden');
     
     // Show players container during game
