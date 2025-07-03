@@ -11,7 +11,7 @@
 - ✅ Redundantní dokumentace přesunuta do složky ./docs/archive
 
 ### Zálohované soubory
-Všechny odstraněné soubory byly zálohovány do: ./backup_before_cleanup_20250703_141559
+Všechny odstraněné soubory byly zálohovány do: ./backup_before_cleanup_20250703_143114
 
 ## 📋 Další kroky
 
