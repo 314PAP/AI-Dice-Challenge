@@ -70,7 +70,7 @@ export function showFarkleMessage(playerIndex) {
         font-weight: bold;
         padding: 5px 15px;
         border-radius: 5px;
-        box-shadow: 0 0 15px red;
+        box-shadow: 0 0 20px #ff0040, 0 0 40px #ff0040;
         z-index: 1000;
         animation: farkle-message-pulse 1s infinite alternate;
         font-size: 16px;
