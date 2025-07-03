@@ -189,19 +189,67 @@
 
 @media (max-width: 480px) {
   .menu-btn {
-    max-width: 180px;
-    min-height: 38px;
-    font-size: 0.8rem;
-    padding: 0.25rem 0.5rem;
+    max-width: 160px;
+    min-height: 36px;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.4rem;
   }
   
   .menu-buttons {
-    padding: 0 0.25rem;
-    max-width: 200px;
+    padding: 0;
+    max-width: 180px;
   }
   
   .dice-icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+  
+  .game-title {
+    font-size: 0.9rem !important;
+    line-height: 1 !important;
+  }
+  
+  .score-label {
+    font-size: 0.7rem !important;
+  }
+}
+
+/* Speciální úpravy pro velmi malé výšky obrazovky */
+@media (max-height: 600px) {
+  .menu-btn {
+    min-height: 32px;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  .dice-icon {
+    font-size: 1.5rem;
+  }
+  
+  .game-title {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .score-label {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .neon-dice-decoration {
+    margin-bottom: 1rem !important;
+  }
+  
+  .target-score-input {
+    margin-bottom: 1rem !important;
+  }
+  
+  .menu-buttons .gap-2 {
+    gap: 0.25rem !important;
+  }
+  
+  .menu-buttons .gap-md-3 {
+    gap: 0.25rem !important;
   }
 }
 
@@ -226,25 +274,32 @@
 /* Responzivní úpravy pro target score input */
 @media (max-width: 768px) {
   .target-score-input input {
-    max-width: 240px;
-    height: 45px;
-    font-size: 1.1rem;
+    max-width: 220px;
+    height: 42px;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 576px) {
   .target-score-input input {
-    max-width: 200px;
-    height: 40px;
-    font-size: 1rem;
+    max-width: 180px;
+    height: 38px;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .target-score-input input {
-    max-width: 180px;
-    height: 38px;
-    font-size: 0.9rem;
+    max-width: 160px;
+    height: 36px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .target-score-input input {
+    height: 32px;
+    font-size: 0.8rem;
   }
 }
 
