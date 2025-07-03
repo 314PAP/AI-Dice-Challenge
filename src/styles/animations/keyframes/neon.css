@@ -20,7 +20,9 @@
   }
 }
 
-@keyframes neon-pulse {
+/* POZNÁMKA: Hlavní neon-pulse animace je definována v neon-bootstrap-utilities.css */
+/* Toto je varianta pro box-shadow, používána pouze pro speciální případy */
+@keyframes neon-box-pulse {
   0%, 100% {
     box-shadow: 
       0 0 10px currentColor,

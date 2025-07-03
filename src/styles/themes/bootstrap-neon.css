@@ -171,19 +171,4 @@
   backdrop-filter: blur(10px);
 }
 
-/* Neonová animace pro aktivní prvky */
-.neon-pulse {
-  animation: neon-pulse 2s infinite;
-}
-
-@keyframes neon-pulse {
-  0% {
-    box-shadow: 0 0 5px var(--neon-green);
-  }
-  50% {
-    box-shadow: 0 0 20px var(--neon-green);
-  }
-  100% {
-    box-shadow: 0 0 5px var(--neon-green);
-  }
-}
+/* Neonová animace pro aktivní prvky - definována v neon-bootstrap-utilities.css */
