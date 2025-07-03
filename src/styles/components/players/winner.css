@@ -7,6 +7,7 @@
     animation: winner-pulse 1.5s ease-in-out infinite;
     transform: scale(1.05);
     z-index: 10;
+    background: rgba(0, 0, 0, 0.8);
     transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
