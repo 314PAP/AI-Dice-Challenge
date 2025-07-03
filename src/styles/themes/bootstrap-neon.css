@@ -1,0 +1,174 @@
+/* =============================================================================
+   🎮 BOOTSTRAP NEON THEME - Neonové varianty Bootstrap tříd
+   ============================================================================= */
+
+/* Neonové varianty tlačítek */
+.btn-neon-success {
+  --bs-btn-color: var(--neon-green);
+  --bs-btn-border-color: var(--neon-green);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: var(--neon-green);
+  --bs-btn-hover-border-color: var(--neon-green);
+  --bs-btn-focus-shadow-rgb: 25, 135, 84;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: var(--neon-green);
+  --bs-btn-active-border-color: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.btn-neon-primary {
+  --bs-btn-color: var(--neon-blue);
+  --bs-btn-border-color: var(--neon-blue);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: var(--neon-blue);
+  --bs-btn-hover-border-color: var(--neon-blue);
+  --bs-btn-focus-shadow-rgb: 13, 110, 253;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: var(--neon-blue);
+  --bs-btn-active-border-color: var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
+}
+
+.btn-neon-danger {
+  --bs-btn-color: var(--neon-pink);
+  --bs-btn-border-color: var(--neon-pink);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: var(--neon-pink);
+  --bs-btn-hover-border-color: var(--neon-pink);
+  --bs-btn-focus-shadow-rgb: 220, 53, 69;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: var(--neon-pink);
+  --bs-btn-active-border-color: var(--neon-pink);
+  box-shadow: 0 0 5px var(--neon-pink);
+}
+
+.btn-neon-warning {
+  --bs-btn-color: var(--neon-orange);
+  --bs-btn-border-color: var(--neon-orange);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: var(--neon-orange);
+  --bs-btn-hover-border-color: var(--neon-orange);
+  --bs-btn-focus-shadow-rgb: 255, 193, 7;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: var(--neon-orange);
+  --bs-btn-active-border-color: var(--neon-orange);
+  box-shadow: 0 0 5px var(--neon-orange);
+}
+
+/* Neonové varianty karet */
+.card-neon {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-width: 2px;
+}
+
+.card-neon-success {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 10px var(--neon-green);
+}
+
+.card-neon-primary {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.card-neon-danger {
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.card-neon-warning {
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 10px var(--neon-orange);
+}
+
+/* Neonové varianty textu */
+.text-neon-green {
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green);
+}
+
+.text-neon-blue {
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.text-neon-pink {
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.text-neon-orange {
+  color: var(--neon-orange);
+  text-shadow: 0 0 5px var(--neon-orange);
+}
+
+/* Neonové varianty borders */
+.border-neon-green {
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.border-neon-blue {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 5px var(--neon-blue);
+}
+
+.border-neon-pink {
+  border-color: var(--neon-pink) !important;
+  box-shadow: 0 0 5px var(--neon-pink);
+}
+
+.border-neon-orange {
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 5px var(--neon-orange);
+}
+
+/* Neonové varianty input fields */
+.form-control-neon {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.form-control-neon-success {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.form-control-neon-success:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
+}
+
+/* Bootstrap odstupňované velikosti (responzivní) */
+.avatar-xs {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.avatar-sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.avatar-md {
+  width: 4rem;
+  height: 4rem;
+}
+
+.avatar-lg {
+  width: 6rem;
+  height: 6rem;
+}
+
+.avatar-xl {
+  width: 8rem;
+  height: 8rem;
+}
+
+/* Neonové pozadí pro sekce */
+.bg-neon-dark {
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+/* Neonová animace pro aktivní prvky - definována v neon-bootstrap-utilities.css */
