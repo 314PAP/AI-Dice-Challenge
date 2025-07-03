@@ -1,0 +1,68 @@
+/**
+ * Game Menu Component Styles
+ * Specifické styly pro hlavní menu hry
+ */
+
+/* Hlavní prvky menu */
+.game-title {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.neon-dice-decoration {
+  line-height: 1;
+  margin: 0.5rem 0;
+}
+
+.dice-icon {
+  font-size: 2rem;
+}
+
+/* Cílové skóre */
+.score-label {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.target-score-input {
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tlačítka v menu */
+.menu-buttons {
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-btn {
+  min-width: 200px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+/* Responzivní úpravy */
+@media (max-height: 700px) {
+  .dice-icon {
+    font-size: 1.5rem;
+  }
+  
+  .menu-btn {
+    min-width: 180px;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .menu-btn {
+    min-width: unset;
+    width: 100%;
+  }
+}
