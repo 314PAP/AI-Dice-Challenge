@@ -1,0 +1,265 @@
+/**
+ * Plně responzivní layout pro AI Kostkovou Výzvu
+ *
+ * Tento soubor implementuje plynulé responzivní chování pomocí kombinace:
+ * 1. CSS Flexbox pro pružné rozložení
+ * 2. CSS proměnných a calc() pro dynamické výpočty velikostí
+ * 3. Media queries pouze pro větší změny layoutu
+ * 4. Relativních jednotek (vh, vw, %) místo fixních (px)
+ */
+
+/* GLOBÁLNÍ NASTAVENÍ */
+:root {
+  /* Základní proměnné pro mezery a odsazení - budou se měnit s velikostí obrazovky */
+  --base-padding: min(3vh, 1.5rem);
+  --container-padding: var(--base-padding);
+  --content-gap: calc(var(--base-padding) * 0.75);
+  --border-width: min(0.2vh, 2px);
+  --border-radius: min(1vh, 0.5rem);
+  --min-button-height: min(5vh, 2.5rem);
+}
+
+/* Základní nastavení pro celou stránku */
+body {
+  overflow-x: hidden;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Základní třídy pro konzistenci layoutu */
+.d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==== SPOLEČNÁ PRAVIDLA PRO VŠECHNY VELIKOSTI OBRAZOVKY ==== */
+
+/* Hlavní kontejner - společné vlastnosti */
+.container-fluid.mw-90.mh-90.vh-90 {
+  margin: auto;
+  box-sizing: border-box;
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid #39ff14;
+  padding: var(--container-padding);
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+/* Herní box a chat kontejner */
+.game-box, .chat-container {
+  border: var(--border-width) solid #39ff14;
+  border-radius: var(--border-radius);
+  padding: calc(var(--base-padding) * 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Tlačítka - dynamická výška */
+.btn-neon {
+  min-height: var(--min-button-height);
+  padding-top: calc(var(--base-padding) * 0.25);
+  padding-bottom: calc(var(--base-padding) * 0.25);
+  margin-bottom: calc(var(--content-gap) * 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==== MOBILNÍ LAYOUT (pod 768px) ==== */
+@media (max-width: 767.98px) {
+  /* Dynamické změny proměnných podle velikosti obrazovky */
+  :root {
+    --base-padding: min(2vh, 0.75rem);
+  }
+  
+  /* Zajištění, že desktopový layout je skutečně skrytý */
+  .d-none.d-md-block {
+    display: none !important;
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  /* Mobilní kontejner - flexbox pro plynulé přizpůsobení */
+  .container-fluid.d-block.d-md-none.mw-90.mh-90.vh-90 {
+    display: flex !important;
+    flex-direction: column;
+    height: 90vh;
+    width: 90vw;
+  }
+  
+  /* Horní část (menu/hra) - dynamická výška */
+  .row.g-0.h-75 {
+    flex: 3;
+    min-height: 0;
+    margin-bottom: var(--content-gap);
+  }
+  
+  /* Chat - dynamická výška podle zbývajícího prostoru */
+  .row.g-0.h-20 {
+    flex: 1;
+    min-height: 120px; /* minimální výška pro použitelnost */
+    max-height: 35vh;
+  }
+  
+  /* Plná výška pro kontejnery */
+  .row .h-100, .game-box, #gameMobileContent {
+    height: 100% !important;
+  }
+  
+  /* Responzivní úpravy pro mobilní menu */
+  .game-header.d-block.d-md-none {
+    padding: calc(var(--base-padding) * 0.75);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  /* Dynamické velikosti tlačítek podle dostupného prostoru */
+  .menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--content-gap) * 0.5);
+    flex: 1;
+    justify-content: center;
+    margin-top: calc(var(--content-gap) * 0.5);
+    margin-bottom: calc(var(--content-gap) * 0.5);
+  }
+  
+  .menu-buttons .btn {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+    min-height: var(--min-button-height);
+  }
+  
+  /* Responzivní text a nadpisy */
+  .game-title {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    margin-bottom: calc(var(--content-gap) * 0.5);
+  }
+  
+  .score-label {
+    font-size: clamp(0.7rem, 3vw, 1rem);
+    margin-bottom: calc(var(--content-gap) * 0.3);
+  }
+  
+  /* Vstupní pole - dynamická velikost */
+  .target-score-input {
+    margin-bottom: calc(var(--content-gap) * 0.75);
+  }
+  
+  .target-score-input input {
+    height: calc(var(--min-button-height) * 0.9);
+    font-size: clamp(0.7rem, 3vw, 1rem);
+  }
+  
+  /* Přizpůsobení chatu */
+  .chat-container {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-header {
+    padding: calc(var(--base-padding) * 0.25);
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  
+  /* Pro velmi malé obrazovky ještě více kompaktní */
+  @media (max-height: 600px) {
+    :root {
+      --base-padding: min(1.5vh, 0.5rem);
+      --min-button-height: min(4vh, 2rem);
+    }
+    
+    .game-title {
+      font-size: clamp(0.8rem, 4vw, 1.2rem);
+    }
+    
+    .score-label {
+      font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+    }
+    
+    .menu-buttons .btn {
+      padding-top: 0.1rem;
+      padding-bottom: 0.1rem;
+    }
+  }
+  
+  /* Pro velmi úzké obrazovky */
+  @media (max-width: 350px) {
+    .menu-buttons .btn {
+      width: 95%;
+      font-size: 0.8rem;
+    }
+    
+    :root {
+      --container-padding: min(1.5vh, 0.5rem);
+    }
+  }
+}
+
+/* ==== DESKTOP LAYOUT (nad 768px) ==== */
+@media (min-width: 768px) {
+  /* Dynamické změny proměnných pro větší obrazovky */
+  :root {
+    --base-padding: min(3vh, 1.5rem);
+    --min-button-height: min(6vh, 3rem);
+  }
+  
+  /* Zajištění, že mobilní layout je skutečně skrytý */
+  .d-block.d-md-none {
+    display: none !important;
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  
+  /* Desktop kontejner - grid layout */
+  .container-fluid.d-none.d-md-block.mw-90.mh-90.vh-90 {
+    display: block !important;
+    height: 90vh;
+  }
+  
+  /* Větší mezera mezi sloupci na větších obrazovkách */
+  .g-3 {
+    gap: var(--content-gap) !important;
+  }
+  
+  /* Responzivní úpravy pro desktop menu */
+  .game-header.d-none.d-md-block {
+    padding: var(--base-padding);
+  }
+  
+  /* Responzivní text a nadpisy pro desktop */
+  .game-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    margin-bottom: calc(var(--content-gap) * 0.75);
+  }
+  
+  .score-label {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: calc(var(--content-gap) * 0.5);
+  }
+  
+  /* Desktop tlačítka */
+  .menu-buttons .btn {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
