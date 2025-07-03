@@ -1,5 +1,5 @@
 /* =============================================================================
-   📏 APP LAYOUT - Hlavní rozvržení celé aplikace s Bootstrap - CELÁ OBRAZOVKA
+   📏 APP LAYOUT - Hlavní rozvržení celé aplikace - CELÁ OBRAZOVKA
    ============================================================================= */
 
 /* Základní styly pro celou obrazovku */
@@ -9,6 +9,7 @@ body {
   padding: 0;
   overflow-x: hidden;
   min-height: 100vh;
+  max-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +18,6 @@ body {
 /* Aplikace vyplňuje celou obrazovku */
 .app-container {
   box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
-  border-radius: 0;
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100vh;
@@ -31,7 +31,6 @@ body {
 /* Hlavní rozložení */
 .main-layout {
   display: flex;
-  flex-wrap: nowrap;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -61,20 +60,12 @@ body {
   .main-layout {
     flex-direction: row;
   }
-<<<<<<< Updated upstream
   
-=======
-
->>>>>>> Stashed changes
   .game-area {
     flex: 0 0 68%;
     max-width: 68%;
   }
-<<<<<<< Updated upstream
   
-=======
-
->>>>>>> Stashed changes
   .chat-panel {
     flex: 0 0 32%;
     max-width: 32%;
@@ -85,23 +76,36 @@ body {
 @media (max-width: 800px) {
   .main-layout {
     flex-direction: column;
+    height: auto;
+    min-height: 100%;
   }
-<<<<<<< Updated upstream
   
-=======
-
->>>>>>> Stashed changes
   .game-area {
     width: 100%;
     order: 1;
+    flex: 1 0 auto;
   }
-<<<<<<< Updated upstream
   
-=======
-
->>>>>>> Stashed changes
   .chat-panel {
     width: 100%;
     order: 2;
+    flex: 0 0 auto;
+    height: 40vh;
+  }
+}
+
+/* Extra malá mobilní zařízení */
+@media (max-width: 480px) {
+  .main-layout {
+    height: auto;
+    min-height: 100%;
+  }
+  
+  .game-area {
+    padding: 0.5em;
+  }
+  
+  .chat-panel {
+    height: 35vh;
   }
 }
