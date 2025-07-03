@@ -55,9 +55,9 @@
 #playersContainer .player.gemini-player.active {
   border-color: var(--neon-blue);
   box-shadow:
-    var(--glow-lg) var(--neon-blue),
-    0 0 30px var(--neon-blue),
-    0 0 50px rgba(30, 144, 255, 0.6);
+    var(--glow-intense) var(--neon-blue),
+    0 0 35px var(--neon-blue),
+    0 0 55px rgba(30, 144, 255, 0.8);
 }
 
 #playersContainer .player.gemini-player.active {
@@ -82,9 +82,9 @@
 #playersContainer .player.chatgpt-player.active {
   border-color: var(--neon-pink);
   box-shadow:
-    var(--glow-lg) var(--neon-pink),
-    0 0 30px var(--neon-pink),
-    0 0 50px rgba(255, 105, 180, 0.6);
+    var(--glow-intense) var(--neon-pink),
+    0 0 35px var(--neon-pink),
+    0 0 55px rgba(255, 105, 180, 0.8);
 }
 
 #playersContainer .player.chatgpt-player.active {
@@ -109,9 +109,9 @@
 #playersContainer .player.claude-player.active {
   border-color: var(--neon-orange);
   box-shadow:
-    var(--glow-lg) var(--neon-orange),
-    0 0 30px var(--neon-orange),
-    0 0 50px rgba(255, 165, 0, 0.6);
+    var(--glow-intense) var(--neon-orange),
+    0 0 35px var(--neon-orange),
+    0 0 55px rgba(255, 165, 0, 0.8);
 }
 
 #playersContainer .player.claude-player.active {
