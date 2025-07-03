@@ -1,15 +1,6 @@
 /* IMPORT NORMALIZE.CSS PRO CROSS-BROWSER CONSISTENCY */
 @import 'normalize.css/normalize.css';
 
-/* IMPORT MODERN CSS RESET */
-@import 'modern-css-reset/dist/reset.min.css';
-
-/* =============================================================================
-   🔄 CSS RESET - Moderní reset s knihovnami pro konzistentní zobrazení
-   ============================================================================= */
-
-/* VLASTNÍ MODERNÍ RESET ROZŠÍŘENÍ */
-
 /* =============================================================================
    🔄 CSS RESET - Moderní reset pro konzistentní zobrazení
    ============================================================================= */
@@ -26,12 +17,15 @@
 
 html, body {
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000000;
 }
 
 img, picture, video, canvas, svg {
