@@ -7,7 +7,6 @@
   #chatPanelMobile {
     display: flex !important;
     flex-direction: column !important;
-    margin: 0.75rem !important;
     padding: 0.5rem !important;
   }
   
