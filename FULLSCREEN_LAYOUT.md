@@ -26,11 +26,13 @@ Při dosažení breakpointu se layout překlopí na:
 ## 🎨 Zachovaný neonový design
 
 Odstraněny všechny Bootstrap třídy, které narušovaly původní design:
-- Žádné bílé pozadí
-- Žádné světlé prvky
-- Původní neonové efekty
-- Původní barevné schéma
-- Vlastní tlačítka s neovými efekty
+- Žádné bílé pozadí - STRIKTNĚ ZAKÁZÁNO v této aplikaci
+- Žádné světlé prvky - pouze neonové barvy na tmavém pozadí
+- Původní neonové efekty - zachovány všechny efekty a animace
+- Původní barevné schéma - pouze neon green, blue, pink a orange
+- Vlastní tlačítka s neovými efekty - zachován původní vzhled tlačítek
+
+> **DŮLEŽITÉ**: Bílá barva je v této aplikaci ZAKÁZÁNA - používáme pouze tmavá pozadí a neonové barvy!
 
 ## 📱 Responzivní chování
 
