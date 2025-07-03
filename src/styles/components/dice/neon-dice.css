@@ -31,9 +31,12 @@
   border-radius: 12px;
   margin: 0.25rem;
   transition: all 0.2s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: var(--text-color);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: var(--neon-green); /* Výchozí barva textu */
+  border: 2px solid var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green);
+  font-family: 'Orbitron', sans-serif;
 }
 
 /* Responzivní velikosti kostek */
