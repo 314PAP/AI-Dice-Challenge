@@ -413,14 +413,14 @@
             <div class="col-12 h-100 p-2 pt-0">
                 <div class="h-100 border border-neon-green bg-dark-90 rounded-3 shadow-neon d-flex flex-column" id="chatPanelMobile">
                     <!-- Chat header bez dělících čar -->
-                    <div class="chat-header d-flex justify-content-center align-items-center p-1 p-sm-2 bg-dark-90">
+                    <div class="chat-header d-flex justify-content-center align-items-center p-1 bg-dark-90">
                         <h2 class="neon-text neon-green m-0 fs-6">
                             <i class="ri-message-3-line me-1"></i>AI CHAT
                         </h2>
                     </div>
                     
-                    <!-- Chat zprávy -->
-                    <div class="chat-messages flex-grow-1 p-2 scrollbar-neon" id="chatMessagesMobile" style="overflow-y: auto;">
+                    <!-- Chat zprávy - snížena výška pro více prostoru pro vstupní pole -->
+                    <div class="chat-messages p-2 scrollbar-neon" id="chatMessagesMobile" style="overflow-y: auto; flex: 1;">
                         <div class="chat-message mb-2 small">
                             <strong class="neon-yellow">Systém:</strong> <span class="neon-yellow">Vítejte v AI Kostkové Výzvě!</span>
                         </div>
@@ -429,12 +429,12 @@
                         </div>
                     </div>
                     
-                    <!-- Chat input bez ohraničení -->
-                    <div class="chat-input p-2 bg-dark-90">
+                    <!-- Chat input - zajištěno viditelné zobrazení -->
+                    <div class="chat-input p-1 bg-dark-90">
                         <div class="input-group input-group-sm border-0">
                             <input type="text" class="form-control border-0 bg-black text-neon-green small" id="chatInputMobile" placeholder="Napište zprávu...">
                             <button class="btn border-0 bg-transparent" type="button" id="sendChatBtnMobile">
-                                <i class="ri-send-plane-fill" style="font-size: 1.5rem; color: #39ff14;"></i>
+                                <i class="ri-send-plane-fill" style="font-size: 1.2rem; color: #39ff14;"></i>
                             </button>
                         </div>
                     </div>
