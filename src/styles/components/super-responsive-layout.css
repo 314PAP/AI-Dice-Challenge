@@ -247,6 +247,7 @@ body {
     .game-title {
       font-size: clamp(0.6rem, calc(0.4rem + 1.2vh), 1rem);
       margin-bottom: calc(var(--small-gap) * 0.5);
+      white-space: nowrap; /* Zabránit zalomení na více řádků */
     }
     
     .score-label {
@@ -257,10 +258,12 @@ body {
     /* Kompaktnější tlačítka */
     .menu-buttons {
       gap: calc(var(--small-gap) * 0.5);
+      justify-content: flex-start; /* Zarovnání na začátek v případě přetečení */
+      padding-top: calc(var(--small-gap) * 0.25); /* Menší horní padding */
     }
     
     .menu-buttons .btn {
-      min-height: clamp(1.2rem, calc(0.8rem + 1.5vh), 2rem);
+      min-height: clamp(1.5rem, calc(1rem + 1.2vh), 2rem); /* Trochu větší minimální výška */
       margin-bottom: 0;
       padding: calc(var(--small-gap) * 0.5);
       font-size: clamp(0.6rem, calc(0.4rem + 0.8vh), 0.9rem);
@@ -287,6 +290,20 @@ body {
       height: clamp(1.5rem, calc(1rem + 1.2vh), 2.2rem);
       padding: 0.1rem;
     }
+    
+    /* Optimalizace chatu pro malou výšku */
+    .chat-header {
+      padding: 0.1rem;
+    }
+    
+    .chat-messages {
+      padding: 0.1rem;
+      max-height: calc(100% - 2.2rem); /* Zachování prostoru pro vstupní pole */
+    }
+    
+    .chat-input {
+      min-height: clamp(1.8rem, calc(1.5rem + 0.8vh), 2.2rem);
+    }
   }
   
   /* Speciální pravidla pro velmi malé šířky */
@@ -303,12 +320,13 @@ body {
   
   /* Speciální pravidla pro landscape orientaci na mobilních zařízeních */
   @media (max-width: 767.98px) and (orientation: landscape) {
-    /* Změna layoutu na horizontální */
+    /* Změna layoutu na horizontální - menu a chat vedle sebe */
     .container-fluid.d-block.d-md-none.mw-90.mh-90.vh-90 {
       flex-direction: row;
       height: 90vh;
       padding: var(--element-padding);
-      gap: var(--element-padding);
+      gap: calc(var(--element-padding) * 1.5); /* Větší mezera mezi menu a chatem */
+      align-items: stretch; /* Rozšíření obou boxů na plnou výšku */
     }
     
     /* Menu vlevo */
