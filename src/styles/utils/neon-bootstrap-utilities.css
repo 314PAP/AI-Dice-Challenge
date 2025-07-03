@@ -4,6 +4,58 @@
    ============================================================================= */
 
 /* -------------------------------------------------------------------------- */
+/* 📏 LAYOUT UTILITY TŘÍDY - Rozšíření Bootstrap utilit                       */
+/* -------------------------------------------------------------------------- */
+
+/* Vlastní utility třídy pro přesné rozložení 90% velikosti */
+.mw-90 {
+  max-width: 90vw;
+}
+
+.mh-90 {
+  max-height: 90vh;
+}
+
+.vh-90 {
+  height: 90vh;
+}
+
+/* Mobilní rozložení - pod 768px se panely skládají pod sebe */
+@media (max-width: 767.98px) {
+  .mw-90 {
+    max-width: 95vw;
+  }
+  
+  .mh-90 {
+    max-height: 95vh;
+  }
+  
+  .vh-90 {
+    height: 95vh;
+  }
+}
+
+/* Rozšíření pro přesný poměr 70/30 */
+.w-70 {
+  width: 70% !important;
+}
+
+.w-30 {
+  width: 30% !important;
+}
+
+/* Responzivní třídy pro poměry */
+@media (min-width: 768px) {
+  .w-md-70 {
+    width: 70% !important;
+  }
+  
+  .w-md-30 {
+    width: 30% !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
 /* 🌈 NEONOVÉ EFEKTY PRO BOOTSTRAP KOMPONENTY                                 */
 /* -------------------------------------------------------------------------- */
 
