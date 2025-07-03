@@ -328,7 +328,122 @@
                 </div>
             </div>
         </div> <!-- Konec row -->
-    </div> <!-- Konec kontejneru -->
+    </div> <!-- Konec desktop kontejneru -->
+    
+    <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
+    <div class="container-fluid d-block d-md-none vh-100 p-0">
+        <!-- Menu section - horní část -->
+        <div class="row g-0 h-60">
+            <div class="col-12 h-100 p-2">
+                <div class="h-100 game-box p-2 rounded border border-neon-green shadow-neon d-flex flex-column justify-content-center">
+                    <!-- Stejný obsah jako desktop menu -->
+                    <div class="game-header text-center" id="gameHeaderMobile">
+                        <!-- Nadpis uprostřed nahoře -->
+                        <h1 class="game-title neon-text fs-6 mb-2">
+                            <i class="ri-dice-line me-1"></i>
+                            <span class="title-text">AI Kostková Výzva</span>
+                        </h1>
+                        
+                        <!-- Neonová kostka pod nadpisem -->
+                        <div class="neon-dice-decoration mb-2">
+                            <i class="ri-dice-6-line dice-icon neon-green" style="font-size: 2rem;"></i>
+                        </div>
+                        
+                        <!-- Nápis "Cílové skóre" bez rámečku -->
+                        <div class="score-label neon-text mb-2" style="font-size: 0.8rem;">
+                            <i class="ri-star-line me-1"></i><span class="score-label-text">Cílové skóre</span>
+                        </div>
+                        
+                        <!-- Orámečkované nastavení skóre -->
+                        <div class="target-score-input mb-2">
+                            <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center" value="10000" min="1000" step="1000" style="max-width: 200px; height: 35px; font-size: 0.9rem;">
+                        </div>
+                        
+                        <!-- Tlačítka ve správném pořadí s střídajícími se barvami -->
+                        <div class="menu-buttons d-flex flex-column align-items-center gap-1">
+                            <!-- Začít hru - Zelená -->
+                            <button class="btn btn-neon neon-green w-75" id="startGameBtnMobile" style="height: 35px; font-size: 0.8rem;">
+                                <i class="ri-gamepad-line me-1"></i>
+                                <span class="menu-btn-text">Začít hru</span>
+                            </button>
+                            
+                            <!-- Pravidla - Modrá -->
+                            <button class="btn btn-neon neon-blue w-75" id="rulesBtnMobile" style="height: 35px; font-size: 0.8rem;">
+                                <i class="ri-book-open-line me-1"></i>
+                                <span class="menu-btn-text">Pravidla</span>
+                            </button>
+                            
+                            <!-- Síň slávy - Oranžová -->
+                            <button class="btn btn-neon neon-orange w-75" id="hallOfFameBtnMobile" style="height: 35px; font-size: 0.8rem;">
+                                <i class="ri-trophy-line me-1"></i>
+                                <span class="menu-btn-text">Síň slávy</span>
+                            </button>
+                            
+                            <!-- Kup mi kávu - Zelená -->
+                            <a href="https://buymeacoffee.com/pipap" target="_blank" class="btn btn-neon neon-green text-decoration-none w-75" style="height: 35px; font-size: 0.8rem;">
+                                <i class="ri-cup-line me-1"></i>
+                                <span class="menu-btn-text">Kup mi kávu</span>
+                            </a>
+                            
+                            <!-- Opustit hru - Červená -->
+                            <button class="btn btn-neon neon-red w-75" id="exitGameBtnMobile" style="height: 35px; font-size: 0.8rem;">
+                                <i class="ri-logout-box-line me-1"></i>
+                                <span class="menu-btn-text">Opustit hru</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- HERNÍ STAV pro mobil - skrytý na začátku -->
+                    <div class="game-controls hidden" id="gameControlsMobile">
+                        <div class="text-center">
+                            <h3 class="neon-text neon-green mb-3" style="font-size: 1rem;">Hra běží...</h3>
+                            <button class="btn btn-neon neon-pink w-75" id="quitGameBtnMobile" style="height: 35px; font-size: 0.8rem;">
+                                <i class="ri-logout-box-line me-1"></i>
+                                Opustit hru
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat section - spodní část -->
+        <div class="row g-0 h-40">
+            <div class="col-12 h-100 p-2 pt-0">
+                <div class="h-100 border-neon-green bg-dark-80 rounded d-flex flex-column chat-collapsed" id="chatPanelMobile">
+                    <!-- Chat header s tlačítkem pro rozbalení -->
+                    <div class="chat-header d-flex justify-content-between align-items-center p-2 border-bottom border-success bg-dark-80">
+                        <h2 class="neon-text neon-green m-0" style="font-size: 0.9rem;">
+                            <i class="ri-message-3-line me-2"></i>AI CHAT
+                        </h2>
+                        <button class="btn btn-sm btn-neon neon-green" id="toggleChatBtn" style="font-size: 0.7rem; padding: 0.2rem 0.4rem;">
+                            <i class="ri-arrow-up-line" id="toggleChatIcon"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Chat zprávy - v sbaleném stavu zobrazuje pouze poslední 2 -->
+                    <div class="chat-messages flex-grow-1 p-2 scrollbar-neon" id="chatMessagesMobile" style="overflow-y: auto;">
+                        <div class="chat-message text-info mb-1" style="font-size: 0.75rem;">
+                            <strong>Systém:</strong> Vítejte v AI Kostkové Výzvě!
+                        </div>
+                        <div class="chat-message text-warning mb-1" style="font-size: 0.75rem;">
+                            <strong>AI:</strong> Připraven na hru?
+                        </div>
+                    </div>
+                    
+                    <!-- Chat input -->
+                    <div class="chat-input p-2 border-top border-success">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-neon" id="chatInputMobile" placeholder="Napište zprávu..." style="font-size: 0.8rem;">
+                            <button class="btn btn-neon neon-green" type="button" id="sendChatBtnMobile" style="font-size: 0.8rem;">
+                                <i class="ri-send-plane-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
