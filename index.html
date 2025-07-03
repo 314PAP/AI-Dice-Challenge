@@ -28,16 +28,18 @@
             <!-- Herní oblast - 70% šířky na středních a velkých obrazovkách -->
             <div class="col-12 col-md-7 h-100 overflow-auto p-3">
                 <!-- Herní box s vlastním neonovým orámováním -->
-                <div class="h-100 game-box p-3 rounded border border-neon-green shadow-neon">
-                    <div class="game-header text-center mb-4">
-                        <h1 class="game-title neon-text fs-neon-1">
+                <div class="h-100 game-box p-3 rounded border border-neon-green shadow-neon d-flex flex-column justify-content-center">
+                    <!-- MENU STAV - jen základní menu -->
+                    <div class="game-header text-center" id="gameHeader">
+                        <h1 class="game-title neon-text fs-neon-1 mb-4">
                             <i class="ri-dice-line me-2"></i>
                             AI Kostková Výzva
                             <a href="https://buymeacoffee.com/pipap" target="_blank" class="ms-2 text-decoration-none neon-text neon-orange neon-grow" title="Kup mi kávu">
                                 <i class="ri-cup-line"></i>
                             </a>
                         </h1>
-                        <div class="target-score-setup d-flex flex-wrap justify-content-center align-items-center gap-3 mb-3" id="targetScoreSetup">
+                        
+                        <div class="target-score-setup d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4" id="targetScoreSetup">
                             <div class="input-group w-auto">
                                 <span class="input-group-text bg-dark-80 border-neon-green neon-text">
                                     <i class="ri-star-line"></i>
@@ -45,6 +47,9 @@
                                 </span>
                                 <input type="number" id="targetScoreInput" class="form-control-neon" value="10000" min="1000" step="1000">
                             </div>
+                        </div>
+                        
+                        <div class="menu-buttons d-flex flex-wrap justify-content-center gap-3">
                             <button class="btn btn-neon neon-green" id="startGameBtn">
                                 <i class="ri-gamepad-line me-2"></i>
                                 Začít hru
@@ -53,26 +58,6 @@
                                 <i class="ri-trophy-line me-2"></i>
                                 Síň slávy
                             </button>
-                        </div>
-                        
-                        <!-- Avatary s jmény pod tlačítky -->
-                        <div class="player-avatars-section d-flex justify-content-center flex-wrap gap-3 mb-4">
-                            <div class="avatar-container text-center">
-                                <img src="/ai-icons/mind.jpeg" alt="Vy" class="avatar-mini avatar-green active" title="Vy">
-                                <div class="avatar-name neon-text neon-green mt-2">Vy</div>
-                            </div>
-                            <div class="avatar-container text-center">
-                                <img src="/ai-icons/gemini.jpeg" alt="Gemini" class="avatar-mini avatar-blue" title="Gemini">
-                                <div class="avatar-name neon-text neon-blue mt-2">Gemini</div>
-                            </div>
-                            <div class="avatar-container text-center">
-                                <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" class="avatar-mini avatar-orange" title="ChatGPT">
-                                <div class="avatar-name neon-text neon-orange mt-2">ChatGPT</div>
-                            </div>
-                            <div class="avatar-container text-center">
-                                <img src="/ai-icons/claude.jpeg" alt="Claude" class="avatar-mini avatar-pink" title="Claude">
-                                <div class="avatar-name neon-text neon-pink mt-2">Claude</div>
-                            </div>
                         </div>
                     </div>
 
