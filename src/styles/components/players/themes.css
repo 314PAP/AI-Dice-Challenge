@@ -13,9 +13,7 @@
   box-shadow: var(--glow-md) var(--neon-green);
 }
 
-.human-player.active {
-  box-shadow: var(--glow-lg) var(--neon-green);
-}
+/* Odstranění přepisu pro active state - ty jsou definovány v active-states.css */
 
 /* GEMINI PLAYER */
 .gemini-player {
@@ -28,9 +26,7 @@
   box-shadow: var(--glow-md) var(--neon-blue);
 }
 
-.gemini-player.active {
-  box-shadow: var(--glow-lg) var(--neon-blue);
-}
+/* Odstranění přepisu pro active state - ty jsou definovány v active-states.css */
 
 /* CHATGPT PLAYER */
 .chatgpt-player {
