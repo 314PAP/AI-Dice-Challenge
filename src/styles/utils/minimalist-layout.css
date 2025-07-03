@@ -474,17 +474,6 @@
 
 /* Mobilní layout - zobrazení pod sebou */
 @media (max-width: 767.98px) {
-  /* Změna rozložení pro mobilní zařízení */
-  .container-fluid {
-    border: none !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    height: 100vh !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-  }
-  
   /* Vypnutí vertikálního scroll pro tělo a povolení scroll pro vnitřní kontejnery */
   body {
     overflow: hidden;
@@ -493,43 +482,22 @@
   
   /* Výška herní oblasti a chatu */
   .game-content {
-    height: 60vh !important;
+    height: 70% !important;
     overflow-y: auto;
     position: relative;
   }
   
   /* Chat oblast - menší než herní */
   .chat-container {
-    height: 40vh !important;
+    height: 30% !important;
     overflow-y: hidden;
     position: relative;
     border-top: 2px solid var(--neon-green);
   }
   
-  /* Sbalený chat */
-  .chat-collapsed {
-    height: 120px !important;
-    overflow: hidden;
-  }
-  
-  /* Rozbalený chat */
-  .chat-expanded {
-    height: 40vh !important;
-    position: relative;
-    width: 100%;
-    z-index: 100;
-    background-color: rgba(0, 0, 0, 0.85);
-    transition: height 0.3s ease;
-  }
-  
-  /* Zajištění, že se zobrazí jen poslední dvě zprávy */
-  .chat-collapsed .chat-messages {
-    max-height: 90px !important;
-  }
-  
-  /* Přizpůsobení výšky zpráv pro rozbalený chat */
-  .chat-expanded .chat-messages {
-    height: calc(40vh - 70px) !important;
+  /* Přizpůsobení výšky zpráv pro chat */
+  #chatPanelMobile .chat-messages {
+    height: calc(30vh * 0.9 - 70px) !important;
     max-height: none !important;
     overflow-y: auto !important;
   }

@@ -331,9 +331,9 @@
     </div> <!-- Konec desktop kontejneru -->
     
     <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
-    <div class="container-fluid d-block d-md-none vh-100 p-1">
+    <div class="container-fluid d-block d-md-none mw-90 mh-90 vh-90 p-1">
         <!-- Menu section - horní část -->
-        <div class="row g-0 h-60">
+        <div class="row g-0 h-70">
             <div class="col-12 h-100 p-1">
                 <div class="h-100 game-box p-1 p-sm-2 rounded border border-neon-green shadow-neon d-flex flex-column justify-content-center">
                     <!-- Stejný obsah jako desktop menu -->
@@ -408,17 +408,14 @@
         </div>
         
         <!-- Chat section - spodní část -->
-        <div class="row g-0 h-40">
+        <div class="row g-0 h-30">
             <div class="col-12 h-100 p-2 pt-0">
-                <div class="h-100 border-neon-green bg-dark-80 rounded d-flex flex-column chat-collapsed" id="chatPanelMobile">
-                    <!-- Chat header s tlačítkem pro rozbalení -->
+                <div class="h-100 border-neon-green bg-dark-80 rounded d-flex flex-column" id="chatPanelMobile">
+                    <!-- Chat header bez tlačítka pro rozbalení -->
                     <div class="chat-header d-flex justify-content-between align-items-center p-1 p-sm-2 border-bottom border-success bg-dark-80">
                         <h2 class="neon-text neon-green m-0 fs-6">
                             <i class="ri-message-3-line me-1"></i>AI CHAT
                         </h2>
-                        <button class="btn btn-sm btn-neon neon-green" id="toggleChatBtn">
-                            <i class="ri-arrow-up-line" id="toggleChatIcon"></i>
-                        </button>
                     </div>
                     
                     <!-- Chat zprávy - v sbaleném stavu zobrazuje pouze poslední 2 -->
