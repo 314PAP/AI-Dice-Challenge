@@ -550,3 +550,9 @@
 .chat-input button:hover i {
   color: var(--neon-green) !important;
 }
+
+/* Dodatečná velikost pro odesílací ikonu */
+#sendMessageBtn i,
+#sendChatBtnMobile i {
+  font-size: 1.5rem;
+}
