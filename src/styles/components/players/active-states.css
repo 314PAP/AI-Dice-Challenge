@@ -47,7 +47,7 @@
 }
 
 /* Gemini AI hráč - modrá */
-.player.gemini-player.active {
+#playersContainer .player.gemini-player.active {
   border-color: var(--neon-blue);
   box-shadow: 
     var(--glow-lg) var(--neon-blue),
