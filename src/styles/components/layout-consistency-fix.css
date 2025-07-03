@@ -25,7 +25,7 @@
 
 /* Mobilní verze má kompaktnější padding */
 @media (max-width: 767.98px) {
-  .container-fluid.mw-90.mh-90.vh-90 {
+  .container-fluid.mw-90.mh-90.vh-90.d-block.d-md-none {
     padding: 0.75rem !important;
     gap: 0.75rem !important;
     height: 100vh !important;
@@ -44,7 +44,7 @@
 
 /* Extra kompaktní režim pro velmi malé obrazovky */
 @media (max-width: 767.98px) and (max-height: 600px) {
-  .container-fluid.mw-90.mh-90.vh-90 {
+  .container-fluid.mw-90.mh-90.vh-90.d-block.d-md-none {
     padding: 0.5rem !important;
     gap: 0.5rem !important;
   }

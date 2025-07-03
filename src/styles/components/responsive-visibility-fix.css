@@ -57,3 +57,19 @@
 .hidden.d-block.d-md-none {
   display: none !important;
 }
+
+/* Explicitní pravidlo pro hlavní desktopový kontejner - musí být skrytý na mobilních zařízeních */
+@media (max-width: 767.98px) {
+  .container-fluid.mw-90.mh-90.vh-90.border.border-neon-green.rounded.d-none.d-md-block {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    z-index: -1 !important;
+  }
+}
