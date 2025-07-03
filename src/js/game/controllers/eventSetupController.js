@@ -221,7 +221,7 @@ export function setupEventListeners() {
                             chatToggle.title = 'Rozbalit chat';
                             // Zajistit zobrazení posledních zpráv
                             setTimeout(() => {
-                                showLastMessages();
+                                initializeChat();
                             }, 100);
                         }
                     } else {
@@ -245,7 +245,7 @@ export function setupEventListeners() {
                     chatToggle.title = 'Rozbalit chat';
                     // Zajistit zobrazení posledních zpráv
                     setTimeout(() => {
-                        showLastMessages();
+                        initializeChat();
                     }, 200);
                 } else if (chatBox) {
                     // Na desktopu je chat rozbalený
@@ -471,87 +471,46 @@ export function resetEventListeners() {
         }
         
         /**
- * Show last messages in collapsed chat on mobile
+ * Funkce pro inicializaci chatu (náhrada za showLastMessages)
  */
-function showLastMessages() {
-    // Pro mobilní chat
-    const chatMessagesMobile = document.getElementById('chatMessagesMobile');
-    if (chatMessagesMobile) {
-        const messagesMobile = chatMessagesMobile.querySelectorAll('.chat-message');
-        if (messagesMobile.length <= 2) return;
+function initializeChat() {
+    // Pro desktop chat - pouze desktop chat může být sbalený
+    const chatMessages = document.querySelector('#chatPanel .chat-messages');
+    if (!chatMessages) return;
+    
+    // Pro desktop zabalený chat - zobrazit pouze poslední zprávy
+    if (document.querySelector('#chatPanel.collapsed')) {
+        const messages = chatMessages.querySelectorAll('.chat-message');
+        if (messages.length <= 2) return;
         
         // Hide all but last 2 messages
-        messagesMobile.forEach((message, index) => {
-            if (index < messagesMobile.length - 2) {
+        messages.forEach((message, index) => {
+            if (index < messages.length - 2) {
                 message.style.display = 'none';
             } else {
                 message.style.display = 'block';
             }
         });
     }
-    
-    // Pro desktop chat
-    const chatMessages = document.querySelector('#chatPanel .chat-messages');
-    if (!chatMessages) return;
-    
-    const messages = chatMessages.querySelectorAll('.chat-message');
-    if (messages.length <= 2) return;
-    
-    // Hide all but last 2 messages
-    messages.forEach((message, index) => {
-        if (index < messages.length - 2) {
-            message.style.display = 'none';
-        } else {
-            message.style.display = 'block';
-        }
-    });
 }
 
 /**
- * Toggle mobile chat - přepíná mezi sbaleným a rozbaleným chatem na mobilních zařízeních
+ * Zobrazí všechny zprávy v mobilním chatu (není potřeba přepínání)
  */
 function toggleMobileChat() {
-    console.log('📱 Přepínám mobilní chat');
-    const chatBox = document.getElementById('chatPanelMobile');
-    const toggleIcon = document.getElementById('toggleChatIcon');
+    console.log('📱 Inicializuji mobilní chat');
+    const chatMessages = document.getElementById('chatMessagesMobile');
     
-    if (!chatBox || !toggleIcon) return;
+    if (!chatMessages) return;
     
-    if (chatBox.classList.contains('chat-collapsed')) {
-        // Rozbalení chatu
-        chatBox.classList.remove('chat-collapsed');
-        chatBox.classList.add('chat-expanded');
-        toggleIcon.classList.remove('ri-arrow-up-line');
-        toggleIcon.classList.add('ri-arrow-down-line');
-        
-        // Zobrazit všechny zprávy
-        const messages = chatBox.querySelectorAll('.chat-message');
-        messages.forEach(message => {
-            message.style.display = 'block';
-        });
-        
-        // Scroll na konec
-        setTimeout(() => {
-            const chatMessages = document.getElementById('chatMessagesMobile');
-            if (chatMessages) {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-        }, 100);
-    } else {
-        // Sbalení chatu
-        chatBox.classList.remove('chat-expanded');
-        chatBox.classList.add('chat-collapsed');
-        toggleIcon.classList.remove('ri-arrow-down-line');
-        toggleIcon.classList.add('ri-arrow-up-line');
-        
-        // Zobrazit pouze poslední dvě zprávy
-        showLastMessages();
-        
-        // Zobrazit jen poslední zprávy
-        setTimeout(() => {
-            showLastMessages();
-        }, 100);
-    }
+    // Zobrazit všechny zprávy
+    const messages = chatMessages.querySelectorAll('.chat-message');
+    messages.forEach(message => {
+        message.style.display = 'block';
+    });
+    
+    // Scroll na konec
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 /**
