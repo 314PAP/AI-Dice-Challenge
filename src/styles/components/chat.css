@@ -284,14 +284,21 @@
 }
 
 /* RESPONSIVE DESIGN */
+@media (min-width: 1201px) {
+  .chat-panel {
+    width: 35%; /* Na širokých obrazovkách zabírá 35% */
+  }
+}
+
 @media (max-width: 1200px) {
   .chat-panel {
     padding: 1em;
     height: 450px;
+    width: 32%;
   }
   
   .chat-panel.collapsed {
-    height: 55px;
+    height: 60px;
   }
 }
 
@@ -299,6 +306,7 @@
   .chat-panel {
     padding: 0.75em;
     height: 400px;
+    width: 100%;
   }
   
   .chat-panel.collapsed {
