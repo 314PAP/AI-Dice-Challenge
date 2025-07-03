@@ -48,6 +48,7 @@
 @import './themes/bootstrap-neon.css';
 
 /* 🔧 UTILITIES */
+@import './utils/fullscreen-fix.css';
 @import './utils/spacing.css';
 @import './utils/colors.css';
 @import './utils/visibility.css';
