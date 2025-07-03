@@ -145,7 +145,18 @@ export function endTurn(scored = true) {
         return;
     }
     
+    // Nastavení příznaku zpracování
     gameState.endTurnProcessing = true;
+    
+    // Bezpečnostní mechanismus - resetujeme příznak po určitém čase v každém případě
+    // abychom předešli "zaseknutí" stavu
+    setTimeout(() => {
+        if (gameState.endTurnProcessing) {
+            console.warn('⚠️ Bezpečnostní reset endTurnProcessing po timeoutu');
+            gameState.endTurnProcessing = false;
+        }
+    }, 2000);
+    
     console.log('🎯 === ENDTURN START ===');
     console.log(`🎯 Player: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
     console.log(`🎯 Scored: ${scored}`); 
@@ -181,6 +192,24 @@ export function endTurn(scored = true) {
                     currentPlayer.hasEnteredGame = true;
                     console.log(`🎮 ENTRY GAME: ${currentPlayer.name} vstoupil do hry s ${gameState.currentTurnScore} body!`);
                     window.addChatMessage('system', `🎮 ${currentPlayer.name} vstoupil do hry!`);
+                    
+                    // Dodatečná vizuální indikace pro lidského hráče
+                    if (currentPlayer.type === 'human') {
+                        const humanPlayerElement = document.getElementById('humanPlayer');
+                        if (humanPlayerElement) {
+                            // Krátká animace "záblesku" pro vstup do hry
+                            const originalTransition = humanPlayerElement.style.transition;
+                            humanPlayerElement.style.transition = 'all 0.5s ease-in-out';
+                            humanPlayerElement.style.transform = 'scale(1.15)';
+                            humanPlayerElement.style.boxShadow = '0 0 30px var(--neon-green), 0 0 50px var(--neon-green)';
+                            
+                            setTimeout(() => {
+                                humanPlayerElement.style.transform = '';
+                                humanPlayerElement.style.boxShadow = '';
+                                humanPlayerElement.style.transition = originalTransition;
+                            }, 800);
+                        }
+                    }
                 }
                 
                 console.log(`💰 SCORE ADDED: ${gameState.currentTurnScore} to player ${gameState.currentPlayer}`);
@@ -257,9 +286,9 @@ export function endTurn(scored = true) {
         updateActivePlayer();
         updateScoreboard();
         
-        // KONTROLA KONCE FINÁLNÍHO KOLA AŽ PO NEXTPLAYER()
+        // KONTROLA KONCE FINÁLNÍHO KOLA SPUŠTĚNO
         if (gameState.finalRound) {
-            console.log(`🔍 Kontrola konce finálního kola PO _nextPlayer(): CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
+            console.log(`🔍 Kontrola konce finálního kola: CurrentPlayer=${gameState.currentPlayer}, Initiator=${gameState.finalRoundInitiator}`);
             
             // Zdůrazněné logování pro debug
             console.log(`🔄 FINÁLNÍ KOLO STATUS: currentPlayer=${gameState.currentPlayer}, initiator=${gameState.finalRoundInitiator}`);

@@ -26,12 +26,36 @@ export const updateGameDisplay = debounce(() => {
     console.log(`🔄 Current player: ${gameState.currentPlayer} (${gameState.players[gameState.currentPlayer]?.name})`);
     console.log(`🔄 Current turn score: ${gameState.currentTurnScore}`);
     console.log(`🔄 Player scores: ${gameState.players.map(p => p.name + ': ' + p.score).join(', ')}`);
+    console.log(`🔄 Game state check - Final round: ${gameState.finalRound}, End turn processing: ${gameState.endTurnProcessing}`);
     
-    updateDiceContainer();
-    updateControlsState();
-    updateScoreboard(); // Přidáno pro aktualizaci skóre u avatarů
-    updateActivePlayer(); // Zajistí správné zvýraznění aktivního hráče
-    updateGameInfo();    // Zajistí aktualizaci informací o tahu a skóre
+    try {
+        // Kontrola konzistence stavu před aktualizací UI
+        if (gameState.currentPlayer >= gameState.players.length) {
+            console.error('⚠️ Neplatný index aktuálního hráče, resetuji na 0');
+            gameState.currentPlayer = 0;
+        }
+        
+        // Zajistíme, že všechny hodnoty jsou platné před aktualizací UI
+        if (gameState.currentTurnScore < 0) {
+            console.warn('⚠️ Negativní skóre tahu opraveno na 0');
+            gameState.currentTurnScore = 0;
+        }
+        
+        // Kontrola zda nedošlo k chybě ve stavu finálního kola
+        if (gameState.finalRound && gameState.finalRoundInitiator === null) {
+            console.error('⚠️ Finální kolo aktivní, ale chybí iniciátor, opravuji...');
+            gameState.finalRoundInitiator = 0; // Defaultně nastavíme na prvního hráče jako pojistka
+        }
+        
+        updateDiceContainer();
+        updateControlsState();
+        updateScoreboard(); // Přidáno pro aktualizaci skóre u avatarů
+        updateActivePlayer(); // Zajistí správné zvýraznění aktivního hráče
+        updateGameInfo();    // Zajistí aktualizaci informací o tahu a skóre
+        
+    } catch (error) {
+        console.error('⚠️ Chyba při aktualizaci herního rozhraní:', error);
+    }
 }, 50);
 
 // 🔄 COMPREHENSIVE UPDATE FUNCTION - Combines all updates
