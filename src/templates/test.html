@@ -1,0 +1,54 @@
+<!-- Mobile Game Menu Component - Bootstrap optimalizace -->
+<div class="game-box h-100 animate__animated animate__fadeIn" id="gameHeaderMobile">
+  <div class="d-flex flex-column h-100">
+    <!-- Nadpis -->
+    <h1 class="game-title text-center neon-text neon-green fs-3 mb-2 animate__animated animate__pulse animate__slow animate__infinite">
+      <i class="ri-dice-line me-1"></i>
+      <span>AI Kostková Výzva</span>
+    </h1>
+    
+    <!-- Cílové skóre -->
+    <div class="text-center neon-text neon-green mb-2 animate__animated animate__fadeIn animate__delay-1s">
+      <span class="d-block mb-1 small">
+        <i class="ri-star-line me-1"></i>Cílové skóre
+      </span>
+      <div class="input-group input-group-sm w-75 mx-auto">
+        <input type="number" id="targetScoreInputMobile" class="form-control bg-black text-neon-green border-neon text-center"
+               value="10000" min="1000" step="1000">
+      </div>
+    </div>
+    
+    <!-- Tlačítka - automaticky zaberou zbývající prostor -->
+    <div class="menu-buttons d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-2 overflow-auto">
+      <!-- Začít hru - Zelená -->
+      <button class="btn btn-neon btn-outline-success w-75 mb-2 animate__animated animate__fadeInUp animate__delay-1s" id="startGameBtnMobile">
+        <i class="ri-gamepad-line me-1"></i>
+        <span>Začít hru</span>
+      </button>
+      
+      <!-- Pravidla - Modrá -->
+      <button class="btn btn-neon btn-outline-primary text-primary w-75 mb-2 animate__animated animate__fadeInUp animate__delay-1s" id="rulesBtnMobile">
+        <i class="ri-book-open-line me-1"></i>
+        <span>Pravidla</span>
+      </button>
+      
+      <!-- Síň slávy - Oranžová -->
+      <button class="btn btn-neon text-warning border-warning w-75 mb-2 animate__animated animate__fadeInUp animate__delay-1s" id="hallOfFameBtnMobile">
+        <i class="ri-trophy-line me-1"></i>
+        <span>Síň slávy</span>
+      </button>
+      
+      <!-- Kup mi kávu - Zelená -->
+      <a href="https://buymeacoffee.com/pipap" target="_blank" class="btn btn-neon btn-outline-success w-75 mb-2 text-decoration-none animate__animated animate__fadeInUp animate__delay-1s">
+        <i class="ri-cup-line me-1"></i>
+        <span>Kup mi kávu</span>
+      </a>
+      
+      <!-- Opustit hru - Červená -->
+      <button class="btn btn-neon btn-outline-danger w-75 animate__animated animate__fadeInUp animate__delay-1s" id="exitGameBtnMobile">
+        <i class="ri-logout-box-line me-1"></i>
+        <span>Opustit hru</span>
+      </button>
+    </div>
+  </div>
+</div>
