@@ -184,18 +184,24 @@
 
     <!-- Hall of Fame Modal -->
     <div id="hallOfFameModal" class="modal-overlay hall-of-fame-modal hidden">
-        <div class="modal-container hall-of-fame-content">
-            <div class="modal-header">
-                <h2 class="modal-title">🏆 Síň slávy</h2>
+        <div class="modal-container bg-dark-90 neon-border rounded">
+            <div class="modal-header border-bottom neon-border p-3">
+                <h2 class="modal-title neon-text m-0"><i class="ri-trophy-line me-2"></i>Síň slávy</h2>
             </div>
-            <div class="modal-body">
+            <div class="modal-body p-4">
                 <div id="hallOfFameContent">
-                    <div id="hallOfFameList"></div>
+                    <div id="hallOfFameList" class="table-responsive"></div>
                 </div>
-                <div class="modal-actions hall-of-fame-actions">
-                    <button id="closeHallOfFameBtn" class="btn btn-primary">🔙 Zpět</button>
-                    <button id="newGameFromHallBtn" class="btn btn-success">🎮 Nová hra</button>
-                    <button id="mainMenuFromHallBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
+                <div class="modal-actions d-flex flex-wrap justify-content-center gap-3 mt-3">
+                    <button id="closeHallOfFameBtn" class="btn btn-neon neon-blue">
+                        <i class="ri-arrow-left-line me-2"></i>Zpět
+                    </button>
+                    <button id="newGameFromHallBtn" class="btn btn-neon neon-green">
+                        <i class="ri-gamepad-line me-2"></i>Nová hra
+                    </button>
+                    <button id="mainMenuFromHallBtn" class="btn btn-neon neon-orange">
+                        <i class="ri-home-line me-2"></i>Hlavní menu
+                    </button>
                 </div>
             </div>
         </div>
