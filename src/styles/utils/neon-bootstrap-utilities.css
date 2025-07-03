@@ -1,0 +1,209 @@
+/* =============================================================================
+   🛠️ UTILITY CLASSES - Konsolidované a optimalizované CSS utility pro Boostrap
+   Kombinace Bootstrap utilit + vlastních neonových efektů
+   ============================================================================= */
+
+/* -------------------------------------------------------------------------- */
+/* 🌈 NEONOVÉ EFEKTY PRO BOOTSTRAP KOMPONENTY                                 */
+/* -------------------------------------------------------------------------- */
+
+/* Neonové barvy pro Bootstrap */
+.neon-green {
+  --neon-color: var(--neon-green, #00ff00);
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+}
+
+.neon-blue {
+  --neon-color: var(--neon-blue, #00ffff);
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+}
+
+.neon-pink {
+  --neon-color: var(--neon-pink, #ff00ff);
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
+}
+
+.neon-orange {
+  --neon-color: var(--neon-orange, #ff8800);
+  color: var(--neon-orange);
+  text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange);
+}
+
+/* Neonové Bootstrap komponenty */
+.btn-neon {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--neon-color, var(--neon-green));
+  color: var(--neon-color, var(--neon-green));
+  text-shadow: 0 0 5px var(--neon-color, var(--neon-green));
+  box-shadow: 0 0 10px rgba(var(--neon-color-rgb, 0, 255, 0), 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+  background-color: rgba(var(--neon-color-rgb, 0, 255, 0), 0.1);
+  box-shadow: 0 0 15px rgba(var(--neon-color-rgb, 0, 255, 0), 0.5);
+  color: var(--neon-color, var(--neon-green));
+}
+
+.card-neon {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--neon-color, var(--neon-green));
+  box-shadow: 0 0 10px rgba(var(--neon-color-rgb, 0, 255, 0), 0.3);
+}
+
+.form-control-neon {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--neon-color, var(--neon-green));
+  color: var(--neon-color, var(--neon-green));
+  box-shadow: 0 0 5px rgba(var(--neon-color-rgb, 0, 255, 0), 0.2);
+}
+
+.form-control-neon:focus {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-color, var(--neon-green));
+  box-shadow: 0 0 10px rgba(var(--neon-color-rgb, 0, 255, 0), 0.4);
+  color: var(--neon-color, var(--neon-green));
+}
+
+/* -------------------------------------------------------------------------- */
+/* 🏃‍♂️ NEONOVÉ ANIMACE (BOOTSTRAP KOMPATIBILNÍ)                                */
+/* -------------------------------------------------------------------------- */
+
+/* Základní pulsující efekt */
+.neon-pulse {
+  animation: neonPulse 2s infinite;
+}
+
+@keyframes neonPulse {
+  0% {
+    text-shadow: 0 0 5px var(--neon-color, var(--neon-green)), 
+                0 0 10px var(--neon-color, var(--neon-green));
+  }
+  50% {
+    text-shadow: 0 0 15px var(--neon-color, var(--neon-green)), 
+                0 0 20px var(--neon-color, var(--neon-green)), 
+                0 0 25px var(--neon-color, var(--neon-green));
+  }
+  100% {
+    text-shadow: 0 0 5px var(--neon-color, var(--neon-green)), 
+                0 0 10px var(--neon-color, var(--neon-green));
+  }
+}
+
+/* Hover animace */
+.neon-grow {
+  transition: all 0.3s ease;
+}
+
+.neon-grow:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(var(--neon-color-rgb, 0, 255, 0), 0.5);
+}
+
+/* Blikající neonový efekt */
+.neon-blink {
+  animation: neonBlink 3s infinite alternate;
+}
+
+@keyframes neonBlink {
+  0%, 80% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Vlnící se efekt pro text */
+.neon-wave {
+  animation: neonWave 5s ease infinite;
+}
+
+@keyframes neonWave {
+  0%, 100% {
+    text-shadow: 0 0 5px var(--neon-color, var(--neon-green)), 
+                0 0 10px var(--neon-color, var(--neon-green));
+  }
+  25% {
+    text-shadow: 0 0 10px var(--neon-color, var(--neon-green)), 
+                0 0 20px var(--neon-color, var(--neon-green)), 
+                0 0 30px var(--neon-color, var(--neon-green));
+  }
+  50% {
+    text-shadow: 0 0 5px var(--neon-color, var(--neon-green)), 
+                0 0 10px var(--neon-color, var(--neon-green));
+  }
+  75% {
+    text-shadow: 0 0 15px var(--neon-color, var(--neon-green)), 
+                0 0 25px var(--neon-color, var(--neon-green)), 
+                0 0 35px var(--neon-color, var(--neon-green));
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 📱 RESPONZIVNÍ UTILITY - OPTIMALIZOVANÉ PRO BOOTSTRAP                      */
+/* -------------------------------------------------------------------------- */
+
+/* Responzivní neonové efekty - silnější na desktopu, slabší na mobilu */
+@media (max-width: 576px) {
+  .neon-green, .neon-blue, .neon-pink, .neon-orange {
+    text-shadow: 0 0 3px var(--neon-color);
+  }
+  
+  .btn-neon {
+    box-shadow: 0 0 5px rgba(var(--neon-color-rgb, 0, 255, 0), 0.2);
+  }
+  
+  .btn-neon:hover {
+    box-shadow: 0 0 8px rgba(var(--neon-color-rgb, 0, 255, 0), 0.3);
+  }
+}
+
+/* Responzivní fontové velikosti (kompatibilní s Bootstrap) */
+@media (max-width: 768px) {
+  .fs-neon-1 { font-size: calc(1.3rem + 1.5vw) !important; }
+  .fs-neon-2 { font-size: calc(1.2rem + 0.9vw) !important; }
+  .fs-neon-3 { font-size: calc(1.1rem + 0.6vw) !important; }
+  .fs-neon-4 { font-size: calc(1rem + 0.3vw) !important; }
+  .fs-neon-5 { font-size: 0.9rem !important; }
+}
+
+/* Tmavé pozadí s průhledností (alternativa k bg-dark) */
+.bg-dark-90 { background-color: rgba(0, 0, 0, 0.9) !important; }
+.bg-dark-80 { background-color: rgba(0, 0, 0, 0.8) !important; }
+.bg-dark-70 { background-color: rgba(0, 0, 0, 0.7) !important; }
+.bg-dark-60 { background-color: rgba(0, 0, 0, 0.6) !important; }
+
+/* -------------------------------------------------------------------------- */
+/* 🧰 DALŠÍ UŽITEČNÉ UTILITY (NENAHRAZENÉ BOOTSTRAPEM)                        */
+/* -------------------------------------------------------------------------- */
+
+/* Neonový rámeček (pro jakýkoliv prvek) */
+.neon-border {
+  border: 1px solid var(--neon-color, var(--neon-green)) !important;
+  box-shadow: 0 0 10px rgba(var(--neon-color-rgb, 0, 255, 0), 0.3) !important;
+}
+
+/* Neonový text (pro jakýkoliv prvek) */
+.neon-text {
+  color: var(--neon-color, var(--neon-green)) !important;
+  text-shadow: 0 0 5px var(--neon-color, var(--neon-green)), 
+              0 0 10px var(--neon-color, var(--neon-green)) !important;
+}
+
+/* Vyčištění z-indexů */
+.z-top { z-index: 1000 !important; }
+.z-modal { z-index: 1050 !important; }
+.z-tooltip { z-index: 1080 !important; }
+
+/* Odstranění problikávání během animací */
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
