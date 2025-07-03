@@ -141,53 +141,49 @@
     </div>
 
     <!-- Game Over Modal -->
-    <div id="gameOverModal" class="modal fade hidden" tabindex="-1" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-dark text-light border border-success">
-                <div class="modal-header border-bottom border-success">
-                    <h2 class="modal-title fs-4">🎮 Konec hry</h2>
+    <div id="gameOverModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">🎮 Konec hry</h2>
+            </div>
+            <div class="modal-body">
+                <div id="winnerAnnouncement" class="winner-announcement"></div>
+                <div id="finalScores" class="final-scores"></div>
+                <div id="gameStats" class="game-stats"></div>
+                
+                <!-- Signature section for human winners -->
+                <div id="signatureSection" class="signature-section hidden">
+                    <h3>🏆 Gratulujeme k vítězství!</h3>
+                    <p>Zadejte svůj podpis pro zápis do síně slávy:</p>
+                    <div class="signature-input">
+                        <input type="text" id="winnerSignature" placeholder="Váš podpis" maxlength="30">
+                        <button id="saveScoreBtn" class="btn btn-success">💾 Uložit skóre</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div id="winnerAnnouncement" class="winner-announcement mb-3"></div>
-                    <div id="finalScores" class="final-scores mb-3"></div>
-                    <div id="gameStats" class="game-stats mb-3"></div>
-                    
-                    <!-- Signature section for human winners -->
-                    <div id="signatureSection" class="signature-section hidden border border-success rounded p-3 mb-3">
-                        <h3 class="fs-5">🏆 Gratulujeme k vítězství!</h3>
-                        <p>Zadejte svůj podpis pro zápis do síně slávy:</p>
-                        <div class="input-group mb-3">
-                            <input type="text" id="winnerSignature" class="form-control bg-dark text-light border-success" placeholder="Váš podpis" maxlength="30">
-                            <button id="saveScoreBtn" class="btn btn-outline-success">💾 Uložit skóre</button>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex flex-wrap justify-content-center gap-2">
-                        <button id="showHallOfFameBtn" class="btn btn-outline-primary">🏆 Zobrazit síň slávy</button>
-                        <button id="startNewGameBtn" class="btn btn-outline-success">🔄 Nová hra</button>
-                        <button id="returnToMenuBtn" class="btn btn-outline-secondary">🏠 Hlavní menu</button>
-                    </div>
+                
+                <div class="modal-actions">
+                    <button id="showHallOfFameBtn" class="btn btn-primary">🏆 Zobrazit síň slávy</button>
+                    <button id="startNewGameBtn" class="btn btn-secondary">🔄 Nová hra</button>
+                    <button id="returnToMenuBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Hall of Fame Modal -->
-    <div id="hallOfFameModal" class="modal fade hall-of-fame-modal hidden" tabindex="-1" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-dark text-light border border-warning">
-                <div class="modal-header border-bottom border-warning">
-                    <h2 class="modal-title fs-4">🏆 Síň slávy</h2>
+    <div id="hallOfFameModal" class="modal-overlay hall-of-fame-modal hidden">
+        <div class="modal-container hall-of-fame-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🏆 Síň slávy</h2>
+            </div>
+            <div class="modal-body">
+                <div id="hallOfFameContent">
+                    <div id="hallOfFameList"></div>
                 </div>
-                <div class="modal-body">
-                    <div id="hallOfFameContent" class="mb-4">
-                        <div id="hallOfFameList" class="table-responsive"></div>
-                    </div>
-                    <div class="d-flex flex-wrap justify-content-center gap-2">
-                        <button id="closeHallOfFameBtn" class="btn btn-outline-primary">🔙 Zpět</button>
-                        <button id="newGameFromHallBtn" class="btn btn-outline-success">🎮 Nová hra</button>
-                        <button id="mainMenuFromHallBtn" class="btn btn-outline-secondary">🏠 Hlavní menu</button>
-                    </div>
+                <div class="modal-actions hall-of-fame-actions">
+                    <button id="closeHallOfFameBtn" class="btn btn-primary">🔙 Zpět</button>
+                    <button id="newGameFromHallBtn" class="btn btn-success">🎮 Nová hra</button>
+                    <button id="mainMenuFromHallBtn" class="btn btn-secondary">🏠 Hlavní menu</button>
                 </div>
             </div>
         </div>
