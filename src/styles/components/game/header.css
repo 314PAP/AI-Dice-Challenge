@@ -15,7 +15,7 @@
   letter-spacing: 0.5px;
   line-height: 1.0;
   text-shadow: var(--glow-large);
-  animation: neon-pulse 3s ease-in-out infinite;
+  /* Odstraněna animace neon-pulse, která způsobovala konflikt */
   display: flex;
   align-items: center;
   justify-content: center;
