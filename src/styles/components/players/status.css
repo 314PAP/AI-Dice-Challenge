@@ -21,24 +21,30 @@
   background: var(--neon-green);
 }
 
-/* FARKLE EFFECT - výrazný červený efekt při FARKLE */
+/* FARKLE EFFECT - výrazný červený efekt při FARKLE - pouze na okrajích */
 .farkle-effect {
   animation: none;
   z-index: 100;
+  border-color: var(--neon-red);
+  box-shadow: 0 0 15px var(--neon-red), 0 0 25px var(--neon-red);
 }
 
 .farkle-glow {
   animation: farkle-avatar-pulse 1s infinite alternate;
-  box-shadow: 0 0 20px #ff0040 !important;
+  box-shadow: 0 0 20px #ff0040, 0 0 30px #ff0040 !important;
+  border: 2px solid #ff0040;
+  background-color: transparent !important;
 }
 
 /* Speciální FARKLE overlay zpráva */
 .farkle-overlay-message {
-  font-family: 'Orbitron', monospace;
-  letter-spacing: 1px;
-  animation: farkle-message-pulse 1s infinite alternate;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 2px;
+  animation: farkle-message-pulse 1.2s infinite alternate;
   border: 2px solid #ff0040;
-  text-shadow: 0 0 5px #ff0040, 0 0 10px #ff0040;
+  text-shadow: 0 0 5px #ff0040, 0 0 10px #ff0040, 0 0 15px #ff0040;
+  background-color: transparent !important;
+  color: #ff0040 !important;
 }
 
 @keyframes farkle-pulse {

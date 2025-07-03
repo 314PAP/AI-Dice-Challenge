@@ -23,21 +23,21 @@
 }
 
 .dice.banked {
-  border-color: var(--gray-text);
-  color: var(--gray-text);
-  background: rgba(128, 128, 128, 0.1);
-  opacity: 0.5;
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  background: rgba(0, 128, 255, 0.15);
+  opacity: 0.7;
   cursor: default;
   pointer-events: none;
-  box-shadow: none;
+  box-shadow: 0 0 8px rgba(0, 128, 255, 0.5);
   transform: none;
 }
 
 .dice.banked:hover {
   transform: none;
-  box-shadow: none;
-  border-color: var(--gray-text);
-  color: var(--gray-text);
+  box-shadow: 0 0 8px rgba(0, 128, 255, 0.5);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
 }
 
 .dice.locked {

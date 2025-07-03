@@ -65,17 +65,20 @@ export function showFarkleMessage(playerIndex) {
         top: -40px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: rgba(255, 0, 40, 0.9);
-        color: white;
+        background-color: transparent;
+        color: #ff0040;
         font-weight: bold;
         padding: 5px 15px;
         border-radius: 5px;
-        box-shadow: 0 0 20px #ff0040, 0 0 40px #ff0040;
+        border: 2px solid #ff0040;
+        box-shadow: 0 0 10px #ff0040, 0 0 20px #ff0040, 0 0 30px #ff0040;
+        text-shadow: 0 0 5px #ff0040, 0 0 10px #ff0040, 0 0 15px #ff0040;
         z-index: 1000;
         animation: farkle-message-pulse 1s infinite alternate;
-        font-size: 16px;
+        font-size: 18px;
         white-space: nowrap;
         pointer-events: none;
+        font-family: 'Orbitron', sans-serif;
     `;
     
     // Zobrazit klasickou bublinu jako zálohu
