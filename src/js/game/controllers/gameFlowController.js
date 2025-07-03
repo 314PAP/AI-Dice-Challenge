@@ -124,7 +124,7 @@ export function playerTurn() {
         // Lidský hráč - clear any leftover UI state and show fresh turn
         console.log('🎮 Human player turn starting');
     } else {
-        // AI hráč - but AI actions are handled in endTurn, not here
+        // AI hráč - ale akce AI se provádějí v endTurn, ne zde
         const aiPlayer = getCurrentPlayer();
         console.log(`🤖 AI player turn setup: ${aiPlayer.name}`);
         console.log('🔍 AI Player object:', aiPlayer);
@@ -305,7 +305,7 @@ export function endTurn(scored = true) {
                 console.log(`🏆 VÍTĚZ: ${winner.name} s ${winner.score} body`);
                 
                 // Důležité: Zajistíme okamžitou aktualizaci skóre a resetování endTurnProcessing
-                // aby nedošlo k "zaseknutí" stavu při přechodu do konečných obrazovek
+                // aby nedocházelo k "zaseknutí" stavu při přechodu do konečných obrazovek
                 gameState.endTurnProcessing = false;
                 
                 // Aktualizujeme skóre ještě před ukončením hry
@@ -529,47 +529,81 @@ export function returnToMainMenu() {
     // Reset game state
     resetGameState();
     
-    // Hide all modals
-    const gameOverModal = document.getElementById('gameOverModal');
-    const hallOfFameModal = document.getElementById('hallOfFameModal');
-    
-    if (gameOverModal) {
-        gameOverModal.classList.add('hidden');
-        gameOverModal.classList.remove('visible');
+    try {
+        // Hide all modals
+        const gameOverModal = document.getElementById('gameOverModal');
+        const hallOfFameModal = document.getElementById('hallOfFameModal');
+        
+        if (gameOverModal) {
+            gameOverModal.classList.add('hidden');
+            gameOverModal.classList.remove('visible');
+        }
+        
+        if (hallOfFameModal) {
+            hallOfFameModal.classList.add('hidden');
+            hallOfFameModal.classList.remove('visible');
+        }
+        
+        // Show target score setup and hide game controls
+        const targetScoreSetup = document.getElementById('targetScoreSetup');
+        const gameControls = document.getElementById('gameControls');
+        const playersContainer = document.querySelector('.players-container');
+        
+        if (targetScoreSetup) targetScoreSetup.classList.remove('hidden');
+        if (gameControls) gameControls.classList.add('hidden');
+        if (playersContainer) playersContainer.classList.add('hidden');
+        
+        // Remove game-active class to show avatars
+        document.body.classList.remove('game-active');
+        
+        // Reset target score input to default
+        const targetScoreInput = document.getElementById('targetScoreInput');
+        if (targetScoreInput) {
+            targetScoreInput.value = '10000';
+        }
+        
+        // Resetování jakýchkoliv zůstatkových stavů tlačítek
+        const allButtons = document.querySelectorAll('button');
+        allButtons.forEach(button => {
+            button.disabled = false;
+        });
+        
+        // Vyčistíme chat
+        const chatContainer = document.getElementById('chatContainer');
+        if (chatContainer) {
+            // Ponecháme jen základní systémové zprávy pro začátek
+            const systemMessages = chatContainer.querySelectorAll('.system-message');
+            const otherMessages = chatContainer.querySelectorAll('.message:not(.system-message)');
+            
+            // Odstraníme zprávy, které nejsou systémové
+            otherMessages.forEach(msg => msg.remove());
+            
+            // Ponecháme pouze první systémovou zprávu, pokud existuje
+            if (systemMessages.length > 1) {
+                for (let i = 1; i < systemMessages.length; i++) {
+                    systemMessages[i].remove();
+                }
+            }
+        }
+        
+        // Reset kostky
+        const diceContainer = document.getElementById('diceContainer');
+        if (diceContainer) {
+            diceContainer.innerHTML = '';
+        }
+        
+        // Reset banked dice
+        const bankedDiceContainer = document.getElementById('bankedDiceContainer');
+        if (bankedDiceContainer) {
+            bankedDiceContainer.innerHTML = '';
+        }
+        
+        console.log('✅ Návrat do hlavního menu dokončen');
+    } catch (error) {
+        console.error('⚠️ Chyba při návratu do menu:', error);
+        // I při chybě se pokusíme vrátit do menu
+        resetGameState();
     }
-    
-    if (hallOfFameModal) {
-        hallOfFameModal.classList.add('hidden');
-        hallOfFameModal.classList.remove('visible');
-    }
-    
-    // Show target score setup and hide game controls
-    const targetScoreSetup = document.getElementById('targetScoreSetup');
-    const gameControls = document.getElementById('gameControls');
-    const playersContainer = document.querySelector('.players-container');
-    
-    if (targetScoreSetup) targetScoreSetup.classList.remove('hidden');
-    if (gameControls) gameControls.classList.add('hidden');
-    if (playersContainer) playersContainer.classList.add('hidden');
-    
-    // Remove game-active class to show avatars
-    document.body.classList.remove('game-active');
-    
-    // Reset target score input to default
-    const targetScoreInput = document.getElementById('targetScoreInput');
-    if (targetScoreInput) {
-        targetScoreInput.value = '10000';
-    }
-    
-    // Clear chat messages
-    const chatMessages = document.getElementById('chatMessages');
-    if (chatMessages) {
-        chatMessages.innerHTML = '';
-    }
-    
-    // Update displays
-    updateGameDisplay();
-    updateScoreboard();
 }
 
 /**
@@ -677,4 +711,99 @@ export function saveScore() {
     }
     
     console.log('🏆 Skóre uloženo do síně slávy!');
+}
+
+/**
+ * Uloží výsledek hry do síně slávy (Hall of Fame)
+ */
+export function saveToHallOfFame() {
+    console.log('🏆 Ukládání výsledku do síně slávy...');
+    
+    try {
+        // Získat podpis vítěze
+        const signatureInput = document.getElementById('winnerSignature');
+        if (!signatureInput) {
+            console.error('⚠️ Element podpisu nenalezen!');
+            return;
+        }
+        
+        const signature = signatureInput.value.trim();
+        if (!signature) {
+            alert('Prosím zadejte své jméno!');
+            return;
+        }
+        
+        // Ochrana proti XSS
+        const sanitizedSignature = signature
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+        
+        // Zkontrolujeme, zda hra již skončila a máme platné skóre
+        if (!gameState.gameEnded) {
+            console.error('⚠️ Pokus o uložení skóre před koncem hry!');
+            return;
+        }
+        
+        const winner = gameState.players.reduce((prev, current) => 
+            (prev.score > current.score) ? prev : current);
+        
+        // Pouze lidští hráči mohou ukládat do síně slávy
+        if (winner.type !== 'human') {
+            alert('Do síně slávy se mohou ukládat pouze výsledky lidských hráčů!');
+            return;
+        }
+        
+        // Vytvoření objektu výsledku
+        const gameResult = createGameResult(gameState, sanitizedSignature, gameState.gameStartTime, gameState.totalTurns || 0);
+        
+        // Uložení výsledku
+        saveGameResult(gameResult);
+        
+        // Clear signature input after saving
+        if (signatureInput) {
+            signatureInput.value = '';
+        }
+        
+        // Hide signature section since score is now saved
+        const signatureSection = document.getElementById('signatureSection');
+        if (signatureSection) {
+            signatureSection.classList.add('hidden');
+        }
+        
+        // Show success message
+        window.addChatMessage('system', `🏆 Skóre uloženo do síně slávy jako "${sanitizedSignature}"!`);
+        
+        // Show success feedback in the modal
+        const gameOverModal = document.getElementById('gameOverModal');
+        if (gameOverModal) {
+            const modalBody = gameOverModal.querySelector('.modal-body');
+            if (modalBody) {
+                // Add success message to modal
+                let successMsg = modalBody.querySelector('.save-success');
+                if (!successMsg) {
+                    successMsg = document.createElement('div');
+                    successMsg.className = 'save-success';
+                    successMsg.style.cssText = `
+                        color: var(--neon-green);
+                        background: rgba(57, 255, 20, 0.1);
+                        border: 1px solid var(--neon-green);
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin: 10px 0;
+                        text-align: center;
+                        animation: neon-glow 2s ease-in-out infinite;
+                    `;
+                    modalBody.insertBefore(successMsg, modalBody.querySelector('.modal-actions'));
+                }
+                successMsg.innerHTML = `🏆 Skóre úspěšně uloženo do Síně slávy jako "<strong>${sanitizedSignature}</strong>"!<br><small>Můžete si nyní vybrat další akci:</small>`;
+            }
+        }
+        
+        console.log('🏆 Skóre uloženo do síně slávy!');
+    } catch (error) {
+        console.error('⚠️ Chyba při ukládání do síně slávy:', error);
+        alert('Nastala chyba při ukládání výsledku. Zkuste to prosím znovu.');
+    }
 }
