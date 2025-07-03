@@ -44,6 +44,7 @@
 @import './icons/game-icons.css';
 @import './components/icons.css';
 @import './themes/neon-dark.css';
+@import './themes/bootstrap-neon.css';
 
 /* 🔧 UTILITIES */
 @import './utils/spacing.css';
