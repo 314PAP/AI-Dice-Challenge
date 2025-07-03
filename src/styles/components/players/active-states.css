@@ -7,6 +7,7 @@
   animation: player-active-pulse 2s ease-in-out infinite;
   z-index: 5;
   transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: rgba(0, 0, 0, 0.8) !important;
 }
 
 #playersContainer .player.active::before {
@@ -32,13 +33,8 @@
     0 0 50px rgba(57, 255, 20, 0.6);
 }
 
-#playersContainer .player.human-player.active::before {
-  background: linear-gradient(
-    45deg,
-    var(--neon-green),
-    var(--neon-blue),
-    var(--neon-green)
-  );
+#playersContainer .player.human-player.active {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 #playersContainer .player.human-player.active .player-head {
@@ -64,13 +60,8 @@
     0 0 50px rgba(30, 144, 255, 0.6);
 }
 
-#playersContainer .player.gemini-player.active::before {
-  background: linear-gradient(
-    45deg,
-    var(--neon-blue),
-    var(--neon-green),
-    var(--neon-blue)
-  );
+#playersContainer .player.gemini-player.active {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 #playersContainer .player.gemini-player.active .player-head {
@@ -96,13 +87,8 @@
     0 0 50px rgba(255, 105, 180, 0.6);
 }
 
-#playersContainer .player.chatgpt-player.active::before {
-  background: linear-gradient(
-    45deg,
-    var(--neon-pink),
-    var(--neon-blue),
-    var(--neon-pink)
-  );
+#playersContainer .player.chatgpt-player.active {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 #playersContainer .player.chatgpt-player.active .player-head {
@@ -128,13 +114,8 @@
     0 0 50px rgba(255, 165, 0, 0.6);
 }
 
-#playersContainer .player.claude-player.active::before {
-  background: linear-gradient(
-    45deg,
-    var(--neon-orange),
-    var(--neon-yellow),
-    var(--neon-orange)
-  );
+#playersContainer .player.claude-player.active {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 #playersContainer .player.claude-player.active .player-head {
