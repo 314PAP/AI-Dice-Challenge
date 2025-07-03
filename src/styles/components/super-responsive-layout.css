@@ -121,9 +121,13 @@ body {
     width: 90vw;
     padding: var(--container-padding);
     gap: var(--content-gap);
+    /* Pouze vnější rámeček, ne na vnitřních prvcích */
+    border: var(--border-width) solid var(--neon-green);
+    box-shadow: var(--neon-glow);
+    border-radius: var(--border-radius);
   }
   
-  /* Rozdělení obrazovky na dva panely s flexibilním poměrem */
+  /* Rozdělení obrazovky na dva panely s flexibilním poměrem pro portrét */
   .row.g-0.h-75 {
     flex: 3;
     min-height: 0;
@@ -132,8 +136,8 @@ body {
   
   .row.g-0.h-20 {
     flex: 1;
-    min-height: min(120px, 25vh);
-    max-height: 35vh;
+    min-height: min(100px, 20vh);
+    max-height: 30vh;
   }
   
   /* Zajištění plné výšky pro kontejnery */
