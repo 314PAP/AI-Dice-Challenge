@@ -158,3 +158,13 @@
   margin: 0.5rem 0;
   opacity: 0.6;
 }
+
+/* Neon pulse animace */
+@keyframes neon-pulse {
+  0% {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  }
+  100% {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}

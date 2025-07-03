@@ -23,7 +23,7 @@ function quitGame() {
 /**
  * Show rules modal
  */
-function showRules() {
+export function showRules() {
     console.log('📖 Zobrazuji pravidla...');
     const rulesModal = document.getElementById('rulesModal');
     if (rulesModal) {
@@ -34,7 +34,7 @@ function showRules() {
 /**
  * Hide rules modal
  */
-function hideRules() {
+export function hideRules() {
     console.log('🔙 Skrývám pravidla...');
     const rulesModal = document.getElementById('rulesModal');
     if (rulesModal) {
