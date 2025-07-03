@@ -135,10 +135,9 @@ export class ChatInterface {
   
   /**
    * Generuje demo odpověď pro testování
-   * @param {string} userMessage - Zpráva od uživatele
    * @returns {string} - Odpověď AI
    */
-  generateDemoResponse(userMessage) {
+  generateDemoResponse() {
     const responses = [
       'Zajímavá strategie!',
       'To je dobrý tah.',

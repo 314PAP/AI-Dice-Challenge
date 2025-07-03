@@ -234,18 +234,6 @@ export function setupEventListeners() {
                 }
             });
         }
-        }
-        
-        // Target score input change
-        const targetScoreInput = document.getElementById('targetScoreInput');
-        if (targetScoreInput) {
-            targetScoreInput.addEventListener('change', () => {
-                const targetScoreDisplay = document.getElementById('targetScoreDisplay');
-                if (targetScoreDisplay) {
-                    targetScoreDisplay.textContent = targetScoreInput.value;
-                }
-            });
-        }
 
         // Modal close buttons
         setupModalEventListeners();
@@ -256,7 +244,7 @@ export function setupEventListeners() {
         console.log('✅ Event listenery nastaveny');
         eventListenersSetup = true; // Označit, že jsou event listenery nastavené
     }, 100);
-}
+};
 
 // ========================================
 // 📱 MOBILNÍ VERZE TLAČÍTEK
