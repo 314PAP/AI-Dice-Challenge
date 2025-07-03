@@ -207,11 +207,22 @@ export function setupEventListeners() {
                             chatBox.classList.add('chat-expanded');
                             chatToggle.textContent = '−';
                             chatToggle.title = 'Sbalit chat';
+                            // Scroll to bottom při rozbalení
+                            setTimeout(() => {
+                                const chatMessages = chatPanel.querySelector('.chat-messages');
+                                if (chatMessages) {
+                                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                                }
+                            }, 100);
                         } else {
                             chatBox.classList.remove('chat-expanded');
                             chatBox.classList.add('chat-collapsed');
                             chatToggle.textContent = '+';
                             chatToggle.title = 'Rozbalit chat';
+                            // Zajistit zobrazení posledních zpráv
+                            setTimeout(() => {
+                                this.showLastMessages();
+                            }, 100);
                         }
                     } else {
                         // Desktop verze - původní funkcionalita

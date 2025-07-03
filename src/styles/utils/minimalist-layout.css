@@ -485,14 +485,15 @@
     max-height: 80px !important;
     overflow: hidden !important;
     display: flex !important;
-    flex-direction: column-reverse !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
   }
   
-  .chat-collapsed .chat-messages .message {
+  .chat-collapsed .chat-messages .chat-message {
     margin-bottom: 0.25rem !important;
   }
   
-  .chat-collapsed .chat-messages .message:nth-last-child(n+3) {
+  .chat-collapsed .chat-messages .chat-message:nth-last-child(n+3) {
     display: none !important;
   }
   
@@ -510,7 +511,7 @@
   }
   
   /* Chat zprávy styling pro mobilní */
-  .chat-messages .message {
+  .chat-messages .chat-message {
     font-size: 0.8rem !important;
     padding: 0.25rem !important;
     margin-bottom: 0.5rem !important;
