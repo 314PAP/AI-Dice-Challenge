@@ -30,6 +30,7 @@
 @import './animations/keyframes.css';
 @import './animations/transitions.css';
 @import './animations/neon-effects.css';
+@import './animations/activePlayerAnimation.css';
 
 /* 🎨 ICONS & THEMES */
 @import './icons/neon-icons.css';
