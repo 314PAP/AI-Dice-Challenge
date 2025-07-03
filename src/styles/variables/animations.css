@@ -1,0 +1,77 @@
+/* =============================================================================
+   🎬 ANIMATIONS - Animace, přechody a neonové efekty
+   ============================================================================= */
+
+:root {
+  /* Základní doba trvání animací */
+  --animation-speed-slow: 1s;
+  --animation-speed-medium: 0.5s;
+  --animation-speed-fast: 0.25s;
+  
+  /* Křivky pro plynulost animací */
+  --animation-curve-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-curve-entry: cubic-bezier(0, 0, 0.2, 1);
+  --animation-curve-exit: cubic-bezier(0.4, 0, 1, 1);
+  --animation-curve-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Neonová pulzace */
+  --neon-pulse-speed: 2s;
+  --neon-pulse-min: 0.7;
+  --neon-pulse-max: 1;
+  
+  /* Neonové stíny */
+  --neon-green-shadow: 0 0 7px var(--neon-green), 0 0 10px var(--neon-green);
+  --neon-blue-shadow: 0 0 7px var(--neon-blue), 0 0 10px var(--neon-blue);
+  --neon-orange-shadow: 0 0 7px var(--neon-orange), 0 0 10px var(--neon-orange);
+  --neon-pink-shadow: 0 0 7px var(--neon-pink), 0 0 10px var(--neon-pink);
+  --neon-red-shadow: 0 0 7px var(--neon-red), 0 0 10px var(--neon-red);
+  --neon-yellow-shadow: 0 0 7px var(--neon-yellow), 0 0 10px var(--neon-yellow);
+  
+  /* Přechody pro interaktivní prvky */
+  --transition-hover: all 0.2s ease-in-out;
+  --transition-click: all 0.1s ease-in-out;
+  --transition-show: opacity 0.3s ease-in-out;
+}
+
+/* Klíčové snímky pro neonové pulzování */
+@keyframes neonPulse {
+  0%, 100% {
+    opacity: var(--neon-pulse-min);
+  }
+  50% {
+    opacity: var(--neon-pulse-max);
+  }
+}
+
+/* Klíčové snímky pro blikání */
+@keyframes neonBlink {
+  0%, 19%, 21%, 23%, 100% {
+    opacity: var(--neon-pulse-max);
+  }
+  20%, 22% {
+    opacity: var(--neon-pulse-min);
+  }
+}
+
+/* Klíčové snímky pro vibraci */
+@keyframes neonVibrate {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-1px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(1px);
+  }
+}
+
+/* Klíčové snímky pro vlnění */
+@keyframes neonWave {
+  0%, 100% {
+    box-shadow: var(--neon-green-shadow);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--neon-green), 0 0 20px var(--neon-green);
+  }
+}
