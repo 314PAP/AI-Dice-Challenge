@@ -179,6 +179,14 @@
 .bg-dark-80 { background-color: rgba(0, 0, 0, 0.8) !important; }
 .bg-dark-70 { background-color: rgba(0, 0, 0, 0.7) !important; }
 .bg-dark-60 { background-color: rgba(0, 0, 0, 0.6) !important; }
+.bg-dark-50 { background-color: rgba(0, 0, 0, 0.5) !important; }
+.bg-dark-40 { background-color: rgba(0, 0, 0, 0.4) !important; }
+
+/* Neonové pozadí s mírnými odlesky (vynikne ve tmě) */
+.bg-neon-green { background-color: rgba(0, 255, 0, 0.05) !important; }
+.bg-neon-blue { background-color: rgba(0, 255, 255, 0.05) !important; }
+.bg-neon-pink { background-color: rgba(255, 0, 255, 0.05) !important; }
+.bg-neon-orange { background-color: rgba(255, 136, 0, 0.05) !important; }
 
 /* -------------------------------------------------------------------------- */
 /* 🧰 DALŠÍ UŽITEČNÉ UTILITY (NENAHRAZENÉ BOOTSTRAPEM)                        */

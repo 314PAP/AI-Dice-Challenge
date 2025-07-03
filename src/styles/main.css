@@ -15,11 +15,11 @@
 @import './base/reset.css';
 @import './base/typography.css';
 
-/* 📐 LAYOUT SYSTEM */
+/* 📐 LAYOUT SYSTEM - BOOTSTRAP BASED */
 @import './layout/grid.css';
 @import './layout/containers.css';
 @import './layout/responsive.css';
-@import './layout/grid/app-layout.css';
+@import './layout/grid/bootstrap-alternatives.css';
 @import './layout/grid/chat-layout.css';
 
 /* 🧩 COMPONENTS */
