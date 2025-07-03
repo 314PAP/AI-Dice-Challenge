@@ -523,10 +523,21 @@
   box-shadow: none !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
   color: var(--neon-green) !important;
+  border-radius: 0.25rem !important;
 }
 
 .chat-input .form-control::placeholder {
   color: rgba(57, 255, 20, 0.5) !important;
+}
+
+/* Oprava odesílacího tlačítka */
+#sendMessageBtn,
+#sendChatBtnMobile {
+  background: transparent !important;
+  border: none !important;
+  color: var(--neon-green) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
 }
 
 /* Oprava zaoblených rohů chatu */
@@ -534,6 +545,14 @@
   border-radius: 0.5rem !important;
 }
 
+/* Dodatečné vlastnosti pro chat */
+#chatPanel .rounded-3,
+#chatPanelMobile .rounded-3 {
+  border-radius: 0.5rem !important;
+  overflow: hidden;
+}
+
+/* Horní a dolní části chatu */
 .chat-header {
   border-radius: 0.5rem 0.5rem 0 0 !important;
 }
@@ -542,17 +561,14 @@
   border-radius: 0 0 0.5rem 0.5rem !important;
 }
 
-/* Odesílací tlačítko bez neonového efektu */
-.chat-input button i {
-  transition: color 0.2s ease;
+/* Výška pro mobilní chat */
+.h-25 {
+  height: 25% !important;
 }
 
-.chat-input button:hover i {
-  color: var(--neon-green) !important;
-}
-
-/* Dodatečná velikost pro odesílací ikonu */
-#sendMessageBtn i,
-#sendChatBtnMobile i {
-  font-size: 1.5rem;
+/* Mezera mezi menu a chatem na mobilu */
+@media (max-width: 767.98px) {
+  .mt-1 {
+    margin-top: 0.5rem !important;
+  }
 }
