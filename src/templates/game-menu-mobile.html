@@ -1,14 +1,14 @@
-<!-- Mobile Game Menu Component -->
+<!-- Mobile Game Menu Component - Vylepšená verze s plynulou responzivitou -->
 <div class="game-header text-center d-block d-md-none" id="gameHeaderMobile">
-    <!-- Nadpis uprostřed nahoře - plně responzivní -->
+    <!-- Nadpis uprostřed nahoře - super responzivní -->
     <h1 class="game-title neon-text">
         <i class="ri-dice-line me-1"></i>
         <span class="title-text">AI Kostková Výzva</span>
     </h1>
     
-    <!-- Neonová kostka pod nadpisem - responzivní -->
+    <!-- Neonová kostka pod nadpisem - plynulá velikost -->
     <div class="neon-dice-decoration">
-        <i class="ri-dice-6-line dice-icon neon-green"></i>
+        <i class="ri-dice-6-line dice-icon neon-green" style="font-size: clamp(1.5rem, calc(1.2rem + 1.5vw), 2.5rem);"></i>
     </div>
     
     <!-- Nápis "Cílové skóre" bez rámečku - responzivní -->
@@ -16,13 +16,14 @@
         <i class="ri-star-line me-1"></i><span class="score-label-text">Cílové skóre</span>
     </div>
     
-    <!-- Orámečkované nastavení skóre - responzivní -->
+    <!-- Orámečkované nastavení skóre - vylepšená responzivita -->
     <div class="target-score-input">
-        <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center w-75 mx-auto" value="10000" min="1000" step="1000">
+        <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center w-75 mx-auto" 
+               value="10000" min="1000" step="1000">
     </div>
     
-    <!-- Tlačítka ve správném pořadí s střídajícími se barvami - plně responzivní -->
-    <div class="menu-buttons">
+    <!-- Tlačítka s konzistentními mezerami a plynulou responzivitou -->
+    <div class="menu-buttons gap-consistent">
         <!-- Začít hru - Zelená -->
         <button class="btn btn-neon neon-green" id="startGameBtnMobile">
             <i class="ri-gamepad-line me-1"></i>
