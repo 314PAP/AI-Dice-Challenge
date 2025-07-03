@@ -528,3 +528,25 @@
 .chat-input .form-control::placeholder {
   color: rgba(57, 255, 20, 0.5) !important;
 }
+
+/* Oprava zaoblených rohů chatu */
+.rounded-3 {
+  border-radius: 0.5rem !important;
+}
+
+.chat-header {
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+.chat-input {
+  border-radius: 0 0 0.5rem 0.5rem !important;
+}
+
+/* Odesílací tlačítko bez neonového efektu */
+.chat-input button i {
+  transition: color 0.2s ease;
+}
+
+.chat-input button:hover i {
+  color: var(--neon-green) !important;
+}
