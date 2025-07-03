@@ -284,6 +284,81 @@ export function setupEventListeners() {
     }, 100);
 }
 
+// ========================================
+// 📱 MOBILNÍ VERZE TLAČÍTEK
+// ========================================
+
+// Mobile Start Game button
+const startGameBtnMobile = document.getElementById('startGameBtnMobile');
+if (startGameBtnMobile) {
+    console.log('✅ Přidávám event listener pro Mobile Start Game');
+    startGameBtnMobile.addEventListener('click', () => {
+        console.log('🚀 Mobile Start Game button clicked!');
+        const targetScoreInputMobile = document.getElementById('targetScoreInputMobile');
+        const targetScore = parseInt(targetScoreInputMobile.value);
+        
+        if (targetScore >= 1000) {
+            startGame();
+        } else {
+            alert('Cílové skóre musí být alespoň 1000 bodů!');
+        }
+    });
+}
+
+// Mobile Rules button
+const rulesBtnMobile = document.getElementById('rulesBtnMobile');
+if (rulesBtnMobile) {
+    console.log('✅ Přidávám event listener pro Mobile Rules');
+    rulesBtnMobile.addEventListener('click', showRules);
+}
+
+// Mobile Hall of Fame button
+const hallOfFameBtnMobile = document.getElementById('hallOfFameBtnMobile');
+if (hallOfFameBtnMobile) {
+    console.log('✅ Přidávám event listener pro Mobile Hall of Fame');
+    hallOfFameBtnMobile.addEventListener('click', () => {
+        console.log('🏆 Mobile Hall of Fame button clicked!');
+        displayHallOfFame();
+    });
+}
+
+// Mobile Exit Game button
+const exitGameBtnMobile = document.getElementById('exitGameBtnMobile');
+if (exitGameBtnMobile) {
+    console.log('✅ Přidávám event listener pro Mobile Exit Game');
+    exitGameBtnMobile.addEventListener('click', () => {
+        console.log('🚪 Mobile Exit Game clicked!');
+        window.location.href = 'https://github.com/pipap';
+    });
+}
+
+// Mobile Quit Game button (během hry)
+const quitGameBtnMobile = document.getElementById('quitGameBtnMobile');
+if (quitGameBtnMobile) {
+    console.log('✅ Přidávám event listener pro Mobile Quit Game');
+    quitGameBtnMobile.addEventListener('click', quitGame);
+}
+
+// Mobile Chat toggle button
+const toggleChatBtn = document.getElementById('toggleChatBtn');
+if (toggleChatBtn) {
+    console.log('✅ Přidávám event listener pro Mobile Chat Toggle');
+    toggleChatBtn.addEventListener('click', toggleMobileChat);
+}
+
+// Mobile Chat send button
+const sendChatBtnMobile = document.getElementById('sendChatBtnMobile');
+const chatInputMobile = document.getElementById('chatInputMobile');
+if (sendChatBtnMobile && chatInputMobile) {
+    console.log('✅ Přidávám event listener pro Mobile Chat Send');
+    sendChatBtnMobile.addEventListener('click', () => sendMobileChatMessage());
+    chatInputMobile.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMobileChatMessage();
+        }
+    });
+}
+
 /**
  * Nastavuje event listenery pro modální okna
  */
