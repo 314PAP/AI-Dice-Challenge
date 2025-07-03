@@ -80,10 +80,10 @@
 /* Menu tlačítka - responzivní design */
 .menu-btn {
   width: 100%;
-  max-width: 250px;
-  min-height: 45px;
+  max-width: 280px;
+  min-height: 48px;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: all 0.3s ease;
   border: 2px solid currentColor;
   margin: 0 auto;
@@ -91,6 +91,8 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
 }
 
 .menu-btn:hover {
@@ -98,12 +100,33 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Menu buttons container - responzivní s paddingem */
+.menu-buttons {
+  padding: 0 1.5rem;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Score label styling */
+.score-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 /* Responzivní úpravy pro menší obrazovky */
 @media (max-width: 768px) {
   .menu-btn {
-    max-width: 200px;
-    min-height: 40px;
-    font-size: 0.85rem;
+    max-width: 240px;
+    min-height: 44px;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .menu-buttons {
+    padding: 0 1rem;
+    max-width: 280px;
   }
   
   .dice-icon {
@@ -121,9 +144,15 @@
 
 @media (max-width: 576px) {
   .menu-btn {
-    max-width: 180px;
-    min-height: 38px;
-    font-size: 0.8rem;
+    max-width: 200px;
+    min-height: 40px;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .menu-buttons {
+    padding: 0 0.5rem;
+    max-width: 240px;
   }
   
   .dice-icon {
@@ -135,40 +164,35 @@
   }
 }
 
-/* Menu buttons container - responzivní */
-.menu-buttons {
-  padding: 0 1rem;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Neonové barvy pro tlačítka */
-.neon-red {
-  color: #ff0040 !important;
-  border-color: #ff0040 !important;
-}
-
-.btn-neon.neon-red:hover {
-  background-color: rgba(255, 0, 64, 0.1) !important;
-  box-shadow: 0 0 20px rgba(255, 0, 64, 0.5) !important;
-}
-
-/* Score label styling */
-.score-label {
-  font-size: 1.2rem;
-  font-weight: 600;
+@media (max-width: 480px) {
+  .menu-btn {
+    max-width: 180px;
+    min-height: 38px;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .menu-buttons {
+    padding: 0 0.25rem;
+    max-width: 200px;
+  }
+  
+  .dice-icon {
+    font-size: 2rem;
+  }
 }
 
 /* Target score input styling */
 .target-score-input input {
   width: 100%;
-  max-width: 250px;
+  max-width: 280px;
   height: 50px;
   font-size: 1.3rem;
   font-weight: bold;
   border: 2px solid rgba(0, 255, 65, 0.5);
   margin: 0 auto;
   display: block;
+  box-sizing: border-box;
 }
 
 .target-score-input input:focus {
@@ -179,7 +203,7 @@
 /* Responzivní úpravy pro target score input */
 @media (max-width: 768px) {
   .target-score-input input {
-    max-width: 200px;
+    max-width: 240px;
     height: 45px;
     font-size: 1.1rem;
   }
@@ -187,9 +211,17 @@
 
 @media (max-width: 576px) {
   .target-score-input input {
-    max-width: 180px;
+    max-width: 200px;
     height: 40px;
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .target-score-input input {
+    max-width: 180px;
+    height: 38px;
+    font-size: 0.9rem;
   }
 }
 
