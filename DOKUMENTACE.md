@@ -138,6 +138,82 @@ Aplikace používá konzistentní dvoupanelové rozložení založené na Bootst
 - AI reagují na herní události
 - Hráč může chatovat během hry
 
+### Přechody mezi stavy
+
+#### Stav 1: Hlavní menu (výchozí)
+**Levý panel zobrazuje:**
+```html
+<div class="game-header">
+  <!-- Nadpis hry -->
+  <!-- Nastavení cílového skóre -->
+  <!-- Tlačítka: Start, Síň slávy -->
+  <!-- Avatary všech hráčů -->
+</div>
+```
+
+**Pravý panel zobrazuje:**
+- Aktivní chat s AI
+- Input pole pro komunikaci
+- AI mohou komunikovat i před začátkem hry
+
+**Triggery přechodu:**
+- Tlačítko "Začít hru" → přechod do herního stavu
+- Tlačítko "Síň slávy" → otevření hall of fame modálu
+
+#### Stav 2: Herní stav
+**Levý panel zobrazuje:**
+```html
+<div class="game-controls">
+  <!-- Informace o tahu -->
+  <!-- Scoreboard všech hráčů -->
+  <!-- Kostky -->
+  <!-- Herní tlačítka -->
+</div>
+```
+
+**Pravý panel zobrazuje:**
+- Stejný chat jako v menu
+- AI reagují na herní události
+- Hráč může chatovat během hry
+
+**Triggery přechodu:**
+- Tlačítko "Opustit hru" → návrat do hlavního menu
+- Dosažení cílového skóre → game over modal
+- Game over modal → volba návratu do menu nebo nové hry
+
+#### Stav 3: Game Over
+**Modální okno překrývá:**
+- Celou aplikace
+- Zobrazuje výsledky hry
+- Možnosti: Síň slávy, Nová hra, Hlavní menu
+
+#### Stav 4: Síň slávy
+**Modální okno zobrazuje:**
+- Tabulku nejlepších výsledků
+- Možnosti: Zpět, Nová hra, Hlavní menu
+
+### CSS třídy pro řízení stavů
+
+#### Skrývání/zobrazování komponent
+```css
+.hidden { display: none !important; }
+```
+
+**JavaScript řízení:**
+- Menu stav: `.game-header` viditelný, `.game-controls` skrytý (.hidden)
+- Herní stav: `.game-header` skrytý (.hidden), `.game-controls` viditelný
+- Chat zůstává vždy viditelný na pravé straně
+
+#### Responzivní chování stavů
+**Desktop (≥768px):**
+- Oba stavy používají stejné 70:30 rozložení
+- Chat zůstává viditelný vedle hlavního obsahu
+
+**Mobil (<768px):**
+- Chat panel se zobrazuje nahoře
+- Hlavní panel (menu/hra) se zobrazuje dole
+- Zachovává se funkcionalité obou stavů
+
 ### Breakpointy (Bootstrap)
 | Breakpoint | Rozměr | Layout | Bootstrap třídy |
 |------------|--------|--------|-----------------|
@@ -172,18 +248,96 @@ Aplikace používá konzistentní dvoupanelové rozložení založené na Bootst
 
 ## Komponenty
 
-### Herní komponenty
-1. **Kostky** - Neonový design s animacemi
-2. **Tlačítka** - Neonový design s hover efekty
-3. **Scoreboard** - Přehled skóre všech hráčů
-4. **Avatary** - Vizuální reprezentace hráčů a AI
-5. **Modální okna** - Pro instrukce, výhru a síň slávy
+### Levý panel komponenty
 
-### Chat komponenty
-1. **Chat panel** - Hlavní kontejner pro chat
-2. **Zprávy** - Zobrazení chatových zpráv
-3. **Vstupní pole** - Pro vkládání zpráv uživatelem
-4. **Ovládací prvky** - Tlačítka pro ovládání chatu
+#### 1. Hlavní menu stav
+**Game Header komponenta:**
+- Nadpis hry s ikonou a donate linkem
+- Třída: `.game-header .text-center .mb-4`
+- H1 s `.game-title .neon-text .fs-neon-1`
+
+**Target Score Setup komponenta:**
+- Input pole pro cílové skóre s labelem
+- Třída: `.target-score-setup .d-flex .flex-wrap .justify-content-center`
+- Input: `.form-control-neon` s výchozí hodnotou 10000
+- Validace: min="1000" step="1000"
+
+**Action Buttons komponenta:**
+- Tlačítko "Začít hru": `.btn .btn-neon .neon-green`
+- Tlačítko "Síň slávy": `.btn .btn-neon .neon-blue`
+- Flexbox layout s gap-3
+
+**Player Avatars komponenta:**
+- 4 avatary AI + avatar hráče
+- Třída: `.player-avatars-section .d-flex .justify-content-center .flex-wrap .gap-3`
+- Každý avatar: `.avatar-container .text-center`
+- Obrázek: `.avatar-mini` s příslušnou barvou (`.avatar-green`, `.avatar-blue`, `.avatar-orange`, `.avatar-pink`)
+- Jméno: `.avatar-name .neon-text` s příslušnou barvou
+
+#### 2. Herní stav
+**Game Controls komponenta:**
+- Kontejner: `.game-controls .hidden .mt-4` (skrytý v menu stavu)
+- Zobrazuje se při spuštění hry
+
+**Turn Info komponenta:**
+- Informace o aktuálním tahu
+- Třída: `.turn-info .p-2 .mb-3 .border-neon-green .neon-text .bg-dark-80 .rounded .text-center`
+
+**Players Container komponenta:**
+- 4 panely hráčů vedle sebe
+- Třída: `.players-container .d-flex .flex-wrap .justify-content-center .gap-4 .mb-4`
+- Každý hráč: `.player` s příslušnou třídou (`.human-player`, `.gemini-player`, atd.)
+- Aktivní hráč má třídu `.active` s `.border-neon-green`
+
+**Score Display komponenty:**
+- Current Turn Score: `.current-turn-score` - skóre aktuálního tahu
+- Target Info: `.target-info` - zobrazuje cílové skóre
+
+**Dice Container komponenta:**
+- Oblast pro kostky
+- Třída: `.dice-container .d-flex .flex-wrap .justify-content-center .gap-3 .my-4`
+- Obsahuje 6 kostek, každá s možností výběru
+
+**Roll Controls komponenta:**
+- Herní tlačítka
+- Třída: `.roll-controls .d-flex .flex-wrap .justify-content-center .gap-3 .my-4`
+- Tlačítka: "Hodit kostky", "Odložit vybrané", "Ukončit tah", "Opustit hru"
+
+### Pravý panel komponenty
+
+#### Chat Panel komponenta
+**Chat Container:**
+- Hlavní kontejner: `.h-100 .border-neon-green .bg-dark-80 .rounded .d-flex .flex-column`
+- Plná výška pravého panelu s neonovým orámováním
+
+**Chat Header:**
+- Třída: `.chat-header .d-flex .justify-content-between .align-items-center .p-2`
+- Nadpis: `.neon-green` "AI CHAT" s ikonou
+- Toggle tlačítko: `.chat-toggle .btn .btn-sm .btn-outline-success`
+
+**Chat Messages:**
+- Scrollovatelná oblast zpráv
+- Třída: `.chat-messages .flex-grow-1 .overflow-auto .p-2 .my-2 .scrollbar-neon`
+- Automatické scrollování na nové zprávy
+
+**Chat Input:**
+- Input pole a tlačítko pro odeslání
+- Třída: `.chat-input .p-2 .mt-auto .border-top .border-success .sticky-bottom`
+- Input: `.form-control-neon` s placeholderem
+- Send button: `.btn .btn-neon .neon-green`
+
+### Modální okna
+
+#### Game Over Modal
+- Zobrazuje výsledky hry
+- Obsahuje: winner announcement, final scores, game stats
+- Signature section pro lidské vítěze
+- Action buttons: Síň slávy, Nová hra, Hlavní menu
+
+#### Hall of Fame Modal  
+- Zobrazuje historii nejlepších výsledků
+- Tabulka s responzivním designem
+- Action buttons: Zpět, Nová hra, Hlavní menu
 
 ## Herní logika
 
