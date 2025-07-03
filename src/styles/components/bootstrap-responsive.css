@@ -14,15 +14,18 @@
   --neon-red: #ff3131;
   --neon-orange: #ff9900;
   --neon-glow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  --neon-glow-strong: 0 0 8px var(--neon-green), 0 0 15px var(--neon-green), 0 0 20px var(--neon-green);
   --border-radius: 0.375rem;
 }
 
 /* Velikost kontejneru 90% viewportu */
 .vh-90 {
   height: 90vh;
+  max-height: 90vh;
 }
 .vw-90 {
   width: 90vw;
+  max-width: 90vw;
 }
 
 /* Herní box a chat box - neonové rámečky */
@@ -33,6 +36,11 @@
   background-color: rgba(0, 0, 0, 0.9);
   padding: 1rem;
   overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.game-box:hover, .chat-box:hover {
+  box-shadow: var(--neon-glow-strong);
 }
 
 /* Chat kontejnery */
@@ -92,6 +100,15 @@
   color: var(--neon-orange);
 }
 
+/* Pomocné třídy pro landscape mód */
+.mb-landscape-0 {
+  margin-bottom: 0;
+}
+
+.h-landscape-100 {
+  height: 100%;
+}
+
 /* Media query pro landscape orientaci na mobilech */
 @media (max-width: 767.98px) and (orientation: landscape) {
   /* V landscape módu chceme menu a chat vedle sebe */
@@ -106,6 +123,7 @@
     width: 60%;
     height: 90vh;
     padding-right: 0.75rem;
+    margin-bottom: 0 !important; /* Přepíše mb-3 v landscape */
   }
   
   /* Druhý child (chat) 40% */
@@ -120,6 +138,15 @@
     margin-bottom: 0.3rem;
     min-height: 2.5rem;
   }
+  
+  /* Úpravy výšky v landscape módu */
+  .h-75 {
+    height: 100% !important;
+  }
+  
+  .h-20 {
+    height: 100% !important;
+  }
 }
 
 /* Specifické styly pro velmi malá zařízení */
@@ -133,7 +160,7 @@
   }
   
   .game-title {
-    font-size: 1rem;
+    font-size: 1rem !important;
     margin-bottom: 0.25rem;
   }
   
@@ -141,6 +168,11 @@
     padding: 0.2rem 0.4rem;
     margin-bottom: 0.2rem;
     min-height: 2rem;
+  }
+  
+  /* Skryjeme některé dekorace na velmi malých výškách */
+  .hide-on-small-height {
+    display: none !important;
   }
 }
 
@@ -153,6 +185,29 @@
   .menu-buttons .btn {
     min-height: 2rem;
     font-size: 0.8rem;
+    width: 90% !important; /* Širší tlačítka na úzkých zařízeních */
+  }
+}
+
+/* Extra malá zařízení */
+@media (max-width: 320px) and (max-height: 480px) {
+  .game-box, .chat-box {
+    padding: 0.3rem;
+  }
+  
+  .menu-buttons .btn {
+    padding: 0.15rem;
+    margin-bottom: 0.15rem;
+    min-height: 1.8rem;
+    font-size: 0.7rem;
+  }
+  
+  .chat-message {
+    font-size: 0.7rem;
+  }
+  
+  .chat-input input {
+    height: 1.8rem;
   }
 }
 
