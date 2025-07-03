@@ -97,7 +97,7 @@
   color: var(--neon-green);
   font-family: 'Orbitron', monospace;
   font-weight: 700;
-  font-size: 1.2rem; /* Zvětšeno z 1rem na 1.2rem */
+  font-size: 1.4rem; /* Zvětšeno na 1.4rem */
   margin: 0;
   text-shadow: 0 0 10px var(--neon-green);
   display: flex;
@@ -193,10 +193,10 @@
 }
 
 .message-content {
-  color: var(--text-primary);
-  line-height: 1.4;
+  color: var(--neon-green);
+  line-height: 1.5;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1rem; /* Přidáno pro lepší čitelnost na desktopu */
+  font-size: 1.1rem; /* Zvětšeno na 1.1rem */
 }
 
 /* CHAT INPUT */
@@ -208,13 +208,15 @@
 .chat-input input {
   width: 100%;
   background: var(--dark-bg);
-  border: 2px solid var(--gray-text);
+  border: 2px solid var(--neon-green);
   border-radius: 0.5em;
-  padding: 0.75em 2.5em 0.75em 0.75em;
-  color: var(--text-primary);
+  padding: 1em 2.5em 1em 0.75em;
+  color: var(--neon-green);
   font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1rem;
   transition: var(--transition-base);
   box-sizing: border-box;
+  height: 50px; /* Zvýšená výška pole */
 }
 
 .chat-input input:focus {
