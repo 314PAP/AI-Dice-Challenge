@@ -90,9 +90,21 @@ export class EnhancedChatController {
         
         const messageElement = document.createElement('div');
         messageElement.className = `chat-message ${sender}`;
+        
+        // Barvy jmen jednotlivých účastníků
+        const senderColors = {
+            'human': 'var(--neon-green)',
+            'gemini': 'var(--neon-blue)',
+            'chatgpt': 'var(--neon-pink)',
+            'claude': 'var(--neon-orange)',
+            'system': 'var(--neon-yellow)'
+        };
+        
+        const senderColor = senderColors[sender] || 'var(--neon-green)';
+        
         messageElement.innerHTML = `
             <div class="message-content">
-                <strong>${this.getSenderName(sender)}:</strong> ${message}
+                <strong class="sender-name" style="color: ${senderColor}; text-shadow: 0 0 5px ${senderColor};">${this.getSenderName(sender)}:</strong> ${message}
             </div>
         `;
         
