@@ -48,12 +48,7 @@
 
 /* Aplikace nové animace na aktivní hráče */
 #playersContainer .player.active {
-<<<<<<< Updated upstream
-  animation: player-active-pulse 2s ease-in-out infinite, 
-             active-player-highlight 3s ease-in-out infinite;
-=======
   animation:
     player-active-pulse 2s ease-in-out infinite,
     active-player-highlight 3s ease-in-out infinite;
->>>>>>> Stashed changes
 }
