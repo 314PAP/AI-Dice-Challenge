@@ -20,9 +20,9 @@
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border: 2px solid rgba(0, 0, 0, 0.8); /* Černý okraj kolem avatarů */
+  border: 2px solid rgba(57, 255, 20, 0.3); /* Zelený okraj kolem avatarů */
   transition: all 0.3s ease;
-  background-color: rgba(0, 0, 0, 0.5); /* Tmavé pozadí pod avatarem */
+  background-color: rgba(0, 0, 0, 0.8) !important; /* Černé pozadí pod avatarem */
 }
 
 /* Aktivní hráč */
