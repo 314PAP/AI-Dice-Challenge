@@ -66,6 +66,15 @@ export const setupOptimizedEvents = memoize(() => {
                 window.hallOfFameFromGameOver = true;
                 console.log('🏆 Flag hallOfFameFromGameOver nastaven na true');
                 
+                // Uložit globálně stav hry pro pozdější kontrolu
+                if (window.gameModule && window.gameModule.gameState) {
+                    window.savedGameState = {
+                        gameEnded: window.gameModule.gameState.gameEnded,
+                        players: JSON.parse(JSON.stringify(window.gameModule.gameState.players))
+                    };
+                    console.log('🏆 Uložen aktuální stav hry');
+                }
+                
                 // Nejprve skrýt game over modal
                 hideModal('gameOverModal', 'show-hof');
                 
