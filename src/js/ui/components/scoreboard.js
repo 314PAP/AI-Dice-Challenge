@@ -97,8 +97,8 @@ export const updateActivePlayer = pipe(
         });
         
         // Přidáme třídu active pouze aktuálnímu hráči
-        const playerTypes = ['human-player', 'gemini-player', 'chatgpt-player', 'claude-player'];
-        const currentPlayerClass = playerTypes[gameState.currentPlayer];
+        const playerClasses = ['human-player', 'gemini-player', 'chatgpt-player', 'claude-player'];
+        const currentPlayerClass = playerClasses[gameState.currentPlayer];
         const currentPlayerType = gameState.players[gameState.currentPlayer]?.type;
         
         if (currentPlayerClass) {
