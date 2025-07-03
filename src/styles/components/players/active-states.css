@@ -54,47 +54,47 @@
     0 0 40px rgba(30, 144, 255, 0.3);
 }
 
-.player.gemini-player.active::before {
+#playersContainer .player.gemini-player.active::before {
   background: linear-gradient(45deg, var(--neon-blue), var(--neon-green), var(--neon-blue));
 }
 
-.player.gemini-player.active .player-head {
+#playersContainer .player.gemini-player.active .player-head {
   border-color: var(--neon-blue);
   box-shadow: var(--glow-md) var(--neon-blue);
 }
 
-.player.gemini-player.active .player-name {
+#playersContainer .player.gemini-player.active .player-name {
   color: var(--neon-blue);
   text-shadow: var(--glow-sm) var(--neon-blue);
 }
 
-.player.gemini-player.active .player-score span {
+#playersContainer .player.gemini-player.active .player-score span {
   color: var(--neon-blue);
 }
 
 /* ChatGPT AI hráč - růžová */
-.player.chatgpt-player.active {
+#playersContainer .player.chatgpt-player.active {
   border-color: var(--neon-pink);
   box-shadow: 
     var(--glow-lg) var(--neon-pink),
     0 0 40px rgba(255, 105, 180, 0.3);
 }
 
-.player.chatgpt-player.active::before {
+#playersContainer .player.chatgpt-player.active::before {
   background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue), var(--neon-pink));
 }
 
-.player.chatgpt-player.active .player-head {
+#playersContainer .player.chatgpt-player.active .player-head {
   border-color: var(--neon-pink);
   box-shadow: var(--glow-md) var(--neon-pink);
 }
 
-.player.chatgpt-player.active .player-name {
+#playersContainer .player.chatgpt-player.active .player-name {
   color: var(--neon-pink);
   text-shadow: var(--glow-sm) var(--neon-pink);
 }
 
-.player.chatgpt-player.active .player-score span {
+#playersContainer .player.chatgpt-player.active .player-score span {
   color: var(--neon-pink);
 }
 
