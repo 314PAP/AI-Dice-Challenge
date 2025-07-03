@@ -40,3 +40,14 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* APP CONTAINER - Hlavní kontejner aplikace omezený na 90% */
+.app-container {
+  width: 90%;
+  height: 90vh;
+  margin: 5vh auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
