@@ -97,13 +97,38 @@
 
 /* Úprava rozložení - konzistentní padding ve všech směrech */
 .container-fluid.mw-90.mh-90.vh-90 {
-  padding: 0.75rem !important;
+  padding: 0.75rem !important; /* Sjednocený padding všude kolem kontejneru */
 }
 
 /* Zajištění konzistentního paddingu v celém rozhraní */
 .container-fluid.mw-90.mh-90.vh-90 > .row {
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+/* Zajištění konzistentního odsazení rámečku v mobilním layoutu */
+@media (max-width: 767.98px) {
+  .container-fluid.mw-90.mh-90.vh-90 {
+    padding: 0.75rem !important; /* Sjednocený padding pro mobily */
+  }
+  
+  /* Konzistentní mezera mezi menu a chat kontejnery */
+  .row.g-0.h-75 + .row.g-0.h-20 {
+    margin-top: 0.75rem !important;
+  }
+  
+  /* Zajištění konzistentního paddingu uvnitř bloků */
+  .row.g-0.h-75 .col-12,
+  .row.g-0.h-20 .col-12 {
+    padding: 0 !important; /* Odstranění vnitřního paddingu sloupců */
+  }
+  
+  /* Úprava vnitřních elementů pro konzistentní mezery */
+  .game-box,
+  #chatPanelMobile {
+    margin: 0 !important; /* Odstranění margin z vnořených elementů */
+    border-radius: 0.375rem !important; /* Bootstrap .rounded-3 */
+  }
 }
 
 /* Vertikální umístění obsahu pro různé výšky obrazovky */
