@@ -27,7 +27,7 @@
 @import './components/forms.css';
 @import './components/modals.css';
 @import './components/chat/index.css';
-@import './components/dice/bootstrap-dice.css';
+@import './components/dice/neon-dice.css';
 @import './components/players.css';
 @import './components/players/winner.css';
 @import './components/scores.css';
