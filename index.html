@@ -97,23 +97,54 @@
     <script>
         // Inicializace AOS
         document.addEventListener('DOMContentLoaded', function() {
+            // Inicializace AOS knihovny pro animace při scrollování
             AOS.init({
                 duration: 800,
                 easing: 'ease-in-out',
                 once: false,
-                mirror: true
+                mirror: true,
+                anchorPlacement: 'top-bottom',
+                startEvent: 'load'
             });
             
             // Nastavení animací pro neonové prvky
             const applyPulseAnimations = () => {
+                // Aplikace pulzování na chat boxy
                 const chatBoxes = document.querySelectorAll('.chat-box');
                 chatBoxes.forEach(box => {
                     box.classList.add('animate__animated', 'animate__pulse', 'animate__slow', 'animate__infinite');
+                });
+                
+                // Aplikace pulzování na neonové nadpisy
+                const neonTexts = document.querySelectorAll('.neon-text');
+                neonTexts.forEach(text => {
+                    if (!text.classList.contains('no-pulse')) {
+                        text.classList.add('animate__animated', 'animate__pulse', 'animate__slower', 'animate__infinite');
+                    }
                 });
             };
             
             // Spuštění s mírným zpožděním pro lepší uživatelský zážitek
             setTimeout(applyPulseAnimations, 1000);
+            
+            // Detekce velikosti zařízení a přizpůsobení
+            const detectDeviceSize = () => {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                
+                // Aplikace speciálních tříd podle velikosti zařízení
+                document.body.classList.toggle('xs-device', width < 320 || height < 480);
+                document.body.classList.toggle('sm-device', width < 576);
+                document.body.classList.toggle('landscape', width > height);
+                
+                console.log(`Detekce zařízení: ${width}x${height}`);
+            };
+            
+            // První detekce
+            detectDeviceSize();
+            
+            // Přidání listeneru na změnu velikosti okna
+            window.addEventListener('resize', detectDeviceSize);
         });
     </script>
 </body>
