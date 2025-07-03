@@ -95,26 +95,74 @@ Aplikace používá konzistentní dvoupanelové rozložení napříč všemi sta
 
 ## Responzivní design
 
+### Dvoupanelové rozložení
+Aplikace používá konzistentní dvoupanelové rozložení založené na Bootstrap grid systému:
+
+**Desktop (≥768px)**:
+- Levý panel: 70% šířky (`col-md-7`) - hlavní obsah (menu/hra)
+- Pravý panel: 30% šířky (`col-md-5`) - chat panel
+- Horizontální uspořádání vedle sebe
+
+**Mobil (<768px)**:
+- Vertikální uspořádání
+- Chat panel nahoře (`order-0`)
+- Herní panel dole (`order-1`)
+- Každý panel zabírá plnou šířku (`col-12`)
+
+### Stavy aplikace
+
+#### 1. Hlavní menu stav
+**Levý panel obsahuje:**
+- Nadpis hry s ikonou
+- Nastavení cílového skóre (input + tlačítka)
+- Tlačítka: "Začít hru", "Síň slávy"
+- Avatary všech hráčů (4 AI + hráč) s jmény
+- Vše je zarovnané do středu a vizuálně oddělené
+
+**Pravý panel obsahuje:**
+- Chat header s tlačítkem pro sbalení
+- Oblast pro zprávy (scrollovatelná)
+- Input pole pro psaní zpráv
+- Chat je aktivní i v menu stavu
+
+#### 2. Herní stav
+**Levý panel obsahuje:**
+- Informace o aktuálním tahu
+- Skóre všech hráčů (4 panely vedle sebe)
+- Současné skóre tahu a cíl
+- Oblast s kostkami (6 kostek v řadě)
+- Herní tlačítka: "Hodit kostky", "Odložit vybrané", "Ukončit tah", "Opustit hru"
+
+**Pravý panel obsahuje:**
+- Stejný chat jako v menu stavu
+- AI reagují na herní události
+- Hráč může chatovat během hry
+
 ### Breakpointy (Bootstrap)
 | Breakpoint | Rozměr | Layout | Bootstrap třídy |
 |------------|--------|--------|-----------------|
-| Extra Small | <576px | Stacked (vertikální) | `.order-1`, `.order-0` |
-| Small | ≥576px | Stacked (vertikální) | `.p-sm-2` |
-| Medium | ≥768px | Horizontální (65:35) | `.flex-md-row`, `.order-md-2` |
-| Large | ≥992px | Horizontální (65:35) | `.p-lg-4` |
-| Extra Large | ≥1200px | Horizontální (65:35) | `.p-xl-5` |
+| Extra Small | <576px | Vertikální stohování | `.col-12`, `.order-0`, `.order-1` |
+| Small | ≥576px | Vertikální stohování | `.col-12` s responzivním paddingem |
+| Medium | ≥768px | Horizontální (70:30) | `.col-md-7`, `.col-md-5` |
+| Large | ≥992px | Horizontální (70:30) | Větší padding a fonty |
+| Extra Large | ≥1200px | Horizontální (70:30) | Maximální velikosti prvků |
 
 ### Kontejner aplikace (Bootstrap třídy)
 - `container-fluid` - Full-width kontejner
-- `vh-100` - 100% výšky viewport
-- `d-flex flex-column` - Flexbox vertikální layout
-- `bg-dark-80` - Tmavé pozadí s 80% opacity
-- `neon-border` - Neonový rámeček
+- `mw-90 mh-90 vh-90` - 90% max-width, max-height, viewport-height
+- `border border-neon-green rounded` - Neonový rámeček kolem celé aplikace
+- `row h-100` - Bootstrap grid řádek na plnou výšku
 
-### Rozložení hry a chatu (Bootstrap třídy)
-- **Základní**: `.d-flex flex-column flex-md-row h-100 w-100 overflow-hidden`
-- **Hra**: `.w-100 h-100 order-1 overflow-auto p-3 p-sm-2 p-md-3` s flexem `flex: 0 0 65%`
-- **Chat**: `.w-100 h-100 order-0 order-md-2 overflow-hidden d-flex flex-column` s flexem `flex: 0 0 35%`
+### Panely aplikace
+**Levý panel (herní/menu oblast):**
+- `.col-12 .col-md-7 .h-100 .overflow-auto .p-3`
+- Obsahuje `.game-box` s neonovým orámováním
+- Scrollovatelný obsah při přetečení
+
+**Pravý panel (chat oblast):**
+- `.col-12 .col-md-5 .h-100 .p-3`
+- Obsahuje flexbox layout pro chat komponenty
+- Chat header, zprávy (flex-grow-1), input (sticky bottom)
 
 ### Responzivní prvky
 - **Kostky**: 60×60px (desktop), 50×50px (tablet), 40×40px (mobil)
