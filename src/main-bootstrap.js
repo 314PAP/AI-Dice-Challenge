@@ -49,16 +49,24 @@ async function initGame() {
 function adjustLayoutForOrientation() {
     // Timeout pro zajištění správných rozměrů po změně orientace
     setTimeout(() => {
-        // Landscape detekce
+        // Detekce orientace a velikosti displeje
         const isLandscape = window.innerWidth > window.innerHeight;
-        
-        // Zjištění velmi malé výšky
         const isVerySmallHeight = window.innerHeight < 500;
+        const isVerySmallWidth = window.innerWidth < 350;
+        const isExtremelySmall = window.innerWidth < 320 || window.innerHeight < 480;
+        
+        console.log(`Orientace: ${isLandscape ? 'landscape' : 'portrait'}, Výška: ${window.innerHeight}px, Šířka: ${window.innerWidth}px`);
+        
+        // Aplikace tříd na body element pro snadnější CSS selektory
+        document.body.classList.toggle('is-landscape', isLandscape);
+        document.body.classList.toggle('is-small-height', isVerySmallHeight);
+        document.body.classList.toggle('is-small-width', isVerySmallWidth);
+        document.body.classList.toggle('is-extremely-small', isExtremelySmall);
         
         // Skryjeme dekorativní prvky na malých výškách
-        const decorativeElements = document.querySelectorAll('.neon-dice-decoration');
+        const decorativeElements = document.querySelectorAll('.neon-dice-decoration, .decorative-element');
         decorativeElements.forEach(el => {
-            if (isVerySmallHeight) {
+            if (isVerySmallHeight || isExtremelySmall) {
                 el.classList.add('hide-on-small-height');
             } else {
                 el.classList.remove('hide-on-small-height');
@@ -68,16 +76,39 @@ function adjustLayoutForOrientation() {
         // Upravíme velikost nadpisů
         const gameTitles = document.querySelectorAll('.game-title');
         gameTitles.forEach(title => {
-            if (isVerySmallHeight) {
+            if (isExtremelySmall) {
                 title.classList.add('fs-6');
                 title.classList.remove('fs-3', 'fs-4', 'fs-5');
-            } else if (isLandscape) {
+            } else if (isVerySmallHeight) {
                 title.classList.add('fs-5');
                 title.classList.remove('fs-3', 'fs-4', 'fs-6');
+            } else if (isLandscape) {
+                title.classList.add('fs-4');
+                title.classList.remove('fs-3', 'fs-5', 'fs-6');
             } else {
                 title.classList.add('fs-4');
                 title.classList.remove('fs-3', 'fs-5', 'fs-6');
             }
+        });
+        
+        // Optimalizace tlačítek
+        const menuButtons = document.querySelectorAll('.menu-buttons .btn');
+        menuButtons.forEach(button => {
+            if (isExtremelySmall) {
+                button.classList.add('btn-sm', 'py-1');
+            } else if (isVerySmallHeight || isVerySmallWidth) {
+                button.classList.add('py-1');
+                button.classList.remove('btn-sm');
+            } else {
+                button.classList.remove('btn-sm', 'py-1');
+            }
+        });
+        
+        // Zajištění viditelnosti chat inputu
+        const chatInputs = document.querySelectorAll('.chat-input');
+        chatInputs.forEach(input => {
+            input.style.visibility = 'visible';
+            input.style.opacity = '1';
         });
     }, 200);
 }
@@ -132,35 +163,86 @@ function sendChatMessage(inputElement) {
     }
 }
 
-// Funkce pro přidání zprávy do chatu
+// Funkce pro přidání zprávy do chatu s vylepšenými animacemi a třídami
 function addChatMessage(sender, message, type = 'player') {
     // Získáme kontejnery zpráv
     const mobileMessages = document.getElementById('chatMessagesMobile');
     const desktopMessages = document.getElementById('chatMessages');
     
-    // Vytvoříme nový element zprávy
+    // Vytvoříme nový element zprávy s odpovídající třídou pro typ zprávy
     const messageElement = document.createElement('div');
-    messageElement.className = 'chat-message small animate__animated animate__fadeIn';
+    messageElement.className = `chat-message small animate__animated ${type}-message`;
     
     // Barva podle typu zprávy
     let colorClass = 'neon-green';
-    if (type === 'system') colorClass = 'neon-yellow';
-    else if (type === 'ai') colorClass = 'neon-blue';
-    else if (type === 'error') colorClass = 'neon-red';
+    let animationType = 'animate__fadeInLeft';
     
-    // Obsah zprávy
-    messageElement.innerHTML = `<strong class="${colorClass}">${sender}:</strong> <span class="${colorClass}">${message}</span>`;
+    switch(type) {
+        case 'system':
+            colorClass = 'neon-yellow';
+            animationType = 'animate__fadeInDown';
+            break;
+        case 'ai':
+            colorClass = 'neon-blue';
+            animationType = 'animate__fadeInRight';
+            break;
+        case 'error':
+            colorClass = 'neon-red';
+            animationType = 'animate__shakeX';
+            break;
+        default:
+            colorClass = 'neon-green';
+            animationType = 'animate__fadeInLeft';
+    }
     
-    // Přidáme zprávu do obou chatů
+    // Přidání animace
+    messageElement.classList.add(animationType);
+    
+    // Obsah zprávy s ikonou podle typu
+    let icon = '';
+    switch(type) {
+        case 'system': icon = '<i class="ri-information-line me-1"></i>'; break;
+        case 'ai': icon = '<i class="ri-robot-line me-1"></i>'; break;
+        case 'error': icon = '<i class="ri-error-warning-line me-1"></i>'; break;
+        default: icon = '<i class="ri-user-line me-1"></i>';
+    }
+    
+    // Formátování obsahu zprávy
+    messageElement.innerHTML = `
+        <strong class="${colorClass}">${icon}${sender}:</strong> 
+        <span class="${colorClass}">${message}</span>
+    `;
+    
+    // Přidáme zprávu do obou chatů s časovým odstupem pro lepší animaci
+    const addMessageWithDelay = (container, element, isClone = false) => {
+        if (!container) return;
+        
+        const messageToAdd = isClone ? element.cloneNode(true) : element;
+        
+        // Přidáme zprávu
+        container.appendChild(messageToAdd);
+        
+        // Zajistíme scroll na nejnovější zprávu
+        setTimeout(() => {
+            container.scrollTop = container.scrollHeight;
+            
+            // Přidáme efekt zvýraznění
+            messageToAdd.classList.add('highlight-new');
+            
+            // Odstraníme efekt po chvíli
+            setTimeout(() => {
+                messageToAdd.classList.remove('highlight-new');
+            }, 2000);
+        }, 100);
+    };
+    
+    // Přidáme zprávy do obou chatů
     if (mobileMessages) {
-        const clonedMessage = messageElement.cloneNode(true);
-        mobileMessages.appendChild(clonedMessage);
-        mobileMessages.scrollTop = mobileMessages.scrollHeight;
+        addMessageWithDelay(mobileMessages, messageElement, true);
     }
     
     if (desktopMessages) {
-        desktopMessages.appendChild(messageElement);
-        desktopMessages.scrollTop = desktopMessages.scrollHeight;
+        addMessageWithDelay(desktopMessages, messageElement);
     }
 }
 
