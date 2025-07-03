@@ -1,0 +1,136 @@
+/* 
+ * Vylepšený responzivní design pro malé obrazovky
+ * Zajišťuje konzistentní zobrazení a lepší přizpůsobení textu a tlačítek
+ */
+
+/* Základní úpravy pro malé obrazovky */
+@media (max-height: 700px) {
+  /* Zmenšení velikosti nadpisů */
+  .game-title {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Zmenšení ikony kostky */
+  .neon-dice-decoration .dice-icon {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Zmenšení textu pro cílové skóre */
+  .score-label {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+  
+  /* Úprava velikosti input pole */
+  #targetScoreInputMobile {
+    height: 30px !important;
+    font-size: 0.8rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Zmenšení velikosti tlačítek */
+  .menu-buttons .btn {
+    height: 30px !important;
+    font-size: 0.7rem !important;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+  
+  /* Menší mezera mezi tlačítky */
+  .menu-buttons.gap-1 {
+    gap: 0.25rem !important;
+  }
+  
+  /* Úprava velikosti chatu */
+  .h-20.mt-2 {
+    height: 22% !important;
+    min-height: 120px !important;
+  }
+}
+
+/* Extrémně malé obrazovky */
+@media (max-height: 600px) {
+  /* Ještě menší nadpisy */
+  .game-title {
+    font-size: 0.8rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Skrytí dekorace kostky pro získání prostoru */
+  .neon-dice-decoration {
+    display: none !important;
+  }
+  
+  /* Minimální výška pro chat */
+  .h-20.mt-2 {
+    min-height: 100px !important;
+  }
+  
+  /* Kompaktnější tlačítka */
+  .menu-buttons .btn {
+    height: 26px !important;
+    font-size: 0.65rem !important;
+    padding: 0.1rem 0.25rem !important;
+  }
+  
+  /* Menší ikony v tlačítkách */
+  .menu-buttons .btn i {
+    font-size: 0.8em !important;
+  }
+  
+  /* Konzistentnější a kompaktnější rozložení */
+  .container-fluid.mw-90.mh-90.vh-90 {
+    padding: 0.5rem !important;
+  }
+  
+  /* Změna poměru mezi menu a chatem */
+  .h-75 {
+    height: 65% !important;
+  }
+  
+  .h-20.mt-2 {
+    height: 30% !important;
+    margin-top: 0.25rem !important;
+  }
+}
+
+/* Úprava rozložení - konzistentní padding ve všech směrech */
+.container-fluid.mw-90.mh-90.vh-90 {
+  padding: 0.75rem !important;
+}
+
+/* Zajištění konzistentního paddingu v celém rozhraní */
+.container-fluid.mw-90.mh-90.vh-90 > .row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Vertikální umístění obsahu pro různé výšky obrazovky */
+@media (max-height: 800px) {
+  .game-box {
+    justify-content: start !important;
+    padding-top: 1rem !important;
+  }
+}
+
+/* Úprava vstupního pole v chatu pro malé obrazovky */
+@media (max-height: 700px) {
+  #chatPanelMobile .chat-input {
+    min-height: 36px !important;
+    padding: 0.25rem !important;
+  }
+  
+  #chatPanelMobile .input-group input {
+    height: 28px !important;
+    font-size: 0.75rem !important;
+  }
+  
+  #chatPanelMobile .chat-header {
+    padding: 0.25rem !important;
+  }
+  
+  #chatPanelMobile .chat-header h2 {
+    font-size: 0.75rem !important;
+  }
+}
