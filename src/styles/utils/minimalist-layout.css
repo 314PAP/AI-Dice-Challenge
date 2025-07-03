@@ -63,3 +63,98 @@
 .dice-container {
   min-height: 100px;
 }
+
+/* Neonová kostka dekorace */
+.neon-dice-decoration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dice-icon {
+  font-size: 3rem;
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+/* Menu tlačítka */
+.menu-btn {
+  width: 200px;
+  min-height: 45px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid currentColor;
+}
+
+.menu-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Neonové barvy pro tlačítka */
+.neon-red {
+  color: #ff0040 !important;
+  border-color: #ff0040 !important;
+}
+
+.btn-neon.neon-red:hover {
+  background-color: rgba(255, 0, 64, 0.1) !important;
+  box-shadow: 0 0 20px rgba(255, 0, 64, 0.5) !important;
+}
+
+/* Score label styling */
+.score-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Target score input styling */
+.target-score-input input {
+  width: 200px;
+  height: 50px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  border: 2px solid rgba(0, 255, 65, 0.5);
+}
+
+.target-score-input input:focus {
+  border-color: #00ff41;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+}
+
+/* Modal overlay styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border: 2px solid currentColor;
+  box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+}
+
+/* Scoring table styling */
+.scoring-table {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.scoring-table .row {
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.scoring-table hr {
+  margin: 0.5rem 0;
+  opacity: 0.6;
+}

@@ -21,6 +21,28 @@ function quitGame() {
 }
 
 /**
+ * Show rules modal
+ */
+function showRules() {
+    console.log('📖 Zobrazuji pravidla...');
+    const rulesModal = document.getElementById('rulesModal');
+    if (rulesModal) {
+        rulesModal.classList.remove('hidden');
+    }
+}
+
+/**
+ * Hide rules modal
+ */
+function hideRules() {
+    console.log('🔙 Skrývám pravidla...');
+    const rulesModal = document.getElementById('rulesModal');
+    if (rulesModal) {
+        rulesModal.classList.add('hidden');
+    }
+}
+
+/**
  * Nastavuje event listenery pro herní prvky
  */
 export function setupEventListeners() {
@@ -221,6 +243,16 @@ function setupModalEventListeners() {
         hallOfFameModal.addEventListener('click', (e) => {
             if (e.target === hallOfFameModal) {
                 hallOfFameModal.classList.add('hidden');
+            }
+        });
+    }
+
+    // Rules modal close
+    const rulesModal = document.getElementById('rulesModal');
+    if (rulesModal) {
+        rulesModal.addEventListener('click', (e) => {
+            if (e.target === rulesModal) {
+                rulesModal.classList.add('hidden');
             }
         });
     }
