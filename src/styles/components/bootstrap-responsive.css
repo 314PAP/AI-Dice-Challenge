@@ -530,6 +530,10 @@
   /* Ultra kompaktní rozvržení */
   .game-box, .chat-box {
     padding: 0.25rem !important;
+    border: 2px solid var(--neon-green) !important;
+    border-bottom: 2px solid var(--neon-green) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--neon-glow) !important;
   }
   
   /* Maximalizace využitelného prostoru */
