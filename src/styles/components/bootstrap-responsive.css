@@ -31,6 +31,7 @@
 /* Herní box a chat box - neonové rámečky */
 .game-box, .chat-box {
   border: 2px solid var(--neon-green);
+  border-bottom: 2px solid var(--neon-green); /* Explicitní spodní rámeček */
   border-radius: var(--border-radius);
   box-shadow: var(--neon-glow);
   background-color: rgba(0, 0, 0, 0.9);
@@ -1062,7 +1063,11 @@ button:active .send-icon {
   /* Zajištění jednotného odsazení herního boxu a chat boxu */
   .game-box, .chat-box {
     margin: 0.5rem 0 !important;
+    border: 2px solid var(--neon-green) !important;
+    border-bottom: 2px solid var(--neon-green) !important;
     border-radius: var(--border-radius) !important;
+    box-shadow: var(--neon-glow) !important;
+    position: relative;
   }
   
   /* Zajištění jednotného odsazení pro všechny strany */
@@ -1081,10 +1086,26 @@ button:active .send-icon {
 .mobile-chat-box {
   padding: 0.5rem !important;
   margin: 0 !important;
+  border: 2px solid var(--neon-green) !important;
+  border-bottom: 2px solid var(--neon-green) !important;
   border-radius: var(--border-radius) !important;
+  box-shadow: var(--neon-glow) !important;
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
+}
+
+/* Zajištění, že spodní část chatu má zvýrazněné orámování */
+.mobile-chat-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  z-index: 2;
 }
 
 /* Zajištění, že chat nepřetéká a má správné okraje */
