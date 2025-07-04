@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dice - Quick Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .error { background-color: #ffebee; }
+        .success { background-color: #e8f5e8; }
+        .info { background-color: #e3f2fd; }
+    </style>
+</head>
+<body>
+    <h1>AI Dice - Quick Test</h1>
+    <div id="results"></div>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+        
+        // Test načtení šablon
+        async function testTemplateLoading() {
+            addResult('=== TESTOVÁNÍ NAČTENÍ ŠABLON ===', 'info');
+            
+            const templates = [
+                '/src/templates/game-menu.html',
+                '/src/templates/game-controls.html',
+                '/src/templates/game-controls-mobile.html',
+                '/src/templates/chat.html',
+                '/src/templates/chat-mobile-bootstrap.html'
+            ];
+            
+            for (const template of templates) {
+                try {
+                    const response = await fetch(template);
+                    if (response.ok) {
+                        const content = await response.text();
+                        addResult(`✅ ${template} - ${content.length} znaků`, 'success');
+                        
+                        // Kontrola klíčových elementů
+                        if (template.includes('game-menu')) {
+                            addResult(`  - Obsahuje startGameBtn: ${content.includes('startGameBtn')}`, 'info');
+                            addResult(`  - Obsahuje targetScoreInput: ${content.includes('targetScoreInput')}`, 'info');
+                        }
+                        if (template.includes('game-controls')) {
+                            addResult(`  - Obsahuje diceContainer: ${content.includes('diceContainer')}`, 'info');
+                            addResult(`  - Obsahuje players-container: ${content.includes('players-container')}`, 'info');
+                        }
+                    } else {
+                        addResult(`❌ ${template} - HTTP ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    addResult(`❌ ${template} - ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        // Test import modulů
+        async function testModuleImports() {
+            addResult('=== TESTOVÁNÍ IMPORT MODULŮ ===', 'info');
+            
+            const modules = [
+                '/src/js/ui/menuButtonHandlers.js',
+                '/src/js/game/controllers/gameFlowController.js',
+                '/src/js/game/gameState.js'
+            ];
+            
+            for (const module of modules) {
+                try {
+                    const response = await fetch(module);
+                    if (response.ok) {
+                        addResult(`✅ ${module} - dostupný`, 'success');
+                    } else {
+                        addResult(`❌ ${module} - HTTP ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    addResult(`❌ ${module} - ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        // Spuštění testů
+        async function runTests() {
+            await testTemplateLoading();
+            await testModuleImports();
+            addResult('=== TESTOVÁNÍ DOKONČENO ===', 'info');
+        }
+        
+        runTests();
+    </script>
+</body>
+</html>
