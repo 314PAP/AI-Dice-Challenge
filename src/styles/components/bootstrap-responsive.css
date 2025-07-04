@@ -1146,3 +1146,31 @@ button:active .send-icon {
     margin: 0 1rem !important;
   }
 }
+
+/* Speciální úpravy pro mobilní game-box se zajištěným spodním orámováním */
+.mobile-game-box {
+  border: 2px solid var(--neon-green) !important;
+  border-bottom: 2px solid var(--neon-green) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--neon-glow) !important;
+  margin-bottom: 0.75rem !important;
+}
+
+/* Zajištění, že spodní část má zvýrazněné orámování */
+.mobile-game-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  z-index: 2;
+}
+
+/* Silnější spodní orámování při hoveru */
+.mobile-game-box:hover {
+  border-bottom-color: var(--neon-green) !important;
+  box-shadow: var(--neon-glow-strong) !important;
+}
