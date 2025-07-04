@@ -271,64 +271,87 @@
 }
 
 /* =============================================================================
-   🎨 NEONOVÉ UTILITY TŘÍDY PODLE DESIGN GUIDE
+   🎨 NEONOVÉ UTILITY TŘÍDY PODLE DESIGN GUIDE - AKTUALIZOVANÉ BARVY
    ============================================================================= */
+
+/* CSS proměnné pro jednotné barvy */
+:root {
+  /* Hlavní barvy */
+  --neon-green: #39FF14;      /* Lidský hráč + hlavní akce */
+  --neon-blue: #194DD1;       /* Gemini + informace */
+  --neon-orange: #FF8800;     /* Claude + varování */
+  --neon-pink: #FF00FF;       /* ChatGPT */
+  
+  /* Systémové barvy */
+  --neon-yellow: #FFFF00;     /* Upozornění */
+  --neon-red: #FF3131;        /* Chyby + ukončení */
+}
 
 /* Neonové textové třídy */
 .neon-text-blue {
-  color: #00BFFF;
-  text-shadow: 0 0 5px #00BFFF, 0 0 10px #00BFFF;
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
 }
 
 .neon-text-pink {
-  color: #FF00FF;
-  text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF;
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
 }
 
 .neon-text-green {
-  color: #39FF14;
-  text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+  color: var(--neon-green);
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
 }
 
 .neon-text-yellow {
-  color: #FFFF00;
-  text-shadow: 0 0 5px #FFFF00, 0 0 10px #FFFF00;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow);
 }
 
 .neon-text-red {
-  color: #FF3131;
-  text-shadow: 0 0 5px #FF3131, 0 0 10px #FF3131;
+  color: var(--neon-red);
+  text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red);
+}
+
+.neon-text-orange {
+  color: var(--neon-orange);
+  text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange);
 }
 
 /* Neonové okraje */
 .neon-border-blue {
-  border: 2px solid #00BFFF;
-  box-shadow: 0 0 5px #00BFFF, 0 0 10px #00BFFF;
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
 }
 
 .neon-border-pink {
-  border: 2px solid #FF00FF;
-  box-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF;
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
 }
 
 .neon-border-green {
-  border: 2px solid #39FF14;
-  box-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+  border: 2px solid var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
 }
 
 .neon-border-yellow {
-  border: 2px solid #FFFF00;
-  box-shadow: 0 0 5px #FFFF00, 0 0 10px #FFFF00;
+  border: 2px solid var(--neon-yellow);
+  box-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow);
 }
 
 .neon-border-red {
-  border: 2px solid #FF3131;
-  box-shadow: 0 0 5px #FF3131, 0 0 10px #FF3131;
+  border: 2px solid var(--neon-red);
+  box-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red);
+}
+
+.neon-border-orange {
+  border: 2px solid var(--neon-orange);
+  box-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange);
 }
 
 /* Aktivní hráč - zesilující efekt */
 .player.active .neon-border-green {
-  box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14;
+  box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
 }
 
 /* Vyčištění z-indexů */
