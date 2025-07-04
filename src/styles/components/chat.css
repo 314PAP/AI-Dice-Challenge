@@ -3,11 +3,13 @@
    ============================================================================= */
 
 /* Hlavní kontejner chatu */
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  border-radius: var(--border-radius-lg);
+.chat-container, 
+.chat-box,
+#chatPanel,
+#chatPanelMobile {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
   overflow: hidden;
 }
 
@@ -18,10 +20,13 @@
 }
 
 /* Oblast se zprávami */
-.chat-messages {
-  flex-grow: 1;
-  padding: 0.5rem;
+.chat-messages,
+#chatMessages,
+#chatMessagesMobile {
+  flex: 1 1 auto !important;
   overflow-y: auto;
+  min-height: 0 !important;
+  padding: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--neon-green-rgb), 0.5) rgba(0, 0, 0, 0.2);
 }
@@ -54,6 +59,7 @@
 }
 
 /* Zajištění, že vstupní pole chatu bude vždy na spodku */
+.mt-auto,
 .chat-container > .mt-auto,
 .chat-box > .mt-auto {
   margin-top: auto !important;
