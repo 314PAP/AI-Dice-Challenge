@@ -739,3 +739,29 @@
     0 0 10px var(--neon-green),
     0 0 15px var(--neon-green) !important;
 }
+
+/* Vypnutí všech pulzujících animací pro usnadnění ladění */
+.animate__pulse,
+.animate__slow,
+.animate__slower,
+.animate__infinite {
+  animation: none !important;
+  animation-iteration-count: 0 !important;
+}
+
+/* Zakázání pulse animace pro všechny elementy */
+*, *::before, *::after {
+  animation-name: none !important;
+  animation-duration: 0 !important;
+  animation-iteration-count: 0 !important;
+}
+
+/* Povolení pouze fade animací pro zachování efektu objevení */
+.animate__fadeIn {
+  animation: fadeIn 0.5s ease-out !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

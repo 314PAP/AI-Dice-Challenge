@@ -627,6 +627,9 @@ function removeAllPulseAnimations() {
 
 // Inicializace při načtení DOM
 document.addEventListener('DOMContentLoaded', function() {
+    // Nejprve odstraníme všechny pulzující animace
+    removeAllPulseAnimations();
+    
     // Spuštění inicializace hry
     initGame();
     
@@ -636,10 +639,12 @@ document.addEventListener('DOMContentLoaded', function() {
         tryContentRecovery();
         // Zajištění viditelnosti prvků
         ensureElementsVisibility();
-        // Vylepšení neonových efektů
+        // Vylepšení neonových efektů (bez pulzování)
         enhanceNeonEffects();
         // Detekce velikosti obrazovky
         detectExtremelySmallScreen();
+        // Ještě jednou odstraníme všechny animace pulse
+        removeAllPulseAnimations();
     }, 1000);
 });
 
@@ -651,5 +656,6 @@ window.gameDebug = {
     tryContentRecovery,
     detectExtremelySmallScreen,
     ensureChatVisibility,
-    ensureChatInitialized
+    ensureChatInitialized,
+    removeAllPulseAnimations
 };
