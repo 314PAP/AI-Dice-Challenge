@@ -3,7 +3,7 @@
  * Spravuje řízení tahů a herní logiku
  */
 
-import { gameState } from '../../core/gameState.js';
+import { gameState } from '../../js/game/gameState.js';
 import { MESSAGES, CSS_CLASSES } from '../../core/constants.js';
 
 export class TurnController {
