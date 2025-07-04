@@ -41,6 +41,13 @@
   z-index: 1;
 }
 
+/* Speciálně pro chat-box zajištění správné flexbox struktury */
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 /* Vylepšený hover efekt s jemným světlem uvnitř */
 .game-box:hover, .chat-box:hover {
   box-shadow: var(--neon-glow-strong);
