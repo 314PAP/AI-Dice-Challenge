@@ -78,6 +78,9 @@
   display: flex !important;
   flex-direction: column !important;
   height: 100% !important;
+  /* Zajištění správného zobrazení rámečků */
+  box-sizing: border-box !important;
+  margin: 0 !important; /* Odstranění případných vnějších okrajů */
 }
 
 /* Chat messages container - bez vnitřních rámečků */
