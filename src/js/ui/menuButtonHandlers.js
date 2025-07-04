@@ -6,13 +6,6 @@ import { showRules } from '../game/controllers/eventSetupController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
 // import { GameStateController } from '../../ui/controllers/gameStateController.js'; // CHYBNÝ IMPORT - ODSTRANĚNO
 
-// Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)
-function getTargetScore() {
-  const inputDesktop = document.getElementById('targetScoreInput');
-  const inputMobile = document.getElementById('targetScoreInputMobile');
-  return parseInt((inputDesktop?.value || inputMobile?.value || '10000'), 10);
-}
-
 // Handler pro opuštění hry
 function handleExitGame() {
   if (window.confirm('Opravdu chcete opustit hru?')) {
