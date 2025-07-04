@@ -44,6 +44,19 @@ export const updateGameInfo = () => {
             (el) => { el.textContent = text; }
         )(safeGetElement(id));
     });
+    
+    // Aktualizace mobilních elementů
+    const mobileUpdaters = [
+        ['currentTurnScoreMobile', `Skóre tahu: ${gameState.currentTurnScore}`],
+        ['turnInfoMobile', `${gameState.players[gameState.currentPlayer]?.name || 'Neznámý'} na tahu!`]
+    ];
+    
+    mobileUpdaters.forEach(([id, text]) => {
+        when(
+            Boolean,
+            (el) => { el.textContent = text; }
+        )(safeGetElement(id));
+    });
 };
 
 // ⚠️ PLAYER STATUS UPDATER - Functional warning system
