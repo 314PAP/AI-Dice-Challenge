@@ -60,6 +60,10 @@ async function initGame() {
     // Zajištění inicializace chatu
     ensureChatInitialized();
     
+    // Nastavení globální funkce window.addChatMessage
+    window.addChatMessage = addChatMessage;
+    console.log('✅ window.addChatMessage nastaveno');
+    
     // Odstranění všech pulzujících animací pro lepší ladění
     removeAllPulseAnimations();
     
