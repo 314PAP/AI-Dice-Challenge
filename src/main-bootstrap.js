@@ -642,6 +642,21 @@ function removeAllPulseAnimations() {
     console.log('Všechny pulzující animace byly odstraněny pro snazší ladění');
 }
 
+// Funkce pro zajištění scrollování na nejnovější zprávu
+function scrollToLatestMessage() {
+    // Scroll na poslední zprávu v mobilním chatu
+    const mobileMessages = document.getElementById('chatMessagesMobile');
+    if (mobileMessages) {
+        mobileMessages.scrollTop = mobileMessages.scrollHeight;
+    }
+    
+    // Scroll na poslední zprávu v desktopovém chatu
+    const desktopMessages = document.getElementById('chatMessages');
+    if (desktopMessages) {
+        desktopMessages.scrollTop = desktopMessages.scrollHeight;
+    }
+}
+
 // Inicializace při načtení DOM
 document.addEventListener('DOMContentLoaded', function() {
     // Nejprve odstraníme všechny pulzující animace
