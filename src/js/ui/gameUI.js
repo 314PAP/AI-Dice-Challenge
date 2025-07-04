@@ -4,6 +4,7 @@
 
 import { gameState } from '../game/gameState.js';
 import { updateDiceContainer, createDiceElement } from './components/diceRenderer.js';
+import { updateMobileDiceContainer } from './components/mobileDiceRenderer.js';
 import { updateScoreboard, updateActivePlayer } from './components/scoreboard.js';
 import { updateControlsState, updateGameInfo, updatePlayerStatus } from './components/gameControls.js';
 
