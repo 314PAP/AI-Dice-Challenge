@@ -66,12 +66,14 @@ async function initGame() {
         console.error('Chyba při inicializaci hry:', error);
         // Pokus o obnovení za 1 sekundu při chybě
         setTimeout(tryContentRecovery, 1000);
-    }
-    
-    // Inicializace event listenerů (bez menu tlačítek)
-    initEventListeners();
-    
-    // Zajištění inicializace chatu
+    }        // Inicializace event listenerů (bez menu tlačítek)
+        initEventListeners();
+        
+        // Nastavení herních event listenerů
+        const { setupEventListeners } = await import('./js/game/controllers/eventSetupController.js');
+        setupEventListeners();
+        
+        // Zajištění inicializace chatu
     ensureChatInitialized();
     
     // Nastavení globální funkce window.addChatMessage
