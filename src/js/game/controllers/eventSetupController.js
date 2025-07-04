@@ -484,36 +484,79 @@ function sendMobileChatMessage() {
     const chatInput = document.getElementById('chatInputMobile');
     if (!chatInput || !chatInput.value.trim()) return;
     
-    // Zde by byla logika pro odeslání zprávy do chatu
-    // TODO: Implementovat správnou logiku pro AI chat
-    
     const message = chatInput.value.trim();
     console.log('📱 Odesílám zprávu z mobilního chatu:', message);
     
-    // Přidat zprávu do chatu s neonovým efektem
-    const chatMessages = document.getElementById('chatMessagesMobile');
-    if (chatMessages) {
-        const newMessage = document.createElement('div');
-        newMessage.className = 'chat-message mb-2 small';
-        newMessage.innerHTML = '<strong class="neon-green">Vy:</strong> <span class="neon-green">' + message + '</span>';
-        chatMessages.appendChild(newMessage);
+    // Vyčistit input
+    chatInput.value = '';
+    
+    // Použít globální funkci addChatMessage pokud existuje
+    if (window.addChatMessage) {
+        // Přidat zprávu hráče
+        window.addChatMessage('Player', message, 'player');
         
-        // Přidat odpověď AI pro demonstraci (později bude napojeno na skutečnou AI)
-        setTimeout(() => {
-            const aiMessage = document.createElement('div');
-            aiMessage.className = 'chat-message mb-2 small';
-            aiMessage.innerHTML = '<strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Zajímavá strategie!</span>';
-            chatMessages.appendChild(aiMessage);
+        // Načteme AI controller pro skutečné AI odpovědi
+        import('../../ai/aiController.js').then(({ generateAIChatResponse }) => {
+            const aiTypes = ['gemini', 'chatgpt', 'claude'];
+            const playerScores = { player: 0, gemini: 0, chatgpt: 0, claude: 0 };
+            const targetScore = 10000;
             
-            // Scroll na konec
+            // 80% šance že odpoví jedna AI, 20% že dvě
+            const numResponding = Math.random() < 0.8 ? 1 : 2;
+            const respondingAIs = aiTypes.sort(() => Math.random() - 0.5).slice(0, numResponding);
+            
+            respondingAIs.forEach((aiType, index) => {
+                setTimeout(() => {
+                    const aiResponse = generateAIChatResponse(aiType, message, playerScores, targetScore);
+                    
+                    if (aiResponse && aiResponse.message) {
+                        // Určíme barvu podle AI typu
+                        let colorClass = 'neon-blue';
+                        switch(aiType) {
+                            case 'gemini': colorClass = 'neon-blue'; break;
+                            case 'chatgpt': colorClass = 'neon-pink'; break;
+                            case 'claude': colorClass = 'neon-orange'; break;
+                        }
+                        
+                        // Přidáme AI odpověď s správnou barvou
+                        const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
+                        window.addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
+                    }
+                }, 800 + (index * 600)); // Odstupňované časování
+            });
+        }).catch(error => {
+            console.error('Chyba při načítání AI controller v mobilu:', error);
+            // Fallback na původní implementaci
+            const chatMessages = document.getElementById('chatMessagesMobile');
+            if (chatMessages) {
+                setTimeout(() => {
+                    const aiMessage = document.createElement('div');
+                    aiMessage.className = 'chat-message mb-2 small';
+                    aiMessage.innerHTML = '<strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Zajímavá strategie!</span>';
+                    chatMessages.appendChild(aiMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 500);
+            }
+        });
+    } else {
+        // Fallback pokud globální funkce neexistuje
+        const chatMessages = document.getElementById('chatMessagesMobile');
+        if (chatMessages) {
+            const newMessage = document.createElement('div');
+            newMessage.className = 'chat-message mb-2 small';
+            newMessage.innerHTML = '<strong class="neon-green">Vy:</strong> <span class="neon-green">' + message + '</span>';
+            chatMessages.appendChild(newMessage);
+            
+            setTimeout(() => {
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'chat-message mb-2 small';
+                aiMessage.innerHTML = '<strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Zajímavá strategie!</span>';
+                chatMessages.appendChild(aiMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 500);
+            
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }, 500);
-        
-        // Vyčistit input
-        chatInput.value = '';
-        
-        // Scroll na konec
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     }
 }
 
