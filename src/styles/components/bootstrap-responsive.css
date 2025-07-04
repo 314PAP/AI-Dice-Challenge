@@ -39,13 +39,7 @@
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
-}
-
-/* Obecné pravidlo pro zajištění správného zobrazení rámečků */
-.game-box, .chat-box {
-  position: relative;
-  border: 2px solid var(--neon-green);
-  border-radius: var(--border-radius);
+  outline: none;
 }
 
 /* Vylepšený hover efekt s jemným světlem uvnitř */
