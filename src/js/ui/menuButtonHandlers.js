@@ -77,12 +77,72 @@ function handleStartGame() {
   }
   
   try {
-    console.log('🎮 Volám startGame()...');
-    startGame();
+    console.log('🎮 Volám hru přes MainGameController...');
+    
+    // Použij MainGameController pokud je k dispozici
+    if (window.gameController && typeof window.gameController.startGame === 'function') {
+      console.log('✅ Používám MainGameController');
+      
+      // Nastavíme target score v MainGameController
+      if (window.gameController.targetScore !== undefined) {
+        window.gameController.targetScore = targetScore;
+      }
+      
+      // Skryj menu a zobraz herní UI
+      hideMenuShowGame();
+      
+      // Spusť hru
+      window.gameController.startGame();
+      
+    } else {
+      console.log('⚠️  MainGameController není k dispozici, používám starý systém');
+      startGame();
+    }
+    
     console.log('✅ Hra byla úspěšně spuštěna');
   } catch (error) {
     console.error('❌ Chyba při spouštění hry:', error);
     alert('Při spouštění hry došlo k chybě. Zkuste to znovu.');
+  }
+}
+
+// Pomocná funkce pro skrytí menu a zobrazení hry
+function hideMenuShowGame() {
+  // Hide menu and show game controls
+  const gameHeader = document.getElementById('gameHeader');
+  const gameControls = document.getElementById('gameControls');
+  const gameControlsMobile = document.getElementById('gameControlsMobile');
+  
+  // Hide desktop menu
+  if (gameHeader) {
+    gameHeader.classList.add('hidden');
+    console.log('✅ Desktop menu skryto');
+  }
+  
+  // Show desktop game controls
+  if (gameControls) {
+    gameControls.classList.remove('hidden');
+    console.log('✅ Desktop herní ovládání zobrazeno');
+  }
+  
+  // Show mobile game controls
+  if (gameControlsMobile) {
+    gameControlsMobile.classList.remove('hidden');
+    console.log('✅ Mobile herní ovládání zobrazeno');
+  }
+  
+  // Hide mobile menu (if exists)
+  const gameMobileContent = document.getElementById('gameMobileContent');
+  if (gameMobileContent) {
+    gameMobileContent.classList.add('hidden');
+    console.log('✅ Mobile menu skryto');
+  }
+  
+  // Show players container during game
+  const playersContainer = document.querySelector('.players-container');
+  if (playersContainer) {
+    playersContainer.classList.remove('hidden');
+    console.log('✅ Players container zobrazeno');
   }
 }
 
