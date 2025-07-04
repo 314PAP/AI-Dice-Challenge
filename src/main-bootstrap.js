@@ -191,6 +191,14 @@ function initEventListeners() {
     // Inicializace menu tlačítek
     initMenuButtons();
     
+    // První detekce velikosti obrazovky
+    detectExtremelySmallScreen();
+    
+    // Odposlech orientace zařízení
+    window.addEventListener('orientationchange', () => {
+        setTimeout(detectExtremelySmallScreen, 300);
+    });
+    
     // Přidání třídy pro postupné objevení tlačítek
     document.querySelectorAll('.btn').forEach((btn, index) => {
         if (!btn.classList.contains('animate__animated')) {
@@ -227,23 +235,97 @@ function handleWindowResize() {
     }
 }
 
-// Detekce extrémně malých obrazovek
+// Vylepšená detekce extrémně malých obrazovek
 function detectExtremelySmallScreen() {
     const isXS = window.innerWidth < 320 || window.innerHeight < 480;
-    const deviceInfo = `Šířka: ${window.innerWidth}px, Výška: ${window.innerHeight}px, Typ: ${isXS ? 'Extrémně malé zařízení' : 'Standardní zařízení'}`;
+    const isXXS = window.innerWidth < 280 || window.innerHeight < 400;
+    const deviceInfo = `Šířka: ${window.innerWidth}px, Výška: ${window.innerHeight}px, Typ: ${isXXS ? 'Extrémně malé zařízení' : isXS ? 'Velmi malé zařízení' : 'Standardní zařízení'}`;
     console.log(deviceInfo);
     
     // Přizpůsobíme prvky pro velmi malé obrazovky
-    if (isXS) {
+    if (isXXS) {
+        document.body.classList.add('xxs-device');
+        document.body.classList.add('xs-device');
+        
+        // Extrémně kompaktní rozložení
+        document.querySelectorAll('.game-title').forEach(title => {
+            title.classList.add('fs-6');
+            title.classList.remove('fs-3', 'fs-4', 'fs-5');
+            // Odstranění ikon pro extra úsporu místa
+            const icons = title.querySelectorAll('i');
+            icons.forEach(icon => icon.style.display = 'none');
+        });
+        
+        // Extra malá tlačítka
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.classList.add('btn-sm', 'py-1', 'px-1');
+            btn.classList.add('compact-btn');
+        });
+        
+        // Odstranit dekorativní elementy
+        document.querySelectorAll('.decorative-element, .hide-on-xs').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+    } else if (isXS) {
+        document.body.classList.add('xs-device');
+        document.body.classList.remove('xxs-device');
+        
         document.querySelectorAll('.game-title').forEach(title => {
             title.classList.add('fs-6');
             title.classList.remove('fs-3', 'fs-4', 'fs-5');
         });
         
         document.querySelectorAll('.btn').forEach(btn => {
-            btn.classList.add('btn-sm');
-            btn.classList.add('py-1');
+            btn.classList.add('btn-sm', 'py-1');
+            btn.classList.remove('compact-btn');
         });
+        
+        // Skryjeme některé dekorační prvky
+        document.querySelectorAll('.hide-on-xs').forEach(el => {
+            el.style.display = 'none';
+        });
+    } else {
+        document.body.classList.remove('xs-device', 'xxs-device');
+        
+        // Obnovíme viditelnost prvků
+        document.querySelectorAll('.hide-on-xs').forEach(el => {
+            el.style.display = '';
+        });
+        
+        document.querySelectorAll('.btn i').forEach(icon => {
+            icon.style.display = '';
+        });
+        
+        document.querySelectorAll('.game-title').forEach(title => {
+            title.classList.remove('fs-6');
+            if (window.innerWidth > 767) {
+                title.classList.add('fs-3');
+            } else {
+                title.classList.add('fs-4');
+            }
+        });
+    }
+    
+    // Zajištění viditelnosti chat boxu
+    ensureChatVisibility();
+}
+
+// Funkce pro zajištění viditelnosti chatu
+function ensureChatVisibility() {
+    const chatMessages = document.getElementById('chatMessagesMobile');
+    const chatInput = document.getElementById('chatInputMobile');
+    
+    if (chatMessages && chatInput) {
+        // Zajistíme, že chat input je vždy viditelný
+        chatInput.style.visibility = 'visible';
+        chatInput.style.opacity = '1';
+        
+        // Zajistíme, že zprávy jsou viditelné
+        chatMessages.style.minHeight = '80px';
+        
+        // Scrollujeme na nejnovější zprávu
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 }
 
