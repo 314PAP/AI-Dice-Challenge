@@ -532,13 +532,13 @@ function simulateAiResponse() {
             }
             
             // Přidáme skutečnou odpověď s odpovídající barvou
-            addChatMessageWithColor(randomResponse.ai, randomResponse.message, randomResponse.color);
+            addChatMessage(randomResponse.ai, randomResponse.message, 'ai', randomResponse.color);
         }, 1500);
     }, 700);
 }
 
 // Funkce pro přidání zprávy do chatu s vylepšenými animacemi a třídami
-function addChatMessage(sender, message, type = 'player') {
+function addChatMessage(sender, message, type = 'player', customColor = null) {
     // Získáme kontejnery zpráv
     const mobileMessages = document.getElementById('chatMessagesMobile');
     const desktopMessages = document.getElementById('chatMessages');
@@ -547,26 +547,31 @@ function addChatMessage(sender, message, type = 'player') {
     const messageElement = document.createElement('div');
     messageElement.className = `chat-message small animate__animated ${type}-message`;
     
-    // Barva podle typu zprávy
-    let colorClass = 'neon-green';
+    // Barva podle typu zprávy nebo custom barva
+    let colorClass = customColor || 'neon-green';
     let animationType = 'animate__fadeInLeft';
     
-    switch(type) {
-        case 'system':
-            colorClass = 'neon-yellow';
-            animationType = 'animate__fadeInDown';
-            break;
-        case 'ai':
-            colorClass = 'neon-blue';
-            animationType = 'animate__fadeInRight';
-            break;
-        case 'error':
-            colorClass = 'neon-red';
-            animationType = 'animate__shakeX';
-            break;
-        default:
-            colorClass = 'neon-green';
-            animationType = 'animate__fadeInLeft';
+    if (!customColor) {
+        switch(type) {
+            case 'system':
+                colorClass = 'neon-yellow';
+                animationType = 'animate__fadeInDown';
+                break;
+            case 'ai':
+                colorClass = 'neon-blue';
+                animationType = 'animate__fadeInRight';
+                break;
+            case 'error':
+                colorClass = 'neon-red';
+                animationType = 'animate__shakeX';
+                break;
+            default:
+                colorClass = 'neon-green';
+                animationType = 'animate__fadeInLeft';
+        }
+    } else {
+        // Pokud je customColor nastavena, použijeme ji
+        animationType = 'animate__fadeInRight';
     }
     
     // Přidání animace
