@@ -493,13 +493,20 @@ function sendChatMessage(inputElement, source = 'desktop') {
 // Simulace odpovědi AI
 function simulateAiResponse() {
     const aiResponses = [
-        'Zajímavý tah! Co uděláš dál?',
-        'Skvělá strategie!',
-        'Vidím, že hraješ opatrně.',
-        'Zkus to znovu s větším rizikem!',
-        'To byla troufalá volba!',
-        'Jsem zvědavý, jak to dopadne...',
-        'Počítám pravděpodobnost tvého úspěchu.'
+        // Gemini (modrá)
+        { ai: 'Gemini', message: 'Zajímavý tah! Počítám pravděpodobnost...', color: 'neon-blue' },
+        { ai: 'Gemini', message: 'Analýza dat: Strategie vypadá promyšleně 📊', color: 'neon-blue' },
+        { ai: 'Gemini', message: 'Statisticky máš 67% šanci na úspěch', color: 'neon-blue' },
+        
+        // ChatGPT (růžová)
+        { ai: 'ChatGPT', message: 'Woah! To bylo úžasné! 😎✨', color: 'neon-pink' },
+        { ai: 'ChatGPT', message: 'Haha, skvělý tah! Já bych to udělal stejně! 🎉', color: 'neon-pink' },
+        { ai: 'ChatGPT', message: 'Nice! Připrav se na epic comeback! 💪', color: 'neon-pink' },
+        
+        // Claude (oranžová)
+        { ai: 'Claude', message: 'Promyšlené rozhodnutí, příteli 🤔', color: 'neon-orange' },
+        { ai: 'Claude', message: 'Moudrost se projevuje v trpělivosti 🧘', color: 'neon-orange' },
+        { ai: 'Claude', message: 'Takový přístup přináší hlubší porozumění ⚖️', color: 'neon-orange' }
     ];
     
     // Náhodná odpověď
@@ -524,8 +531,8 @@ function simulateAiResponse() {
                 desktopMessages.removeChild(desktopMessages.lastChild);
             }
             
-            // Přidáme skutečnou odpověď
-            addChatMessage('Gemini', randomResponse, 'ai');
+            // Přidáme skutečnou odpověď s odpovídající barvou
+            addChatMessageWithColor(randomResponse.ai, randomResponse.message, randomResponse.color);
         }, 1500);
     }, 700);
 }
