@@ -79,11 +79,18 @@ body {
   transition: padding 0.3s ease;
 }
 
-/* Aplikujeme rámečky na jednotlivé boxy na všech zařízeních */
-.game-box, .chat-container, #chatPanelMobile {
+/* Aplikujeme rámečky na herní boxy na všech zařízeních */
+.game-box, #chatPanelMobile {
   border: var(--border-width) solid var(--neon-green);
   border-radius: var(--border-radius);
   box-shadow: var(--neon-glow);
+}
+
+/* Chat kontejner bez glow efektu */
+.chat-container {
+  border: var(--border-width) solid var(--neon-green);
+  border-radius: var(--border-radius);
+  box-shadow: none;
 }
 
 /* Konsistentní mezery mezi řádky */
