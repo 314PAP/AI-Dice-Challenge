@@ -380,12 +380,12 @@
 /* Neonové okraje pro různé barvy (bootstrap-like) */
 .border-neon-green {
   border-color: var(--neon-green) !important;
-  box-shadow: 0 0 8px rgba(var(--neon-green-rgb, 0, 255, 0), 0.3) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb, 57, 255, 20), 0.3) !important;
 }
 
 .border-neon-blue {
   border-color: var(--neon-blue) !important;
-  box-shadow: 0 0 8px rgba(var(--neon-blue-rgb, 0, 191, 255), 0.3) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-blue-rgb, 25, 77, 209), 0.3) !important;
 }
 
 .border-neon-pink {
@@ -413,11 +413,11 @@
 
 /* Barevné stíny */
 .shadow-green {
-  box-shadow: 0 0 10px rgba(var(--neon-green-rgb, 0, 255, 0), 0.3) !important;
+  box-shadow: 0 0 10px rgba(var(--neon-green-rgb, 57, 255, 20), 0.3) !important;
 }
 
 .shadow-blue {
-  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb, 0, 191, 255), 0.3) !important;
+  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb, 25, 77, 209), 0.3) !important;
 }
 
 .shadow-pink {
