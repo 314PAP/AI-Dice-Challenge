@@ -86,6 +86,8 @@
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   background-color: transparent;
+  border: none !important;
+  box-shadow: none !important;
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.5);
 }

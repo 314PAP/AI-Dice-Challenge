@@ -555,7 +555,8 @@ function addChatMessage(sender, message, type = 'player') {
         
         // Zajistíme scroll na nejnovější zprávu
         setTimeout(() => {
-            container.scrollTop = container.scrollHeight;
+            // Použijeme globální funkci pro scrollování
+            scrollToLatestMessage();
             
             // Přidáme efekt zvýraznění
             messageToAdd.classList.add('highlight-new');
@@ -642,16 +643,18 @@ function removeAllPulseAnimations() {
     console.log('Všechny pulzující animace byly odstraněny pro snazší ladění');
 }
 
-// Funkce pro zajištění scrollování na nejnovější zprávu
+// Funkce pro automatické scrollování na poslední zprávu v chatu
 function scrollToLatestMessage() {
-    // Scroll na poslední zprávu v mobilním chatu
+    // Získáme kontejnery zpráv
     const mobileMessages = document.getElementById('chatMessagesMobile');
+    const desktopMessages = document.getElementById('chatMessages');
+    
+    // Scrollujeme na spodek v mobilní verzi
     if (mobileMessages) {
         mobileMessages.scrollTop = mobileMessages.scrollHeight;
     }
     
-    // Scroll na poslední zprávu v desktopovém chatu
-    const desktopMessages = document.getElementById('chatMessages');
+    // Scrollujeme na spodek v desktopové verzi
     if (desktopMessages) {
         desktopMessages.scrollTop = desktopMessages.scrollHeight;
     }
