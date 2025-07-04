@@ -48,6 +48,23 @@ function handleStartGame() {
     return;
   }
   
+  // Ujistíme se, že startGame najde správnou hodnotu v DOM
+  const inputDesktop = document.getElementById('targetScoreInput');
+  const inputMobile = document.getElementById('targetScoreInputMobile');
+  
+  // Nastavíme hodnotu do primary inputu (desktop má prioritu)
+  if (inputDesktop) {
+    inputDesktop.value = targetScore.toString();
+  } else if (inputMobile) {
+    inputMobile.value = targetScore.toString();
+    // Pokud existuje pouze mobile input, vytvoříme dočasný desktop input
+    const tempInput = document.createElement('input');
+    tempInput.id = 'targetScoreInput';
+    tempInput.value = targetScore.toString();
+    tempInput.style.display = 'none';
+    document.body.appendChild(tempInput);
+  }
+  
   try {
     startGame();
     console.log('✅ Hra byla úspěšně spuštěna');
