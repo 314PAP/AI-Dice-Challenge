@@ -1,0 +1,35 @@
+/* =============================================================================
+   📋 FORMS - Styly pro všechny formulářové prvky
+   ============================================================================= */
+
+/* Zelený placeholder pro všechna textová pole */
+input::placeholder {
+  color: var(--neon-green) !important;
+  opacity: 0.7;
+}
+
+/* Zelené zaměření pro všechny formulářové prvky */
+.form-control:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 0 0.2rem rgba(var(--neon-green-rgb), 0.25);
+}
+
+/* Neonové inputy bez hranic */
+.form-control.bg-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Neonové tlačítko se zelenou šipkou */
+.btn-send-neon {
+  background: transparent;
+  border: none;
+  color: var(--neon-green);
+}
+
+.btn-send-neon:hover {
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+}
+
+.btn-send-neon i {
+  font-size: 1.25rem;
+}
