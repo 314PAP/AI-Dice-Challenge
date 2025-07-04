@@ -677,9 +677,18 @@
   transition: all 0.3s ease;
 }
 
-/* Vstupní pole - s neonovým okrajem (mimo chat) */
-.form-control:not(.chat-container .form-control):not(.chat-box .form-control):not(#chatInput):not(#chatInputMobile) {
+/* Vstupní pole - s neonovým okrajem (všude kromě v chatu) */
+.form-control {
   border: 1px solid var(--neon-green);
+}
+
+/* Speciálně pro chat, odstraníme rámeček */
+.chat-container .form-control,
+.chat-box .form-control,
+#chatInput,
+#chatInputMobile {
+  border: none !important;
+  background-color: transparent;
 }
 
 .form-control:focus {
