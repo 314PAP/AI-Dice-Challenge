@@ -83,8 +83,6 @@
   min-height: 0;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
-  border-radius: 0.25rem;
-  background-color: rgba(0, 0, 0, 0.5);
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.5);
 }
@@ -228,12 +226,10 @@
   margin-top: auto;
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 0.25rem;
   position: sticky;
   bottom: 0;
   z-index: 10;
   transition: all 0.3s ease;
-  border-top: 1px solid rgba(57, 255, 20, 0.2);
 }
 
 /* Mírné zvýraznění chat inputu při aktivním stavu */
