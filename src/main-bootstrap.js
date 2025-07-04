@@ -25,6 +25,10 @@ async function initGame() {
         const mobileChat = await loadTemplate('/src/templates/chat-mobile-bootstrap.html');
         const desktopChat = await loadTemplate('/src/templates/chat.html');
         
+        // Načtení herních šablon
+        const gameControls = await loadTemplate('/src/templates/game-controls.html');
+        const mobileGameControls = await loadTemplate('/src/templates/game-controls-mobile.html');
+        
         // Načtení modal šablon
         const rulesModal = await loadTemplate('/src/templates/modals/rules-modal.html');
         const hallOfFameModal = await loadTemplate('/src/templates/modals/hall-of-fame-modal.html');
@@ -35,6 +39,10 @@ async function initGame() {
         document.getElementById('gameMobileContent').innerHTML = mobileGameMenu;
         document.getElementById('chatPanelMobileContainer').innerHTML = mobileChat;
         document.getElementById('chatPanel').innerHTML = desktopChat;
+        
+        // Vložení herních šablon
+        document.getElementById('gameControls').innerHTML = gameControls;
+        document.getElementById('gameControlsMobile').innerHTML = mobileGameControls;
         
         // Vložení modal šablon do modalsContainer (nebo přímo do body pokud neexistuje)
         const modalsContainer = document.getElementById('modalsContainer') || document.body;
