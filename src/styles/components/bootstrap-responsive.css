@@ -258,6 +258,8 @@
   color: var(--neon-green);
   border: none !important;
   box-shadow: none !important;
+  border-radius: 4px;
+  padding-right: 5px;
 }
 
 .chat-input .form-control:focus {
@@ -657,18 +659,15 @@
   border-color: var(--neon-green) !important;
 }
 
-/* Speciální úprava pro tlačítka v chatu - zachování vzhledu bez rámečků */
-.chat-btn {
+/* Speciální úprava pro tlačítka v chatu - pouze ikony bez rámečků */
+.chat-input button {
   background-color: transparent;
-  color: var(--neon-green);
-  opacity: 0.9;
-  transition: all 0.3s ease;
-}
-
-.chat-btn:hover {
-  background-color: rgba(57, 255, 20, 0.1);
-  color: var(--neon-green);
-  opacity: 1;
+  border: none;
+  padding: 0;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Ujistíme se, že hlavní tlačítka mimo chat mají zachované rámečky */
@@ -844,4 +843,47 @@
 .error-message {
   border-color: transparent !important;
   box-shadow: none !important;
+}
+
+/* Stylování pro ikonu send tlačítka v chatu - pouze ikona bez rámečku */
+.send-icon {
+  font-size: 1.2rem;
+  color: var(--neon-green);
+  transition: all 0.3s ease;
+  text-shadow: 0 0 2px var(--neon-green);
+}
+
+/* Zesílený neonový efekt při hoveru */
+.send-icon:hover, button:hover .send-icon {
+  color: var(--neon-green);
+  text-shadow: 
+    0 0 5px var(--neon-green),
+    0 0 10px var(--neon-green),
+    0 0 15px var(--neon-green);
+  transform: scale(1.2);
+}
+
+/* Efekt stisknutí */
+button:active .send-icon {
+  transform: scale(0.9);
+  transition: transform 0.1s ease;
+}
+
+/* Upravený styl pro input-group v chatu - lepší uspořádání s ikonou */
+.chat-input .input-group {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+/* Zajistíme, aby tlačítko send bylo správně zarovnané */
+.chat-input button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin-left: 5px;
+  background-color: transparent;
 }
