@@ -2,7 +2,19 @@
 <html lang="cs">
 <head>
     <!-- Načtení hlavičky z komponenty -->
-    <meta charset="UTF-8">
+    <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
+        <div class="d-md-none h-100 mobile-layout mobile-landscape-flex-row animate__animated animate__fadeIn">
+            <!-- První část - herní menu -->
+            <div class="flex-grow-1 mb-1 mb-landscape-0 h-75 h-landscape-100">
+                <!-- Zde se načte mobilní herní menu -->
+                <div id="gameMobileContent" class="h-100 mobile-safe-content"></div>
+            </div>
+            
+            <!-- Druhá část - chat -->
+            <div class="h-20 h-landscape-100">
+                <!-- Zde se načte mobilní chat -->
+                <div id="chatPanelMobileContainer" class="h-100 mobile-safe-content"></div>
+            </div>="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎲 AI Kostková Výzva</title>
     <link rel="icon" type="image/svg+xml" href="/dice.svg" />

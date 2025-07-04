@@ -52,10 +52,10 @@
 .game-box::before, .chat-box::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 2px; /* 2px odsazení od hrany, aby nedocházelo k překryvu s border */
+  left: 2px;
+  width: calc(100% - 4px); /* Zmenšení o 4px (2px na každé straně) */
+  height: calc(100% - 4px);
   background: radial-gradient(
     circle at center,
     rgba(57, 255, 20, 0.03) 0%,
@@ -64,6 +64,7 @@
   opacity: 0;
   z-index: -1;
   transition: opacity 0.5s ease;
+  pointer-events: none; /* Zajistí, že element nepřijímá žádné události myši */
 }
 
 .game-box:hover::before, .chat-box:hover::before {
@@ -531,9 +532,9 @@
   .game-box, .chat-box {
     padding: 0.25rem !important;
     border: 2px solid var(--neon-green) !important;
-    border-bottom: 2px solid var(--neon-green) !important;
     border-radius: var(--border-radius) !important;
     box-shadow: var(--neon-glow) !important;
+    outline: none !important;
   }
   
   /* Maximalizace využitelného prostoru */
