@@ -543,5 +543,45 @@ function addChatMessage(sender, message, type = 'player') {
     }
 }
 
+// Funkce pro zvýraznění neonových efektů
+function enhanceNeonEffects() {
+    // Zvýšení intenzity neonového efektu u tlačítek
+    document.querySelectorAll('.btn-neon').forEach(btn => {
+        // Zvýšení intenzity stínu pro lepší viditelnost
+        const color = window.getComputedStyle(btn).color;
+        btn.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
+        
+        // Přidání extra glow efektu k okrajům
+        const borderColor = window.getComputedStyle(btn).borderColor;
+        btn.style.boxShadow = `0 0 5px ${borderColor}, 0 0 8px ${borderColor}, 0 0 12px ${borderColor}`;
+    });
+    
+    // Zvýraznění neonových nadpisů
+    document.querySelectorAll('.neon-text').forEach(text => {
+        const color = window.getComputedStyle(text).color;
+        text.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}, 0 0 15px ${color}`;
+    });
+}
+
+// Funkce pro pokus o znovunačtení obsahu, pokud je něco prázdné
+function tryContentRecovery() {
+    // Kontrola, zda jsou klíčové elementy prázdné
+    const gameContent = document.getElementById('gameContent');
+    const gameMobileContent = document.getElementById('gameMobileContent');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatPanelMobile = document.getElementById('chatPanelMobileContainer');
+    
+    // Pokud některý z klíčových obsahů chybí, zkusíme znovu načíst
+    if ((!gameContent || !gameContent.innerHTML.trim()) || 
+        (!gameMobileContent || !gameMobileContent.innerHTML.trim()) ||
+        (!chatPanel || !chatPanel.innerHTML.trim()) ||
+        (!chatPanelMobile || !chatPanelMobile.innerHTML.trim())) {
+        
+        console.log('Detekován prázdný obsah, pokus o znovunačtení...');
+        // Znovu načteme šablony
+        initGame();
+    }
+}
+
 // Spuštění inicializace po načtení stránky
 document.addEventListener('DOMContentLoaded', initGame);
