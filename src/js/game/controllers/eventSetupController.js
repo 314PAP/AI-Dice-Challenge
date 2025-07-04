@@ -55,24 +55,25 @@ export function setupEventListeners() {
     
     // Počkej na úplné načtení DOM
     setTimeout(() => {
-        // Start game button
-        const startGameBtn = document.getElementById('startGameBtn');
-        if (startGameBtn) {
-            console.log('✅ Přidávám event listener pro Start Game');
-            startGameBtn.addEventListener('click', () => {
-                console.log('🚀 Start Game button clicked!');
-                const targetScoreInput = document.getElementById('targetScoreInput');
-                const targetScore = parseInt(targetScoreInput.value);
-                
-                if (targetScore >= 1000) {
-                    startGame();
-                } else {
-                    alert('Cílové skóre musí být alespoň 1000 bodů!');
-                }
-            });
-        } else {
-            console.error('❌ Start Game button not found!');
-        }
+        // Start game button - ZAKOMENTOVÁNO protože se o to stará menuButtonHandlers.js
+        // const startGameBtn = document.getElementById('startGameBtn');
+        // if (startGameBtn) {
+        //     console.log('✅ Přidávám event listener pro Start Game');
+        //     startGameBtn.addEventListener('click', () => {
+        //         console.log('🚀 Start Game button clicked!');
+        //         const targetScoreInput = document.getElementById('targetScoreInput');
+        //         const targetScore = parseInt(targetScoreInput.value);
+        //         
+        //         if (targetScore >= 1000) {
+        //             startGame();
+        //         } else {
+        //             alert('Cílové skóre musí být alespoň 1000 bodů!');
+        //         }
+        //     });
+        // } else {
+        //     console.error('❌ Start Game button not found!');
+        // }
+        console.log('⚠️ Start Game button event listener PŘESKOČEN - řešeno v menuButtonHandlers.js');
 
         // Roll dice button
         const rollBtn = document.getElementById('rollBtn');
