@@ -597,6 +597,31 @@ function tryContentRecovery() {
     }
 }
 
+// Funkce pro odstranění všech pulzujících animací
+function removeAllPulseAnimations() {
+    // Odstranění pulse animací ze všech prvků
+    document.querySelectorAll('.animate__pulse').forEach(element => {
+        element.classList.remove('animate__pulse', 'animate__slow', 'animate__slower', 'animate__infinite');
+    });
+    
+    // Odstranění animací z game boxů
+    document.querySelectorAll('.game-box').forEach(box => {
+        box.classList.remove('animate__pulse', 'animate__slow', 'animate__infinite');
+    });
+    
+    // Odstranění animací z chat boxů
+    document.querySelectorAll('.chat-box').forEach(box => {
+        box.classList.remove('animate__pulse', 'animate__slow', 'animate__infinite');
+    });
+    
+    // Odstranění animací z nadpisů
+    document.querySelectorAll('.game-title, .neon-text').forEach(text => {
+        text.classList.remove('animate__pulse', 'animate__slow', 'animate__slower', 'animate__infinite');
+    });
+    
+    console.log('Všechny pulzující animace byly odstraněny pro snazší ladění');
+}
+
 // Inicializace při načtení DOM
 document.addEventListener('DOMContentLoaded', function() {
     // Spuštění inicializace hry
