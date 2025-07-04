@@ -29,6 +29,10 @@ export function initializeGame() {
 export function startGame() {
     console.log('🎮 Spouštím hru...');
     const targetScoreInput = document.getElementById('targetScoreInput');
+    if (!targetScoreInput) {
+        console.error('❌ Element targetScoreInput nenalezen!');
+        throw new Error('Element targetScoreInput nenalezen! Ujistěte se, že je v DOM.');
+    }
     gameState.targetScore = parseInt(targetScoreInput.value);
     gameState.gameStarted = true;
     gameState.gameStartTime = new Date(); // Nastavit čas začátku hry
