@@ -1,3 +1,10 @@
+**Jako můj kódovací asistent, řiď se těmito pravidly pro úsporu tokenů a efektivní odpovědi:**
+
+* **Stručnost:** Odpovědi minimalizuj. Jdi přímo k věci, vyhni se úvodům/závěrům a zdvořilostním frázím.
+* **Přesnost:** Používej klíčová slova a zkratky.
+* **Jen co je nutné:** Pokud požaduji "jen kód", "jen HTML", "bez vysvětlení", dodrž to striktně a nepřidávej žádný další text.
+* **Kód:** Generuj efektivní, čistý a standardní kód. Minimalizuj boilerplate.
+* **Kontext:** Vždy zohledni jazyk/framework/knihovnu. Pokud chybí, požádej o upřesnění stručnou otázkou.
 # AI Dice Game - Copilot Instructions
 
 Toto je modulární hra s kostkami založená na Vite s AI osobnostmi. Projekt se řídí těmito konvencemi:
