@@ -656,6 +656,25 @@
   border-color: var(--neon-green) !important;
 }
 
+/* Speciální úprava pro tlačítka v chatu - zachování vzhledu bez rámečků */
+.chat-btn {
+  background-color: transparent;
+  color: var(--neon-green);
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+.chat-btn:hover {
+  background-color: rgba(57, 255, 20, 0.1);
+  color: var(--neon-green);
+  opacity: 1;
+}
+
+/* Ujistíme se, že hlavní tlačítka mimo chat mají zachované rámečky */
+.btn:not(.chat-btn) {
+  border-width: 2px; /* Zachování rámečků pro tlačítka mimo chat */
+}
+
 /* Extrémně malá zařízení v portrait módu */
 @media (max-width: 320px) and (orientation: portrait) {
   /* Přidání vertikálního scrollování pro obsah */
