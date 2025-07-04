@@ -4,8 +4,8 @@
 
 export const claudePersonality = {
     name: 'Claude (C)',
-    color: '#ff6600', // oranžová
-    avatar: 'https://placehold.co/50x50/717387/ffffff?text=C',
+    color: '#FF8800', // oranžová Claude
+    avatar: 'https://placehold.co/50x50/FF8800/ffffff?text=C',
     gameReactions: {
         hello: [
             'Zdravím. K této hře přistupujem s rozjímáním 🧘',

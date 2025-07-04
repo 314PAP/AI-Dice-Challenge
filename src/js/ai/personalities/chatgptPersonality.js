@@ -4,8 +4,8 @@
 
 export const chatgptPersonality = {
     name: 'ChatGPT (⚡)',
-    color: '#ff00ff', // růžová
-    avatar: 'https://placehold.co/50x50/74aa9c/ffffff?text=⚡',
+    color: '#FF00FF', // růžová ChatGPT
+    avatar: 'https://placehold.co/50x50/FF00FF/ffffff?text=⚡',
     gameReactions: {
         hello: [
             'Joooo! Pojďme rozjet tuhle párty! 🎉✨',
