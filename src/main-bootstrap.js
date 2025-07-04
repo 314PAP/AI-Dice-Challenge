@@ -2,12 +2,6 @@
  * Hlavní JS soubor pro načítání šablon s novým Bootstrap responzivním layoutem
  */
 
-// Import hlavního herního controlleru
-import { MainGameController } from './game/MainGameController.js';
-
-// Globální instance herního controlleru
-let gameController = null;
-
 // Utility funkce pro načítání HTML šablon
 async function loadTemplate(url) {
     try {
@@ -99,19 +93,19 @@ async function initGame() {
     // Kontrola viditelnosti každých 5 sekund
     setInterval(ensureElementsVisibility, 5000);
     
-    // Inicializace hlavního herního controlleru
-    try {
-        gameController = new MainGameController();
-        await gameController.initialize();
-        console.log('✅ MainGameController inicializován');
+    // Inicializace hlavního herního controlleru - VYPNUTO
+    // try {
+    //     gameController = new MainGameController();
+    //     await gameController.initialize();
+    //     console.log('✅ MainGameController inicializován');
         
-        // Nastavení globálního přístupu pro debugging
-        window.gameController = gameController;
+    //     // Nastavení globálního přístupu pro debugging
+    //     window.gameController = gameController;
         
-    } catch (error) {
-        console.error('❌ Chyba při inicializaci MainGameController:', error);
-        // Pokračujeme bez něj, aby se zachovala funkčnost menu
-    }
+    // } catch (error) {
+    //     console.error('❌ Chyba při inicializaci MainGameController:', error);
+    //     // Pokračujeme bez něj, aby se zachovala funkčnost menu
+    // }
 }
 
 // Přizpůsobení layoutu podle orientace zařízení
