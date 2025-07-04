@@ -3,7 +3,12 @@
  * Spravuje řízení tahů a herní logiku
  */
 
-import { gameState } from '../../js/game/gameState.js';
+import { gameState } from '../../js/game    nextPlayer() {
+        if (gameState.players && gameState.players.length > 0) {
+            gameState.currentPlayer = (gameState.currentPlayer + 1) % gameState.players.length;
+            console.log(`🔄 Na řadě je hráč: ${gameState.players[gameState.currentPlayer].name`);
+        }
+    }tate.js';
 import { MESSAGES, CSS_CLASSES } from '../../core/constants.js';
 
 export class TurnController {
@@ -78,10 +83,10 @@ export class TurnController {
         
         // Přidej skóre k celkovému skóre hráče
         if (this.gameController.turnScore > 0) {
-            gameState.currentPlayerIndex = gameState.currentPlayerIndex || 0;
-            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+            const currentPlayer = gameState.players[gameState.currentPlayer];
             if (currentPlayer) {
                 currentPlayer.score += this.gameController.turnScore;
+                this.gameController.scoreController.updateScoreboard();
                 this.gameController.addChatMessage('Systém', 
                     `✅ ${currentPlayer.name} získává ${this.gameController.turnScore} bodů! Celkem: ${currentPlayer.score}`);
             }
