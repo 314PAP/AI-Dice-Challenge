@@ -548,22 +548,23 @@
   text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange);
 }
 
-/* Oprava vzhledu chat inputu pro minimalističtější vzhled */
+/* Chat input - čistý minimalistický design bez rámečků */
 .chat-input .input-group {
-  border: none !important;
-  background: transparent !important;
+  border: none;
+  background: transparent;
 }
 
 .chat-input .form-control {
-  border: none !important;
-  box-shadow: none !important;
-  background-color: rgba(0, 0, 0, 0.5) !important;
-  color: var(--neon-green) !important;
-  border-radius: 0.25rem !important;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  color: var(--neon-green);
+  border-radius: 0.25rem;
 }
 
 .chat-input .form-control::placeholder {
-  color: rgba(57, 255, 20, 0.5) !important;
+  color: var(--neon-green);
+  opacity: 0.7;
 }
 
 /* Opravené odesílací tlačítko bez neonového efektu */

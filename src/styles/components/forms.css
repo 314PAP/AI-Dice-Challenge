@@ -32,9 +32,10 @@ input[id="chatInputMobile"] {
   box-shadow: 0 0 0 0.2rem rgba(var(--neon-green-rgb), 0.25);
 }
 
-/* Neonové inputy bez hranic */
-.form-control.bg-black {
-  background-color: rgba(0, 0, 0, 0.5);
+/* Průhledné pozadí pro formulářové prvky v chatu */
+.chat-container .form-control,
+.chat-box .form-control {
+  background-color: transparent;
 }
 
 /* Neonové tlačítko se zelenou šipkou */
