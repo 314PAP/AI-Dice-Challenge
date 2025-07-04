@@ -42,6 +42,33 @@
   z-index: 1;
 }
 
+/* Obecné pravidlo pro zajištění viditelnosti spodního rámečku na všech zařízeních */
+.game-box, .chat-box {
+  position: relative;
+  border-bottom-width: 2px !important;
+  border-bottom-style: solid !important;
+  border-bottom-color: var(--neon-green) !important;
+}
+
+/* Přidání neonového efektu spodního okraje pro lepší viditelnost */
+.game-box::after, .chat-box::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background-color: transparent;
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Zvýrazněný efekt při hoveru */
+.game-box:hover::after, .chat-box:hover::after {
+  box-shadow: 0 0 8px var(--neon-green), 0 0 15px var(--neon-green);
+}
+
 /* Vylepšený hover efekt s jemným světlem uvnitř */
 .game-box:hover, .chat-box:hover {
   box-shadow: var(--neon-glow-strong);
