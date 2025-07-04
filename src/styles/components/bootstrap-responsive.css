@@ -881,8 +881,21 @@
   }
 }
 
-/* Zajištění, že text v chatu je dobře čitelný */
-.chat-message strong, 
-.chat-message span {
-  text-shadow: 0 0 3px currentColor !important;
+/* Pravidla pro desktop chat */
+@media (min-width: 768px) {
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .chat-container .chat-messages {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+  }
+  
+  .chat-container > .mt-auto {
+    margin-top: auto !important;
+  }
 }
