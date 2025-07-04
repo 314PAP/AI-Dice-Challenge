@@ -44,23 +44,30 @@
     justify-content: center;
   }
   
+  html, body {
+    height: 100vh;
+    max-height: 100vh;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
   .chat-container {
-    position: fixed !important;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100vw;
     max-height: 60vh;
     z-index: 1000;
-    border-radius: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    padding-bottom: env(safe-area-inset-bottom, 0); /* pro iOS */
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    background: rgba(0,0,0,0.95);
   }
   .chat-container > .chat-messages {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
+    flex: 1 1 auto;
+    min-height: 0;
     max-height: 40vh;
-    overflow-y: auto !important;
+    overflow-y: auto;
   }
   .chat-container > .mt-auto {
     flex-shrink: 0;
