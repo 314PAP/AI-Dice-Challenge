@@ -505,7 +505,7 @@ function addChatMessage(sender, message, type = 'player') {
     
     // Vytvoříme nový element zprávy s odpovídající třídou pro typ zprávy
     const messageElement = document.createElement('div');
-    messageElement.className = `chat-message small animate__animated ${type}-message`;
+    messageElement.className = `chat-message animate__animated ${type}-message`;
     
     // Barva podle typu zprávy
     let colorClass = 'neon-green';
