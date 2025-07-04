@@ -22,12 +22,12 @@
     <!-- Zprávy se budou dynamicky přidávat zde -->
   </div>
   
-  <!-- Chat Input - kompaktní a přitom použitelný -->
-  <div class="chat-input bg-dark-90">
-    <div class="input-group input-group-sm border-0">
-      <input type="text" class="form-control border-0 bg-black text-neon-green" id="chatInputMobile" placeholder="Napište zprávu...">
-      <button class="btn border-0 bg-transparent d-flex-center" type="button" id="sendChatBtnMobile">
-        <i class="ri-send-plane-fill neon-green" style="font-size: clamp(0.8rem, calc(0.7rem + 0.3vh + 0.2vw), 1.2rem);"></i>
+  <!-- Chat Input - vždy fixovaný na spodek chatu -->
+  <div class="mt-auto p-2">
+    <div class="d-flex">
+      <input type="text" class="form-control bg-black border-0 text-neon-green" id="chatInputMobile" placeholder="Napište zprávu...">
+      <button class="btn bg-black border-0 d-flex align-items-center justify-content-center ms-2" type="button" id="sendChatBtnMobile">
+        <i class="ri-send-plane-fill text-neon-green"></i>
       </button>
     </div>
   </div>
