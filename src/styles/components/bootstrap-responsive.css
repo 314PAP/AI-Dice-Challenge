@@ -507,10 +507,15 @@
     margin-bottom: 0.3rem !important;
   }
   
-  /* Zviditelnění textu */
+  /* Zviditelnění textu pro malé obrazovky */
   .chat-message {
-    font-size: 0.75rem !important;
+    font-size: 0.8rem !important;
     padding: 0.2rem 0.3rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .chat-message strong {
+    font-size: 0.85rem !important;
   }
 }
 
@@ -530,6 +535,17 @@
   .chat-messages {
     max-height: 80px;
     min-height: 60px;
+  }
+  
+  /* Text pro velmi nízká zařízení */
+  .chat-message {
+    font-size: 0.75rem !important;
+    line-height: 1.2;
+    margin-bottom: 0.3rem !important;
+  }
+  
+  .chat-message strong {
+    font-size: 0.8rem !important;
   }
 }
 
@@ -886,4 +902,62 @@ button:active .send-icon {
   padding: 0;
   margin-left: 5px;
   background-color: transparent;
+}
+
+/* Responzivní velikost textu v chatu */
+.chat-message {
+  font-size: 1.1rem !important; /* Základní větší velikost textu */
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+/* Zvýraznění jmen v chatu */
+.chat-message strong {
+  font-size: 1.15rem !important;
+  font-weight: 600;
+}
+
+/* Media queries pro responzivní změnu velikosti textu */
+/* Pro větší obrazovky - největší text */
+@media (min-width: 1200px) {
+  .chat-message {
+    font-size: 1.25rem !important;
+    line-height: 1.5;
+  }
+  .chat-message strong {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* Pro středně velké obrazovky */
+@media (max-width: 992px) {
+  .chat-message {
+    font-size: 1rem !important;
+    line-height: 1.4;
+  }
+  .chat-message strong {
+    font-size: 1.05rem !important;
+  }
+}
+
+/* Pro tablety */
+@media (max-width: 768px) {
+  .chat-message {
+    font-size: 0.95rem !important;
+    line-height: 1.3;
+  }
+  .chat-message strong {
+    font-size: 1rem !important;
+  }
+}
+
+/* Pro větší mobily */
+@media (max-width: 576px) {
+  .chat-message {
+    font-size: 0.9rem !important;
+    line-height: 1.3;
+  }
+  .chat-message strong {
+    font-size: 0.95rem !important;
+  }
 }
