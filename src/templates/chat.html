@@ -8,25 +8,29 @@
     </div>
   </div>
   <!-- Chat sekce -->
-  <div class="chat-container rounded-3 d-flex flex-column flex-shrink-0" style="flex-basis:30%; max-height:30vh; overflow:auto; border:2px solid var(--neon-green);">
+  <div class="chat-container rounded-3 d-flex flex-column h-100 d-none d-md-block">
     <!-- Chat Header -->
     <div class="d-flex justify-content-center align-items-center p-1">
       <h2 class="neon-text neon-green m-0">
         <i class="ri-message-3-line me-1"></i>AI CHAT
       </h2>
     </div>
+    
     <!-- Chat Messages - bez rámečků -->
-    <div class="chat-messages flex-grow-1 overflow-auto" id="chatMessages" style="min-height:0;">
+    <div class="chat-messages flex-grow-1 overflow-auto" id="chatMessages">
       <!-- Systémová zpráva -->
       <div class="chat-message border-0 bg-transparent">
         <span class="neon-yellow">Systém: Vítejte v AI Kostkové Výzvě!</span>
       </div>
+      
       <!-- AI zpráva -->
       <div class="chat-message border-0 bg-transparent">
         <span class="neon-blue">Gemini: Připraven na hru?</span>
       </div>
+      
       <!-- Zprávy se budou dynamicky přidávat zde -->
     </div>
+    
     <!-- Chat Input - pevně na spodku -->
     <div class="mt-auto p-2">
       <div class="d-flex">
