@@ -51,121 +51,97 @@
     overscroll-behavior-y: contain;
   }
   .chat-container {
-    position: fixed;
-    left: 0;
-    bottom: env(safe-area-inset-bottom, 0);
-    width: 100vw;
-    max-height: 50vh;
-    z-index: 1000;
+    position: static;
+    flex-basis: 30%;
+    max-height: 26vh;
+    min-height: 0;
+    overflow: auto;
     border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 0;
-    background: rgba(0,0,0,0.95);
-    box-sizing: border-box;
     border: 2px solid var(--neon-green);
+    background: rgba(0,0,0,0.95);
+    z-index: 1;
+    margin-bottom: 0;
   }
   .chat-container > .chat-messages {
     flex: 1 1 auto;
     min-height: 0;
-    max-height: 38vh;
     overflow-y: auto;
   }
   .chat-container > .mt-auto {
     flex-shrink: 0;
   }
-  .chat-container > .menu-buttons {
-    flex-shrink: 0;
-    max-height: 20vh;
-    overflow-y: auto;
+  .main-content {
+    height: 90vh;
+    max-height: 90vh;
+    min-height: 400px;
+    padding: 1.5vh 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
   }
-  
   .game-box {
-    max-height: 40vh;
-    height: auto !important;
-    overflow-y: auto;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  .game-box > .d-flex.flex-column {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    max-height: 100%;
-    overflow: visible;
-  }
-  .game-box .menu-buttons {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    max-height: 100%;
-    overflow-y: auto !important;
-    gap: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  .game-box .btn, .game-box a.btn {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    margin-bottom: 0.5rem;
-    width: 100% !important;
-  }
-  .game-box .btn:last-child, .game-box a.btn:last-child {
-    margin-bottom: 0;
-  }
-}
-
-/* Fixní nastavení pro velmi malé obrazovky */
-@media (max-width: 400px) {
-  #chatPanelMobile .chat-input {
-    min-height: 40px;
-    padding: 0.25rem !important;
+    flex-basis: 70%;
+    max-height: 62vh;
+    min-height: 0;
+    overflow: auto;
   }
   
-  #chatPanelMobile .input-group input {
-    height: 28px !important;
-    font-size: 0.8rem !important;
+  /* Fixní nastavení pro velmi malé obrazovky */
+  @media (max-width: 400px) {
+    #chatPanelMobile .chat-input {
+      min-height: 40px;
+      padding: 0.25rem !important;
+    }
+    
+    #chatPanelMobile .input-group input {
+      height: 28px !important;
+      font-size: 0.8rem !important;
+    }
+    
+    #chatPanelMobile .input-group button i {
+      font-size: 1.2rem !important;
+    }
   }
   
-  #chatPanelMobile .input-group button i {
-    font-size: 1.2rem !important;
-  }
-}
-
-/* Optimalizace pro různé orientace zařízení */
-@media (max-width: 767.98px) and (orientation: landscape) {
-  /* Nastavení správné struktury pro chat panel v landscape orientaci */
-  #chatPanelMobile {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border-radius: var(--border-radius);
-    padding: 0.5rem;
-    overflow: hidden;
-  }
-  
-  #chatPanelMobile .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  /* Prostor pro zprávy - flexibilní s minimální výškou */
-  #chatPanelMobile .chat-messages {
-    flex: 1 1 auto;
-    min-height: 50px;
-    overflow-y: auto;
-  }
-  
-  /* Chat input pevně na spodku */
-  #chatPanelMobile .mt-auto {
-    margin-top: auto;
-  }
-  
-  /* Bez vnitřních rámečků v chat komponentách */
-  #chatPanelMobile .chat-message,
-  #chatPanelMobile input.form-control,
-  #chatPanelMobile button,
-  #chatPanelMobile .form-control,
-  #chatPanelMobile .btn {
-    border: none !important;
-    background-color: transparent !important;
+  /* Optimalizace pro různé orientace zařízení */
+  @media (max-width: 767.98px) and (orientation: landscape) {
+    /* Nastavení správné struktury pro chat panel v landscape orientaci */
+    #chatPanelMobile {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-radius: var(--border-radius);
+      padding: 0.5rem;
+      overflow: hidden;
+    }
+    
+    #chatPanelMobile .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    /* Prostor pro zprávy - flexibilní s minimální výškou */
+    #chatPanelMobile .chat-messages {
+      flex: 1 1 auto;
+      min-height: 50px;
+      overflow-y: auto;
+    }
+    
+    /* Chat input pevně na spodku */
+    #chatPanelMobile .mt-auto {
+      margin-top: auto;
+    }
+    
+    /* Bez vnitřních rámečků v chat komponentách */
+    #chatPanelMobile .chat-message,
+    #chatPanelMobile input.form-control,
+    #chatPanelMobile button,
+    #chatPanelMobile .form-control,
+    #chatPanelMobile .btn {
+      border: none !important;
+      background-color: transparent !important;
+    }
   }
 }
