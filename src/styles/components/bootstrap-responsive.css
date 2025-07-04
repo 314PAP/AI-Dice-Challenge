@@ -455,6 +455,82 @@
   }
 }
 
+/* Dodatečné styly pro extra malá zařízení */
+@media (max-width: 320px), (max-height: 480px) {
+  /* Zmenšení všech padding hodnot pro úsporu místa */
+  .game-box, .chat-box {
+    padding: 0.5rem !important;
+  }
+  
+  /* Zmenšení nadpisů */
+  .game-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+  
+  /* Kompaktnější tlačítka */
+  .menu-buttons .btn {
+    padding: 0.15rem 0.3rem;
+    margin-bottom: 0.2rem;
+    min-height: 2rem;
+    font-size: 0.8rem;
+    max-width: 95%;
+  }
+  
+  /* Kompaktnější chat */
+  .chat-messages {
+    padding: 0.3rem;
+    max-height: 120px;
+    min-height: 100px;
+  }
+  
+  /* Zmenšení mezer */
+  .mb-2, .my-2 {
+    margin-bottom: 0.3rem !important;
+  }
+  
+  /* Zviditelnění textu */
+  .chat-message {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0.3rem !important;
+  }
+}
+
+/* Extra media query pro velmi nízká zařízení */
+@media (max-height: 400px) {
+  /* Odstranění dekorativních prvků */
+  .decorative-element, .hide-on-xs {
+    display: none !important;
+  }
+  
+  /* Ultra kompaktní rozvržení */
+  .game-box, .chat-box {
+    padding: 0.25rem !important;
+  }
+  
+  /* Maximalizace využitelného prostoru */
+  .chat-messages {
+    max-height: 80px;
+    min-height: 60px;
+  }
+}
+
+/* Vylepšení pro zařízení s velmi nízkou šířkou */
+@media (max-width: 280px) {
+  /* Odstranění ikon v tlačítkách pro úsporu místa */
+  .btn i {
+    display: none;
+  }
+  
+  /* Ultra kompaktní menu */
+  .menu-buttons .btn {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.2rem;
+    margin-bottom: 0.15rem;
+    line-height: 1.2;
+  }
+}
+
 /* Bootstrap overrides pro neonový design */
 .btn-neon {
   background-color: transparent;
