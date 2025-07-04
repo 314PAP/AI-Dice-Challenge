@@ -33,6 +33,11 @@ async function initGame() {
         
         // Zvýraznění neonových efektů po načtení šablon
         enhanceNeonEffects();
+        
+        // DŮLEŽITÉ: Připojení event handlerů pro menu tlačítka po načtení šablon
+        const { attachMenuButtonHandlers } = await import('./js/ui/menuButtonHandlers.js');
+        attachMenuButtonHandlers();
+        
     } catch (error) {
         console.error('Chyba při inicializaci hry:', error);
         // Pokus o obnovení za 1 sekundu při chybě
