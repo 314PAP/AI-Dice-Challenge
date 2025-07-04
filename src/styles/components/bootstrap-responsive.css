@@ -384,25 +384,17 @@
     height: 100%;
   }
   
-  /* Důležité: Absolutní zákaz vnitřních rámečků a zajištění, že vstupní pole je dole */
+  /* Zajištění správné struktury v landscape módu */
   .mobile-landscape-flex-row .chat-box,
   .mobile-landscape-flex-row .chat-container {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-    border-width: 2px !important;
-    border-color: var(--neon-green) !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
-  .mobile-landscape-flex-row .chat-message,
-  .mobile-landscape-flex-row .form-control,
-  .mobile-landscape-flex-row .btn {
-    border: none !important;
-    background-color: transparent !important;
-  }
-  
+  /* Zajištění umístění inputu na spodek */
   .mobile-landscape-flex-row .mt-auto {
-    margin-top: auto !important;
+    margin-top: auto;
   }
   
   /* Chat input vždy dole */
