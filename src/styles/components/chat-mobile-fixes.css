@@ -53,20 +53,22 @@
   .chat-container {
     position: fixed;
     left: 0;
-    bottom: 0;
+    bottom: env(safe-area-inset-bottom, 0);
     width: 100vw;
-    max-height: 60vh;
+    max-height: 50vh;
     z-index: 1000;
-    border-radius: 0;
+    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
-    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-bottom: 0;
     background: rgba(0,0,0,0.95);
+    box-sizing: border-box;
+    border: 2px solid var(--neon-green);
   }
   .chat-container > .chat-messages {
     flex: 1 1 auto;
     min-height: 0;
-    max-height: 40vh;
+    max-height: 38vh;
     overflow-y: auto;
   }
   .chat-container > .mt-auto {
