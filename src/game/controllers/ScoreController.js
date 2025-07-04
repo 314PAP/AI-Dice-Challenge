@@ -17,6 +17,7 @@
  */
 
 import { GAME_CONSTANTS } from '../../core/constants.js';
+import { gameState } from '../../js/game/gameState.js';
 
 export class ScoreController {
     constructor(gameController) {
@@ -102,18 +103,20 @@ export class ScoreController {
      * Aktualizuje celkové skóre v tabulce
      */
     updateScoreboard() {
-        // Implementace aktualizace skóre všech hráčů
-        console.log('Aktualizuji scoreboard...');
-        // TODO: Implementovat podle gameState
+        gameState.players.forEach((player) => {
+            const scoreElement = document.getElementById(`${player.type}Score`);
+            if (scoreElement) {
+                scoreElement.textContent = player.score;
+            }
+        });
     }
 
     /**
      * Zkontroluje vítěze
      */
     checkWinner() {
-        // Implementace kontroly výherce
-        const currentPlayer = this.gameController.getCurrentPlayer();
-        if (currentPlayer && currentPlayer.score >= this.gameController.targetScore) {
+        const currentPlayer = gameState.players[gameState.currentPlayer];
+        if (currentPlayer && currentPlayer.score >= gameState.targetScore) {
             return currentPlayer;
         }
         return null;
@@ -123,8 +126,9 @@ export class ScoreController {
      * Přidá body k celkovému skóre hráče
      */
     addScoreToPlayer(playerId, score) {
-        // Implementace přidání skóre
-        console.log(`Přidávám ${score} bodů hráči ${playerId}`);
-        // TODO: Implementovat podle gameState
+        if (gameState.players[playerId]) {
+            gameState.players[playerId].score += score;
+            this.updateScoreboard();
+        }
     }
 }
