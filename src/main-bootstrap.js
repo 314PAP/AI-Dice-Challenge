@@ -3,7 +3,7 @@
  */
 
 // Import hlavního herního controlleru
-import { MainGameController } from '../game/MainGameController.js';
+import { MainGameController } from './game/MainGameController.js';
 
 // Globální instance herního controlleru
 let gameController = null;
