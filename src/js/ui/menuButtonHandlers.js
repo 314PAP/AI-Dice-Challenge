@@ -79,27 +79,13 @@ function handleStartGame() {
   }
   
   try {
-    console.log('🎮 Volám hru přes MainGameController...');
+    console.log('🎮 Volám hru přes funkční controllery...');
     
-    // Použij MainGameController pokud je k dispozici
-    if (window.gameController && typeof window.gameController.startGame === 'function') {
-      console.log('✅ Používám MainGameController');
-      
-      // Nastavíme target score v MainGameController
-      if (window.gameController.targetScore !== undefined) {
-        window.gameController.targetScore = targetScore;
-      }
-      
-      // Skryj menu a zobraz herní UI
-      hideMenuShowGame();
-      
-      // Spusť hru
-      window.gameController.startGame();
-      
-    } else {
-      console.log('⚠️  MainGameController není k dispozici, používám starý systém');
-      startGame();
-    }
+    // Skryj menu a zobraz herní UI
+    hideMenuShowGame();
+    
+    // Spusť hru pomocí funkčního controlleru
+    startGame();
     
     console.log('✅ Hra byla úspěšně spuštěna');
   } catch (error) {
