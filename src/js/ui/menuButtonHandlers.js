@@ -1,10 +1,10 @@
 // Modul pro napojení tlačítek hlavního menu (desktop i mobil)
 // Používat po každém načtení šablony menu!
+// Opraveno: robustní selektory, odstraněn chybný import, fallback pro různé šablony
 
 import { handleStartGameButtonClick } from '../game/enhancedGameStarter.js';
 import { showRulesModal } from '../ui/uiController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
-import { GameStateController } from '../ui/controllers/gameStateController.js';
 
 // Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)
 function getTargetScore() {
@@ -16,43 +16,42 @@ function getTargetScore() {
 // Handler pro opuštění hry
 function handleExitGame() {
   if (window.confirm('Opravdu chcete opustit hru?')) {
-    // Reset UI přes GameStateController
-    if (window.gameStateController instanceof GameStateController) {
+    // Reset UI přes GameStateController (instance je na window)
+    if (window.gameStateController && typeof window.gameStateController.returnToMainMenu === 'function') {
       window.gameStateController.returnToMainMenu();
     } else {
-      // Fallback: skryj herní UI, zobraz menu
+      // Fallback: skryj herní UI, zobraz menu (robustní pro všechny layouty)
       const controls = document.getElementById('gameControls');
       const setup = document.getElementById('targetScoreSetup');
-      if (controls && setup) {
+      if (controls) {
         controls.style.display = 'none';
         controls.classList.add('hidden');
-        setup.style.display = 'block';
       }
+      if (setup) {
+        setup.style.display = 'block';
+        setup.classList.remove('hidden');
+      }
+      // Navíc zobrazit menu, pokud existuje
+      const menu = document.getElementById('gameMenuContainer');
+      if (menu) menu.classList.remove('hidden');
     }
   }
 }
 
 export function attachMenuButtonHandlers() {
-  // START GAME
-  const startBtns = [
-    document.getElementById('startGameBtn'),
-    document.getElementById('startGameBtnMobile')
-  ].filter(Boolean);
+  // START GAME (desktop i mobil, různé šablony)
+  const startBtns = Array.from(document.querySelectorAll('#startGameBtn, #startGameBtnMobile, .btn-start-game'));
   startBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
     newBtn.addEventListener('click', () => {
-      // Získat skóre z inputu (desktop/mobil)
       const targetScore = getTargetScore();
       handleStartGameButtonClick({ targetScore });
     });
   });
 
   // PRAVIDLA
-  const rulesBtns = [
-    document.getElementById('rulesBtn'),
-    document.getElementById('rulesBtnMobile')
-  ].filter(Boolean);
+  const rulesBtns = Array.from(document.querySelectorAll('#rulesBtn, #rulesBtnMobile, .btn-rules'));
   rulesBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
@@ -60,10 +59,7 @@ export function attachMenuButtonHandlers() {
   });
 
   // SÍŇ SLÁVY
-  const hallBtns = [
-    document.getElementById('hallOfFameBtn'),
-    document.getElementById('hallOfFameBtnMobile')
-  ].filter(Boolean);
+  const hallBtns = Array.from(document.querySelectorAll('#hallOfFameBtn, #hallOfFameBtnMobile, .btn-hall-of-fame'));
   hallBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
@@ -71,10 +67,7 @@ export function attachMenuButtonHandlers() {
   });
 
   // OPUSTIT HRU
-  const exitBtns = [
-    document.getElementById('exitGameBtn'),
-    document.getElementById('exitGameBtnMobile')
-  ].filter(Boolean);
+  const exitBtns = Array.from(document.querySelectorAll('#exitGameBtn, #exitGameBtnMobile, .btn-exit-game'));
   exitBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
