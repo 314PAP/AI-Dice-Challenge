@@ -1,9 +1,9 @@
 // Modul pro napojení tlačítek hlavního menu (desktop i mobil)
 // Používat po každém načtení šablony menu!
 
-import { handleStartGameButtonClick } from '../game/enhancedGameStarter.js';
 import { showRules } from '../game/controllers/eventSetupController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
+import { startGame } from '../game/controllers/gameFlowController.js';
 // import { GameStateController } from '../../ui/controllers/gameStateController.js'; // CHYBNÝ IMPORT - ODSTRANĚNO
 
 // Handler pro opuštění hry
