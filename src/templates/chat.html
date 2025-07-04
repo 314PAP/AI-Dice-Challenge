@@ -8,26 +8,26 @@
   </div>
   
   <!-- Chat Messages -->
-  <div class="chat-messages flex-grow-1 p-2 scrollbar-neon no-borders" id="chatMessages">
+  <div class="chat-messages flex-grow-1 p-2 scrollbar-neon" id="chatMessages">
     <!-- Systémová zpráva -->
-    <div class="chat-message mb-2">
+    <div class="chat-message mb-2 small">
       <strong class="neon-yellow">Systém:</strong> <span class="neon-yellow">Vítejte v AI Kostkové Výzvě!</span>
     </div>
     
     <!-- AI zpráva -->
-    <div class="chat-message mb-2">
+    <div class="chat-message mb-2 small">
       <strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Připraven na hru?</span>
     </div>
     
     <!-- Zprávy se budou dynamicky přidávat zde -->
   </div>
   
-  <!-- Chat Input - pevně na spodku -->
-  <div class="chat-input chat-input-fixed p-2 bg-dark-90">
-    <div class="input-group input-group-md border-0">
-      <input type="text" class="form-control border-0 bg-black text-neon-green" id="chatInput" placeholder="Napište zprávu...">
+  <!-- Chat Input -->
+  <div class="chat-input p-2 bg-dark-90">
+    <div class="input-group input-group-sm border-0">
+      <input type="text" class="form-control border-0 bg-black text-neon-green small" id="chatInput" placeholder="Napište zprávu...">
       <button class="btn border-0 bg-transparent" type="button" id="sendChatBtn">
-        <i class="ri-send-plane-fill" style="color: #39ff14; font-size: 1.25rem;"></i>
+        <i class="ri-send-plane-fill" style="color: #39ff14;"></i>
       </button>
     </div>
   </div>
