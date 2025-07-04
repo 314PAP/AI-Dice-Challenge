@@ -53,8 +53,37 @@
             <div id="currentTurnScoreMobile" class="neon-text neon-blue">Skóre tahu: 0</div>
         </div>
         
+        <!-- Cíl hry -->
+        <div class="target-info-mobile neon-text neon-yellow mb-2" style="font-size: 0.7rem;">
+            <div id="targetInfoMobile">
+                Cíl: <span id="targetScoreDisplayMobile" class="fw-bold">10000</span>
+            </div>
+        </div>
+        
+        <!-- Kontejner pro kostky -->
+        <div class="dice-container-mobile d-flex flex-wrap justify-content-center gap-1 mb-2" id="diceContainerMobile"></div>
+        
+        <!-- Herní ovládání - kompaktní tlačítka -->
+        <div class="roll-controls-mobile d-flex flex-wrap justify-content-center gap-1 mb-2">
+            <button class="btn btn-neon neon-green" id="rollBtnMobile" style="height: 35px; font-size: 0.7rem; flex: 1; min-width: 80px;">
+                <i class="ri-dice-line me-1"></i>
+                Hodit
+            </button>
+            <button class="btn btn-neon neon-blue" id="bankBtnMobile" disabled style="height: 35px; font-size: 0.7rem; flex: 1; min-width: 80px;">
+                <i class="ri-save-line me-1"></i>
+                Odložit
+            </button>
+        </div>
+        
+        <div class="roll-controls-mobile d-flex flex-wrap justify-content-center gap-1 mb-2">
+            <button class="btn btn-neon neon-yellow" id="endTurnBtnMobile" disabled style="height: 35px; font-size: 0.7rem; flex: 1; min-width: 80px;">
+                <i class="ri-stop-circle-line me-1"></i>
+                Ukončit tah
+            </button>
+        </div>
+        
         <!-- Tlačítko opustit hru -->
-        <button class="btn btn-neon neon-pink w-75" id="quitGameBtnMobile" style="height: 35px; font-size: 0.8rem;">
+        <button class="btn btn-neon neon-red w-75" id="quitGameBtnMobile" style="height: 35px; font-size: 0.8rem;">
             <i class="ri-logout-box-line me-1"></i>
             Opustit hru
         </button>
