@@ -87,6 +87,9 @@
         </div>
     </div>
     
+    <!-- Skript pro odstranění animací -->
+    <script src="/src/js/utils/animation-remover.js"></script>
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -100,14 +103,13 @@
     <script>
         // Inicializace AOS
         document.addEventListener('DOMContentLoaded', function() {
-            // Inicializace AOS knihovny pro animace při scrollování
+            // Inicializace AOS knihovny - deaktivováno pro ladění
             AOS.init({
-                duration: 800,
-                easing: 'ease-in-out',
-                once: false,
-                mirror: true,
-                anchorPlacement: 'top-bottom',
-                startEvent: 'load'
+                duration: 0,
+                disable: true, // Deaktivace animací pro ladění
+                once: true,
+                mirror: false,
+                startEvent: null
             });
             
             // Odstranění pulzujících animací pro lepší ladění
