@@ -158,7 +158,9 @@
   transition: all 0.2s ease;
   position: relative;
   padding-left: 0.25rem;
-  border-left: 0px solid transparent;
+  border: none !important;
+  border-left: 0px solid transparent !important;
+  box-shadow: none !important;
   background-color: transparent;
 }
 
@@ -188,18 +190,24 @@
 .ai-message {
   padding-left: 0.3rem;
   color: var(--neon-blue);
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .system-message {
   padding-left: 0.3rem;
   color: var(--neon-yellow);
   background-color: transparent;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .error-message {
   padding-left: 0.3rem;
   color: var(--neon-red);
   background-color: rgba(255, 49, 49, 0.03);
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .player-message {
@@ -236,7 +244,9 @@
   border-radius: 0;
   z-index: 100;
   transition: all 0.3s ease;
-  border-top: none;
+  border: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
 }
 
 /* Mírné zvýraznění chat inputu při aktivním stavu */
@@ -251,8 +261,8 @@
   transition: all 0.3s ease;
   background-color: rgba(0, 0, 0, 0.6);
   color: var(--neon-green);
-  border: 1px solid var(--neon-green);
-  box-shadow: 0 0 2px var(--neon-green);
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .chat-input .form-control:focus {
