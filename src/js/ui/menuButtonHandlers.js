@@ -4,7 +4,6 @@
 import { handleStartGameButtonClick } from '../game/enhancedGameStarter.js';
 import { showRulesModal } from '../ui/uiController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
-import { GameStateController } from '../ui/controllers/gameStateController.js';
 
 // Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)
 function getTargetScore() {
@@ -16,19 +15,26 @@ function getTargetScore() {
 // Handler pro opuštění hry
 function handleExitGame() {
   if (window.confirm('Opravdu chcete opustit hru?')) {
-    // Reset UI přes GameStateController
-    if (window.gameStateController instanceof GameStateController) {
-      window.gameStateController.returnToMainMenu();
-    } else {
-      // Fallback: skryj herní UI, zobraz menu
-      const controls = document.getElementById('gameControls');
-      const setup = document.getElementById('targetScoreSetup');
-      if (controls && setup) {
-        controls.style.display = 'none';
-        controls.classList.add('hidden');
-        setup.style.display = 'block';
-      }
+    // Preferovaný způsob: přepnout zpět do menu podle layoutu
+    // Skryj herní ovládací prvky, zobraz menu
+    const gameHeader = document.querySelector('.game-header');
+    const gameControls = document.querySelector('.game-controls');
+    if (gameHeader && gameControls) {
+      gameHeader.classList.remove('hidden');
+      gameControls.classList.add('hidden');
     }
+    // Fallback pro mobilní layout
+    const gameHeaderMobile = document.getElementById('gameHeaderMobile');
+    const gameControlsMobile = document.getElementById('gameControlsMobile');
+    if (gameHeaderMobile && gameControlsMobile) {
+      gameHeaderMobile.classList.remove('hidden');
+      gameControlsMobile.classList.add('hidden');
+    }
+    // Reset skóre a případně další UI prvky
+    const setup = document.getElementById('targetScoreSetup');
+    if (setup) setup.style.display = 'block';
+    const controls = document.getElementById('gameControls');
+    if (controls) controls.style.display = 'none';
   }
 }
 
@@ -45,6 +51,20 @@ export function attachMenuButtonHandlers() {
       // Získat skóre z inputu (desktop/mobil)
       const targetScore = getTargetScore();
       handleStartGameButtonClick({ targetScore });
+      // Přepnout do herního stavu (skryj menu, zobraz game controls)
+      const gameHeader = document.querySelector('.game-header');
+      const gameControls = document.querySelector('.game-controls');
+      if (gameHeader && gameControls) {
+        gameHeader.classList.add('hidden');
+        gameControls.classList.remove('hidden');
+      }
+      // Fallback pro mobilní layout
+      const gameHeaderMobile = document.getElementById('gameHeaderMobile');
+      const gameControlsMobile = document.getElementById('gameControlsMobile');
+      if (gameHeaderMobile && gameControlsMobile) {
+        gameHeaderMobile.classList.add('hidden');
+        gameControlsMobile.classList.remove('hidden');
+      }
     });
   });
 
