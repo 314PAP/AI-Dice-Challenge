@@ -86,17 +86,17 @@
         </div>
         
         <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
-        <div class="d-md-none h-100 mobile-landscape-flex-row animate__animated animate__fadeIn">
+        <div class="d-md-none h-100 mobile-layout mobile-landscape-flex-row animate__animated animate__fadeIn">
             <!-- První část - herní menu -->
             <div class="flex-grow-1 mb-3 mb-landscape-0 h-75 h-landscape-100">
                 <!-- Zde se načte mobilní herní menu -->
-                <div id="gameMobileContent" class="h-100"></div>
+                <div id="gameMobileContent" class="h-100 mobile-safe-content"></div>
             </div>
             
             <!-- Druhá část - chat -->
             <div class="h-20 h-landscape-100">
                 <!-- Zde se načte mobilní chat -->
-                <div id="chatPanelMobileContainer" class="h-100"></div>
+                <div id="chatPanelMobileContainer" class="h-100 mobile-safe-content"></div>
             </div>
         </div>
     </div>

@@ -693,21 +693,25 @@
 
 /* Extrémně malá zařízení v portrait módu */
 @media (max-width: 320px) and (orientation: portrait) {
-  /* Přidání vertikálního scrollování pro obsah */
-  .container-fluid {
-    max-height: 100vh;
-    overflow-y: auto;
+  /* Jednotné bezpečné odsazení pro velmi malá zařízení */
+  .p-mobile-safe {
+    padding: 0.5rem !important;
+    max-width: calc(100% - 1rem) !important;
+    max-height: calc(100% - 1rem) !important;
+    margin: 0.5rem auto !important;
   }
   
-  /* Zmenšení paddingů na minimum */
-  .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
-  .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
-  .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
-  .ps-0, .ps-1, .ps-2, .ps-3, .ps-4, .ps-5,
-  .pe-0, .pe-1, .pe-2, .pe-3, .pe-4, .pe-5,
-  .px-0, .px-1, .px-2, .px-3, .px-4, .px-5,
-  .py-0, .py-1, .py-2, .py-3, .py-4, .py-5 {
-    padding: 0.1rem !important;
+  /* Přidání vertikálního scrollování pro obsah */
+  .container-fluid {
+    max-height: calc(100vh - 1rem);
+    overflow: hidden;
+    width: auto !important;
+    margin: 0.5rem !important;
+  }
+  
+  /* Zmenšení paddingů na minimum, ale zachování jednotnosti */
+  .game-box, .chat-box {
+    padding: 0.5rem !important;
   }
   
   /* Minimalizace veškerých mezer */
@@ -980,5 +984,40 @@ button:active .send-icon {
   }
   .chat-message strong {
     font-size: 0.95rem !important;
+  }
+}
+
+/* Jednotné odsazení pro mobilní zobrazení */
+@media (max-width: 767.98px) {
+  /* Bezpečné odsazení pro mobilní zařízení - jednotné na všech stranách */
+  .p-mobile-safe {
+    padding: 0.75rem !important;
+    max-width: calc(100% - 1.5rem) !important;
+    max-height: calc(100% - 1.5rem) !important;
+    margin: 0.75rem auto !important;
+  }
+
+  /* Zajištění, že prvky nezasahují mimo obrazovku */
+  .container-fluid {
+    overflow: hidden !important;
+    width: auto !important;
+    margin-left: 0.75rem !important;
+    margin-right: 0.75rem !important;
+  }
+
+  /* Nastavení výšky a omezení přetékání obsahu */
+  .game-box, .chat-box {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Zajištění správného zarovnání obsahu */
+  .row, [class*="col-"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
 }
