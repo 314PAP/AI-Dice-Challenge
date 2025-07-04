@@ -41,7 +41,16 @@ function getTargetScore() {
 // Jednoduchá funkce pro spuštění hry
 function handleStartGame() {
   console.log('🎮 Spouštím hru...');
+  
+  // Detailní logování pro debugging
+  const inputDesktop = document.getElementById('targetScoreInput');
+  const inputMobile = document.getElementById('targetScoreInputMobile');
+  
+  console.log('🔍 Debug - Desktop input:', inputDesktop ? `found (value: ${inputDesktop.value})` : 'not found');
+  console.log('🔍 Debug - Mobile input:', inputMobile ? `found (value: ${inputMobile.value})` : 'not found');
+  
   const targetScore = getTargetScore();
+  console.log('🔍 Debug - Target score:', targetScore);
   
   if (targetScore < 1000) {
     alert('Cílové skóre musí být alespoň 1000 bodů!');
@@ -49,12 +58,9 @@ function handleStartGame() {
   }
   
   // Ujistíme se, že startGame najde správnou hodnotu v DOM
-  const inputDesktop = document.getElementById('targetScoreInput');
-  const inputMobile = document.getElementById('targetScoreInputMobile');
-  
-  // Nastavíme hodnotu do primary inputu (desktop má prioritu)
   if (inputDesktop) {
     inputDesktop.value = targetScore.toString();
+    console.log('✅ Desktop input nastaven na:', inputDesktop.value);
   } else if (inputMobile) {
     inputMobile.value = targetScore.toString();
     // Pokud existuje pouze mobile input, vytvoříme dočasný desktop input
@@ -63,9 +69,15 @@ function handleStartGame() {
     tempInput.value = targetScore.toString();
     tempInput.style.display = 'none';
     document.body.appendChild(tempInput);
+    console.log('✅ Dočasný desktop input vytvořen s hodnotou:', targetScore);
+  } else {
+    console.error('❌ Ani desktop ani mobile input nenalezen!');
+    alert('Chyba: Nenalezen input pro cílové skóre!');
+    return;
   }
   
   try {
+    console.log('🎮 Volám startGame()...');
     startGame();
     console.log('✅ Hra byla úspěšně spuštěna');
   } catch (error) {
