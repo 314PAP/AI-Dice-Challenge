@@ -2,6 +2,12 @@
  * Hlavní JS soubor pro načítání šablon s novým Bootstrap responzivním layoutem
  */
 
+// Import hlavního herního controlleru
+import { MainGameController } from '../game/MainGameController.js';
+
+// Globální instance herního controlleru
+let gameController = null;
+
 // Utility funkce pro načítání HTML šablon
 async function loadTemplate(url) {
     try {
