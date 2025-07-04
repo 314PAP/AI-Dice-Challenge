@@ -2,6 +2,23 @@
  * Hlavní JS soubor pro načítání šablon s novým Bootstrap responzivním layoutem
  */
 
+// Okamžité odstranění všech pulzujících animací
+(function() {
+    // Odstraníme animace z dokumentu
+    document.querySelectorAll('.animate__pulse, .animate__slow, .animate__slower, .animate__infinite')
+        .forEach(el => {
+            el.classList.remove('animate__pulse', 'animate__slow', 'animate__slower', 'animate__infinite');
+            el.style.animation = 'none';
+        });
+    
+    // Vypneme AOS animace pokud existují
+    if (typeof window.AOS !== 'undefined') {
+        window.AOS.init({ disable: true });
+    }
+    
+    console.log('Animace vypnuty v main-bootstrap.js');
+})();
+
 // Utility funkce pro načítání HTML šablon
 async function loadTemplate(url) {
     try {
