@@ -33,6 +33,9 @@ async function initGame() {
     // Inicializace event listenerů
     initEventListeners();
     
+    // Zajištění inicializace chatu
+    ensureChatInitialized();
+    
     // Přidání třídy pro postupné objevení
     document.querySelectorAll('.btn').forEach((btn, index) => {
         btn.classList.add('animate__animated', 'animate__fadeIn');
@@ -340,6 +343,33 @@ function ensureChatVisibility() {
         // Scrollujeme na nejnovější zprávu
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+}
+
+// Funkce pro zajištění inicializace chatu
+function ensureChatInitialized() {
+    // Kontrola, zda jsou inicializované chat kontejnery
+    const mobileMessages = document.getElementById('chatMessagesMobile');
+    const desktopMessages = document.getElementById('chatMessages');
+    
+    // Pokud nejsou zprávy, přidáme uvítací zprávy
+    if (mobileMessages && mobileMessages.children.length === 0) {
+        // Přidání systémových zpráv
+        addChatMessage('Systém', 'Vítejte v AI Kostkové Výzvě!', 'system');
+        addChatMessage('Gemini', 'Připraven na hru?', 'ai');
+        addChatMessage('Systém', 'Můžete kdykoliv chatovat s AI protihráči. Pište do pole níže.', 'system');
+    }
+    
+    // Zajištění viditelnosti pro všechny chat elementy
+    document.querySelectorAll('.chat-box, .chat-messages, .chat-message, .chat-input').forEach(el => {
+        el.style.visibility = 'visible';
+        el.style.opacity = '1';
+    });
+    
+    // Scroll na poslední zprávu po krátké prodlevě
+    setTimeout(() => {
+        if (mobileMessages) mobileMessages.scrollTop = mobileMessages.scrollHeight;
+        if (desktopMessages) desktopMessages.scrollTop = desktopMessages.scrollHeight;
+    }, 300);
 }
 
 // Inicializace menu tlačítek
