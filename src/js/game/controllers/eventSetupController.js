@@ -323,6 +323,31 @@ if (sendChatBtnMobile && chatInputMobile) {
     });
 }
 
+// Mobilní tlačítka - stejné funkce jako desktop verze
+const rollBtnMobile = document.getElementById('rollBtnMobile');
+if (rollBtnMobile) {
+    console.log('✅ Přidávám event listener pro Roll Dice Mobile');
+    rollBtnMobile.addEventListener('click', rollDiceForPlayer);
+}
+
+const bankBtnMobile = document.getElementById('bankBtnMobile');
+if (bankBtnMobile) {
+    console.log('✅ Přidávám event listener pro Bank Dice Mobile');
+    bankBtnMobile.addEventListener('click', bankSelectedDice);
+}
+
+const endTurnBtnMobile = document.getElementById('endTurnBtnMobile');
+if (endTurnBtnMobile) {
+    console.log('✅ Přidávám event listener pro End Turn Mobile');
+    endTurnBtnMobile.addEventListener('click', () => endTurn(true));
+}
+
+const quitGameBtnMobile = document.getElementById('quitGameBtnMobile');
+if (quitGameBtnMobile) {
+    console.log('✅ Přidávám event listener pro Quit Game Mobile');
+    quitGameBtnMobile.addEventListener('click', quitGame);
+}
+
 /**
  * Nastavuje event listenery pro modální okna
  */
