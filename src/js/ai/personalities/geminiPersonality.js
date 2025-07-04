@@ -4,8 +4,8 @@
 
 export const geminiPersonality = {
     name: 'Gemini (G)',
-    color: '#0099ff',
-    avatar: 'https://placehold.co/50x50/2b78e4/ffffff?text=G',
+    color: '#194DD1', // modrá Gemini
+    avatar: 'https://placehold.co/50x50/194DD1/ffffff?text=G',
     gameReactions: {
         hello: [
             'Dobrý den. Spouštím herní algoritmy... 📊',
