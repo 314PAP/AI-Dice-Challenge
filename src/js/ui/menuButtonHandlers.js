@@ -4,6 +4,8 @@
 import { showRules } from '../game/controllers/eventSetupController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
 import { startGame } from '../game/controllers/gameFlowController.js';
+import { rollDiceForPlayer, bankSelectedDice } from '../game/controllers/turnActionsController.js';
+import { endTurn } from '../game/controllers/gameFlowController.js';
 // import { GameStateController } from '../../ui/controllers/gameStateController.js'; // CHYBNÝ IMPORT - ODSTRANĚNO
 
 // Handler pro opuštění hry
