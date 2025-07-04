@@ -53,6 +53,12 @@
   padding: 0.5rem;
 }
 
+/* Zajištění, že vstupní pole chatu bude vždy na spodku */
+.chat-container > .mt-auto,
+.chat-box > .mt-auto {
+  margin-top: auto !important;
+}
+
 /* Používá se globální .form-control pravidla z forms.css */
 
 /* Používá se globální .btn-send-neon z forms.css */
