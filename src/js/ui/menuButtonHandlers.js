@@ -100,5 +100,16 @@ export function attachMenuButtonHandlers() {
     });
   }
   
+  // ZAVŘENÍ HALL OF FAME MODALU
+  const closeHallOfFameBtn = document.getElementById('closeHallOfFameBtn');
+  if (closeHallOfFameBtn) {
+    closeHallOfFameBtn.addEventListener('click', () => {
+      const hallOfFameModal = document.getElementById('hallOfFameModal');
+      if (hallOfFameModal) {
+        hallOfFameModal.classList.add('hidden');
+      }
+    });
+  }
+  
   console.log('✅ Menu button handlers attached (desktop & mobile)');
 }
