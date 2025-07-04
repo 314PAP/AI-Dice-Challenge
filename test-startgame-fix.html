@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test StartGame opravy</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #222;
+            color: #0f0;
+            padding: 20px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .pass { background: #004400; border: 1px solid #0f0; }
+        .fail { background: #440000; border: 1px solid #f00; }
+        .info { background: #000044; border: 1px solid #00f; }
+        button, input {
+            background: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 3px;
+        }
+        button {
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0f0;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test StartGame opravy</h1>
+    
+    <div>
+        <label>Cílové skóre (desktop): <input id="targetScoreInput" type="number" value="10000"></label>
+        <label>Cílové skóre (mobile): <input id="targetScoreInputMobile" type="number" value="15000"></label>
+    </div>
+    
+    <button id="testStartGame">🎮 Test Start Game</button>
+    <button id="testGetTargetScore">📊 Test Get Target Score</button>
+    
+    <div id="results"></div>
+    
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = message;
+            results.appendChild(div);
+        }
+        
+        // Test import handleStartGame
+        try {
+            addResult('🔍 Testování importu handleStartGame...', 'info');
+            
+            // Import celého modulu
+            const menuHandlers = await import('./src/js/ui/menuButtonHandlers.js');
+            addResult('✅ PASS: menuButtonHandlers module importován', 'pass');
+            
+            // Test funkce attachMenuButtonHandlers
+            try {
+                menuHandlers.attachMenuButtonHandlers();
+                addResult('✅ PASS: attachMenuButtonHandlers úspěšně volána', 'pass');
+            } catch (error) {
+                addResult(`❌ FAIL: attachMenuButtonHandlers error: ${error.message}`, 'fail');
+            }
+            
+        } catch (error) {
+            addResult(`❌ FAIL: Import error: ${error.message}`, 'fail');
+        }
+        
+        // Test vlastní implementace getTargetScore
+        document.getElementById('testGetTargetScore').addEventListener('click', () => {
+            const inputDesktop = document.getElementById('targetScoreInput');
+            const inputMobile = document.getElementById('targetScoreInputMobile');
+            const targetScore = parseInt((inputDesktop?.value || inputMobile?.value || '10000'), 10);
+            
+            addResult(`📊 Target Score: ${targetScore}`, 'info');
+            addResult(`Desktop value: ${inputDesktop?.value || 'N/A'}`, 'info');
+            addResult(`Mobile value: ${inputMobile?.value || 'N/A'}`, 'info');
+        });
+        
+        // Test kliknutí na startGame
+        document.getElementById('testStartGame').addEventListener('click', async () => {
+            addResult('🎮 Testování startGame...', 'info');
+            
+            try {
+                // Simulujeme naši logiku handleStartGame
+                const inputDesktop = document.getElementById('targetScoreInput');
+                const inputMobile = document.getElementById('targetScoreInputMobile');
+                const targetScore = parseInt((inputDesktop?.value || inputMobile?.value || '10000'), 10);
+                
+                addResult(`Target Score: ${targetScore}`, 'info');
+                
+                if (targetScore < 1000) {
+                    addResult('❌ FAIL: Cílové skóre musí být alespoň 1000 bodů!', 'fail');
+                    return;
+                }
+                
+                // Ujistíme se, že startGame najde správnou hodnotu
+                if (inputDesktop) {
+                    inputDesktop.value = targetScore.toString();
+                    addResult('✅ PASS: Desktop input nastaven', 'pass');
+                } else if (inputMobile) {
+                    inputMobile.value = targetScore.toString();
+                    // Vytvoříme dočasný desktop input
+                    const tempInput = document.createElement('input');
+                    tempInput.id = 'targetScoreInput';
+                    tempInput.value = targetScore.toString();
+                    tempInput.style.display = 'none';
+                    document.body.appendChild(tempInput);
+                    addResult('✅ PASS: Dočasný desktop input vytvořen', 'pass');
+                }
+                
+                // Test importu startGame
+                const { startGame } = await import('./src/js/game/controllers/gameFlowController.js');
+                addResult('✅ PASS: startGame importován', 'pass');
+                
+                // Test volání startGame
+                try {
+                    startGame();
+                    addResult('✅ PASS: startGame voláno bez chyby', 'pass');
+                } catch (error) {
+                    addResult(`❌ FAIL: startGame error: ${error.message}`, 'fail');
+                    console.error('StartGame error:', error);
+                }
+                
+            } catch (error) {
+                addResult(`❌ FAIL: Test error: ${error.message}`, 'fail');
+                console.error('Test error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
