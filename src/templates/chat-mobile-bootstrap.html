@@ -26,17 +26,13 @@
       </div>
     </div>
     
-    <!-- Chat Input - vždy viditelný díky sticky pozici a zvýrazněným prvkům -->
-    <div class="chat-input animate__animated animate__fadeInUp animate__delay-1s">
+    <!-- Chat Input - vždy fixovaný na spodek chatu -->
+    <div class="chat-input chat-input-fixed animate__animated animate__fadeInUp">
       <div class="input-group input-group-sm">
         <input type="text" class="form-control bg-black text-neon-green border-neon" id="chatInputMobile" placeholder="Napište zprávu..." style="visibility:visible !important; opacity: 1 !important;">
         <button class="btn btn-outline-success btn-neon d-flex align-items-center justify-content-center" type="button" id="sendChatBtnMobile" style="visibility:visible !important; opacity: 1 !important;">
           <i class="ri-send-plane-fill"></i>
         </button>
-      </div>
-      <!-- Indikátor, že je možné psát - skrytý pouze na velmi malých výškách -->
-      <div class="text-center text-muted small mt-1 animate__animated animate__fadeIn animate__delay-2s hide-on-small-height">
-        <span class="neon-text neon-green">Chat je dostupný <i class="ri-chat-smile-2-line"></i></span>
       </div>
     </div>
   </div>
