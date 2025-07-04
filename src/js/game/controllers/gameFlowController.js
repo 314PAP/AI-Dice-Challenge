@@ -78,11 +78,41 @@ export function startGame() {
         }, 1000 + (index * 1500));
     });
     
-    updateGameDisplay();
-    updateScoreboard();
-    updateActivePlayer();
-    updateGameInfo(); // Přidáno pro zajištění aktualizace skóre tahu
-    playerTurn();
+    // Bezpečné volání UI funkcí s try-catch
+    try {
+        updateGameDisplay();
+        console.log('✅ updateGameDisplay called');
+    } catch (error) {
+        console.error('❌ updateGameDisplay error:', error);
+    }
+    
+    try {
+        updateScoreboard();
+        console.log('✅ updateScoreboard called');
+    } catch (error) {
+        console.error('❌ updateScoreboard error:', error);
+    }
+    
+    try {
+        updateActivePlayer();
+        console.log('✅ updateActivePlayer called');
+    } catch (error) {
+        console.error('❌ updateActivePlayer error:', error);
+    }
+    
+    try {
+        updateGameInfo();
+        console.log('✅ updateGameInfo called');
+    } catch (error) {
+        console.error('❌ updateGameInfo error:', error);
+    }
+    
+    try {
+        playerTurn();
+        console.log('✅ playerTurn called');
+    } catch (error) {
+        console.error('❌ playerTurn error:', error);
+    }
 }
 
 /**
