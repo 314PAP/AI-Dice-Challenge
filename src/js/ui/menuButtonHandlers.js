@@ -2,9 +2,9 @@
 // Používat po každém načtení šablony menu!
 
 import { handleStartGameButtonClick } from '../game/enhancedGameStarter.js';
-import { showRulesModal } from '../ui/uiController.js';
+import { showRulesModal } from './uiController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
-import { GameStateController } from '../ui/controllers/gameStateController.js';
+import { GameStateController } from '../../ui/controllers/gameStateController.js';
 
 // Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)
 function getTargetScore() {
