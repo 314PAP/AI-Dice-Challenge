@@ -1,10 +1,10 @@
 // Modul pro napojení tlačítek hlavního menu (desktop i mobil)
 // Používat po každém načtení šablony menu!
+// Viz architektura: DOKUMENTACE.md, MODULARITY_PLAN.md, DOKONCENA_MODULARIZACE.md
 
 import { handleStartGameButtonClick } from '../game/enhancedGameStarter.js';
 import { showRulesModal } from '../ui/uiController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
-import { GameStateController } from '../ui/controllers/gameStateController.js';
 
 // Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)
 function getTargetScore() {
@@ -16,18 +16,24 @@ function getTargetScore() {
 // Handler pro opuštění hry
 function handleExitGame() {
   if (window.confirm('Opravdu chcete opustit hru?')) {
-    // Reset UI přes GameStateController
-    if (window.gameStateController instanceof GameStateController) {
+    // Reset UI přes GameStateController (instance je na window)
+    if (window.gameStateController && typeof window.gameStateController.returnToMainMenu === 'function') {
       window.gameStateController.returnToMainMenu();
     } else {
-      // Fallback: skryj herní UI, zobraz menu
+      // Fallback: skryj herní UI, zobraz menu (robustní pro všechny layouty)
       const controls = document.getElementById('gameControls');
       const setup = document.getElementById('targetScoreSetup');
-      if (controls && setup) {
+      if (controls) {
         controls.style.display = 'none';
         controls.classList.add('hidden');
-        setup.style.display = 'block';
       }
+      if (setup) {
+        setup.style.display = 'block';
+        setup.classList.remove('hidden');
+      }
+      // Navíc zobrazit menu, pokud existuje
+      const menu = document.getElementById('gameMenuContainer');
+      if (menu) menu.classList.remove('hidden');
     }
   }
 }
