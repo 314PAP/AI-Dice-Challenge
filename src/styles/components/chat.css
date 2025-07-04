@@ -13,9 +13,7 @@
 
 /* Hlavička chatu */
 .chat-header {
-  background-color: rgba(0, 0, 0, 0.9);
   padding: 0.5rem;
-  border-radius: 0.5rem 0.5rem 0 0;
   text-align: center;
 }
 
@@ -24,7 +22,6 @@
   flex-grow: 1;
   padding: 0.5rem;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.85);
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--neon-green-rgb), 0.5) rgba(0, 0, 0, 0.2);
 }
@@ -42,31 +39,32 @@
   border-radius: 3px;
 }
 
-/* Jednotlivé zprávy */
+/* Jednotlivé zprávy - BEZ RÁMEČKŮ */
 .chat-message {
   margin-bottom: 0.5rem;
   line-height: 1.2;
+  border: none;
+  background-color: transparent;
+  border-radius: 0;
 }
 
 /* Patička chatu s vstupním polem */
 .chat-input {
-  background-color: rgba(0, 0, 0, 0.9);
   padding: 0.5rem;
-  border-radius: 0 0 0.5rem 0.5rem;
 }
 
 .chat-input .form-control {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: transparent;
   border: none;
   color: var(--neon-green);
 }
 
 .chat-input .form-control:focus {
-  box-shadow: 0 0 0 0.2rem rgba(var(--neon-green-rgb), 0.25);
+  box-shadow: none;
 }
 
 .chat-input .form-control::placeholder {
-  color: rgba(var(--neon-green-rgb), 0.5);
+  color: var(--neon-green);
 }
 
 /* Odesílací tlačítko */

@@ -84,17 +84,13 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding-bottom: 70px; /* Prostor pro vstupní pole */
   height: auto;
   min-height: 50px;
 }
 
 /* Zajištění, že vstupní pole je vždy viditelné */
 .chat-input {
-  flex: 0 0 auto;
   width: 100%;
-  bottom: 0;
-  position: absolute;
 }
 
 /* Chat messages container */
