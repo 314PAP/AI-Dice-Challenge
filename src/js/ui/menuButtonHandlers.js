@@ -2,7 +2,7 @@
 // Používat po každém načtení šablony menu!
 
 import { handleStartGameButtonClick } from '../game/enhancedGameStarter.js';
-import { showRulesModal } from './uiController.js';
+import { showRules } from '../game/controllers/eventSetupController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
 // import { GameStateController } from '../../ui/controllers/gameStateController.js'; // CHYBNÝ IMPORT - ODSTRANĚNO
 
@@ -62,7 +62,7 @@ export function attachMenuButtonHandlers() {
   rulesBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
-    newBtn.addEventListener('click', showRulesModal);
+    newBtn.addEventListener('click', showRules);
   });
 
   // SÍŇ SLÁVY
