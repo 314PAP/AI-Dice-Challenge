@@ -66,35 +66,31 @@
 @media (max-width: 767.98px) and (orientation: landscape) {
   /* Nastavení správné struktury pro chat panel v landscape orientaci */
   #chatPanelMobile {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-    border: 2px solid var(--neon-green) !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 2px solid var(--neon-green);
     border-radius: var(--border-radius);
-    padding: 0.5rem !important;
-    overflow: hidden !important;
+    padding: 0.5rem;
+    overflow: hidden;
   }
   
   #chatPanelMobile .chat-container {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
-    border: none !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
   /* Prostor pro zprávy - flexibilní s minimální výškou */
   #chatPanelMobile .chat-messages {
-    flex: 1 1 auto !important;
-    min-height: 50px !important;
-    border: none !important;
-    overflow-y: auto !important;
+    flex: 1 1 auto;
+    min-height: 50px;
+    overflow-y: auto;
   }
   
   /* Chat input pevně na spodku */
   #chatPanelMobile .mt-auto {
-    margin-top: auto !important;
-    position: sticky !important;
-    bottom: 0 !important;
+    margin-top: auto;
   }
   
   /* Bez vnitřních rámečků v chat komponentách */

@@ -15,6 +15,15 @@ textarea.form-control::placeholder {
   opacity: 0.7;
 }
 
+/* Odstranění rámečků v chat inputech */
+.chat-container .form-control,
+.chat-box .form-control,
+#chatInput, 
+#chatInputMobile {
+  border: none;
+  background-color: transparent;
+}
+
 /* Zelené zaměření pro všechny formulářové prvky */
 .form-control:focus {
   border-color: var(--neon-green);
