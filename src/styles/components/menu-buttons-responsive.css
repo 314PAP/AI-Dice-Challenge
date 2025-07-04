@@ -1,0 +1,25 @@
+/* Responzivní styl pro box s tlačítky v menu/chatu */
+.menu-buttons-responsive {
+  padding: 0.5rem 0;
+  gap: 0.5rem;
+}
+
+.menu-buttons-responsive .btn {
+  margin-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (max-width: 767.98px) {
+  .menu-buttons-responsive {
+    height: auto;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-bottom: 1rem;
+  }
+  .menu-buttons-responsive .btn {
+    margin-bottom: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
