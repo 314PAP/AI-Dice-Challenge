@@ -845,3 +845,65 @@
 .player-mobile.claude-player.active {
   box-shadow: 0 0 8px var(--neon-orange), 0 0 12px var(--neon-orange) !important;
 }
+
+/* Mobilní herní elementy */
+.target-info-mobile {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-yellow);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  box-shadow: 0 0 5px var(--neon-yellow);
+}
+
+.dice-container-mobile {
+  min-height: 40px;
+  padding: 0.25rem;
+}
+
+.roll-controls-mobile {
+  gap: 0.25rem;
+}
+
+.roll-controls-mobile .btn {
+  min-width: 80px;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Mobilní neonové tlačítka */
+.btn-neon.neon-green {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.btn-neon.neon-blue {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
+}
+
+.btn-neon.neon-yellow {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-yellow);
+  color: var(--neon-yellow);
+  box-shadow: 0 0 5px var(--neon-yellow);
+}
+
+.btn-neon.neon-red {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-red);
+  color: var(--neon-red);
+  box-shadow: 0 0 5px var(--neon-red);
+}
+
+.btn-neon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px currentColor;
+}
+
+.btn-neon:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

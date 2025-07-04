@@ -19,7 +19,11 @@ export const updateControlsState = () => {
     const buttonUpdaters = [
         ['bankBtn', !canBank || !isHumanTurn],
         ['rollBtn', !canRoll],
-        ['endTurnBtn', !canEndTurn || !isHumanTurn]
+        ['endTurnBtn', !canEndTurn || !isHumanTurn],
+        // Mobilní tlačítka
+        ['bankBtnMobile', !canBank || !isHumanTurn],
+        ['rollBtnMobile', !canRoll],
+        ['endTurnBtnMobile', !canEndTurn || !isHumanTurn]
     ];
     
     buttonUpdaters.forEach(([id, disabled]) => {
@@ -48,7 +52,8 @@ export const updateGameInfo = () => {
     // Aktualizace mobilních elementů
     const mobileUpdaters = [
         ['currentTurnScoreMobile', `Skóre tahu: ${gameState.currentTurnScore}`],
-        ['turnInfoMobile', `${gameState.players[gameState.currentPlayer]?.name || 'Neznámý'} na tahu!`]
+        ['turnInfoMobile', `${gameState.players[gameState.currentPlayer]?.name || 'Neznámý'} na tahu!`],
+        ['targetScoreDisplayMobile', gameState.targetScore || 10000]
     ];
     
     mobileUpdaters.forEach(([id, text]) => {
