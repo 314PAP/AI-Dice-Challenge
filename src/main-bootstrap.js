@@ -24,12 +24,23 @@ async function initGame() {
         const mobileGameMenu = await loadTemplate('/src/templates/game-menu-mobile-bootstrap.html');
         const mobileChat = await loadTemplate('/src/templates/chat-mobile-bootstrap.html');
         const desktopChat = await loadTemplate('/src/templates/chat.html');
+        
+        // Načtení modal šablon
+        const rulesModal = await loadTemplate('/src/templates/modals/rules-modal.html');
+        const hallOfFameModal = await loadTemplate('/src/templates/modals/hall-of-fame-modal.html');
+        const gameOverModal = await loadTemplate('/src/templates/modals/game-over-modal.html');
 
         // Vložení šablon do správných kontejnerů
         document.getElementById('gameContent').innerHTML = gameMenu;
         document.getElementById('gameMobileContent').innerHTML = mobileGameMenu;
         document.getElementById('chatPanelMobileContainer').innerHTML = mobileChat;
         document.getElementById('chatPanel').innerHTML = desktopChat;
+        
+        // Vložení modal šablon do modalsContainer (nebo přímo do body pokud neexistuje)
+        const modalsContainer = document.getElementById('modalsContainer') || document.body;
+        modalsContainer.insertAdjacentHTML('beforeend', rulesModal);
+        modalsContainer.insertAdjacentHTML('beforeend', hallOfFameModal);
+        modalsContainer.insertAdjacentHTML('beforeend', gameOverModal);
         
         // Zvýraznění neonových efektů po načtení šablon
         enhanceNeonEffects();
