@@ -18,17 +18,26 @@ async function loadTemplate(url) {
 
 // Funkce pro inicializaci hry
 async function initGame() {
-    // Načtení šablon
-    const gameMenu = await loadTemplate('/src/templates/game-menu.html');
-    const mobileGameMenu = await loadTemplate('/src/templates/game-menu-mobile-bootstrap.html');
-    const mobileChat = await loadTemplate('/src/templates/chat-mobile-bootstrap.html');
-    const desktopChat = await loadTemplate('/src/templates/chat.html');
+    try {
+        // Načtení šablon
+        const gameMenu = await loadTemplate('/src/templates/game-menu.html');
+        const mobileGameMenu = await loadTemplate('/src/templates/game-menu-mobile-bootstrap.html');
+        const mobileChat = await loadTemplate('/src/templates/chat-mobile-bootstrap.html');
+        const desktopChat = await loadTemplate('/src/templates/chat.html');
 
-    // Vložení šablon do správných kontejnerů
-    document.getElementById('gameContent').innerHTML = gameMenu;
-    document.getElementById('gameMobileContent').innerHTML = mobileGameMenu;
-    document.getElementById('chatPanelMobileContainer').innerHTML = mobileChat;
-    document.getElementById('chatPanel').innerHTML = desktopChat;
+        // Vložení šablon do správných kontejnerů
+        document.getElementById('gameContent').innerHTML = gameMenu;
+        document.getElementById('gameMobileContent').innerHTML = mobileGameMenu;
+        document.getElementById('chatPanelMobileContainer').innerHTML = mobileChat;
+        document.getElementById('chatPanel').innerHTML = desktopChat;
+        
+        // Zvýraznění neonových efektů po načtení šablon
+        enhanceNeonEffects();
+    } catch (error) {
+        console.error('Chyba při inicializaci hry:', error);
+        // Pokus o obnovení za 1 sekundu při chybě
+        setTimeout(tryContentRecovery, 1000);
+    }
     
     // Inicializace event listenerů
     initEventListeners();
@@ -46,6 +55,11 @@ async function initGame() {
     window.addEventListener('orientationchange', adjustLayoutForOrientation);
     // Spustíme také při načtení stránky
     adjustLayoutForOrientation();
+    
+    // Pravidelná kontrola viditelnosti prvků pro zajištění funkčnosti
+    setTimeout(ensureElementsVisibility, 500);
+    // Kontrola viditelnosti každých 5 sekund
+    setInterval(ensureElementsVisibility, 5000);
 }
 
 // Přizpůsobení layoutu podle orientace zařízení
@@ -583,5 +597,31 @@ function tryContentRecovery() {
     }
 }
 
-// Spuštění inicializace po načtení stránky
-document.addEventListener('DOMContentLoaded', initGame);
+// Inicializace při načtení DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Spuštění inicializace hry
+    initGame();
+    
+    // Kontrola, zda se stránka zobrazila správně
+    setTimeout(() => {
+        // Kontrola, zda se načetl obsah
+        tryContentRecovery();
+        // Zajištění viditelnosti prvků
+        ensureElementsVisibility();
+        // Vylepšení neonových efektů
+        enhanceNeonEffects();
+        // Detekce velikosti obrazovky
+        detectExtremelySmallScreen();
+    }, 1000);
+});
+
+// Export důležitých funkcí pro možnost volání z konzole v případě problémů
+window.gameDebug = {
+    initGame,
+    ensureElementsVisibility,
+    enhanceNeonEffects,
+    tryContentRecovery,
+    detectExtremelySmallScreen,
+    ensureChatVisibility,
+    ensureChatInitialized
+};
