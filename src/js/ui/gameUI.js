@@ -49,6 +49,7 @@ export const updateGameDisplay = debounce(() => {
         }
         
         updateDiceContainer();
+        updateMobileDiceContainer();
         updateControlsState();
         updateScoreboard(); // Přidáno pro aktualizaci skóre u avatarů
         updateActivePlayer(); // Zajistí správné zvýraznění aktivního hráče
@@ -63,6 +64,7 @@ export const updateGameDisplay = debounce(() => {
 export const updateCompleteGameDisplay = debounce(() => {
     console.log('🔄 Complete game display update...');
     updateDiceContainer();
+    updateMobileDiceContainer();
     updateControlsState();
     updateGameInfo();
     updatePlayerStatus();
