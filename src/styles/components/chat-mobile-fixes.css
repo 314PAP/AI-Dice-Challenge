@@ -52,10 +52,22 @@
     max-height: 60vh;
     z-index: 1000;
     border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding-bottom: env(safe-area-inset-bottom, 0); /* pro iOS */
   }
-  .game-box {
+  .chat-container > .chat-messages {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
     max-height: 40vh;
-    height: auto !important;
+    overflow-y: auto !important;
+  }
+  .chat-container > .mt-auto {
+    flex-shrink: 0;
+  }
+  .chat-container > .menu-buttons {
+    flex-shrink: 0;
+    max-height: 20vh;
     overflow-y: auto;
   }
 }
