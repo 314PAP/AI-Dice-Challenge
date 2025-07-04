@@ -1021,3 +1021,58 @@ button:active .send-icon {
     padding-right: 0.5rem !important;
   }
 }
+
+/* Základní úpravy pro mobilní layout */
+.mobile-layout {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden !important;
+}
+
+/* Zajištění, že obsah nepřetéká ven z viewportu */
+.mobile-safe-content {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Vylepšení rozložení pro všechny typy mobilních zařízení */
+@media (max-width: 767.98px) {
+  /* Zajištění, že tělo dokumentu nemá padding/margin který by způsoboval přetékání */
+  body {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Fixní řešení pro containery */
+  .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Zajištění jednotného odsazení herního boxu a chat boxu */
+  .game-box, .chat-box {
+    margin: 0.5rem 0 !important;
+    border-radius: var(--border-radius) !important;
+  }
+  
+  /* Zajištění jednotného odsazení pro všechny strany */
+  .vh-90 {
+    height: calc(100vh - 1.5rem) !important;
+    max-height: calc(100vh - 1.5rem) !important;
+  }
+  
+  .vw-90 {
+    width: calc(100vw - 1.5rem) !important;
+    max-width: calc(100vw - 1.5rem) !important;
+  }
+}
