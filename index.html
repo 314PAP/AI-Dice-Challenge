@@ -42,6 +42,20 @@
     
     <!-- Vypnutí animací pro ladění -->
     <link rel="stylesheet" href="/src/styles/components/no-animations.css">
+    <link rel="stylesheet" href="/no-animations.css">
+    
+    <!-- Okamžité vypnutí animací pomocí inline CSS -->
+    <style>
+      .animate__pulse, .animate__slow, .animate__infinite, .animate__slower { 
+        animation: none !important; 
+        animation-iteration-count: 0 !important; 
+      }
+      [data-aos] { 
+        transition: none !important; 
+        transform: none !important; 
+        opacity: 1 !important; 
+      }
+    </style>
 </head>
 <body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden">
     <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->

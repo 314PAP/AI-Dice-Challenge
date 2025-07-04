@@ -1,0 +1,47 @@
+/* 
+ * Velmi důležitá pravidla pro přepsání inline stylů 
+ * Použito !important pro přepsání všech animací
+ */
+
+/* Globální nastavení pro celou stránku */
+html, body {
+  --animate-duration: 0s !important;
+  --animate-delay: 0s !important;
+}
+
+/* Kompletní odstranění animací z důležitých elementů */
+.game-box,
+.chat-box,
+.neon-text,
+.game-title,
+h1, h2, h3, h4, h5, h6,
+[class*="animate__"] {
+  animation: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 0 !important;
+  animation-name: none !important;
+  animation-timing-function: ease !important;
+  transition: none !important;
+}
+
+/* Specifické styly pro pulse */
+.animate__pulse,
+.animate__slow,
+.animate__slower,
+.animate__infinite {
+  animation: none !important;
+  animation-iteration-count: 0 !important;
+}
+
+/* Prioritní přepsání AOS animací */
+[data-aos] {
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+/* Zakázání všech tranzic pro ladění */
+* {
+  transition: none !important;
+}
