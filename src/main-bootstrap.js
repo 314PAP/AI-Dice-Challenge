@@ -96,6 +96,20 @@ async function initGame() {
     setTimeout(ensureElementsVisibility, 500);
     // Kontrola viditelnosti každých 5 sekund
     setInterval(ensureElementsVisibility, 5000);
+    
+    // Inicializace hlavního herního controlleru
+    try {
+        gameController = new MainGameController();
+        await gameController.initialize();
+        console.log('✅ MainGameController inicializován');
+        
+        // Nastavení globálního přístupu pro debugging
+        window.gameController = gameController;
+        
+    } catch (error) {
+        console.error('❌ Chyba při inicializaci MainGameController:', error);
+        // Pokračujeme bez něj, aby se zachovala funkčnost menu
+    }
 }
 
 // Přizpůsobení layoutu podle orientace zařízení
