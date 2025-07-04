@@ -1,6 +1,6 @@
 <!-- Mobile Chat Component - Bootstrap optimalizovaná verze -->
-<div class="chat-box h-100 d-flex flex-column animate__animated animate__fadeIn rounded-3" id="chatPanelMobile">
-  <div class="chat-container d-flex flex-column h-100">
+<div class="chat-box h-100 animate__animated animate__fadeIn" id="chatPanelMobile">
+  <div class="chat-container">
     <!-- Chat Header (bez pulzující animace) -->
     <div class="d-flex align-items-center justify-content-center mb-2 animate__animated">
       <h2 class="neon-text neon-green m-0 fs-5">
@@ -8,30 +8,30 @@
       </h2>
     </div>
     
-    <!-- Chat Messages - bez vnitřních rámečků pro všechny orientace -->
-    <div class="chat-messages flex-grow-1 overflow-auto border-0 bg-transparent" id="chatMessagesMobile">
+    <!-- Chat Messages - bez vnitřních rámečků -->
+    <div class="chat-messages no-borders" id="chatMessagesMobile">
       <!-- Systémová zpráva -->
-      <div class="chat-message small animate__animated animate__fadeIn border-0 bg-transparent">
+      <div class="chat-message small animate__animated animate__fadeIn">
         <strong class="neon-yellow"><i class="ri-information-line me-1"></i>Systém:</strong> <span class="neon-yellow">Vítejte v AI Kostkové Výzvě!</span>
       </div>
       
       <!-- AI zpráva -->
-      <div class="chat-message small animate__animated animate__fadeIn animate__delay-1s border-0 bg-transparent">
+      <div class="chat-message small animate__animated animate__fadeIn animate__delay-1s">
         <strong class="neon-blue"><i class="ri-robot-line me-1"></i>Gemini:</strong> <span class="neon-blue">Připraven na hru?</span>
       </div>
       
       <!-- Vysvětlující zpráva -->
-      <div class="chat-message small animate__animated animate__fadeIn animate__delay-2s border-0 bg-transparent">
+      <div class="chat-message small animate__animated animate__fadeIn animate__delay-2s">
         <strong class="neon-yellow"><i class="ri-information-line me-1"></i>Tip:</strong> <span class="neon-yellow">Můžete kdykoliv chatovat s AI protihráči. Pište do pole níže.</span>
       </div>
     </div>
     
-    <!-- Chat Input - vždy fixovaný na spodek chatu ve všech orientacích -->
-    <div class="mt-auto p-2">
-      <div class="d-flex">
-        <input type="text" class="form-control bg-transparent text-neon-green" id="chatInputMobile" placeholder="Napište zprávu...">
-        <button class="btn d-flex align-items-center justify-content-center ms-2" type="button" id="sendChatBtnMobile">
-          <i class="ri-send-plane-fill text-neon-green"></i>
+    <!-- Chat Input - vždy fixovaný na spodek chatu -->
+    <div class="chat-input chat-input-fixed animate__animated animate__fadeInUp">
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control bg-black text-neon-green border-neon" id="chatInputMobile" placeholder="Napište zprávu..." style="visibility:visible !important; opacity: 1 !important;">
+        <button class="btn btn-outline-success btn-neon d-flex align-items-center justify-content-center" type="button" id="sendChatBtnMobile" style="visibility:visible !important; opacity: 1 !important;">
+          <i class="ri-send-plane-fill"></i>
         </button>
       </div>
     </div>

@@ -3,30 +3,28 @@
    ============================================================================= */
 
 /* Hlavní kontejner chatu */
-.chat-container, 
-.chat-box,
-#chatPanel,
-#chatPanelMobile {
-  display: flex !important;
-  flex-direction: column !important;
-  height: 100% !important;
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--border-radius-lg);
   overflow: hidden;
 }
 
 /* Hlavička chatu */
 .chat-header {
+  background-color: rgba(0, 0, 0, 0.9);
   padding: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
   text-align: center;
 }
 
 /* Oblast se zprávami */
-.chat-messages,
-#chatMessages,
-#chatMessagesMobile {
-  flex: 1 1 auto !important;
-  overflow-y: auto;
-  min-height: 0 !important;
+.chat-messages {
+  flex-grow: 1;
   padding: 0.5rem;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.85);
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--neon-green-rgb), 0.5) rgba(0, 0, 0, 0.2);
 }
@@ -44,30 +42,48 @@
   border-radius: 3px;
 }
 
-/* Jednotlivé zprávy - BEZ RÁMEČKŮ */
+/* Jednotlivé zprávy */
 .chat-message {
   margin-bottom: 0.5rem;
   line-height: 1.2;
-  border: none;
-  background-color: transparent;
-  border-radius: 0;
 }
 
 /* Patička chatu s vstupním polem */
 .chat-input {
+  background-color: rgba(0, 0, 0, 0.9);
   padding: 0.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 
-/* Zajištění, že vstupní pole chatu bude vždy na spodku */
-.mt-auto,
-.chat-container > .mt-auto,
-.chat-box > .mt-auto {
-  margin-top: auto !important;
+.chat-input .form-control {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: var(--neon-green);
 }
 
-/* Používá se globální .form-control pravidla z forms.css */
+.chat-input .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(var(--neon-green-rgb), 0.25);
+}
 
-/* Používá se globální .btn-send-neon z forms.css */
+.chat-input .form-control::placeholder {
+  color: rgba(var(--neon-green-rgb), 0.5);
+}
+
+/* Odesílací tlačítko */
+.chat-input button {
+  background: transparent;
+  border: none;
+  color: var(--neon-green);
+}
+
+.chat-input button:hover {
+  color: var(--neon-green);
+  text-shadow: var(--neon-green-shadow);
+}
+
+.chat-input button i {
+  font-size: 1.5rem;
+}
 
 /* Barevné rozlišení zpráv */
 .chat-message .neon-green {

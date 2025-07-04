@@ -1,37 +1,34 @@
-<!-- Hlavní wrapper pro menu a chat -->
-<div class="main-content vh-90 d-flex flex-column mx-auto" style="max-width: 600px; min-height: 400px;">
-  <!-- Chat sekce -->
-  <div class="chat-container rounded-3 d-flex flex-column h-100 d-none d-md-block">
-    <!-- Chat Header -->
-    <div class="d-flex justify-content-center align-items-center p-1">
-      <h2 class="neon-text neon-green m-0">
-        <i class="ri-message-3-line me-1"></i>AI CHAT
-      </h2>
+<!-- Chat Component -->
+<div class="chat-container border border-neon-green bg-dark-90 rounded-3 shadow-neon d-flex flex-column d-none d-md-block">
+  <!-- Chat Header -->
+  <div class="chat-header d-flex justify-content-center align-items-center p-1 p-md-2">
+    <h2 class="neon-text neon-green m-0 fs-6">
+      <i class="ri-message-3-line me-1"></i>AI CHAT
+    </h2>
+  </div>
+  
+  <!-- Chat Messages -->
+  <div class="chat-messages flex-grow-1 p-2 scrollbar-neon no-borders" id="chatMessages">
+    <!-- Systémová zpráva -->
+    <div class="chat-message mb-2">
+      <strong class="neon-yellow">Systém:</strong> <span class="neon-yellow">Vítejte v AI Kostkové Výzvě!</span>
     </div>
     
-    <!-- Chat Messages - bez rámečků -->
-    <div class="chat-messages flex-grow-1 overflow-auto" id="chatMessages">
-      <!-- Systémová zpráva -->
-      <div class="chat-message border-0 bg-transparent">
-        <span class="neon-yellow">Systém: Vítejte v AI Kostkové Výzvě!</span>
-      </div>
-      
-      <!-- AI zpráva -->
-      <div class="chat-message border-0 bg-transparent">
-        <span class="neon-blue">Gemini: Připraven na hru?</span>
-      </div>
-      
-      <!-- Zprávy se budou dynamicky přidávat zde -->
+    <!-- AI zpráva -->
+    <div class="chat-message mb-2">
+      <strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Připraven na hru?</span>
     </div>
     
-    <!-- Chat Input - pevně na spodku -->
-    <div class="mt-auto p-2">
-      <div class="d-flex">
-        <input type="text" class="form-control bg-transparent text-neon-green" id="chatInput" placeholder="Napište zprávu...">
-        <button class="btn d-flex align-items-center justify-content-center ms-2" type="button" id="sendChatBtn">
-          <i class="ri-send-plane-fill text-neon-green"></i>
-        </button>
-      </div>
+    <!-- Zprávy se budou dynamicky přidávat zde -->
+  </div>
+  
+  <!-- Chat Input - pevně na spodku -->
+  <div class="chat-input chat-input-fixed p-2 bg-dark-90">
+    <div class="input-group input-group-md border-0">
+      <input type="text" class="form-control border-0 bg-black text-neon-green" id="chatInput" placeholder="Napište zprávu...">
+      <button class="btn border-0 bg-transparent" type="button" id="sendChatBtn">
+        <i class="ri-send-plane-fill" style="color: #39ff14; font-size: 1.25rem;"></i>
+      </button>
     </div>
   </div>
 </div>

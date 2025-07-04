@@ -41,13 +41,6 @@
   z-index: 1;
 }
 
-/* Speciálně pro chat-box zajištění správné flexbox struktury */
-.chat-box {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
 /* Vylepšený hover efekt s jemným světlem uvnitř */
 .game-box:hover, .chat-box:hover {
   box-shadow: var(--neon-glow-strong);
@@ -91,13 +84,17 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  padding-bottom: 70px; /* Prostor pro vstupní pole */
   height: auto;
   min-height: 50px;
 }
 
 /* Zajištění, že vstupní pole je vždy viditelné */
 .chat-input {
+  flex: 0 0 auto;
   width: 100%;
+  bottom: 0;
+  position: absolute;
 }
 
 /* Chat messages container */
@@ -263,8 +260,22 @@
   box-shadow: 0 -2px 10px rgba(57, 255, 20, 0.1);
 }
 
-/* Vstupní pole pro chat - zastaralé, nahrazeno specifičtějšími selektory níže */
-/* Přesunuto do specifičtějšího selektoru v jiné části CSS */
+/* Vstupní pole pro chat */
+.chat-input .form-control {
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: var(--neon-green);
+  border: 1px solid var(--neon-green);
+  box-shadow: 0 0 2px var(--neon-green);
+}
+
+.chat-input .form-control:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--neon-green);
+  outline: none;
+}
 
 /* Animace pulsujícího placeholder textu */
 .chat-input .form-control::placeholder {
@@ -357,35 +368,9 @@
     height: 100% !important;
   }
   
-  /* Optimalizace zpráv v chatu pro landscape - používáme flexbox místo omezení výšky */
+  /* Optimalizace výšky zpráv v chatu pro landscape */
   .chat-messages {
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-  
-  /* Zajištění, že chat-container je flexbox s správnou strukturou */
-  .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  /* Zajištění správné struktury v landscape módu */
-  .mobile-landscape-flex-row .chat-box,
-  .mobile-landscape-flex-row .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  /* Zajištění umístění inputu na spodek */
-  .mobile-landscape-flex-row .mt-auto {
-    margin-top: auto;
-  }
-  
-  /* Chat input vždy dole */
-  .chat-input, .mt-auto {
-    margin-top: auto !important;
+    max-height: 75vh;
   }
   
   /* Zachování prostoru pro chat input v landscape */
@@ -658,21 +643,10 @@
   color: var(--neon-red);
 }
 
-/* Vstupní pole - obecně */
+/* Vstupní pole */
 .form-control {
-  transition: all 0.3s ease;
   border: 1px solid var(--neon-green);
-}
-
-/* Speciálně pro chat, odstraníme rámeček - vyšší specificita selektoru */
-.chat-container .form-control,
-.chat-box .form-control,
-div.chat-container input.form-control,
-div.chat-box input.form-control,
-input#chatInput,
-input#chatInputMobile {
-  border: none !important;
-  background-color: transparent !important;
+  transition: all 0.3s ease;
 }
 
 .form-control:focus {
@@ -865,21 +839,8 @@ input#chatInputMobile {
   }
 }
 
-/* Pravidla pro desktop chat */
-@media (min-width: 768px) {
-  .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  .chat-container .chat-messages {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-y: auto;
-  }
-  
-  .chat-container > .mt-auto {
-    margin-top: auto !important;
-  }
+/* Zajištění, že text v chatu je dobře čitelný */
+.chat-message strong, 
+.chat-message span {
+  text-shadow: 0 0 3px currentColor !important;
 }

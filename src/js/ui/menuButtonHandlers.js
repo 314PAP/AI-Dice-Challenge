@@ -4,6 +4,7 @@
 import { handleStartGameButtonClick } from '../game/enhancedGameStarter.js';
 import { showRulesModal } from '../ui/uiController.js';
 import { displayHallOfFame } from '../utils/hallOfFame.js';
+import { GameStateController } from '../ui/controllers/gameStateController.js';
 
 // Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)
 function getTargetScore() {
@@ -16,7 +17,7 @@ function getTargetScore() {
 function handleExitGame() {
   if (window.confirm('Opravdu chcete opustit hru?')) {
     // Reset UI přes GameStateController
-    if (window.gameStateController && typeof window.gameStateController.returnToMainMenu === 'function') {
+    if (window.gameStateController instanceof GameStateController) {
       window.gameStateController.returnToMainMenu();
     } else {
       // Fallback: skryj herní UI, zobraz menu

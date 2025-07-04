@@ -2,8 +2,6 @@
  * Hlavní JS soubor pro načítání šablon s novým Bootstrap responzivním layoutem
  */
 
-import { attachMenuButtonHandlers } from './js/ui/menuButtonHandlers.js';
-
 // Utility funkce pro načítání HTML šablon
 async function loadTemplate(url) {
     try {
@@ -35,9 +33,6 @@ async function initGame() {
         
         // Zvýraznění neonových efektů po načtení šablon
         enhanceNeonEffects();
-
-        // Napojení všech menu tlačítek (desktop i mobil)
-        attachMenuButtonHandlers();
     } catch (error) {
         console.error('Chyba při inicializaci hry:', error);
         // Pokus o obnovení za 1 sekundu při chybě
@@ -212,6 +207,9 @@ function initEventListeners() {
     
     // Odposlech změny velikosti okna
     window.addEventListener('resize', handleWindowResize);
+    
+    // Inicializace menu tlačítek
+    initMenuButtons();
     
     // První detekce velikosti obrazovky
     detectExtremelySmallScreen();
@@ -389,6 +387,27 @@ function ensureChatInitialized() {
         if (mobileMessages) mobileMessages.scrollTop = mobileMessages.scrollHeight;
         if (desktopMessages) desktopMessages.scrollTop = desktopMessages.scrollHeight;
     }, 300);
+}
+
+// Inicializace menu tlačítek
+function initMenuButtons() {
+    // Inicializace pro desktop tlačítka
+    const startGameBtn = document.getElementById('startGameBtn');
+    if (startGameBtn) {
+        startGameBtn.addEventListener('click', () => {
+            console.log('Start game requested');
+            addChatMessage('Systém', 'Hra začíná...', 'system');
+        });
+    }
+    
+    // Inicializace pro mobilní tlačítka
+    const startGameBtnMobile = document.getElementById('startGameBtnMobile');
+    if (startGameBtnMobile) {
+        startGameBtnMobile.addEventListener('click', () => {
+            console.log('Start game requested (mobile)');
+            addChatMessage('Systém', 'Hra začíná...', 'system');
+        });
+    }
 }
 
 // Funkce pro odeslání zprávy
