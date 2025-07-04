@@ -45,10 +45,6 @@ async function initGame() {
         // Zvýraznění neonových efektů po načtení šablon
         enhanceNeonEffects();
         
-        // DŮLEŽITÉ: Připojení event handlerů pro menu tlačítka po načtení šablon
-        const { attachMenuButtonHandlers } = await import('./js/ui/menuButtonHandlers.js');
-        attachMenuButtonHandlers();
-        
     } catch (error) {
         console.error('Chyba při inicializaci hry:', error);
         // Pokus o obnovení za 1 sekundu při chybě
@@ -406,23 +402,31 @@ function ensureChatInitialized() {
 }
 
 // Inicializace menu tlačítek
-function initMenuButtons() {
-    // Inicializace pro desktop tlačítka
-    const startGameBtn = document.getElementById('startGameBtn');
-    if (startGameBtn) {
-        startGameBtn.addEventListener('click', () => {
-            console.log('Start game requested');
-            addChatMessage('Systém', 'Hra začíná...', 'system');
-        });
-    }
-    
-    // Inicializace pro mobilní tlačítka
-    const startGameBtnMobile = document.getElementById('startGameBtnMobile');
-    if (startGameBtnMobile) {
-        startGameBtnMobile.addEventListener('click', () => {
-            console.log('Start game requested (mobile)');
-            addChatMessage('Systém', 'Hra začíná...', 'system');
-        });
+async function initMenuButtons() {
+    // Použije naši optimalizovanou implementaci z menuButtonHandlers.js
+    try {
+        const { attachMenuButtonHandlers } = await import('./js/ui/menuButtonHandlers.js');
+        attachMenuButtonHandlers();
+        console.log('✅ Menu tlačítka inicializována pomocí menuButtonHandlers');
+    } catch (error) {
+        console.error('❌ Chyba při načítání menuButtonHandlers:', error);
+        
+        // Fallback: základní implementace
+        const startGameBtn = document.getElementById('startGameBtn');
+        if (startGameBtn) {
+            startGameBtn.addEventListener('click', () => {
+                console.log('Start game requested (fallback)');
+                addChatMessage('Systém', 'Hra začíná...', 'system');
+            });
+        }
+        
+        const startGameBtnMobile = document.getElementById('startGameBtnMobile');
+        if (startGameBtnMobile) {
+            startGameBtnMobile.addEventListener('click', () => {
+                console.log('Start game requested (mobile fallback)');
+                addChatMessage('Systém', 'Hra začíná...', 'system');
+            });
+        }
     }
 }
 
