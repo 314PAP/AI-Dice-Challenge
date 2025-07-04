@@ -8,7 +8,7 @@
       </h2>
     </div>
     
-    <!-- Chat Messages - s garantovanou výškou -->
+    <!-- Chat Messages - s garantovanou výškou a vylepšenou viditelností -->
     <div class="chat-messages" id="chatMessagesMobile">
       <!-- Systémová zpráva -->
       <div class="chat-message small system-message animate__animated animate__fadeIn">
@@ -26,17 +26,17 @@
       </div>
     </div>
     
-    <!-- Chat Input - vždy viditelný díky sticky pozici -->
+    <!-- Chat Input - vždy viditelný díky sticky pozici a zvýrazněným prvkům -->
     <div class="chat-input animate__animated animate__fadeInUp animate__delay-1s">
       <div class="input-group input-group-sm">
-        <input type="text" class="form-control bg-black text-neon-green border-neon" id="chatInputMobile" placeholder="Napište zprávu...">
-        <button class="btn btn-outline-success btn-neon d-flex align-items-center justify-content-center" type="button" id="sendChatBtnMobile">
+        <input type="text" class="form-control bg-black text-neon-green border-neon" id="chatInputMobile" placeholder="Napište zprávu..." style="visibility:visible !important; opacity: 1 !important;">
+        <button class="btn btn-outline-success btn-neon d-flex align-items-center justify-content-center" type="button" id="sendChatBtnMobile" style="visibility:visible !important; opacity: 1 !important;">
           <i class="ri-send-plane-fill"></i>
         </button>
       </div>
-      <!-- Indikátor, že je možné psát -->
+      <!-- Indikátor, že je možné psát - skrytý pouze na velmi malých výškách -->
       <div class="text-center text-muted small mt-1 animate__animated animate__fadeIn animate__delay-2s hide-on-small-height">
-        <span class="neon-text neon-green">Chat je vždy dostupný <i class="ri-chat-smile-2-line"></i></span>
+        <span class="neon-text neon-green">Chat je dostupný <i class="ri-chat-smile-2-line"></i></span>
       </div>
     </div>
   </div>

@@ -216,23 +216,36 @@ function handleWindowResize() {
     // Detekce extrémně malých zařízení
     detectExtremelySmallScreen();
     
-    // Pro velmi malá zařízení, na která se nevejdou standardní ovládací prvky
-    if (window.innerWidth < 320 || window.innerHeight < 480) {
-        console.log('Detekováno extrémně malé zařízení, optimalizuji UI');
-        document.body.classList.add('xs-device');
-        
-        // Skryjeme některé dekorační prvky
-        document.querySelectorAll('.hide-on-xs').forEach(el => {
-            el.style.display = 'none';
-        });
-    } else {
-        document.body.classList.remove('xs-device');
-        
-        // Obnovíme viditelnost prvků
-        document.querySelectorAll('.hide-on-xs').forEach(el => {
-            el.style.display = '';
-        });
-    }
+    // Zajištění viditelnosti elementů
+    ensureElementsVisibility();
+}
+
+// Funkce pro zajištění viditelnosti důležitých prvků
+function ensureElementsVisibility() {
+    // Zajištění viditelnosti tlačítek
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.style.visibility = 'visible';
+        btn.style.opacity = '1';
+    });
+    
+    // Zajištění viditelnosti chatů
+    document.querySelectorAll('#chatMessagesMobile, #chatMessages').forEach(element => {
+        if (element) {
+            element.style.minHeight = window.innerHeight < 480 ? '60px' : '100px';
+            element.style.visibility = 'visible';
+            element.style.opacity = '1';
+            // Scroll na poslední zprávu
+            element.scrollTop = element.scrollHeight;
+        }
+    });
+    
+    // Zajištění viditelnosti vstupních polí
+    document.querySelectorAll('#chatInputMobile, #chatInput').forEach(input => {
+        if (input) {
+            input.style.visibility = 'visible';
+            input.style.opacity = '1';
+        }
+    });
 }
 
 // Vylepšená detekce extrémně malých obrazovek
