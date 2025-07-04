@@ -27,19 +27,25 @@
   background-color: rgba(0, 0, 0, 0.85);
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--neon-green-rgb), 0.5) rgba(0, 0, 0, 0.2);
+  min-height: 200px; /* Minimální výška pro zobrazení scrollbaru */
 }
 
 .chat-messages::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background: rgba(var(--neon-green-rgb), 0.5);
-  border-radius: 3px;
+  background: rgba(var(--neon-green-rgb), 0.7);
+  border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--neon-green-rgb), 0.9);
 }
 
 /* Jednotlivé zprávy */

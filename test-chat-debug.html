@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Chat Colors Debug</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS importy -->
+    <link rel="stylesheet" href="/src/styles/main-optimized.css">
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
+    
+    <!-- Remix icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+    <div class="container-fluid p-3">
+        <h1 class="text-center mb-4">🎮 Test Chat Colors Debug</h1>
+        
+        <!-- Test chat kontejner -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="chat-container" style="height: 400px; border: 1px solid #444;">
+                    <div class="chat-header">
+                        <h5 class="mb-0">Test Chat</h5>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages" style="flex: 1; overflow-y: auto; padding: 10px;">
+                        <!-- Zprávy se budou přidávat dynamicky -->
+                    </div>
+                    
+                    <div class="chat-input-container" style="padding: 10px; background: rgba(0,0,0,0.8);">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Test zpráva..." id="chatInput">
+                            <button class="btn btn-outline-light" type="button" onclick="testChatMessage()">
+                                <i class="ri-send-plane-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test tlačítka -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <h3>Test AI Zprávy:</h3>
+                <button class="btn btn-outline-success m-2" onclick="testAI('gemini')">Test Gemini</button>
+                <button class="btn btn-outline-danger m-2" onclick="testAI('chatgpt')">Test ChatGPT</button>
+                <button class="btn btn-outline-warning m-2" onclick="testAI('claude')">Test Claude</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import main-bootstrap.js pro addChatMessage funkci -->
+    <script type="module" src="/src/main-bootstrap.js"></script>
+    
+    <script>
+        // Počkáme, až se načte main-bootstrap.js
+        setTimeout(() => {
+            console.log('window.addChatMessage:', window.addChatMessage);
+            
+            // Přidáme inicializační zprávy
+            if (window.addChatMessage) {
+                window.addChatMessage('Systém', 'Test chat spuštěn', 'system');
+                window.addChatMessage('Gemini', 'Gemini připraven - modrá barva', 'ai', 'neon-blue');
+                window.addChatMessage('ChatGPT', 'ChatGPT připraven - růžová barva', 'ai', 'neon-pink');
+                window.addChatMessage('Claude', 'Claude připraven - oranžová barva', 'ai', 'neon-orange');
+            }
+        }, 1000);
+        
+        function testChatMessage() {
+            const input = document.getElementById('chatInput');
+            if (input.value.trim() && window.addChatMessage) {
+                window.addChatMessage('Hráč', input.value, 'player');
+                input.value = '';
+            }
+        }
+        
+        function testAI(aiType) {
+            if (!window.addChatMessage) return;
+            
+            const responses = {
+                'gemini': { name: 'Gemini', message: 'Analýza dokončena! 📊', color: 'neon-blue' },
+                'chatgpt': { name: 'ChatGPT', message: 'Hey! Jak se máš? 😎', color: 'neon-pink' },
+                'claude': { name: 'Claude', message: 'Zajímavá situace... 🤔', color: 'neon-orange' }
+            };
+            
+            const response = responses[aiType];
+            if (response) {
+                console.log(`🎯 Test AI: ${response.name} → ${response.color}`);
+                window.addChatMessage(response.name, response.message, 'ai', response.color);
+            }
+        }
+        
+        // Enter pro odeslání
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testChatMessage();
+            }
+        });
+    </script>
+</body>
+</html>

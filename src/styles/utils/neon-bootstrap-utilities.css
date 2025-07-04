@@ -68,8 +68,8 @@
 }
 
 .neon-blue {
-  --neon-color: var(--neon-blue, #00ffff);
-  --neon-color-rgb: var(--neon-blue-rgb, 0, 255, 255);
+  --neon-color: var(--neon-blue, #194DD1);
+  --neon-color-rgb: var(--neon-blue-rgb, 25, 77, 209);
   color: var(--neon-blue);
   text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
 }
@@ -332,6 +332,27 @@
   box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
 }
 
+/* Specifické kombinace pro hráče - vyšší specificita */
+.player.chatgpt-player.neon-border-pink {
+  border: 2px solid var(--neon-pink) !important;
+  box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink) !important;
+}
+
+.player.claude-player.neon-border-orange {
+  border: 2px solid var(--neon-orange) !important;
+  box-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange) !important;
+}
+
+.player.gemini-player.neon-border-blue {
+  border: 2px solid var(--neon-blue) !important;
+  box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue) !important;
+}
+
+.player.human-player.neon-border-green {
+  border: 2px solid var(--neon-green) !important;
+  box-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
+}
+
 .neon-border-pink {
   border: 2px solid var(--neon-pink);
   box-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
@@ -358,8 +379,36 @@
 }
 
 /* Aktivní hráč - zesilující efekt */
+.player.chatgpt-player.active.neon-border-pink {
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink) !important;
+}
+
+.player.claude-player.active.neon-border-orange {
+  box-shadow: 0 0 10px var(--neon-orange), 0 0 20px var(--neon-orange), 0 0 30px var(--neon-orange) !important;
+}
+
+.player.gemini-player.active.neon-border-blue {
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue) !important;
+}
+
+.player.human-player.active.neon-border-green {
+  box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green) !important;
+}
+
 .player.active .neon-border-green {
   box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+}
+
+.player.active .neon-border-blue {
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+}
+
+.player.active .neon-border-pink {
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+}
+
+.player.active .neon-border-orange {
+  box-shadow: 0 0 10px var(--neon-orange), 0 0 20px var(--neon-orange), 0 0 30px var(--neon-orange);
 }
 
 /* Vyčištění z-indexů */

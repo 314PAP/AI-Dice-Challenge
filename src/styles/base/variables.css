@@ -6,8 +6,8 @@
   /* 🌈 NEONOVÉ BARVY - Základní barvy používané v projektu */
   --neon-green: #39ff14;  /* Zelená pro člověka, primární barva */
   --neon-blue: #194DD1;   /* Modrá pro Gemini, sekundární barva */
-  --neon-orange: #ff8c00; /* Oranžová pro Claude */
-  --neon-pink: #ff1493;   /* Růžová pro ChatGPT */
+  --neon-orange: #FF8800; /* Oranžová pro Claude */
+  --neon-pink: #FF00FF;   /* Růžová pro ChatGPT */
   --neon-red: #ff3131;    /* Červená pro chyby/varování */
   --neon-yellow: #ffff00; /* Žlutá pro systémové zprávy */
 
@@ -16,7 +16,7 @@
   --neon-blue-rgb: 25, 77, 209;
   --neon-orange-rgb: 255, 140, 0;
   --neon-red-rgb: 255, 49, 49;
-  --neon-pink-rgb: 255, 20, 147;
+  --neon-pink-rgb: 255, 0, 255;
   --neon-yellow-rgb: 255, 255, 0;
 
   /* 🎨 ZÁKLADNÍ BARVY */

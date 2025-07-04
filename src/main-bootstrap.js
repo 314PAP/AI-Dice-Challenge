@@ -412,7 +412,7 @@ function ensureChatInitialized() {
     if (mobileMessages && mobileMessages.children.length === 0) {
         // Přidání systémových zpráv
         addChatMessage('Systém', 'Vítejte v AI Kostkové Výzvě!', 'system');
-        addChatMessage('Gemini', 'Připraven na hru?', 'ai');
+        addChatMessage('Gemini', 'Připraven na hru?', 'ai', 'neon-blue');
         addChatMessage('Systém', 'Můžete kdykoliv chatovat s AI protihráči. Pište do pole níže.', 'system');
     }
     
@@ -502,14 +502,23 @@ function sendChatMessage(inputElement, source = 'desktop') {
                     if (aiResponse && aiResponse.message) {
                         // Určíme barvu podle AI typu
                         let colorClass = 'neon-blue';
+                        let aiName = 'AI';
                         switch(aiType) {
-                            case 'gemini': colorClass = 'neon-blue'; break;
-                            case 'chatgpt': colorClass = 'neon-pink'; break;
-                            case 'claude': colorClass = 'neon-orange'; break;
+                            case 'gemini': 
+                                colorClass = 'neon-blue'; 
+                                aiName = 'Gemini';
+                                break;
+                            case 'chatgpt': 
+                                colorClass = 'neon-pink'; 
+                                aiName = 'ChatGPT';
+                                break;
+                            case 'claude': 
+                                colorClass = 'neon-orange'; 
+                                aiName = 'Claude';
+                                break;
                         }
                         
                         // Přidáme AI odpověď s správnou barvou
-                        const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
                         addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
                     }
                 }, 800 + (index * 600)); // Odstupňované časování
@@ -552,12 +561,22 @@ function simulateAiResponse() {
                 const aiResponse = generateAIChatResponse(aiType, randomMessage, playerScores, targetScore);
                 
                 if (aiResponse && aiResponse.message) {
-                    // Určíme barvu podle AI typu
+                    // Určíme barvu a jméno podle AI typu
                     let colorClass = 'neon-blue';
+                    let aiName = 'AI';
                     switch(aiType) {
-                        case 'gemini': colorClass = 'neon-blue'; break;
-                        case 'chatgpt': colorClass = 'neon-pink'; break;
-                        case 'claude': colorClass = 'neon-orange'; break;
+                        case 'gemini': 
+                            colorClass = 'neon-blue'; 
+                            aiName = 'Gemini';
+                            break;
+                        case 'chatgpt': 
+                            colorClass = 'neon-pink'; 
+                            aiName = 'ChatGPT';
+                            break;
+                        case 'claude': 
+                            colorClass = 'neon-orange'; 
+                            aiName = 'Claude';
+                            break;
                     }
                     
                     // Přidání indikátoru psaní před každou odpovědí
@@ -577,12 +596,10 @@ function simulateAiResponse() {
                             }
                             
                             // Přidáme skutečnou AI odpověď s správnou barvou
-                            const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
                             addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
                         }, 1500);
                     } else {
                         // Pro druhou AI bez indikátoru psaní
-                        const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
                         addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
                     }
                 }
@@ -622,7 +639,7 @@ function addChatMessage(sender, message, type = 'player', customColor = null) {
                 animationType = 'animate__fadeInDown';
                 break;
             case 'ai':
-                colorClass = 'neon-blue';
+                colorClass = 'neon-blue'; // Fallback pro AI, pokud není custom barva
                 animationType = 'animate__fadeInRight';
                 break;
             case 'error':
@@ -634,8 +651,8 @@ function addChatMessage(sender, message, type = 'player', customColor = null) {
                 animationType = 'animate__fadeInLeft';
         }
     } else {
-        // Pokud je customColor nastavena, použijeme ji
-        animationType = 'animate__fadeInRight';
+        // Pokud je customColor nastavena, použijeme ji a správnou animaci
+        animationType = type === 'ai' ? 'animate__fadeInRight' : 'animate__fadeInLeft';
     }
     
     // Přidání animace

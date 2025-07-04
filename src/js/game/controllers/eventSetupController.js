@@ -510,16 +510,25 @@ function sendMobileChatMessage() {
                     const aiResponse = generateAIChatResponse(aiType, message, playerScores, targetScore);
                     
                     if (aiResponse && aiResponse.message) {
-                        // Určíme barvu podle AI typu
+                        // Určíme barvu a jméno podle AI typu
                         let colorClass = 'neon-blue';
+                        let aiName = 'AI';
                         switch(aiType) {
-                            case 'gemini': colorClass = 'neon-blue'; break;
-                            case 'chatgpt': colorClass = 'neon-pink'; break;
-                            case 'claude': colorClass = 'neon-orange'; break;
+                            case 'gemini': 
+                                colorClass = 'neon-blue'; 
+                                aiName = 'Gemini';
+                                break;
+                            case 'chatgpt': 
+                                colorClass = 'neon-pink'; 
+                                aiName = 'ChatGPT';
+                                break;
+                            case 'claude': 
+                                colorClass = 'neon-orange'; 
+                                aiName = 'Claude';
+                                break;
                         }
                         
                         // Přidáme AI odpověď s správnou barvou
-                        const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
                         window.addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
                     }
                 }, 800 + (index * 600)); // Odstupňované časování

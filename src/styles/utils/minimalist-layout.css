@@ -256,15 +256,15 @@
   height: 52px;
   font-size: 1.4rem;
   font-weight: bold;
-  border: 2px solid rgba(0, 255, 65, 0.5);
+  border: 2px solid rgba(var(--neon-green-rgb), 0.5);
   margin: 0 auto;
   display: block;
   box-sizing: border-box;
 }
 
 .target-score-input input:focus {
-  border-color: #00ff41;
-  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px rgba(var(--neon-green-rgb), 0.4);
 }
 
 /* Responzivní úpravy pro target score input */
@@ -314,7 +314,7 @@
   width: 100%;
   overflow-y: auto;
   border: 2px solid currentColor;
-  box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+  box-shadow: 0 0 30px rgba(var(--neon-green-rgb), 0.3);
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.9);
 }

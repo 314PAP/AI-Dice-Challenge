@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test barev AI</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS proměnné -->
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
+    <link rel="stylesheet" href="/src/styles/utils/neon-bootstrap-utilities.css">
+    
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 20px;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+        
+        .color-test {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5 neon-text-green">🎨 Test barev AI</h1>
+        
+        <div class="test-section">
+            <h2>Textové barvy</h2>
+            <div class="color-test">
+                <span class="neon-text-green">🟢 Lidský hráč (Zelená #39FF14)</span>
+            </div>
+            <div class="color-test">
+                <span class="neon-text-blue">🔵 Gemini (Modrá #194DD1)</span>
+            </div>
+            <div class="color-test">
+                <span class="neon-text-pink">🟣 ChatGPT (Růžová #FF00FF)</span>
+            </div>
+            <div class="color-test">
+                <span class="neon-text-orange">🟠 Claude (Oranžová #FF8800)</span>
+            </div>
+            <div class="color-test">
+                <span class="neon-text-yellow">🟡 Systém (Žlutá #FFFF00)</span>
+            </div>
+            <div class="color-test">
+                <span class="neon-text-red">🔴 Chyba (Červená #FF3131)</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Bordery</h2>
+            <div class="color-test neon-border-green">
+                <span class="neon-text-green">Lidský hráč - zelený border</span>
+            </div>
+            <div class="color-test neon-border-blue">
+                <span class="neon-text-blue">Gemini - modrý border</span>
+            </div>
+            <div class="color-test neon-border-pink">
+                <span class="neon-text-pink">ChatGPT - růžový border</span>
+            </div>
+            <div class="color-test neon-border-orange">
+                <span class="neon-text-orange">Claude - oranžový border</span>
+            </div>
+            <div class="color-test neon-border-yellow">
+                <span class="neon-text-yellow">Systém - žlutý border</span>
+            </div>
+            <div class="color-test neon-border-red">
+                <span class="neon-text-red">Chyba - červený border</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Simulace chatu</h2>
+            <div class="chat-container bg-dark p-3 rounded">
+                <div class="chat-message mb-2">
+                    <strong class="neon-text-green">🟢 Hráč:</strong> 
+                    <span class="neon-text-green">Ahoj, jak se máte?</span>
+                </div>
+                <div class="chat-message mb-2">
+                    <strong class="neon-text-blue">🔵 Gemini:</strong> 
+                    <span class="neon-text-blue">Ahoj! Jsem připraven na hru.</span>
+                </div>
+                <div class="chat-message mb-2">
+                    <strong class="neon-text-pink">🟣 ChatGPT:</strong> 
+                    <span class="neon-text-pink">Hey! Těším se na výzvu!</span>
+                </div>
+                <div class="chat-message mb-2">
+                    <strong class="neon-text-orange">🟠 Claude:</strong> 
+                    <span class="neon-text-orange">Zdravím. Začneme?</span>
+                </div>
+                <div class="chat-message mb-2">
+                    <strong class="neon-text-yellow">🟡 Systém:</strong> 
+                    <span class="neon-text-yellow">Hra začíná za chvíli...</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>CSS proměnné test</h2>
+            <div class="color-test" style="color: var(--neon-green);">
+                Zelená: var(--neon-green)
+            </div>
+            <div class="color-test" style="color: var(--neon-blue);">
+                Modrá: var(--neon-blue)
+            </div>
+            <div class="color-test" style="color: var(--neon-pink);">
+                Růžová: var(--neon-pink)
+            </div>
+            <div class="color-test" style="color: var(--neon-orange);">
+                Oranžová: var(--neon-orange)
+            </div>
+            <div class="color-test" style="color: var(--neon-yellow);">
+                Žlutá: var(--neon-yellow)
+            </div>
+            <div class="color-test" style="color: var(--neon-red);">
+                Červená: var(--neon-red)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -19,3 +19,5 @@
 @import './components/players/avatars.css';
 @import './components/players/player-cards.css';
 @import './components/game/neon-enhanced.css';
+@import './components/chat.css';
+@import './components/bootstrap-responsive.css';

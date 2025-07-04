@@ -38,11 +38,11 @@
 }
 
 .chatgpt-player .player-head img {
-  border-color: var(--neon-orange);
+  border-color: var(--neon-pink);
 }
 
 .claude-player .player-head img {
-  border-color: var(--neon-pink);
+  border-color: var(--neon-orange);
 }
 
 /* Aktivní hráč */
@@ -53,39 +53,84 @@
               0 0 15px var(--neon-color, var(--neon-green));
 }
 
+/* Specifické definice pro aktivní hráče pro zajištění správných barev */
+.player.human-player.active {
+  box-shadow: 0 0 10px var(--neon-green), 0 0 15px var(--neon-green) !important;
+}
+
+.player.gemini-player.active {
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue) !important;
+}
+
+.player.chatgpt-player.active {
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 15px var(--neon-pink) !important;
+}
+
+.player.claude-player.active {
+  box-shadow: 0 0 10px var(--neon-orange), 0 0 15px var(--neon-orange) !important;
+}
+
 /* Pulzující animace pro aktivního hráče */
-@keyframes player-active-pulse {
-  0% {
-    box-shadow: 0 0 10px var(--neon-color, var(--neon-green));
-  }
-  50% {
-    box-shadow: 0 0 20px var(--neon-color, var(--neon-green)),
-               0 0 30px var(--neon-color, var(--neon-green));
-  }
-  100% {
-    box-shadow: 0 0 10px var(--neon-color, var(--neon-green));
-  }
+@keyframes player-active-pulse-green {
+  0% { box-shadow: 0 0 10px var(--neon-green); }
+  50% { box-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green); }
+  100% { box-shadow: 0 0 10px var(--neon-green); }
+}
+
+@keyframes player-active-pulse-blue {
+  0% { box-shadow: 0 0 10px var(--neon-blue); }
+  50% { box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+  100% { box-shadow: 0 0 10px var(--neon-blue); }
+}
+
+@keyframes player-active-pulse-pink {
+  0% { box-shadow: 0 0 10px var(--neon-pink); }
+  50% { box-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink); }
+  100% { box-shadow: 0 0 10px var(--neon-pink); }
+}
+
+@keyframes player-active-pulse-orange {
+  0% { box-shadow: 0 0 10px var(--neon-orange); }
+  50% { box-shadow: 0 0 20px var(--neon-orange), 0 0 30px var(--neon-orange); }
+  100% { box-shadow: 0 0 10px var(--neon-orange); }
+}
+
+/* Aplikace správných animací podle typu hráče */
+.player.human-player.active.pulsing {
+  animation: player-active-pulse-green 2s infinite;
+}
+
+.player.gemini-player.active.pulsing {
+  animation: player-active-pulse-blue 2s infinite;
+}
+
+.player.chatgpt-player.active.pulsing {
+  animation: player-active-pulse-pink 2s infinite;
+}
+
+.player.claude-player.active.pulsing {
+  animation: player-active-pulse-orange 2s infinite;
 }
 
 /* Specifické barvy podle typu hráče - vše musí mít černé pozadí */
 .player.human-player {
   --neon-color: var(--neon-green);
-  border-color: var(--neon-green);
+  border-color: var(--neon-green) !important;
 }
 
 .player.gemini-player {
   --neon-color: var(--neon-blue);
-  border-color: var(--neon-blue);
+  border-color: var(--neon-blue) !important;
 }
 
 .player.chatgpt-player {
-  --neon-color: var(--neon-orange);
-  border-color: var(--neon-orange);
+  --neon-color: var(--neon-pink);
+  border-color: var(--neon-pink) !important;
 }
 
 .player.claude-player {
-  --neon-color: var(--neon-pink);
-  border-color: var(--neon-pink);
+  --neon-color: var(--neon-orange);
+  border-color: var(--neon-orange) !important;
 }
 
 /* Neonové texty podle typu hráče */

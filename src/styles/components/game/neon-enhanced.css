@@ -41,7 +41,7 @@ body, .game-box, .bg-dark-80, .player, .chat-header, .chat-messages {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(var(--neon-green-rgb), 0.05);
   pointer-events: none;
 }
 
@@ -52,7 +52,7 @@ body, .game-box, .bg-dark-80, .player, .chat-header, .chat-messages {
 
 .btn-neon.neon-blue {
   box-shadow: 0 0 10px var(--neon-blue),
-              0 0 20px rgba(0, 191, 255, 0.4);
+              0 0 20px rgba(var(--neon-blue-rgb), 0.4);
 }
 
 .btn-neon.neon-orange {

@@ -9,10 +9,17 @@
 /* Základní neonové efekty a barvy */
 :root {
   --neon-green: #39ff14;
-  --neon-blue: #4d4dff;
+  --neon-blue: #194DD1;
   --neon-yellow: #ffff00;
   --neon-red: #ff3131;
-  --neon-orange: #ff9900;
+  --neon-orange: #FF8800;
+  --neon-pink: #FF00FF;
+  --neon-green-rgb: 57, 255, 20;
+  --neon-blue-rgb: 25, 77, 209;
+  --neon-orange-rgb: 255, 140, 0;
+  --neon-pink-rgb: 255, 0, 255;
+  --neon-red-rgb: 255, 49, 49;
+  --neon-yellow-rgb: 255, 255, 0;
   --neon-glow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
   --neon-glow-strong: 0 0 8px var(--neon-green), 0 0 15px var(--neon-green), 0 0 20px var(--neon-green);
   --border-radius: 0.375rem;
@@ -105,35 +112,29 @@
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.5);
+  scrollbar-color: rgba(var(--neon-green-rgb), 0.7) rgba(0, 0, 0, 0.4);
 }
 
 /* Stylizované scrollbary pro Webkit browsery (Chrome, Safari) */
 .chat-messages::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 .chat-messages::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-  background-color: var(--neon-green);
-  border-radius: 3px;
+  background: rgba(var(--neon-green-rgb), 0.7);
+  border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(57, 255, 20, 0.8);
+  background: rgba(var(--neon-green-rgb), 0.9);
   box-shadow: 0 0 5px var(--neon-green);
-}
-
-/* Stylizace pro Firefox */
-.chat-messages {
-  scrollbar-width: thin;
-  scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.5);
 }
 
 /* Univerzální scrollbar styling pro všechny elementy s overflow */
@@ -164,7 +165,7 @@
 /* Zvýrazněný stav, když je focus v chat inputu */
 .chat-box.input-focused {
   border-color: var(--neon-blue);
-  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(77, 77, 255, 0.3);
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px rgba(var(--neon-blue-rgb), 0.3);
 }
 
 /* Chat zprávy */
@@ -230,9 +231,8 @@
   color: var(--neon-green);
 }
 
-.chat-message.ai-message strong {
-  color: var(--neon-blue);
-}
+/* AI zprávy mají barvy nastavené dynamicky přes třídy (.neon-blue, .neon-pink, .neon-orange) */
+/* .chat-message.ai-message strong je odstraněno - barva se nastavuje individuálně */
 
 .chat-message.system-message strong {
   color: var(--neon-yellow);
@@ -569,9 +569,9 @@
   width: 100%;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(var(--neon-green-rgb), 0) 0%,
+    rgba(var(--neon-green-rgb), 0.1) 50%,
+    rgba(var(--neon-green-rgb), 0) 100%
   );
   z-index: -1;
   transition: transform 0.6s ease;
@@ -591,7 +591,7 @@
 
 .btn-neon:active {
   transform: translateY(1px) scale(0.98);
-  box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, inset 0 0 5px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, inset 0 0 5px rgba(var(--neon-green-rgb), 0.2);
   transition: all 0.1s ease;
 }
 
@@ -629,7 +629,7 @@
 }
 
 .btn-outline-primary:hover {
-  background-color: rgba(77, 77, 255, 0.2);
+  background-color: rgba(var(--neon-blue-rgb), 0.2);
   color: var(--neon-blue);
 }
 
@@ -660,47 +660,24 @@
 
 /* Extrémně malá zařízení v portrait módu */
 @media (max-width: 320px) and (orientation: portrait) {
-  /* Přidání vertikálního scrollování pro obsah */
   .container-fluid {
     max-height: 100vh;
     overflow-y: auto;
   }
   
-  /* Zmenšení paddingů na minimum */
-  .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
-  .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
-  .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
-  .ps-0, .ps-1, .ps-2, .ps-3, .ps-4, .ps-5,
-  .pe-0, .pe-1, .pe-2, .pe-3, .pe-4, .pe-5,
-  .px-0, .px-1, .px-2, .px-3, .px-4, .px-5,
-  .py-0, .py-1, .py-2, .py-3, .py-4, .py-5 {
-    padding: 0.1rem !important;
-  }
-  
-  /* Minimalizace veškerých mezer */
-  .m-0, .m-1, .m-2, .m-3, .m-4, .m-5,
-  .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
-  .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
-  .ms-0, .ms-1, .ms-2, .ms-3, .ms-4, .ms-5,
-  .me-0, .me-1, .me-2, .me-3, .me-4, .me-5,
-  .mx-0, .mx-1, .mx-2, .mx-3, .mx-4, .mx-5,
-  .my-0, .my-1, .my-2, .my-3, .my-4, .my-5 {
-    margin: 0.1rem !important;
-  }
-  
   /* Ultra kompaktní chat */
   .chat-messages {
-    max-height: 60px !important;
-    min-height: 40px !important;
-    font-size: 0.7rem !important;
+    max-height: 60px;
+    min-height: 40px;
+    font-size: 0.7rem;
   }
   
-  /* Tlačítka na minimum */
-  .btn {
-    padding: 0.1rem 0.2rem !important;
-    font-size: 0.7rem !important;
-    line-height: 1.2 !important;
-    min-height: auto !important;
+  /* Kompaktní tlačítka */
+  .menu-buttons .btn {
+    padding: 0.1rem 0.2rem;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    min-height: auto;
   }
   
   /* Odstranění všech dekorativních prvků */
@@ -754,28 +731,12 @@
   text-shadow: 
     0 0 5px var(--neon-green),
     0 0 10px var(--neon-green),
-    0 0 15px var(--neon-green) !important;
-}
-
-/* Vypnutí všech pulzujících animací pro usnadnění ladění */
-.animate__pulse,
-.animate__slow,
-.animate__slower,
-.animate__infinite {
-  animation: none !important;
-  animation-iteration-count: 0 !important;
-}
-
-/* Zakázání pulse animace pro všechny elementy */
-*, *::before, *::after {
-  animation-name: none !important;
-  animation-duration: 0 !important;
-  animation-iteration-count: 0 !important;
+    0 0 15px var(--neon-green);
 }
 
 /* Povolení pouze fade animací pro zachování efektu objevení */
 .animate__fadeIn {
-  animation: fadeIn 0.5s ease-out !important;
+  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes fadeIn {
@@ -783,64 +744,26 @@
   to { opacity: 1; }
 }
 
-/* Odstranění vnitřních rámečků v chatu */
-.no-borders .chat-message,
-.no-borders .ai-message,
-.no-borders .system-message,
-.no-borders .error-message,
-.no-borders .player-message {
-  border: none !important;
-  border-left: none !important;
-  border-radius: 0 !important;
-  background-color: transparent !important;
-  padding-left: 0 !important;
-  margin-left: 0 !important;
-  box-shadow: none !important;
-}
-
-/* Chat zprávy bez ohraničení a pozadí - pouze text */
-.no-borders .chat-message:hover {
-  transform: none !important;
-  border-left: none !important;
-  padding-left: 0 !important;
-  background-color: transparent !important;
-  border-radius: 0 !important;
-}
-
-/* Vylepšené vstupní pole vždy dole */
-.chat-input-fixed {
-  position: sticky !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  z-index: 1000 !important;
-  margin-top: auto !important;
-  background-color: rgba(0, 0, 0, 0.9) !important;
-  padding: 0.5rem !important;
-  border-top: 1px solid var(--neon-green) !important;
-}
-
 /* Větší písmo pro desktopovou verzi chatu */
 @media (min-width: 992px) {
   .chat-message {
-    font-size: 1rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 0.75rem !important;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
   }
   
   .chat-input .form-control {
-    font-size: 1rem !important;
-    padding: 0.375rem 0.75rem !important;
+    font-size: 1rem;
+    padding: 0.375rem 0.75rem;
   }
   
   .chat-header h2 {
-    font-size: 1.2rem !important;
+    font-size: 1.2rem;
   }
 }
 
 /* Zajištění, že text v chatu je dobře čitelný */
 .chat-message strong, 
 .chat-message span {
-  text-shadow: 0 0 3px currentColor !important;
+  text-shadow: 0 0 3px currentColor;
 }
