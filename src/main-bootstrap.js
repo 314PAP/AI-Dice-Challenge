@@ -403,15 +403,20 @@ function ensureChatInitialized() {
 
 // Inicializace menu tlačítek
 async function initMenuButtons() {
+    console.log('🔧 Inicializuji menu tlačítka...');
+    
     // Použije naši optimalizovanou implementaci z menuButtonHandlers.js
     try {
+        console.log('📦 Načítám menuButtonHandlers...');
         const { attachMenuButtonHandlers } = await import('./js/ui/menuButtonHandlers.js');
+        console.log('✅ menuButtonHandlers načten, voláme attachMenuButtonHandlers...');
         attachMenuButtonHandlers();
         console.log('✅ Menu tlačítka inicializována pomocí menuButtonHandlers');
     } catch (error) {
         console.error('❌ Chyba při načítání menuButtonHandlers:', error);
         
         // Fallback: základní implementace
+        console.log('🔄 Používám fallback implementaci...');
         const startGameBtn = document.getElementById('startGameBtn');
         if (startGameBtn) {
             startGameBtn.addEventListener('click', () => {
