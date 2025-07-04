@@ -31,6 +31,32 @@ function handleExitGame() {
   }
 }
 
+// Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)
+function getTargetScore() {
+  const inputDesktop = document.getElementById('targetScoreInput');
+  const inputMobile = document.getElementById('targetScoreInputMobile');
+  return parseInt((inputDesktop?.value || inputMobile?.value || '10000'), 10);
+}
+
+// Jednoduchá funkce pro spuštění hry
+function handleStartGame() {
+  console.log('🎮 Spouštím hru...');
+  const targetScore = getTargetScore();
+  
+  if (targetScore < 1000) {
+    alert('Cílové skóre musí být alespoň 1000 bodů!');
+    return;
+  }
+  
+  try {
+    startGame();
+    console.log('✅ Hra byla úspěšně spuštěna');
+  } catch (error) {
+    console.error('❌ Chyba při spouštění hry:', error);
+    alert('Při spouštění hry došlo k chybě. Zkuste to znovu.');
+  }
+}
+
 export function attachMenuButtonHandlers() {
   console.log('🔗 Připojuji menu button handlery...');
   
