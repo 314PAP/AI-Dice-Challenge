@@ -107,25 +107,23 @@
                 startEvent: 'load'
             });
             
-            // Nastavení animací pro neonové prvky
-            const applyPulseAnimations = () => {
-                // Aplikace pulzování na chat boxy
+            // Odstranění pulzujících animací pro lepší ladění
+            const removePulseAnimations = () => {
+                // Odstranění pulzování z chat boxů
                 const chatBoxes = document.querySelectorAll('.chat-box');
                 chatBoxes.forEach(box => {
-                    box.classList.add('animate__animated', 'animate__pulse', 'animate__slow', 'animate__infinite');
+                    box.classList.remove('animate__pulse', 'animate__slow', 'animate__infinite');
                 });
                 
-                // Aplikace pulzování na neonové nadpisy
+                // Odstranění pulzování z neonových nadpisů
                 const neonTexts = document.querySelectorAll('.neon-text');
                 neonTexts.forEach(text => {
-                    if (!text.classList.contains('no-pulse')) {
-                        text.classList.add('animate__animated', 'animate__pulse', 'animate__slower', 'animate__infinite');
-                    }
+                    text.classList.remove('animate__pulse', 'animate__slower', 'animate__infinite');
                 });
             };
             
-            // Spuštění s mírným zpožděním pro lepší uživatelský zážitek
-            setTimeout(applyPulseAnimations, 1000);
+            // Okamžité odstranění pulzujících animací
+            removePulseAnimations();
             
             // Detekce velikosti zařízení a přizpůsobení
             const detectDeviceSize = () => {
