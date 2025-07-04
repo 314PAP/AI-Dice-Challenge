@@ -270,6 +270,67 @@
               0 0 10px var(--neon-color, var(--neon-green)) !important;
 }
 
+/* =============================================================================
+   🎨 NEONOVÉ UTILITY TŘÍDY PODLE DESIGN GUIDE
+   ============================================================================= */
+
+/* Neonové textové třídy */
+.neon-text-blue {
+  color: #00BFFF;
+  text-shadow: 0 0 5px #00BFFF, 0 0 10px #00BFFF;
+}
+
+.neon-text-pink {
+  color: #FF00FF;
+  text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF;
+}
+
+.neon-text-green {
+  color: #39FF14;
+  text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+}
+
+.neon-text-yellow {
+  color: #FFFF00;
+  text-shadow: 0 0 5px #FFFF00, 0 0 10px #FFFF00;
+}
+
+.neon-text-red {
+  color: #FF3131;
+  text-shadow: 0 0 5px #FF3131, 0 0 10px #FF3131;
+}
+
+/* Neonové okraje */
+.neon-border-blue {
+  border: 2px solid #00BFFF;
+  box-shadow: 0 0 5px #00BFFF, 0 0 10px #00BFFF;
+}
+
+.neon-border-pink {
+  border: 2px solid #FF00FF;
+  box-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF;
+}
+
+.neon-border-green {
+  border: 2px solid #39FF14;
+  box-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14;
+}
+
+.neon-border-yellow {
+  border: 2px solid #FFFF00;
+  box-shadow: 0 0 5px #FFFF00, 0 0 10px #FFFF00;
+}
+
+.neon-border-red {
+  border: 2px solid #FF3131;
+  box-shadow: 0 0 5px #FF3131, 0 0 10px #FF3131;
+}
+
+/* Aktivní hráč - zesilující efekt */
+.player.active .neon-border-green {
+  box-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14, 0 0 30px #39FF14;
+}
+
 /* Vyčištění z-indexů */
 .z-top { z-index: 1000 !important; }
 .z-modal { z-index: 1050 !important; }
