@@ -1,11 +1,59 @@
-<!-- Mobile Game Controls Component -->
+<!-- Mobile Game Controls Component - Vylepšená verze s avatary hráčů -->
 <div class="game-controls-mobile-content d-block d-md-none">
     <div class="text-center">
         <h3 class="neon-text neon-green mb-2" style="font-size: 0.9rem;">
             <i class="ri-dice-line me-1"></i>
             AI Kostková Výzva
         </h3>
-        <p class="neon-text neon-blue mb-3" style="font-size: 0.7rem;">Hra běží...</p>
+        <p class="neon-text neon-blue mb-2" style="font-size: 0.7rem;">Hra běží...</p>
+        
+        <!-- Kompaktní zobrazení avatarů hráčů -->
+        <div class="players-container-mobile d-flex flex-wrap justify-content-center gap-1 mb-2">
+            <div class="player-mobile human-player active neon-border-green p-1 rounded text-center bg-dark" style="max-width: 70px;">
+                <div class="player-head-mobile mb-1">
+                    <img src="assets/images/avatars/human-avatar.png" alt="Vy" class="rounded-circle" style="width: 30px; height: 30px;">
+                </div>
+                <div class="player-name-mobile neon-text neon-green" style="font-size: 0.6rem;">Vy</div>
+                <div class="player-score-mobile neon-text neon-green" style="font-size: 0.6rem;">
+                    <span id="humanScoreMobile" class="fw-bold">0</span>
+                </div>
+            </div>
+            <div class="player-mobile gemini-player neon-border-blue p-1 rounded text-center bg-dark" style="max-width: 70px;">
+                <div class="player-head-mobile mb-1">
+                    <img src="assets/images/avatars/gemini-avatar.png" alt="Gemini" class="rounded-circle" style="width: 30px; height: 30px;">
+                </div>
+                <div class="player-name-mobile neon-text neon-blue" style="font-size: 0.6rem;">Gemini</div>
+                <div class="player-score-mobile neon-text neon-blue" style="font-size: 0.6rem;">
+                    <span id="geminiScoreMobile" class="fw-bold">0</span>
+                </div>
+            </div>
+            <div class="player-mobile chatgpt-player neon-border-pink p-1 rounded text-center bg-dark" style="max-width: 70px;">
+                <div class="player-head-mobile mb-1">
+                    <img src="assets/images/avatars/chatgpt-avatar.png" alt="ChatGPT" class="rounded-circle" style="width: 30px; height: 30px;">
+                </div>
+                <div class="player-name-mobile neon-text neon-pink" style="font-size: 0.6rem;">ChatGPT</div>
+                <div class="player-score-mobile neon-text neon-pink" style="font-size: 0.6rem;">
+                    <span id="chatgptScoreMobile" class="fw-bold">0</span>
+                </div>
+            </div>
+            <div class="player-mobile claude-player neon-border-orange p-1 rounded text-center bg-dark" style="max-width: 70px;">
+                <div class="player-head-mobile mb-1">
+                    <img src="assets/images/avatars/claude-avatar.png" alt="Claude" class="rounded-circle" style="width: 30px; height: 30px;">
+                </div>
+                <div class="player-name-mobile neon-text neon-orange" style="font-size: 0.6rem;">Claude</div>
+                <div class="player-score-mobile neon-text neon-orange" style="font-size: 0.6rem;">
+                    <span id="claudeScoreMobile" class="fw-bold">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kompaktní informace o tahu -->
+        <div class="turn-info-mobile neon-text neon-green mb-2" style="font-size: 0.7rem;">
+            <div id="turnInfoMobile">Váš tah!</div>
+            <div id="currentTurnScoreMobile" class="neon-text neon-blue">Skóre tahu: 0</div>
+        </div>
+        
+        <!-- Tlačítko opustit hru -->
         <button class="btn btn-neon neon-pink w-75" id="quitGameBtnMobile" style="height: 35px; font-size: 0.8rem;">
             <i class="ri-logout-box-line me-1"></i>
             Opustit hru

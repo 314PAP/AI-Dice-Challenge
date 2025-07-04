@@ -767,3 +767,81 @@
 .chat-message span {
   text-shadow: 0 0 3px currentColor;
 }
+
+/* Mobilní avatary hráčů */
+.player-mobile {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: none;
+  border: 2px solid;
+  max-width: 70px;
+}
+
+.player-mobile img {
+  border: 1px solid;
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Mobilní aktivní hráč */
+.player-mobile.active {
+  z-index: 2;
+  transform: scale(1.1);
+  box-shadow: 0 0 8px var(--neon-color, var(--neon-green)), 
+              0 0 12px var(--neon-color, var(--neon-green));
+}
+
+/* Mobilní specifické barvy pro hráče */
+.player-mobile.human-player {
+  --neon-color: var(--neon-green);
+  border-color: var(--neon-green) !important;
+}
+
+.player-mobile.human-player img {
+  border-color: var(--neon-green);
+}
+
+.player-mobile.gemini-player {
+  --neon-color: var(--neon-blue);
+  border-color: var(--neon-blue) !important;
+}
+
+.player-mobile.gemini-player img {
+  border-color: var(--neon-blue);
+}
+
+.player-mobile.chatgpt-player {
+  --neon-color: var(--neon-pink);
+  border-color: var(--neon-pink) !important;
+}
+
+.player-mobile.chatgpt-player img {
+  border-color: var(--neon-pink);
+}
+
+.player-mobile.claude-player {
+  --neon-color: var(--neon-orange);
+  border-color: var(--neon-orange) !important;
+}
+
+.player-mobile.claude-player img {
+  border-color: var(--neon-orange);
+}
+
+/* Mobilní aktivní stavy */
+.player-mobile.human-player.active {
+  box-shadow: 0 0 8px var(--neon-green), 0 0 12px var(--neon-green) !important;
+}
+
+.player-mobile.gemini-player.active {
+  box-shadow: 0 0 8px var(--neon-blue), 0 0 12px var(--neon-blue) !important;
+}
+
+.player-mobile.chatgpt-player.active {
+  box-shadow: 0 0 8px var(--neon-pink), 0 0 12px var(--neon-pink) !important;
+}
+
+.player-mobile.claude-player.active {
+  box-shadow: 0 0 8px var(--neon-orange), 0 0 12px var(--neon-orange) !important;
+}
