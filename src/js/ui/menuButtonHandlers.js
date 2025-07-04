@@ -32,11 +32,15 @@ function handleExitGame() {
 }
 
 export function attachMenuButtonHandlers() {
+  console.log('🔗 Připojuji menu button handlery...');
+  
   // START GAME
+  console.log('🎮 Hledám START GAME tlačítka...');
   const startBtns = [
     document.getElementById('startGameBtn'),
     document.getElementById('startGameBtnMobile')
   ].filter(Boolean);
+  console.log(`🎮 Nalezeno ${startBtns.length} START GAME tlačítek`);
   startBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
@@ -44,10 +48,12 @@ export function attachMenuButtonHandlers() {
   });
 
   // PRAVIDLA
+  console.log('📖 Hledám PRAVIDLA tlačítka...');
   const rulesBtns = [
     document.getElementById('rulesBtn'),
     document.getElementById('rulesBtnMobile')
   ].filter(Boolean);
+  console.log(`📖 Nalezeno ${rulesBtns.length} PRAVIDLA tlačítek`);
   rulesBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
@@ -55,10 +61,12 @@ export function attachMenuButtonHandlers() {
   });
 
   // SÍŇ SLÁVY
+  console.log('🏆 Hledám SÍŇ SLÁVY tlačítka...');
   const hallBtns = [
     document.getElementById('hallOfFameBtn'),
     document.getElementById('hallOfFameBtnMobile')
   ].filter(Boolean);
+  console.log(`🏆 Nalezeno ${hallBtns.length} SÍŇ SLÁVY tlačítek`);
   hallBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
@@ -66,10 +74,12 @@ export function attachMenuButtonHandlers() {
   });
 
   // OPUSTIT HRU
+  console.log('🚪 Hledám OPUSTIT HRU tlačítka...');
   const exitBtns = [
     document.getElementById('exitGameBtn'),
     document.getElementById('exitGameBtnMobile')
   ].filter(Boolean);
+  console.log(`🚪 Nalezeno ${exitBtns.length} OPUSTIT HRU tlačítek`);
   exitBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
@@ -79,8 +89,10 @@ export function attachMenuButtonHandlers() {
   // Kup mi kávu je pouze odkaz, není třeba JS
   
   // ZAVŘENÍ RULES MODALU
+  console.log('❌ Hledám ZAVŘENÍ RULES MODALU tlačítko...');
   const closeRulesBtn = document.getElementById('closeRulesBtn');
   if (closeRulesBtn) {
+    console.log('❌ Nalezeno ZAVŘENÍ RULES MODALU tlačítko');
     closeRulesBtn.addEventListener('click', () => {
       const rulesModal = document.getElementById('rulesModal');
       if (rulesModal) {
@@ -90,8 +102,10 @@ export function attachMenuButtonHandlers() {
   }
   
   // ZAVŘENÍ HALL OF FAME MODALU
+  console.log('❌ Hledám ZAVŘENÍ HALL OF FAME MODALU tlačítko...');
   const closeHallOfFameBtn = document.getElementById('closeHallOfFameBtn');
   if (closeHallOfFameBtn) {
+    console.log('❌ Nalezeno ZAVŘENÍ HALL OF FAME MODALU tlačítko');
     closeHallOfFameBtn.addEventListener('click', () => {
       const hallOfFameModal = document.getElementById('hallOfFameModal');
       if (hallOfFameModal) {

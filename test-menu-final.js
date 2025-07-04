@@ -111,9 +111,13 @@ function runTests() {
 
 // Spustit testy po načtení stránky
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', runTests);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Počkat na dokončení inicializace
+        setTimeout(runTests, 2000);
+    });
 } else {
-    runTests();
+    // Počkat na dokončení inicializace
+    setTimeout(runTests, 2000);
 }
 
 // Export pro ruční spuštění z konzole
