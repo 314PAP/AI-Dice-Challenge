@@ -267,6 +267,14 @@
   outline: none;
 }
 
+/* Speciální styl pro tlačítka v chatu - bez vnitřních rámečků, ale se zachováním neonového vzhledu */
+.chat-input .btn, 
+.chat-container .btn,
+.chat-box .btn {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /* Animace pulsujícího placeholder textu */
 .chat-input .form-control::placeholder {
   color: rgba(57, 255, 20, 0.5);
@@ -798,14 +806,22 @@
   z-index: 100 !important;
 }
 
-/* Odstranění vnitřních rámečků z input-group a tlačítek */
-.input-group, .btn, .form-control {
+/* Odstranění vnitřních rámečků pouze v chatu */
+.chat-input .input-group,
+.chat-input .form-control,
+.chat-container .input-group,
+.chat-container .form-control,
+.chat-box .input-group,
+.chat-box .form-control {
   border: none !important;
   box-shadow: none !important;
 }
 
-/* Odstranění vnitřních rámečků ze všech elementů uvnitř chatu */
-.chat-container *, .chat-box * {
+/* Odstranění vnitřních rámečků pouze ze zpráv */
+.chat-message,
+.ai-message,
+.system-message,
+.error-message {
   border-color: transparent !important;
   box-shadow: none !important;
 }
