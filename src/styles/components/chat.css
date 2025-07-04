@@ -53,35 +53,9 @@
   padding: 0.5rem;
 }
 
-.chat-input .form-control {
-  background-color: transparent;
-  border: none;
-  color: var(--neon-green);
-}
+/* Používá se globální .form-control pravidla z forms.css */
 
-.chat-input .form-control:focus {
-  box-shadow: none;
-}
-
-.chat-input .form-control::placeholder {
-  color: var(--neon-green);
-}
-
-/* Odesílací tlačítko */
-.chat-input button {
-  background: transparent;
-  border: none;
-  color: var(--neon-green);
-}
-
-.chat-input button:hover {
-  color: var(--neon-green);
-  text-shadow: var(--neon-green-shadow);
-}
-
-.chat-input button i {
-  font-size: 1.5rem;
-}
+/* Používá se globální .btn-send-neon z forms.css */
 
 /* Barevné rozlišení zpráv */
 .chat-message .neon-green {
