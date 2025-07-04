@@ -675,20 +675,18 @@
 /* Vstupní pole - obecně */
 .form-control {
   transition: all 0.3s ease;
-}
-
-/* Vstupní pole - s neonovým okrajem (všude kromě v chatu) */
-.form-control {
   border: 1px solid var(--neon-green);
 }
 
-/* Speciálně pro chat, odstraníme rámeček */
+/* Speciálně pro chat, odstraníme rámeček - vyšší specificita selektoru */
 .chat-container .form-control,
 .chat-box .form-control,
-#chatInput,
-#chatInputMobile {
+div.chat-container input.form-control,
+div.chat-box input.form-control,
+input#chatInput,
+input#chatInputMobile {
   border: none !important;
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .form-control:focus {
