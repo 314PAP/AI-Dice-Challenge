@@ -490,51 +490,83 @@ function sendChatMessage(inputElement, source = 'desktop') {
     }
 }
 
-// Simulace odpovědi AI
+// Simulace odpovědi AI s použitím skutečných AI personalities
 function simulateAiResponse() {
-    const aiResponses = [
-        // Gemini (modrá)
-        { ai: 'Gemini', message: 'Zajímavý tah! Počítám pravděpodobnost...', color: 'neon-blue' },
-        { ai: 'Gemini', message: 'Analýza dat: Strategie vypadá promyšleně 📊', color: 'neon-blue' },
-        { ai: 'Gemini', message: 'Statisticky máš 67% šanci na úspěch', color: 'neon-blue' },
-        
-        // ChatGPT (růžová)
-        { ai: 'ChatGPT', message: 'Woah! To bylo úžasné! 😎✨', color: 'neon-pink' },
-        { ai: 'ChatGPT', message: 'Haha, skvělý tah! Já bych to udělal stejně! 🎉', color: 'neon-pink' },
-        { ai: 'ChatGPT', message: 'Nice! Připrav se na epic comeback! 💪', color: 'neon-pink' },
-        
-        // Claude (oranžová)
-        { ai: 'Claude', message: 'Promyšlené rozhodnutí, příteli 🤔', color: 'neon-orange' },
-        { ai: 'Claude', message: 'Moudrost se projevuje v trpělivosti 🧘', color: 'neon-orange' },
-        { ai: 'Claude', message: 'Takový přístup přináší hlubší porozumění ⚖️', color: 'neon-orange' }
-    ];
+    const aiTypes = ['gemini', 'chatgpt', 'claude'];
     
-    // Náhodná odpověď
-    const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+    // Náhodně vyber 1-2 AI pro odpověď (80% šance že odpoví jedna AI, 20% že dvě)
+    const numResponding = Math.random() < 0.8 ? 1 : 2;
+    const respondingAIs = aiTypes.sort(() => Math.random() - 0.5).slice(0, numResponding);
     
-    // Přidání zpoždění pro realističtější konverzaci
-    setTimeout(() => {
-        // Přidání indikátoru psaní
-        addChatMessage('AI', 'Přemýšlím...', 'system');
-        
-        // Odpověď AI po chvíli
+    respondingAIs.forEach((aiType, index) => {
         setTimeout(() => {
-            // Odebereme poslední zprávu (indikátor psaní)
-            const mobileMessages = document.getElementById('chatMessagesMobile');
-            const desktopMessages = document.getElementById('chatMessages');
-            
-            if (mobileMessages && mobileMessages.lastChild) {
-                mobileMessages.removeChild(mobileMessages.lastChild);
-            }
-            
-            if (desktopMessages && desktopMessages.lastChild) {
-                desktopMessages.removeChild(desktopMessages.lastChild);
-            }
-            
-            // Přidáme skutečnou odpověď s odpovídající barvou
-            addChatMessage(randomResponse.ai, randomResponse.message, 'ai', randomResponse.color);
-        }, 1500);
-    }, 700);
+            // Načteme AI controller pro skutečné odpovědi
+            import('./js/ai/aiController.js').then(({ generateAIChatResponse }) => {
+                const playerScores = { player: 0, gemini: 0, chatgpt: 0, claude: 0 };
+                const targetScore = 10000;
+                
+                // Generujeme náhodnou zprávu jako by hráč něco řekl
+                const sampleMessages = [
+                    'Jak se daří?',
+                    'Jaká je tvoje strategie?',
+                    'Co myslíš o této hře?',
+                    'Myslíš si, že vyhraju?',
+                    'ahoj',
+                    'super hra',
+                    'to bylo riziko'
+                ];
+                const randomMessage = sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
+                
+                const aiResponse = generateAIChatResponse(aiType, randomMessage, playerScores, targetScore);
+                
+                if (aiResponse && aiResponse.message) {
+                    // Určíme barvu podle AI typu
+                    let colorClass = 'neon-blue';
+                    switch(aiType) {
+                        case 'gemini': colorClass = 'neon-blue'; break;
+                        case 'chatgpt': colorClass = 'neon-pink'; break;
+                        case 'claude': colorClass = 'neon-orange'; break;
+                    }
+                    
+                    // Přidání indikátoru psaní před každou odpovědí
+                    if (index === 0) {
+                        addChatMessage('AI', 'Přemýšlím...', 'system');
+                        
+                        setTimeout(() => {
+                            // Odebereme indikátor psaní
+                            const mobileMessages = document.getElementById('chatMessagesMobile');
+                            const desktopMessages = document.getElementById('chatMessages');
+                            
+                            if (mobileMessages && mobileMessages.lastChild) {
+                                mobileMessages.removeChild(mobileMessages.lastChild);
+                            }
+                            if (desktopMessages && desktopMessages.lastChild) {
+                                desktopMessages.removeChild(desktopMessages.lastChild);
+                            }
+                            
+                            // Přidáme skutečnou AI odpověď s správnou barvou
+                            const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
+                            addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
+                        }, 1500);
+                    } else {
+                        // Pro druhou AI bez indikátoru psaní
+                        const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
+                        addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
+                    }
+                }
+            }).catch(error => {
+                console.error('Chyba při načítání AI controller:', error);
+                // Fallback na původní odpovědi
+                const fallbackResponses = [
+                    { ai: 'Gemini', message: 'Analýza probíhá... 📊', color: 'neon-blue' },
+                    { ai: 'ChatGPT', message: 'Hey! Co je nového? 😎', color: 'neon-pink' },
+                    { ai: 'Claude', message: 'Zajímavá konverzace... 🤔', color: 'neon-orange' }
+                ];
+                const fallback = fallbackResponses.find(r => r.ai.toLowerCase() === aiType) || fallbackResponses[0];
+                addChatMessage(fallback.ai, fallback.message, 'ai', fallback.color);
+            });
+        }, 700 + (index * 800)); // Odstupňované časování pro více AI
+    });
 }
 
 // Funkce pro přidání zprávy do chatu s vylepšenými animacemi a třídami
