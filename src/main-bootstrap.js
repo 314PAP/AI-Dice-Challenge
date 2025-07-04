@@ -485,8 +485,40 @@ function sendChatMessage(inputElement, source = 'desktop') {
         // Přidání zprávy do chatu pro demonstrační účely
         addChatMessage('Player', message, 'player');
         
-        // Simulace odpovědi AI (pro demonstrační účely)
-        simulateAiResponse();
+        // Načteme AI controller pro skutečné AI odpovědi
+        import('./js/ai/aiController.js').then(({ generateAIChatResponse }) => {
+            const aiTypes = ['gemini', 'chatgpt', 'claude'];
+            const playerScores = { player: 0, gemini: 0, chatgpt: 0, claude: 0 };
+            const targetScore = 10000;
+            
+            // 80% šance že odpoví jedna AI, 20% že dvě
+            const numResponding = Math.random() < 0.8 ? 1 : 2;
+            const respondingAIs = aiTypes.sort(() => Math.random() - 0.5).slice(0, numResponding);
+            
+            respondingAIs.forEach((aiType, index) => {
+                setTimeout(() => {
+                    const aiResponse = generateAIChatResponse(aiType, message, playerScores, targetScore);
+                    
+                    if (aiResponse && aiResponse.message) {
+                        // Určíme barvu podle AI typu
+                        let colorClass = 'neon-blue';
+                        switch(aiType) {
+                            case 'gemini': colorClass = 'neon-blue'; break;
+                            case 'chatgpt': colorClass = 'neon-pink'; break;
+                            case 'claude': colorClass = 'neon-orange'; break;
+                        }
+                        
+                        // Přidáme AI odpověď s správnou barvou
+                        const aiName = aiType.charAt(0).toUpperCase() + aiType.slice(1);
+                        addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
+                    }
+                }, 800 + (index * 600)); // Odstupňované časování
+            });
+        }).catch(error => {
+            console.error('Chyba při načítání AI controller:', error);
+            // Fallback na původní simulaci
+            simulateAiResponse();
+        });
     }
 }
 
