@@ -276,5 +276,7 @@ export class HallOfFameController {
 // Export singleton instance
 export const hallOfFameController = new HallOfFameController();
 
-// Expose to window for global access
-window.hallOfFameController = hallOfFameController;
+// Expose to window for global access - only in browser environment
+if (typeof window !== 'undefined') {
+    window.hallOfFameController = hallOfFameController;
+}

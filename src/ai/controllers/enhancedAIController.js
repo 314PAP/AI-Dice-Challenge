@@ -168,5 +168,7 @@ export function generateAIChatResponse(aiType, message) {
     return enhancedAI.generateChatResponse(aiType, message);
 }
 
-// Expose for global access and debugging
-window.enhancedAI = enhancedAI;
+// Expose for global access and debugging - only in browser environment
+if (typeof window !== 'undefined') {
+    window.enhancedAI = enhancedAI;
+}

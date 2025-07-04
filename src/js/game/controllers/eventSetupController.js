@@ -196,6 +196,9 @@ export function setupEventListeners() {
         // Keyboard shortcuts
         setupKeyboardShortcuts();
 
+        // Hall of Fame listeners
+        setupHallOfFameListeners();
+
         console.log('✅ Event listenery nastaveny');
         eventListenersSetup = true; // Označit, že jsou event listenery nastavené
     }, 100);
@@ -266,38 +269,54 @@ export function resetEventListeners() {
     eventListenersSetup = false;
 }
 
-// New Game from Hall of Fame
-        const newGameFromHallBtn = document.getElementById('newGameFromHallBtn');
-        if (newGameFromHallBtn) {
-            console.log('✅ Přidávám event listener pro New Game from Hall');
-            newGameFromHallBtn.addEventListener('click', () => {
-                // Hide hall of fame modal
-                const hallOfFameModal = document.getElementById('hallOfFameModal');
-                if (hallOfFameModal) {
-                    hallOfFameModal.classList.add('hidden');
-                    hallOfFameModal.classList.remove('visible');
-                }
-                // Start new game
-                startNewGame();
-                // Reset the flag
+/**
+ * Nastavuje event listenery pro Hall of Fame modály
+ * Musí být volána až po načtení DOM
+ */
+export function setupHallOfFameListeners() {
+    // Pouze pokud je k dispozici DOM
+    if (typeof document === 'undefined') {
+        console.log('⚠️ DOM není dostupný, přeskakuji setup Hall of Fame listeners');
+        return;
+    }
+
+    // New Game from Hall of Fame
+    const newGameFromHallBtn = document.getElementById('newGameFromHallBtn');
+    if (newGameFromHallBtn) {
+        console.log('✅ Přidávám event listener pro New Game from Hall');
+        newGameFromHallBtn.addEventListener('click', () => {
+            // Hide hall of fame modal
+            const hallOfFameModal = document.getElementById('hallOfFameModal');
+            if (hallOfFameModal) {
+                hallOfFameModal.classList.add('hidden');
+                hallOfFameModal.classList.remove('visible');
+            }
+            // Start new game
+            startNewGame();
+            // Reset the flag
+            if (typeof window !== 'undefined') {
                 window.hallOfFameFromGameOver = false;
-            });
-        }
-        
-        // Main Menu from Hall of Fame
-        const mainMenuFromHallBtn = document.getElementById('mainMenuFromHallBtn');
-        if (mainMenuFromHallBtn) {
-            console.log('✅ Přidávám event listener pro Main Menu from Hall');
-            mainMenuFromHallBtn.addEventListener('click', () => {
-                // Hide hall of fame modal
-                const hallOfFameModal = document.getElementById('hallOfFameModal');
-                if (hallOfFameModal) {
-                    hallOfFameModal.classList.add('hidden');
-                    hallOfFameModal.classList.remove('visible');
-                }
-                // Return to main menu
-                returnToMainMenu();
-                // Reset the flag
+            }
+        });
+    }
+    
+    // Main Menu from Hall of Fame
+    const mainMenuFromHallBtn = document.getElementById('mainMenuFromHallBtn');
+    if (mainMenuFromHallBtn) {
+        console.log('✅ Přidávám event listener pro Main Menu from Hall');
+        mainMenuFromHallBtn.addEventListener('click', () => {
+            // Hide hall of fame modal
+            const hallOfFameModal = document.getElementById('hallOfFameModal');
+            if (hallOfFameModal) {
+                hallOfFameModal.classList.add('hidden');
+                hallOfFameModal.classList.remove('visible');
+            }
+            // Return to main menu
+            returnToMainMenu();
+            // Reset the flag
+            if (typeof window !== 'undefined') {
                 window.hallOfFameFromGameOver = false;
-            });
-        }
+            }
+        });
+    }
+}

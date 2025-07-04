@@ -7,6 +7,17 @@ import { gameState } from '../gameState.js';
 import { enhancedAI } from '../../../ai/controllers/enhancedAIController.js';
 
 /**
+ * Bezpečná funkce pro přidání chat zprávy - funguje i v Node.js prostředí
+ */
+function safeAddChatMessage(sender, message) {
+    if (typeof window !== 'undefined' && safeAddChatMessage) {
+        safeAddChatMessage(sender, message);
+    } else {
+        console.log(`💬 [${sender}]: ${message}`);
+    }
+}
+
+/**
  * Spustí AI reakce po dobrém hodu
  */
 export function triggerAIAfterGoodRoll(score, _playerName) {
@@ -33,7 +44,7 @@ export function triggerAIAfterGoodRoll(score, _playerName) {
         };
         
         const response = reactions[selectedAI][Math.floor(Math.random() * reactions[selectedAI].length)];
-        setTimeout(() => window.addChatMessage(selectedAI, response), 500 + Math.random() * 1000);
+        setTimeout(() => safeAddChatMessage(selectedAI, response), 500 + Math.random() * 1000);
     }
 }
 
@@ -64,7 +75,7 @@ export function triggerAIAfterBadRoll(score, _playerName) {
         };
         
         const response = reactions[selectedAI][Math.floor(Math.random() * reactions[selectedAI].length)];
-        setTimeout(() => window.addChatMessage(selectedAI, response), 300 + Math.random() * 800);
+        setTimeout(() => safeAddChatMessage(selectedAI, response), 300 + Math.random() * 800);
     }
 }
 
@@ -96,7 +107,7 @@ export function triggerFarkleHeckling(_playerName) {
         
         const reactions = farkleReactions[selectedAI];
         const response = reactions[Math.floor(Math.random() * reactions.length)];
-        setTimeout(() => window.addChatMessage(selectedAI, response), 800 + Math.random() * 1200);
+        setTimeout(() => safeAddChatMessage(selectedAI, response), 800 + Math.random() * 1200);
     }
 }
 
@@ -110,7 +121,7 @@ export function triggerRandomAITrashTalk() {
         
         const reaction = enhancedAI.generateTrashTalk(selectedAI, 'human');
         if (reaction) {
-            setTimeout(() => window.addChatMessage(selectedAI, reaction), 1500 + Math.random() * 2000);
+            setTimeout(() => safeAddChatMessage(selectedAI, reaction), 1500 + Math.random() * 2000);
         }
     }
 }
@@ -125,7 +136,7 @@ export function triggerAIBanter() {
         
         const banter = enhancedAI.generateAIBanter(initiator);
         if (banter) {
-            setTimeout(() => window.addChatMessage('system', banter), 2000 + Math.random() * 3000);
+            setTimeout(() => safeAddChatMessage('system', banter), 2000 + Math.random() * 3000);
         }
     }
 }
@@ -164,7 +175,7 @@ export function triggerAIHighTensionComment() {
         const comments = tensionComments[selectedAI];
         const response = comments[Math.floor(Math.random() * comments.length)];
         
-        setTimeout(() => window.addChatMessage(selectedAI, response), 800 + Math.random() * 1200);
+        setTimeout(() => safeAddChatMessage(selectedAI, response), 800 + Math.random() * 1200);
     }
 }
 
@@ -208,15 +219,17 @@ export function triggerSituationalComment(situation, data = {}) {
     }
     
     if (response) {
-        setTimeout(() => window.addChatMessage(selectedAI, response), 500 + Math.random() * 1000);
+        setTimeout(() => safeAddChatMessage(selectedAI, response), 500 + Math.random() * 1000);
     }
 }
 
-// Export všech funkcí pro globální přístup
-window.triggerAIAfterGoodRoll = triggerAIAfterGoodRoll;
-window.triggerAIAfterBadRoll = triggerAIAfterBadRoll;
-window.triggerFarkleHeckling = triggerFarkleHeckling;
-window.triggerRandomAITrashTalk = triggerRandomAITrashTalk;
-window.triggerAIBanter = triggerAIBanter;
-window.triggerAIHighTensionComment = triggerAIHighTensionComment;
-window.triggerSituationalComment = triggerSituationalComment;
+// Export všech funkcí pro globální přístup - pouze v browser prostředí
+if (typeof window !== 'undefined') {
+    window.triggerAIAfterGoodRoll = triggerAIAfterGoodRoll;
+    window.triggerAIAfterBadRoll = triggerAIAfterBadRoll;
+    window.triggerFarkleHeckling = triggerFarkleHeckling;
+    window.triggerRandomAITrashTalk = triggerRandomAITrashTalk;
+    window.triggerAIBanter = triggerAIBanter;
+    window.triggerAIHighTensionComment = triggerAIHighTensionComment;
+    window.triggerSituationalComment = triggerSituationalComment;
+}

@@ -4,6 +4,7 @@
 
 import { gameState } from '../../game/gameState.js';
 import { calculateScore } from '../../game/diceLogic.js';
+import { selectDie } from '../../game/controllers/turnActionsController.js';
 
 // 🎲 DICE ELEMENT CREATION - Simplified implementation
 export const createDiceElement = (value, index, type = 'current') => {
@@ -33,10 +34,9 @@ export const createDiceElement = (value, index, type = 'current') => {
     
     // Add click handler for current dice only
     if (type === 'current' && gameState.currentPlayer === 0) {
-        dieElement.addEventListener('click', async () => {
+        dieElement.addEventListener('click', () => {
             console.log(`🎲 Die ${index} clicked (value: ${value})`);
             try {
-                const { selectDie } = await import('../../game/controllers/turnActionsController.js');
                 selectDie(index);
             } catch (error) {
                 console.error('Error selecting die:', error);
