@@ -108,15 +108,16 @@ function handleStartGame() {
 
 // Pomocná funkce pro skrytí menu a zobrazení hry
 function hideMenuShowGame() {
-  // Hide menu and show game controls
-  const gameHeader = document.getElementById('gameHeader');
+  // Správné přepínání: gameContent (menu) → gameControls (hra)
+  const gameContent = document.getElementById('gameContent');
   const gameControls = document.getElementById('gameControls');
   const gameControlsMobile = document.getElementById('gameControlsMobile');
+  const gameMobileContent = document.getElementById('gameMobileContent');
   
-  // Hide desktop menu
-  if (gameHeader) {
-    gameHeader.classList.add('hidden');
-    console.log('✅ Desktop menu skryto');
+  // Hide desktop menu content
+  if (gameContent) {
+    gameContent.classList.add('hidden');
+    console.log('✅ Desktop menu content skryto');
   }
   
   // Show desktop game controls
@@ -125,24 +126,16 @@ function hideMenuShowGame() {
     console.log('✅ Desktop herní ovládání zobrazeno');
   }
   
+  // Hide mobile menu content
+  if (gameMobileContent) {
+    gameMobileContent.classList.add('hidden');
+    console.log('✅ Mobile menu content skryto');
+  }
+  
   // Show mobile game controls
   if (gameControlsMobile) {
     gameControlsMobile.classList.remove('hidden');
     console.log('✅ Mobile herní ovládání zobrazeno');
-  }
-  
-  // Hide mobile menu (if exists)
-  const gameMobileContent = document.getElementById('gameMobileContent');
-  if (gameMobileContent) {
-    gameMobileContent.classList.add('hidden');
-    console.log('✅ Mobile menu skryto');
-  }
-  
-  // Show players container during game
-  const playersContainer = document.querySelector('.players-container');
-  if (playersContainer) {
-    playersContainer.classList.remove('hidden');
-    console.log('✅ Players container zobrazeno');
   }
 }
 
