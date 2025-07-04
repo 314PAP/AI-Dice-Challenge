@@ -47,11 +47,7 @@ export function attachMenuButtonHandlers() {
   startBtns.forEach(btn => {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
-    newBtn.addEventListener('click', () => {
-      // Získat skóre z inputu (desktop/mobil)
-      const targetScore = getTargetScore();
-      handleStartGameButtonClick({ targetScore });
-    });
+    newBtn.addEventListener('click', handleStartGameButtonClick);
   });
 
   // PRAVIDLA
