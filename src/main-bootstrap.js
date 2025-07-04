@@ -399,6 +399,9 @@ function ensureChatInitialized() {
         el.style.opacity = '1';
     });
     
+    // Zajistíme scroll na nejnovější zprávy
+    scrollToLatestMessage();
+    
     // Scroll na poslední zprávu po krátké prodlevě
     setTimeout(() => {
         if (mobileMessages) mobileMessages.scrollTop = mobileMessages.scrollHeight;
