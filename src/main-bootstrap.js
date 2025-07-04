@@ -541,7 +541,7 @@ function addChatMessage(sender, message, type = 'player') {
         default: icon = '<i class="ri-user-line me-1"></i>';
     }
     
-    // Formátování obsahu zprávy - bez třídy small pro větší a lépe čitelný text
+    // Formátování obsahu zprávy
     messageElement.innerHTML = `
         <strong class="${colorClass}">${icon}${sender}:</strong> 
         <span class="${colorClass}">${message}</span>

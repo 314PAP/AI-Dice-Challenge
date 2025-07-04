@@ -2,19 +2,7 @@
 <html lang="cs">
 <head>
     <!-- Načtení hlavičky z komponenty -->
-    <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
-        <div class="d-md-none h-100 mobile-layout mobile-landscape-flex-row animate__animated animate__fadeIn">
-            <!-- První část - herní menu -->
-            <div class="flex-grow-1 mb-1 mb-landscape-0 h-75 h-landscape-100">
-                <!-- Zde se načte mobilní herní menu -->
-                <div id="gameMobileContent" class="h-100 mobile-safe-content"></div>
-            </div>
-            
-            <!-- Druhá část - chat -->
-            <div class="h-20 h-landscape-100">
-                <!-- Zde se načte mobilní chat -->
-                <div id="chatPanelMobileContainer" class="h-100 mobile-safe-content"></div>
-            </div>="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎲 AI Kostková Výzva</title>
     <link rel="icon" type="image/svg+xml" href="/dice.svg" />
@@ -31,8 +19,8 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     
     <!-- Animační knihovny -->
-    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
-    <link rel="stylesheet" href="node_modules/aos/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     
     <!-- CSS importy -->
     <link rel="stylesheet" href="/src/styles/main-optimized.css">
@@ -52,26 +40,12 @@
     <!-- Bootstrap responzivní styly - nahrazují všechny předchozí responzivní styly -->
     <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
     
-    <!-- Vypnutí animací pro ladění -->
-    <link rel="stylesheet" href="/src/styles/components/no-animations.css">
-    <link rel="stylesheet" href="/no-animations.css">
-    
-    <!-- Okamžité vypnutí animací pomocí inline CSS -->
-    <style>
-      .animate__pulse, .animate__slow, .animate__infinite, .animate__slower { 
-        animation: none !important; 
-        animation-iteration-count: 0 !important; 
-      }
-      [data-aos] { 
-        transition: none !important; 
-        transform: none !important; 
-        opacity: 1 !important; 
-      }
-    </style>
+    <!-- Vylepšené Bootstrap responzivní styly s podporou animací a nejmenších displejů -->
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive-enhanced.css">
 </head>
-<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden safe-body p-0">
-    <!-- Hlavní kontejner s jednotným odsazením na všech stranách -->
-    <div class="container-fluid p-1 p-md-2 p-mobile-safe vh-90 vw-90 animate__animated animate__fadeIn">
+<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden">
+    <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->
+    <div class="container-fluid p-0 vh-90 vw-90 animate__animated animate__fadeIn">
     
         <!-- Desktop layout - zobrazí se pouze na md a větších -->
         <div class="d-none d-md-flex h-100">
@@ -98,29 +72,26 @@
         </div>
         
         <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
-        <div class="d-md-none h-100 mobile-layout mobile-landscape-flex-row animate__animated animate__fadeIn">
+        <div class="d-md-none h-100 mobile-landscape-flex-row animate__animated animate__fadeIn">
             <!-- První část - herní menu -->
-            <div class="flex-grow-1 mb-2 mb-landscape-0 h-75 h-landscape-100">
+            <div class="flex-grow-1 mb-3 mb-landscape-0 h-75 h-landscape-100">
                 <!-- Zde se načte mobilní herní menu -->
-                <div id="gameMobileContent" class="h-100 mobile-safe-content"></div>
+                <div id="gameMobileContent" class="h-100"></div>
             </div>
             
             <!-- Druhá část - chat -->
             <div class="h-20 h-landscape-100">
                 <!-- Zde se načte mobilní chat -->
-                <div id="chatPanelMobileContainer" class="h-100 mobile-safe-content"></div>
+                <div id="chatPanelMobileContainer" class="h-100"></div>
             </div>
         </div>
     </div>
-    
-    <!-- Skript pro odstranění animací -->
-    <script src="/src/js/utils/animation-remover.js"></script>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Animační knihovny -->
-    <script src="node_modules/aos/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     
     <!-- Main Application Script -->
     <script type="module" src="/src/main-bootstrap.js"></script>
@@ -129,16 +100,17 @@
     <script>
         // Inicializace AOS
         document.addEventListener('DOMContentLoaded', function() {
-            // Inicializace AOS knihovny - deaktivováno pro ladění
+            // Inicializace AOS knihovny pro animace při scrollování
             AOS.init({
-                duration: 0,
-                disable: true, // Deaktivace animací pro ladění
-                once: true,
-                mirror: false,
-                startEvent: null
+                duration: 800,
+                easing: 'ease-in-out',
+                once: false,
+                mirror: true,
+                anchorPlacement: 'top-bottom',
+                startEvent: 'load'
             });
             
-            // Odstranění pulzujících animací pro lepší ladění
+            // Funkce pro odstranění pulzujících animací
             const removePulseAnimations = () => {
                 // Odstranění pulzování z chat boxů
                 const chatBoxes = document.querySelectorAll('.chat-box');
@@ -150,6 +122,11 @@
                 const neonTexts = document.querySelectorAll('.neon-text');
                 neonTexts.forEach(text => {
                     text.classList.remove('animate__pulse', 'animate__slower', 'animate__infinite');
+                });
+                
+                // Odstranění pulzování ze všech elementů
+                document.querySelectorAll('.animate__pulse').forEach(el => {
+                    el.classList.remove('animate__pulse', 'animate__slow', 'animate__slower', 'animate__infinite');
                 });
             };
             
