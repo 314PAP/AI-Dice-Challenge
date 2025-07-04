@@ -3,7 +3,7 @@
  * Spravuje stav hry a přechody mezi stavy
  */
 
-import { gameState } from '../../core/gameState.js';
+import { gameState } from '../../js/game/gameState.js';
 import { GAME_CONSTANTS, MESSAGES } from '../../core/constants.js';
 
 export class GameStateController {
@@ -20,11 +20,25 @@ export class GameStateController {
         const targetScoreInput = document.getElementById('targetScoreInput');
         const targetScore = parseInt(targetScoreInput?.value) || GAME_CONSTANTS.DEFAULT_TARGET_SCORE;
         
-        // Nastav herní stav
-        gameState.reset();
+        // Nastav herní stav (použij object-based gameState)
         gameState.targetScore = targetScore;
         gameState.gameStarted = true;
         gameState.gameStartTime = new Date();
+        gameState.currentPlayer = 0;
+        gameState.currentTurnScore = 0;
+        gameState.availableDice = 6;
+        gameState.diceValues = [];
+        gameState.selectedDice = [];
+        gameState.bankedDiceThisTurn = [];
+        gameState.totalTurns = 0;
+        gameState.gameEnded = false;
+        gameState.finalRound = false;
+        
+        // Reset skóre hráčů
+        gameState.players.forEach(player => {
+            player.score = 0;
+            player.hasEnteredGame = false;
+        });
         
         this.gameController.gameStarted = true;
         this.gameController.gameStartTime = new Date();
@@ -34,9 +48,16 @@ export class GameStateController {
         // Store game controller globally for access from other functions
         window.gameController = this.gameController;
         
-        // Skryj setup, zobraz herní rozhraní
-        document.getElementById('targetScoreSetup').style.display = 'none';
-        document.getElementById('gameControls').style.display = 'block';
+        // Skryj setup, zobraz herní rozhraní - více robustní přístup
+        const targetScoreSetup = document.getElementById('targetScoreSetup');
+        const gameControls = document.getElementById('gameControls');
+        
+        if (targetScoreSetup) {
+            targetScoreSetup.style.display = 'none';
+        }
+        if (gameControls) {
+            gameControls.style.display = 'block';
+        }
         
         // Aktualizuj UI
         this.gameController.uiController.updateTargetScoreDisplay();
