@@ -2,9 +2,16 @@
    📋 FORMS - Styly pro všechny formulářové prvky
    ============================================================================= */
 
-/* Zelený placeholder pro všechna textová pole */
-input::placeholder {
-  color: var(--neon-green) !important;
+/* Zelený placeholder pro všechna textová pole s vyšší specificitou */
+.chat-container input::placeholder,
+.chat-container .form-control::placeholder,
+.chat-box input::placeholder,
+.chat-box .form-control::placeholder,
+.game-box input::placeholder,
+.game-box .form-control::placeholder,
+input.form-control::placeholder,
+textarea.form-control::placeholder {
+  color: var(--neon-green);
   opacity: 0.7;
 }
 
