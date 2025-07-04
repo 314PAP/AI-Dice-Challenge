@@ -45,7 +45,10 @@ async function initGame() {
     // Zajištění inicializace chatu
     ensureChatInitialized();
     
-    // Přidání třídy pro postupné objevení
+    // Odstranění všech pulzujících animací pro lepší ladění
+    removeAllPulseAnimations();
+    
+    // Přidání třídy pro postupné objevení (pouze fadeIn, bez pulse)
     document.querySelectorAll('.btn').forEach((btn, index) => {
         btn.classList.add('animate__animated', 'animate__fadeIn');
         btn.style.animationDelay = `${index * 0.1 + 0.5}s`;
