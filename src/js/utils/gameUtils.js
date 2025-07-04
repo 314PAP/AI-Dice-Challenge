@@ -170,12 +170,23 @@ export function clearDiceState(gameState) {
  */
 export function clearDiceContainer() {
     const diceContainer = document.getElementById('diceContainer');
+    const diceContainerMobile = document.getElementById('diceContainerMobile');
+    
     if (diceContainer) {
         // Smooth fade out before clearing
         diceContainer.style.opacity = '0';
         setTimeout(() => {
             diceContainer.innerHTML = '';
             diceContainer.style.opacity = '1';
+        }, 150);
+    }
+    
+    if (diceContainerMobile) {
+        // Smooth fade out before clearing mobile container
+        diceContainerMobile.style.opacity = '0';
+        setTimeout(() => {
+            diceContainerMobile.innerHTML = '';
+            diceContainerMobile.style.opacity = '1';
         }, 150);
     }
 }

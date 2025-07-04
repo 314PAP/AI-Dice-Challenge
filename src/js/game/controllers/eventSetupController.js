@@ -342,12 +342,6 @@ if (endTurnBtnMobile) {
     endTurnBtnMobile.addEventListener('click', () => endTurn(true));
 }
 
-const quitGameBtnMobile = document.getElementById('quitGameBtnMobile');
-if (quitGameBtnMobile) {
-    console.log('✅ Přidávám event listener pro Quit Game Mobile');
-    quitGameBtnMobile.addEventListener('click', quitGame);
-}
-
 /**
  * Nastavuje event listenery pro modální okna
  */
