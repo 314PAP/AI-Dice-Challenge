@@ -1076,3 +1076,73 @@ button:active .send-icon {
     max-width: calc(100vw - 1.5rem) !important;
   }
 }
+
+/* Speciální úpravy pro mobilní chat */
+.mobile-chat-box {
+  padding: 0.5rem !important;
+  margin: 0 !important;
+  border-radius: var(--border-radius) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Zajištění, že chat nepřetéká a má správné okraje */
+@media (max-width: 767.98px) {
+  .mobile-chat-box {
+    overflow: hidden !important;
+    max-height: 100% !important;
+  }
+  
+  /* Zajištění, že chat zprávy mají správné okraje a nedotýkají se kraje obrazovky */
+  .mobile-chat-box .chat-messages {
+    padding: 0.5rem !important;
+    margin: 0 !important;
+  }
+  
+  /* Zajištění, že chat input je vždy vidět a má správné okraje */
+  .mobile-chat-box .chat-input {
+    margin-top: auto !important;
+    padding: 0.5rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+}
+
+/* Univerzální bezpečné okraje pro všechny typy zařízení */
+.safe-body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+}
+
+/* Ochrana proti přetékání obsahu */
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+/* Zajištění viditelnosti celého obsahu */
+.vh-90 {
+  max-height: 90vh !important;
+}
+
+.vw-90 {
+  max-width: 90vw !important;
+}
+
+/* Univerzální bezpečné okraje pro všechna zařízení */
+@media (max-width: 1200px) {
+  .vh-90 {
+    max-height: calc(100vh - 2rem) !important;
+    margin: 1rem 0 !important;
+  }
+  
+  .vw-90 {
+    max-width: calc(100vw - 2rem) !important;
+    margin: 0 1rem !important;
+  }
+}
