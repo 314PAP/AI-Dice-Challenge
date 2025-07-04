@@ -364,9 +364,22 @@
     height: 100% !important;
   }
   
-  /* Optimalizace výšky zpráv v chatu pro landscape */
+  /* Optimalizace zpráv v chatu pro landscape - používáme flexbox místo omezení výšky */
   .chat-messages {
-    max-height: 75vh;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  
+  /* Zajištění, že chat-container je flexbox s správnou strukturou */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  /* Chat input vždy dole */
+  .chat-input, .mt-auto {
+    margin-top: auto !important;
   }
   
   /* Zachování prostoru pro chat input v landscape */
