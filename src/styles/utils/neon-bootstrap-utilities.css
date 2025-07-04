@@ -285,6 +285,14 @@
   /* Systémové barvy */
   --neon-yellow: #FFFF00;     /* Upozornění */
   --neon-red: #FF3131;        /* Chyby + ukončení */
+  
+  /* RGB varianty pro box-shadow */
+  --neon-green-rgb: 57, 255, 20;
+  --neon-blue-rgb: 25, 77, 209;
+  --neon-orange-rgb: 255, 136, 0;
+  --neon-pink-rgb: 255, 0, 255;
+  --neon-yellow-rgb: 255, 255, 0;
+  --neon-red-rgb: 255, 49, 49;
 }
 
 /* Neonové textové třídy */
