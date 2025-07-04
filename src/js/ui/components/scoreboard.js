@@ -93,12 +93,12 @@ export const updateActivePlayer = pipe(
         
         try {
             // Definujeme mapování typů hráčů na CSS třídy a neonové barvy
-            // Oprava barev podle HTML: ChatGPT má oranžovou, Claude má růžovou
+            // Správné mapování barev: ChatGPT = růžová, Claude = oranžová
             const playerTypeMapping = {
                 'human': { class: 'human-player', color: '--neon-green' },
                 'gemini': { class: 'gemini-player', color: '--neon-blue' },
-                'chatgpt': { class: 'chatgpt-player', color: '--neon-orange' },
-                'claude': { class: 'claude-player', color: '--neon-pink' }
+                'chatgpt': { class: 'chatgpt-player', color: '--neon-pink' },
+                'claude': { class: 'claude-player', color: '--neon-orange' }
             };
             
             // DŮLEŽITÉ: Důkladně vyčistíme všechna aktivní zvýraznění a inline styly
