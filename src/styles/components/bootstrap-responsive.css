@@ -511,15 +511,15 @@
     margin-bottom: 0.3rem !important;
   }
   
-  /* Zviditelnění textu pro malé obrazovky */
+  /* Zviditelnění textu pro malé obrazovky - větší text */
   .chat-message {
-    font-size: 0.8rem !important;
+    font-size: 0.95rem !important;
     padding: 0.2rem 0.3rem !important;
     margin-bottom: 0.5rem !important;
   }
   
   .chat-message strong {
-    font-size: 0.85rem !important;
+    font-size: 1rem !important;
   }
 }
 
@@ -1212,5 +1212,56 @@ button:active .send-icon {
 @media (max-width: 767.98px) and (orientation: landscape) {
   .mobile-landscape-flex-row {
     gap: 0.5rem !important;
+  }
+}
+
+/* Responzivní velikosti textu pro chat zprávy */
+.chat-message {
+  font-size: 1rem !important;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.chat-message strong {
+  font-size: 1.05rem !important;
+  font-weight: 700;
+}
+
+/* Responzivní zmenšení textu podle velikosti obrazovky */
+@media (max-width: 991.98px) {
+  .chat-message {
+    font-size: 0.95rem !important;
+  }
+  .chat-message strong {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .chat-message {
+    font-size: 0.9rem !important;
+  }
+  .chat-message strong {
+    font-size: 0.95rem !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .chat-message {
+    font-size: 0.85rem !important;
+  }
+  .chat-message strong {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Extrémně malá zařízení */
+@media (max-width: 320px) {
+  .chat-message {
+    font-size: 0.8rem !important;
+    line-height: 1.3;
+  }
+  .chat-message strong {
+    font-size: 0.85rem !important;
   }
 }
