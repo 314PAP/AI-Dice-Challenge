@@ -88,5 +88,17 @@ export function attachMenuButtonHandlers() {
   });
 
   // Kup mi kávu je pouze odkaz, není třeba JS
+  
+  // ZAVŘENÍ RULES MODALU
+  const closeRulesBtn = document.getElementById('closeRulesBtn');
+  if (closeRulesBtn) {
+    closeRulesBtn.addEventListener('click', () => {
+      const rulesModal = document.getElementById('rulesModal');
+      if (rulesModal) {
+        rulesModal.classList.add('hidden');
+      }
+    });
+  }
+  
   console.log('✅ Menu button handlers attached (desktop & mobile)');
 }
