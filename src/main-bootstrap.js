@@ -45,13 +45,16 @@ async function initGame() {
         // Zvýraznění neonových efektů po načtení šablon
         enhanceNeonEffects();
         
+        // Inicializace menu tlačítek PO načtení šablon
+        await initMenuButtons();
+        
     } catch (error) {
         console.error('Chyba při inicializaci hry:', error);
         // Pokus o obnovení za 1 sekundu při chybě
         setTimeout(tryContentRecovery, 1000);
     }
     
-    // Inicializace event listenerů
+    // Inicializace event listenerů (bez menu tlačítek)
     initEventListeners();
     
     // Zajištění inicializace chatu
@@ -219,9 +222,6 @@ function initEventListeners() {
     
     // Odposlech změny velikosti okna
     window.addEventListener('resize', handleWindowResize);
-    
-    // Inicializace menu tlačítek
-    initMenuButtons();
     
     // První detekce velikosti obrazovky
     detectExtremelySmallScreen();
