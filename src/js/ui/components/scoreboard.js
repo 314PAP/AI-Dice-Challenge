@@ -31,6 +31,12 @@ const updatePlayerElement = (player, index) => {
         if (scoreSpan) {
             scoreSpan.textContent = player.score;
         }
+        
+        // Aktualizace mobilního skóre
+        const mobileScoreSpan = document.getElementById(`${playerType}ScoreMobile`);
+        if (mobileScoreSpan) {
+            mobileScoreSpan.textContent = player.score;
+        }
     }
 };
 
@@ -103,7 +109,7 @@ export const updateActivePlayer = pipe(
             
             // DŮLEŽITÉ: Důkladně vyčistíme všechna aktivní zvýraznění a inline styly
             // Tím zajistíme, že žádné předchozí styly nebudou přetrvávat
-            document.querySelectorAll('.player').forEach(p => {
+            document.querySelectorAll('.player, .player-mobile').forEach(p => {
                 // Odstranění třídy active
                 p.classList.remove('active');
                 
@@ -151,6 +157,12 @@ export const updateActivePlayer = pipe(
             // Aplikujeme třídu active
             activePlayer.classList.add('active');
             
+            // Najdeme také mobilní element hráče
+            const mobileActivePlayer = document.querySelector(`.player-mobile.${typeConfig.class}`);
+            if (mobileActivePlayer) {
+                mobileActivePlayer.classList.add('active');
+            }
+            
             // Explicitně nastavíme barvy pomocí inline stylů jako zálohu
             // Použijeme !important pro zajištění, že žádná jiná pravidla nepřepíší tyto styly
             const color = `var(${typeConfig.color})`;
@@ -160,6 +172,16 @@ export const updateActivePlayer = pipe(
                 box-shadow: 0 0 15px ${color}, 0 0 30px ${color}, 0 0 45px ${color} !important;
                 animation: player-active-pulse 2s ease-in-out infinite !important;
             `;
+            
+            // Aplikujeme styly i na mobilní verzi
+            if (mobileActivePlayer) {
+                mobileActivePlayer.style.cssText = `
+                    background: rgba(0, 0, 0, 0.8) !important;
+                    border-color: ${color} !important;
+                    box-shadow: 0 0 8px ${color}, 0 0 12px ${color} !important;
+                    transform: scale(1.1) !important;
+                `;
+            }
             
             console.log(`🎯 Přidána třída active hráči: ${typeConfig.class} s typem: ${currentPlayer.type}`);
             console.log(`🎯 Nastavena barva: ${color}`);
