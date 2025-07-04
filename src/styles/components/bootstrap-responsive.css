@@ -680,10 +680,14 @@
   color: var(--neon-red);
 }
 
-/* Vstupní pole */
+/* Vstupní pole - obecně */
 .form-control {
-  border: 1px solid var(--neon-green);
   transition: all 0.3s ease;
+}
+
+/* Vstupní pole - s neonovým okrajem (mimo chat) */
+.form-control:not(.chat-container .form-control):not(.chat-box .form-control):not(#chatInput):not(#chatInputMobile) {
+  border: 1px solid var(--neon-green);
 }
 
 .form-control:focus {
