@@ -2,23 +2,6 @@
  * Hlavní JS soubor pro načítání šablon s novým Bootstrap responzivním layoutem
  */
 
-// Okamžité odstranění všech pulzujících animací
-(function() {
-    // Odstraníme animace z dokumentu
-    document.querySelectorAll('.animate__pulse, .animate__slow, .animate__slower, .animate__infinite')
-        .forEach(el => {
-            el.classList.remove('animate__pulse', 'animate__slow', 'animate__slower', 'animate__infinite');
-            el.style.animation = 'none';
-        });
-    
-    // Vypneme AOS animace pokud existují
-    if (typeof window.AOS !== 'undefined') {
-        window.AOS.init({ disable: true });
-    }
-    
-    console.log('Animace vypnuty v main-bootstrap.js');
-})();
-
 // Utility funkce pro načítání HTML šablon
 async function loadTemplate(url) {
     try {
@@ -399,9 +382,6 @@ function ensureChatInitialized() {
         el.style.opacity = '1';
     });
     
-    // Zajistíme scroll na nejnovější zprávy
-    scrollToLatestMessage();
-    
     // Scroll na poslední zprávu po krátké prodlevě
     setTimeout(() => {
         if (mobileMessages) mobileMessages.scrollTop = mobileMessages.scrollHeight;
@@ -505,7 +485,7 @@ function addChatMessage(sender, message, type = 'player') {
     
     // Vytvoříme nový element zprávy s odpovídající třídou pro typ zprávy
     const messageElement = document.createElement('div');
-    messageElement.className = `chat-message animate__animated ${type}-message`;
+    messageElement.className = `chat-message small animate__animated ${type}-message`;
     
     // Barva podle typu zprávy
     let colorClass = 'neon-green';
@@ -558,8 +538,7 @@ function addChatMessage(sender, message, type = 'player') {
         
         // Zajistíme scroll na nejnovější zprávu
         setTimeout(() => {
-            // Použijeme globální funkci pro scrollování
-            scrollToLatestMessage();
+            container.scrollTop = container.scrollHeight;
             
             // Přidáme efekt zvýraznění
             messageToAdd.classList.add('highlight-new');
@@ -644,23 +623,6 @@ function removeAllPulseAnimations() {
     });
     
     console.log('Všechny pulzující animace byly odstraněny pro snazší ladění');
-}
-
-// Funkce pro automatické scrollování na poslední zprávu v chatu
-function scrollToLatestMessage() {
-    // Získáme kontejnery zpráv
-    const mobileMessages = document.getElementById('chatMessagesMobile');
-    const desktopMessages = document.getElementById('chatMessages');
-    
-    // Scrollujeme na spodek v mobilní verzi
-    if (mobileMessages) {
-        mobileMessages.scrollTop = mobileMessages.scrollHeight;
-    }
-    
-    // Scrollujeme na spodek v desktopové verzi
-    if (desktopMessages) {
-        desktopMessages.scrollTop = desktopMessages.scrollHeight;
-    }
 }
 
 // Inicializace při načtení DOM

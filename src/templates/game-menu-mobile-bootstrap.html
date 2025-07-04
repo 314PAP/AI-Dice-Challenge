@@ -1,8 +1,8 @@
 <!-- Mobile Game Menu Component - Bootstrap optimalizace -->
 <div class="game-box h-100 animate__animated animate__fadeIn" id="gameHeaderMobile">
   <div class="d-flex flex-column h-100">
-    <!-- Nadpis -->
-    <h1 class="game-title text-center neon-text neon-green fs-3 mb-2 animate__animated animate__pulse animate__slow animate__infinite">
+    <!-- Nadpis (bez pulzující animace) -->
+    <h1 class="game-title text-center neon-text neon-green fs-3 mb-2 animate__animated">
       <i class="ri-dice-line me-1"></i>
       <span>AI Kostková Výzva</span>
     </h1>
@@ -18,25 +18,25 @@
       </div>
     </div>
     
-    <!-- Tlačítka - automaticky zaberou zbývající prostor -->
+    <!-- Tlačítka - automaticky zaberou zbývající prostor - responzivní úpravy -->
     <div class="menu-buttons d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-2 overflow-auto">
       <!-- Začít hru - Zelená -->
       <button class="btn btn-neon btn-outline-success w-75 mb-2 animate__animated animate__fadeInUp" 
-              id="startGameBtnMobile" data-aos="fade-up" data-aos-delay="100">
+              id="startGameBtnMobile" data-aos="fade-up" data-aos-delay="100" style="visibility:visible !important; opacity: 1 !important;">
         <i class="ri-gamepad-line me-1"></i>
         <span>Začít hru</span>
       </button>
       
       <!-- Pravidla - Modrá -->
       <button class="btn btn-neon btn-outline-primary text-primary w-75 mb-2 animate__animated animate__fadeInUp" 
-              id="rulesBtnMobile" data-aos="fade-up" data-aos-delay="200">
+              id="rulesBtnMobile" data-aos="fade-up" data-aos-delay="200" style="visibility:visible !important; opacity: 1 !important;">
         <i class="ri-book-open-line me-1"></i>
         <span>Pravidla</span>
       </button>
       
       <!-- Síň slávy - Oranžová -->
       <button class="btn btn-neon text-warning border-warning w-75 mb-2 animate__animated animate__fadeInUp" 
-              id="hallOfFameBtnMobile" data-aos="fade-up" data-aos-delay="300">
+              id="hallOfFameBtnMobile" data-aos="fade-up" data-aos-delay="300" style="visibility:visible !important; opacity: 1 !important;">
         <i class="ri-trophy-line me-1"></i>
         <span>Síň slávy</span>
       </button>
@@ -44,14 +44,14 @@
       <!-- Kup mi kávu - Zelená -->
       <a href="https://buymeacoffee.com/pipap" target="_blank" 
          class="btn btn-neon btn-outline-success w-75 mb-2 text-decoration-none animate__animated animate__fadeInUp"
-         data-aos="fade-up" data-aos-delay="400">
+         data-aos="fade-up" data-aos-delay="400" style="visibility:visible !important; opacity: 1 !important;">
         <i class="ri-cup-line me-1"></i>
         <span>Kup mi kávu</span>
       </a>
       
       <!-- Opustit hru - Červená -->
       <button class="btn btn-neon btn-outline-danger w-75 animate__animated animate__fadeInUp" 
-              id="exitGameBtnMobile" data-aos="fade-up" data-aos-delay="500">
+              id="exitGameBtnMobile" data-aos="fade-up" data-aos-delay="500" style="visibility:visible !important; opacity: 1 !important;">
         <i class="ri-logout-box-line me-1"></i>
         <span>Opustit hru</span>
       </button>

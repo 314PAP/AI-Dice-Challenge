@@ -74,6 +74,27 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Zajištění, že zprávy zaberou maximum prostoru */
+.chat-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 70px; /* Prostor pro vstupní pole */
+  height: auto;
+  min-height: 50px;
+}
+
+/* Zajištění, že vstupní pole je vždy viditelné */
+.chat-input {
+  flex: 0 0 auto;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
 }
 
 /* Chat messages container */
@@ -83,8 +104,6 @@
   min-height: 0;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
-  border-radius: 0.25rem;
-  background-color: rgba(0, 0, 0, 0.5);
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.5);
 }
@@ -228,12 +247,10 @@
   margin-top: auto;
   padding: 0.5rem;
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 0.25rem;
   position: sticky;
   bottom: 0;
   z-index: 10;
   transition: all 0.3s ease;
-  border-top: 1px solid rgba(57, 255, 20, 0.2);
 }
 
 /* Mírné zvýraznění chat inputu při aktivním stavu */
@@ -455,6 +472,82 @@
   }
 }
 
+/* Dodatečné styly pro extra malá zařízení */
+@media (max-width: 320px), (max-height: 480px) {
+  /* Zmenšení všech padding hodnot pro úsporu místa */
+  .game-box, .chat-box {
+    padding: 0.5rem !important;
+  }
+  
+  /* Zmenšení nadpisů */
+  .game-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+  
+  /* Kompaktnější tlačítka */
+  .menu-buttons .btn {
+    padding: 0.15rem 0.3rem;
+    margin-bottom: 0.2rem;
+    min-height: 2rem;
+    font-size: 0.8rem;
+    max-width: 95%;
+  }
+  
+  /* Kompaktnější chat */
+  .chat-messages {
+    padding: 0.3rem;
+    max-height: 120px;
+    min-height: 100px;
+  }
+  
+  /* Zmenšení mezer */
+  .mb-2, .my-2 {
+    margin-bottom: 0.3rem !important;
+  }
+  
+  /* Zviditelnění textu */
+  .chat-message {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0.3rem !important;
+  }
+}
+
+/* Extra media query pro velmi nízká zařízení */
+@media (max-height: 400px) {
+  /* Odstranění dekorativních prvků */
+  .decorative-element, .hide-on-xs {
+    display: none !important;
+  }
+  
+  /* Ultra kompaktní rozvržení */
+  .game-box, .chat-box {
+    padding: 0.25rem !important;
+  }
+  
+  /* Maximalizace využitelného prostoru */
+  .chat-messages {
+    max-height: 80px;
+    min-height: 60px;
+  }
+}
+
+/* Vylepšení pro zařízení s velmi nízkou šířkou */
+@media (max-width: 280px) {
+  /* Odstranění ikon v tlačítkách pro úsporu místa */
+  .btn i {
+    display: none;
+  }
+  
+  /* Ultra kompaktní menu */
+  .menu-buttons .btn {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.2rem;
+    margin-bottom: 0.15rem;
+    line-height: 1.2;
+  }
+}
+
 /* Bootstrap overrides pro neonový design */
 .btn-neon {
   background-color: transparent;
@@ -563,4 +656,191 @@
 
 .border-neon {
   border-color: var(--neon-green) !important;
+}
+
+/* Extrémně malá zařízení v portrait módu */
+@media (max-width: 320px) and (orientation: portrait) {
+  /* Přidání vertikálního scrollování pro obsah */
+  .container-fluid {
+    max-height: 100vh;
+    overflow-y: auto;
+  }
+  
+  /* Zmenšení paddingů na minimum */
+  .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
+  .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
+  .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
+  .ps-0, .ps-1, .ps-2, .ps-3, .ps-4, .ps-5,
+  .pe-0, .pe-1, .pe-2, .pe-3, .pe-4, .pe-5,
+  .px-0, .px-1, .px-2, .px-3, .px-4, .px-5,
+  .py-0, .py-1, .py-2, .py-3, .py-4, .py-5 {
+    padding: 0.1rem !important;
+  }
+  
+  /* Minimalizace veškerých mezer */
+  .m-0, .m-1, .m-2, .m-3, .m-4, .m-5,
+  .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
+  .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
+  .ms-0, .ms-1, .ms-2, .ms-3, .ms-4, .ms-5,
+  .me-0, .me-1, .me-2, .me-3, .me-4, .me-5,
+  .mx-0, .mx-1, .mx-2, .mx-3, .mx-4, .mx-5,
+  .my-0, .my-1, .my-2, .my-3, .my-4, .my-5 {
+    margin: 0.1rem !important;
+  }
+  
+  /* Ultra kompaktní chat */
+  .chat-messages {
+    max-height: 60px !important;
+    min-height: 40px !important;
+    font-size: 0.7rem !important;
+  }
+  
+  /* Tlačítka na minimum */
+  .btn {
+    padding: 0.1rem 0.2rem !important;
+    font-size: 0.7rem !important;
+    line-height: 1.2 !important;
+    min-height: auto !important;
+  }
+  
+  /* Odstranění všech dekorativních prvků */
+  .animate__infinite, .animate__pulse, .animate__slow {
+    animation: none !important;
+  }
+}
+
+/* Extrémně malá zařízení v landscape módu */
+@media (max-height: 320px) and (orientation: landscape) {
+  /* Odstranění animací pro zvýšení výkonu */
+  .animate__animated:not(.animate__fadeIn) {
+    animation: none !important;
+  }
+  
+  /* Zploštění layoutu pro maximální využití šířky */
+  .mobile-landscape-flex-row > div:first-child {
+    width: 65% !important;
+  }
+  
+  .mobile-landscape-flex-row > div:last-child {
+    width: 35% !important;
+  }
+  
+  /* Menší chat výška */
+  .chat-messages {
+    max-height: 40px !important;
+    min-height: 30px !important;
+  }
+  
+  /* Odstranění bottom marginu */
+  .mb-2, .mb-3 {
+    margin-bottom: 0.1rem !important;
+  }
+  
+  /* Tlačítka pouze text - bez ikon */
+  .btn i {
+    display: none !important;
+  }
+}
+
+/* Zajištění viditelnosti inputu na všech zařízeních */
+.chat-input, #chatInputMobile, #chatInput, #sendChatBtnMobile, #sendChatBtn {
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 100;
+}
+
+/* Silnější neonový efekt pro lepší viditelnost */
+.neon-text {
+  text-shadow: 
+    0 0 5px var(--neon-green),
+    0 0 10px var(--neon-green),
+    0 0 15px var(--neon-green) !important;
+}
+
+/* Vypnutí všech pulzujících animací pro usnadnění ladění */
+.animate__pulse,
+.animate__slow,
+.animate__slower,
+.animate__infinite {
+  animation: none !important;
+  animation-iteration-count: 0 !important;
+}
+
+/* Zakázání pulse animace pro všechny elementy */
+*, *::before, *::after {
+  animation-name: none !important;
+  animation-duration: 0 !important;
+  animation-iteration-count: 0 !important;
+}
+
+/* Povolení pouze fade animací pro zachování efektu objevení */
+.animate__fadeIn {
+  animation: fadeIn 0.5s ease-out !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Odstranění vnitřních rámečků v chatu */
+.no-borders .chat-message,
+.no-borders .ai-message,
+.no-borders .system-message,
+.no-borders .error-message,
+.no-borders .player-message {
+  border: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Chat zprávy bez ohraničení a pozadí - pouze text */
+.no-borders .chat-message:hover {
+  transform: none !important;
+  border-left: none !important;
+  padding-left: 0 !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Vylepšené vstupní pole vždy dole */
+.chat-input-fixed {
+  position: sticky !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
+  margin-top: auto !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  padding: 0.5rem !important;
+  border-top: 1px solid var(--neon-green) !important;
+}
+
+/* Větší písmo pro desktopovou verzi chatu */
+@media (min-width: 992px) {
+  .chat-message {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .chat-input .form-control {
+    font-size: 1rem !important;
+    padding: 0.375rem 0.75rem !important;
+  }
+  
+  .chat-header h2 {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Zajištění, že text v chatu je dobře čitelný */
+.chat-message strong, 
+.chat-message span {
+  text-shadow: 0 0 3px currentColor !important;
 }
