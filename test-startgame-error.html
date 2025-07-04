@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test startGame Error</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #111;
+            color: #0f0;
+            padding: 20px;
+        }
+        .error { color: #f00; }
+        .success { color: #0f0; }
+        .warning { color: #ff0; }
+        .info { color: #0ff; }
+        button {
+            background: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #0f0; color: #000; }
+        input { 
+            background: #333;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 5px;
+            margin: 5px;
+        }
+        pre { background: #222; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🐛 Debug StartGame Error</h1>
+    
+    <div>
+        <label>Target Score: <input id="targetScoreInput" type="number" value="10000"></label>
+        <button id="testStartGame">Test StartGame</button>
+    </div>
+    
+    <div id="log"></div>
+    
+    <script type="module">
+        const log = document.getElementById('log');
+        
+        function addLog(message, type = 'info') {
+            const p = document.createElement('p');
+            p.className = type;
+            p.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(p);
+            console.log(message);
+        }
+        
+        // Mock window.addChatMessage
+        window.addChatMessage = function(sender, message, type) {
+            addLog(`CHAT: ${sender}: ${message}`, 'info');
+        };
+        
+        document.getElementById('testStartGame').addEventListener('click', async () => {
+            addLog('🎮 Starting startGame test...', 'info');
+            
+            try {
+                addLog('📦 Importing startGame...', 'info');
+                const { startGame } = await import('./src/js/game/controllers/gameFlowController.js');
+                addLog('✅ startGame imported successfully', 'success');
+                
+                addLog('🎮 Calling startGame()...', 'info');
+                startGame();
+                addLog('✅ startGame completed successfully', 'success');
+                
+            } catch (error) {
+                addLog(`❌ ERROR: ${error.message}`, 'error');
+                addLog(`❌ Stack: ${error.stack}`, 'error');
+                
+                // Detailed error analysis
+                if (error.message.includes('updateGameDisplay')) {
+                    addLog('🔍 Error appears to be in updateGameDisplay', 'warning');
+                } else if (error.message.includes('updateScoreboard')) {
+                    addLog('🔍 Error appears to be in updateScoreboard', 'warning');
+                } else if (error.message.includes('updateActivePlayer')) {
+                    addLog('🔍 Error appears to be in updateActivePlayer', 'warning');
+                } else if (error.message.includes('updateGameInfo')) {
+                    addLog('🔍 Error appears to be in updateGameInfo', 'warning');
+                } else if (error.message.includes('playerTurn')) {
+                    addLog('🔍 Error appears to be in playerTurn', 'warning');
+                } else {
+                    addLog('🔍 Error appears to be somewhere else', 'warning');
+                }
+            }
+        });
+        
+        // Test individual components
+        const testComponents = async () => {
+            addLog('🧪 Testing individual components...', 'info');
+            
+            try {
+                addLog('Testing updateGameDisplay...', 'info');
+                const { updateGameDisplay } = await import('./src/js/ui/gameUI.js');
+                addLog('✅ updateGameDisplay imported', 'success');
+                
+                addLog('Testing updateScoreboard...', 'info');
+                const { updateScoreboard } = await import('./src/js/ui/gameUI.js');
+                addLog('✅ updateScoreboard imported', 'success');
+                
+                addLog('Testing updateActivePlayer...', 'info');
+                const { updateActivePlayer } = await import('./src/js/ui/gameUI.js');
+                addLog('✅ updateActivePlayer imported', 'success');
+                
+                addLog('Testing updateGameInfo...', 'info');
+                const { updateGameInfo } = await import('./src/js/ui/gameUI.js');
+                addLog('✅ updateGameInfo imported', 'success');
+                
+            } catch (error) {
+                addLog(`❌ Component test error: ${error.message}`, 'error');
+            }
+        };
+        
+        // Run component tests automatically
+        setTimeout(testComponents, 1000);
+    </script>
+</body>
+</html>
