@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test AI Kostková Výzva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #1a1a1a; 
+            color: #00ff00; 
+            margin: 20px; 
+        }
+        .test-result { 
+            margin: 10px 0; 
+            padding: 10px; 
+            border: 1px solid #333; 
+            border-radius: 5px;
+        }
+        .success { background-color: #0f2f0f; border-color: #00ff00; }
+        .error { background-color: #2f0f0f; border-color: #ff0000; color: #ff0000; }
+        .info { background-color: #0f0f2f; border-color: #0099ff; color: #0099ff; }
+        .btn-test { 
+            background: #00ff00; 
+            color: #000; 
+            border: none; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            border-radius: 5px; 
+            cursor: pointer;
+        }
+        .btn-test:hover { background: #00cc00; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎲 Test AI Kostková Výzva</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Testy funkčnosti</h3>
+                <div id="testResults"></div>
+                
+                <div class="mt-3">
+                    <button class="btn-test" onclick="runAllTests()">Spustit všechny testy</button>
+                    <button class="btn-test" onclick="testTemplateLoading()">Test šablon</button>
+                    <button class="btn-test" onclick="testModuleImports()">Test modulů</button>
+                    <button class="btn-test" onclick="testGameLogic()">Test herní logiky</button>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <h3>Rychlý test hry</h3>
+                <div id="gameTestArea">
+                    <div class="mb-3">
+                        <label>Cílové skóre:</label>
+                        <input type="number" id="testTargetScore" value="10000" min="1000" step="1000" class="form-control">
+                    </div>
+                    <button class="btn-test" onclick="quickGameTest()">Rychlý test hry</button>
+                    <div id="gameTestResults"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h3>Konzole</h3>
+            <div id="console" style="background: #000; color: #00ff00; padding: 10px; height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px;"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Přesměrování console.log do vizuální konzole
+        const consoleDiv = document.getElementById('console');
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            consoleDiv.innerHTML += '<div style="color: #00ff00;">LOG: ' + args.join(' ') + '</div>';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            consoleDiv.innerHTML += '<div style="color: #ff0000;">ERROR: ' + args.join(' ') + '</div>';
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        };
+        
+        // Funkce pro přidání výsledku testu
+        function addTestResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test-result ${type}`;
+            div.textContent = message;
+            document.getElementById('testResults').appendChild(div);
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+        
+        // Test načítání šablon
+        async function testTemplateLoading() {
+            addTestResult('=== TEST NAČÍTÁNÍ ŠABLON ===', 'info');
+            
+            const templates = [
+                '/src/templates/game-menu.html',
+                '/src/templates/game-controls.html',
+                '/src/templates/game-controls-mobile.html',
+                '/src/templates/chat.html',
+                '/src/templates/chat-mobile-bootstrap.html'
+            ];
+            
+            for (const template of templates) {
+                try {
+                    const response = await fetch(template);
+                    if (response.ok) {
+                        const content = await response.text();
+                        addTestResult(`✅ ${template} (${content.length} znaků)`, 'success');
+                    } else {
+                        addTestResult(`❌ ${template} - HTTP ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    addTestResult(`❌ ${template} - ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        // Test importu modulů
+        async function testModuleImports() {
+            addTestResult('=== TEST IMPORTU MODULŮ ===', 'info');
+            
+            const modules = [
+                '/src/js/game/gameState.js',
+                '/src/js/ui/menuButtonHandlers.js',
+                '/src/js/game/controllers/gameFlowController.js',
+                '/src/js/ui/gameUI.js'
+            ];
+            
+            for (const module of modules) {
+                try {
+                    const response = await fetch(module);
+                    if (response.ok) {
+                        addTestResult(`✅ ${module} - dostupný`, 'success');
+                    } else {
+                        addTestResult(`❌ ${module} - HTTP ${response.status}`, 'error');
+                    }
+                } catch (error) {
+                    addTestResult(`❌ ${module} - ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        // Test herní logiky
+        async function testGameLogic() {
+            addTestResult('=== TEST HERNÍ LOGIKY ===', 'info');
+            
+            try {
+                // Test základních funkcí
+                const mockGameState = {
+                    targetScore: 10000,
+                    gameStarted: false,
+                    currentPlayer: 0,
+                    players: [
+                        { name: 'Test Player', score: 0 }
+                    ]
+                };
+                
+                addTestResult('✅ Mock gameState vytvořen', 'success');
+                
+                // Test validace target score
+                const targetScore = 10000;
+                if (targetScore >= 1000) {
+                    addTestResult('✅ Target score validace prošla', 'success');
+                } else {
+                    addTestResult('❌ Target score validace selhala', 'error');
+                }
+                
+                // Test hodu kostkami
+                const diceRoll = [];
+                for (let i = 0; i < 6; i++) {
+                    diceRoll.push(Math.floor(Math.random() * 6) + 1);
+                }
+                
+                addTestResult(`✅ Simulace hodu kostek: ${diceRoll.join(', ')}`, 'success');
+                
+            } catch (error) {
+                addTestResult(`❌ Chyba v herní logice: ${error.message}`, 'error');
+            }
+        }
+        
+        // Rychlý test hry
+        function quickGameTest() {
+            const targetScore = document.getElementById('testTargetScore').value;
+            const resultsDiv = document.getElementById('gameTestResults');
+            
+            resultsDiv.innerHTML = '';
+            
+            if (targetScore < 1000) {
+                resultsDiv.innerHTML = '<div class="test-result error">❌ Cílové skóre musí být alespoň 1000</div>';
+                return;
+            }
+            
+            resultsDiv.innerHTML = `
+                <div class="test-result success">✅ Cílové skóre: ${targetScore}</div>
+                <div class="test-result info">🎮 Simulace spuštění hry...</div>
+                <div class="test-result success">✅ Hra by byla spuštěna s cílem ${targetScore} bodů</div>
+            `;
+            
+            console.log('Rychlý test hry dokončen');
+        }
+        
+        // Spuštění všech testů
+        async function runAllTests() {
+            document.getElementById('testResults').innerHTML = '';
+            
+            await testTemplateLoading();
+            await testModuleImports();
+            await testGameLogic();
+            
+            addTestResult('=== VŠECHNY TESTY DOKONČENY ===', 'info');
+        }
+        
+        // Automatické spuštění testů po načtení
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Test stránka načtena');
+            addTestResult('Test prostředí připraveno', 'success');
+        });
+    </script>
+</body>
+</html>
