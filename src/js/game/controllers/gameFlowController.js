@@ -56,16 +56,46 @@ export function startGame() {
     // Hide menu and show game controls
     const gameHeader = document.getElementById('gameHeader');
     const gameControls = document.getElementById('gameControls');
+    const gameControlsMobile = document.getElementById('gameControlsMobile');
     
-    if (gameHeader) gameHeader.classList.add('hidden');
-    if (gameControls) gameControls.classList.remove('hidden');
+    // Hide desktop menu
+    if (gameHeader) {
+        gameHeader.classList.add('hidden');
+        console.log('✅ Desktop menu skryto');
+    }
+    
+    // Show desktop game controls
+    if (gameControls) {
+        gameControls.classList.remove('hidden');
+        console.log('✅ Desktop herní ovládání zobrazeno');
+    } else {
+        console.error('❌ gameControls element nenalezen!');
+    }
+    
+    // Show mobile game controls
+    if (gameControlsMobile) {
+        gameControlsMobile.classList.remove('hidden');
+        console.log('✅ Mobile herní ovládání zobrazeno');
+    } else {
+        console.error('❌ gameControlsMobile element nenalezen!');
+    }
+    
+    // Hide mobile menu (if exists)
+    const gameMobileContent = document.getElementById('gameMobileContent');
+    if (gameMobileContent) {
+        gameMobileContent.classList.add('hidden');
+        console.log('✅ Mobile menu skryto');
+    }
     
     // Show players container during game
     const playersContainer = document.querySelector('.players-container');
     if (playersContainer) {
         playersContainer.classList.remove('hidden');
+        console.log('✅ Players container zobrazeno');
+    } else {
+        console.error('❌ Players container nenalezeno');
     }
-    console.log('✅ Zobrazeny herní ovládací prvky');
+    console.log('✅ UI přepnutí dokončeno');
 
     window.addChatMessage('system', `🎮 Hra začala! První hráč, který dosáhne ${gameState.targetScore} bodů, vyhrává!`);
     
