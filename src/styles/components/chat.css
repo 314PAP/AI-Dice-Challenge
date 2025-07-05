@@ -152,7 +152,7 @@
 
 /* Mobilní chat styly */
 .chat-send-icon-mobile {
-  font-size: 1.2rem !important;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 480px) {
