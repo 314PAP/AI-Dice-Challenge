@@ -87,22 +87,6 @@ body {
 }
 
 /* Chat kontejner bez vnitřního rámečku, ale s glow efektem při hover */
-/* Chat outer container - základní stylování */
-.chat-outer-container {
-  border: 2px solid var(--neon-green);
-  border-radius: var(--border-radius);
-  background-color: rgba(0, 0, 0, 0.9);
-  padding: 1rem;
-  overflow: hidden;
-  box-shadow: 0 0 10px var(--neon-green);
-  transition: box-shadow 0.3s ease;
-}
-
-/* Chat outer container hover efekt */
-.chat-outer-container:hover {
-  box-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green) !important;
-}
-
 /* Chat container - bez okrajů (vnitřní div) */
 .chat-container {
   border: none !important;
