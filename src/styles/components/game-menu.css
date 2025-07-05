@@ -150,24 +150,13 @@ input#targetScoreInputMobile {
     height: 11px;
     font-size: 7px;
   }
-  
-  /* Větší padding od kraje na mobilu */
-  .score-arrows {
-    right: 6px;
-  }
 }
 
-/* Velmi malé obrazovky */
 @media (max-width: 480px) {
   .score-arrow {
     width: 14px;
     height: 10px;
     font-size: 6px;
-  }
-  
-  /* Ještě větší padding na velmi malých zařízeních */
-  .score-arrows {
-    right: 8px;
   }
 }
 
