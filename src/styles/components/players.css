@@ -192,6 +192,58 @@
   text-align: center;
 }
 
+/* Mobilní styly pro players */
+.player-mobile {
+  max-width: 70px;
+  padding: 0.25rem;
+  border-radius: 4px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-green);
+  transition: all 0.3s ease;
+}
+
+.mobile-avatar {
+  width: 30px;
+  height: 30px;
+}
+
+.mobile-player-name {
+  font-size: 0.6rem;
+}
+
+.mobile-player-score {
+  font-size: 0.6rem;
+}
+
+.mobile-game-title {
+  font-size: 0.9rem;
+}
+
+.mobile-game-status {
+  font-size: 0.7rem;
+}
+
+.mobile-turn-info {
+  font-size: 0.7rem;
+}
+
+.mobile-target-info {
+  font-size: 0.7rem;
+}
+
+.mobile-control-btn {
+  height: 35px;
+  font-size: 0.7rem;
+  flex: 1;
+  min-width: 80px;
+}
+
+.mobile-quit-btn {
+  height: 35px;
+  font-size: 0.8rem;
+}
+
 /* Responzivní úpravy */
 @media (max-width: 767.98px) {
   .player {
