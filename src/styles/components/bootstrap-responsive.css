@@ -342,23 +342,23 @@
 
 /* Menu tlačítka utility třídy */
 .menu-btn-uniform {
-  width: 220px !important; /* Zvětšená šířka pro pohodlné zobrazení textu */
-  min-width: 220px !important;
-  max-width: 220px !important;
+  width: 250px !important; /* Větší šířka pro pohodlné zobrazení nejdelšího textu */
+  min-width: 250px !important;
+  max-width: 250px !important;
 }
 
 @media (max-width: 767.98px) {
   .menu-btn-uniform {
-    width: 200px !important; /* Tablet - stále dostatečná šířka */
-    min-width: 200px !important;
-    max-width: 200px !important;
+    width: 220px !important; /* Tablet - dostatečná šířka */
+    min-width: 220px !important;
+    max-width: 220px !important;
   }
 }
 
 @media (max-width: 575.98px) {
   .menu-btn-uniform {
-    width: 180px !important; /* Mobil - minimální šířka */
-    min-width: 180px !important;
-    max-width: 180px !important;
+    width: 190px !important; /* Mobil - optimální šířka */
+    min-width: 190px !important;
+    max-width: 190px !important;
   }
 }
