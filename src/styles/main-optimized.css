@@ -13,6 +13,9 @@
 @import './utils/neon-bootstrap-utilities.css';
 @import './utils/minimalist-layout.css';
 
+/* 🎨 NEONOVÉ EFEKTY */
+@import './components/neon-effects.css';
+
 /* 🎲 NEZBYTNÉ HERNÍ KOMPONENTY */
 @import './components/dice/neon-dice.css';
 @import './components/game/farkle-bootstrap.css';
