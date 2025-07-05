@@ -1,0 +1,122 @@
+/* =============================================================================
+   🎲 DICE - Stylování kostek s neonovými efekty
+   ============================================================================= */
+
+/* Kontejner kostek */
+.dice-container {
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  box-shadow: var(--glow-sm) var(--neon-green);
+}
+
+.all-dice-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  min-height: 100px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Kostka */
+.dice {
+  width: 50px;
+  height: 50px;
+  background: var(--black-bg);
+  border: 1px solid var(--neon-green);
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-family: 'Orbitron', monospace;
+  color: var(--neon-green);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  user-select: none;
+  box-shadow: var(--glow-sm) var(--neon-green);
+}
+
+.dice:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: var(--glow-md) var(--neon-blue);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+.dice.selected {
+  transform: translateY(-10px);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: var(--glow-lg) var(--neon-blue);
+}
+
+.dice.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.dice.banked {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  box-shadow: var(--glow-md) var(--neon-pink);
+}
+
+/* Responzivní úpravy */
+@media (max-width: 768px) {
+  .all-dice-container {
+    gap: 6px;
+    padding: 10px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--neon-blue) transparent;
+  }
+  
+  .all-dice-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .all-dice-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .all-dice-container::-webkit-scrollbar-thumb {
+    background: var(--neon-blue);
+    border-radius: 4px;
+  }
+  
+  .dice {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .all-dice-container {
+    gap: 4px;
+    padding: 8px;
+  }
+  
+  .dice {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+}

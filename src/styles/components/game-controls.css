@@ -1,65 +1,74 @@
 /**
  * Game Controls Component Styles
- * Styly pro herní ovládací prvky, kostky a tlačítka
+ * Styly pro herní ovládací prvky s neonovými efekty
  */
 
-/* Kontejner hráčů */
-.players-container {
-  margin-bottom: 1.5rem;
+/* Herní oblast */
+.game-area {
+  background: var(--black-bg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: var(--glow-md) var(--neon-green);
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
 }
 
-.player {
-  min-width: 120px;
-  max-width: 150px;
-}
-
-.player-head img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-}
-
-.player.active {
-  box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green-glow);
+/* Herní ovládání */
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid var(--neon-green);
+  border-radius: var(--radius-base);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+  box-shadow: var(--glow-sm) var(--neon-green);
 }
 
 /* Informační panely */
 .turn-info,
 .current-turn-score,
 .target-info {
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: var(--neon-green);
+  box-shadow: var(--glow-sm) var(--neon-green);
   font-family: 'Orbitron', sans-serif;
   font-size: 0.9rem;
   letter-spacing: 1px;
+  font-weight: 600;
 }
 
-/* Kostky */
-.dice-container {
-  min-height: 100px;
+/* Skóre aktuálního kola */
+.current-turn-score {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: var(--glow-sm) var(--neon-blue);
 }
 
-.dice {
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dice.selected {
-  transform: translateY(-10px);
-}
-
-.dice.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/* Cílové skóre */
+.target-info {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  box-shadow: var(--glow-sm) var(--neon-pink);
 }
 
 /* Ovládací tlačítka */
 .roll-controls {
-  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
 }
 
 .roll-controls .btn {
@@ -67,28 +76,66 @@
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.5px;
+  font-family: 'Orbitron', sans-serif;
+  transition: all 0.3s ease;
+}
+
+/* Scrollbary pro herní oblast */
+.game-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.game-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.game-area::-webkit-scrollbar-thumb {
+  background-color: var(--neon-green);
+  border-radius: 3px;
 }
 
 /* Responzivní úpravy pro menší obrazovky */
+@media (max-width: 800px) {
+  .game-area {
+    border-bottom: 2px solid var(--neon-green);
+    padding: 0.75rem;
+  }
+  
+  .roll-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .roll-controls button {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
 @media (max-width: 767.98px) {
-  .player {
-    min-width: 80px;
-  }
-  
-  .player-head img {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .dice {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-  
   .roll-controls .btn {
     min-width: unset;
     font-size: 0.8rem;
     padding: 0.3rem 0.5rem;
+  }
+}
+
+/* Extra malá zařízení */
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
   }
 }

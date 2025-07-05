@@ -23,6 +23,34 @@
   --neon-glow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
   --neon-glow-strong: 0 0 8px var(--neon-green), 0 0 15px var(--neon-green), 0 0 20px var(--neon-green);
   --border-radius: 0.375rem;
+  
+  /* Dodatečné CSS proměnné */
+  --black-bg: #000000;
+  --gray-light: #cccccc;
+  --radius-base: 8px;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --transition-normal: all 0.3s ease;
+  --font-size-xs: 0.75rem;
+  
+  /* Glow efekty */
+  --glow-sm: 0 0 5px;
+  --glow-md: 0 0 10px;
+  --glow-lg: 0 0 20px;
+  
+  /* Tlačítka */
+  --btn-green-glow: 0 0 10px var(--neon-green), 0 0 15px var(--neon-green);
+  --btn-green-glow-hover: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+}
+
+/* Celkové pozadí aplikace */
+body {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  color: var(--neon-green);
+  font-family: 'Orbitron', sans-serif;
+  overflow: hidden;
 }
 
 /* Velikost kontejneru 90% viewportu */
@@ -889,3 +917,36 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Zajištění správného neonového pozadí */
+.bg-black {
+  background-color: var(--black-bg) !important;
+}
+
+/* Texty */
+.text-neon-green {
+  color: var(--neon-green) !important;
+}
+
+.text-neon-blue {
+  color: var(--neon-blue) !important;
+}
+
+.text-neon-pink {
+  color: var(--neon-pink) !important;
+}
+
+.text-neon-orange {
+  color: var(--neon-orange) !important;
+}
+
+/* Základní font styling */
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif !important;
+}
+
+.font-jetbrains {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Přidání po prvním komentáři */

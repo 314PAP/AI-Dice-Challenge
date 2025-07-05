@@ -8,6 +8,8 @@
   font-family: 'Orbitron', sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
 }
 
 .neon-dice-decoration {
@@ -17,6 +19,8 @@
 
 .dice-icon {
   font-size: 2rem;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
 }
 
 /* Cílové skóre */
@@ -25,12 +29,32 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
 }
 
 .target-score-input {
   max-width: 200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.form-control-neon {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border: 2px solid var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px var(--neon-green) !important;
+  font-family: 'Orbitron', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+  padding: 0.5rem !important;
+}
+
+.form-control-neon:focus {
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 0 0.25rem rgba(57, 255, 20, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  color: var(--neon-green) !important;
 }
 
 /* Tlačítka v menu */
@@ -45,6 +69,14 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
+  border: 2px solid currentColor !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.menu-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 15px currentColor !important;
 }
 
 /* Responzivní úpravy */
