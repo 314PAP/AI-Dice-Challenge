@@ -68,20 +68,20 @@
 
 .chat-input .form-control {
   background-color: rgba(0, 0, 0, 0.6);
-  border: none !important;
-  color: white !important;
+  border: 1px solid rgba(57, 255, 20, 0.3) !important;
+  color: var(--neon-green) !important;
   box-shadow: none !important;
 }
 
 .chat-input .form-control:focus {
-  box-shadow: none !important;
-  border: none !important;
+  box-shadow: var(--glow-sm) var(--neon-green) !important;
+  border: 1px solid var(--neon-green) !important;
   outline: none !important;
-  color: white !important;
+  color: var(--neon-green) !important;
 }
 
 .chat-input .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(57, 255, 20, 0.5);
 }
 
 /* Odesílací tlačítko */
