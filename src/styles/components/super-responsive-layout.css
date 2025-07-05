@@ -86,11 +86,16 @@ body {
   box-shadow: var(--neon-glow);
 }
 
-/* Chat kontejner bez glow efektu */
+/* Chat kontejner bez vnitřního rámečku, ale s glow efektem při hover */
 .chat-container {
-  border: var(--border-width) solid var(--neon-green);
+  border: none;
   border-radius: var(--border-radius);
   box-shadow: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.chat-container:hover {
+  box-shadow: var(--neon-glow);
 }
 
 /* Konsistentní mezery mezi řádky */
