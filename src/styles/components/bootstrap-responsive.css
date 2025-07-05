@@ -173,6 +173,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  gap: 1rem; /* Mezera mezi menu a chatem */
 }
 
 .h-landscape-100 {
@@ -189,6 +190,23 @@
 
 .mb-landscape-0 {
   margin-bottom: 0 !important;
+}
+
+/* Mobilní specifické styly */
+@media (max-width: 767.98px) {
+  .mobile-landscape-flex-row {
+    padding: 0.5rem;
+    gap: 0.75rem;
+  }
+  
+  /* Zajistit, že chat a menu mají správnou mezeru */
+  .h-20, .h-75 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .h-20:last-child {
+    margin-bottom: 0;
+  }
 }
 
 /* Landscape orientace pro mobilní zařízení */
