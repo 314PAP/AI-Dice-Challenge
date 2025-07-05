@@ -131,6 +131,23 @@ body {
 
 ---
 
+## 🎨 NEJNOVĚJŠÍ OPRAVY (5. leden 2025 - večer)
+
+### ✅ Mobilní layout - odstranění inline stylů a oprava designu
+- **Odstraněny všechny inline styly** z main-bootstrap.js
+- **Přidána mezera mezi chatem a menu** (gap: 0.75rem portrait, 1rem landscape)
+- **Opraveny barvy v mobilním zobrazení** - ne vše zelené, správné barvy dle designu
+- **Přidány CSS utility třídy**: .anim-delay-*, .make-visible, .min-h-*, atd.
+- **Čistý kód**: Vše řešeno přes CSS třídy místo inline stylů
+
+### 🎯 Výsledek:
+- **Mobilní layout vypadá správně** s mezerami a správnými barvami
+- **Kód je maintainable** - změny jen v CSS
+- **Konzistentní styling** - stejný přístup jako zbytek aplikace
+- **Testovatelné** na `http://localhost:5173/test-clean-index.html`
+
+---
+
 ## 🧪 **Testování**
 
 ### **Spuštění**
