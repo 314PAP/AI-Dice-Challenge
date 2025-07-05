@@ -70,10 +70,21 @@ async function initGame() {
         // Zajištění inicializace chatu
     ensureChatInitialized();
     
-    // Nastavení globální funkce window.addChatMessage
-    // Registrujeme globální funkci
-    window.addChatMessage = window.addChatMessage || addChatMessageBootstrap;
-    console.log('✅ window.addChatMessage nastaveno');
+    // Nastavení globální funkce window.addChatMessage s proxy logikou
+    // Registrujeme proxy funkci, která správně mapuje parametry
+    window.addChatMessage = function(sender, message, type = 'player', customColor = null) {
+        console.log(`💬 Chat message: ${sender} -> ${message} (type: ${type})`);
+        
+        // Pokud je sender 'system', upravíme parametry
+        if (sender === 'system') {
+            // Volání: addChatMessage('system', 'zpráva') -> addChatMessageBootstrap('Systém', 'zpráva', 'system')
+            addChatMessageBootstrap('Systém', message, 'system', customColor);
+        } else {
+            // Normální volání
+            addChatMessageBootstrap(sender, message, type, customColor);
+        }
+    };
+    console.log('✅ window.addChatMessage nastaveno s proxy logikou');
     
     // Odstranění všech pulzujících animací pro lepší ladění
     removeAllPulseAnimations();
