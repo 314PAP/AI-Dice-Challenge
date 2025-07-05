@@ -821,3 +821,25 @@ window.gameDebug = {
 
 // Registrujeme globálně bootstrap funkci
 window.addChatMessageBootstrap = addChatMessageBootstrap;
+
+// Proxy funkce pro zpětnou kompatibilitu s volaniem addChatMessage('system', 'zpráva')
+window.addChatMessage = function(sender, message, type = 'player', customColor = null) {
+    console.log(`💬 Chat message: ${sender} -> ${message} (type: ${type})`);
+    
+    // Pokud je sender 'system', upravíme parametry
+    if (sender === 'system') {
+        // Volání: addChatMessage('system', 'zpráva') -> addChatMessageBootstrap('Systém', 'zpráva', 'system')
+        if (typeof window.addChatMessageBootstrap === 'function') {
+            window.addChatMessageBootstrap('Systém', message, 'system', customColor);
+        } else {
+            console.error('❌ addChatMessageBootstrap není k dispozici');
+        }
+    } else {
+        // Normální volání
+        if (typeof window.addChatMessageBootstrap === 'function') {
+            window.addChatMessageBootstrap(sender, message, type, customColor);
+        } else {
+            console.error('❌ addChatMessageBootstrap není k dispozici');
+        }
+    }
+};
