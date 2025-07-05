@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hover Efektu Odesílací Šipky</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Game styles -->
+    <link rel="stylesheet" href="src/styles/variables/colors.css">
+    <link rel="stylesheet" href="src/styles/components/chat.css">
+    
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #333;
+            border-radius: 0.5rem;
+        }
+        
+        .test-title {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="text-center text-success mb-4">Test Hover Efektu Odesílací Šipky</h1>
+        
+        <div class="test-section">
+            <h3 class="test-title">Chat Input s Odesílací Šipkou</h3>
+            
+            <!-- Chat Input - desktop verze -->
+            <div class="chat-input p-2 bg-dark-90 mb-3">
+                <div class="input-group input-group-md">
+                    <input type="text" class="form-control bg-black text-success border-0" placeholder="Napište zprávu...">
+                    <button class="btn btn-outline-light chat-send-btn d-flex align-items-center justify-content-center border-0" type="button">
+                        <i class="ri-send-plane-fill neon-green"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chat Input - mobile verze -->
+            <div class="chat-input p-2 bg-dark-90">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control bg-black text-success border-0" placeholder="Napište zprávu...">
+                    <button class="btn btn-outline-light chat-send-btn d-flex align-items-center justify-content-center border-0" type="button">
+                        <i class="ri-send-plane-fill neon-green"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="test-title">Instrukce pro testování</h3>
+            <ul class="text-muted">
+                <li>Najeďte myší na odesílací šipku (ikonu letadla)</li>
+                <li>Měl by se zobrazit jemný neonový glow efekt</li>
+                <li>Neměl by se zobrazit bílý čtverec nebo pozadí</li>
+                <li>Ikona by se měla mírně zvětšit (scale 1.05)</li>
+                <li>Zelená barva by měla zůstat zachována</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
