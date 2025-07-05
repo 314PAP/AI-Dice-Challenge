@@ -2,7 +2,7 @@
    💬 CHAT - Styly pro chatovací rozhraní
    ============================================================================= */
 
-/* Hlavní kontejner chatu - bez okrajů (používá se ve vnějším kontejneru s okraji) */
+/* Hlavní kontejner chatu - Bootstrap-first flex layout */
 .chat-container {
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
   text-align: center;
 }
 
-/* Oblast se zprávami */
+/* Oblast se zprávami - Bootstrap-first overflow handling */
 .chat-messages {
   flex-grow: 1;
   padding: 0.5rem;
@@ -29,7 +29,7 @@
   background-color: rgba(0, 0, 0, 0.85);
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--neon-green-rgb), 0.5) rgba(0, 0, 0, 0.2);
-  min-height: 200px; /* Minimální výška pro zobrazení scrollbaru */
+  min-height: 0; /* Bootstrap-first: umožní flex shrinking */
 }
 
 .chat-messages::-webkit-scrollbar {
