@@ -339,7 +339,7 @@ function detectExtremelySmallScreen() {
             title.classList.remove('fs-3', 'fs-4', 'fs-5');
             // Odstranění ikon pro extra úsporu místa
             const icons = title.querySelectorAll('i');
-            icons.forEach(icon => icon.style.display = 'none');
+            icons.forEach(icon => icon.classList.add('d-none'));
         });
         
         // Extra malá tlačítka
@@ -350,7 +350,7 @@ function detectExtremelySmallScreen() {
         
         // Odstranit dekorativní elementy
         document.querySelectorAll('.decorative-element, .hide-on-xs').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('d-none');
         });
         
     } else if (isXS) {
@@ -369,18 +369,18 @@ function detectExtremelySmallScreen() {
         
         // Skryjeme některé dekorační prvky
         document.querySelectorAll('.hide-on-xs').forEach(el => {
-            el.style.display = 'none';
+            el.classList.add('d-none');
         });
     } else {
         document.body.classList.remove('xs-device', 'xxs-device');
         
         // Obnovíme viditelnost prvků
         document.querySelectorAll('.hide-on-xs').forEach(el => {
-            el.style.display = '';
+            el.classList.remove('d-none');
         });
         
         document.querySelectorAll('.btn i').forEach(icon => {
-            icon.style.display = '';
+            icon.classList.remove('d-none');
         });
         
         document.querySelectorAll('.game-title').forEach(title => {
@@ -404,11 +404,10 @@ function ensureChatVisibility() {
     
     if (chatMessages && chatInput) {
         // Zajistíme, že chat input je vždy viditelný
-        chatInput.style.visibility = 'visible';
-        chatInput.style.opacity = '1';
+        chatInput.classList.add('make-visible');
         
         // Zajistíme, že zprávy jsou viditelné
-        chatMessages.style.minHeight = '80px';
+        chatMessages.classList.add('min-h-80');
         
         // Scrollujeme na nejnovější zprávu
         chatMessages.scrollTop = chatMessages.scrollHeight;
