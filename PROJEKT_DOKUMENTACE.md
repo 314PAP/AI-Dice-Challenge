@@ -140,6 +140,13 @@ body {
 - **Přidány CSS utility třídy**: .anim-delay-*, .make-visible, .min-h-*, atd.
 - **Čistý kód**: Vše řešeno přes CSS třídy místo inline stylů
 
+### ✅ Mobilní menu - napojení na desktop styly
+- **Sjednocené třídy**: Mobilní menu používá stejné CSS třídy jako desktop
+- **Správné barvy tlačítek**: neon-green, neon-blue, neon-orange, neon-red
+- **Konzistentní styling**: Stejný vzhled na desktop i mobilu
+- **CSS podpora**: Přidány kombinované třídy .btn-neon.neon-* do buttons.css
+- **Responzivní úpravy**: Mobilní font velikosti a paddingy
+
 ### 🎯 Výsledek:
 - **Mobilní layout vypadá správně** s mezerami a správnými barvami
 - **Kód je maintainable** - změny jen v CSS
