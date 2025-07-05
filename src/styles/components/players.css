@@ -1,0 +1,159 @@
+/* =============================================================================
+   👥 PLAYERS - Kompletní stylování hráčů, avatarů a karet
+   ============================================================================= */
+
+/* Základní kontejner hráčů */
+.players-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Karty hráčů */
+.player {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: none;
+  border: 2px solid;
+  max-width: 130px;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+/* Hlavička hráče */
+.player-head {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.player-head img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid;
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Jméno hráče */
+.player-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.25rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Skóre hráče */
+.player-score {
+  font-size: 1.2rem;
+  font-weight: 900;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Aktivní hráč */
+.player.active {
+  z-index: 2;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px var(--neon-color, var(--neon-green)), 
+              0 0 15px var(--neon-color, var(--neon-green));
+}
+
+.player.active .player-head img {
+  box-shadow: 0 0 15px var(--neon-color, var(--neon-green));
+}
+
+.player.active .player-name,
+.player.active .player-score {
+  text-shadow: 0 0 10px var(--neon-color, var(--neon-green));
+}
+
+/* Barevné varianty podle typu hráče */
+.player.human-player {
+  --neon-color: var(--neon-green);
+  border-color: var(--neon-green) !important;
+}
+
+.player.human-player .player-head img {
+  border-color: var(--neon-green);
+}
+
+.player.human-player .player-name,
+.player.human-player .player-score {
+  color: var(--neon-green);
+}
+
+.player.gemini-player {
+  --neon-color: var(--neon-blue);
+  border-color: var(--neon-blue) !important;
+}
+
+.player.gemini-player .player-head img {
+  border-color: var(--neon-blue);
+}
+
+.player.gemini-player .player-name,
+.player.gemini-player .player-score {
+  color: var(--neon-blue);
+}
+
+.player.chatgpt-player {
+  --neon-color: var(--neon-pink);
+  border-color: var(--neon-pink) !important;
+}
+
+.player.chatgpt-player .player-head img {
+  border-color: var(--neon-pink);
+}
+
+.player.chatgpt-player .player-name,
+.player.chatgpt-player .player-score {
+  color: var(--neon-pink);
+}
+
+.player.claude-player {
+  --neon-color: var(--neon-orange);
+  border-color: var(--neon-orange) !important;
+}
+
+.player.claude-player .player-head img {
+  border-color: var(--neon-orange);
+}
+
+.player.claude-player .player-name,
+.player.claude-player .player-score {
+  color: var(--neon-orange);
+}
+
+/* Specifické aktivní styly */
+.player.human-player.active {
+  box-shadow: 0 0 10px var(--neon-green), 0 0 15px var(--neon-green) !important;
+}
+
+.player.gemini-player.active {
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 15px var(--neon-blue) !important;
+}
+
+.player.chatgpt-player.active {
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 15px var(--neon-pink) !important;
+}
+
+.player.claude-player.active {
+  box-shadow: 0 0 10px var(--neon-orange), 0 0 15px var(--neon-orange) !important;
+}
+
+/* Responzivní úpravy */
+@media (max-width: 768px) {
+  .player {
+    max-width: 120px;
+  }
+  
+  .player-head img {
+    width: 50px;
+    height: 50px;
+  }
+}
