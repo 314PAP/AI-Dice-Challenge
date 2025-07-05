@@ -1,4 +1,22 @@
-<!-- MENU STAV - u    <!-- Orámečkované nastavení skóre s vlastními šipkami - Bootstrap-First -->
+<!-- MENU STAV - uspořádané menu (výchozí viditelný) -->
+<div class="game-header text-center d-none d-md-block" id="gameHeader">
+    <!-- Nadpis uprostřed nahoře -->
+    <h1 class="game-title neon-text fs-neon-1 mb-2 mb-md-3">
+        <i class="ri-dice-line me-1 me-md-2"></i>
+        <span class="title-text">AI Kostková Výzva</span>
+    </h1>
+    
+    <!-- Neonová kostka pod nadpisem -->
+    <div class="neon-dice-decoration mb-2 mb-md-4">
+        <i class="ri-dice-6-line dice-icon neon-green"></i>
+    </div>
+    
+    <!-- Nápis "Cílové skóre" bez rámečku -->
+    <div class="score-label neon-text mb-2 mb-md-3">
+        <i class="ri-star-line me-1 me-md-2"></i><span class="score-label-text">Cílové skóre</span>
+    </div>
+    
+    <!-- Orámečkované nastavení skóre s vlastními šipkami - Bootstrap-First -->
     <div class="d-flex justify-content-center mb-2 mb-md-4" style="max-width: 280px; margin: 0 auto;">
         <div class="position-relative">
             <input type="number" id="targetScoreInput" class="form-control-neon text-center pe-5" value="10000" min="1000" step="1000" style="width: 160px;">
