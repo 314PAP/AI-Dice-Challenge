@@ -98,6 +98,17 @@ body {
   box-shadow: var(--neon-glow);
 }
 
+/* Chat outer container hover efekt */
+.chat-outer-container:hover {
+  box-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green) !important;
+}
+
+/* Chat container - bez okrajů (vnitřní div) */
+.chat-container {
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /* Konsistentní mezery mezi řádky */
 .row + .row {
   margin-top: var(--content-gap);

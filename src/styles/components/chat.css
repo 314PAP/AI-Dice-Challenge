@@ -2,13 +2,15 @@
    💬 CHAT - Styly pro chatovací rozhraní
    ============================================================================= */
 
-/* Hlavní kontejner chatu */
+/* Hlavní kontejner chatu - bez okrajů (používá se ve vnějším kontejneru s okraji) */
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   border-radius: var(--border-radius-lg);
   overflow: hidden;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Hlavička chatu */
