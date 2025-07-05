@@ -28,40 +28,40 @@
             <div class="player-head mb-2">
                 <img src="/ai-icons/gpt.jpeg" alt="ChatGPT" />
             </div>
-            <div class="player-name neon-text-pink mb-1">ChatGPT</div>
-            <div class="player-score neon-text-pink">Skóre: <span id="chatgptScore" class="fw-bold">0</span></div>
+            <div class="player-name mb-1">ChatGPT</div>
+            <div class="player-score">Skóre: <span id="chatgptScore" class="fw-bold">0</span></div>
         </div>
-        <div class="player claude-player neon-border-orange p-3 rounded text-center bg-dark">
+        <div class="player claude-player">
             <div class="player-head mb-2">
-                <img src="/ai-icons/claude.jpeg" alt="Claude" class="rounded-circle" />
+                <img src="/ai-icons/claude.jpeg" alt="Claude" />
             </div>
-            <div class="player-name neon-text-orange mb-1">Claude</div>
-            <div class="player-score neon-text-orange">Skóre: <span id="claudeScore" class="fw-bold">0</span></div>
+            <div class="player-name mb-1">Claude</div>
+            <div class="player-score">Skóre: <span id="claudeScore" class="fw-bold">0</span></div>
         </div>
     </div>
     
-    <div class="turn-info p-2 mb-3 neon-border-green neon-text-green bg-dark rounded text-center" id="turnInfo">Váš tah!</div>
-    <div class="current-turn-score p-2 mb-3 neon-border-blue neon-text-blue bg-dark rounded text-center" id="currentTurnScore">Skóre tahu: 0</div>
-    <div class="target-info p-2 mb-3 neon-border-yellow neon-text-yellow bg-dark rounded text-center" id="targetInfo">
+    <div class="turn-info text-center" id="turnInfo">Váš tah!</div>
+    <div class="current-turn-score text-center" id="currentTurnScore">Skóre tahu: 0</div>
+    <div class="target-info text-center" id="targetInfo">
         Cíl: <span id="targetScoreDisplay" class="fw-bold">10000</span>
     </div>
     
     <div class="dice-container d-flex flex-wrap justify-content-center gap-3 my-4" id="diceContainer"></div>
     
     <div class="roll-controls d-flex flex-wrap justify-content-center gap-3 my-4">
-        <button class="btn btn-lg neon-border-green neon-text-green bg-dark" id="rollBtn">
+        <button class="btn btn-lg btn-neon-green" id="rollBtn">
             <i class="ri-dice-line me-2"></i>
             Hodit kostky
         </button>
-        <button class="btn btn-lg neon-border-blue neon-text-blue bg-dark" id="bankBtn" disabled>
+        <button class="btn btn-lg btn-neon-blue" id="bankBtn" disabled>
             <i class="ri-save-line me-2"></i>
             Odložit vybrané
         </button>
-        <button class="btn btn-lg neon-border-yellow neon-text-yellow bg-dark" id="endTurnBtn" disabled>
+        <button class="btn btn-lg btn-neon-pink" id="endTurnBtn" disabled>
             <i class="ri-stop-circle-line me-2"></i>
             Ukončit tah
         </button>
-        <button class="btn btn-lg neon-border-red neon-text-red bg-dark" id="quitGameBtn">
+        <button class="btn btn-lg btn-danger" id="quitGameBtn">
             <i class="ri-logout-box-line me-2"></i>
             Opustit hru
         </button>
