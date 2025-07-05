@@ -117,3 +117,53 @@
     text-shadow: var(--glow-lg) var(--neon-green);
   }
 }
+
+/* =============================================================================
+   📱 BOOTSTRAP RESPONSIVE - Minimální responzivní rozšíření Bootstrapu
+   ============================================================================= */
+
+/* Responzivní kontejnery a rámečky */
+.vh-90 {
+  height: 90vh !important;
+  max-height: 90vh !important;
+}
+
+.vw-90 {
+  width: 90vw !important;
+  max-width: 90vw !important;
+}
+
+/* Herní box a chat box - neonové rámečky */
+.game-box, .chat-box {
+  border: 2px solid var(--neon-green);
+  border-radius: 12px;
+  box-shadow: 0 0 10px var(--neon-green);
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.game-box:hover, .chat-box:hover {
+  box-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green);
+  border-color: var(--neon-green);
+}
+
+/* Responzivní layout pro hráče - vedle sebe na desktop */
+.players-container {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767.98px) {
+  .players-container {
+    flex-direction: column !important;
+    align-items: center;
+  }
+}

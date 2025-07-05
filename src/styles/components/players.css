@@ -5,8 +5,11 @@
 /* Základní kontejner hráčů */
 .players-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 /* Karty hráčů */
