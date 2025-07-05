@@ -1,0 +1,77 @@
+/* =============================================================================
+   🎨 BOOTSTRAP OVERRIDE - Minimální přepsání nutných Bootstrap stylů
+   ============================================================================= */
+
+/* Pouze nezbytné přepsání - zachováváme Bootstrap funkčnost */
+
+/* Základní body styling */
+body {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%) !important;
+  color: var(--neon-green) !important;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Formulářové prvky - neonové styly */
+.form-control {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid var(--neon-green) !important;
+  color: var(--neon-green) !important;
+}
+
+.form-control:focus {
+  border-color: var(--neon-green) !important;
+  box-shadow: var(--glow-sm) var(--neon-green) !important;
+  color: var(--neon-green) !important;
+}
+
+.form-control::placeholder {
+  color: rgba(57, 255, 20, 0.5) !important;
+}
+
+/* Tlačítka - zachování Bootstrap funkčnosti s neonovými akcenty */
+.btn-primary {
+  background-color: transparent !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: rgba(57, 255, 20, 0.1) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  box-shadow: var(--glow-sm) var(--neon-green) !important;
+}
+
+/* Modály - neonové okraje */
+.modal-content {
+  background-color: var(--black-bg) !important;
+  border: 1px solid var(--neon-green) !important;
+}
+
+/* Karty - neonové okraje */
+.card {
+  background-color: var(--black-bg) !important;
+  border: 1px solid var(--neon-green) !important;
+}
+
+.card-body {
+  color: var(--neon-green) !important;
+}
+
+/* Navigace - neonové linky */
+.nav-link {
+  color: var(--neon-green) !important;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--neon-blue) !important;
+}
+
+/* Text utility třídy */
+.text-light,
+.text-white,
+.text-muted {
+  color: var(--neon-green) !important;
+}
