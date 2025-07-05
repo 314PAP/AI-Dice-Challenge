@@ -105,6 +105,10 @@ input#targetScoreInputMobile {
   border: 2px solid currentColor !important;
   background-color: transparent !important;
   transition: all 0.3s ease !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .menu-btn:hover {
@@ -129,6 +133,29 @@ input#targetScoreInputMobile {
   .menu-btn {
     min-width: unset;
     width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem !important;
+    padding: 0.4rem 0.8rem !important;
+    line-height: 1.2;
+  }
+  
+  .menu-btn i {
+    font-size: 1rem !important;
+    margin-right: 0.3rem !important;
+    flex-shrink: 0;
+  }
+  
+  .menu-btn-text {
+    font-size: 0.85rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
   }
   
   .target-score-input {
@@ -150,5 +177,39 @@ input#targetScoreInputMobile {
   .form-control-neon {
     font-size: 1.1rem !important;
     padding: 0.4rem 0.6rem !important;
+  }
+}
+
+/* Velmi malé obrazovky - další zmenšení */
+@media (max-width: 575.98px) {
+  .menu-btn {
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.6rem !important;
+  }
+  
+  .menu-btn i {
+    font-size: 0.9rem !important;
+    margin-right: 0.25rem !important;
+  }
+  
+  .menu-btn-text {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Extra malé obrazovky - minimální velikost */
+@media (max-width: 400px) {
+  .menu-btn {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+  
+  .menu-btn i {
+    font-size: 0.85rem !important;
+    margin-right: 0.2rem !important;
+  }
+  
+  .menu-btn-text {
+    font-size: 0.75rem !important;
   }
 }
