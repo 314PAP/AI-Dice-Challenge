@@ -102,7 +102,7 @@
 .chatgpt-player {
   border-color: var(--neon-pink);
   color: var(--neon-pink);
-  box-shadow: var(--glow-sm) var(--neon-pink);
+  box-shadow: var(--glow-sm) var (--neon-pink);
 }
 
 .chatgpt-player .player-head img {
@@ -242,6 +242,54 @@
   font-size: 0.7rem !important;
   flex: 1;
   min-width: 80px;
+}
+
+/* Specifické mobile třídy pro starší template verze */
+.players-container-mobile {
+  gap: 0.25rem !important;
+}
+
+.player-head-mobile {
+  margin-bottom: 0.25rem !important;
+}
+
+.player-name-mobile {
+  font-size: 0.6rem !important;
+  line-height: 1 !important;
+}
+
+.player-score-mobile {
+  font-size: 0.6rem !important;
+  line-height: 1 !important;
+}
+
+.mobile-player-name {
+  font-size: 0.6rem !important;
+}
+
+.mobile-player-score {
+  font-size: 0.6rem !important;
+}
+
+.turn-info-mobile {
+  font-size: 0.7rem !important;
+}
+
+.target-info-mobile {
+  font-size: 0.7rem !important;
+}
+
+.dice-container-mobile {
+  min-height: 60px !important;
+}
+
+.roll-controls-mobile {
+  gap: 0.25rem !important;
+}
+
+.mobile-quit-btn {
+  font-size: 0.8rem !important;
+  padding: 0.5rem !important;
 }
 
 /* Responzivní úpravy */
