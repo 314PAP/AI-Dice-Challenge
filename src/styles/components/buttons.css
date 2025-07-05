@@ -172,3 +172,88 @@
   color: var(--neon-pink) !important;
   box-shadow: var(--glow-md) var(--neon-pink) !important;
 }
+
+/* Barevné neonové tlačítka - napojení na neon-effects.css třídy */
+.btn-neon.neon-green {
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  box-shadow: var(--glow-sm) var(--neon-green) !important;
+}
+
+.btn-neon.neon-green:hover {
+  background-color: rgba(57, 255, 20, 0.1) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  box-shadow: var(--glow-md) var(--neon-green) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-neon.neon-blue {
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: var(--glow-sm) var(--neon-blue) !important;
+}
+
+.btn-neon.neon-blue:hover {
+  background-color: rgba(25, 77, 209, 0.1) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: var(--glow-md) var(--neon-blue) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-neon.neon-orange {
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
+  box-shadow: var(--glow-sm) var(--neon-orange) !important;
+}
+
+.btn-neon.neon-orange:hover {
+  background-color: rgba(255, 165, 0, 0.1) !important;
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
+  box-shadow: var(--glow-md) var(--neon-orange) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-neon.neon-pink {
+  border-color: var(--neon-pink) !important;
+  color: var(--neon-pink) !important;
+  box-shadow: var(--glow-sm) var(--neon-pink) !important;
+}
+
+.btn-neon.neon-pink:hover {
+  background-color: rgba(255, 0, 255, 0.1) !important;
+  border-color: var(--neon-pink) !important;
+  color: var(--neon-pink) !important;
+  box-shadow: var(--glow-md) var(--neon-pink) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-neon.neon-red {
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
+  box-shadow: var(--glow-sm) var(--neon-red) !important;
+}
+
+.btn-neon.neon-red:hover {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
+  box-shadow: var(--glow-md) var(--neon-red) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-neon.neon-yellow {
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  box-shadow: var(--glow-sm) var(--neon-yellow) !important;
+}
+
+.btn-neon.neon-yellow:hover {
+  background-color: rgba(255, 255, 0, 0.1) !important;
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  box-shadow: var(--glow-md) var(--neon-yellow) !important;
+  transform: translateY(-2px) !important;
+}
