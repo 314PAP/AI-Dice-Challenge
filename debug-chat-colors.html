@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Chat Barev</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Načtení CSS v stejném pořadí jako v hlavní aplikaci -->
+    <link rel="stylesheet" href="/src/styles/main-optimized.css">
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
+    <link rel="stylesheet" href="/src/styles/variables/sizes.css">
+    <link rel="stylesheet" href="/src/styles/variables/animations.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    <link rel="stylesheet" href="/src/styles/components/game-menu.css">
+    <link rel="stylesheet" href="/src/styles/components/game-controls.css">
+    <link rel="stylesheet" href="/src/styles/components/chat.css">
+    <link rel="stylesheet" href="/src/styles/components/modals.css">
+    <link rel="stylesheet" href="/src/styles/utils/minimalist-layout.css">
+    <link rel="stylesheet" href="/src/styles/utils/neon-bootstrap-utilities.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            padding: 20px;
+        }
+        .debug-section {
+            border: 2px solid #39ff14;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .color-test {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #333;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .computed-styles {
+            font-family: monospace;
+            font-size: 12px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center" style="color: #39ff14; text-shadow: 0 0 10px #39ff14;">🔍 Debug Chat Barev</h1>
+        
+        <div class="debug-section">
+            <h3 style="color: #39ff14;">1. Test barevných tříd</h3>
+            <div class="color-test">
+                <strong class="neon-yellow">Test neon-yellow:</strong> <span class="neon-yellow">Toto by mělo být žluté</span>
+            </div>
+            <div class="color-test">
+                <strong class="neon-green">Test neon-green:</strong> <span class="neon-green">Toto by mělo být zelené</span>
+            </div>
+            <div class="color-test">
+                <strong class="neon-blue">Test neon-blue:</strong> <span class="neon-blue">Toto by mělo být modré</span>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h3 style="color: #39ff14;">2. Test chat zpráv</h3>
+            <div class="chat-message color-test">
+                <strong class="neon-yellow">Systém:</strong> <span class="neon-yellow">Toto by mělo být žluté</span>
+            </div>
+            <div class="chat-message color-test">
+                <strong class="neon-green">Lidský hráč:</strong> <span class="neon-green">Toto by mělo být zelené</span>
+            </div>
+            <div class="chat-message color-test">
+                <strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Toto by mělo být modré</span>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h3 style="color: #39ff14;">3. CSS proměnné</h3>
+            <div class="computed-styles">
+                <div>--neon-yellow: <span id="yellowVar">načítám...</span></div>
+                <div>--neon-green: <span id="greenVar">načítám...</span></div>
+                <div>--neon-blue: <span id="blueVar">načítám...</span></div>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h3 style="color: #39ff14;">4. Skutečný chat</h3>
+            <div style="width: 300px; height: 200px; margin: 20px auto;">
+                <div class="chat-container bg-dark-90 rounded-3 d-flex flex-column">
+                    <div class="chat-messages flex-grow-1 p-2">
+                        <div class="chat-message mb-2">
+                            <strong class="neon-yellow">Systém:</strong> <span class="neon-yellow">Vítejte v AI Kostkové Výzvě!</span>
+                        </div>
+                        <div class="chat-message mb-2">
+                            <strong class="neon-blue">Gemini:</strong> <span class="neon-blue">Připraven na hru?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h3 style="color: #39ff14;">5. Computed styles</h3>
+            <div id="computedStyles" class="computed-styles">
+                Načítám...
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Načtení CSS proměnných
+            const root = document.documentElement;
+            const styles = getComputedStyle(root);
+            
+            document.getElementById('yellowVar').textContent = styles.getPropertyValue('--neon-yellow');
+            document.getElementById('greenVar').textContent = styles.getPropertyValue('--neon-green');
+            document.getElementById('blueVar').textContent = styles.getPropertyValue('--neon-blue');
+            
+            // Analýza computed styles pro neon-yellow třídu
+            const yellowElement = document.querySelector('.neon-yellow');
+            if (yellowElement) {
+                const computedStyles = getComputedStyle(yellowElement);
+                const computedDiv = document.getElementById('computedStyles');
+                computedDiv.innerHTML = `
+                    <div>Computed color: ${computedStyles.color}</div>
+                    <div>Computed text-shadow: ${computedStyles.textShadow}</div>
+                    <div>CSS proměnná --neon-yellow: ${styles.getPropertyValue('--neon-yellow')}</div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
