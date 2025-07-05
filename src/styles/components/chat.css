@@ -67,7 +67,7 @@
   margin-top: auto; /* Bootstrap-first: zajistí umístění na spodek */
 }
 
-/* Chat input - Bootstrap-first bez !important */
+/* Chat input - Bootstrap-first bez borderu */
 .form-control-neon-chat {
   --bs-border-color: transparent;
   --bs-focus-ring-color: transparent;
@@ -78,6 +78,10 @@
   --bs-form-control-focus-color: var(--neon-green);
   --bs-form-control-focus-border-color: transparent;
   --bs-form-control-focus-box-shadow: none;
+  
+  /* Bootstrap-first: explicitní odstranění borderu */
+  border: none !important;
+  outline: none !important;
 }
 
 .form-control-neon-chat::placeholder {
