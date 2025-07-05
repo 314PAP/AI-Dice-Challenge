@@ -524,26 +524,6 @@
 
 /* Chat zprávy - odstraněno duplicitní definice - používat neon-effects.css */
 
-.chat-message .neon-green {
-  color: var(--neon-green);
-  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
-}
-
-.chat-message .neon-blue {
-  color: var(--neon-blue);
-  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
-}
-
-.chat-message .neon-pink {
-  color: var(--neon-pink);
-  text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
-}
-
-.chat-message .neon-orange {
-  color: var(--neon-orange);
-  text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange);
-}
-
 /* Oprava vzhledu chat inputu pro minimalističtější vzhled */
 .chat-input .input-group {
   border: none !important;
@@ -660,18 +640,6 @@
   }
   
   /* Odstraněno - duplicitní definice chat barev, používat neon-effects.css */
-  
-  /* Uživatelské zprávy */
-  .chat-message .neon-green {
-    color: #39ff14;
-    text-shadow: 0 0 5px rgba(57, 255, 20, 0.6);
-  }
-  
-  /* AI zprávy */
-  .chat-message .neon-blue {
-    color: #194DD1;
-    text-shadow: 0 0 5px rgba(25, 77, 209, 0.6);
-  }
   
   /* Vstupní pole */
   #chatInputMobile {
