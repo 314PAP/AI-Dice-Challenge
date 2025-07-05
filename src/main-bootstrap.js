@@ -593,7 +593,7 @@ function simulateAiResponse() {
                     
                     // Přidání indikátoru psaní před každou odpovědí
                     if (index === 0) {
-                        addChatMessageBootstrap('AI', 'Přemýšlím...', 'system');
+                        addChatMessageBootstrap('AI', 'Přemýšlím...', 'ai', 'neon-blue');
                         
                         setTimeout(() => {
                             // Odebereme indikátor psaní
