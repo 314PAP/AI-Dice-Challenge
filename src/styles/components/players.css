@@ -10,14 +10,12 @@
 .player {
   min-width: 120px;
   max-width: 150px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid var(--neon-green);
+  background: var(--black-bg) !important;
   border-radius: 8px;
   padding: 1rem;
   margin: 0.5rem;
   transition: all 0.3s ease;
-  color: var(--neon-green);
-  box-shadow: var(--glow-sm) var(--neon-green);
+  text-align: center;
 }
 
 .player-head {
@@ -26,12 +24,11 @@
 }
 
 .player-head img {
-  width: 60px;
-  height: 60px;
+  background: transparent !important;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid var(--neon-green);
-  box-shadow: var(--glow-md) var(--neon-green);
+  width: 60px;
+  height: 60px;
 }
 
 .player-name {
@@ -262,4 +259,53 @@
   .player-score {
     font-size: 1.2rem;
   }
+}
+
+/* Oprava základních stylů - černé pozadí místo šedého */
+.player {
+  background: var(--black-bg) !important;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.5rem;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+/* Oprava avatarů - kulaté bez šedého pozadí */
+.player-head img {
+  background: transparent !important;
+  object-fit: cover;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+/* Odstranění všech šedých rámečků a pozadí */
+.turn-info,
+.current-turn-score,
+.target-info {
+  background: transparent !important;
+  border: none !important;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.turn-info {
+  color: var(--neon-green) !important;
+  text-shadow: var(--glow-sm) var(--neon-green);
+}
+
+.current-turn-score {
+  color: var(--neon-blue) !important;
+  text-shadow: var(--glow-sm) var(--neon-blue);
+}
+
+.target-info {
+  color: var(--neon-pink) !important;
+  text-shadow: var(--glow-sm) var(--neon-pink);
 }
