@@ -67,22 +67,21 @@
   margin-top: auto; /* Bootstrap-first: zajistí umístění na spodek */
 }
 
-.chat-input .form-control {
-  background-color: rgba(0, 0, 0, 0.6);
-  border: none !important; /* Žádný border */
-  color: var(--neon-green) !important; /* Zelený text */
-  box-shadow: none !important;
+/* Chat input - Bootstrap-first bez !important */
+.form-control-neon-chat {
+  --bs-border-color: transparent;
+  --bs-focus-ring-color: transparent;
+  --bs-form-control-bg: rgba(0, 0, 0, 0.6);
+  --bs-form-control-color: var(--neon-green);
+  --bs-form-control-border-color: transparent;
+  --bs-form-control-focus-bg: rgba(0, 0, 0, 0.6);
+  --bs-form-control-focus-color: var(--neon-green);
+  --bs-form-control-focus-border-color: transparent;
+  --bs-form-control-focus-box-shadow: none;
 }
 
-.chat-input .form-control:focus {
-  box-shadow: none !important; /* Žádný focus efekt */
-  border: none !important; /* Žádný focus border */
-  outline: none !important;
-  color: var(--neon-green) !important; /* Zelený text i při focus */
-}
-
-.chat-input .form-control::placeholder {
-  color: rgba(57, 255, 20, 0.4); /* Zelený placeholder s transparentností */
+.form-control-neon-chat::placeholder {
+  color: rgba(57, 255, 20, 0.4);
 }
 
 /* Odesílací tlačítko */
@@ -175,33 +174,34 @@
   }
 }
 
-/* Chat send button style - Bootstrap-first s animací zvětšení */
-.chat-send-btn {
-  color: var(--neon-green) !important;
-  font-size: 1.25rem !important;
-  background: transparent !important;
-  border: none !important;
+/* Chat send button style - Bootstrap-first bez !important */
+.btn-neon-chat {
+  --bs-btn-color: var(--neon-green);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-color: var(--neon-green);
+  --bs-btn-hover-bg: transparent;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-focus-shadow-rgb: 0, 0, 0;
+  --bs-btn-active-color: var(--neon-green);
+  --bs-btn-active-bg: transparent;
+  --bs-btn-active-border-color: transparent;
+  
+  font-size: 1.25rem;
   transition: transform 0.2s ease-in-out;
 }
 
-.chat-send-btn:hover {
-  background: transparent !important;
-  border: none !important;
-  color: var(--neon-green) !important;
+.btn-neon-chat:hover {
   transform: scale(1.15);
 }
 
-.chat-send-btn:focus,
-.chat-send-btn:active {
-  background: transparent !important;
-  border: none !important;
-  color: var(--neon-green) !important;
-  box-shadow: none !important;
+.btn-neon-chat:focus,
+.btn-neon-chat:active {
   transform: scale(1.1);
 }
 
 /* Chat send button ikona - plynulá animace */
-.chat-send-btn i {
-  color: var(--neon-green) !important;
+.btn-neon-chat i {
+  color: var(--neon-green);
   transition: transform 0.2s ease-in-out;
 }
