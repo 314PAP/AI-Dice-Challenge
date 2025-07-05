@@ -175,21 +175,20 @@
   }
 }
 
-/* Chat send button style - Bootstrap-first s neonovým efektem */
+/* Chat send button style - Bootstrap-first s animací zvětšení */
 .chat-send-btn {
   color: var(--neon-green) !important;
   font-size: 1.25rem !important;
   background: transparent !important;
   border: none !important;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease-in-out;
 }
 
 .chat-send-btn:hover {
   background: transparent !important;
   border: none !important;
   color: var(--neon-green) !important;
-  text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
-  transform: scale(1.05);
+  transform: scale(1.15);
 }
 
 .chat-send-btn:focus,
@@ -198,15 +197,11 @@
   border: none !important;
   color: var(--neon-green) !important;
   box-shadow: none !important;
+  transform: scale(1.1);
 }
 
-/* Chat send button ikona - neonový efekt */
+/* Chat send button ikona - plynulá animace */
 .chat-send-btn i {
   color: var(--neon-green) !important;
-  transition: all 0.3s ease;
-}
-
-.chat-send-btn:hover i {
-  color: var(--neon-green) !important;
-  filter: drop-shadow(0 0 5px var(--neon-green)) drop-shadow(0 0 10px var(--neon-green));
+  transition: transform 0.2s ease-in-out;
 }
