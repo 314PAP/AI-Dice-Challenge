@@ -85,35 +85,16 @@
   color: rgba(57, 255, 20, 0.4); /* Zelený placeholder s transparentností */
 }
 
-/* Odesílací tlačítko - Bootstrap-first styling */
+/* Odesílací tlačítko */
 .chat-input button {
-  background: transparent !important;
-  border: none !important;
-  color: var(--neon-green) !important;
-  transition: all 0.3s ease !important; /* Bootstrap-first transition */
+  background: transparent;
+  border: none;
+  color: var(--neon-green);
 }
 
 .chat-input button:hover {
-  background: transparent !important; /* Žádné bílé pozadí */
-  border: none !important;
-  color: var(--neon-green) !important;
-  text-shadow: 0 0 8px var(--neon-green) !important; /* Jemný glow efekt */
-  transform: scale(1.05) !important; /* Jemné zvětšení */
-}
-
-.chat-input button:focus {
-  background: transparent !important; /* Žádné bílé pozadí při focus */
-  border: none !important;
-  color: var(--neon-green) !important;
-  box-shadow: none !important; /* Žádný Bootstrap focus ring */
-  outline: none !important;
-}
-
-.chat-input button:active {
-  background: transparent !important; /* Žádné bílé pozadí při kliknutí */
-  border: none !important;
-  color: var(--neon-green) !important;
-  transform: scale(0.95) !important; /* Jemné zmenšení při kliknutí */
+  color: var(--neon-green);
+  text-shadow: var(--neon-green-shadow);
 }
 
 .chat-input button i {
@@ -194,34 +175,8 @@
   }
 }
 
-/* Chat send button style - Bootstrap-first hover efekty */
+/* Chat send button style */
 .chat-send-btn {
   color: var(--neon-green) !important;
   font-size: 1.25rem !important;
-  background: transparent !important;
-  border: none !important;
-  transition: all 0.3s ease !important;
-}
-
-.chat-send-btn:hover {
-  color: var(--neon-green) !important;
-  background: transparent !important; /* Žádný bílý čtverec */
-  border: none !important;
-  text-shadow: 0 0 8px var(--neon-green) !important; /* Jemný glow */
-  transform: scale(1.1) !important; /* Jemné zvětšení */
-}
-
-.chat-send-btn:focus {
-  color: var(--neon-green) !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important; /* Žádný Bootstrap focus ring */
-  outline: none !important;
-}
-
-.chat-send-btn:active {
-  color: var(--neon-green) !important;
-  background: transparent !important;
-  border: none !important;
-  transform: scale(0.95) !important; /* Jemné zmenšení při kliknutí */
 }
