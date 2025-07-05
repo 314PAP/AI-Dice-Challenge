@@ -17,10 +17,9 @@
 @import './components/neon-effects.css';
 
 /* 🎲 NEZBYTNÉ HERNÍ KOMPONENTY */
-@import './components/dice/neon-dice.css';
+@import './components/dice.css';
 @import './components/game/farkle-bootstrap.css';
-@import './components/players/avatars.css';
-@import './components/players/player-cards.css';
+@import './components/players.css';
 @import './components/game/neon-enhanced.css';
 @import './components/chat.css';
 @import './components/bootstrap-responsive.css';
