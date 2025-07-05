@@ -213,6 +213,8 @@
 @media (max-width: 767.98px) and (orientation: landscape) {
   .mobile-landscape-flex-row {
     flex-direction: row !important;
+    gap: 1rem;
+    padding: 0.5rem;
   }
   
   .h-landscape-100 {
@@ -221,6 +223,16 @@
   
   .mb-landscape-0 {
     margin-bottom: 0 !important;
+  }
+  
+  /* V landscape modu zajistit boční mezery */
+  .h-20, .h-75 {
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+  }
+  
+  .h-20:last-child {
+    margin-right: 0;
   }
 }
 
