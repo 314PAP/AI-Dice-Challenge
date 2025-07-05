@@ -157,7 +157,7 @@ input#targetScoreInputMobile {
   text-decoration: none !important;
 }
 
-/* Mobilní responzivní velikosti - Bootstrap breakpointy */
+/* Responzivní velikosti - Bootstrap breakpointy */
 @media (max-width: 767.98px) {
   .score-arrow {
     width: 16px;
@@ -165,12 +165,9 @@ input#targetScoreInputMobile {
     font-size: 7px;
   }
   
-  .score-arrow i {
-    font-size: 7px !important;
-  }
-  
+  /* Větší padding od kraje na mobilu */
   .score-arrows {
-    right: 2px;
+    right: 6px;
   }
 }
 
@@ -182,8 +179,9 @@ input#targetScoreInputMobile {
     font-size: 6px;
   }
   
-  .score-arrow i {
-    font-size: 6px !important;
+  /* Ještě větší padding na velmi malých zařízeních */
+  .score-arrows {
+    right: 8px;
   }
 }
 
