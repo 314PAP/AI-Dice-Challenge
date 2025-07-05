@@ -69,20 +69,20 @@
 
 .chat-input .form-control {
   background-color: rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Neutrální šedý border místo zeleného */
-  color: var(--neon-green) !important;
+  border: none !important; /* Žádný border */
+  color: var(--neon-green) !important; /* Zelený text */
   box-shadow: none !important;
 }
 
 .chat-input .form-control:focus {
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important; /* Neutrální glow místo zeleného */
-  border: 1px solid rgba(255, 255, 255, 0.4) !important; /* Neutrální focus border */
+  box-shadow: none !important; /* Žádný focus efekt */
+  border: none !important; /* Žádný focus border */
   outline: none !important;
-  color: var(--neon-green) !important;
+  color: var(--neon-green) !important; /* Zelený text i při focus */
 }
 
 .chat-input .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.4); /* Neutrální placeholder místo zeleného */
+  color: rgba(57, 255, 20, 0.4); /* Zelený placeholder s transparentností */
 }
 
 /* Odesílací tlačítko */
