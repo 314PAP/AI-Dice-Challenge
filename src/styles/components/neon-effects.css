@@ -41,7 +41,8 @@
 .neon-yellow {
   --neon-color: var(--neon-yellow);
   --neon-glow: var(--neon-yellow-glow);
-  color: var(--neon-yellow);
+  color: var(--neon-yellow) !important;
+  text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow) !important;
 }
 
 /* Neonové tlačítka */

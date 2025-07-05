@@ -112,10 +112,7 @@
   text-shadow: 0 0 5px var(--neon-pink);
 }
 
-.chat-message .neon-yellow {
-  color: var(--neon-yellow);
-  text-shadow: 0 0 5px var(--neon-yellow);
-}
+/* Odstraněno - definice přesunuta do neon-effects.css */
 
 /* Responzivní úpravy */
 @media (max-width: 767.98px) {
