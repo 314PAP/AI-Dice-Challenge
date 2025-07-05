@@ -340,16 +340,40 @@
   }
 }
 
-/* Menu tlačítka utility třídy */
+/* Menu tlačítka utility třídy - progresivní zvětšování */
 .menu-btn-uniform {
-  width: 250px !important; /* Větší šířka pro pohodlné zobrazení nejdelšího textu */
-  min-width: 250px !important;
-  max-width: 250px !important;
+  width: 320px !important; /* XXL Desktop - nejvetší šířka */
+  min-width: 320px !important;
+  max-width: 320px !important;
+}
+
+@media (max-width: 1399.98px) {
+  .menu-btn-uniform {
+    width: 300px !important; /* XL Desktop - velká šířka */
+    min-width: 300px !important;
+    max-width: 300px !important;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .menu-btn-uniform {
+    width: 280px !important; /* LG Desktop - střední šířka */
+    min-width: 280px !important;
+    max-width: 280px !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .menu-btn-uniform {
+    width: 250px !important; /* MD Desktop - základní šířka */
+    min-width: 250px !important;
+    max-width: 250px !important;
+  }
 }
 
 @media (max-width: 767.98px) {
   .menu-btn-uniform {
-    width: 220px !important; /* Tablet - dostatečná šířka */
+    width: 220px !important; /* SM Tablet - zmenšená šířka */
     min-width: 220px !important;
     max-width: 220px !important;
   }
@@ -357,8 +381,27 @@
 
 @media (max-width: 575.98px) {
   .menu-btn-uniform {
-    width: 190px !important; /* Mobil - optimální šířka */
+    width: 190px !important; /* XS Mobil - nejmenší šířka */
     min-width: 190px !important;
     max-width: 190px !important;
+  }
+}
+
+/* Progresivní font-size pro menu tlačítka */
+@media (min-width: 992px) {
+  .menu-btn-uniform {
+    font-size: 1.1rem !important; /* LG+ Desktop - větší font */
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-btn-uniform {
+    font-size: 1.2rem !important; /* XL+ Desktop - ještě větší font */
+  }
+}
+
+@media (min-width: 1400px) {
+  .menu-btn-uniform {
+    font-size: 1.3rem !important; /* XXL Desktop - největší font */
   }
 }
