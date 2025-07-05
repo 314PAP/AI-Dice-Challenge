@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <!-- Načtení hlavičky z komponenty -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎲 AI Kostková Výzva</title>
@@ -22,22 +21,15 @@
     <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
     <link rel="stylesheet" href="node_modules/aos/dist/aos.css">
     
-    <!-- CSS importy - hlavní optimalizovaný CSS obsahuje všechny potřebné importy -->
-    <link rel="stylesheet" href="/src/styles/main-optimized.css">
+    <!-- POUZE BOOTSTRAP RESPONSIVE CSS -->
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
     
-    <!-- Proměnné -->
-    <link rel="stylesheet" href="/src/styles/variables/colors.css">
-    <link rel="stylesheet" href="/src/styles/variables/sizes.css">
-    <link rel="stylesheet" href="/src/styles/variables/animations.css">
-    
-    <!-- Komponenty -->
-    <link rel="stylesheet" href="/src/styles/components/game-menu.css">
-    <link rel="stylesheet" href="/src/styles/components/game-controls.css">
-    <link rel="stylesheet" href="/src/styles/components/modals.css">
-    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
-    <link rel="stylesheet" href="/src/styles/components/super-responsive-layout.css">
-    
-    <!-- Utility styly - naposledy pro override -->
+    <style>
+        /* Jen ty nejzákladnější styly pro testování */
+        .vh-90 { height: 90vh !important; }
+        .vw-90 { width: 90vw !important; }
+        .hidden { display: none !important; }
+    </style>
 </head>
 <body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden">
     <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->
@@ -86,7 +78,7 @@
                 <!-- Zde se načte mobilní herní menu -->
                 <div id="gameMobileContent" class="h-100"></div>
                 <!-- Mobilní herní ovládání (načte se sem při spuštění hry) -->
-                <div id="gameControlsMobile" class="hidden h-100"></div>
+                <div id="gameControlsMobile" class="hidden h-100 d-flex flex-column"></div>
             </div>
             
             <!-- Druhá část - chat -->
@@ -106,16 +98,6 @@
     <!-- Main Application Script -->
     <script type="module" src="/src/main-bootstrap.js"></script>
     
-    <!-- Test script pro ověření funkčnosti - VYPNUTO -->
-    <!-- <script type="module" src="/test-maincontroller.js"></script> -->
-    
-    <!-- Finální oprava aplikace - VYPNUTO -->
-    <!-- <script src="/final-fix.js"></script> -->
-    
-    <!-- Testovací skripty - ZAKOMENTOVÁNO pro production -->
-    <!-- <script type="module" src="/test-menu-final.js"></script> -->
-    <!-- <script src="/debug-menu.js"></script> -->
-    
     <!-- Inicializace animací -->
     <script>
         // Inicializace AOS
@@ -126,46 +108,8 @@
                 easing: 'ease-in-out',
                 once: false,
                 mirror: true,
-                anchorPlacement: 'top-bottom',
-                startEvent: 'load'
+                anchorPlacement: 'top-bottom'
             });
-            
-            // Odstranění pulzujících animací pro lepší ladění
-            const removePulseAnimations = () => {
-                // Odstranění pulzování z chat boxů
-                const chatBoxes = document.querySelectorAll('.chat-box');
-                chatBoxes.forEach(box => {
-                    box.classList.remove('animate__pulse', 'animate__slow', 'animate__infinite');
-                });
-                
-                // Odstranění pulzování z neonových nadpisů
-                const neonTexts = document.querySelectorAll('.neon-text');
-                neonTexts.forEach(text => {
-                    text.classList.remove('animate__pulse', 'animate__slower', 'animate__infinite');
-                });
-            };
-            
-            // Okamžité odstranění pulzujících animací
-            removePulseAnimations();
-            
-            // Detekce velikosti zařízení a přizpůsobení
-            const detectDeviceSize = () => {
-                const width = window.innerWidth;
-                const height = window.innerHeight;
-                
-                // Aplikace speciálních tříd podle velikosti zařízení
-                document.body.classList.toggle('xs-device', width < 320 || height < 480);
-                document.body.classList.toggle('sm-device', width < 576);
-                document.body.classList.toggle('landscape', width > height);
-                
-                console.log(`Detekce zařízení: ${width}x${height}`);
-            };
-            
-            // První detekce
-            detectDeviceSize();
-            
-            // Přidání listeneru na změnu velikosti okna
-            window.addEventListener('resize', detectDeviceSize);
         });
     </script>
 </body>
