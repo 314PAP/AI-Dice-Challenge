@@ -295,16 +295,19 @@ function handleWindowResize() {
 function ensureElementsVisibility() {
     // Zajištění viditelnosti tlačítek
     document.querySelectorAll('.btn').forEach(btn => {
-        btn.style.visibility = 'visible';
-        btn.style.opacity = '1';
+        btn.classList.add('make-visible');
     });
     
     // Zajištění viditelnosti chatů
     document.querySelectorAll('#chatMessagesMobile, #chatMessages').forEach(element => {
         if (element) {
-            element.style.minHeight = window.innerHeight < 480 ? '60px' : '100px';
-            element.style.visibility = 'visible';
-            element.style.opacity = '1';
+            // Používáme CSS třídy místo inline stylů
+            element.classList.add('make-visible');
+            if (window.innerHeight < 480) {
+                element.classList.add('min-h-60');
+            } else {
+                element.classList.add('min-h-100');
+            }
             // Scroll na poslední zprávu
             element.scrollTop = element.scrollHeight;
         }
@@ -313,8 +316,7 @@ function ensureElementsVisibility() {
     // Zajištění viditelnosti vstupních polí
     document.querySelectorAll('#chatInputMobile, #chatInput').forEach(input => {
         if (input) {
-            input.style.visibility = 'visible';
-            input.style.opacity = '1';
+            input.classList.add('make-visible');
         }
     });
 }
