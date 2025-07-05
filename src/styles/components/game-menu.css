@@ -98,83 +98,23 @@ input#targetScoreInputMobile {
 }
 
 .menu-btn {
-  min-width: 200px;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  border: 2px solid currentColor !important;
-  background-color: transparent !important;
-  transition: all 0.3s ease !important;
+  border: 2px solid currentColor;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  min-width: 120px;
 }
 
 .menu-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 0 15px currentColor !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px currentColor;
 }
 
-/* Responzivní úpravy */
+/* Responzivní úpravy - pouze pro výšku obrazovky */
 @media (max-height: 700px) {
   .dice-icon {
     font-size: 1.5rem;
-  }
-  
-  .menu-btn {
-    min-width: 180px;
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
-  }
-}
-
-@media (max-width: 767.98px) {
-  .menu-btn {
-    min-width: unset;
-    width: auto;
-    min-width: 120px;
-    max-width: 90%;
-    margin: 0 auto;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    white-space: nowrap;
-  }
-  
-  .target-score-input {
-    min-width: 100px;
-    max-width: 140px;
-  }
-  
-  .target-score-input input {
-    min-width: 100px !important;
-    max-width: 140px !important;
-  }
-  
-  input#targetScoreInput,
-  input#targetScoreInputMobile {
-    min-width: 100px !important;
-    max-width: 140px !important;
-  }
-  
-  .form-control-neon {
-    font-size: 1.1rem !important;
-    padding: 0.4rem 0.6rem !important;
-  }
-}
-
-/* Velmi malé obrazovky - další zmenšení */
-@media (max-width: 575.98px) {
-  .menu-btn {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.8rem;
-    min-width: 100px;
-    max-width: 85%;
-  }
-}
-
-/* Extra malé obrazovky - minimální velikost */
-@media (max-width: 400px) {
-  .menu-btn {
-    font-size: 0.8rem;
-    padding: 0.35rem 0.7rem;
-    min-width: 90px;
-    max-width: 80%;
   }
 }
