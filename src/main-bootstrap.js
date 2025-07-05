@@ -92,7 +92,7 @@ async function initGame() {
     // Přidání třídy pro postupné objevení (pouze fadeIn, bez pulse)
     document.querySelectorAll('.btn').forEach((btn, index) => {
         btn.classList.add('animate__animated', 'animate__fadeIn');
-        btn.style.animationDelay = `${index * 0.1 + 0.5}s`;
+        btn.classList.add(`anim-delay-${index}`);
     });
     
     // Detekce změny orientace pro přizpůsobení layoutu
@@ -182,8 +182,7 @@ function adjustLayoutForOrientation() {
         // Zajištění viditelnosti chat inputu
         const chatInputs = document.querySelectorAll('.chat-input');
         chatInputs.forEach(input => {
-            input.style.visibility = 'visible';
-            input.style.opacity = '1';
+            input.classList.add('make-visible');
         });
     }, 200);
 }
@@ -275,7 +274,7 @@ function initEventListeners() {
     document.querySelectorAll('.btn').forEach((btn, index) => {
         if (!btn.classList.contains('animate__animated')) {
             btn.classList.add('animate__animated', 'animate__fadeIn');
-            btn.style.animationDelay = `${index * 0.1 + 0.5}s`;
+            btn.classList.add(`anim-delay-${index}`);
         }
     });
 }
