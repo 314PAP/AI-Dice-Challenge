@@ -107,10 +107,10 @@ input#targetScoreInputMobile {
   position: relative;
 }
 
-/* Šipky kontejner - Bootstrap-first spacing */
+/* Šipky kontejner - Bootstrap-first spacing, uvnitř input pole */
 .score-arrows {
   position: absolute;
-  right: 6px;
+  right: 3px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -119,26 +119,61 @@ input#targetScoreInputMobile {
   z-index: 2;
 }
 
-/* Šipky tlačítka - Bootstrap-first s lepšími ikonami */
+/* Šipky tlačítka - Bootstrap-first s responzivními velikostmi */
 .score-arrow {
-  width: 24px;
-  height: 16px;
-  background-color: var(--neon-green);
+  /* Desktop velikosti */
+  width: 20px;
+  height: 14px;
+  font-size: 9px;
+  
+  /* Chrome fix - explicitní barvy s vysokou specificitou */
+  background-color: #39ff14 !important;
+  color: #000000 !important;
+  
   border: none;
-  border-radius: 3px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
   padding: 0;
-  font-size: 10px;
-  color: #000000 !important;
   font-weight: 900;
+  line-height: 1;
+}
+
+/* Mobilní responzivní velikosti - Bootstrap breakpointy */
+@media (max-width: 767.98px) {
+  .score-arrow {
+    width: 16px;
+    height: 11px;
+    font-size: 7px;
+  }
+  
+  .score-arrow i {
+    font-size: 7px !important;
+  }
+  
+  .score-arrows {
+    right: 2px;
+  }
+}
+
+/* Velmi malé obrazovky */
+@media (max-width: 480px) {
+  .score-arrow {
+    width: 14px;
+    height: 10px;
+    font-size: 6px;
+  }
+  
+  .score-arrow i {
+    font-size: 6px !important;
+  }
 }
 
 .score-arrow:hover {
-  background-color: var(--neon-green);
+  background-color: #39ff14 !important;
   filter: brightness(1.3);
   transform: scale(1.15);
 }
@@ -147,21 +182,35 @@ input#targetScoreInputMobile {
   transform: scale(0.9);
 }
 
-/* Šipky ikony - Bootstrap-first s lepším kontrastem */
+/* Šipky ikony - Chrome fix s vysokou specificitou */
 .score-arrow i {
-  font-size: 10px;
+  font-size: 9px !important;
   color: #000000 !important;
   line-height: 1;
   font-weight: 900;
+  display: block;
 }
 
-/* Unicode šipky jako fallback */
+/* Unicode šipky jako fallback s explicitními barvami */
 .score-arrow::before {
-  font-family: Arial, sans-serif;
-  font-weight: 900;
-  font-size: 10px;
-  color: #000000;
+  font-family: Arial, sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 9px !important;
+  color: #000000 !important;
   line-height: 1;
+  display: block;
+}
+
+@media (max-width: 767.98px) {
+  .score-arrow::before {
+    font-size: 7px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .score-arrow::before {
+    font-size: 6px !important;
+  }
 }
 
 .score-arrow.arrow-up::before {
@@ -174,7 +223,7 @@ input#targetScoreInputMobile {
 
 /* Skrýt ikonu pokud použijeme unicode */
 .score-arrow.use-unicode i {
-  display: none;
+  display: none !important;
 }
 
 /* Tlačítka v menu */
@@ -203,5 +252,67 @@ input#targetScoreInputMobile {
 @media (max-height: 700px) {
   .dice-icon {
     font-size: 1.5rem;
+  }
+}
+
+/* =================================================================
+   🚨 CHROME FIX - Explicitní barvy pro Chrome compatibility
+   ================================================================= */
+
+/* Chrome sometimes doesn't apply CSS custom properties correctly */
+/* Fallback colors for Chrome browser */
+@supports (-webkit-appearance: none) {
+  /* Neonové třídy s explicitními barvami pro Chrome */
+  .neon-blue {
+    color: #194DD1 !important;
+    text-shadow: 0 0 5px #194DD1 !important;
+  }
+  
+  .neon-green {
+    color: #39ff14 !important;
+    text-shadow: 0 0 5px #39ff14 !important;
+  }
+  
+  .neon-orange {
+    color: #FF8800 !important;
+    text-shadow: 0 0 5px #FF8800 !important;
+  }
+  
+  .neon-pink {
+    color: #FF00FF !important;
+    text-shadow: 0 0 5px #FF00FF !important;
+  }
+  
+  .neon-red {
+    color: #ff3131 !important;
+    text-shadow: 0 0 5px #ff3131 !important;
+  }
+  
+  .neon-yellow {
+    color: #ffff00 !important;
+    text-shadow: 0 0 5px #ffff00 !important;
+  }
+  
+  /* Bootstrap neon button fix pro Chrome */
+  .btn-neon.neon-blue {
+    border-color: #194DD1 !important;
+    color: #194DD1 !important;
+  }
+  
+  .btn-neon.neon-blue:hover {
+    background-color: #194DD1 !important;
+    border-color: #194DD1 !important;
+    box-shadow: 0 0 15px #194DD1 !important;
+  }
+  
+  .btn-neon.neon-green {
+    border-color: #39ff14 !important;
+    color: #39ff14 !important;
+  }
+  
+  .btn-neon.neon-green:hover {
+    background-color: #39ff14 !important;
+    border-color: #39ff14 !important;
+    box-shadow: 0 0 15px #39ff14 !important;
   }
 }
