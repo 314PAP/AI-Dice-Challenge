@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Opravené Target Score Šipky</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Game styles -->
+    <link rel="stylesheet" href="src/styles/variables/colors.css">
+    <link rel="stylesheet" href="src/styles/components/game-menu.css">
+    
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .test-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #333;
+            border-radius: 0.5rem;
+        }
+        
+        .test-title {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+        
+        .problem-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-item {
+            padding: 1rem;
+            border: 1px solid #444;
+            border-radius: 0.5rem;
+        }
+        
+        .problem-item h5 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .problem-item.fixed h5 {
+            color: var(--neon-green);
+        }
+        
+        .problem-item.problem h5 {
+            color: var(--neon-red);
+        }
+        
+        .demo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .demo-item {
+            text-align: center;
+        }
+        
+        .demo-item h6 {
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+        }
+        
+        /* Debugging border pro kontrolu pozice */
+        .debug-border .target-score-input {
+            border: 1px dashed #666;
+        }
+        
+        .neon-text-demo {
+            margin: 1rem 0;
+        }
+        
+        .color-test {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border: 1px solid currentColor;
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="text-center text-success mb-4">Test Opravené Target Score Šipky</h1>
+        
+        <div class="test-section">
+            <h3 class="test-title">🔧 Opravené problémy</h3>
+            
+            <div class="problem-list">
+                <div class="problem-item fixed">
+                    <h5>✅ Desktop šipky uvnitř</h5>
+                    <ul class="text-muted small">
+                        <li>right: 3px (místo 6px)</li>
+                        <li>Šipky uvnitř rámečku</li>
+                        <li>Menší velikost 20x14px</li>
+                    </ul>
+                </div>
+                
+                <div class="problem-item fixed">
+                    <h5>✅ Responzivní mobilní</h5>
+                    <ul class="text-muted small">
+                        <li>Tablet: 16x11px</li>
+                        <li>Mobil: 14x10px</li>
+                        <li>Bootstrap breakpointy</li>
+                    </ul>
+                </div>
+                
+                <div class="problem-item fixed">
+                    <h5>✅ Chrome fix - černé šipky</h5>
+                    <ul class="text-muted small">
+                        <li>Explicitní #000000 !important</li>
+                        <li>Vysoká CSS specificity</li>
+                        <li>Unicode fallback</li>
+                    </ul>
+                </div>
+                
+                <div class="problem-item fixed">
+                    <h5>✅ Chrome fix - správná modrá</h5>
+                    <ul class="text-muted small">
+                        <li>@supports (-webkit-appearance)</li>
+                        <li>Explicitní #194DD1</li>
+                        <li>Fallback pro CSS custom properties</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="test-title">🎨 Test neonových barev v Chrome</h3>
+            
+            <div class="neon-text-demo">
+                <span class="color-test neon-green">Zelená #39ff14</span>
+                <span class="color-test neon-blue">Modrá #194DD1</span>
+                <span class="color-test neon-orange">Oranžová #FF8800</span>
+                <span class="color-test neon-pink">Růžová #FF00FF</span>
+                <span class="color-test neon-red">Červená #ff3131</span>
+                <span class="color-test neon-yellow">Žlutá #ffff00</span>
+            </div>
+            
+            <p class="text-muted small">
+                V Chrome by měly být barvy stejné jako v jiných prohlížečích (ne modrofialoné).
+            </p>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="test-title">📱 Responzivní test</h3>
+            
+            <div class="demo-container">
+                <!-- Desktop verze -->
+                <div class="demo-item">
+                    <h6>Desktop (>768px)</h6>
+                    <div class="target-score-input mx-auto" style="max-width: 280px;">
+                        <input type="number" class="form-control-neon text-center" value="10000" min="1000" step="1000">
+                        <div class="score-arrows">
+                            <button type="button" class="score-arrow arrow-up use-unicode">
+                                <i class="ri-arrow-up-s-fill"></i>
+                            </button>
+                            <button type="button" class="score-arrow arrow-down use-unicode">
+                                <i class="ri-arrow-down-s-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <small class="text-muted d-block mt-2">20x14px, font-size: 9px</small>
+                </div>
+                
+                <!-- Mobile simulace -->
+                <div class="demo-item" style="width: 350px;">
+                    <h6>Mobile Simulace (<768px)</h6>
+                    <div style="max-width: 350px; margin: 0 auto;">
+                        <div class="input-group input-group-sm w-75 mx-auto target-score-input">
+                            <input type="number" class="form-control-neon text-center" value="10000" min="1000" step="1000">
+                            <div class="score-arrows">
+                                <button type="button" class="score-arrow arrow-up use-unicode">
+                                    <i class="ri-arrow-up-s-fill"></i>
+                                </button>
+                                <button type="button" class="score-arrow arrow-down use-unicode">
+                                    <i class="ri-arrow-down-s-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted d-block mt-2">16x11px na tabletu, 14x10px na mobilu</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section debug-border">
+            <h3 class="test-title">🔍 Debug verze s rámečky</h3>
+            
+            <div class="demo-container">
+                <div class="demo-item">
+                    <h6>Kontrola pozice šipek</h6>
+                    <div class="target-score-input mx-auto" style="max-width: 280px;">
+                        <input type="number" class="form-control-neon text-center" value="10000" min="1000" step="1000">
+                        <div class="score-arrows">
+                            <button type="button" class="score-arrow arrow-up use-unicode">
+                                <i class="ri-arrow-up-s-fill"></i>
+                            </button>
+                            <button type="button" class="score-arrow arrow-down use-unicode">
+                                <i class="ri-arrow-down-s-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <small class="text-muted d-block mt-2">Čárkovaný rámeček ukazuje hranice kontejneru</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="test-title">✅ Kontrolní seznam</h3>
+            <ul class="text-success">
+                <li>✅ <strong>Desktop šipky uvnitř rámečku</strong> - right: 3px</li>
+                <li>✅ <strong>Responzivní velikosti</strong> - Bootstrap breakpointy</li>
+                <li>✅ <strong>Černé šipky v Chrome</strong> - explicitní barvy</li>
+                <li>✅ <strong>Správná modrá v Chrome</strong> - #194DD1 fallback</li>
+                <li>✅ <strong>Unicode fallback</strong> - ▲▼ pokud nefungují ikony</li>
+                <li>✅ <strong>Bootstrap-first</strong> - media queries místo vlastních</li>
+                <li>✅ <strong>Funkční JavaScript</strong> - krok 1000 bodů</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="test-title">📋 Testovací instrukce</h3>
+            <ol class="text-muted">
+                <li><strong>Chrome test:</strong> Otevřete v Google Chrome - šipky musí být černé, modrá musí být #194DD1</li>
+                <li><strong>Desktop test:</strong> Na velkých obrazovkách musí být šipky uvnitř rámečku</li>
+                <li><strong>Responzivní test:</strong> Zmenšte okno - šipky se musí zmenšit na menších obrazovkách</li>
+                <li><strong>Funkčnost:</strong> Klikněte na šipky - hodnota se musí měnit po 1000</li>
+                <li><strong>Hover test:</strong> Při hover se šipky musí zvětšit a zesvětlit</li>
+                <li><strong>Cross-browser:</strong> Testujte ve Firefox, Safari, Edge</li>
+            </ol>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Test JavaScript -->
+    <script>
+        function setupScoreArrows() {
+            const allUpBtns = document.querySelectorAll('.score-arrow.arrow-up, .score-arrow:nth-child(1)');
+            const allDownBtns = document.querySelectorAll('.score-arrow.arrow-down, .score-arrow:nth-child(2)');
+            
+            allUpBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const input = btn.closest('.target-score-input').querySelector('input');
+                    const currentValue = parseInt(input.value) || 1000;
+                    const newValue = Math.min(currentValue + 1000, 100000);
+                    input.value = newValue;
+                });
+            });
+            
+            allDownBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const input = btn.closest('.target-score-input').querySelector('input');
+                    const currentValue = parseInt(input.value) || 1000;
+                    const newValue = Math.max(currentValue - 1000, 1000);
+                    input.value = newValue;
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', setupScoreArrows);
+        
+        // Console log pro debugging
+        console.log('🎨 CSS Custom Properties test:');
+        console.log('--neon-blue:', getComputedStyle(document.documentElement).getPropertyValue('--neon-blue'));
+        console.log('--neon-green:', getComputedStyle(document.documentElement).getPropertyValue('--neon-green'));
+    </script>
+</body>
+</html>
