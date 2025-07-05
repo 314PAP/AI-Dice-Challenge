@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Test Načítání Mobilních Šablon</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS proměnné a styly -->
+    <link rel="stylesheet" href="/src/styles/base/variables.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-override.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    
+    <style>
+        .debug-box {
+            border: 2px solid var(--neon-green);
+            padding: 1rem;
+            margin: 1rem;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: var(--neon-green);
+        }
+        
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--neon-green);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 9999;
+            border: 1px solid var(--neon-green);
+        }
+    </style>
+</head>
+<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="debug-info">
+        <div>Šířka: <span id="width"></span>px</div>
+        <div>Výška: <span id="height"></span>px</div>
+        <div>Breakpoint: <span id="breakpoint"></span></div>
+        <div>Template Load: <span id="templateStatus">Loading...</span></div>
+    </div>
+    
+    <!-- Test kontejner -->
+    <div class="container-fluid p-0 vh-90 vw-90">
+        <!-- Desktop layout -->
+        <div class="d-none d-md-flex h-100">
+            <div class="debug-box">
+                <h2 class="text-neon-green">DESKTOP LAYOUT</h2>
+                <div id="desktopContent">Desktop obsah se načítá...</div>
+            </div>
+        </div>
+        
+        <!-- Mobilní layout -->
+        <div class="d-md-none h-100 mobile-landscape-flex-row">
+            <div class="debug-box">
+                <h2 class="text-neon-green">MOBILNÍ LAYOUT</h2>
+                <div id="mobileContent">Mobilní obsah se načítá...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Utility funkce pro načítání HTML šablon
+        async function loadTemplate(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Failed to load template: ${url}`);
+                }
+                return await response.text();
+            } catch (error) {
+                console.error('Error loading template:', error);
+                return `<div class="alert alert-danger">Error loading template: ${error.message}</div>`;
+            }
+        }
+        
+        // Test načítání mobilních šablon
+        async function testMobileTemplateLoading() {
+            try {
+                document.getElementById('templateStatus').textContent = 'Loading...';
+                
+                // Test načítání mobilní šablony herního menu
+                const mobileGameMenu = await loadTemplate('/src/templates/game-menu-mobile.html');
+                document.getElementById('mobileContent').innerHTML = mobileGameMenu;
+                
+                // Test načítání desktop šablony herního menu
+                const desktopGameMenu = await loadTemplate('/src/templates/game-menu.html');
+                document.getElementById('desktopContent').innerHTML = desktopGameMenu;
+                
+                document.getElementById('templateStatus').textContent = 'Loaded';
+                console.log('✅ Mobilní šablony načteny úspěšně');
+                
+            } catch (error) {
+                document.getElementById('templateStatus').textContent = 'Error';
+                console.error('❌ Chyba při načítání mobilních šablon:', error);
+            }
+        }
+        
+        function updateDebugInfo() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            document.getElementById('width').textContent = width;
+            document.getElementById('height').textContent = height;
+            
+            let breakpoint = 'xl';
+            if (width < 576) breakpoint = 'xs';
+            else if (width < 768) breakpoint = 'sm';
+            else if (width < 992) breakpoint = 'md';
+            else if (width < 1200) breakpoint = 'lg';
+            
+            document.getElementById('breakpoint').textContent = breakpoint;
+            
+            console.log(`Rozlišení: ${width}x${height}, Breakpoint: ${breakpoint}`);
+        }
+        
+        // Inicializace
+        updateDebugInfo();
+        window.addEventListener('resize', updateDebugInfo);
+        
+        // Načtení šablon při načtení stránky
+        window.addEventListener('DOMContentLoaded', testMobileTemplateLoading);
+    </script>
+</body>
+</html>
