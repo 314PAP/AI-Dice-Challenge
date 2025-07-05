@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 TEST - System zprávy žluté</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS v přesném pořadí jako v hlavní aplikaci -->
+    <link rel="stylesheet" href="/src/styles/main-optimized.css">
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
+    <link rel="stylesheet" href="/src/styles/variables/sizes.css">
+    <link rel="stylesheet" href="/src/styles/variables/animations.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    <link rel="stylesheet" href="/src/styles/components/game-menu.css">
+    <link rel="stylesheet" href="/src/styles/components/game-controls.css">
+    <link rel="stylesheet" href="/src/styles/components/chat.css">
+    <link rel="stylesheet" href="/src/styles/components/modals.css">
+    <link rel="stylesheet" href="/src/styles/utils/minimalist-layout.css">
+    <link rel="stylesheet" href="/src/styles/utils/neon-bootstrap-utilities.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/src/styles/components/super-responsive-layout.css">
+    
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            padding: 20px;
+        }
+        .test-container {
+            border: 2px solid #39ff14;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .button-test {
+            margin: 10px;
+            padding: 10px 15px;
+            background-color: #333;
+            border: 1px solid #39ff14;
+            color: #39ff14;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button-test:hover {
+            background-color: #39ff14;
+            color: black;
+        }
+        .demo-chat {
+            width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #333;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.95);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .pass {
+            border-left: 4px solid #39ff14;
+            color: #39ff14;
+        }
+        .fail {
+            border-left: 4px solid #ff3131;
+            color: #ff3131;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center" style="color: #39ff14; text-shadow: 0 0 15px #39ff14;">
+            🔧 TEST - System zprávy ŽLUTÉ
+        </h1>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🎯 Identifikace problému:</h3>
+            <div class="status pass">
+                ✅ Problém: Existovaly 2 funkce addChatMessage s různými parametry
+            </div>
+            <div class="status pass">
+                ✅ main.js: addChatMessage(sender, message, isGameEvent)
+            </div>
+            <div class="status pass">
+                ✅ main-bootstrap.js: addChatMessage(sender, message, type, customColor)
+            </div>
+            <div class="status pass">
+                ✅ Oprava: Přejmenování a správné mapování funkcí
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🧪 Interaktivní test:</h3>
+            <div class="text-center">
+                <button class="button-test" onclick="testSystemMessage()">
+                    🟡 Přidat systémovou zprávu (má být ŽLUTÁ)
+                </button>
+                <button class="button-test" onclick="testPlayerMessage()">
+                    🟢 Přidat hráčskou zprávu (má být ZELENÁ)
+                </button>
+                <button class="button-test" onclick="testAIMessage()">
+                    🔵 Přidat AI zprávu (má být MODRÁ)
+                </button>
+                <button class="button-test" onclick="clearChat()">
+                    🗑️ Vyčistit chat
+                </button>
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">💬 Demo Chat:</h3>
+            <div class="demo-chat">
+                <div class="chat-container bg-dark-90 rounded-3 d-flex flex-column h-100">
+                    <div class="chat-header d-flex justify-content-center align-items-center p-2">
+                        <h4 class="neon-text neon-green m-0">
+                            <i class="ri-message-3-line me-1"></i>TEST CHAT
+                        </h4>
+                    </div>
+                    
+                    <div class="chat-messages flex-grow-1 p-2 overflow-auto" id="testChatMessages">
+                        <div class="chat-message mb-2">
+                            <strong class="neon-yellow">Systém:</strong> 
+                            <span class="neon-yellow">Testovací systémová zpráva - měla by být ŽLUTÁ!</span>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input p-2 bg-dark-90">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control border-0 bg-black text-white" placeholder="Test zpráva..." id="testInput">
+                            <button class="btn border-0 bg-transparent" type="button" onclick="sendTestMessage()">
+                                <i class="ri-send-plane-fill" style="color: #39ff14;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">📊 Testovací výsledky:</h3>
+            <div id="testResults">
+                <div class="status">⏳ Spusťte test tlačítky výše...</div>
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🔗 Odkazy:</h3>
+            <div class="text-center">
+                <a href="http://localhost:5174" class="btn btn-outline-success me-2">
+                    <i class="ri-home-line"></i> Hlavní aplikace
+                </a>
+                <a href="http://localhost:5174/test-final-chat-fix.html" class="btn btn-outline-info">
+                    <i class="ri-test-tube-line"></i> Finální test
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Načtení JavaScriptu -->
+    <script src="/src/main-bootstrap.js"></script>
+    <script src="/src/js/main.js" type="module"></script>
+    
+    <script>
+        let testCounter = 0;
+        
+        function updateTestResults(message, isSuccess = true) {
+            const results = document.getElementById('testResults');
+            const statusClass = isSuccess ? 'pass' : 'fail';
+            const icon = isSuccess ? '✅' : '❌';
+            
+            results.innerHTML += `<div class="status ${statusClass}">${icon} ${message}</div>`;
+        }
+        
+        function testSystemMessage() {
+            testCounter++;
+            try {
+                if (typeof window.addChatMessage === 'function') {
+                    // Test volání, které dříve dělalo problémy
+                    window.addChatMessage('system', `Test systémové zprávy #${testCounter} - má být ŽLUTÁ!`);
+                    updateTestResults(`Systémová zpráva #${testCounter} přidána - zkontrolujte barvu v chatu níže`, true);
+                } else {
+                    updateTestResults('Funkce addChatMessage není dostupná', false);
+                }
+            } catch (error) {
+                updateTestResults(`Chyba při přidávání systémové zprávy: ${error.message}`, false);
+            }
+        }
+        
+        function testPlayerMessage() {
+            testCounter++;
+            try {
+                if (typeof window.addChatMessage === 'function') {
+                    window.addChatMessage('Hráč', `Test hráčské zprávy #${testCounter}`, 'player');
+                    updateTestResults(`Hráčská zpráva #${testCounter} přidána - má být ZELENÁ`, true);
+                } else {
+                    updateTestResults('Funkce addChatMessage není dostupná', false);
+                }
+            } catch (error) {
+                updateTestResults(`Chyba při přidávání hráčské zprávy: ${error.message}`, false);
+            }
+        }
+        
+        function testAIMessage() {
+            testCounter++;
+            try {
+                if (typeof window.addChatMessage === 'function') {
+                    window.addChatMessage('Gemini', `Test AI zprávy #${testCounter}`, 'ai', 'neon-blue');
+                    updateTestResults(`AI zpráva #${testCounter} přidána - má být MODRÁ`, true);
+                } else {
+                    updateTestResults('Funkce addChatMessage není dostupná', false);
+                }
+            } catch (error) {
+                updateTestResults(`Chyba při přidávání AI zprávy: ${error.message}`, false);
+            }
+        }
+        
+        function clearChat() {
+            const chatMessages = document.getElementById('chatMessages');
+            const chatMessagesMobile = document.getElementById('chatMessagesMobile');
+            
+            if (chatMessages) chatMessages.innerHTML = '';
+            if (chatMessagesMobile) chatMessagesMobile.innerHTML = '';
+            
+            document.getElementById('testResults').innerHTML = '<div class="status">🧹 Chat vyčištěn - připraven na nové testy</div>';
+            testCounter = 0;
+        }
+        
+        function sendTestMessage() {
+            const input = document.getElementById('testInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                testCounter++;
+                try {
+                    window.addChatMessage('Test Uživatel', message, 'player');
+                    updateTestResults(`Zpráva "${message}" odeslána`, true);
+                    input.value = '';
+                } catch (error) {
+                    updateTestResults(`Chyba při odesílání: ${error.message}`, false);
+                }
+            }
+        }
+        
+        // Test při načtení stránky
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                updateTestResults('Stránka načtena - funkce připraveny k testování', true);
+                
+                // Ověření dostupnosti funkcí
+                if (typeof window.addChatMessage === 'function') {
+                    updateTestResults('window.addChatMessage je dostupná', true);
+                } else {
+                    updateTestResults('window.addChatMessage NENÍ dostupná', false);
+                }
+                
+                if (typeof window.addChatMessageBootstrap === 'function') {
+                    updateTestResults('window.addChatMessageBootstrap je dostupná', true);
+                } else {
+                    updateTestResults('window.addChatMessageBootstrap NENÍ dostupná', false);
+                }
+            }, 1000);
+        });
+        
+        // Enter key support
+        document.getElementById('testInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendTestMessage();
+            }
+        });
+    </script>
+</body>
+</html>
