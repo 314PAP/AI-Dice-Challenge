@@ -71,7 +71,8 @@ async function initGame() {
     ensureChatInitialized();
     
     // Nastavení globální funkce window.addChatMessage
-    window.addChatMessage = addChatMessage;
+    // Registrujeme globální funkci
+    window.addChatMessage = window.addChatMessage || addChatMessageBootstrap;
     console.log('✅ window.addChatMessage nastaveno');
     
     // Odstranění všech pulzujících animací pro lepší ladění
@@ -411,9 +412,9 @@ function ensureChatInitialized() {
     // Pokud nejsou zprávy, přidáme uvítací zprávy
     if (mobileMessages && mobileMessages.children.length === 0) {
         // Přidání systémových zpráv
-        addChatMessage('Systém', 'Vítejte v AI Kostkové Výzvě!', 'system');
-        addChatMessage('Gemini', 'Připraven na hru?', 'ai', 'neon-blue');
-        addChatMessage('Systém', 'Můžete kdykoliv chatovat s AI protihráči. Pište do pole níže.', 'system');
+        addChatMessageBootstrap('Systém', 'Vítejte v AI Kostkové Výzvě!', 'system');
+        addChatMessageBootstrap('Gemini', 'Připraven na hru?', 'ai', 'neon-blue');
+        addChatMessageBootstrap('Systém', 'Můžete kdykoliv chatovat s AI protihráči. Pište do pole níže.', 'system');
     }
     
     // Zajištění viditelnosti pro všechny chat elementy
@@ -449,7 +450,7 @@ async function initMenuButtons() {
         if (startGameBtn) {
             startGameBtn.addEventListener('click', () => {
                 console.log('Start game requested (fallback)');
-                addChatMessage('Systém', 'Hra začíná...', 'system');
+                addChatMessageBootstrap('Systém', 'Hra začíná...', 'system');
             });
         }
         
@@ -457,7 +458,7 @@ async function initMenuButtons() {
         if (startGameBtnMobile) {
             startGameBtnMobile.addEventListener('click', () => {
                 console.log('Start game requested (mobile fallback)');
-                addChatMessage('Systém', 'Hra začíná...', 'system');
+                addChatMessageBootstrap('Systém', 'Hra začíná...', 'system');
             });
         }
     }
@@ -483,7 +484,7 @@ function sendChatMessage(inputElement, source = 'desktop') {
         inputElement.value = '';
         
         // Přidání zprávy do chatu pro demonstrační účely
-        addChatMessage('Player', message, 'player');
+        addChatMessageBootstrap('Player', message, 'player');
         
         // Načteme AI controller pro skutečné AI odpovědi
         import('./js/ai/aiController.js').then(({ generateAIChatResponse }) => {
@@ -519,7 +520,7 @@ function sendChatMessage(inputElement, source = 'desktop') {
                         }
                         
                         // Přidáme AI odpověď s správnou barvou
-                        addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
+                        addChatMessageBootstrap(aiName, aiResponse.message, 'ai', colorClass);
                     }
                 }, 800 + (index * 600)); // Odstupňované časování
             });
@@ -581,7 +582,7 @@ function simulateAiResponse() {
                     
                     // Přidání indikátoru psaní před každou odpovědí
                     if (index === 0) {
-                        addChatMessage('AI', 'Přemýšlím...', 'system');
+                        addChatMessageBootstrap('AI', 'Přemýšlím...', 'system');
                         
                         setTimeout(() => {
                             // Odebereme indikátor psaní
@@ -596,11 +597,11 @@ function simulateAiResponse() {
                             }
                             
                             // Přidáme skutečnou AI odpověď s správnou barvou
-                            addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
+                            addChatMessageBootstrap(aiName, aiResponse.message, 'ai', colorClass);
                         }, 1500);
                     } else {
                         // Pro druhou AI bez indikátoru psaní
-                        addChatMessage(aiName, aiResponse.message, 'ai', colorClass);
+                        addChatMessageBootstrap(aiName, aiResponse.message, 'ai', colorClass);
                     }
                 }
             }).catch(error => {
@@ -612,7 +613,7 @@ function simulateAiResponse() {
                     { ai: 'Claude', message: 'Zajímavá konverzace... 🤔', color: 'neon-orange' }
                 ];
                 const fallback = fallbackResponses.find(r => r.ai.toLowerCase() === aiType) || fallbackResponses[0];
-                addChatMessage(fallback.ai, fallback.message, 'ai', fallback.color);
+                addChatMessageBootstrap(fallback.ai, fallback.message, 'ai', fallback.color);
             });
         }, 700 + (index * 800)); // Odstupňované časování pro více AI
     });
@@ -621,8 +622,6 @@ function simulateAiResponse() {
 // Funkce pro přidání zprávy do chatu s vylepšenými animacemi a třídami
 // Původní funkce přejmenována, aby se dala volat z main.js
 function addChatMessageBootstrap(sender, message, type = 'player', customColor = null) {
-    // Registrujeme globálně pro možnost volání z jiných modulů
-    window.addChatMessageBootstrap = addChatMessageBootstrap;
     // Získáme kontejnery zpráv
     const mobileMessages = document.getElementById('chatMessagesMobile');
     const desktopMessages = document.getElementById('chatMessages');
@@ -808,3 +807,6 @@ window.gameDebug = {
     ensureChatInitialized,
     removeAllPulseAnimations
 };
+
+// Registrujeme globálně bootstrap funkci
+window.addChatMessageBootstrap = addChatMessageBootstrap;
