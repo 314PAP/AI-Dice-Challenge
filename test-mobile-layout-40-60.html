@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Test Mobilního Layoutu - Chat 40% vs Menu 60%</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles/base/variables.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    <style>
+        .test-menu {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+            border: 2px solid var(--neon-green);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .test-chat {
+            background: linear-gradient(135deg, rgba(25, 77, 209, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+            border: 2px solid var(--neon-blue);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .measurement {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--neon-yellow);
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            z-index: 1000;
+            border: 1px solid var(--neon-yellow);
+        }
+        
+        /* Mobilní simulace pro desktop testování */
+        @media (min-width: 768px) {
+            .container-fluid {
+                max-width: 375px !important;
+                max-height: 667px !important;
+            }
+            .d-none.d-md-flex { display: none !important; }
+            .d-md-none { display: block !important; }
+        }
+    </style>
+</head>
+<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="measurement">
+        <div>Viewport: <span id="viewport"></span></div>
+        <div>Menu: <span id="menuHeight"></span></div>
+        <div>Chat: <span id="chatHeight"></span></div>
+        <div>Poměr: <span id="ratio"></span></div>
+    </div>
+    
+    <div class="container-fluid p-0 vh-90 vw-90">
+        <!-- Mobilní layout test -->
+        <div class="d-md-none h-100 d-flex flex-column mobile-landscape-flex-row">
+            <!-- Menu - zabere zbytek prostoru -->
+            <div class="flex-grow-1 mb-3 mb-landscape-0 h-landscape-100" id="menuContainer">
+                <div class="test-menu h-100">
+                    <h3 class="text-neon-green mb-3">🎮 HERNÍ MENU</h3>
+                    <p class="text-white text-center">Tato oblast by měla zabrat zbytek prostoru po chatu</p>
+                    <p class="text-white text-center">V portrait módu: ~60% výšky</p>
+                    <p class="text-white text-center">V landscape módu: ~60% šířky</p>
+                    <div class="mt-auto">
+                        <button class="btn btn-neon">Testovací tlačítko</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat - max 40% výšky -->
+            <div class="h-40 h-landscape-100 flex-shrink-0" id="chatContainer">
+                <div class="test-chat h-100">
+                    <h4 class="text-neon-blue mb-3">💬 CHAT</h4>
+                    <p class="text-white text-center">Tato oblast má přesně 40% výšky obrazovky</p>
+                    <p class="text-white text-center">V portrait módu: 40% výšky</p>
+                    <p class="text-white text-center">V landscape módu: 40% šířky</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Desktop fallback -->
+        <div class="d-none d-md-flex h-100 justify-content-center align-items-center">
+            <div class="text-center">
+                <h2 class="text-neon-green">🖥️ Desktop View</h2>
+                <p class="text-white">Zmenšete okno pro mobilní test</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateMeasurements() {
+            const viewport = `${window.innerWidth}x${window.innerHeight}`;
+            const menuEl = document.getElementById('menuContainer');
+            const chatEl = document.getElementById('chatContainer');
+            
+            if (menuEl && chatEl) {
+                const menuHeight = menuEl.offsetHeight;
+                const chatHeight = chatEl.offsetHeight;
+                const ratio = ((chatHeight / (menuHeight + chatHeight)) * 100).toFixed(1);
+                
+                document.getElementById('viewport').textContent = viewport;
+                document.getElementById('menuHeight').textContent = `${menuHeight}px`;
+                document.getElementById('chatHeight').textContent = `${chatHeight}px`;
+                document.getElementById('ratio').textContent = `${ratio}% chat`;
+            }
+        }
+        
+        // Inicializace
+        document.addEventListener('DOMContentLoaded', updateMeasurements);
+        window.addEventListener('resize', updateMeasurements);
+        
+        // Aktualizace každou sekundu
+        setInterval(updateMeasurements, 1000);
+    </script>
+</body>
+</html>
