@@ -2,9 +2,11 @@
 
 ## 📋 **Aktuální stav aplikace**
 
-**Status**: ✅ **PLNĚ FUNKČNÍ** - CSS vyčištěno, responzivita opravena, design optimalizován
+**Status**: ✅ **PLNĚ FUNKČNÍ** - CSS vyčištěno, responzivita opravena, design optimalizován, mobilní layout opraven
 
 **URL pro testování**: http://localhost:5173/
+
+**Mobilní testování**: http://localhost:5173/test-clean-index.html
 
 ---
 
