@@ -27,12 +27,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     const chatCtrl = new EnhancedChatController();
     
     // Global functions for backward compatibility
-    window.addChatMessage = function(sender, message, isGameEvent = false) {
-        console.log(`💬 Chat message: ${sender} -> ${message}`);
-        if (chatCtrl && chatCtrl.addMessage) {
-            chatCtrl.addMessage(sender, message, isGameEvent);
+    window.addChatMessage = function(sender, message, type = 'player', customColor = null) {
+        console.log(`💬 Chat message: ${sender} -> ${message} (type: ${type})`);
+        
+        // Pokud je sender 'system', upravíme parametry
+        if (sender === 'system') {
+            // Volání: addChatMessage('system', 'zpráva') -> addChatMessage('Systém', 'zpráva', 'system')
+            if (typeof window.addChatMessageBootstrap === 'function') {
+                window.addChatMessageBootstrap('Systém', message, 'system', customColor);
+            }
         } else {
-            console.error('❌ Chat controller not available');
+            // Normální volání
+            if (typeof window.addChatMessageBootstrap === 'function') {
+                window.addChatMessageBootstrap(sender, message, type, customColor);
+            }
         }
     };
     

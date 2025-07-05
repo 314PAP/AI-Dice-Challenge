@@ -619,7 +619,10 @@ function simulateAiResponse() {
 }
 
 // Funkce pro přidání zprávy do chatu s vylepšenými animacemi a třídami
-function addChatMessage(sender, message, type = 'player', customColor = null) {
+// Původní funkce přejmenována, aby se dala volat z main.js
+function addChatMessageBootstrap(sender, message, type = 'player', customColor = null) {
+    // Registrujeme globálně pro možnost volání z jiných modulů
+    window.addChatMessageBootstrap = addChatMessageBootstrap;
     // Získáme kontejnery zpráv
     const mobileMessages = document.getElementById('chatMessagesMobile');
     const desktopMessages = document.getElementById('chatMessages');
