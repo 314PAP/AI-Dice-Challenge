@@ -12,11 +12,12 @@
 
 .banked-dice-container {
   display: flex;
-  flex-direction: row-reverse; /* Zprava doleva */
-  flex-wrap: wrap;
+  flex-direction: row; /* Horizontálně zleva doprava */
+  flex-wrap: nowrap; /* Nepovolíme zalomení - kostky vedle sebe */
   margin-top: 1rem;
   gap: 0.5rem;
   justify-content: center;
+  overflow-x: auto; /* Pokud je příliš kostek, umožníme scrollování */
 }
 
 /* Základní kostka s neonovým designem */
