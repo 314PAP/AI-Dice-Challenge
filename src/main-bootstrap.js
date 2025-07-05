@@ -430,8 +430,7 @@ function ensureChatInitialized() {
     
     // Zajištění viditelnosti pro všechny chat elementy
     document.querySelectorAll('.chat-box, .chat-messages, .chat-message, .chat-input').forEach(el => {
-        el.style.visibility = 'visible';
-        el.style.opacity = '1';
+        el.classList.add('make-visible');
     });
     
     // Scroll na poslední zprávu po krátké prodlevě
