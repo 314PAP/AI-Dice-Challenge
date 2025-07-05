@@ -405,3 +405,22 @@
     font-size: 1.3rem !important; /* XXL Desktop - největší font */
   }
 }
+
+/* Progresivní padding pro menu tlačítka */
+@media (min-width: 992px) {
+  .menu-btn-uniform {
+    padding: 1rem 2rem !important; /* LG+ Desktop - větší padding */
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-btn-uniform {
+    padding: 1.2rem 2.5rem !important; /* XL+ Desktop - ještě větší padding */
+  }
+}
+
+@media (min-width: 1400px) {
+  .menu-btn-uniform {
+    padding: 1.4rem 3rem !important; /* XXL Desktop - největší padding */
+  }
+}
