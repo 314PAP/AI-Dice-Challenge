@@ -51,6 +51,25 @@
   text-align: center !important;
 }
 
+/* Specifické selektory pro targetScoreInput */
+input#targetScoreInput {
+  width: auto !important;
+  max-width: 160px !important;
+  min-width: 120px !important;
+  margin: 0 auto !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+input#targetScoreInputMobile {
+  width: auto !important;
+  max-width: 160px !important;
+  min-width: 120px !important;
+  margin: 0 auto !important;
+  display: block !important;
+  text-align: center !important;
+}
+
 .form-control-neon {
   background-color: rgba(0, 0, 0, 0.8) !important;
   border: 2px solid var(--neon-green) !important;
@@ -115,6 +134,17 @@
   .target-score-input {
     min-width: 100px;
     max-width: 140px;
+  }
+  
+  .target-score-input input {
+    min-width: 100px !important;
+    max-width: 140px !important;
+  }
+  
+  input#targetScoreInput,
+  input#targetScoreInputMobile {
+    min-width: 100px !important;
+    max-width: 140px !important;
   }
   
   .form-control-neon {
