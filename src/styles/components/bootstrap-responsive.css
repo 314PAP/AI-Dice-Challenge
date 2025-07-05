@@ -664,8 +664,30 @@ body {
   box-shadow: 0 0 5px var(--neon-green);
 }
 
+/* Utility třídy pro skrývání na malých výškách */
+@media (max-height: 600px) {
+  .hide-on-small-height {
+    display: none !important;
+  }
+}
+
+/* Pomocné CSS třídy pro Bootstrap template soubory */
+.no-borders {
+  border: none !important;
+}
+
+.chat-input-fixed {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
 .border-neon {
   border-color: var(--neon-green) !important;
+}
+
+.text-neon-green {
+  color: var(--neon-green) !important;
 }
 
 /* Extrémně malá zařízení v portrait módu */
