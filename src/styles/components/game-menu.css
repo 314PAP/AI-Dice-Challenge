@@ -105,10 +105,6 @@ input#targetScoreInputMobile {
   border: 2px solid currentColor !important;
   background-color: transparent !important;
   transition: all 0.3s ease !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
 }
 
 .menu-btn:hover {
