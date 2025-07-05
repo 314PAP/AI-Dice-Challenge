@@ -237,6 +237,9 @@ export function setupEventListeners() {
             });
         }
 
+        // Target score šipky - Bootstrap-first funkčnost
+        setupScoreArrows();
+
         // Modal close buttons
         setupModalEventListeners();
         
