@@ -21,8 +21,8 @@ async function initGame() {
     try {
         // Načtení šablon
         const gameMenu = await loadTemplate('/src/templates/game-menu.html');
-        const mobileGameMenu = await loadTemplate('/src/templates/game-menu-mobile-bootstrap.html');
-        const mobileChat = await loadTemplate('/src/templates/chat-mobile-bootstrap.html');
+        const mobileGameMenu = await loadTemplate('/src/templates/game-menu-mobile.html');
+        const mobileChat = await loadTemplate('/src/templates/chat-mobile.html');
         const desktopChat = await loadTemplate('/src/templates/chat.html');
         
         // Načtení herních šablon
