@@ -1,59 +1,59 @@
-<!-- Mobile Game Menu Component - Bootstrap optimalizace -->
+<!-- Mobile Game Menu Component - napojeno na desktop styly -->
 <div class="game-box h-100 animate__animated animate__fadeIn" id="gameHeaderMobile">
   <div class="d-flex flex-column h-100">
-    <!-- Nadpis (bez pulzující animace) -->
-    <h1 class="game-title text-center neon-text fs-3 mb-2 animate__animated">
+    <!-- Nadpis - stejný styl jako desktop -->
+    <h1 class="game-title neon-text fs-3 mb-2 text-center animate__animated">
       <i class="ri-dice-line me-1"></i>
-      <span>AI Kostková Výzva</span>
+      <span class="title-text">AI Kostková Výzva</span>
     </h1>
     
-    <!-- Cílové skóre -->
+    <!-- Cílové skóre - stejný styl jako desktop -->
     <div class="text-center neon-text mb-2 animate__animated animate__fadeIn animate__delay-1s">
-      <span class="d-block mb-1 small">
+      <span class="d-block mb-1 small score-label-text">
         <i class="ri-star-line me-1"></i>Cílové skóre
       </span>
       <div class="input-group input-group-sm w-75 mx-auto">
-        <input type="number" id="targetScoreInputMobile" class="form-control bg-black text-neon-green border-neon text-center"
+        <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center"
                value="10000" min="1000" step="1000">
       </div>
     </div>
     
-    <!-- Tlačítka - automaticky zaberou zbývající prostor - responzivní úpravy -->
-    <div class="menu-buttons d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-2 overflow-auto">
-      <!-- Začít hru - Zelená -->
-      <button class="btn btn-neon btn-outline-success w-75 mb-2 animate__animated animate__fadeInUp" 
+    <!-- Tlačítka - stejné styly jako desktop, ale mobile layout -->
+    <div class="menu-buttons d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-2 overflow-auto gap-1">
+      <!-- Začít hru - Zelená (stejná třída jako desktop) -->
+      <button class="btn btn-neon neon-green menu-btn w-75 animate__animated animate__fadeInUp" 
               id="startGameBtnMobile" data-aos="fade-up" data-aos-delay="100">
         <i class="ri-gamepad-line me-1"></i>
-        <span>Začít hru</span>
+        <span class="menu-btn-text">Začít hru</span>
       </button>
       
-      <!-- Pravidla - Modrá -->
-      <button class="btn btn-neon btn-outline-primary text-primary w-75 mb-2 animate__animated animate__fadeInUp" 
+      <!-- Pravidla - Modrá (stejná třída jako desktop) -->
+      <button class="btn btn-neon neon-blue menu-btn w-75 animate__animated animate__fadeInUp" 
               id="rulesBtnMobile" data-aos="fade-up" data-aos-delay="200">
         <i class="ri-book-open-line me-1"></i>
-        <span>Pravidla</span>
+        <span class="menu-btn-text">Pravidla</span>
       </button>
       
-      <!-- Síň slávy - Oranžová -->
-      <button class="btn btn-neon text-warning border-warning w-75 mb-2 animate__animated animate__fadeInUp" 
+      <!-- Síň slávy - Oranžová (stejná třída jako desktop) -->
+      <button class="btn btn-neon neon-orange menu-btn w-75 animate__animated animate__fadeInUp" 
               id="hallOfFameBtnMobile" data-aos="fade-up" data-aos-delay="300">
         <i class="ri-trophy-line me-1"></i>
-        <span>Síň slávy</span>
+        <span class="menu-btn-text">Síň slávy</span>
       </button>
       
-      <!-- Kup mi kávu - Zelená -->
+      <!-- Kup mi kávu - Zelená (stejná třída jako desktop) -->
       <a href="https://buymeacoffee.com/pipap" target="_blank" 
-         class="btn btn-neon btn-outline-success w-75 mb-2 text-decoration-none animate__animated animate__fadeInUp"
+         class="btn btn-neon neon-green menu-btn w-75 text-decoration-none animate__animated animate__fadeInUp"
          data-aos="fade-up" data-aos-delay="400">
         <i class="ri-cup-line me-1"></i>
-        <span>Kup mi kávu</span>
+        <span class="menu-btn-text">Kup mi kávu</span>
       </a>
       
-      <!-- Opustit hru - Červená -->
-      <button class="btn btn-neon btn-outline-danger w-75 animate__animated animate__fadeInUp" 
+      <!-- Opustit hru - Červená (stejná třída jako desktop) -->
+      <button class="btn btn-neon neon-red menu-btn w-75 animate__animated animate__fadeInUp" 
               id="exitGameBtnMobile" data-aos="fade-up" data-aos-delay="500">
         <i class="ri-logout-box-line me-1"></i>
-        <span>Opustit hru</span>
+        <span class="menu-btn-text">Opustit hru</span>
       </button>
       
       <!-- Dekorativní element - pouze na větších zařízeních -->
