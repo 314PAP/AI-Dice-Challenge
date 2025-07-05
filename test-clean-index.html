@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Kostková Výzva</title>
+    <link rel="icon" type="image/svg+xml" href="/dice.svg" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- GOOGLE FONTS PRO NEONOVÝ VZHLED -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- REMIX ICON - OUTLINE IKONY PRO NEONOVÉ EFEKTY -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Animační knihovny -->
+    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
+    <link rel="stylesheet" href="node_modules/aos/dist/aos.css">
+    
+    <!-- POUZE ZÁKLADNÍ CSS PRO FUNKČNOST -->
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    <link rel="stylesheet" href="/src/styles/components/game-menu.css">
+    <link rel="stylesheet" href="/src/styles/components/game-controls.css">
+    <link rel="stylesheet" href="/src/styles/components/chat.css">
+    
+    <style>
+        /* Jen ty nejzákladnější styly pro testování */
+        .vh-90 { height: 90vh !important; }
+        .vw-90 { width: 90vw !important; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden">
+    <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->
+    <div class="container-fluid p-0 vh-90 vw-90 animate__animated animate__fadeIn">
+    
+        <!-- Desktop layout - zobrazí se pouze na md a větších -->
+        <div class="d-none d-md-flex h-100">
+            <div class="row mx-0 w-100 h-100 g-3">
+                <!-- Herní oblast - 70% šířky -->
+                <div class="col-8 h-100" data-aos="fade-right" data-aos-duration="800">
+                    <div class="game-box h-100 animate__animated">
+                        <!-- Zde se načte herní obsah -->
+                        <div id="gameContent" class="h-100 d-flex flex-column">
+                            <div class="text-white p-3">
+                                <h3>TEST GAME</h3>
+                                <p>Pokud vidíte tento text, HTML struktura funguje.</p>
+                            </div>
+                        </div>
+                        <!-- Herní ovládání (načte se sem při spuštění hry) -->
+                        <div id="gameControls" class="hidden h-100 d-flex flex-column"></div>
+                    </div>
+                </div>
+                
+                <!-- Chat panel - 30% šířky -->
+                <div class="col-4 h-100" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                    <div class="chat-box h-100">
+                        <!-- Zde se načte desktop chat -->
+                        <div id="chatPanel" class="h-100">
+                            <div class="text-white p-3">
+                                <h3>TEST CHAT</h3>
+                                <p>Pokud vidíte tento text, HTML struktura funguje.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modální okna se načtou zde -->
+            <div id="modalsContainer"></div>
+        </div>
+        
+        <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
+        <div class="d-md-none h-100 mobile-landscape-flex-row animate__animated animate__fadeIn">
+            <!-- První část - herní menu -->
+            <div class="flex-grow-1 mb-3 mb-landscape-0 h-75 h-landscape-100">
+                <!-- Zde se načte mobilní herní menu -->
+                <div id="gameMobileContent" class="h-100"></div>
+                <!-- Mobilní herní ovládání (načte se sem při spuštění hry) -->
+                <div id="gameControlsMobile" class="hidden h-100 d-flex flex-column"></div>
+            </div>
+            
+            <!-- Druhá část - chat -->
+            <div class="h-20 h-landscape-100">
+                <!-- Zde se načte mobilní chat -->
+                <div id="chatPanelMobileContainer" class="h-100"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Animační knihovny -->
+    <script src="node_modules/aos/dist/aos.js"></script>
+    
+    <!-- Main Application Script -->
+    <script type="module" src="/src/main-bootstrap.js"></script>
+    
+    <!-- Inicializace animací -->
+    <script>
+        // Inicializace AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializace AOS knihovny pro animace při scrollování
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: false,
+                mirror: true,
+                anchorPlacement: 'top-bottom'
+            });
+        });
+    </script>
+</body>
+</html>
