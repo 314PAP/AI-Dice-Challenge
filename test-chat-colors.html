@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Test barev chatu</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Animace -->
+    <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
+    
+    <!-- Naše CSS -->
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
+    <link rel="stylesheet" href="/src/styles/components/chat.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    <link rel="stylesheet" href="/src/styles/components/super-responsive-layout.css">
+    
+    <style>
+        body {
+            background: black;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .demo-chat {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 8px;
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+        
+        .outer-demo {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.9);
+        }
+        
+        .result-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .pass { background: #39ff14; }
+        .fail { background: #ff1439; }
+        .warning { background: #ffff00; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="text-center neon-green">🧪 Test barev a efektů chatu</h1>
+        
+        <div class="test-section">
+            <h3 class="neon-green">🎯 1. Test vnějšího kontejneru (chat-outer-container)</h3>
+            <div class="chat-outer-container outer-demo">
+                <p class="neon-green">Najeďte myší na tento kontejner - měl by se rozsvítit zelený glow efekt</p>
+                <div id="testResults1" class="mt-3"></div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="neon-green">🎯 2. Test systémových zpráv (žlutá barva)</h3>
+            <div class="demo-chat" id="systemTestChat">
+                <!-- Zprávy se přidají JavaScriptem -->
+            </div>
+            <button class="btn btn-primary" onclick="testSystemMessages()">Přidat systémovou zprávu</button>
+            <div id="testResults2" class="mt-3"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="neon-green">🎯 3. Test všech typů zpráv</h3>
+            <div class="demo-chat" id="allTypesChat">
+                <!-- Zprávy se přidají JavaScriptem -->
+            </div>
+            <button class="btn btn-primary" onclick="testAllMessageTypes()">Přidat všechny typy zpráv</button>
+            <div id="testResults3" class="mt-3"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="neon-green">🎯 4. Test proxy funkce</h3>
+            <div class="demo-chat" id="proxyTestChat">
+                <!-- Zprávy se přidají JavaScriptem -->
+            </div>
+            <button class="btn btn-primary" onclick="testProxyFunction()">Test window.addChatMessage</button>
+            <div id="testResults4" class="mt-3"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3 class="neon-green">🎯 5. Souhrn testů</h3>
+            <div id="testSummary"></div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Načtení main-bootstrap.js pro testování -->
+    <script type="module" src="/src/main-bootstrap.js"></script>
+    
+    <script>
+        let testResults = {
+            outerContainer: false,
+            systemMessages: false,
+            allMessages: false,
+            proxyFunction: false
+        };
+        
+        // Test 1: Vnější kontejner hover efekt
+        function testOuterContainer() {
+            const container = document.querySelector('.chat-outer-container');
+            const computedStyle = getComputedStyle(container);
+            
+            const hasBasicShadow = computedStyle.boxShadow !== 'none';
+            const hasTransition = computedStyle.transition.includes('box-shadow');
+            
+            testResults.outerContainer = hasBasicShadow && hasTransition;
+            
+            document.getElementById('testResults1').innerHTML = `
+                <div><span class="result-indicator ${hasBasicShadow ? 'pass' : 'fail'}"></span>Box-shadow: ${hasBasicShadow ? 'PASS' : 'FAIL'}</div>
+                <div><span class="result-indicator ${hasTransition ? 'pass' : 'fail'}"></span>Transition: ${hasTransition ? 'PASS' : 'FAIL'}</div>
+            `;
+        }
+        
+        // Test 2: Systémové zprávy
+        function testSystemMessages() {
+            const chat = document.getElementById('systemTestChat');
+            
+            if (typeof window.addChatMessage === 'function') {
+                window.addChatMessage('system', 'Toto je testovací systémová zpráva');
+                
+                setTimeout(() => {
+                    const systemMessage = chat.querySelector('.system-message .neon-yellow');
+                    const isYellow = systemMessage && getComputedStyle(systemMessage).color.includes('255, 255, 0');
+                    
+                    testResults.systemMessages = isYellow;
+                    
+                    document.getElementById('testResults2').innerHTML = `
+                        <div><span class="result-indicator ${isYellow ? 'pass' : 'fail'}"></span>Systémová zpráva je žlutá: ${isYellow ? 'PASS' : 'FAIL'}</div>
+                    `;
+                    
+                    updateSummary();
+                }, 500);
+            } else {
+                document.getElementById('testResults2').innerHTML = `
+                    <div><span class="result-indicator fail"></span>window.addChatMessage není dostupné: FAIL</div>
+                `;
+            }
+        }
+        
+        // Test 3: Všechny typy zpráv
+        function testAllMessageTypes() {
+            const chat = document.getElementById('allTypesChat');
+            
+            if (typeof window.addChatMessage === 'function') {
+                window.addChatMessage('system', 'Systémová zpráva (žlutá)');
+                window.addChatMessage('player', 'Hráčská zpráva (zelená)');
+                window.addChatMessage('ai', 'AI zpráva (modrá)');
+                window.addChatMessage('error', 'Chybová zpráva (červená)');
+                
+                setTimeout(() => {
+                    const systemYellow = chat.querySelector('.system-message .neon-yellow');
+                    const playerGreen = chat.querySelector('.player-message .neon-green');
+                    const aiBlue = chat.querySelector('.ai-message .neon-blue');
+                    const errorRed = chat.querySelector('.error-message .neon-red');
+                    
+                    const allTypesWork = systemYellow && playerGreen && aiBlue && errorRed;
+                    testResults.allMessages = allTypesWork;
+                    
+                    document.getElementById('testResults3').innerHTML = `
+                        <div><span class="result-indicator ${systemYellow ? 'pass' : 'fail'}"></span>System (žlutá): ${systemYellow ? 'PASS' : 'FAIL'}</div>
+                        <div><span class="result-indicator ${playerGreen ? 'pass' : 'fail'}"></span>Player (zelená): ${playerGreen ? 'PASS' : 'FAIL'}</div>
+                        <div><span class="result-indicator ${aiBlue ? 'pass' : 'fail'}"></span>AI (modrá): ${aiBlue ? 'PASS' : 'FAIL'}</div>
+                        <div><span class="result-indicator ${errorRed ? 'pass' : 'fail'}"></span>Error (červená): ${errorRed ? 'PASS' : 'FAIL'}</div>
+                    `;
+                    
+                    updateSummary();
+                }, 500);
+            }
+        }
+        
+        // Test 4: Proxy funkce
+        function testProxyFunction() {
+            const chat = document.getElementById('proxyTestChat');
+            
+            const hasAddChatMessage = typeof window.addChatMessage === 'function';
+            const hasAddChatMessageBootstrap = typeof window.addChatMessageBootstrap === 'function';
+            
+            testResults.proxyFunction = hasAddChatMessage && hasAddChatMessageBootstrap;
+            
+            if (hasAddChatMessage) {
+                window.addChatMessage('system', 'Test proxy funkce - systémová zpráva');
+            }
+            
+            document.getElementById('testResults4').innerHTML = `
+                <div><span class="result-indicator ${hasAddChatMessage ? 'pass' : 'fail'}"></span>window.addChatMessage: ${hasAddChatMessage ? 'PASS' : 'FAIL'}</div>
+                <div><span class="result-indicator ${hasAddChatMessageBootstrap ? 'pass' : 'fail'}"></span>window.addChatMessageBootstrap: ${hasAddChatMessageBootstrap ? 'PASS' : 'FAIL'}</div>
+            `;
+            
+            updateSummary();
+        }
+        
+        // Aktualizace souhrnu
+        function updateSummary() {
+            const passed = Object.values(testResults).filter(Boolean).length;
+            const total = Object.keys(testResults).length;
+            
+            document.getElementById('testSummary').innerHTML = `
+                <h4 class="neon-green">Výsledky testů: ${passed}/${total}</h4>
+                <div class="progress">
+                    <div class="progress-bar bg-success" style="width: ${(passed/total)*100}%"></div>
+                </div>
+                <div class="mt-2">
+                    ${passed === total ? 
+                        '<span class="neon-green">✅ Všechny testy prošly!</span>' : 
+                        '<span class="neon-yellow">⚠️ Některé testy selhaly</span>'
+                    }
+                </div>
+            `;
+        }
+        
+        // Spuštění testů při načtení stránky
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                testOuterContainer();
+                updateSummary();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
