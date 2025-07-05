@@ -48,6 +48,22 @@
   --glow-large: 0 0 15px;
   --glow-intense: 0 0 20px;
 
+  /* Zkrácené glow varianty */
+  --glow-sm: 0 0 5px;
+  --glow-md: 0 0 10px;
+  --glow-lg: 0 0 15px;
+  --glow-xl: 0 0 20px;
+
+  /* Základní rozměry */
+  --radius-base: 8px;
+  --border-radius-lg: 12px;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --transition-normal: all 0.3s ease;
+  --font-size-xs: 0.75rem;
+
   /* Neon shadow barvy */
   --shadow-neon-green: 0 0 10px var(--neon-green);
   --shadow-neon-blue: 0 0 10px var(--neon-blue);
