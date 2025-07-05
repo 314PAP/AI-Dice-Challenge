@@ -82,17 +82,17 @@
         </div>
         
         <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
-        <div class="d-md-none h-100 mobile-landscape-flex-row animate__animated animate__fadeIn">
-            <!-- První část - herní menu -->
-            <div class="flex-grow-1 mb-3 mb-landscape-0 h-75 h-landscape-100">
+        <div class="d-md-none h-100 d-flex flex-column mobile-landscape-flex-row animate__animated animate__fadeIn">
+            <!-- První část - herní menu (zabere zbytek prostoru) -->
+            <div class="flex-grow-1 mb-3 mb-landscape-0 h-landscape-100">
                 <!-- Zde se načte mobilní herní menu -->
                 <div id="gameMobileContent" class="h-100"></div>
                 <!-- Mobilní herní ovládání (načte se sem při spuštění hry) -->
                 <div id="gameControlsMobile" class="hidden h-100"></div>
             </div>
             
-            <!-- Druhá část - chat -->
-            <div class="h-20 h-landscape-100">
+            <!-- Druhá část - chat (max 40% výšky) -->
+            <div class="h-40 h-landscape-100 flex-shrink-0">
                 <!-- Zde se načte mobilní chat -->
                 <div id="chatPanelMobileContainer" class="h-100"></div>
             </div>
