@@ -109,27 +109,13 @@ input#targetScoreInputMobile {
   width: 100%;
 }
 
-/* Šipky kontejner - Bootstrap-first spacing, uvnitř input pole */
+/* Šipky kontejner - Bootstrap-first (spoléhá na utility třídy) */
 .score-arrows {
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: 1px;
   z-index: 10;
   pointer-events: auto;
-}
-
-/* Bootstrap input-group fix */
-.input-group .target-score-input {
-  position: relative;
-  flex: 1 1 auto;
-}
-
-.input-group .score-arrows {
-  right: 6px;
 }
 
 /* Šipky tlačítka - Bootstrap-first s responzivními velikostmi a lepší kontrast */

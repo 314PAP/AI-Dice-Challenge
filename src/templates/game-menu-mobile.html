@@ -7,21 +7,23 @@
       <span class="title-text">AI Kostková Výzva</span>
     </h1>
     
-    <!-- Cílové skóre - stejný styl jako desktop -->
+    <!-- Cílové skóre - Bootstrap-first styling -->
     <div class="text-center neon-text mb-2 animate__animated animate__fadeIn animate__delay-1s">
       <span class="d-block mb-1 small score-label-text">
         <i class="ri-star-line me-1"></i>Cílové skóre
       </span>
-      <div class="input-group input-group-sm w-75 mx-auto target-score-input">
-        <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center"
-               value="10000" min="1000" step="1000">
-        <div class="score-arrows">
-            <button type="button" class="score-arrow arrow-up use-unicode" id="scoreUpBtnMobile">
-                <i class="ri-arrow-up-s-fill"></i>
-            </button>
-            <button type="button" class="score-arrow arrow-down use-unicode" id="scoreDownBtnMobile">
-                <i class="ri-arrow-down-s-fill"></i>
-            </button>
+      <div class="d-flex justify-content-center">
+        <div class="position-relative">
+          <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center pe-5"
+                 value="10000" min="1000" step="1000" style="width: 140px;">
+          <div class="score-arrows position-absolute top-50 translate-middle-y" style="right: 4px;">
+              <button type="button" class="score-arrow arrow-up use-unicode d-block" id="scoreUpBtnMobile">
+                  <i class="ri-arrow-up-s-fill"></i>
+              </button>
+              <button type="button" class="score-arrow arrow-down use-unicode d-block" id="scoreDownBtnMobile">
+                  <i class="ri-arrow-down-s-fill"></i>
+              </button>
+          </div>
         </div>
       </div>
     </div>
