@@ -45,14 +45,14 @@
 </head>
 <body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden">
     <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->
-    <div class="container-fluid p-0 vh-90 vw-90 animate__animated animate__fadeIn">
+    <div class="container-fluid p-0 vh-90 vw-90 animate__animated animate__fadeIn" style="height: 90vh; width: 90vw; border: 2px solid red;">
     
         <!-- Desktop layout - zobrazí se pouze na md a větších -->
-        <div class="d-none d-md-flex h-100">
-            <div class="row mx-0 w-100 h-100 g-3">
+        <div class="d-none d-md-flex h-100" style="border: 2px solid blue;">
+            <div class="row mx-0 w-100 h-100 g-3" style="border: 2px solid green;">
                 <!-- Herní oblast - 70% šířky -->
-                <div class="col-8 h-100" data-aos="fade-right" data-aos-duration="800">
-                    <div class="game-box h-100 animate__animated">
+                <div class="col-8 h-100" data-aos="fade-right" data-aos-duration="800" style="border: 2px solid yellow;">
+                    <div class="game-box h-100 animate__animated" style="border: 2px solid orange;">
                         <!-- Zde se načte herní obsah -->
                         <div id="gameContent" class="h-100 d-flex flex-column"></div>
                         <!-- Herní ovládání (načte se sem při spuštění hry) -->
@@ -61,10 +61,10 @@
                 </div>
                 
                 <!-- Chat panel - 30% šířky -->
-                <div class="col-4 h-100" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
-                    <div class="chat-box h-100">
+                <div class="col-4 h-100" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200" style="border: 2px solid purple;">
+                    <div class="chat-box h-100" style="border: 2px solid pink;">
                         <!-- Zde se načte desktop chat -->
-                        <div id="chatPanel" class="h-100"></div>
+                        <div id="chatPanel" class="h-100" style="border: 2px solid cyan;">CHAT PANEL</div>
                     </div>
                 </div>
             </div>
