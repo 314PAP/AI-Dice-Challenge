@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Chat - Oprava žlutých zpráv</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS importy v stejném pořadí jako v hlavní aplikaci -->
+    <link rel="stylesheet" href="/src/styles/main-optimized.css">
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
+    <link rel="stylesheet" href="/src/styles/variables/sizes.css">
+    <link rel="stylesheet" href="/src/styles/variables/animations.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    <link rel="stylesheet" href="/src/styles/components/game-menu.css">
+    <link rel="stylesheet" href="/src/styles/components/game-controls.css">
+    <link rel="stylesheet" href="/src/styles/components/chat.css">
+    <link rel="stylesheet" href="/src/styles/components/modals.css">
+    <link rel="stylesheet" href="/src/styles/utils/minimalist-layout.css">
+    <link rel="stylesheet" href="/src/styles/utils/neon-bootstrap-utilities.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            padding: 20px;
+        }
+        .test-container {
+            border: 2px solid #39ff14;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .result-box {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-left: 4px solid #39ff14;
+        }
+        .demo-chat {
+            width: 350px;
+            height: 300px;
+            margin: 20px auto;
+            border: 1px solid #333;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center neon-text" style="color: #39ff14; text-shadow: 0 0 10px #39ff14;">
+            ✅ Test Chat - Oprava žlutých zpráv
+        </h1>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🎯 Diagnostika problému:</h3>
+            <p style="color: #ccc;">
+                Problém byl v souboru <code>bootstrap-responsive.css</code>, kde byly definovány neonové třídy pouze s <code>color</code> vlastností,
+                ale bez <code>text-shadow</code>. Kvůli tomu se systémové zprávy nezobrazovaly se žlutým svitem.
+            </p>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🔧 Provedené opravy:</h3>
+            <div class="result-box">
+                ✅ Přidán <code>text-shadow</code> do třídy <code>.neon-yellow</code>
+            </div>
+            <div class="result-box">
+                ✅ Opraveny všechny neonové barvy v <code>bootstrap-responsive.css</code>
+            </div>
+            <div class="result-box">
+                ✅ Zachovány všechny ostatní styly a funkce
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🎮 Test chat zpráv:</h3>
+            <div class="demo-chat">
+                <div class="chat-container bg-dark-90 rounded-3 d-flex flex-column h-100">
+                    <div class="chat-header d-flex justify-content-center align-items-center p-2">
+                        <h4 class="neon-text neon-green m-0">
+                            <i class="ri-message-3-line me-1"></i>AI CHAT
+                        </h4>
+                    </div>
+                    
+                    <div class="chat-messages flex-grow-1 p-2 overflow-auto">
+                        <div class="chat-message mb-2">
+                            <strong class="neon-yellow">Systém:</strong> 
+                            <span class="neon-yellow">Vítejte v AI Kostkové Výzvě! (mělo by být žluté)</span>
+                        </div>
+                        
+                        <div class="chat-message mb-2">
+                            <strong class="neon-yellow">Systém:</strong> 
+                            <span class="neon-yellow">Hra byla zahájena! (mělo by být žluté)</span>
+                        </div>
+                        
+                        <div class="chat-message mb-2">
+                            <strong class="neon-blue">Gemini:</strong> 
+                            <span class="neon-blue">Připraven na hru? (mělo by být modré)</span>
+                        </div>
+                        
+                        <div class="chat-message mb-2">
+                            <strong class="neon-green">Vy:</strong> 
+                            <span class="neon-green">Začínáme! (mělo by být zelené)</span>
+                        </div>
+                        
+                        <div class="chat-message mb-2">
+                            <strong class="neon-red">Chyba:</strong> 
+                            <span class="neon-red">Test červené barvy (mělo by být červené)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input p-2 bg-dark-90">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control border-0 bg-black text-white" placeholder="Napište zprávu..." readonly>
+                            <button class="btn border-0 bg-transparent" type="button">
+                                <i class="ri-send-plane-fill" style="color: #39ff14;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🎨 Kontrola barev:</h3>
+            <div style="padding: 20px; background-color: rgba(0, 0, 0, 0.8); border-radius: 5px;">
+                <div class="mb-2">
+                    <span class="neon-yellow">■ Žlutá (systémové zprávy)</span>
+                </div>
+                <div class="mb-2">
+                    <span class="neon-green">■ Zelená (lidský hráč)</span>
+                </div>
+                <div class="mb-2">
+                    <span class="neon-blue">■ Modrá (Gemini)</span>
+                </div>
+                <div class="mb-2">
+                    <span class="neon-red">■ Červená (chyby)</span>
+                </div>
+                <div class="mb-2">
+                    <span class="neon-orange">■ Oranžová (Claude)</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-container">
+            <h3 style="color: #39ff14;">🔗 Odkazy:</h3>
+            <div class="text-center">
+                <a href="http://localhost:5174" class="btn btn-outline-success me-2">
+                    <i class="ri-home-line"></i> Hlavní aplikace
+                </a>
+                <a href="http://localhost:5174/debug-chat-colors.html" class="btn btn-outline-info">
+                    <i class="ri-bug-line"></i> Debug barev
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
