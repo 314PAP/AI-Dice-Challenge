@@ -591,4 +591,68 @@ function sendMobileChatMessage() {
     }
 }
 
+// ========================================
+// 📊 TARGET SCORE ŠIPKY
+// ========================================
+
+/**
+ * Nastavuje funkčnost šipek pro target score input
+ * Bootstrap-first přístup s vlastními tlačítky
+ */
+function setupScoreArrows() {
+    // Desktop šipky
+    const scoreUpBtn = document.getElementById('scoreUpBtn');
+    const scoreDownBtn = document.getElementById('scoreDownBtn');
+    const targetScoreInput = document.getElementById('targetScoreInput');
+    
+    if (scoreUpBtn && scoreDownBtn && targetScoreInput) {
+        scoreUpBtn.addEventListener('click', () => {
+            const currentValue = parseInt(targetScoreInput.value) || 1000;
+            const newValue = Math.min(currentValue + 1000, 100000); // Max 100k
+            targetScoreInput.value = newValue;
+            
+            // Trigger change event
+            targetScoreInput.dispatchEvent(new Event('change'));
+        });
+        
+        scoreDownBtn.addEventListener('click', () => {
+            const currentValue = parseInt(targetScoreInput.value) || 1000;
+            const newValue = Math.max(currentValue - 1000, 1000); // Min 1k
+            targetScoreInput.value = newValue;
+            
+            // Trigger change event
+            targetScoreInput.dispatchEvent(new Event('change'));
+        });
+        
+        console.log('✅ Desktop target score šipky nastaveny');
+    }
+    
+    // Mobile šipky
+    const scoreUpBtnMobile = document.getElementById('scoreUpBtnMobile');
+    const scoreDownBtnMobile = document.getElementById('scoreDownBtnMobile');
+    const targetScoreInputMobile = document.getElementById('targetScoreInputMobile');
+    
+    if (scoreUpBtnMobile && scoreDownBtnMobile && targetScoreInputMobile) {
+        scoreUpBtnMobile.addEventListener('click', () => {
+            const currentValue = parseInt(targetScoreInputMobile.value) || 1000;
+            const newValue = Math.min(currentValue + 1000, 100000); // Max 100k
+            targetScoreInputMobile.value = newValue;
+            
+            // Trigger change event
+            targetScoreInputMobile.dispatchEvent(new Event('change'));
+        });
+        
+        scoreDownBtnMobile.addEventListener('click', () => {
+            const currentValue = parseInt(targetScoreInputMobile.value) || 1000;
+            const newValue = Math.max(currentValue - 1000, 1000); // Min 1k
+            targetScoreInputMobile.value = newValue;
+            
+            // Trigger change event
+            targetScoreInputMobile.dispatchEvent(new Event('change'));
+        });
+        
+        console.log('✅ Mobile target score šipky nastaveny');
+    }
+}
+
 
