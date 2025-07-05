@@ -150,22 +150,32 @@
   }
 }
 
+/* Mobilní chat styly */
+.chat-send-icon-mobile {
+  font-size: 1.2rem !important;
+}
+
+@media (max-width: 480px) {
+  .chat-input {
+    padding: 0.25rem;
+  }
+  
+  .chat-input .form-control {
+    font-size: 0.8rem;
+  }
+  
+  .chat-input button {
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .chat-message {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
 /* Chat send button style */
 .chat-send-btn {
   color: var(--neon-green) !important;
   font-size: 1.25rem !important;
-}
-
-.chat-send-icon-mobile {
-  font-size: clamp(0.8rem, calc(0.7rem + 0.3vh + 0.2vw), 1.2rem);
-}
-
-/* Mobile dice icon */
-.mobile-dice-icon {
-  font-size: clamp(1rem, calc(0.8rem + 1vh + 0.5vw), 2rem);
-}
-
-/* Mobile target input */
-.mobile-target-input {
-  min-height: clamp(1.5rem, calc(1.2rem + 1vh), 2.5rem);
 }
