@@ -10,42 +10,36 @@
 
 .neon-green {
   --neon-color: var(--neon-green);
-  --neon-glow: var(--neon-green-glow);
   color: var(--neon-green) !important;
   text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
 }
 
 .neon-blue {
   --neon-color: var(--neon-blue);
-  --neon-glow: var(--neon-blue-glow);
   color: var(--neon-blue) !important;
   text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue) !important;
 }
 
 .neon-orange {
   --neon-color: var(--neon-orange);
-  --neon-glow: var(--neon-orange-glow);
   color: var(--neon-orange) !important;
   text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange) !important;
 }
 
 .neon-pink {
   --neon-color: var(--neon-pink);
-  --neon-glow: var(--neon-pink-glow);
   color: var(--neon-pink) !important;
   text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink) !important;
 }
 
 .neon-red {
   --neon-color: var(--neon-red);
-  --neon-glow: var(--neon-red-glow);
   color: var(--neon-red) !important;
   text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red) !important;
 }
 
 .neon-yellow {
   --neon-color: var(--neon-yellow);
-  --neon-glow: var(--neon-yellow-glow);
   color: var(--neon-yellow) !important;
   text-shadow: 0 0 5px var(--neon-yellow), 0 0 10px var(--neon-yellow) !important;
 }
