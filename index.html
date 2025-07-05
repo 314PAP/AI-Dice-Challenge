@@ -22,22 +22,20 @@
     <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
     <link rel="stylesheet" href="node_modules/aos/dist/aos.css">
     
-    <!-- CSS importy - hlavní optimalizovaný CSS obsahuje všechny potřebné importy -->
-    <link rel="stylesheet" href="/src/styles/main-optimized.css">
-    
-    <!-- Proměnné -->
-    <link rel="stylesheet" href="/src/styles/variables/colors.css">
-    <link rel="stylesheet" href="/src/styles/variables/sizes.css">
-    <link rel="stylesheet" href="/src/styles/variables/animations.css">
-    
-    <!-- Komponenty -->
+    <!-- ČISTÁ CSS STRUKTURA - pouze potřebné soubory -->
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
     <link rel="stylesheet" href="/src/styles/components/game-menu.css">
     <link rel="stylesheet" href="/src/styles/components/game-controls.css">
+    <link rel="stylesheet" href="/src/styles/components/chat.css">
     <link rel="stylesheet" href="/src/styles/components/modals.css">
-    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
-    <link rel="stylesheet" href="/src/styles/components/super-responsive-layout.css">
     
-    <!-- Utility styly - naposledy pro override -->
+    <style>
+        /* Jen ty nejzákladnější styly */
+        .vh-90 { height: 90vh !important; }
+        .vw-90 { width: 90vw !important; }
+        .hidden { display: none !important; }
+    </style>
 </head>
 <body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden">
     <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->
@@ -50,12 +48,7 @@
                 <div class="col-8 h-100" data-aos="fade-right" data-aos-duration="800">
                     <div class="game-box h-100 animate__animated">
                         <!-- Zde se načte herní obsah -->
-                        <div id="gameContent" class="h-100 d-flex flex-column">
-                            <div class="text-white p-3">
-                                <h3>TEST GAME</h3>
-                                <p>Pokud vidíte tento text, HTML struktura funguje.</p>
-                            </div>
-                        </div>
+                        <div id="gameContent" class="h-100 d-flex flex-column"></div>
                         <!-- Herní ovládání (načte se sem při spuštění hry) -->
                         <div id="gameControls" class="hidden h-100 d-flex flex-column"></div>
                     </div>
@@ -65,12 +58,7 @@
                 <div class="col-4 h-100" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
                     <div class="chat-box h-100">
                         <!-- Zde se načte desktop chat -->
-                        <div id="chatPanel" class="h-100">
-                            <div class="text-white p-3">
-                                <h3>TEST CHAT</h3>
-                                <p>Pokud vidíte tento text, HTML struktura funguje.</p>
-                            </div>
-                        </div>
+                        <div id="chatPanel" class="h-100"></div>
                     </div>
                 </div>
             </div>
