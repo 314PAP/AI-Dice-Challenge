@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finální test systémových zpráv</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Načtení CSS ve správném pořadí -->
+    <link rel="stylesheet" href="src/styles/main-optimized.css">
+    
+    <!-- Proměnné -->
+    <link rel="stylesheet" href="src/styles/variables/colors.css">
+    <link rel="stylesheet" href="src/styles/variables/sizes.css">
+    <link rel="stylesheet" href="src/styles/variables/animations.css">
+    
+    <!-- Komponenty -->
+    <link rel="stylesheet" href="src/styles/components/game-menu.css">
+    <link rel="stylesheet" href="src/styles/components/game-controls.css">
+    <link rel="stylesheet" href="src/styles/components/chat.css">
+    <link rel="stylesheet" href="src/styles/components/modals.css">
+    
+    <!-- Bootstrap responzivní styly -->
+    <link rel="stylesheet" href="src/styles/components/bootstrap-responsive.css">
+    
+    <!-- Ikony -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+    <div class="container-fluid p-4">
+        <h1 class="text-center mb-4">🎲 Finální test systémových zpráv</h1>
+        
+        <!-- CSS Test -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-dark border-secondary">
+                    <div class="card-header">
+                        <h5>CSS Test - Neonové barvy</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="neon-green">✅ Zelená (.neon-green)</p>
+                        <p class="neon-blue">🔵 Modrá (.neon-blue)</p>
+                        <p class="neon-yellow">⚠️ Žlutá (.neon-yellow) - SYSTÉMOVÁ BARVA!</p>
+                        <p class="neon-red">❌ Červená (.neon-red)</p>
+                        <p class="neon-orange">🟠 Oranžová (.neon-orange)</p>
+                        <p class="neon-pink">💖 Růžová (.neon-pink)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat Test -->
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card bg-dark border-warning">
+                    <div class="card-header">
+                        <h5 class="neon-yellow">Chat Test</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="chatMessages" class="p-3 border border-secondary rounded mb-3" style="height: 300px; overflow-y: auto; background: rgba(0,0,0,0.5);"></div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-warning" onclick="addSystemMessage()">Systémová zpráva</button>
+                            <button class="btn btn-success" onclick="addPlayerMessage()">Hráčská zpráva</button>
+                            <button class="btn btn-info" onclick="addAIMessage()">AI zpráva</button>
+                            <button class="btn btn-danger" onclick="addErrorMessage()">Chyba</button>
+                            <button class="btn btn-secondary" onclick="clearMessages()">Vyčistit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card bg-dark border-info">
+                    <div class="card-header">
+                        <h5 class="neon-blue">Debug Info</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="debugInfo">
+                            <p><strong>CSS proměnné:</strong></p>
+                            <ul id="cssVariables"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="src/main-bootstrap.js"></script>
+    <script src="src/js/main.js"></script>
+    
+    <script>
+        let messageCounter = 0;
+        
+        function addSystemMessage() {
+            messageCounter++;
+            const message = `Systémová zpráva #${messageCounter} - má být ŽLUTÁ! 🟡`;
+            window.addChatMessage('system', message);
+        }
+        
+        function addPlayerMessage() {
+            messageCounter++;
+            const message = `Hráčská zpráva #${messageCounter} - má být ZELENÁ! 🟢`;
+            window.addChatMessage('player', message);
+        }
+        
+        function addAIMessage() {
+            messageCounter++;
+            const message = `AI zpráva #${messageCounter} - má být MODRÁ! 🔵`;
+            window.addChatMessageBootstrap('AI', message, 'ai', 'neon-blue');
+        }
+        
+        function addErrorMessage() {
+            messageCounter++;
+            const message = `Chybová zpráva #${messageCounter} - má být ČERVENÁ! 🔴`;
+            window.addChatMessageBootstrap('Chyba', message, 'error');
+        }
+        
+        function clearMessages() {
+            document.getElementById('chatMessages').innerHTML = '';
+            messageCounter = 0;
+        }
+        
+        // Debug info - načtení CSS proměnných
+        function loadDebugInfo() {
+            const cssVariables = document.getElementById('cssVariables');
+            const rootStyles = getComputedStyle(document.documentElement);
+            
+            const vars = [
+                '--neon-green',
+                '--neon-blue', 
+                '--neon-yellow',
+                '--neon-red',
+                '--neon-orange',
+                '--neon-pink'
+            ];
+            
+            vars.forEach(varName => {
+                const value = rootStyles.getPropertyValue(varName);
+                const li = document.createElement('li');
+                li.innerHTML = `<code>${varName}</code>: <span style="color: ${value}">${value}</span>`;
+                cssVariables.appendChild(li);
+            });
+            
+            // Test .neon-yellow třídy
+            const testElement = document.createElement('div');
+            testElement.className = 'neon-yellow';
+            testElement.style.visibility = 'hidden';
+            document.body.appendChild(testElement);
+            
+            const computedStyle = window.getComputedStyle(testElement);
+            const testInfo = document.createElement('div');
+            testInfo.innerHTML = `
+                <hr>
+                <p><strong>.neon-yellow test:</strong></p>
+                <p>Color: <span style="color: ${computedStyle.color}; text-shadow: ${computedStyle.textShadow};">${computedStyle.color}</span></p>
+                <p>Text-shadow: ${computedStyle.textShadow}</p>
+            `;
+            document.getElementById('debugInfo').appendChild(testInfo);
+            
+            document.body.removeChild(testElement);
+        }
+        
+        // Spuštění při načtení stránky
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDebugInfo();
+            
+            // Automatický test
+            setTimeout(addSystemMessage, 500);
+            setTimeout(addPlayerMessage, 1000);
+            setTimeout(addAIMessage, 1500);
+        });
+    </script>
+</body>
+</html>
