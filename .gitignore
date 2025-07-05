@@ -37,3 +37,4 @@ dist-ssr
 temp/
 tmp/
 cleanup_archive/
+archive/
