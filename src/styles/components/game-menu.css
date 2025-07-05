@@ -23,7 +23,7 @@
   text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
 }
 
-/* Cílové skóre */
+/* Cílové skóre - vyšší priorita kvůli minimalist-layout.css */
 .score-label {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
@@ -40,6 +40,15 @@
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+.target-score-input input {
+  width: 100% !important;
+  max-width: 160px !important;
+  min-width: 120px !important;
+  margin: 0 auto !important;
+  display: block !important;
+  text-align: center !important;
 }
 
 .form-control-neon {
