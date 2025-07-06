@@ -38,6 +38,7 @@
   text-shadow: 0 0 5px var(--neon-green);
   box-shadow: 0 0 5px var(--neon-green);
   font-family: 'Orbitron', sans-serif;
+  cursor: pointer; /* Všechny kostky jsou klikatelné */
 }
 
 /* Responzivní velikosti kostek */
