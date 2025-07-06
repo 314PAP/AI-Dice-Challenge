@@ -12,13 +12,14 @@ class SimpleDiceGame {
             gameStarted: false,
             gameEnded: false,
             players: [
-                { name: 'Hráč', score: 0, isHuman: true },
-                { name: 'AI Sarah', score: 0, isHuman: false },
-                { name: 'AI Marcus', score: 0, isHuman: false },
-                { name: 'AI Luna', score: 0, isHuman: false }
+                { name: 'Hráč', score: 0, isHuman: true, hasEnteredGame: false },
+                { name: 'AI Sarah', score: 0, isHuman: false, hasEnteredGame: false },
+                { name: 'AI Marcus', score: 0, isHuman: false, hasEnteredGame: false },
+                { name: 'AI Luna', score: 0, isHuman: false, hasEnteredGame: false }
             ],
             currentPlayerIndex: 0,
-            targetScore: 5000
+            targetScore: 5000,
+            gameEntryMinimum: 300 // Minimální skóre pro vstup do hry
         };
         
         this.templates = new Map();
@@ -362,9 +363,10 @@ class SimpleDiceGame {
             // Reset hráčů
             this.gameState.players.forEach(player => {
                 player.score = 0;
+                player.hasEnteredGame = false;
             });
             this.gameState.currentPlayerIndex = 0;
-            console.log('👥 Players reset');
+            console.log('👥 Players reset - all players out of game');
             
             // Inicializace herních proměnných
             this.initGameVariables();
@@ -645,43 +647,67 @@ class SimpleDiceGame {
         }
     }
 
-    // Výpočet skóre
+    // Výpočet skóre podle pravidel Farkle
     calculateScore(diceValues) {
-        if (!Array.isArray(diceValues)) return 0;
+        if (!Array.isArray(diceValues) || diceValues.length === 0) {
+            console.log('🔍 calculateScore: No dice values provided');
+            return 0;
+        }
         
-        // Jednoduchý výpočet Farkle skóre
+        console.log('🧮 calculateScore: Calculating score for dice:', diceValues);
+        
+        // Spočítej frekvenci každého čísla
         const counts = {};
         diceValues.forEach(value => {
             counts[value] = (counts[value] || 0) + 1;
         });
-
+        
+        console.log('🔢 calculateScore: Dice counts:', counts);
+        
         let score = 0;
         
-        // Jedničky (100 bodů za kus, 1000 za triple)
-        if (counts[1]) {
-            if (counts[1] >= 3) {
-                score += 1000;
-                counts[1] -= 3;
+        // Zpracuj každé číslo
+        Object.entries(counts).forEach(([number, count]) => {
+            const num = parseInt(number);
+            let partialScore = 0;
+            
+            if (num === 1) {
+                // Jedničky: 3+ = 1000 bodů, jednotlivé = 100 bodů
+                if (count >= 3) {
+                    partialScore += 1000; // Triple jedniček
+                    partialScore += (count - 3) * 100; // Zbývající jedničky
+                    console.log(`🎯 calculateScore: ${count}×1 = 1000 (triple) + ${count - 3}×100 = ${partialScore}`);
+                } else {
+                    partialScore += count * 100; // Jednotlivé jedničky
+                    console.log(`🎯 calculateScore: ${count}×1 = ${count}×100 = ${partialScore}`);
+                }
+            } else if (num === 5) {
+                // Pětky: 3+ = 500 bodů, jednotlivé = 50 bodů
+                if (count >= 3) {
+                    partialScore += 500; // Triple pětek
+                    partialScore += (count - 3) * 50; // Zbývající pětky
+                    console.log(`🎯 calculateScore: ${count}×5 = 500 (triple) + ${count - 3}×50 = ${partialScore}`);
+                } else {
+                    partialScore += count * 50; // Jednotlivé pětky
+                    console.log(`🎯 calculateScore: ${count}×5 = ${count}×50 = ${partialScore}`);
+                }
+            } else {
+                // Ostatní čísla (2,3,4,6): pouze 3+ kostky bodují
+                if (count >= 3) {
+                    partialScore += num * 100; // Základní triple
+                    partialScore += (count - 3) * 100; // Další kostky stejné hodnoty
+                    console.log(`🎯 calculateScore: ${count}×${num} = ${num}×100 (triple) + ${count - 3}×100 = ${partialScore}`);
+                } else {
+                    console.log(`🎯 calculateScore: ${count}×${num} = 0 (no triple, no individual scoring)`);
+                }
             }
-            score += counts[1] * 100;
-        }
-
-        // Pětky (50 bodů za kus, 500 za triple)
-        if (counts[5]) {
-            if (counts[5] >= 3) {
-                score += 500;
-                counts[5] -= 3;
-            }
-            score += counts[5] * 50;
-        }
-
-        // Ostatní triple kombinace
-        [2, 3, 4, 6].forEach(num => {
-            if (counts[num] >= 3) {
-                score += num * 100;
-            }
+            
+            score += partialScore;
         });
-
+        
+        // TODO: Implementovat speciální kombinace (straight, 3 páry, atd.)
+        
+        console.log(`🎊 calculateScore: Total score = ${score}`);
         return score;
     }
 
@@ -696,18 +722,40 @@ class SimpleDiceGame {
 
         const index = parseInt(diceElement.dataset.index);
         const selectedDice = this.gameState.currentTurn.selectedDice;
+        const diceValue = this.gameState.currentTurn.diceValues[index];
+        
+        console.log(`🎯 Dice selection: index=${index}, value=${diceValue}`);
         
         if (selectedDice.includes(index)) {
-            // Odznačit
+            // Odznačit kostku
             selectedDice.splice(selectedDice.indexOf(index), 1);
             diceElement.classList.remove('selected');
-            console.log('➖ Dice deselected:', index);
+            console.log(`➖ Dice deselected: index=${index}, value=${diceValue}`);
         } else {
-            // Označit
-            selectedDice.push(index);
-            diceElement.classList.add('selected');
-            console.log('➕ Dice selected:', index);
+            // Označit kostku - ale nejdříve zkontroluj, jestli nový výběr bude validní
+            const testSelection = [...selectedDice, index];
+            const testValues = testSelection.map(i => this.gameState.currentTurn.diceValues[i]);
+            const testScore = this.calculateScore(testValues);
+            
+            console.log(`🧪 Testing selection: indices=${testSelection}, values=${testValues}, score=${testScore}`);
+            
+            if (testScore > 0) {
+                // Validní výběr
+                selectedDice.push(index);
+                diceElement.classList.add('selected');
+                console.log(`➕ Dice selected: index=${index}, value=${diceValue}`);
+            } else {
+                // Nevalidní výběr
+                console.warn(`❌ Invalid selection: adding dice ${diceValue} would make selection worthless`);
+                this.addChatMessage('Systém', `❌ Nelze vybrat kostku ${diceValue} - výběr by neměl žádné body!`, 'system');
+                return;
+            }
         }
+
+        // Kontrola aktuálního výběru
+        const currentSelection = selectedDice.map(i => this.gameState.currentTurn.diceValues[i]);
+        const currentScore = this.calculateScore(currentSelection);
+        console.log(`🎯 Current selection: indices=${selectedDice}, values=${currentSelection}, score=${currentScore}`);
 
         this.updateGameButtons();
     }
@@ -717,7 +765,8 @@ class SimpleDiceGame {
         console.log('🏦 Banking dice...');
         
         if (!this.gameState.currentTurn || this.gameState.currentTurn.selectedDice.length === 0) {
-            console.warn('No dice selected to bank');
+            console.warn('🏦 No dice selected to bank');
+            this.addChatMessage('Systém', '❌ Nejsou vybrány žádné kostky k odložení!', 'system');
             return;
         }
 
@@ -725,8 +774,11 @@ class SimpleDiceGame {
         const selectedValues = selectedIndices.map(i => this.gameState.currentTurn.diceValues[i]);
         const score = this.calculateScore(selectedValues);
         
+        console.log(`🏦 Banking: indices=${selectedIndices}, values=${selectedValues}, score=${score}`);
+        
         if (score === 0) {
-            console.warn('Selected dice have no score');
+            console.warn('🏦 Selected dice have no score');
+            this.addChatMessage('Systém', '❌ Vybrané kostky nemají žádné body!', 'system');
             return;
         }
 
@@ -734,9 +786,14 @@ class SimpleDiceGame {
         this.gameState.currentTurn.turnScore += score;
         this.gameState.currentTurn.availableDice -= selectedIndices.length;
         
+        console.log(`🏦 Banked ${selectedIndices.length} dice for ${score} points`);
+        console.log(`🏦 New turn score: ${this.gameState.currentTurn.turnScore}`);
+        console.log(`🏦 Available dice: ${this.gameState.currentTurn.availableDice}`);
+        
         // Hot dice - pokud se použily všechny kostky
         if (this.gameState.currentTurn.availableDice === 0) {
             this.gameState.currentTurn.availableDice = 6;
+            console.log('🔥 HOT DICE! All dice used, getting 6 new dice');
             this.addChatMessage('Systém', '🔥 HOT DICE! Všechny kostky použity, dostáváte 6 nových!', 'system');
         }
 
@@ -762,16 +819,40 @@ class SimpleDiceGame {
             return;
         }
 
-        // Přidání skóre k celkovému skóre hráče
-        this.gameState.players[this.gameState.currentPlayerIndex].score += this.gameState.currentTurn.turnScore;
+        const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
+        const turnScore = this.gameState.currentTurn.turnScore;
         
-        const finalScore = this.gameState.players[this.gameState.currentPlayerIndex].score;
-        console.log('📊 Turn ended with score:', this.gameState.currentTurn.turnScore, 'Total score:', finalScore);
+        console.log(`📊 Player ${currentPlayer.name} turn summary:`);
+        console.log(`📊 - Turn score: ${turnScore}`);
+        console.log(`📊 - Has entered game: ${currentPlayer.hasEnteredGame}`);
+        console.log(`📊 - Current total score: ${currentPlayer.score}`);
+        
+        // Kontrola vstupu do hry
+        if (!currentPlayer.hasEnteredGame) {
+            if (turnScore >= this.gameState.gameEntryMinimum) {
+                // Hráč vstupuje do hry
+                currentPlayer.hasEnteredGame = true;
+                currentPlayer.score += turnScore;
+                console.log(`🎉 ${currentPlayer.name} enters the game with ${turnScore} points!`);
+                this.addChatMessage('Systém', `🎉 ${currentPlayer.name} vstoupil do hry s ${turnScore} body!`, 'system');
+            } else {
+                // Nedostatečné skóre pro vstup
+                console.log(`❌ ${currentPlayer.name} needs ${this.gameState.gameEntryMinimum} points to enter game (got ${turnScore})`);
+                this.addChatMessage('Systém', `❌ ${currentPlayer.name} potřebuje alespoň ${this.gameState.gameEntryMinimum} bodů pro vstup do hry (získal ${turnScore})`, 'system');
+            }
+        } else {
+            // Hráč již je ve hře - normální přičtení bodů
+            currentPlayer.score += turnScore;
+            console.log(`💰 ${currentPlayer.name} adds ${turnScore} points to total score`);
+        }
+        
+        const finalScore = currentPlayer.score;
+        console.log(`📊 Turn ended - final score: ${finalScore}`);
         
         this.addChatMessage('Systém', `🏁 Tah ukončen! Celkové skóre: ${finalScore}`, 'system');
         
-        // Zkontroluj výhru
-        if (finalScore >= this.gameState.targetScore) {
+        // Zkontroluj výhru (pouze pokud je hráč ve hře)
+        if (currentPlayer.hasEnteredGame && finalScore >= this.gameState.targetScore) {
             this.handleGameWin();
             return;
         }
@@ -830,15 +911,33 @@ class SimpleDiceGame {
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
         this.addChatMessage(currentPlayer.name, `🤖 Přemýšlím o svém tahu...`, 'ai');
         
+        console.log(`🤖 AI Turn: ${currentPlayer.name}`);
+        console.log(`🤖 Has entered game: ${currentPlayer.hasEnteredGame}`);
+        
         // Simulace AI tahu
         setTimeout(() => {
-            const aiScore = Math.floor(Math.random() * 500) + 100;
-            this.gameState.players[this.gameState.currentPlayerIndex].score += aiScore;
+            let aiScore;
             
-            this.addChatMessage(currentPlayer.name, `🎯 Získal jsem ${aiScore} bodů!`, 'ai');
+            if (!currentPlayer.hasEnteredGame) {
+                // AI musí získat alespoň 300 bodů pro vstup
+                aiScore = Math.floor(Math.random() * 400) + 300; // 300-699 bodů
+                currentPlayer.hasEnteredGame = true;
+                console.log(`🤖 ${currentPlayer.name} enters game with ${aiScore} points`);
+                this.addChatMessage(currentPlayer.name, `🎉 Vstoupil jsem do hry s ${aiScore} body!`, 'ai');
+            } else {
+                // Normální AI tah
+                aiScore = Math.floor(Math.random() * 500) + 100; // 100-599 bodů
+                console.log(`🤖 ${currentPlayer.name} scores ${aiScore} points`);
+                this.addChatMessage(currentPlayer.name, `🎯 Získal jsem ${aiScore} bodů!`, 'ai');
+            }
+            
+            currentPlayer.score += aiScore;
+            
+            // Aktualizace UI
+            this.updateScore();
             
             // Zkontroluj výhru
-            if (this.gameState.players[this.gameState.currentPlayerIndex].score >= this.gameState.targetScore) {
+            if (currentPlayer.hasEnteredGame && currentPlayer.score >= this.gameState.targetScore) {
                 this.handleGameWin();
             } else {
                 this.nextPlayer();
@@ -904,10 +1003,38 @@ class SimpleDiceGame {
 
     // Aktualizace stavu tlačítek
     updateGameButtons() {
+        console.log('🔄 updateGameButtons: Updating button states');
+        
+        const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
+        const currentTurn = this.gameState.currentTurn;
+        
+        // Podmínky pro tlačítka
+        const canRoll = !currentTurn?.mustBankDice && currentTurn?.availableDice > 0;
+        const canBank = currentTurn?.mustBankDice && currentTurn?.selectedDice.length > 0;
+        
+        // Pro ukončení tahu: musí mít nějaké body V TOMTO TAHU a nesmí mít povinnost banknout
+        // PLUS: pokud hráč není ve hře, musí mít alespoň 300 bodů
+        let canEndTurn = currentTurn?.turnScore > 0 && !currentTurn?.mustBankDice;
+        
+        if (!currentPlayer.hasEnteredGame && currentTurn?.turnScore < this.gameState.gameEntryMinimum) {
+            canEndTurn = false;
+            console.log(`🚫 updateGameButtons: Cannot end turn - need ${this.gameState.gameEntryMinimum} points to enter game (have ${currentTurn?.turnScore})`);
+        }
+        
+        console.log('🔄 updateGameButtons: Button conditions:', {
+            canRoll,
+            canBank,
+            canEndTurn,
+            turnScore: currentTurn?.turnScore,
+            hasEnteredGame: currentPlayer.hasEnteredGame,
+            mustBankDice: currentTurn?.mustBankDice,
+            selectedDice: currentTurn?.selectedDice?.length
+        });
+        
         const buttons = [
-            { id: 'rollBtn', condition: !this.gameState.currentTurn?.mustBankDice && this.gameState.currentTurn?.availableDice > 0 },
-            { id: 'bankBtn', condition: this.gameState.currentTurn?.mustBankDice && this.gameState.currentTurn?.selectedDice.length > 0 },
-            { id: 'endTurnBtn', condition: this.gameState.currentTurn?.turnScore > 0 && !this.gameState.currentTurn?.mustBankDice }
+            { id: 'rollBtn', condition: canRoll },
+            { id: 'bankBtn', condition: canBank },
+            { id: 'endTurnBtn', condition: canEndTurn }
         ];
         
         buttons.forEach(button => {
@@ -915,6 +1042,7 @@ class SimpleDiceGame {
             elements.forEach(element => {
                 if (element) {
                     element.disabled = !button.condition;
+                    console.log(`🔄 updateGameButtons: ${button.id} = ${button.condition ? 'enabled' : 'disabled'}`);
                 }
             });
         });
@@ -922,17 +1050,29 @@ class SimpleDiceGame {
 
     // Aktualizace skóre
     updateScore() {
+        console.log('📊 updateScore: Updating all score displays');
+        
         const scoreElements = [
             { id: 'humanScore', index: 0 },
-            { id: 'geminiScore', index: 1 },
+            { id: 'geminiScore', index: 1 }, 
             { id: 'chatgptScore', index: 2 },
             { id: 'claudeScore', index: 3 }
         ];
         
         scoreElements.forEach(element => {
             const scoreElement = document.getElementById(element.id);
-            if (scoreElement && this.gameState.players[element.index]) {
-                scoreElement.textContent = this.gameState.players[element.index].score;
+            const scoreElementMobile = document.getElementById(element.id + 'Mobile');
+            
+            if (this.gameState.players[element.index]) {
+                const player = this.gameState.players[element.index];
+                const displayText = player.hasEnteredGame ? 
+                    `${player.score}` : 
+                    `${player.score} (mimo hru)`;
+                
+                if (scoreElement) scoreElement.textContent = displayText;
+                if (scoreElementMobile) scoreElementMobile.textContent = displayText;
+                
+                console.log(`📊 updateScore: Player ${player.name}: ${displayText}`);
             }
         });
         
@@ -941,7 +1081,22 @@ class SimpleDiceGame {
         turnScoreElements.forEach(id => {
             const element = document.getElementById(id);
             if (element && this.gameState.currentTurn) {
-                element.textContent = `Skóre tahu: ${this.gameState.currentTurn.turnScore}`;
+                const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
+                const needsEntry = !currentPlayer.hasEnteredGame;
+                const turnScore = this.gameState.currentTurn.turnScore;
+                
+                let displayText = `Skóre tahu: ${turnScore}`;
+                if (needsEntry) {
+                    const needed = this.gameState.gameEntryMinimum - turnScore;
+                    if (needed > 0) {
+                        displayText += ` (potřeba ${needed} pro vstup)`;
+                    } else {
+                        displayText += ` (vstup do hry!)`;
+                    }
+                }
+                
+                element.textContent = displayText;
+                console.log(`📊 updateScore: Turn score display: ${displayText}`);
             }
         });
         
@@ -951,7 +1106,14 @@ class SimpleDiceGame {
             const element = document.getElementById(id);
             if (element) {
                 const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
-                element.textContent = currentPlayer.isHuman ? 'Váš tah!' : `Tah: ${currentPlayer.name}`;
+                let displayText = currentPlayer.isHuman ? 'Váš tah!' : `Tah: ${currentPlayer.name}`;
+                
+                if (!currentPlayer.hasEnteredGame) {
+                    displayText += ` (mimo hru - potřeba ${this.gameState.gameEntryMinimum})`;
+                }
+                
+                element.textContent = displayText;
+                console.log(`📊 updateScore: Turn info display: ${displayText}`);
             }
         });
     }

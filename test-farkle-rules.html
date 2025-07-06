@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Farkle Rules</title>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #00ff00; padding: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; background: #2a2a2a; border-radius: 5px; }
+        .pass { border-left: 5px solid #00ff00; }
+        .fail { border-left: 5px solid #ff0000; }
+    </style>
+</head>
+<body>
+    <h1>🎲 Test Farkle Rules</h1>
+    <div id="results"></div>
+    
+    <script>
+        // Minimální implementace pro test
+        function calculateScore(diceValues) {
+            if (!Array.isArray(diceValues) || diceValues.length === 0) {
+                return 0;
+            }
+            
+            // Spočítej frekvenci každého čísla
+            const counts = {};
+            diceValues.forEach(value => {
+                counts[value] = (counts[value] || 0) + 1;
+            });
+            
+            let score = 0;
+            
+            // Zpracuj každé číslo
+            Object.entries(counts).forEach(([number, count]) => {
+                const num = parseInt(number);
+                
+                if (num === 1) {
+                    // Jedničky: 3+ = 1000 bodů, jednotlivé = 100 bodů
+                    if (count >= 3) {
+                        score += 1000; // Triple jedniček
+                        score += (count - 3) * 100; // Zbývající jedničky
+                    } else {
+                        score += count * 100; // Jednotlivé jedničky
+                    }
+                } else if (num === 5) {
+                    // Pětky: 3+ = 500 bodů, jednotlivé = 50 bodů
+                    if (count >= 3) {
+                        score += 500; // Triple pětek
+                        score += (count - 3) * 50; // Zbývající pětky
+                    } else {
+                        score += count * 50; // Jednotlivé pětky
+                    }
+                } else {
+                    // Ostatní čísla (2,3,4,6): pouze 3+ kostky bodují
+                    if (count >= 3) {
+                        score += num * 100; // Základní triple
+                        score += (count - 3) * 100; // Další kostky stejné hodnoty
+                    }
+                }
+            });
+            
+            return score;
+        }
+        
+        // Test cases
+        const testCases = [
+            { dice: [1], expected: 100, description: "Jedna jednička = 100 bodů" },
+            { dice: [1, 1], expected: 200, description: "Dvě jedničky = 200 bodů" },
+            { dice: [1, 1, 1], expected: 1000, description: "Tři jedničky = 1000 bodů" },
+            { dice: [1, 1, 1, 1], expected: 1100, description: "Čtyři jedničky = 1100 bodů" },
+            { dice: [5], expected: 50, description: "Jedna pětka = 50 bodů" },
+            { dice: [5, 5], expected: 100, description: "Dvě pětky = 100 bodů" },
+            { dice: [5, 5, 5], expected: 500, description: "Tři pětky = 500 bodů" },
+            { dice: [5, 5, 5, 5], expected: 550, description: "Čtyři pětky = 550 bodů" },
+            { dice: [2, 2, 2], expected: 200, description: "Tři dvojky = 200 bodů" },
+            { dice: [3, 3, 3], expected: 300, description: "Tři trojky = 300 bodů" },
+            { dice: [4, 4, 4], expected: 400, description: "Tři čtyřky = 400 bodů" },
+            { dice: [6, 6, 6], expected: 600, description: "Tři šestky = 600 bodů" },
+            { dice: [2, 2, 2, 2], expected: 300, description: "Čtyři dvojky = 300 bodů" },
+            { dice: [2], expected: 0, description: "Jedna dvojka = 0 bodů" },
+            { dice: [3], expected: 0, description: "Jedna trojka = 0 bodů" },
+            { dice: [4], expected: 0, description: "Jedna čtyřka = 0 bodů" },
+            { dice: [6], expected: 0, description: "Jedna šestka = 0 bodů" },
+            { dice: [1, 5], expected: 150, description: "Jedna jednička + jedna pětka = 150 bodů" },
+            { dice: [1, 1, 5, 5], expected: 300, description: "Dvě jedničky + dvě pětky = 300 bodů" },
+            { dice: [1, 1, 1, 5, 5, 5], expected: 1500, description: "Tři jedničky + tři pětky = 1500 bodů" },
+            { dice: [1, 6, 3, 6, 4, 6], expected: 700, description: "Jedna jednička + tři šestky = 700 bodů" },
+            { dice: [2, 3, 4, 6], expected: 0, description: "Žádné bodující kostky = 0 bodů (FARKLE)" }
+        ];
+        
+        // Spuštění testů
+        const resultsDiv = document.getElementById('results');
+        let passCount = 0;
+        let failCount = 0;
+        
+        testCases.forEach((testCase, index) => {
+            const result = calculateScore(testCase.dice);
+            const passed = result === testCase.expected;
+            
+            if (passed) passCount++;
+            else failCount++;
+            
+            const testDiv = document.createElement('div');
+            testDiv.className = `test-result ${passed ? 'pass' : 'fail'}`;
+            testDiv.innerHTML = `
+                <strong>Test ${index + 1}:</strong> ${testCase.description}<br>
+                <strong>Kostky:</strong> [${testCase.dice.join(', ')}]<br>
+                <strong>Očekáváno:</strong> ${testCase.expected} bodů<br>
+                <strong>Výsledek:</strong> ${result} bodů<br>
+                <strong>Status:</strong> ${passed ? '✅ PASS' : '❌ FAIL'}
+            `;
+            
+            resultsDiv.appendChild(testDiv);
+        });
+        
+        // Shrnutí
+        const summaryDiv = document.createElement('div');
+        summaryDiv.className = 'test-result';
+        summaryDiv.innerHTML = `
+            <h2>📊 Shrnutí testů</h2>
+            <strong>Úspěšné:</strong> ${passCount}<br>
+            <strong>Neúspěšné:</strong> ${failCount}<br>
+            <strong>Celkem:</strong> ${testCases.length}<br>
+            <strong>Úspěšnost:</strong> ${Math.round((passCount / testCases.length) * 100)}%
+        `;
+        resultsDiv.appendChild(summaryDiv);
+        
+        // Výpis do konzole
+        console.log('🎲 Farkle Rules Test Results:');
+        console.log(`✅ Passed: ${passCount}`);
+        console.log(`❌ Failed: ${failCount}`);
+        console.log(`📊 Success rate: ${Math.round((passCount / testCases.length) * 100)}%`);
+    </script>
+</body>
+</html>

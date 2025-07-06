@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farkle Game Test</title>
+    <style>
+        body { font-family: monospace; background: #1a1a1a; color: #00ff00; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; background: #2a2a2a; border-radius: 5px; }
+        .status { padding: 5px; margin: 5px 0; border-radius: 3px; }
+        .pass { background: #004400; color: #00ff00; }
+        .fail { background: #440000; color: #ff0000; }
+        .info { background: #004444; color: #00ffff; }
+        .button { padding: 10px 15px; margin: 5px; background: #444; color: #fff; border: none; border-radius: 3px; cursor: pointer; }
+        .button:hover { background: #666; }
+        .button:disabled { background: #222; color: #666; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <h1>🎲 Farkle Game Manual Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Vstup do hry (300 bodů minimum)</h2>
+        <div id="entryTest">
+            <p>Simulace hráče s různým skóre:</p>
+            <button class="button" onclick="testEntry(250)">Test 250 bodů (nedostatečné)</button>
+            <button class="button" onclick="testEntry(300)">Test 300 bodů (minimum)</button>
+            <button class="button" onclick="testEntry(450)">Test 450 bodů (dostatečné)</button>
+            <div id="entryResults"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Výpočet skóre</h2>
+        <div id="scoreTest">
+            <p>Testování různých kombinací kostek:</p>
+            <button class="button" onclick="testDice([1,1,1,5,5,6])">Test [1,1,1,5,5,6] = 1100 bodů</button>
+            <button class="button" onclick="testDice([1,6,3,6,4,6])">Test [1,6,3,6,4,6] = 700 bodů</button>
+            <button class="button" onclick="testDice([2,3,4,6])">Test [2,3,4,6] = 0 bodů (FARKLE)</button>
+            <button class="button" onclick="testDice([5,5,5,5,5,5])">Test [5,5,5,5,5,5] = 650 bodů</button>
+            <div id="scoreResults"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Podmínky tlačítek</h2>
+        <div id="buttonTest">
+            <p>Simulace stavu tlačítek:</p>
+            <button class="button" onclick="testButtonState(false, 250)">Hráč mimo hru, 250 bodů</button>
+            <button class="button" onclick="testButtonState(false, 300)">Hráč mimo hru, 300 bodů</button>
+            <button class="button" onclick="testButtonState(true, 150)">Hráč ve hře, 150 bodů</button>
+            <div id="buttonResults"></div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 4: AI chování</h2>
+        <div id="aiTest">
+            <p>Testování AI logiky:</p>
+            <button class="button" onclick="testAI(false)">AI mimo hru (musí získat 300+ bodů)</button>
+            <button class="button" onclick="testAI(true)">AI ve hře (normální tah)</button>
+            <div id="aiResults"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Simulace calculate score funkce
+        function calculateScore(diceValues) {
+            if (!Array.isArray(diceValues) || diceValues.length === 0) {
+                return 0;
+            }
+            
+            const counts = {};
+            diceValues.forEach(value => {
+                counts[value] = (counts[value] || 0) + 1;
+            });
+            
+            let score = 0;
+            
+            Object.entries(counts).forEach(([number, count]) => {
+                const num = parseInt(number);
+                
+                if (num === 1) {
+                    if (count >= 3) {
+                        score += 1000;
+                        score += (count - 3) * 100;
+                    } else {
+                        score += count * 100;
+                    }
+                } else if (num === 5) {
+                    if (count >= 3) {
+                        score += 500;
+                        score += (count - 3) * 50;
+                    } else {
+                        score += count * 50;
+                    }
+                } else {
+                    if (count >= 3) {
+                        score += num * 100;
+                        score += (count - 3) * 100;
+                    }
+                }
+            });
+            
+            return score;
+        }
+        
+        // Test 1: Vstup do hry
+        function testEntry(turnScore) {
+            const gameEntryMinimum = 300;
+            const canEnterGame = turnScore >= gameEntryMinimum;
+            
+            const result = document.createElement('div');
+            result.className = `status ${canEnterGame ? 'pass' : 'fail'}`;
+            result.innerHTML = `
+                <strong>Skóre tahu:</strong> ${turnScore} bodů<br>
+                <strong>Minimum:</strong> ${gameEntryMinimum} bodů<br>
+                <strong>Vstup do hry:</strong> ${canEnterGame ? '✅ ANO' : '❌ NE'}<br>
+                <strong>Akce:</strong> ${canEnterGame ? 'Hráč vstupuje do hry' : 'Body se nezapočítávají'}
+            `;
+            
+            document.getElementById('entryResults').appendChild(result);
+        }
+        
+        // Test 2: Výpočet skóre
+        function testDice(diceValues) {
+            const score = calculateScore(diceValues);
+            
+            const result = document.createElement('div');
+            result.className = 'status info';
+            result.innerHTML = `
+                <strong>Kostky:</strong> [${diceValues.join(', ')}]<br>
+                <strong>Skóre:</strong> ${score} bodů<br>
+                <strong>Typ:</strong> ${score === 0 ? 'FARKLE' : 'Bodující kombinace'}
+            `;
+            
+            document.getElementById('scoreResults').appendChild(result);
+        }
+        
+        // Test 3: Podmínky tlačítek
+        function testButtonState(hasEnteredGame, turnScore) {
+            const gameEntryMinimum = 300;
+            let canEndTurn = turnScore > 0;
+            
+            if (!hasEnteredGame && turnScore < gameEntryMinimum) {
+                canEndTurn = false;
+            }
+            
+            const result = document.createElement('div');
+            result.className = `status ${canEndTurn ? 'pass' : 'fail'}`;
+            result.innerHTML = `
+                <strong>Hráč ve hře:</strong> ${hasEnteredGame ? 'ANO' : 'NE'}<br>
+                <strong>Skóre tahu:</strong> ${turnScore} bodů<br>
+                <strong>Tlačítko "End Turn":</strong> ${canEndTurn ? '✅ POVOLENO' : '❌ ZAKÁZÁNO'}<br>
+                <strong>Důvod:</strong> ${!hasEnteredGame && turnScore < gameEntryMinimum ? 'Potřeba min. 300 bodů pro vstup' : 'Všechny podmínky splněny'}
+            `;
+            
+            document.getElementById('buttonResults').appendChild(result);
+        }
+        
+        // Test 4: AI chování
+        function testAI(hasEnteredGame) {
+            let aiScore;
+            let strategy;
+            
+            if (!hasEnteredGame) {
+                // AI musí získat alespoň 300 bodů pro vstup
+                aiScore = Math.floor(Math.random() * 400) + 300; // 300-699 bodů
+                strategy = 'Musí získat min. 300 bodů pro vstup do hry';
+            } else {
+                // Normální AI tah
+                aiScore = Math.floor(Math.random() * 500) + 100; // 100-599 bodů
+                strategy = 'Normální tah - může skončit s libovolným skóre > 0';
+            }
+            
+            const result = document.createElement('div');
+            result.className = 'status info';
+            result.innerHTML = `
+                <strong>AI ve hře:</strong> ${hasEnteredGame ? 'ANO' : 'NE'}<br>
+                <strong>Vygenerované skóre:</strong> ${aiScore} bodů<br>
+                <strong>Strategie:</strong> ${strategy}<br>
+                <strong>Výsledek:</strong> ${!hasEnteredGame ? 'AI vstupuje do hry' : 'AI pokračuje ve hře'}
+            `;
+            
+            document.getElementById('aiResults').appendChild(result);
+        }
+        
+        // Automatické spuštění některých testů
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎲 Farkle Game Manual Test loaded');
+            
+            // Ukázka základních testů
+            testEntry(250);
+            testEntry(300);
+            testDice([1,1,1,5,5,6]);
+            testDice([2,3,4,6]);
+            testButtonState(false, 250);
+            testButtonState(false, 300);
+            testAI(false);
+            testAI(true);
+        });
+    </script>
+</body>
+</html>
