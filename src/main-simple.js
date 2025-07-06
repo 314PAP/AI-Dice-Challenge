@@ -174,7 +174,7 @@ class SimpleDiceGame {
             }
             
             // Chat send button
-            else if (isButton('#sendMessageBtn, #sendMessageBtnMobile')) {
+            else if (isButton('#sendChatBtn, #sendChatBtnMobile')) {
                 e.preventDefault();
                 console.log('💬 Chat send button clicked');
                 this.sendChatMessage();
@@ -300,7 +300,13 @@ class SimpleDiceGame {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `chat-message ${type} mb-2`;
                 
-                const color = type === 'user' ? 'text-neon-green' : 'text-neon-blue';
+                // Určení barvy podle typu
+                let color = 'neon-green'; // default pro user
+                if (type === 'ai') {
+                    color = 'neon-blue';
+                } else if (type === 'system') {
+                    color = 'neon-yellow';
+                }
                 
                 messageDiv.innerHTML = `
                     <div class="d-flex align-items-start">
@@ -309,7 +315,7 @@ class SimpleDiceGame {
                         </div>
                         <div class="chat-content">
                             <div class="chat-sender ${color} fw-bold small">${sender}</div>
-                            <div class="chat-text text-light">${message}</div>
+                            <div class="chat-text ${color}">${message}</div>
                         </div>
                     </div>
                 `;
