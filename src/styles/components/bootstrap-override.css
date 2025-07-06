@@ -1,13 +1,43 @@
 /* =============================================================================
-   🎨 BOOTSTRAP OVERRIDE - Minimální přepsání nutných Bootstrap stylů
+   🎨 BOOTSTRAP OVERRIDE - Kritické přepsání Bootstrap stylů
    ============================================================================= */
 
-/* Pouze nezbytné přepsání - zachováváme Bootstrap funkčnost */
-
-/* Základní body styling - pouze černé pozadí */
-body {
+/* Základní HTML a BODY musí být černé */
+html, body {
   background-color: #000000 !important;
-  color: var(--neon-green);
+  color: #39ff14 !important;
+}
+
+/* Hlavní kontejnery */
+.container, .container-fluid {
+  background-color: transparent !important;
+}
+
+/* Základní texty */
+h1, h2, h3, h4, h5, h6 {
+  color: #39ff14 !important;
+}
+
+p, span, div {
+  color: #39ff14;
+}
+
+/* Menu specifické */
+.game-title {
+  color: #39ff14 !important;
+}
+
+.btn {
+  color: #39ff14;
+}
+
+/* Bootstrap reset pouze pro pozadí */
+.bg-white, .bg-light {
+  background-color: #000000 !important;
+}
+
+.text-dark, .text-muted {
+  color: #39ff14 !important;
 }
 
 /* Formulářové prvky - pouze chat input */

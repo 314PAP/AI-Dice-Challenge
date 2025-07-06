@@ -112,12 +112,13 @@ export class DiceInteractionController {
         if (scorePreview) {
             if (previewScore > 0) {
                 scorePreview.textContent = `Možný zisk: ${previewScore} bodů`;
-                scorePreview.style.color = '#39ff14';
+                scorePreview.className = 'neon-green';
             } else if (selectedValues.length > 0) {
                 scorePreview.textContent = 'Neplatná kombinace!';
-                scorePreview.style.color = '#ff3333';
+                scorePreview.className = 'neon-red';
             } else {
                 scorePreview.textContent = 'Vyberte kostky pro skórování';
+                scorePreview.className = '';
                 scorePreview.style.color = '#ffffff';
             }
         }

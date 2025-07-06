@@ -137,6 +137,12 @@ export function returnToMainMenu() {
 export function selectDie(index) {
     const dice = document.querySelectorAll('.die');
     if (dice[index]) {
-        dice[index].style.background = dice[index].style.background === 'rgb(255, 102, 0)' ? '#000' : '#ff6600';
+        // Přepínání mezi aktivním a neaktivním stavem kostky
+        const isSelected = dice[index].classList.contains('selected');
+        if (isSelected) {
+            dice[index].classList.remove('selected');
+        } else {
+            dice[index].classList.add('selected');
+        }
     }
 }

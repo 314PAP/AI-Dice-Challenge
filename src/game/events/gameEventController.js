@@ -243,10 +243,12 @@ export class GameEventController {
         const startBtn = document.getElementById('startGameBtn');
         
         if (isNaN(value) || value < 1000) {
-            input.style.borderColor = '#ff3333';
+            input.classList.add('border-neon-red');
+            input.classList.remove('border-neon-green');
             if (startBtn) startBtn.disabled = true;
         } else {
-            input.style.borderColor = '#39ff14';
+            input.classList.add('border-neon-green');
+            input.classList.remove('border-neon-red');
             if (startBtn) startBtn.disabled = false;
         }
     }

@@ -26,7 +26,7 @@ export function showSpeechBubble(playerIndex, message) {
     
     if (personality && personality.color) {
         bubble.style.backgroundColor = personality.color;
-        bubble.style.color = '#000000'; // Černý text na neonové barvy pro lepší čitelnost
+        bubble.style.color = 'var(--black-bg)'; // Černý text na neonové barvy pro lepší čitelnost
     }
     
     setTimeout(() => {
@@ -66,13 +66,13 @@ export function showFarkleMessage(playerIndex) {
         left: 50%;
         transform: translateX(-50%);
         background-color: transparent;
-        color: #ff0040;
+        color: var(--neon-red);
         font-weight: bold;
         padding: 5px 15px;
         border-radius: 5px;
-        border: 2px solid #ff0040;
-        box-shadow: 0 0 10px #ff0040, 0 0 20px #ff0040, 0 0 30px #ff0040;
-        text-shadow: 0 0 5px #ff0040, 0 0 10px #ff0040, 0 0 15px #ff0040;
+        border: 2px solid var(--neon-red);
+        box-shadow: var(--glow-lg) var(--neon-red);
+        text-shadow: var(--glow-md) var(--neon-red);
         z-index: 1000;
         animation: farkle-message-pulse 1s infinite alternate;
         font-size: 18px;

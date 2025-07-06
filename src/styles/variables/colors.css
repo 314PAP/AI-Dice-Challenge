@@ -1,9 +1,9 @@
 /* =============================================================================
-   🎨 COLORS - Neonové barvy a rozšíření Bootstrap proměnných
+   🎨 COLORS - Kompletní barevné definice pro AI Dice Game
    ============================================================================= */
 
 :root {
-  /* 🌈 NEONOVÉ BARVY - Základní barvy používané v projektu */
+  /* 🌈 NEONOVÉ BARVY - Základní paleta (pouze tyto 6 barev) */
   --neon-green: #39ff14;  /* Zelená pro člověka, primární barva */
   --neon-blue: #194DD1;   /* Modrá pro Gemini, sekundární barva */
   --neon-orange: #FF8800; /* Oranžová pro Claude */
@@ -48,9 +48,35 @@
   --bs-info: var(--neon-blue);
   --bs-info-rgb: var(--neon-blue-rgb);
   --bs-dark: var(--black-bg);
-  --bs-dark-rgb: 0, 0, 0;
+  --bs-light: var(--gray-bg);
+  --bs-body-bg: var(--black-bg);
+  --bs-body-color: #fff;
+
+  /* ✨ GLOW EFEKTY - Standardizované stíny */
+  --glow-sm: 0 0 5px;
+  --glow-md: 0 0 10px;
+  --glow-lg: 0 0 15px;
+  --glow-xl: 0 0 20px;
+
+  /* Předpřipravené neonové stíny */
+  --shadow-neon-green: 0 0 10px var(--neon-green);
+  --shadow-neon-blue: 0 0 10px var(--neon-blue);
+  --shadow-neon-pink: 0 0 10px var(--neon-pink);
+  --shadow-neon-orange: 0 0 10px var(--neon-orange);
+  --shadow-neon-red: 0 0 10px var(--neon-red);
+  --shadow-neon-yellow: 0 0 10px var(--neon-yellow);
+
+  /* 📏 ROZMĚRY A HODNOTY */
+  --radius-base: 8px;
+  --border-radius-lg: 12px;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --transition-normal: all 0.3s ease;
+  --font-size-xs: 0.75rem;
   
-  /* Bootstrap rozšíření - vlastní barvy */
+  /* Bootstrap rozšíření - vlastní neonové barvy */
   --bs-neon-green: var(--neon-green);
   --bs-neon-green-rgb: var(--neon-green-rgb);
   --bs-neon-blue: var(--neon-blue);
@@ -70,4 +96,11 @@ body {
   --bs-body-bg: var(--black-bg);
   --bs-body-color: #fff;
   --bs-body-color-rgb: 255, 255, 255;
+  background-color: var(--black-bg) !important;
+  color: var(--neon-green) !important;
+}
+
+/* HTML element pro jistotu */
+html {
+  background-color: var(--black-bg) !important;
 }

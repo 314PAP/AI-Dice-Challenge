@@ -24,8 +24,7 @@
     
     <!-- ČISTÁ CSS STRUKTURA - pouze potřebné soubory -->
     <!-- MUSÍ BÝT PRVNÍ - CSS proměnné -->
-    <link rel="stylesheet" href="/src/styles/base/variables.css">
-    <link rel="stylesheet" href="/src/styles/components/bootstrap-override.css">
+    <link rel="stylesheet" href="/src/styles/variables/colors.css">
     <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
     <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
     <link rel="stylesheet" href="/src/styles/components/buttons.css">
@@ -35,8 +34,21 @@
     <link rel="stylesheet" href="/src/styles/components/dice.css">
     <link rel="stylesheet" href="/src/styles/components/chat.css">
     <link rel="stylesheet" href="/src/styles/components/modals.css">
+    <!-- Bootstrap override MUSÍ BÝT POSLEDNÍ -->
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-override.css">
     
     <style>
+        /* Nejsilnější možný override pro černé pozadí */
+        :root {
+            --black-bg: #000000;
+            --neon-green: #39ff14;
+        }
+        
+        html, body {
+            background-color: #000000 !important;
+            color: #39ff14 !important;
+        }
+        
         /* Jen ty nejzákladnější styly */
         .vh-90 { height: 90vh !important; }
         .vw-90 { width: 90vw !important; }
@@ -51,7 +63,7 @@
         */
     </style>
 </head>
-<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden">
+<body class="bg-black min-vh-100 d-flex justify-content-center align-items-center overflow-hidden" style="background-color: #000000 !important; color: #39ff14 !important;">
     <!-- Hlavní kontejner s maximální velikostí 90% viewportu -->
     <div class="container-fluid p-0 vh-90 vw-90 animate__animated animate__fadeIn">
     

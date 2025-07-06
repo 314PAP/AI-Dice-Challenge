@@ -48,6 +48,7 @@ export function returnToMainMenu() {
 export function selectDie(index) {
     const dice = document.querySelectorAll('.die');
     if (dice[index]) {
-        dice[index].style.background = dice[index].style.background === 'rgb(255, 102, 0)' ? '#000' : '#ff6600';
+        // Používáme CSS třídy místo inline stylů
+        dice[index].classList.toggle('selected');
     }
 }
