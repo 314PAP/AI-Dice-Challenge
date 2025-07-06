@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // Ignorovat archivní soubory při skenování
+  // Optimalizace pro produkci
   build: {
     rollupOptions: {
       input: {
-        main: './index.html',
-        test: './test-clean-index.html'
+        main: './index.html'
       }
     }
   },
