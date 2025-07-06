@@ -105,19 +105,24 @@ async function initGame() {
     // Kontrola viditelnosti každých 5 sekund
     setInterval(ensureElementsVisibility, 5000);
     
-    // Inicializace hlavního herního controlleru - VYPNUTO
-    // try {
-    //     gameController = new MainGameController();
-    //     await gameController.initialize();
-    //     console.log('✅ MainGameController inicializován');
+    // Inicializace herní logiky
+    try {
+        console.log('🎮 Inicializuji herní logiku...');
         
-    //     // Nastavení globálního přístupu pro debugging
-    //     window.gameController = gameController;
+        // Načteme event setup controller pro inicializaci event listenerů
+        const { setupEventListeners } = await import('./js/game/controllers/eventSetupController.js');
+        setupEventListeners();
         
-    // } catch (error) {
-    //     console.error('❌ Chyba při inicializaci MainGameController:', error);
-    //     // Pokračujeme bez něj, aby se zachovala funkčnost menu
-    // }
+        // Načteme game flow controller pro inicializaci hry
+        const { initializeGame } = await import('./js/game/controllers/gameFlowController.js');
+        initializeGame();
+        
+        console.log('✅ Herní logika inicializována');
+        
+    } catch (error) {
+        console.error('❌ Chyba při inicializaci herní logiky:', error);
+        console.error('Pokračujeme s omezenou funkcionalitou...');
+    }
 }
 
 // Přizpůsobení layoutu podle orientace zařízení

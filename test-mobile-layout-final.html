@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Mobilní Layout Test - AI Kostková Výzva</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="/src/styles/base/variables.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-override.css">
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    <link rel="stylesheet" href="/src/styles/components/buttons.css">
+    <link rel="stylesheet" href="/src/styles/components/game-menu.css">
+    
+    <style>
+        body {
+            background: #000;
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .hidden { display: none !important; }
+        
+        .test-mode {
+            border: 2px solid var(--neon-blue);
+            margin: 1rem;
+            padding: 1rem;
+            background: rgba(25, 77, 209, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-black text-neon-green">
+    <div class="test-mode">
+        <h2>📱 Mobilní Layout Test</h2>
+        <p>Testování mobilního zobrazení po opravách CSS</p>
+        <div>
+            <strong>Viewport:</strong> <span id="viewport"></span><br>
+            <strong>Device:</strong> <span id="device"></span>
+        </div>
+    </div>
+
+    <!-- Simulace původní struktury hlavní aplikace pro mobily -->
+    <div class="container-fluid vh-90 bg-black">
+        <!-- Mobilní layout - zobrazí se pouze na zařízeních menších než md -->
+        <div class="d-md-none h-100 d-flex flex-column mobile-landscape-flex-row">
+            <!-- První část - herní menu (zabere zbytek prostoru) -->
+            <div class="flex-grow-1 mb-3 mb-landscape-0 h-landscape-100">
+                <!-- Mobilní herní menu -->
+                <div id="gameMobileContent" class="h-100">
+                    <div class="game-box h-100 d-flex flex-column">
+                        <!-- Nadpis -->
+                        <h1 class="game-title neon-text fs-3 mb-2 text-center">
+                            <i class="ri-dice-line me-1"></i>
+                            <span class="title-text">AI Kostková Výzva</span>
+                        </h1>
+                        
+                        <!-- Cílové skóre -->
+                        <div class="text-center neon-text mb-2">
+                            <span class="d-block mb-1 small score-label-text">
+                                <i class="ri-star-line me-1"></i>Cílové skóre
+                            </span>
+                            <div class="d-flex justify-content-center">
+                                <div class="position-relative">
+                                    <input type="number" id="targetScoreInputMobile" class="form-control-neon text-center pe-5"
+                                           value="10000" min="1000" step="1000" style="width: 140px;">
+                                    <div class="score-arrows position-absolute top-50 translate-middle-y" style="right: 8px;">
+                                        <button type="button" class="score-arrow arrow-up use-unicode d-block">
+                                            <i class="ri-arrow-up-s-fill"></i>
+                                        </button>
+                                        <button type="button" class="score-arrow arrow-down use-unicode d-block">
+                                            <i class="ri-arrow-down-s-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Tlačítka menu -->
+                        <div class="menu-buttons d-flex flex-column align-items-center justify-content-center flex-grow-1 mt-2 overflow-auto gap-1">
+                            <button class="btn btn-neon neon-green menu-btn menu-btn-uniform px-3 py-2 fs-6 text-nowrap">
+                                <i class="ri-gamepad-line me-2"></i>
+                                <span>Začít hru</span>
+                            </button>
+                            
+                            <button class="btn btn-neon neon-blue menu-btn menu-btn-uniform px-3 py-2 fs-6 text-nowrap">
+                                <i class="ri-book-open-line me-2"></i>
+                                <span>Pravidla</span>
+                            </button>
+                            
+                            <button class="btn btn-neon neon-orange menu-btn menu-btn-uniform px-3 py-2 fs-6 text-nowrap">
+                                <i class="ri-trophy-line me-2"></i>
+                                <span>Síň slávy</span>
+                            </button>
+                            
+                            <a href="#" class="btn btn-neon neon-green menu-btn menu-btn-uniform px-3 py-2 fs-6 text-nowrap text-decoration-none">
+                                <i class="ri-cup-line me-2"></i>
+                                <span>Kup mi kávu</span>
+                            </a>
+                            
+                            <button class="btn btn-neon neon-red menu-btn menu-btn-uniform px-3 py-2 fs-6 text-nowrap">
+                                <i class="ri-logout-box-line me-2"></i>
+                                <span>Opustit hru</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobilní herní ovládání (skryté, zobrazí se při spuštění hry) -->
+                <div id="gameControlsMobile" class="hidden h-100">
+                    <div class="game-box h-100 d-flex flex-column">
+                        <div class="text-center flex-grow-1 d-flex flex-column justify-content-center">
+                            <h2 class="neon-text fs-4 mb-3">🎮 Herní Ovládání</h2>
+                            <div class="d-flex flex-column gap-2">
+                                <button class="btn btn-neon neon-green">
+                                    <i class="ri-dice-line me-2"></i>Hodit kostkami
+                                </button>
+                                <button class="btn btn-neon neon-orange">
+                                    <i class="ri-save-line me-2"></i>Odložit kostky
+                                </button>
+                                <button class="btn btn-neon neon-blue">
+                                    <i class="ri-skip-forward-line me-2"></i>Ukončit tah
+                                </button>
+                                <button class="btn btn-neon neon-red">
+                                    <i class="ri-logout-box-line me-2"></i>Ukončit hru
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Druhá část - chat (max 40% výšky) -->
+            <div class="h-40 h-landscape-100 flex-shrink-0">
+                <div class="chat-box h-100">
+                    <div class="text-center neon-text p-3">
+                        <h3 class="fs-5 mb-2">💬 Chat</h3>
+                        <p class="small">Zde bude mobilní chat interface</p>
+                        <div class="bg-dark p-2 rounded text-start small">
+                            <div class="text-success">Systém: Vítejte ve hře!</div>
+                            <div class="text-primary">Hráč 1: Začínáme!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Desktop fallback -->
+        <div class="d-none d-md-block">
+            <div class="text-center">
+                <h2 class="neon-text">🖥️ Desktop Layout</h2>
+                <p>Toto je desktop verze - přepněte do mobilního zobrazení pro testování</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Zobrazit informace o zařízení
+        function updateDeviceInfo() {
+            const viewport = `${window.innerWidth}x${window.innerHeight}`;
+            const device = window.innerWidth < 768 ? 'Mobile' : 'Desktop';
+            
+            document.getElementById('viewport').textContent = viewport;
+            document.getElementById('device').textContent = device;
+        }
+        
+        // Test funkcí
+        function testStartGame() {
+            console.log('📱 Test - Začít hru');
+            document.getElementById('gameMobileContent').classList.add('hidden');
+            document.getElementById('gameControlsMobile').classList.remove('hidden');
+        }
+        
+        function testQuitGame() {
+            console.log('📱 Test - Ukončit hru');
+            document.getElementById('gameControlsMobile').classList.add('hidden');
+            document.getElementById('gameMobileContent').classList.remove('hidden');
+        }
+        
+        // Event listenery pro testování
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDeviceInfo();
+            
+            // Test tlačítka
+            const startBtn = document.querySelector('.btn-neon.neon-green');
+            const quitBtn = document.querySelector('.btn-neon.neon-red');
+            
+            if (startBtn) startBtn.addEventListener('click', testStartGame);
+            if (quitBtn) quitBtn.addEventListener('click', testQuitGame);
+        });
+        
+        window.addEventListener('resize', updateDeviceInfo);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(updateDeviceInfo, 100);
+        });
+    </script>
+</body>
+</html>

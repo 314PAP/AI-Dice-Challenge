@@ -609,12 +609,34 @@ export function returnToMainMenu() {
             hallOfFameModal.classList.remove('visible');
         }
         
-        // Show menu and hide game controls
+        // Show menu and hide game controls - Desktop
         const gameHeader = document.getElementById('gameHeader');
         const gameControls = document.getElementById('gameControls');
         
-        if (gameHeader) gameHeader.classList.remove('hidden');
-        if (gameControls) gameControls.classList.add('hidden');
+        if (gameHeader) {
+            gameHeader.classList.remove('hidden');
+            gameHeader.classList.remove('d-none');
+            gameHeader.classList.add('d-none', 'd-md-block');
+            console.log('🖥️ Desktop menu zobrazeno');
+        }
+        if (gameControls) {
+            gameControls.classList.add('hidden');
+            console.log('🖥️ Desktop game controls skryto');
+        }
+        
+        // Show mobile menu and hide mobile game controls
+        const gameMobileContent = document.getElementById('gameMobileContent');
+        const gameControlsMobile = document.getElementById('gameControlsMobile');
+        
+        if (gameMobileContent) {
+            gameMobileContent.classList.remove('hidden');
+            gameMobileContent.classList.remove('d-none');
+            console.log('📱 Mobile menu zobrazeno');
+        }
+        if (gameControlsMobile) {
+            gameControlsMobile.classList.add('hidden');
+            console.log('📱 Mobile game controls skryto');
+        }
         
         // Remove game-active class to show avatars
         document.body.classList.remove('game-active');

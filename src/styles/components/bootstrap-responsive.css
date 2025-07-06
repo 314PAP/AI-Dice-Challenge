@@ -424,3 +424,86 @@
     padding: 1.4rem 3rem !important; /* XXL Desktop - největší padding */
   }
 }
+
+/* Zajištění viditelnosti mobilních menu po návratu ze hry */
+@media (max-width: 767.98px) {
+  #gameMobileContent {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 100% !important;
+  }
+  
+  #gameMobileContent.hidden {
+    display: none !important;
+  }
+  
+  #gameControlsMobile.hidden {
+    display: none !important;
+  }
+  
+  /* Zajistit že mobilní menu má správné zobrazení */
+  .mobile-landscape-flex-row {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Neonové efekty pro mobilní menu */
+  .game-box {
+    border: 2px solid var(--neon-green) !important;
+    box-shadow: 0 0 10px var(--neon-green) !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+  }
+  
+  .neon-text {
+    color: var(--neon-green) !important;
+    text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
+  }
+  
+  .btn-neon {
+    border: 2px solid;
+    text-shadow: 0 0 5px currentColor;
+    background-color: transparent !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .btn-neon:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px currentColor !important;
+  }
+  
+  .btn-neon.neon-green {
+    color: var(--neon-green) !important;
+    border-color: var(--neon-green) !important;
+  }
+  
+  .btn-neon.neon-blue {
+    color: var(--neon-blue) !important;
+    border-color: var(--neon-blue) !important;
+  }
+  
+  .btn-neon.neon-orange {
+    color: var(--neon-orange) !important;
+    border-color: var(--neon-orange) !important;
+  }
+  
+  .btn-neon.neon-red {
+    color: var(--neon-red) !important;
+    border-color: var(--neon-red) !important;
+  }
+}
+
+/* Landscape orientace pro mobilní zařízení - úprava pro viditelnost */
+@media (max-width: 767.98px) and (orientation: landscape) {
+  #gameMobileContent {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 100% !important;
+    width: 60% !important;
+  }
+  
+  .mobile-landscape-flex-row {
+    flex-direction: row !important;
+  }
+}

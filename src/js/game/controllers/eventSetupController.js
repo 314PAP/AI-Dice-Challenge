@@ -295,7 +295,9 @@ if (exitGameBtnMobile) {
     console.log('✅ Přidávám event listener pro Mobile Exit Game');
     exitGameBtnMobile.addEventListener('click', () => {
         console.log('🚪 Mobile Exit Game clicked!');
-        window.location.href = 'https://github.com/pipap';
+        if (confirm('Opravdu chcete opustit hru?')) {
+            returnToMainMenu();
+        }
     });
 }
 
@@ -653,6 +655,18 @@ function setupScoreArrows() {
         
         console.log('✅ Mobile target score šipky nastaveny');
     }
+}
+
+// Desktop Exit Game button
+const exitGameBtn = document.getElementById('exitGameBtn');
+if (exitGameBtn) {
+    console.log('✅ Přidávám event listener pro Desktop Exit Game');
+    exitGameBtn.addEventListener('click', () => {
+        console.log('🚪 Desktop Exit Game clicked!');
+        if (confirm('Opravdu chcete opustit hru?')) {
+            returnToMainMenu();
+        }
+    });
 }
 
 

@@ -10,27 +10,75 @@ import { endTurn } from '../game/controllers/gameFlowController.js';
 
 // Handler pro opuštění hry
 function handleExitGame() {
+  console.log('🚪 HandleExitGame called!');
   if (window.confirm('Opravdu chcete opustit hru?')) {
-    // Reset UI přes GameStateController (instance je na window.gameStateController)
-    if (window.gameStateController && typeof window.gameStateController.returnToMainMenu === 'function') {
-      window.gameStateController.returnToMainMenu();
-    } else {
-      // Fallback: skryj herní UI, zobraz menu (robustní pro všechny layouty)
-      const controls = document.getElementById('gameControls');
-      const setup = document.getElementById('targetScoreSetup');
-      if (controls) {
-        controls.style.display = 'none';
-        controls.classList.add('hidden');
-      }
-      if (setup) {
-        setup.style.display = 'block';
-        setup.classList.remove('hidden');
-      }
-      // Navíc zobrazit menu, pokud existuje
-      const menu = document.getElementById('gameMenuContainer');
-      if (menu) menu.classList.remove('hidden');
+    console.log('🚪 Uživatel potvrdil ukončení hry');
+    
+    // Pokusíme se použít správnou funkci returnToMainMenu
+    try {
+      // Import správné funkce
+      import('../game/controllers/gameFlowController.js').then(module => {
+        if (module.returnToMainMenu) {
+          console.log('🏠 Volám returnToMainMenu z gameFlowController');
+          module.returnToMainMenu();
+        } else {
+          console.log('⚠️ returnToMainMenu není dostupná, používám fallback');
+          fallbackReturnToMenu();
+        }
+      }).catch(error => {
+        console.error('❌ Chyba při importu:', error);
+        fallbackReturnToMenu();
+      });
+    } catch (error) {
+      console.error('❌ Chyba při volání returnToMainMenu:', error);
+      fallbackReturnToMenu();
     }
   }
+}
+
+// Fallback funkce pro návrat do menu
+function fallbackReturnToMenu() {
+  console.log('🔄 Fallback - ručně resetuji UI...');
+  
+  // Desktop prvky
+  const gameHeader = document.getElementById('gameHeader');
+  const gameControls = document.getElementById('gameControls');
+  
+  if (gameControls) {
+    gameControls.classList.add('hidden');
+    console.log('🖥️ Desktop game controls skryto');
+  }
+  
+  if (gameHeader) {
+    gameHeader.classList.remove('hidden');
+    gameHeader.classList.remove('d-none');
+    gameHeader.classList.add('d-none', 'd-md-block');
+    console.log('🖥️ Desktop menu zobrazeno');
+  }
+  
+  // Mobilní prvky
+  const gameMobileContent = document.getElementById('gameMobileContent');
+  const gameControlsMobile = document.getElementById('gameControlsMobile');
+  
+  if (gameControlsMobile) {
+    gameControlsMobile.classList.add('hidden');
+    console.log('📱 Mobile game controls skryto');
+  }
+  
+  if (gameMobileContent) {
+    gameMobileContent.classList.remove('hidden');
+    gameMobileContent.classList.remove('d-none');
+    console.log('📱 Mobile menu zobrazeno');
+  }
+  
+  // Skrýt všechny modaly
+  const modals = document.querySelectorAll('.modal-overlay, [id*="Modal"]');
+  modals.forEach(modal => {
+    modal.classList.add('hidden');
+    modal.style.display = 'none';
+  });
+  
+  console.log('✅ Fallback návrat do menu dokončen');
 }
 
 // Pomocná funkce pro získání hodnoty skóre z inputu (desktop/mobil)

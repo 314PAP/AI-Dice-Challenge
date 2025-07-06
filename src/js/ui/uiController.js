@@ -65,13 +65,51 @@ export function startNewGame() {
 }
 
 export function returnToMainMenu() {
+    console.log('🏠 Vracím se do hlavního menu...');
+    
+    // Skrytí game over modalu
     const gameOverModal = document.getElementById('gameOverModal');
+    if (gameOverModal) {
+        gameOverModal.style.display = 'none';
+        gameOverModal.classList.add('hidden');
+    }
+    
+    // Desktop elementy
     const gameHeader = document.getElementById('gameHeader');
     const gameControls = document.getElementById('gameControls');
     
-    if (gameOverModal) gameOverModal.style.display = 'none';
-    if (gameControls) gameControls.classList.add('hidden');
-    if (gameHeader) gameHeader.classList.remove('hidden');
+    if (gameControls) {
+        gameControls.classList.add('hidden');
+        console.log('🖥️ Skryl jsem desktop game controls');
+    }
+    
+    if (gameHeader) {
+        gameHeader.classList.remove('hidden');
+        gameHeader.classList.remove('d-none');
+        gameHeader.classList.add('d-none', 'd-md-block');
+        console.log('🖥️ Zobrazil jsem desktop game header');
+    }
+    
+    // Mobilní elementy
+    const gameMobileContent = document.getElementById('gameMobileContent');
+    const gameControlsMobile = document.getElementById('gameControlsMobile');
+    
+    if (gameControlsMobile) {
+        gameControlsMobile.classList.add('hidden');
+        console.log('📱 Skryl jsem mobile game controls');
+    }
+    
+    if (gameMobileContent) {
+        gameMobileContent.classList.remove('hidden');
+        gameMobileContent.classList.remove('d-none');
+        console.log('📱 Zobrazil jsem mobile game menu');
+    }
+    
+    // Obnovení stavu hry
+    if (window.gameState) {
+        window.gameState.gameState = 'menu';
+        console.log('🎮 Nastavil jsem game state na menu');
+    }
 }
 
 // Dice selection helper
