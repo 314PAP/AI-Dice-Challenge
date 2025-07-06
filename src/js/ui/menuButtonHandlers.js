@@ -46,14 +46,31 @@ function fallbackReturnToMenu() {
   
   if (gameControls) {
     gameControls.classList.add('hidden');
+    gameControls.style.display = 'none';
     console.log('🖥️ Desktop game controls skryto');
   }
   
   if (gameHeader) {
-    gameHeader.classList.remove('hidden');
-    gameHeader.classList.remove('d-none');
-    gameHeader.classList.add('d-none', 'd-md-block');
-    console.log('🖥️ Desktop menu zobrazeno');
+    // Kompletní reset
+    gameHeader.classList.remove('hidden', 'd-none');
+    gameHeader.style.display = '';
+    
+    // Detekce viewport velikosti
+    const isDesktopSize = window.innerWidth >= 768;
+    console.log(`🔍 Fallback - Viewport: ${window.innerWidth}x${window.innerHeight}, isDesktop: ${isDesktopSize}`);
+    
+    if (isDesktopSize) {
+      // Desktop velikost - force zobrazení
+      gameHeader.classList.add('d-block');
+      gameHeader.classList.remove('d-none');
+      console.log('🖥️ Fallback - Force desktop menu zobrazení');
+    } else {
+      // Mobile velikost
+      gameHeader.classList.add('d-none', 'd-md-block');
+      console.log('🖥️ Fallback - Mobile viewport, desktop menu skryto');
+    }
+    
+    console.log('🔍 Fallback - Desktop menu třídy:', gameHeader.className);
   }
   
   // Mobilní prvky
@@ -62,13 +79,15 @@ function fallbackReturnToMenu() {
   
   if (gameControlsMobile) {
     gameControlsMobile.classList.add('hidden');
+    gameControlsMobile.style.display = 'none';
     console.log('📱 Mobile game controls skryto');
   }
   
   if (gameMobileContent) {
-    gameMobileContent.classList.remove('hidden');
-    gameMobileContent.classList.remove('d-none');
+    gameMobileContent.classList.remove('hidden', 'd-none');
+    gameMobileContent.style.display = '';
     console.log('📱 Mobile menu zobrazeno');
+    console.log('� Fallback - Mobile menu třídy:', gameMobileContent.className);
   }
   
   // Skrýt všechny modaly

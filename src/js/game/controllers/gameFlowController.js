@@ -614,13 +614,19 @@ export function returnToMainMenu() {
         const gameControls = document.getElementById('gameControls');
         
         if (gameHeader) {
-            gameHeader.classList.remove('hidden');
-            gameHeader.classList.remove('d-none');
+            // Úplně odstranit všechny skrývací třídy
+            gameHeader.classList.remove('hidden', 'd-none');
+            // Přidat pouze Bootstrap responzivní třídy
             gameHeader.classList.add('d-none', 'd-md-block');
+            // Force zobrazení přes style pro debug
+            gameHeader.style.display = '';
             console.log('🖥️ Desktop menu zobrazeno');
+            console.log('🔍 Desktop menu třídy:', gameHeader.className);
+            console.log('🔍 Desktop menu computed display:', window.getComputedStyle(gameHeader).display);
         }
         if (gameControls) {
             gameControls.classList.add('hidden');
+            gameControls.style.display = 'none';
             console.log('🖥️ Desktop game controls skryto');
         }
         
@@ -629,13 +635,29 @@ export function returnToMainMenu() {
         const gameControlsMobile = document.getElementById('gameControlsMobile');
         
         if (gameMobileContent) {
-            gameMobileContent.classList.remove('hidden');
-            gameMobileContent.classList.remove('d-none');
+            // Úplně odstranit všechny skrývací třídy
+            gameMobileContent.classList.remove('hidden', 'd-none');
+            // Force zobrazení
+            gameMobileContent.style.display = '';
             console.log('📱 Mobile menu zobrazeno');
+            console.log('🔍 Mobile menu třídy:', gameMobileContent.className);
+            console.log('� Mobile menu computed display:', window.getComputedStyle(gameMobileContent).display);
         }
         if (gameControlsMobile) {
             gameControlsMobile.classList.add('hidden');
+            gameControlsMobile.style.display = 'none';
             console.log('📱 Mobile game controls skryto');
+        }
+        
+        // Detekce viewport pro debug
+        const isDesktopSize = window.innerWidth >= 768;
+        console.log(`🔍 Viewport: ${window.innerWidth}x${window.innerHeight}, isDesktop: ${isDesktopSize}`);
+        
+        // Pokud je desktop velikost, ale menu není viditelné, force zobrazení
+        if (isDesktopSize && gameHeader) {
+            gameHeader.classList.remove('d-none');
+            gameHeader.classList.add('d-block');
+            console.log('🔧 Force desktop menu zobrazení');
         }
         
         // Remove game-active class to show avatars

@@ -80,14 +80,32 @@ export function returnToMainMenu() {
     
     if (gameControls) {
         gameControls.classList.add('hidden');
+        gameControls.style.display = 'none';
         console.log('🖥️ Skryl jsem desktop game controls');
     }
     
     if (gameHeader) {
-        gameHeader.classList.remove('hidden');
-        gameHeader.classList.remove('d-none');
-        gameHeader.classList.add('d-none', 'd-md-block');
-        console.log('🖥️ Zobrazil jsem desktop game header');
+        // Kompletní reset a force zobrazení
+        gameHeader.classList.remove('hidden', 'd-none');
+        gameHeader.style.display = '';
+        
+        // Detekce viewport velikosti
+        const isDesktopSize = window.innerWidth >= 768;
+        console.log(`🔍 Viewport: ${window.innerWidth}x${window.innerHeight}, isDesktop: ${isDesktopSize}`);
+        
+        if (isDesktopSize) {
+            // Desktop velikost - force zobrazení
+            gameHeader.classList.add('d-block');
+            gameHeader.classList.remove('d-none');
+            console.log('🖥️ Force desktop menu zobrazení');
+        } else {
+            // Mobile velikost - použít Bootstrap třídy
+            gameHeader.classList.add('d-none', 'd-md-block');
+            console.log('🖥️ Mobile viewport - desktop menu skryto');
+        }
+        
+        console.log('🔍 Desktop menu třídy:', gameHeader.className);
+        console.log('🔍 Desktop menu computed display:', window.getComputedStyle(gameHeader).display);
     }
     
     // Mobilní elementy
@@ -96,13 +114,16 @@ export function returnToMainMenu() {
     
     if (gameControlsMobile) {
         gameControlsMobile.classList.add('hidden');
+        gameControlsMobile.style.display = 'none';
         console.log('📱 Skryl jsem mobile game controls');
     }
     
     if (gameMobileContent) {
-        gameMobileContent.classList.remove('hidden');
-        gameMobileContent.classList.remove('d-none');
+        gameMobileContent.classList.remove('hidden', 'd-none');
+        gameMobileContent.style.display = '';
         console.log('📱 Zobrazil jsem mobile game menu');
+        console.log('🔍 Mobile menu třídy:', gameMobileContent.className);
+        console.log('🔍 Mobile menu computed display:', window.getComputedStyle(gameMobileContent).display);
     }
     
     // Obnovení stavu hry
