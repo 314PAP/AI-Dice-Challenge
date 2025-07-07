@@ -736,15 +736,15 @@ class UltraBootstrapDiceGame {
     }
 
     addChatMessage(sender, message, type) {
-        // 100% Bootstrap classes pro chat zprávy
+        // 100% neonové Bootstrap třídy pro chat zprávy - žádné bílé pozadí!
         const typeClasses = {
-            system: 'alert-success border-start border-success border-3 text-success',
-            ai: 'alert-primary border-start border-primary border-3 text-primary', 
-            player: 'alert-warning border-start border-warning border-3 text-warning'
+            system: 'alert-neon-green border-start border-neon-green border-3 text-neon-green',
+            ai: 'alert-neon-blue border-start border-neon-blue border-3 text-neon-blue', 
+            player: 'alert-neon-orange border-start border-neon-orange border-3 text-neon-orange'
         };
 
         const messageHTML = `
-            <div class="alert ${typeClasses[type]} py-2 mb-2">
+            <div class="alert ${typeClasses[type]} py-2 mb-2 bg-dark">
                 <small><strong>${sender}:</strong> ${message}</small>
             </div>
         `;

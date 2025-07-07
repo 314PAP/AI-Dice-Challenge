@@ -23,7 +23,7 @@
     <!-- Náš ČISTÝ Bootstrap-first CSS -->
     <link rel="stylesheet" href="/src/styles/bootstrap-first-pure.css">
 </head>
-<body class="bg-black text-light overflow-hidden">
+<body class="bg-black text-light" style="height: 100vh; margin: 0; padding: 0; overflow: hidden;">
     
     <!-- Loading Screen -->
     <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center" style="z-index: 9999;">
@@ -37,25 +37,25 @@
         </div>
     </div>
     
-    <!-- Main Application Container -->
-    <div id="app" class="container-fluid h-100 p-3 d-none">
+    <!-- Main Application Container - 100% viewport -->
+    <div id="app" class="w-100 h-100 p-2 p-lg-3 d-none" style="min-height: 100vh;">
         
-        <!-- Desktop Layout -->
-        <div class="row h-100 g-3 d-none d-lg-flex">
+        <!-- Desktop Layout - maximální využití prostoru -->
+        <div class="row h-100 g-2 g-lg-3 d-none d-lg-flex">
             <!-- Game Area (70%) -->
-            <div class="col-lg-8">
-                <div class="game-container h-100 border border-neon-green rounded-3 p-4 position-relative overflow-auto">
+            <div class="col-lg-8 h-100">
+                <div class="game-container h-100 border-2 border-neon-green rounded-3 p-3 p-lg-4 position-relative overflow-auto bg-dark">
                     <div id="gameArea" class="h-100 d-flex flex-column"></div>
                 </div>
             </div>
             
             <!-- Chat Area (30%) -->
-            <div class="col-lg-4">
-                <div class="chat-container h-100 border border-neon-blue rounded-3 p-3 d-flex flex-column">
-                    <h5 class="text-neon-blue text-center mb-3">
+            <div class="col-lg-4 h-100">
+                <div class="chat-container h-100 border-2 border-neon-blue rounded-3 p-2 p-lg-3 d-flex flex-column bg-dark">
+                    <h5 class="text-neon-blue text-center mb-2 mb-lg-3">
                         <i class="bi bi-chat-dots-fill text-neon-blue"></i> AI Chat
                     </h5>
-                    <div id="chatMessages" class="flex-grow-1 overflow-auto mb-3 p-2 bg-dark rounded-2"></div>
+                    <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-lg-3 p-2 bg-black rounded-2 border-1 border-neon-blue"></div>
                     <div class="chat-input-area">
                         <div class="input-group">
                             <input type="text" id="chatInput" class="form-control bg-dark text-light border-neon-blue" 
@@ -69,22 +69,22 @@
             </div>
         </div>
         
-        <!-- Mobile/Tablet Layout -->
+        <!-- Mobile/Tablet Layout - plné využití prostoru -->
         <div class="d-lg-none h-100 d-flex flex-column">
             <!-- Game Area -->
-            <div class="flex-grow-1 mb-3">
-                <div class="game-container h-100 border border-neon-green rounded-3 p-3 position-relative overflow-auto">
+            <div class="flex-grow-1 mb-2">
+                <div class="game-container h-100 border-2 border-neon-green rounded-3 p-2 p-md-3 position-relative overflow-auto bg-dark">
                     <div id="gameAreaMobile" class="h-100 d-flex flex-column"></div>
                 </div>
             </div>
             
-            <!-- Chat Area -->
-            <div style="height: 200px;" class="flex-shrink-0">
-                <div class="chat-container h-100 border border-neon-blue rounded-3 p-2 d-flex flex-column">
-                    <h6 class="text-neon-blue text-center mb-2">
+            <!-- Chat Area - optimalizované pro mobil -->
+            <div style="height: 180px;" class="flex-shrink-0">
+                <div class="chat-container h-100 border-2 border-neon-blue rounded-3 p-2 d-flex flex-column bg-dark">
+                    <h6 class="text-neon-blue text-center mb-1">
                         <i class="bi bi-chat-dots-fill text-neon-blue"></i> AI Chat
                     </h6>
-                    <div id="chatMessagesMobile" class="flex-grow-1 overflow-auto mb-2 p-2 bg-dark rounded-2"></div>
+                    <div id="chatMessagesMobile" class="flex-grow-1 overflow-auto mb-2 p-2 bg-black rounded-2 border-1 border-neon-blue"></div>
                     <div class="chat-input-area">
                         <div class="input-group input-group-sm">
                             <input type="text" id="chatInputMobile" class="form-control bg-dark text-light border-neon-blue" 

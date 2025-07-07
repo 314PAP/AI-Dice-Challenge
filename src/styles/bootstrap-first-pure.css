@@ -1,5 +1,5 @@
 /* =============================================================================
-   🚀 BOOTSTRAP-FIRST PURE CSS - Pouze 5% vlastního CSS, 95% Bootstrap
+   🚀 BOOTSTRAP-FIRST PURE CSS - 100% LUXUSNÍ NEONOVÁ EDIČNÍ!
    ============================================================================= */
 
 /* POUZE CSS PROMĚNNÉ PRO NAŠE NEONOVÉ BARVY */
@@ -20,20 +20,88 @@
   --bs-neon-yellow: var(--neon-yellow);
 }
 
-/* BOOTSTRAP UTILITY EXTENSIONS - neonové barvy */
-.text-neon-green { color: var(--neon-green); text-shadow: 0 0 8px currentColor; }
-.text-neon-blue { color: var(--neon-blue); text-shadow: 0 0 8px currentColor; }
-.text-neon-orange { color: var(--neon-orange); text-shadow: 0 0 8px currentColor; }
-.text-neon-pink { color: var(--neon-pink); text-shadow: 0 0 8px currentColor; }
-.text-neon-red { color: var(--neon-red); text-shadow: 0 0 8px currentColor; }
-.text-neon-yellow { color: var(--neon-yellow); text-shadow: 0 0 8px currentColor; }
+/* BOOTSTRAP UTILITY EXTENSIONS - luxusní neonové barvy */
+.text-neon-green { 
+  color: var(--neon-green) !important; 
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
+}
+.text-neon-blue { 
+  color: var(--neon-blue) !important; 
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
+}
+.text-neon-orange { 
+  color: var(--neon-orange) !important; 
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
+}
+.text-neon-pink { 
+  color: var(--neon-pink) !important; 
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
+}
+.text-neon-red { 
+  color: var(--neon-red) !important; 
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
+}
+.text-neon-yellow { 
+  color: var(--neon-yellow) !important; 
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
+}
 
-.border-neon-green { border-color: var(--neon-green); }
-.border-neon-blue { border-color: var(--neon-blue); }
-.border-neon-orange { border-color: var(--neon-orange); }
-.border-neon-pink { border-color: var(--neon-pink); }
+/* BOOTSTRAP BORDER EXTENSIONS - zářivé okraje */
+.border-neon-green { 
+  border-color: var(--neon-green) !important; 
+  box-shadow: 0 0 5px rgba(57, 255, 20, 0.5) !important;
+}
+.border-neon-blue { 
+  border-color: var(--neon-blue) !important; 
+  box-shadow: 0 0 5px rgba(25, 77, 209, 0.5) !important;
+}
+.border-neon-orange { 
+  border-color: var(--neon-orange) !important; 
+  box-shadow: 0 0 5px rgba(255, 136, 0, 0.5) !important;
+}
+.border-neon-pink { 
+  border-color: var(--neon-pink) !important; 
+  box-shadow: 0 0 5px rgba(255, 0, 255, 0.5) !important;
+}
 
-/* BOOTSTRAP BUTTON EXTENSIONS - neonové tlačítka */
+/* NEONOVÉ POZADÍ TŘÍDY - nahrazujeme Bootstrap defaults */
+.bg-neon-green { background-color: rgba(57, 255, 20, 0.1) !important; }
+.bg-neon-blue { background-color: rgba(25, 77, 209, 0.1) !important; }
+.bg-neon-orange { background-color: rgba(255, 136, 0, 0.1) !important; }
+.bg-neon-pink { background-color: rgba(255, 0, 255, 0.1) !important; }
+.bg-neon-red { background-color: rgba(255, 49, 49, 0.1) !important; }
+.bg-neon-yellow { background-color: rgba(255, 255, 0, 0.1) !important; }
+
+/* NEONOVÉ ALERT TŘÍDY - nahrazujeme Bootstrap alert pozadí */
+.alert-neon-green {
+  background-color: rgba(57, 255, 20, 0.15) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px currentColor !important;
+}
+
+.alert-neon-blue {
+  background-color: rgba(25, 77, 209, 0.15) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px currentColor !important;
+}
+
+.alert-neon-orange {
+  background-color: rgba(255, 136, 0, 0.15) !important;
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
+  text-shadow: 0 0 5px currentColor !important;
+}
+
+.alert-neon-yellow {
+  background-color: rgba(255, 255, 0, 0.15) !important;
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  text-shadow: 0 0 5px currentColor !important;
+}
+
+/* BOOTSTRAP BUTTON EXTENSIONS - luxusní neonová tlačítka */
 .btn-neon-green {
   --bs-btn-color: var(--neon-green);
   --bs-btn-bg: transparent;
@@ -41,11 +109,15 @@
   --bs-btn-hover-color: var(--neon-green);
   --bs-btn-hover-bg: rgba(57, 255, 20, 0.1);
   --bs-btn-hover-border-color: var(--neon-green);
-  font-weight: 600;
-  text-transform: uppercase;
-  text-shadow: 0 0 5px currentColor;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 8px currentColor !important;
+  transition: all 0.3s ease !important;
 }
-.btn-neon-green:hover { box-shadow: 0 0 15px rgba(57, 255, 20, 0.4); }
+.btn-neon-green:hover { 
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.6) !important; 
+  transform: scale(1.05) !important;
+}
 
 .btn-neon-blue {
   --bs-btn-color: var(--neon-blue);
@@ -54,11 +126,15 @@
   --bs-btn-hover-color: var(--neon-blue);
   --bs-btn-hover-bg: rgba(25, 77, 209, 0.1);
   --bs-btn-hover-border-color: var(--neon-blue);
-  font-weight: 600;
-  text-transform: uppercase;
-  text-shadow: 0 0 5px currentColor;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 8px currentColor !important;
+  transition: all 0.3s ease !important;
 }
-.btn-neon-blue:hover { box-shadow: 0 0 15px rgba(25, 77, 209, 0.4); }
+.btn-neon-blue:hover { 
+  box-shadow: 0 0 20px rgba(25, 77, 209, 0.6) !important; 
+  transform: scale(1.05) !important;
+}
 
 .btn-neon-orange {
   --bs-btn-color: var(--neon-orange);
@@ -67,11 +143,15 @@
   --bs-btn-hover-color: var(--neon-orange);
   --bs-btn-hover-bg: rgba(255, 136, 0, 0.1);
   --bs-btn-hover-border-color: var(--neon-orange);
-  font-weight: 600;
-  text-transform: uppercase;
-  text-shadow: 0 0 5px currentColor;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 8px currentColor !important;
+  transition: all 0.3s ease !important;
 }
-.btn-neon-orange:hover { box-shadow: 0 0 15px rgba(255, 136, 0, 0.4); }
+.btn-neon-orange:hover { 
+  box-shadow: 0 0 20px rgba(255, 136, 0, 0.6) !important; 
+  transform: scale(1.05) !important;
+}
 
 .btn-neon-red {
   --bs-btn-color: var(--neon-red);
@@ -80,54 +160,90 @@
   --bs-btn-hover-color: var(--neon-red);
   --bs-btn-hover-bg: rgba(255, 49, 49, 0.1);
   --bs-btn-hover-border-color: var(--neon-red);
-  font-weight: 600;
-  text-transform: uppercase;
-  text-shadow: 0 0 5px currentColor;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 8px currentColor !important;
+  transition: all 0.3s ease !important;
 }
-.btn-neon-red:hover { box-shadow: 0 0 15px rgba(255, 49, 49, 0.4); }
+.btn-neon-red:hover { 
+  box-shadow: 0 0 20px rgba(255, 49, 49, 0.6) !important; 
+  transform: scale(1.05) !important;
+}
 
-/* JEDINÉ VLASTNÍ KOMPONENTY - které Bootstrap neumí */
+/* JEDINÉ VLASTNÍ KOMPONENTY - luxusní kostky s Bootstrap responsive */
 .dice {
   width: 60px;
   height: 60px;
-  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-  border: 2px solid var(--neon-green);
-  border-radius: 12px;
-  color: var(--neon-green);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-shadow: 0 0 8px currentColor;
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
-  user-select: none;
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d) !important;
+  border: 2px solid var(--neon-green) !important;
+  border-radius: 12px !important;
+  color: var(--neon-green) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-shadow: 0 0 12px currentColor !important;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.4) !important;
+  user-select: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: bold !important;
+  font-size: 1.5rem !important;
 }
-.dice:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(57, 255, 20, 0.6); }
+.dice:hover { 
+  transform: scale(1.15) !important; 
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.8) !important; 
+}
 .dice.selected { 
-  background: linear-gradient(145deg, #002244, #001133);
-  border-color: var(--neon-blue);
-  color: var(--neon-blue);
-  text-shadow: 0 0 8px var(--neon-blue);
-  box-shadow: 0 0 20px rgba(25, 77, 209, 0.8);
-  transform: scale(1.05);
+  background: linear-gradient(145deg, #002244, #001133) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 12px var(--neon-blue) !important;
+  box-shadow: 0 0 25px rgba(25, 77, 209, 0.9) !important;
+  transform: scale(1.08) !important;
 }
 
-/* RESPONZIVNÍ KOSTKY - pouze nutné úpravy */
+/* OVERRIDE BOOTSTRAP DEFAULTS - žádné bílé pozadí! */
+.alert { background-color: transparent !important; }
+.form-control:focus { 
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 0 0.2rem rgba(25, 77, 209, 0.25), 0 0 10px rgba(25, 77, 209, 0.5) !important;
+}
+
+/* 100% VIEWPORT VYUŽITÍ - maximální responzivita */
+html, body { 
+  height: 100vh !important; 
+  margin: 0 !important; 
+  padding: 0 !important; 
+  font-family: 'Orbitron', monospace !important;
+}
+.container-fluid { min-height: 100vh !important; }
+
+/* RESPONZIVNÍ KOSTKY - Bootstrap responsive breakpoints */
 @media (max-width: 991.98px) {
-  .dice { width: 50px; height: 50px; font-size: 1.2rem; }
+  .dice { 
+    width: 50px !important; 
+    height: 50px !important; 
+    font-size: 1.3rem !important; 
+  }
 }
 @media (max-width: 575.98px) {
-  .dice { width: 45px; height: 45px; font-size: 1.1rem; }
+  .dice { 
+    width: 45px !important; 
+    height: 45px !important; 
+    font-size: 1.2rem !important; 
+  }
 }
 
 /* BOOTSTRAP SPINNER NEONOVÉ BARVY */
 .spinner-border.text-neon-green {
-  border-color: transparent;
-  border-top-color: var(--neon-green);
-  border-right-color: var(--neon-green);
+  border-color: transparent !important;
+  border-top-color: var(--neon-green) !important;
+  border-right-color: var(--neon-green) !important;
 }
 .spinner-border.text-neon-blue {
-  border-color: transparent;
-  border-top-color: var(--neon-blue);
-  border-right-color: var(--neon-blue);
+  border-color: transparent !important;
+  border-top-color: var(--neon-blue) !important;
+  border-right-color: var(--neon-blue) !important;
 }
 
-/* TOHLE JE VŠE! Celý CSS má méně než 100 řádků! 🎉 */
+/* LUXUSNÍ BOOTSTRAP EXTENSIONS 🎉 */
