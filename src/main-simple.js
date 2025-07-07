@@ -57,10 +57,10 @@ class SimpleDiceGame {
             
             // Načtení šablon
             const templates = [
-                { id: 'gameContent', file: '/src/templates/game-menu.html' },
-                { id: 'gameMobileContent', file: '/src/templates/game-menu-mobile.html' },
-                { id: 'chatPanel', file: '/src/templates/chat.html' },
-                { id: 'chatPanelMobileContainer', file: '/src/templates/chat-mobile.html' },
+                { id: 'gameContent', file: '/src/templates/game-menu-simple.html' },
+                { id: 'gameMobileContent', file: '/src/templates/game-menu-mobile-simple.html' },
+                { id: 'chatPanel', file: '/src/templates/chat-simple.html' },
+                { id: 'chatPanelMobileContainer', file: '/src/templates/chat-mobile-simple.html' },
                 { id: 'gameControls', file: '/src/templates/game-controls.html' },
                 { id: 'gameControlsMobile', file: '/src/templates/game-controls-mobile.html' }
             ];

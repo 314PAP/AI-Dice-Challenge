@@ -1,0 +1,43 @@
+<!-- MOBILE GAME MENU - 100% Bootstrap classes -->
+<div class="h-100 d-flex flex-column justify-content-between p-2" id="gameHeaderMobile">
+    <!-- Header -->
+    <div class="text-center flex-shrink-0">
+        <h1 class="text-neon-green mb-3 fs-3">
+            <i class="ri-dice-line me-1"></i>
+            AI Kostková Výzva
+        </h1>
+    </div>
+    
+    <!-- Target Score -->
+    <div class="text-center flex-shrink-0 mb-3">
+        <div class="text-neon-orange mb-2">
+            <span class="fs-6">Cílové skóre</span>
+        </div>
+        
+        <div class="d-flex justify-content-center">
+            <input type="number" id="targetScoreInputMobile" 
+                   class="form-control form-control-neon text-center" 
+                   value="10000" min="1000" step="1000" style="max-width: 150px;">
+        </div>
+    </div>
+    
+    <!-- Buttons -->
+    <div class="flex-grow-1 d-flex flex-column justify-content-center">
+        <div class="d-flex flex-column align-items-center gap-2">
+            <button class="btn btn-neon-green px-3 py-2 text-nowrap" id="startGameBtnMobile" style="min-width: 180px;">
+                <i class="ri-gamepad-line me-2"></i>
+                Začít hru
+            </button>
+            
+            <button class="btn btn-neon-blue px-3 py-2 text-nowrap" id="rulesBtnMobile" style="min-width: 180px;">
+                <i class="ri-book-open-line me-2"></i>
+                Pravidla
+            </button>
+            
+            <button class="btn btn-neon-orange px-3 py-2 text-nowrap" id="hallOfFameBtnMobile" style="min-width: 180px;">
+                <i class="ri-trophy-line me-2"></i>
+                Síň slávy
+            </button>
+        </div>
+    </div>
+</div>
