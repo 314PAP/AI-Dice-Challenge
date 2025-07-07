@@ -230,7 +230,68 @@
   box-shadow: var(--glow-sm) var(--neon-green);
 }
 
-/* Mobilní ovládání */
+/* Responzivní mobilní avatary */
+@media (max-width: 576px) {
+  .player-head-mobile {
+    height: 35px;
+    width: 35px;
+  }
+  
+  .mobile-player-name {
+    font-size: 0.65rem;
+  }
+  
+  .mobile-player-score {
+    font-size: 0.7rem;
+  }
+  
+  .players-container-mobile {
+    gap: 0.5rem !important;
+  }
+  
+  .player-mobile {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-head-mobile {
+    height: 32px;
+    width: 32px;
+  }
+  
+  .mobile-player-name {
+    font-size: 0.6rem;
+  }
+  
+  .mobile-player-score {
+    font-size: 0.65rem;
+  }
+  
+  .players-container-mobile {
+    gap: 0.4rem !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .player-head-mobile {
+    height: 28px;
+    width: 28px;
+  }
+  
+  .mobile-player-name {
+    font-size: 0.55rem;
+  }
+  
+  .mobile-player-score {
+    font-size: 0.6rem;
+  }
+  
+  .players-container-mobile {
+    gap: 0.3rem !important;
+  }
+}
 .mobile-control-btn {
   font-size: 0.8rem;
   padding: 0.4rem 0.8rem;
@@ -239,6 +300,8 @@
   border: 1px solid var(--neon-green);
   background: rgba(0, 0, 0, 0.8);
   transition: all 0.3s ease;
+  flex: 1;
+  max-width: 120px;
 }
 
 .mobile-control-btn:hover {
@@ -254,6 +317,7 @@
   border: 1px solid var(--neon-red);
   background: rgba(0, 0, 0, 0.8);
   transition: all 0.3s ease;
+  min-width: 150px;
 }
 
 .mobile-quit-btn:hover {
@@ -261,7 +325,184 @@
   transform: scale(1.05);
 }
 
-/* Extra malá zařízení */
+/* Responzivní mobilní tlačítka */
+@media (max-width: 480px) {
+  .mobile-control-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 60px;
+    max-width: 100px;
+  }
+  
+  .mobile-quit-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 320px) {
+  .mobile-control-btn {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.4rem;
+    min-width: 50px;
+    max-width: 80px;
+  }
+  
+  .mobile-quit-btn {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 100px;
+  }
+}
+
+/* Responzivní úpravy pro rámečky - aby se nevyhnuly z herní plochy */
+@media (max-width: 1400px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: var(--glow-md) var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: var(--glow-md) var(--neon-green);
+    padding: 1.2rem;
+    margin: 0.6rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+    padding: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+    padding: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: 0 0 3px var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: 0 0 3px var(--neon-green);
+    padding: 0.8rem;
+    margin: 0.4rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: 0 0 3px var(--neon-green);
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: 0 0 2px var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: 0 0 2px var(--neon-green);
+    padding: 0.6rem;
+    margin: 0.3rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: 0 0 2px var(--neon-green);
+    padding: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: 0 0 1px var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: 0 0 1px var(--neon-green);
+    padding: 0.5rem;
+    margin: 0.2rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: 0 0 1px var(--neon-green);
+    padding: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: none;
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.4rem;
+    margin: 0.1rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: none;
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.3rem;
+    margin: 0.05rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+}
 @media (max-width: 480px) {
   .game-area {
     padding: 0.5rem;
@@ -271,5 +512,84 @@
     padding: 0.35rem;
     margin-bottom: 0.35rem;
     font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
   }
 }

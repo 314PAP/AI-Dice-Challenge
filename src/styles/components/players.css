@@ -131,19 +131,180 @@
   color: var(--neon-orange);
 }
 
-/* Responzivní úpravy */
-@media (max-width: 768px) {
+/* Responzivní úpravy - symetrické škálování */
+@media (max-width: 1400px) {
   .players-container {
-    flex-direction: column;
-    align-items: center;
+    gap: 0.9rem;
+  }
+  
+  .player {
+    max-width: 125px;
+    padding: 0.45rem;
+    border-width: 2px;
+  }
+  
+  .player-head img {
+    width: 58px;
+    height: 58px;
+  }
+  
+  .player-name {
+    font-size: 0.88rem;
+  }
+  
+  .player-score {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .players-container {
+    gap: 0.8rem;
   }
   
   .player {
     max-width: 120px;
+    padding: 0.4rem;
+    border-width: 2px;
+  }
+  
+  .player-head img {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .player-name {
+    font-size: 0.85rem;
+  }
+  
+  .player-score {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .players-container {
+    gap: 0.6rem;
+  }
+  
+  .player {
+    max-width: 110px;
+    padding: 0.35rem;
+    border-width: 1px;
   }
   
   .player-head img {
     width: 50px;
     height: 50px;
+    border-width: 1px;
+  }
+  
+  .player-name {
+    font-size: 0.8rem;
+  }
+  
+  .player-score {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .players-container {
+    gap: 0.5rem;
+    flex-direction: row; /* Zůstanou v jedné řadě */
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .player {
+    max-width: 100px;
+    padding: 0.3rem;
+    border-width: 1px;
+  }
+  
+  .player-head img {
+    width: 45px;
+    height: 45px;
+    border-width: 1px;
+  }
+  
+  .player-name {
+    font-size: 0.75rem;
+  }
+  
+  .player-score {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .players-container {
+    gap: 0.4rem;
+  }
+  
+  .player {
+    max-width: 85px;
+    padding: 0.25rem;
+  }
+  
+  .player-head img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .players-container {
+    gap: 0.3rem;
+  }
+  
+  .player {
+    max-width: 75px;
+    padding: 0.2rem;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .players-container {
+    gap: 0.2rem;
+  }
+  
+  .player {
+    max-width: 60px;
+    padding: 0.15rem;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.6rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
   }
 }

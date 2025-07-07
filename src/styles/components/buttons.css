@@ -262,3 +262,87 @@
   box-shadow: var(--glow-md) var(--neon-yellow) !important;
   transform: translateY(-2px) !important;
 }
+
+/* Responzivní tlačítka - symetrické zmenšování */
+@media (max-width: 1400px) {
+  .btn-lg {
+    font-size: 1.1rem;
+    padding: 0.65rem 1.1rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .btn-lg {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn-lg {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn-lg {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+    min-width: 70px;
+  }
+  
+  .roll-controls {
+    gap: 0.3rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-lg {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.4rem;
+    min-width: 60px;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .btn-lg {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.3rem;
+    min-width: 50px;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}

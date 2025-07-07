@@ -659,7 +659,8 @@ class SimpleDiceGame {
             selectedDice: [],
             availableDice: 6,
             turnScore: 0,
-            mustBankDice: false
+            mustBankDice: false,
+            bankedDice: []
         };
         
         console.log('🎮 Game variables initialized');
@@ -867,9 +868,16 @@ class SimpleDiceGame {
         this.gameState.currentTurn.turnScore += score;
         this.gameState.currentTurn.availableDice -= selectedIndices.length;
         
+        // Přidání odložených kostek pro zobrazení
+        if (!this.gameState.currentTurn.bankedDice) {
+            this.gameState.currentTurn.bankedDice = [];
+        }
+        this.gameState.currentTurn.bankedDice.push(...selectedValues);
+        
         console.log(`🏦 Banked ${selectedIndices.length} dice for ${score} points`);
         console.log(`🏦 New turn score: ${this.gameState.currentTurn.turnScore}`);
         console.log(`🏦 Available dice: ${this.gameState.currentTurn.availableDice}`);
+        console.log(`🏦 Banked dice: ${this.gameState.currentTurn.bankedDice}`);
         
         // Hot dice - pokud se použily všechny kostky
         if (this.gameState.currentTurn.availableDice === 0) {
@@ -887,8 +895,52 @@ class SimpleDiceGame {
         this.addChatMessage('Systém', `💰 Získali jste ${score} bodů. Celkem v tahu: ${this.gameState.currentTurn.turnScore}`, 'system');
         
         this.updateDiceDisplay();
+        this.updateBankedDiceDisplay();
         this.updateGameButtons();
         this.updateScore();
+    }
+
+    // Zobrazení odložených kostek
+    updateBankedDiceDisplay() {
+        const bankedDice = this.gameState.currentTurn?.bankedDice || [];
+        
+        // Desktop verze - správné ID elementy
+        const bankedContainer = document.getElementById('bankedDiceContainer');
+        
+        if (bankedContainer) {
+            bankedContainer.innerHTML = '';
+            
+            if (bankedDice.length > 0) {
+                // Přidat odložené kostky zprava doleva
+                bankedDice.forEach(value => {
+                    const diceEl = document.createElement('div');
+                    diceEl.className = 'dice banked';
+                    diceEl.textContent = value;
+                    diceEl.style.order = bankedDice.length - bankedDice.indexOf(value); // Reverse order
+                    bankedContainer.appendChild(diceEl);
+                });
+            }
+        }
+        
+        // Mobilní verze - správné ID elementy
+        const bankedContainerMobile = document.getElementById('bankedDiceContainerMobile');
+        
+        if (bankedContainerMobile) {
+            bankedContainerMobile.innerHTML = '';
+            
+            if (bankedDice.length > 0) {
+                // Přidat odložené kostky zprava doleva
+                bankedDice.forEach(value => {
+                    const diceEl = document.createElement('div');
+                    diceEl.className = 'dice banked';
+                    diceEl.textContent = value;
+                    diceEl.style.order = bankedDice.length - bankedDice.indexOf(value); // Reverse order
+                    bankedContainerMobile.appendChild(diceEl);
+                });
+            }
+        }
+        
+        console.log(`🎲 Updated banked dice display: ${bankedDice}`);
     }
 
     // Ukončení tahu
@@ -953,10 +1005,12 @@ class SimpleDiceGame {
             selectedDice: [],
             availableDice: 6,
             turnScore: 0,
-            mustBankDice: false
+            mustBankDice: false,
+            bankedDice: []
         };
         
         this.updateDiceDisplay();
+        this.updateBankedDiceDisplay();
         this.updateGameButtons();
         
         // Přechod na dalšího hráče po chvilce
@@ -976,6 +1030,7 @@ class SimpleDiceGame {
         console.log('👤 Next player:', currentPlayer.name);
         
         this.updateDiceDisplay();
+        this.updateBankedDiceDisplay();
         this.updateGameButtons();
         this.updateScore();
         
@@ -1056,10 +1111,14 @@ class SimpleDiceGame {
 
     // Aktualizace zobrazení kostek
     updateDiceDisplay() {
-        const containers = ['diceContainer', 'diceContainerMobile'];
+        // Používáme nové kontejnery - aktivní kostky do správného kontejneru
+        const activeContainers = [
+            { id: 'activeDiceContainer', mobile: false },
+            { id: 'activeDiceContainerMobile', mobile: true }
+        ];
         
-        containers.forEach(containerId => {
-            const container = document.getElementById(containerId);
+        activeContainers.forEach(containerInfo => {
+            const container = document.getElementById(containerInfo.id);
             if (!container) return;
             
             container.innerHTML = '';
@@ -1080,6 +1139,9 @@ class SimpleDiceGame {
                 });
             }
         });
+        
+        // Aktualizujeme i odložené kostky
+        this.updateBankedDiceDisplay();
     }
 
     // Aktualizace stavu tlačítek

@@ -46,7 +46,21 @@
         Cíl: <span id="targetScoreDisplay" class="fw-bold">10000</span>
     </div>
     
-    <div class="dice-container d-flex flex-wrap justify-content-center gap-3 my-4" id="diceContainer"></div>
+    <!-- Kombinovaný kontejner pro kostky - házené a odložené v jedné řadě -->
+    <div class="combined-dice-container d-flex flex-wrap justify-content-center align-items-center gap-2 my-3">
+        <!-- Aktivní kostky (vlevo) -->
+        <div class="active-dice-section d-flex flex-wrap justify-content-center gap-2" id="activeDiceContainer">
+            <!-- Zde se zobrazí házené kostky -->
+        </div>
+        
+        <!-- Separator -->
+        <div class="dice-separator mx-2" style="min-width: 2px; height: 40px; background: var(--neon-blue); opacity: 0.5; display: none;" id="diceSeparator"></div>
+        
+        <!-- Odložené kostky (vpravo) -->
+        <div class="banked-dice-section d-flex flex-wrap justify-content-center gap-2" id="bankedDiceContainer">
+            <!-- Zde se zobrazí odložené kostky -->
+        </div>
+    </div>
     
     <div class="roll-controls d-flex flex-wrap justify-content-center gap-3 my-4">
         <button class="btn btn-lg btn-neon-green" id="rollBtn">
