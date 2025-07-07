@@ -102,6 +102,13 @@
   text-shadow: 0 0 5px currentColor !important;
 }
 
+.alert-neon-pink {
+  background-color: rgba(255, 0, 255, 0.15) !important;
+  border-color: var(--neon-pink) !important;
+  color: var(--neon-pink) !important;
+  text-shadow: 0 0 5px currentColor !important;
+}
+
 .alert-neon-yellow {
   background-color: rgba(255, 255, 0, 0.15) !important;
   border-color: var(--neon-yellow) !important;
@@ -212,9 +219,20 @@
 
 /* OVERRIDE BOOTSTRAP DEFAULTS - žádné bílé pozadí! */
 .alert { background-color: transparent !important; }
+
+/* FORM CONTROLS - neonové styly */
+.form-control {
+  background-color: transparent !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
 .form-control:focus { 
   border-color: var(--neon-blue) !important;
   box-shadow: 0 0 0 0.2rem rgba(25, 77, 209, 0.25), 0 0 10px rgba(25, 77, 209, 0.5) !important;
+  background-color: transparent !important;
+}
+.form-control::placeholder {
+  color: rgba(25, 77, 209, 0.7) !important;
 }
 
 /* 100% VIEWPORT VYUŽITÍ - maximální responzivita */

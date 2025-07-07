@@ -736,15 +736,29 @@ class UltraBootstrapDiceGame {
     }
 
     addChatMessage(sender, message, type) {
-        // 100% neonové Bootstrap třídy pro chat zprávy - žádné bílé pozadí!
-        const typeClasses = {
-            system: 'alert-neon-green border-start border-neon-green border-3 text-neon-green',
-            ai: 'alert-neon-blue border-start border-neon-blue border-3 text-neon-blue', 
-            player: 'alert-neon-orange border-start border-neon-orange border-3 text-neon-orange'
-        };
+        // 100% neonové Bootstrap třídy s barvami podle hráče
+        let messageClass = '';
+        
+        if (type === 'system') {
+            messageClass = 'alert-neon-green border-start border-neon-green border-3 text-neon-green';
+        } else if (type === 'player') {
+            messageClass = 'alert-neon-green border-start border-neon-green border-3 text-neon-green';
+        } else if (type === 'ai') {
+            // Specifické barvy pro každého AI podle jména
+            if (sender === 'Gemini') {
+                messageClass = 'alert-neon-blue border-start border-neon-blue border-3 text-neon-blue';
+            } else if (sender === 'ChatGPT') {
+                messageClass = 'alert-neon-pink border-start border-neon-pink border-3 text-neon-pink';
+            } else if (sender === 'Claude') {
+                messageClass = 'alert-neon-orange border-start border-neon-orange border-3 text-neon-orange';
+            } else {
+                // Fallback pro neznámé AI
+                messageClass = 'alert-neon-blue border-start border-neon-blue border-3 text-neon-blue';
+            }
+        }
 
         const messageHTML = `
-            <div class="alert ${typeClasses[type]} py-2 mb-2 bg-black">
+            <div class="alert ${messageClass} py-2 mb-2 bg-black">
                 <small><strong>${sender}:</strong> ${message}</small>
             </div>
         `;
