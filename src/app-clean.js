@@ -28,18 +28,18 @@ class DiceGameApp {
         this.aiPersonalities = {
             Gemini: {
                 responses: [
-                    "Hmm, zajímavý tah! 🤔",
-                    "Myslím si, že můžeš být trochu odvážnější! 💪",
-                    "Dobrá strategie, ale já budu lepší! 😏",
-                    "Wow, to byl riskantní tah! 🎲"
+                    "Hmm, zajímavý tah! 🔍",
+                    "Myslím si, že můžeš být trochu odvážnější! ⚡",
+                    "Dobrá strategie, ale já budu lepší! 🎯",
+                    "Wow, to byl riskantní tah! ⚠️"
                 ],
                 style: 'analytical'
             },
             ChatGPT: {
                 responses: [
                     "Ó, to je chytrý tah! 🧠",
-                    "Hmm, já bych to hrál jinak... 💅",
-                    "Zajímavé! Ale počkej, až přijdu na řadu! 💎",
+                    "Hmm, já bych to hrál jinak... �",
+                    "Zajímavé! Ale počkej, až přijdu na řadu! ✨",
                     "Tvoje štěstí tě brzy opustí! 👑"
                 ],
                 style: 'confident'
@@ -332,10 +332,25 @@ class DiceGameApp {
             counts[value] = (counts[value] || 0) + 1;
         });
 
+        // Kontrola speciálních kombinací pro celý hod (6 kostek)
+        if (this.gameState.currentRoll.length === 6) {
+            // Postupka (Straight): 1-2-3-4-5-6
+            const sorted = this.gameState.currentRoll.slice().sort();
+            if (sorted.join(',') === '1,2,3,4,5,6') {
+                return true;
+            }
+            
+            // Tři páry
+            const pairs = Object.values(counts).filter(count => count === 2).length;
+            if (pairs === 3 && Object.keys(counts).length === 3) {
+                return true;
+            }
+        }
+
         // Jedničky a pětky jsou vždy platné
         if (counts[1] || counts[5]) return true;
         
-        // Tři stejné čísla
+        // Tři nebo více stejných čísel
         for (let value in counts) {
             if (counts[value] >= 3) return true;
         }
@@ -355,28 +370,72 @@ class DiceGameApp {
             counts[value] = (counts[value] || 0) + 1;
         });
 
-        // Bodování podle Farkle pravidel
+        // Kontrola na speciální kombinace
+        if (selectedValues.length === 6) {
+            // Postupka (Straight): 1-2-3-4-5-6 = 1500 bodů
+            const sorted = selectedValues.slice().sort();
+            if (sorted.join(',') === '1,2,3,4,5,6') {
+                this.gameState.turnScore = 1500;
+                this.updateScoreDisplay();
+                return;
+            }
+            
+            // Tři páry = 1500 bodů
+            const pairs = Object.values(counts).filter(count => count === 2).length;
+            if (pairs === 3 && Object.keys(counts).length === 3) {
+                this.gameState.turnScore = 1500;
+                this.updateScoreDisplay();
+                return;
+            }
+        }
+
+        // Bodování podle správných Farkle pravidel
         for (let value in counts) {
             const count = counts[value];
             const num = parseInt(value);
             
-            if (count >= 3) {
-                score += num === 1 ? 1000 : num * 100;
-                counts[value] -= 3;
+            if (num === 1) {
+                // Jedničky: 3+ = 1000, zbytek × 100
+                if (count >= 3) {
+                    if (count === 3) score += 1000;
+                    else if (count === 4) score += 2000;
+                    else if (count === 5) score += 4000;
+                    else if (count === 6) score += 8000;
+                } else {
+                    score += count * 100; // Jednotlivé jedničky
+                }
+            } else if (num === 5) {
+                // Pětky: 3+ = 500, zbytek × 50
+                if (count >= 3) {
+                    if (count === 3) score += 500;
+                    else if (count === 4) score += 1000;
+                    else if (count === 5) score += 2000;
+                    else if (count === 6) score += 4000;
+                } else {
+                    score += count * 50; // Jednotlivé pětky
+                }
+            } else {
+                // Ostatní čísla: pouze 3+ kostky bodují
+                if (count >= 3) {
+                    const baseScore = num * 100;
+                    if (count === 3) score += baseScore;
+                    else if (count === 4) score += baseScore * 2;
+                    else if (count === 5) score += baseScore * 4;
+                    else if (count === 6) score += baseScore * 8;
+                }
             }
         }
-
-        // Jednotlivé jedničky a pětky
-        score += (counts[1] || 0) * 100;
-        score += (counts[5] || 0) * 50;
 
         this.gameState.turnScore = score;
         this.updateScoreDisplay();
         
-        // Aktivuj/deaktivuj tlačítko
+        // Aktivuj/deaktivuj tlačítko podle pravidel Farkle
         const keepBtn = document.getElementById('keepBtn');
         if (keepBtn) {
-            keepBtn.disabled = score === 0;
+            // Musí mít nějaké body a minimálně 300 pro vstup do hry
+            const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
+            const minScore = currentPlayer.score === 0 ? 300 : 0; // Vstup do hry vyžaduje 300
+            keepBtn.disabled = score === 0 || this.gameState.turnScore < minScore;
         }
     }
 
@@ -403,6 +462,13 @@ class DiceGameApp {
         if (this.gameState.turnScore === 0) return;
         
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
+        
+        // Farkle pravidlo: Vstup do hry vyžaduje minimálně 300 bodů v jednom tahu
+        if (currentPlayer.score === 0 && this.gameState.turnScore < 300) {
+            this.showError('Pro vstup do hry potřebujete minimálně 300 bodů v jednom tahu!');
+            return;
+        }
+        
         currentPlayer.score += this.gameState.turnScore;
         
         this.addChatMessage('Systém', `✅ ${currentPlayer.name} získal ${this.gameState.turnScore} bodů! Celkem: ${currentPlayer.score}`, 'system');
@@ -410,6 +476,16 @@ class DiceGameApp {
         // Kontrola výhry
         if (currentPlayer.score >= this.gameState.targetScore) {
             this.endGame(currentPlayer);
+            return;
+        }
+        
+        // Hot Dice pravidlo: Pokud použil všech 6 kostek, dostává nových 6
+        if (this.gameState.selectedDice.length === 6) {
+            this.addChatMessage('Systém', '🔥 HOT DICE! Můžete pokračovat s novými 6 kostkami!', 'system');
+            this.gameState.currentRoll = [];
+            this.gameState.selectedDice = [];
+            // NERESTARTUJEME turnScore - body se kumulují v Hot Dice
+            this.renderGameBoard();
             return;
         }
         
@@ -458,24 +534,54 @@ class DiceGameApp {
         this.rollDice();
         
         setTimeout(() => {
-            // AI vybere kostky (jednoduchá logika)
+            // AI vybere kostky (pokročilejší logika)
             const validIndices = [];
+            const counts = {};
+            
             this.gameState.currentRoll.forEach((value, index) => {
-                if (value === 1 || value === 5) {
-                    validIndices.push(index);
-                }
+                counts[value] = (counts[value] || 0) + 1;
             });
+            
+            // AI vybírá kostky podle priority:
+            // 1. Nejprv trojice
+            for (let i = 1; i <= 6; i++) {
+                if (counts[i] >= 3) {
+                    this.gameState.currentRoll.forEach((value, index) => {
+                        if (value === i) validIndices.push(index);
+                    });
+                    break; // Vybere pouze jednu trojici za tah
+                }
+            }
+            
+            // 2. Pokud žádná trojice, vybere jedničky a pětky
+            if (validIndices.length === 0) {
+                this.gameState.currentRoll.forEach((value, index) => {
+                    if (value === 1 || value === 5) {
+                        validIndices.push(index);
+                    }
+                });
+            }
             
             if (validIndices.length > 0) {
                 this.gameState.selectedDice = validIndices;
                 this.calculateTurnScore();
                 
                 setTimeout(() => {
-                    // AI rozhoduje, zda pokračovat nebo skončit
-                    const shouldContinue = Math.random() > 0.4 && this.gameState.turnScore < 300;
+                    // AI rozhodování podle osobnosti a pravidel Farkle
+                    const minRequired = currentPlayer.score === 0 ? 300 : 0; // Vstup do hry
+                    const shouldContinue = this.shouldAIContinue(currentPlayer, this.gameState.turnScore, minRequired);
                     
                     if (shouldContinue && this.gameState.currentRoll.length > validIndices.length) {
-                        this.playAITurn(); // Pokračuj
+                        // Odstraň vybrané kostky a pokračuj
+                        const remainingDice = [];
+                        this.gameState.currentRoll.forEach((value, index) => {
+                            if (!this.gameState.selectedDice.includes(index)) {
+                                remainingDice.push(value);
+                            }
+                        });
+                        this.gameState.currentRoll = remainingDice;
+                        this.gameState.selectedDice = [];
+                        this.playAITurn(); // Pokračuj s menšími kostkami
                     } else {
                         this.keepScore(); // Vezmi body
                     }
@@ -487,6 +593,38 @@ class DiceGameApp {
                 this.handleFarkle();
             }
         }, 1000);
+    }
+
+    shouldAIContinue(player, currentScore, minRequired) {
+        const remainingDice = this.gameState.currentRoll.length - this.gameState.selectedDice.length;
+        
+        // DŮLEŽITÉ: Pokud hráč není v hře a nemá 300+ bodů, MUSÍ pokračovat
+        if (player.score === 0 && currentScore < 300 && remainingDice > 0) {
+            return true; // POVINNĚ pokračovat, dokud nemá 300 bodů
+        }
+        
+        // Pokud už splňuje minimum nebo je v hře, rozhoduje podle osobnosti
+        switch(player.name) {
+            case 'Gemini':
+                // Konzervativní - ale respektuje 300 bodové minimum
+                const geminiThreshold = Math.max(300, 400);
+                return currentScore < geminiThreshold && remainingDice >= 3 && Math.random() > 0.6;
+            
+            case 'ChatGPT':
+                // Riskantní - ale respektuje 300 bodové minimum
+                const chatgptThreshold = Math.max(300, 600);
+                return currentScore < chatgptThreshold && remainingDice >= 2 && Math.random() > 0.4;
+            
+            case 'Claude':
+                // Vyvážený - ale respektuje 300 bodové minimum
+                const leadingScore = Math.max(...this.gameState.players.map(p => p.score));
+                const isLeading = player.score >= leadingScore;
+                const claudeThreshold = Math.max(300, isLeading ? 350 : 500);
+                return currentScore < claudeThreshold && remainingDice >= 2 && Math.random() > 0.5;
+            
+            default:
+                return false;
+        }
     }
 
     addRandomAIResponse(aiName) {
@@ -544,19 +682,33 @@ class DiceGameApp {
 
     showRules() {
         Swal.fire({
-            title: '📖 Pravidla hry',
+            title: '📖 Pravidla Farkle',
             html: `
                 <div class="text-start">
                     <h5>🎯 Cíl hry:</h5>
                     <p>Získejte ${this.gameState.targetScore} bodů jako první!</p>
                     
+                    <h5>🚪 Vstup do hry:</h5>
+                    <p><strong>Musíte získat minimálně 300 bodů v jednom tahu!</strong><br>
+                    Dokud nezískáte 300+ bodů, vaše skóre se neuchovává.</p>
+                    
                     <h5>🎲 Bodování:</h5>
                     <ul>
-                        <li>Jednička: 100 bodů</li>
-                        <li>Pětka: 50 bodů</li>
-                        <li>Tři stejné čísla: číslo × 100 bodů</li>
-                        <li>Tři jedničky: 1000 bodů</li>
+                        <li><strong>Jedničky:</strong> 100 bodů (3× = 1000, 4× = 2000, 5× = 4000, 6× = 8000)</li>
+                        <li><strong>Pětky:</strong> 50 bodů (3× = 500, 4× = 1000, 5× = 2000, 6× = 4000)</li>
+                        <li><strong>Ostatní čísla:</strong> pouze 3+ kostky bodují</li>
+                        <li>3×2 = 200, 3×3 = 300, 3×4 = 400, 3×6 = 600</li>
+                        <li>4+ kostky: základní × 2, 5+ × 4, 6+ × 8</li>
                     </ul>
+                    
+                    <h5>✨ Speciální kombinace:</h5>
+                    <ul>
+                        <li><strong>Postupka (1-2-3-4-5-6):</strong> 1500 bodů</li>
+                        <li><strong>Tři páry:</strong> 1500 bodů</li>
+                    </ul>
+                    
+                    <h5>🔥 Hot Dice:</h5>
+                    <p>Pokud použijete všech 6 kostek, dostanete nových 6 a můžete pokračovat!</p>
                     
                     <h5>💥 FARKLE:</h5>
                     <p>Pokud nehodíte žádnou bodovací kombinaci, ztratíte všechny body tahu!</p>
@@ -565,7 +717,8 @@ class DiceGameApp {
             background: '#1a1a1a',
             color: '#39ff14',
             confirmButtonText: 'Rozumím',
-            confirmButtonColor: '#007bff'
+            confirmButtonColor: '#007bff',
+            width: '600px'
         });
     }
 
