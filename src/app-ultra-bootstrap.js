@@ -184,13 +184,13 @@ class UltraBootstrapDiceGame {
                 <div class="row mb-3 g-2">
                     ${this.gameState.players.map((player, index) => `
                         <div class="col-lg-3 col-md-6 col-6">
-                            <div class="card bg-dark border-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
+                            <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
                                 <div class="card-body text-center p-2">
                                     <div class="mb-2">
-                                        <i class="bi ${player.avatar} text-${player.color} fs-4"></i>
+                                        <i class="bi ${player.avatar} text-neon-${player.color} fs-4"></i>
                                     </div>
-                                    <div class="fw-bold text-${player.color} small">${player.name}</div>
-                                    <div class="text-${player.color} small">${player.score} bodů</div>
+                                    <div class="fw-bold text-neon-${player.color} small">${player.name}</div>
+                                    <div class="text-neon-${player.color} small">${player.score} bodů</div>
                                 </div>
                             </div>
                         </div>
@@ -201,8 +201,8 @@ class UltraBootstrapDiceGame {
                 <div class="flex-grow-1 d-flex flex-column justify-content-center">
                     <div class="text-center mb-4">
                         <h3 class="text-neon-green mb-3">
-                            <i class="bi ${currentPlayer.avatar} text-${currentPlayer.color}"></i> 
-                            Na řadě: ${currentPlayer.name}
+                            <i class="bi ${currentPlayer.avatar} text-neon-${currentPlayer.color}"></i> 
+                            Na řadě: <span class="text-neon-${currentPlayer.color}">${currentPlayer.name}</span>
                         </h3>
                         <div class="text-neon-yellow fs-5 mb-3">
                             Aktuální skóre tahu: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
@@ -631,7 +631,7 @@ class UltraBootstrapDiceGame {
             icon: 'success',
             confirmButtonText: 'Nová hra',
             customClass: {
-                popup: 'bg-dark text-neon-green'
+                popup: 'bg-black text-neon-green'
             }
         });
     }
@@ -663,7 +663,7 @@ class UltraBootstrapDiceGame {
             `,
             confirmButtonText: 'Rozumím',
             customClass: {
-                popup: 'bg-dark text-neon-green'
+                popup: 'bg-black text-neon-green'
             }
         });
     }
@@ -680,7 +680,7 @@ class UltraBootstrapDiceGame {
             `,
             confirmButtonText: 'Zavřít',
             customClass: {
-                popup: 'bg-dark text-neon-green'
+                popup: 'bg-black text-neon-green'
             }
         });
     }
@@ -744,7 +744,7 @@ class UltraBootstrapDiceGame {
         };
 
         const messageHTML = `
-            <div class="alert ${typeClasses[type]} py-2 mb-2 bg-dark">
+            <div class="alert ${typeClasses[type]} py-2 mb-2 bg-black">
                 <small><strong>${sender}:</strong> ${message}</small>
             </div>
         `;
@@ -772,7 +772,7 @@ class UltraBootstrapDiceGame {
             icon: 'error',
             confirmButtonText: 'OK',
             customClass: {
-                popup: 'bg-dark text-neon-red'
+                popup: 'bg-black text-neon-red'
             }
         });
     }

@@ -63,6 +63,14 @@
   border-color: var(--neon-pink) !important; 
   box-shadow: 0 0 5px rgba(255, 0, 255, 0.5) !important;
 }
+.border-neon-red { 
+  border-color: var(--neon-red) !important; 
+  box-shadow: 0 0 5px rgba(255, 49, 49, 0.5) !important;
+}
+.border-neon-yellow { 
+  border-color: var(--neon-yellow) !important; 
+  box-shadow: 0 0 5px rgba(255, 255, 0, 0.5) !important;
+}
 
 /* NEONOVÉ POZADÍ TŘÍDY - nahrazujeme Bootstrap defaults */
 .bg-neon-green { background-color: rgba(57, 255, 20, 0.1) !important; }
