@@ -148,3 +148,19 @@
   cursor: not-allowed;
   filter: grayscale(1);
 }
+
+/* Mobilní kostky v kontejneru */
+.dice-container-mobile .dice {
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  margin: 0.1rem;
+  border-radius: 6px;
+  border: 1px solid var(--neon-green);
+  box-shadow: var(--glow-sm) var(--neon-green);
+}
+
+.dice-container-mobile .dice:hover {
+  transform: scale(1.1);
+  box-shadow: var(--glow-md) var(--neon-green);
+}

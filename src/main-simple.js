@@ -730,56 +730,63 @@ class SimpleDiceGame {
         
         console.log('🧮 calculateScore: Calculating score for dice:', diceValues);
         
-        // Spočítej frekvenci každého čísla
-        const counts = {};
-        diceValues.forEach(value => {
-            counts[value] = (counts[value] || 0) + 1;
-        });
+        let score = 0;
+        let counts = [0, 0, 0, 0, 0, 0, 0]; // index 0 unused, 1-6 for die values
+        
+        diceValues.forEach(die => counts[die]++);
         
         console.log('🔢 calculateScore: Dice counts:', counts);
         
-        let score = 0;
+        // Speciální kombinace - POSTUPKA (1-2-3-4-5-6)
+        if (diceValues.length === 6 && counts.every(count => count === 1)) {
+            console.log('🎯 calculateScore: POSTUPKA = 1500 bodů');
+            return 1500;
+        }
         
-        // Zpracuj každé číslo
-        Object.entries(counts).forEach(([number, count]) => {
-            const num = parseInt(number);
-            let partialScore = 0;
-            
-            if (num === 1) {
-                // Jedničky: 3+ = 1000 bodů, jednotlivé = 100 bodů
-                if (count >= 3) {
-                    partialScore += 1000; // Triple jedniček
-                    partialScore += (count - 3) * 100; // Zbývající jedničky
-                    console.log(`🎯 calculateScore: ${count}×1 = 1000 (triple) + ${count - 3}×100 = ${partialScore}`);
-                } else {
-                    partialScore += count * 100; // Jednotlivé jedničky
-                    console.log(`🎯 calculateScore: ${count}×1 = ${count}×100 = ${partialScore}`);
-                }
-            } else if (num === 5) {
-                // Pětky: 3+ = 500 bodů, jednotlivé = 50 bodů
-                if (count >= 3) {
-                    partialScore += 500; // Triple pětek
-                    partialScore += (count - 3) * 50; // Zbývající pětky
-                    console.log(`🎯 calculateScore: ${count}×5 = 500 (triple) + ${count - 3}×50 = ${partialScore}`);
-                } else {
-                    partialScore += count * 50; // Jednotlivé pětky
-                    console.log(`🎯 calculateScore: ${count}×5 = ${count}×50 = ${partialScore}`);
-                }
-            } else {
-                // Ostatní čísla (2,3,4,6): pouze 3+ kostky bodují
-                if (count >= 3) {
-                    partialScore += num * 100; // Základní triple
-                    partialScore += (count - 3) * 100; // Další kostky stejné hodnoty
-                    console.log(`🎯 calculateScore: ${count}×${num} = ${num}×100 (triple) + ${count - 3}×100 = ${partialScore}`);
-                } else {
-                    console.log(`🎯 calculateScore: ${count}×${num} = 0 (no triple, no individual scoring)`);
-                }
+        // Speciální kombinace - TŘI PÁRY
+        if (diceValues.length === 6) {
+            let pairs = 0;
+            for (let i = 1; i <= 6; i++) {
+                if (counts[i] === 2) pairs++;
             }
-            
-            score += partialScore;
-        });
+            if (pairs === 3 && counts.filter(count => count > 0).length === 3) {
+                console.log('🎯 calculateScore: TŘI PÁRY = 1500 bodů');
+                return 1500;
+            }
+        }
         
-        // TODO: Implementovat speciální kombinace (straight, 3 páry, atd.)
+        // Zpracování trojic a víc (s multiplikátorem)
+        for (let i = 1; i <= 6; i++) {
+            if (counts[i] >= 3) {
+                let multiplier = counts[i] - 2; // 3=1x, 4=2x, 5=4x, 6=8x
+                if (counts[i] >= 4) {
+                    multiplier = Math.pow(2, counts[i] - 3);
+                }
+                
+                let partialScore = 0;
+                if (i === 1) {
+                    partialScore = 1000 * multiplier; // Trojice jedniček
+                    console.log(`🎯 calculateScore: ${counts[i]}×1 = 1000 × ${multiplier} = ${partialScore}`);
+                } else {
+                    partialScore = i * 100 * multiplier; // Trojice ostatních
+                    console.log(`🎯 calculateScore: ${counts[i]}×${i} = ${i}×100 × ${multiplier} = ${partialScore}`);
+                }
+                score += partialScore;
+                counts[i] = 0; // Spotřebované kostky
+            }
+        }
+        
+        // Jednotlivé 1s a 5s (pouze pokud nebyly spotřebované v trojicích)
+        if (counts[1] > 0) {
+            const partialScore = counts[1] * 100;
+            score += partialScore;
+            console.log(`🎯 calculateScore: ${counts[1]}×1 (individual) = ${partialScore}`);
+        }
+        if (counts[5] > 0) {
+            const partialScore = counts[5] * 50;
+            score += partialScore;
+            console.log(`🎯 calculateScore: ${counts[5]}×5 (individual) = ${partialScore}`);
+        }
         
         console.log(`🎊 calculateScore: Total score = ${score}`);
         return score;
