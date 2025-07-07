@@ -18,18 +18,18 @@ h1, h2, h3, h4, h5, h6 {
   color: #39ff14 !important;
 }
 
-p, span, div {
+p, span {
   color: #39ff14;
 }
+
+/* DIV se bude řídit pouze svými specifickými styly */
 
 /* Menu specifické */
 .game-title {
   color: #39ff14 !important;
 }
 
-.btn {
-  color: #39ff14;
-}
+/* Tlačítka bez obecného přepisu - nechávám specifické styly */
 
 /* Bootstrap reset pouze pro pozadí */
 .bg-white, .bg-light {
