@@ -1,5 +1,5 @@
 /**
- * Game Controls Component Styles - CLEAN VERSION
+ * Game Controls Component Styles
  * Styly pro herní ovládací prvky s neonovými efekty
  */
 
@@ -95,11 +95,43 @@
   border-radius: 3px;
 }
 
+/* Responzivní úpravy pro menší obrazovky */
+@media (max-width: 800px) {
+  .game-area {
+    border-bottom: 2px solid var(--neon-green);
+    padding: 0.75rem;
+  }
+  
+  .roll-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .roll-controls button {
+    width: 100%;
+    margin: 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .roll-controls .btn {
+    min-width: unset;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
+}
+
 /* Mobilní herní styly */
 .game-controls-mobile-content {
   padding: 0.75rem;
   color: var(--neon-green);
-  overflow-y: auto;
+  overflow-y: auto; /* Pro scrollování na malých zařízeních */
 }
 
 .mobile-game-title {
@@ -113,7 +145,7 @@
   text-shadow: var(--glow-sm) var(--neon-blue);
 }
 
-/* Mobilní hráči - pouze základní layout, barvy jsou v HTML */
+/* Mobilní hráči */
 .players-container-mobile {
   gap: 0.5rem;
 }
@@ -123,63 +155,21 @@
   min-width: 60px;
   max-width: 80px;
   text-align: center;
-  padding: 0.4rem;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
 }
 
-/* Barevné bordery pro celé karty hráčů */
-.player-mobile.human-player {
-  border-color: var(--neon-green);
-  box-shadow: 0 0 5px rgba(57, 255, 20, 0.3);
-}
-
-.player-mobile.gemini-player {
-  border-color: var(--neon-blue);
-  box-shadow: 0 0 5px rgba(25, 77, 209, 0.3);
-}
-
-.player-mobile.chatgpt-player {
-  border-color: var(--neon-pink);
-  box-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
-}
-
-.player-mobile.claude-player {
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 5px rgba(255, 136, 0, 0.3);
-}
-
-/* Aktivní hráč má silnější glow podle své barvy */
-.player-mobile.active.human-player {
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.6);
-  transform: scale(1.02);
-}
-
-.player-mobile.active.gemini-player {
-  box-shadow: 0 0 10px rgba(25, 77, 209, 0.6);
-  transform: scale(1.02);
-}
-
-.player-mobile.active.chatgpt-player {
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
-  transform: scale(1.02);
-}
-
-.player-mobile.active.claude-player {
-  box-shadow: 0 0 10px rgba(255, 136, 0, 0.6);
-  transform: scale(1.02);
-}
-
-/* Mobilní avatar základní layout */
 .player-head-mobile {
   height: 40px;
   width: 40px;
-  border: 3px solid transparent;
-  box-shadow: none;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--neon-green);
+  box-shadow: var(--glow-sm) var(--neon-green);
 }
 
 .mobile-avatar {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -187,64 +177,34 @@
   font-size: 0.7rem;
   font-weight: 600;
   margin-bottom: 0.2rem;
-}
-
-.mobile-player-score {
-  font-size: 0.65rem;
-  font-weight: 500;
-}
-
-/* Mobilní texty - základní layout */
-.mobile-player-name {
-  font-size: 0.7rem;
-  font-weight: 600;
-  margin-bottom: 0.2rem;
+  text-shadow: var(--glow-sm) var(--neon-green);
 }
 
 .mobile-player-score {
   font-size: 0.8rem;
   font-weight: 700;
+  text-shadow: var(--glow-sm) var(--neon-green);
 }
 
-/* Hráči-specifické styly s použitím CSS proměnných */
-.player-head-human {
-  border-color: var(--player-human-color);
-  box-shadow: 0 0 8px var(--player-human-color);
+/* Specifické barvy pro každého hráče */
+.human-player .player-head-mobile {
+  border-color: var(--neon-green);
+  box-shadow: var(--glow-sm) var(--neon-green);
 }
 
-.player-name-human,
-.player-score-human {
-  color: var(--player-human-color);
+.gemini-player .player-head-mobile {
+  border-color: var(--neon-blue);
+  box-shadow: var(--glow-sm) var(--neon-blue);
 }
 
-.player-head-gemini {
-  border-color: var(--player-gemini-color);
-  box-shadow: 0 0 8px var(--player-gemini-color);
+.chatgpt-player .player-head-mobile {
+  border-color: var(--neon-pink);
+  box-shadow: var(--glow-sm) var(--neon-pink);
 }
 
-.player-name-gemini,
-.player-score-gemini {
-  color: var(--player-gemini-color);
-}
-
-.player-head-chatgpt {
-  border-color: var(--player-chatgpt-color);
-  box-shadow: 0 0 8px var(--player-chatgpt-color);
-}
-
-.player-name-chatgpt,
-.player-score-chatgpt {
-  color: var(--player-chatgpt-color);
-}
-
-.player-head-claude {
-  border-color: var(--player-claude-color);
-  box-shadow: 0 0 8px var(--player-claude-color);
-}
-
-.player-name-claude,
-.player-score-claude {
-  color: var(--player-claude-color);
+.claude-player .player-head-mobile {
+  border-color: var(--neon-orange);
+  box-shadow: var(--glow-sm) var(--neon-orange);
 }
 
 /* Mobilní informace o tahu */
@@ -270,7 +230,68 @@
   box-shadow: var(--glow-sm) var(--neon-green);
 }
 
-/* Mobilní tlačítka */
+/* Responzivní mobilní avatary */
+@media (max-width: 576px) {
+  .player-head-mobile {
+    height: 35px;
+    width: 35px;
+  }
+  
+  .mobile-player-name {
+    font-size: 0.65rem;
+  }
+  
+  .mobile-player-score {
+    font-size: 0.7rem;
+  }
+  
+  .players-container-mobile {
+    gap: 0.5rem !important;
+  }
+  
+  .player-mobile {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-head-mobile {
+    height: 32px;
+    width: 32px;
+  }
+  
+  .mobile-player-name {
+    font-size: 0.6rem;
+  }
+  
+  .mobile-player-score {
+    font-size: 0.65rem;
+  }
+  
+  .players-container-mobile {
+    gap: 0.4rem !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .player-head-mobile {
+    height: 28px;
+    width: 28px;
+  }
+  
+  .mobile-player-name {
+    font-size: 0.55rem;
+  }
+  
+  .mobile-player-score {
+    font-size: 0.6rem;
+  }
+  
+  .players-container-mobile {
+    gap: 0.3rem !important;
+  }
+}
 .mobile-control-btn {
   font-size: 0.8rem;
   padding: 0.4rem 0.8rem;
@@ -304,99 +325,8 @@
   transform: scale(1.05);
 }
 
-/* Responzivní úpravy pro menší obrazovky */
-@media (max-width: 800px) {
-  .game-area {
-    border-bottom: 2px solid var(--neon-green);
-    padding: 0.75rem;
-  }
-  
-  .roll-controls {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .roll-controls button {
-    width: 100%;
-    margin: 0;
-  }
-  
-  .turn-info, .current-turn-score, .target-info {
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-}
-
-@media (max-width: 767.98px) {
-  .roll-controls .btn {
-    min-width: unset;
-    font-size: 0.8rem;
-    padding: 0.3rem 0.5rem;
-  }
-}
-
-/* Responzivní mobilní avatary */
-@media (max-width: 576px) {
-  .player-mobile {
-    min-width: 55px;
-    max-width: 75px;
-    padding: 0.3rem;
-  }
-  
-  .player-head-mobile {
-    height: 35px !important;
-    width: 35px !important;
-    border-width: 3px !important;
-  }
-  
-  .mobile-player-name {
-    font-size: 0.65rem;
-  }
-  
-  .mobile-player-score {
-    font-size: 0.6rem;
-  }
-  
-  .mobile-player-score {
-    font-size: 0.7rem;
-  }
-  
-  .players-container-mobile {
-    gap: 0.5rem !important;
-  }
-  
-  .player-mobile {
-    flex: 1;
-    min-width: 0;
-  }
-}
-
+/* Responzivní mobilní tlačítka */
 @media (max-width: 480px) {
-  .player-mobile {
-    min-width: 50px;
-    max-width: 70px;
-    padding: 0.25rem;
-  }
-  
-  .player-head-mobile {
-    height: 32px !important;
-    width: 32px !important;
-    border-width: 2px !important;
-  }
-  
-  .mobile-player-name {
-    font-size: 0.6rem;
-  }
-  
-  .mobile-player-score {
-    font-size: 0.55rem;
-  }
-  
-  .players-container-mobile {
-    gap: 0.4rem !important;
-  }
-  
   .mobile-control-btn {
     font-size: 0.7rem;
     padding: 0.3rem 0.6rem;
@@ -412,24 +342,6 @@
 }
 
 @media (max-width: 320px) {
-  .player-head-mobile {
-    height: 28px !important;
-    width: 28px !important;
-    border-width: 2px !important;
-  }
-  
-  .mobile-player-name {
-    font-size: 0.55rem;
-  }
-  
-  .mobile-player-score {
-    font-size: 0.6rem;
-  }
-  
-  .players-container-mobile {
-    gap: 0.3rem !important;
-  }
-  
   .mobile-control-btn {
     font-size: 0.65rem;
     padding: 0.25rem 0.4rem;
@@ -444,74 +356,240 @@
   }
 }
 
-/* SPECIFICKÉ BARVY PRO HRÁČE - NEJVYŠŠÍ PRIORITA */
-/* Tyto styly MUSÍ být na konci souboru */
-
-/* Člověk - zelená */
-.player-mobile.human-player .player-head-mobile {
-  border-color: var(--neon-green) !important;
-  box-shadow: 0 0 8px var(--neon-green) !important;
+/* Responzivní úpravy pro rámečky - aby se nevyhnuly z herní plochy */
+@media (max-width: 1400px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: var(--glow-md) var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: var(--glow-md) var(--neon-green);
+    padding: 1.2rem;
+    margin: 0.6rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+    padding: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
 }
 
-.player-mobile.human-player .mobile-player-name,
-.player-mobile.human-player .mobile-player-score {
-  color: var(--neon-green) !important;
-  text-shadow: 0 0 5px var(--neon-green) !important;
+@media (max-width: 1200px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: var(--glow-sm) var(--neon-green);
+    padding: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
 }
 
-/* Gemini - modrá */
-.player-mobile.gemini-player .player-head-mobile {
-  border-color: var(--neon-blue) !important;
-  box-shadow: 0 0 8px var(--neon-blue) !important;
+@media (max-width: 992px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: 0 0 3px var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: 0 0 3px var(--neon-green);
+    padding: 0.8rem;
+    margin: 0.4rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: 0 0 3px var(--neon-green);
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
-.player-mobile.gemini-player .mobile-player-name,
-.player-mobile.gemini-player .mobile-player-score {
-  color: var(--neon-blue) !important;
-  text-shadow: 0 0 5px var(--neon-blue) !important;
+@media (max-width: 768px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: 0 0 2px var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: 0 0 2px var(--neon-green);
+    padding: 0.6rem;
+    margin: 0.3rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: 0 0 2px var(--neon-green);
+    padding: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
 }
 
-/* ChatGPT - růžová */
-.player-mobile.chatgpt-player .player-head-mobile {
-  border-color: var(--neon-pink) !important;
-  box-shadow: 0 0 8px var(--neon-pink) !important;
+@media (max-width: 576px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: 0 0 1px var(--neon-green);
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: 0 0 1px var(--neon-green);
+    padding: 0.5rem;
+    margin: 0.2rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: 0 0 1px var(--neon-green);
+    padding: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
 }
 
-.player-mobile.chatgpt-player .mobile-player-name,
-.player-mobile.chatgpt-player .mobile-player-score {
-  color: var(--neon-pink) !important;
-  text-shadow: 0 0 5px var(--neon-pink) !important;
+@media (max-width: 480px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: none;
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.4rem;
+    margin: 0.1rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
 }
 
-/* Claude - oranžová */
-.player-mobile.claude-player .player-head-mobile {
-  border-color: var(--neon-orange) !important;
-  box-shadow: 0 0 8px var(--neon-orange) !important;
+@media (max-width: 320px) {
+  .game-area {
+    border-width: 1px;
+    box-shadow: none;
+  }
+  
+  .game-controls {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.3rem;
+    margin: 0.05rem 0;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    border-width: 1px;
+    box-shadow: none;
+    padding: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+}
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
 }
 
-.player-mobile.claude-player .mobile-player-name,
-.player-mobile.claude-player .mobile-player-score {
-  color: var(--neon-orange) !important;
-  text-shadow: 0 0 5px var(--neon-orange) !important;
-}
-
-/* EXTRA SILNÉ OVERRIDES PRO VŠECHNY VELIKOSTI OBRAZOVKY */
-html body .players-container-mobile .player-mobile.human-player .player-head-mobile {
-  border-color: var(--neon-green) !important;
-  box-shadow: 0 0 8px var(--neon-green) !important;
-}
-
-html body .players-container-mobile .player-mobile.gemini-player .player-head-mobile {
-  border-color: var(--neon-blue) !important;
-  box-shadow: 0 0 8px var(--neon-blue) !important;
-}
-
-html body .players-container-mobile .player-mobile.chatgpt-player .player-head-mobile {
-  border-color: var(--neon-pink) !important;
-  box-shadow: 0 0 8px var(--neon-pink) !important;
-}
-
-html body .players-container-mobile .player-mobile.claude-player .player-head-mobile {
-  border-color: var(--neon-orange) !important;
-  box-shadow: 0 0 8px var(--neon-orange) !important;
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
 }

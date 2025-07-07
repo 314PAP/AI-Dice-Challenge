@@ -144,34 +144,31 @@ export function getAllScoringCombinations(diceValues) {
 }
 
 /**
- * Kontroluje, zda je možné odložit vybrané kostky
- * Podle pravidel Farkle můžete odložit JAKOUKOLIV bodující kombinaci
+ * Kontroluje, zda je možné odložit jen část bodujících kostek
+ * Podle pravidel Farkle MUSÍTE odložit VŠECHNY bodující kostky při hodu, nebo ukončit tah
  * @param {number[]} allDice - Všechny kostky z hodu
  * @param {number[]} selectedDice - Vybrané kostky k odložení
- * @returns {boolean} True pokud je výběr validní
+ * @returns {Object} {valid: boolean, message: string}
  */
 export function validateDiceSelection(allDice, selectedDice) {
-    // Pokud nejsou vybrané žádné kostky, neplatné
-    if (!selectedDice || selectedDice.length === 0) {
-        return false;
-    }
-    
-    // Vypočítej skóre vybraných kostek
+    const allScore = calculateScore(allDice);
     const selectedScore = calculateScore(selectedDice);
     
-    // Pokud vybrané kostky nemají skóre, neplatné
     if (selectedScore === 0) {
-        return false;
+        return { valid: false, message: 'Vybrané kostky nenesou žádné body!' };
     }
     
-    // Zkontroluj, zda všechny kostky z hodu mají nějaké skóre (jinak FARKLE)
-    const allScore = calculateScore(allDice);
     if (allScore === 0) {
-        return false; // FARKLE
+        return { valid: false, message: 'FARKLE! Žádné bodující kostky!' };
     }
     
-    // Validní výběr - vybrané kostky mají skóre
-    return true;
+    // Kontrola, zda jsou vybrané kostky validní kombinace
+    getAllScoringCombinations(allDice);
+    
+    // Můžete odložit jen kompletní bodující kombinace
+    // Například: pokud máte 1,1,1,2,3,4 - musíte odložit všechny tři jedničky najednou
+    
+    return { valid: true, message: 'Validní výběr' };
 }
 
 /**

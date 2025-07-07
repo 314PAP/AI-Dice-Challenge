@@ -314,14 +314,6 @@ input#targetScoreInputMobile {
   .btn-neon.neon-blue {
     border-color: var(--neon-blue) !important;
     color: var(--neon-blue) !important;
-    text-shadow: 0 0 5px var(--neon-blue) !important;
-  }
-  
-  .btn-neon.neon-blue span,
-  .btn-neon.neon-blue i {
-    color: var(--neon-blue) !important;
-    text-shadow: 0 0 5px var(--neon-blue) !important;
-    border: none !important;
   }
   
   .btn-neon.neon-blue:hover {
@@ -331,23 +323,9 @@ input#targetScoreInputMobile {
     box-shadow: 0 0 15px var(--neon-blue) !important;
   }
   
-  .btn-neon.neon-blue:hover span,
-  .btn-neon.neon-blue:hover i {
-    color: var(--neon-blue) !important;
-    border: none !important;
-  }
-  
   .btn-neon.neon-green {
     border-color: var(--neon-green) !important;
     color: var(--neon-green) !important;
-    text-shadow: 0 0 5px var(--neon-green) !important;
-  }
-  
-  .btn-neon.neon-green span,
-  .btn-neon.neon-green i {
-    color: var(--neon-green) !important;
-    text-shadow: 0 0 5px var(--neon-green) !important;
-    border: none !important;
   }
   
   .btn-neon.neon-green:hover {
@@ -357,23 +335,9 @@ input#targetScoreInputMobile {
     box-shadow: 0 0 15px var(--neon-green) !important;
   }
   
-  .btn-neon.neon-green:hover span,
-  .btn-neon.neon-green:hover i {
-    color: var(--neon-green) !important;
-    border: none !important;
-  }
-  
   .btn-neon.neon-orange {
     border-color: var(--neon-orange) !important;
     color: var(--neon-orange) !important;
-    text-shadow: 0 0 5px var(--neon-orange) !important;
-  }
-  
-  .btn-neon.neon-orange span,
-  .btn-neon.neon-orange i {
-    color: var(--neon-orange) !important;
-    text-shadow: 0 0 5px var(--neon-orange) !important;
-    border: none !important;
   }
   
   .btn-neon.neon-orange:hover {
@@ -383,23 +347,9 @@ input#targetScoreInputMobile {
     box-shadow: 0 0 15px var(--neon-orange) !important;
   }
   
-  .btn-neon.neon-orange:hover span,
-  .btn-neon.neon-orange:hover i {
-    color: var(--neon-orange) !important;
-    border: none !important;
-  }
-  
   .btn-neon.neon-red {
     border-color: var(--neon-red) !important;
     color: var(--neon-red) !important;
-    text-shadow: 0 0 5px var(--neon-red) !important;
-  }
-  
-  .btn-neon.neon-red span,
-  .btn-neon.neon-red i {
-    color: var(--neon-red) !important;
-    text-shadow: 0 0 5px var(--neon-red) !important;
-    border: none !important;
   }
   
   .btn-neon.neon-red:hover {
@@ -407,12 +357,6 @@ input#targetScoreInputMobile {
     border-color: var(--neon-red) !important;
     color: var(--neon-red) !important;
     box-shadow: 0 0 15px var(--neon-red) !important;
-  }
-  
-  .btn-neon.neon-red:hover span,
-  .btn-neon.neon-red:hover i {
-    color: var(--neon-red) !important;
-    border: none !important;
   }
   
   /* Chrome fix pro šipky - ULTRA specificity */
