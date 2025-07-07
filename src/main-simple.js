@@ -327,14 +327,9 @@ class SimpleDiceGame {
                 }
                 
                 messageDiv.innerHTML = `
-                    <div class="d-flex align-items-start">
-                        <div class="chat-avatar me-2">
-                            <span class="badge bg-secondary">${sender.charAt(0)}</span>
-                        </div>
-                        <div class="chat-content">
-                            <div class="chat-sender ${color} fw-bold small">${sender}</div>
-                            <div class="chat-text ${color}">${message}</div>
-                        </div>
+                    <div class="chat-content">
+                        <div class="chat-sender ${color} fw-bold small">${sender}</div>
+                        <div class="chat-text ${color}">${message}</div>
                     </div>
                 `;
                 
