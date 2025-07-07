@@ -1,0 +1,133 @@
+/* =============================================================================
+   🚀 BOOTSTRAP-FIRST PURE CSS - Pouze 5% vlastního CSS, 95% Bootstrap
+   ============================================================================= */
+
+/* POUZE CSS PROMĚNNÉ PRO NAŠE NEONOVÉ BARVY */
+:root {
+  --neon-green: #39ff14;
+  --neon-blue: #194DD1;
+  --neon-orange: #FF8800;
+  --neon-pink: #FF00FF;
+  --neon-red: #ff3131;
+  --neon-yellow: #ffff00;
+  
+  /* Bootstrap Custom Properties Extensions */
+  --bs-neon-green: var(--neon-green);
+  --bs-neon-blue: var(--neon-blue);
+  --bs-neon-orange: var(--neon-orange);
+  --bs-neon-pink: var(--neon-pink);
+  --bs-neon-red: var(--neon-red);
+  --bs-neon-yellow: var(--neon-yellow);
+}
+
+/* BOOTSTRAP UTILITY EXTENSIONS - neonové barvy */
+.text-neon-green { color: var(--neon-green); text-shadow: 0 0 8px currentColor; }
+.text-neon-blue { color: var(--neon-blue); text-shadow: 0 0 8px currentColor; }
+.text-neon-orange { color: var(--neon-orange); text-shadow: 0 0 8px currentColor; }
+.text-neon-pink { color: var(--neon-pink); text-shadow: 0 0 8px currentColor; }
+.text-neon-red { color: var(--neon-red); text-shadow: 0 0 8px currentColor; }
+.text-neon-yellow { color: var(--neon-yellow); text-shadow: 0 0 8px currentColor; }
+
+.border-neon-green { border-color: var(--neon-green); }
+.border-neon-blue { border-color: var(--neon-blue); }
+.border-neon-orange { border-color: var(--neon-orange); }
+.border-neon-pink { border-color: var(--neon-pink); }
+
+/* BOOTSTRAP BUTTON EXTENSIONS - neonové tlačítka */
+.btn-neon-green {
+  --bs-btn-color: var(--neon-green);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-green);
+  --bs-btn-hover-color: var(--neon-green);
+  --bs-btn-hover-bg: rgba(57, 255, 20, 0.1);
+  --bs-btn-hover-border-color: var(--neon-green);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px currentColor;
+}
+.btn-neon-green:hover { box-shadow: 0 0 15px rgba(57, 255, 20, 0.4); }
+
+.btn-neon-blue {
+  --bs-btn-color: var(--neon-blue);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-blue);
+  --bs-btn-hover-color: var(--neon-blue);
+  --bs-btn-hover-bg: rgba(25, 77, 209, 0.1);
+  --bs-btn-hover-border-color: var(--neon-blue);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px currentColor;
+}
+.btn-neon-blue:hover { box-shadow: 0 0 15px rgba(25, 77, 209, 0.4); }
+
+.btn-neon-orange {
+  --bs-btn-color: var(--neon-orange);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-orange);
+  --bs-btn-hover-color: var(--neon-orange);
+  --bs-btn-hover-bg: rgba(255, 136, 0, 0.1);
+  --bs-btn-hover-border-color: var(--neon-orange);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px currentColor;
+}
+.btn-neon-orange:hover { box-shadow: 0 0 15px rgba(255, 136, 0, 0.4); }
+
+.btn-neon-red {
+  --bs-btn-color: var(--neon-red);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-red);
+  --bs-btn-hover-color: var(--neon-red);
+  --bs-btn-hover-bg: rgba(255, 49, 49, 0.1);
+  --bs-btn-hover-border-color: var(--neon-red);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px currentColor;
+}
+.btn-neon-red:hover { box-shadow: 0 0 15px rgba(255, 49, 49, 0.4); }
+
+/* JEDINÉ VLASTNÍ KOMPONENTY - které Bootstrap neumí */
+.dice {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+  border: 2px solid var(--neon-green);
+  border-radius: 12px;
+  color: var(--neon-green);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px currentColor;
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+  user-select: none;
+}
+.dice:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(57, 255, 20, 0.6); }
+.dice.selected { 
+  background: linear-gradient(145deg, #002244, #001133);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  text-shadow: 0 0 8px var(--neon-blue);
+  box-shadow: 0 0 20px rgba(25, 77, 209, 0.8);
+  transform: scale(1.05);
+}
+
+/* RESPONZIVNÍ KOSTKY - pouze nutné úpravy */
+@media (max-width: 991.98px) {
+  .dice { width: 50px; height: 50px; font-size: 1.2rem; }
+}
+@media (max-width: 575.98px) {
+  .dice { width: 45px; height: 45px; font-size: 1.1rem; }
+}
+
+/* BOOTSTRAP SPINNER NEONOVÉ BARVY */
+.spinner-border.text-neon-green {
+  border-color: transparent;
+  border-top-color: var(--neon-green);
+  border-right-color: var(--neon-green);
+}
+.spinner-border.text-neon-blue {
+  border-color: transparent;
+  border-top-color: var(--neon-blue);
+  border-right-color: var(--neon-blue);
+}
+
+/* TOHLE JE VŠE! Celý CSS má méně než 100 řádků! 🎉 */
