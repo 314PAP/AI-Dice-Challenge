@@ -499,3 +499,102 @@
     animation: none !important;
   }
 }
+
+/* =============================================================================
+   🖥️ DESKTOP GAME LAYOUT OPTIMIZATION - Maximální využití prostoru
+   ============================================================================= */
+
+/* Desktop herní obsah - kompaktnější layout */
+@media (min-width: 768px) {
+  .game-controls-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    gap: 0.75rem; /* Menší gap pro kompaktnější design */
+  }
+  
+  /* Kompaktnější herní nadpis */
+  .game-header-playing {
+    margin-bottom: 1rem !important;
+    flex-shrink: 0;
+  }
+  
+  .game-header-playing .game-title {
+    font-size: 1.5rem; /* Menší nadpis pro úsporu prostoru */
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Avatary hráčů - kompaktnější layout */
+  .players-container {
+    margin-bottom: 1rem !important;
+    gap: 0.75rem !important; /* Menší gap */
+    flex-shrink: 0;
+  }
+  
+  /* Herní info - kompaktnější */
+  .turn-info, .current-turn-score, .target-info {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Kostky oblast - flexibilní výška */
+  .combined-dice-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+    min-height: 120px; /* Minimální výška pro kostky */
+  }
+  
+  /* Ovládací tlačítka - kompaktnější */
+  .roll-controls {
+    flex-shrink: 0;
+    margin: 1rem 0 0 0 !important;
+    gap: 0.75rem !important;
+  }
+  
+  .roll-controls .btn {
+    padding: 0.5rem 1rem; /* Menší padding */
+    font-size: 0.875rem; /* Menší font */
+  }
+}
+
+/* Extra large screens - více prostoru */
+@media (min-width: 1200px) {
+  .game-controls-content {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .game-header-playing .game-title {
+    font-size: 1.75rem;
+  }
+  
+  .players-container {
+    gap: 1rem !important;
+  }
+  
+  .combined-dice-container {
+    min-height: 150px;
+  }
+  
+  .roll-controls .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Optimalizace pro široké obrazovky */
+@media (min-width: 1400px) {
+  .game-controls-content {
+    padding: 2rem;
+    gap: 1.25rem;
+  }
+  
+  .combined-dice-container {
+    min-height: 180px;
+  }
+}

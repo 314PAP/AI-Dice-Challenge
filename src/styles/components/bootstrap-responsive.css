@@ -114,6 +114,21 @@
   border-color: var(--neon-green);
 }
 
+/* Chat panel (chat box) - Bootstrap-first s neonovými efekty */
+.chat-box {
+  border: 2px solid var(--neon-green);
+  border-radius: 12px;
+  box-shadow: var(--glow-sm) var(--neon-green);
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 0; /* Chat container má své vlastní padding */
+  transition: all 0.3s ease;
+}
+
+.chat-box:hover {
+  box-shadow: var(--glow-md) var(--neon-green);
+  border-color: var(--neon-green);
+}
+
 /* Flexbox utility třídy pro responzivní layout */
 .mobile-landscape-flex-row {
   flex-direction: row;
