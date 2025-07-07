@@ -128,8 +128,7 @@
 }
 
 /* Mobilní herní styly */
-.game-controls-mobile-content.game-box {
-  /* Použije se neonové orámování z game-box třídy */
+.game-controls-mobile-content {
   padding: 0.75rem;
   color: var(--neon-green);
   overflow-y: auto; /* Pro scrollování na malých zařízeních */
