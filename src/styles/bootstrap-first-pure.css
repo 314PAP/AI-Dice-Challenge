@@ -18,6 +18,9 @@
   --bs-neon-pink: var(--neon-pink);
   --bs-neon-red: var(--neon-red);
   --bs-neon-yellow: var(--neon-yellow);
+  
+  /* Background helpers */
+  --neon-bg-dark: rgba(0, 0, 0, 0.95);
 }
 
 /* BOOTSTRAP UTILITY EXTENSIONS - luxusní neonové barvy */
@@ -233,6 +236,30 @@
 }
 .form-control::placeholder {
   color: rgba(25, 77, 209, 0.7) !important;
+}
+
+/* ULTRA BOOTSTRAP AUTOCOMPLETE - 100% neonové styly */
+.autocomplete-item {
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Scrollbar pro autocomplete dropdown - neonový styl */
+.autocomplete-dropdown::-webkit-scrollbar {
+  width: 8px !important;
+}
+.autocomplete-dropdown::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 4px !important;
+}
+.autocomplete-dropdown::-webkit-scrollbar-thumb {
+  background: var(--neon-blue) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 5px rgba(25, 77, 209, 0.5) !important;
+}
+.autocomplete-dropdown::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-blue) !important;
+  box-shadow: 0 0 10px rgba(25, 77, 209, 0.8) !important;
 }
 
 /* 100% VIEWPORT VYUŽITÍ - maximální responzivita */

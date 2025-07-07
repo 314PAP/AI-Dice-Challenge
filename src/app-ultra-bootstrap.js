@@ -23,6 +23,13 @@ class UltraBootstrapDiceGame {
             turnScore: 0,
             gamePhase: 'menu'
         };
+        
+        // Chat historie pro autocomplete
+        this.chatHistory = JSON.parse(localStorage.getItem('aidice-chat-history') || '[]');
+        
+        // Autocomplete instances
+        this.chatAutocomplete = null;
+        this.chatAutocompleteMobile = null;
 
         // AI osobnosti - ČISTÉ, bez emoji
         this.aiPersonalities = {
@@ -61,6 +68,7 @@ class UltraBootstrapDiceGame {
             this.hideLoadingScreen();
             this.initializeUI();
             this.setupEventListeners();
+            this.initializeAutocomplete();
             this.addWelcomeMessages();
             console.log('✅ Ultra Bootstrap-First App initialized!');
         } catch (error) {
@@ -719,6 +727,9 @@ class UltraBootstrapDiceGame {
         }
 
         if (message) {
+            // Přidat do historie
+            this.addToChatHistory(message);
+            
             this.addChatMessage('Hráč', message, 'player');
             activeInput.value = '';
             
@@ -789,6 +800,65 @@ class UltraBootstrapDiceGame {
                 popup: 'bg-black text-neon-red'
             }
         });
+    }
+
+    // Chat historie management
+    addToChatHistory(message) {
+        const trimmedMessage = message.trim();
+        if (trimmedMessage && trimmedMessage.length > 2) {
+            // Odstranit pokud už existuje
+            const index = this.chatHistory.indexOf(trimmedMessage);
+            if (index > -1) {
+                this.chatHistory.splice(index, 1);
+            }
+            
+            // Přidat na začátek
+            this.chatHistory.unshift(trimmedMessage);
+            
+            // Omezit na 20 zpráv
+            if (this.chatHistory.length > 20) {
+                this.chatHistory = this.chatHistory.slice(0, 20);
+            }
+            
+            // Uložit do localStorage
+            localStorage.setItem('aidice-chat-history', JSON.stringify(this.chatHistory));
+            
+            // Aktualizovat autocomplete instance
+            if (this.chatAutocomplete) {
+                this.chatAutocomplete.setSuggestions([...this.chatHistory]);
+            }
+            if (this.chatAutocompleteMobile) {
+                this.chatAutocompleteMobile.setSuggestions([...this.chatHistory]);
+            }
+        }
+    }
+
+    initializeAutocomplete() {
+        // Inicializovat autocomplete pro desktop chat
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput) {
+            this.chatAutocomplete = new UltraBootstrapAutocomplete(chatInput, {
+                suggestions: [...this.chatHistory],
+                neonColor: 'blue',
+                storageKey: 'aidice-chat-history',
+                maxResults: 8,
+                placeholder: 'Napište zprávu AI...'
+            });
+        }
+        
+        // Inicializovat autocomplete pro mobilní chat
+        const chatInputMobile = document.getElementById('chatInputMobile');
+        if (chatInputMobile) {
+            this.chatAutocompleteMobile = new UltraBootstrapAutocomplete(chatInputMobile, {
+                suggestions: [...this.chatHistory],
+                neonColor: 'blue',
+                storageKey: 'aidice-chat-history-mobile',
+                maxResults: 6,
+                placeholder: 'Zpráva...'
+            });
+        }
+        
+        console.log('✅ Ultra Bootstrap Autocomplete initialized');
     }
 }
 
