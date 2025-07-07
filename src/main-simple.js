@@ -22,6 +22,13 @@ class SimpleDiceGame {
             gameEntryMinimum: 300 // Minimální skóre pro vstup do hry
         };
         
+        // Mapování hráčských jmen na AI identity
+        this.aiIdentityMap = {
+            'AI Sarah': 'Gemini',
+            'AI Marcus': 'ChatGPT', 
+            'AI Luna': 'Claude'
+        };
+        
         this.templates = new Map();
         this.initialized = false;
     }
@@ -36,6 +43,11 @@ class SimpleDiceGame {
             console.error('Template load error:', error);
             return `<div class="alert alert-warning">Template ${url} could not be loaded</div>`;
         }
+    }
+
+    // Získání AI identity z hráčského jména
+    getAIIdentity(playerName) {
+        return this.aiIdentityMap[playerName] || playerName;
     }
 
     // Inicializace aplikace
@@ -310,31 +322,43 @@ class SimpleDiceGame {
             const container = document.getElementById(id);
             if (container) {
                 const messageDiv = document.createElement('div');
-                messageDiv.className = `chat-message ${type} mb-2`;
                 
-                // Určení barvy podle odesílatele
+                // Určení barvy a třídy podle odesílatele
                 let color = 'neon-green'; // default pro hráče
+                let messageClass = 'msg-human'; // default
+                
                 if (sender === 'Systém') {
                     color = 'neon-yellow';
+                    messageClass = 'msg-system';
                 } else if (sender === 'Gemini') {
                     color = 'neon-blue';
+                    messageClass = 'msg-gemini';
                 } else if (sender === 'ChatGPT') {
                     color = 'neon-pink';
+                    messageClass = 'msg-chatgpt';
                 } else if (sender === 'Claude') {
                     color = 'neon-orange';
+                    messageClass = 'msg-claude';
                 } else if (type === 'ai') {
                     color = 'neon-blue'; // fallback pro AI
+                    messageClass = 'msg-gemini';
                 }
+                
+                messageDiv.className = `chat-message ${messageClass} ${type} new-message`;
                 
                 messageDiv.innerHTML = `
                     <div class="chat-content">
-                        <div class="chat-sender ${color} fw-bold small">${sender}</div>
                         <div class="chat-text ${color}">${message}</div>
                     </div>
                 `;
                 
                 container.appendChild(messageDiv);
                 container.scrollTop = container.scrollHeight;
+                
+                // Odstranění animace po dokončení
+                setTimeout(() => {
+                    messageDiv.classList.remove('new-message');
+                }, 800);
             }
         });
     }
@@ -793,6 +817,39 @@ class SimpleDiceGame {
         return score;
     }
 
+    // Pomocná funkce pro kontrolu, zda kostka může být součástí validní kombinace
+    canBePartOfValidCombination(diceValue, currentSelection) {
+        // Spočítej kolikrát se každá hodnota vyskytuje ve výběru
+        const counts = {};
+        currentSelection.forEach(value => {
+            counts[value] = (counts[value] || 0) + 1;
+        });
+        
+        // Jednotlivé 1s a 5s jsou vždy validní
+        if (diceValue === 1 || diceValue === 5) {
+            return true;
+        }
+        
+        // Pro ostatní kostky (2,3,4,6) - musíme už mít alespoň 2 stejné kostky
+        // NELZE vybrat jedinou kostku 2,3,4,6 - musí být alespoň 3 pro trojici
+        const currentCount = counts[diceValue] || 0;
+        
+        // Zkontroluj, jestli už nemáme jiné kostky ve výběru
+        const hasOtherValues = Object.keys(counts).some(value => 
+            parseInt(value) !== diceValue && counts[value] > 0
+        );
+        
+        if (hasOtherValues) {
+            // Už máme jiné kostky - nelze přidat kostku, která není 1 nebo 5
+            return false;
+        }
+        
+        // Pro kostky 2,3,4,6: povolíme je pouze pokud:
+        // 1. Už máme alespoň 2 stejné (budujeme k trojici) - OPRAVENO z 1 na 2
+        // 2. A celkový počet bude max 6
+        return currentCount >= 2 && currentCount < 6;
+    }
+
     // Výběr kostky
     selectDice(diceElement) {
         console.log('🎯 Selecting dice');
@@ -814,23 +871,40 @@ class SimpleDiceGame {
             diceElement.classList.remove('selected');
             console.log(`➖ Dice deselected: index=${index}, value=${diceValue}`);
         } else {
-            // Označit kostku - ale nejdříve zkontroluj, jestli nový výběr bude validní
+            // Označit kostku - nejprve zkontroluj, jestli může být součástí validní kombinace
             const testSelection = [...selectedDice, index];
             const testValues = testSelection.map(i => this.gameState.currentTurn.diceValues[i]);
             const testScore = this.calculateScore(testValues);
             
             console.log(`🧪 Testing selection: indices=${testSelection}, values=${testValues}, score=${testScore}`);
             
-            if (testScore > 0) {
-                // Validní výběr
+            // Povolíme výběr POUZE pokud:
+            // 1. Aktuální výběr je prázdný a nová kostka má skóre (1 nebo 5, nebo začíná trojici)
+            // 2. NEBO nová kostka skutečně přispívá ke skóre (zvyšuje celkové skóre)
+            let canSelect = false;
+            
+            if (selectedDice.length === 0) {
+                // Prázdný výběr - povolíme pouze 1, 5, nebo kostky pro budoucí trojici
+                canSelect = testScore > 0 || this.canBePartOfValidCombination(diceValue, []);
+            } else {
+                // Už něco vybráno - zkontroluj, jestli nová kostka přispívá ke skóre
+                const currentValues = selectedDice.map(i => this.gameState.currentTurn.diceValues[i]);
+                const currentScore = this.calculateScore(currentValues);
+                
+                // Nová kostka musí buď zvýšit skóre, nebo být součástí platné kombinace
+                canSelect = testScore > currentScore || this.canBePartOfValidCombination(diceValue, currentValues);
+            }
+            
+            if (canSelect) {
+                // Validní výběr - označit kostku
                 selectedDice.push(index);
                 diceElement.classList.add('selected');
                 console.log(`➕ Dice selected: index=${index}, value=${diceValue}`);
             } else {
-                // Nevalidní výběr
+                // Nevalidní výběr - NEoznačovat kostku a zobrazit chybu
                 console.warn(`❌ Invalid selection: adding dice ${diceValue} would make selection worthless`);
                 this.addChatMessage('Systém', `❌ Nelze vybrat kostku ${diceValue} - výběr by neměl žádné body!`, 'system');
-                return;
+                return; // Výstup z funkce - kostka nebude označena
             }
         }
 
@@ -1045,26 +1119,31 @@ class SimpleDiceGame {
     // Zpracování AI tahu
     handleAITurn() {
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
-        this.addChatMessage(currentPlayer.name, `🤖 Přemýšlím o svém tahu...`, 'ai');
+        const aiIdentity = this.getAIIdentity(currentPlayer.name);
         
-        console.log(`🤖 AI Turn: ${currentPlayer.name}`);
+        this.addChatMessage(aiIdentity, `🤖 Přemýšlím o svém tahu...`, 'ai');
+        
+        console.log(`🤖 AI Turn: ${currentPlayer.name} (${aiIdentity})`);
         console.log(`🤖 Has entered game: ${currentPlayer.hasEnteredGame}`);
         
-        // Simulace AI tahu
+        // Simulace AI tahu s platným Farkle skóre
         setTimeout(() => {
             let aiScore;
             
             if (!currentPlayer.hasEnteredGame) {
                 // AI musí získat alespoň 300 bodů pro vstup
-                aiScore = Math.floor(Math.random() * 400) + 300; // 300-699 bodů
+                // Použijeme platné Farkle skóre kombinace
+                const entryScores = [300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000];
+                aiScore = entryScores[Math.floor(Math.random() * entryScores.length)];
                 currentPlayer.hasEnteredGame = true;
                 console.log(`🤖 ${currentPlayer.name} enters game with ${aiScore} points`);
-                this.addChatMessage(currentPlayer.name, `🎉 Vstoupil jsem do hry s ${aiScore} body!`, 'ai');
+                this.addChatMessage(aiIdentity, `🎉 Vstoupil jsem do hry s ${aiScore} body!`, 'ai');
             } else {
-                // Normální AI tah
-                aiScore = Math.floor(Math.random() * 500) + 100; // 100-599 bodů
+                // Normální AI tah - použijeme pouze platné Farkle skóre
+                const validScores = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1200, 1300, 1400, 1500];
+                aiScore = validScores[Math.floor(Math.random() * validScores.length)];
                 console.log(`🤖 ${currentPlayer.name} scores ${aiScore} points`);
-                this.addChatMessage(currentPlayer.name, `🎯 Získal jsem ${aiScore} bodů!`, 'ai');
+                this.addChatMessage(aiIdentity, `🎯 Získal jsem ${aiScore} bodů!`, 'ai');
             }
             
             currentPlayer.score += aiScore;
@@ -1257,6 +1336,31 @@ class SimpleDiceGame {
                 console.log(`📊 updateScore: Turn info display: ${displayText}`);
             }
         });
+    }
+
+    // ============================================
+    // TESTOVACÍ FUNKCE
+    // ============================================
+
+    // Testovací funkce pro nastavení konkrétních hodnot kostek
+    testSetDiceValues(values) {
+        console.log('🧪 TEST: Setting dice values:', values);
+        
+        if (!this.gameState.currentTurn) {
+            this.initGameVariables();
+        }
+        
+        // Nastav konkrétní hodnoty kostek
+        this.gameState.currentTurn.diceValues = [...values];
+        this.gameState.currentTurn.availableDice = values.length;
+        this.gameState.currentTurn.selectedDice = [];
+        this.gameState.currentTurn.mustBankDice = true;
+        
+        // Aktualizuj UI
+        this.updateDiceDisplay();
+        this.updateGameButtons();
+        
+        console.log('🧪 TEST: Dice values set successfully');
     }
 }
 
