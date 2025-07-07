@@ -23,14 +23,14 @@
   text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
 }
 
-/* Cílové skóre */
+/* Cílové skóre - oranžové podle designu */
 .score-label {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--neon-green) !important;
-  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
+  color: var(--neon-orange) !important;
+  text-shadow: 0 0 5px var(--neon-orange), 0 0 10px var(--neon-orange) !important;
 }
 
 .target-score-input {
