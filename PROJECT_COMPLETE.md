@@ -12,6 +12,7 @@
 ### 🚀 BOOTSTRAP - 100% PURE
 - ✅ **Pouze utility třídy**: Maximum Bootstrap utilit, minimum vlastního CSS
 - ✅ **CSS proměnné**: Pouze 6 neonových barev v proměnných
+- ✅ **Ultra Bootstrap Autocomplete**: Vlastní implementace, 100% neonová
 - ✅ **Responzivní**: 100% viewport využití, perfektní na všech zařízeních
 - ✅ **Grid systém**: Kompletní využití Bootstrap grid
 - ✅ **Modularita**: Soubory < 150 řádků
@@ -22,10 +23,12 @@
 - ✅ **Tablet**: Adaptivní mezi desktop a mobile
 - ✅ **Všechna rozlišení**: Kostky se škálují, texty čitelné
 
-### 🎮 FUNKČNOST - ZACHOVÁNA
+### 🎮 FUNKČNOST - ZACHOVÁNA + VYLEPŠENA
 - ✅ **Herní logika**: Farkle pravidla fungují správně
 - ✅ **AI protivníci**: Všichni 3 AI s vlastními barvami
-- ✅ **Chat**: Funkční s neonovými zprávami
+- ✅ **Chat s autocomplete**: Ultra Bootstrap Autocomplete s historií
+- ✅ **localStorage**: Automatické ukládání chat historie
+- ✅ **Klávesové zkratky**: ↑↓ navigace, Enter výběr, Escape zavření
 - ✅ **Animace**: Smooth hover efekty a přechody
 
 ### 📁 ARCHITEKTURA - ČISTÁ
