@@ -1,0 +1,323 @@
+/* =============================================================================
+   📱 BOOTSTRAP RESPONSIVE UTILITIES - Kompletní responzivní systém
+   ============================================================================= */
+
+/* Bootstrap breakpointy:
+   - xs: 0px (default)
+   - sm: 576px  
+   - md: 768px
+   - lg: 992px
+   - xl: 1200px
+   - xxl: 1400px
+*/
+
+/* =============================================================================
+   🎮 HERNÍ LAYOUT - Bootstrap-first responzivní grid
+   ============================================================================= */
+
+/* Main game container */
+.game-container {
+  /* Bootstrap-first: container-fluid px-2 px-md-3 px-lg-4 */
+  min-height: 100vh;
+  background: var(--black-bg);
+}
+
+/* =============================================================================
+   👥 AVATARY - Bootstrap responzivní velikosti
+   ============================================================================= */
+
+/* Základní velikosti avatarů - Bootstrap utility pattern */
+.player-avatar {
+  /* xxl: 60px */
+  width: 3.75rem;
+  height: 3.75rem;
+}
+
+/* xl breakpoint: 1200px+ */
+@media (min-width: 1200px) {
+  .player-avatar {
+    width: 3.5rem; /* 56px */
+    height: 3.5rem;
+  }
+}
+
+/* lg breakpoint: 992px+ */  
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .player-avatar {
+    width: 3.125rem; /* 50px */
+    height: 3.125rem;
+  }
+}
+
+/* md breakpoint: 768px+ */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .player-avatar {
+    width: 2.8125rem; /* 45px */
+    height: 2.8125rem;
+  }
+}
+
+/* sm breakpoint: 576px+ */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .player-avatar {
+    width: 2.375rem; /* 38px */
+    height: 2.375rem;
+  }
+}
+
+/* xs breakpoint: <576px */
+@media (max-width: 575.98px) {
+  .player-avatar {
+    width: 2.1875rem; /* 35px */
+    height: 2.1875rem;
+  }
+}
+
+/* Extra small: <480px */
+@media (max-width: 479.98px) {
+  .player-avatar {
+    width: 1.875rem; /* 30px */
+    height: 1.875rem;
+  }
+}
+
+/* =============================================================================
+   🎲 KOSTKY - Bootstrap responzivní velikosti
+   ============================================================================= */
+
+.dice-responsive {
+  /* Default: 60px kostky */
+  width: 3.75rem;
+  height: 3.75rem;
+  font-size: 1.75rem;
+}
+
+@media (min-width: 1200px) {
+  .dice-responsive {
+    width: 3.4375rem; /* 55px */
+    height: 3.4375rem;
+    font-size: 1.625rem; /* 26px */
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .dice-responsive {
+    width: 3.125rem; /* 50px */
+    height: 3.125rem;
+    font-size: 1.5rem; /* 24px */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .dice-responsive {
+    width: 2.8125rem; /* 45px */
+    height: 2.8125rem;
+    font-size: 1.375rem; /* 22px */
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .dice-responsive {
+    width: 2.375rem; /* 38px */
+    height: 2.375rem;
+    font-size: 1.125rem; /* 18px */
+  }
+}
+
+@media (max-width: 575.98px) {
+  .dice-responsive {
+    width: 2.1875rem; /* 35px */
+    height: 2.1875rem;
+    font-size: 1rem; /* 16px */
+  }
+}
+
+@media (max-width: 479.98px) {
+  .dice-responsive {
+    width: 1.875rem; /* 30px */
+    height: 1.875rem;
+    font-size: 0.875rem; /* 14px */
+  }
+}
+
+/* =============================================================================
+   🔘 TLAČÍTKA - Bootstrap responzivní velikosti
+   ============================================================================= */
+
+/* Desktop tlačítka */
+.btn-responsive-desktop {
+  /* Default: velká tlačítka */
+  font-size: 1.25rem;
+  padding: 0.75rem 1.5rem;
+}
+
+@media (min-width: 1200px) {
+  .btn-responsive-desktop {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .btn-responsive-desktop {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .btn-responsive-desktop {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .btn-responsive-desktop {
+    font-size: 0.75rem;
+    flex: 1;
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .btn-responsive-desktop {
+    font-size: 0.7rem;
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .btn-responsive-desktop {
+    font-size: 0.65rem;
+    min-width: 50px;
+  }
+}
+
+/* Mobilní tlačítka */
+.btn-responsive-mobile {
+  font-size: 0.8rem;
+  min-width: 80px;
+}
+
+@media (max-width: 479.98px) {
+  .btn-responsive-mobile {
+    font-size: 0.7rem;
+    min-width: 60px;
+  }
+}
+
+@media (max-width: 319.98px) {
+  .btn-responsive-mobile {
+    font-size: 0.65rem;
+    min-width: 50px;
+  }
+}
+
+/* =============================================================================
+   📝 TYPOGRAPHY - Bootstrap responzivní text
+   ============================================================================= */
+
+/* Herní nadpisy */
+.title-responsive {
+  font-size: 2.5rem; /* fs-1 equivalent */
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .title-responsive {
+    font-size: 2rem; /* fs-2 equivalent */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .title-responsive {
+    font-size: 1.75rem; /* fs-3 equivalent */
+  }
+}
+
+@media (max-width: 479.98px) {
+  .title-responsive {
+    font-size: 1.5rem; /* fs-4 equivalent */
+  }
+}
+
+/* Herní informace */
+.game-info-responsive {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+@media (max-width: 479.98px) {
+  .game-info-responsive {
+    font-size: 0.9rem;
+    padding: 0.35rem;
+  }
+}
+
+@media (max-width: 319.98px) {
+  .game-info-responsive {
+    font-size: 0.8rem;
+    padding: 0.25rem;
+  }
+}
+
+/* =============================================================================
+   📦 SPACING - Bootstrap utility pattern
+   ============================================================================= */
+
+/* Responzivní gap třídy */
+.gap-responsive {
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .gap-responsive {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .gap-responsive {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .gap-responsive {
+    gap: 0.5rem;
+  }
+}
+
+/* Responzivní padding třídy */
+.p-responsive {
+  padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .p-responsive {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .p-responsive {
+    padding: 1.5rem;
+  }
+}
+
+/* Responzivní margin třídy */
+.m-responsive {
+  margin: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .m-responsive {
+    margin: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .m-responsive {
+    margin: 1.5rem;
+  }
+}

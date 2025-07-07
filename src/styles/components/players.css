@@ -2,7 +2,7 @@
    👥 PLAYERS - Kompletní stylování hráčů, avatarů a karet
    ============================================================================= */
 
-/* Základní kontejner hráčů */
+/* Bootstrap-first: d-flex flex-row justify-content-center align-items-start gap-3 flex-wrap */
 .players-container {
   display: flex;
   flex-direction: row;
@@ -12,7 +12,7 @@
   flex-wrap: wrap;
 }
 
-/* Karty hráčů */
+/* Bootstrap-first: bg-dark bg-opacity-75 border-2 rounded-2 p-2 */
 .player {
   background-color: rgba(0, 0, 0, 0.8);
   transition: all 0.3s ease;
