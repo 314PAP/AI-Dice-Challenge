@@ -58,6 +58,15 @@
   font-family: 'Orbitron', sans-serif;
 }
 
+/* Zajištění, že span v player-score dědí barvu */
+.player-score span {
+  color: inherit !important;
+}
+
+.player-score-mobile span {
+  color: inherit !important;
+}
+
 /* Aktivní hráč */
 .player.active {
   z-index: 2;

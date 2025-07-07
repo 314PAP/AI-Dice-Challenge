@@ -1208,9 +1208,7 @@ class SimpleDiceGame {
             
             if (this.gameState.players[element.index]) {
                 const player = this.gameState.players[element.index];
-                const displayText = player.hasEnteredGame ? 
-                    `${player.score}` : 
-                    `${player.score} (mimo hru)`;
+                const displayText = `${player.score}`;
                 
                 if (scoreElement) scoreElement.textContent = displayText;
                 if (scoreElementMobile) scoreElementMobile.textContent = displayText;

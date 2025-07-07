@@ -18,11 +18,11 @@ h1, h2, h3, h4, h5, h6 {
   color: #39ff14 !important;
 }
 
-p, span {
+p {
   color: #39ff14;
 }
 
-/* DIV se bude řídit pouze svými specifickými styly */
+/* span elementy budou dědit barvy podle kontextu, ne vždy zelená */
 
 /* Menu specifické */
 .game-title {
