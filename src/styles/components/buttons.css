@@ -355,3 +355,49 @@
     transform: none;
   }
 }
+
+/* =============================================================================
+   🎯 CONSISTENT BUTTON WIDTHS - Stejná šířka pro všechna tlačítka
+   ============================================================================= */
+
+/* Desktop tlačítka - širší pro lepší design */
+.btn-consistent-width {
+  min-width: 180px; /* Šířka podle nejširšího tlačítka "Opustit hru" */
+  width: 180px;
+  text-align: center;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Responzivní šířky */
+@media (max-width: 767.98px) {
+  .btn-consistent-width {
+    min-width: 160px;
+    width: 160px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .btn-consistent-width {
+    min-width: 140px;
+    width: 140px;
+    font-size: 0.875rem; /* Menší font pro mobily */
+  }
+}
+
+/* Speciální třídy pro různé velikosti tlačítek */
+.btn-width-lg {
+  min-width: 200px;
+  width: 200px;
+}
+
+.btn-width-md {
+  min-width: 160px;
+  width: 160px;
+}
+
+.btn-width-sm {
+  min-width: 120px;
+  width: 120px;
+}

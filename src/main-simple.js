@@ -353,8 +353,12 @@ class SimpleDiceGame {
                 // Bootstrap-first: Animate.css třídy pro zprávy
                 messageDiv.className = `chat-message ${messageClass} ${type} animate__animated ${animationType}`;
                 
+                // Zobrazení jména odesílatele a zprávy
+                const senderName = sender === 'Hráč' ? 'Hráč' : sender;
+                
                 messageDiv.innerHTML = `
                     <div class="chat-content">
+                        <div class="chat-message-header">${senderName}</div>
                         <div class="chat-text ${color}">${message}</div>
                     </div>
                 `;

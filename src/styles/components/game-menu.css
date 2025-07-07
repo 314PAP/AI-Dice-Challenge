@@ -109,29 +109,34 @@ input#targetScoreInputMobile {
   width: 100%;
 }
 
-/* Šipky kontejner - Bootstrap-first (spoléhá na utility třídy) */
+/* Šipky kontejner - Bootstrap-first (uvnitř input kontejneru) */
 .score-arrows {
   display: flex;
   flex-direction: column;
   gap: 1px;
   z-index: 10;
   pointer-events: auto;
+  /* Umístění uvnitř input rámečku */
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* Šipky tlačítka - Bootstrap-first s responzivními velikostmi a lepší kontrast */
+/* Šipky tlačítka - Bootstrap-first s responzivními velikostmi a správným umístěním */
 .score-arrow {
-  /* Desktop velikosti */
-  width: 18px;
-  height: 13px;
-  font-size: 8px;
+  /* Menší velikosti pro lepší umístění */
+  width: 20px;
+  height: 14px;
+  font-size: 10px;
   
   /* Chrome fix - nejsilnější možná specificity */
   background: var(--neon-green) !important;
   background-color: var(--neon-green) !important;
   color: var(--black-bg) !important;
   
-  border: none !important;
-  border-radius: 2px;
+  border: 1px solid var(--neon-green) !important;
+  border-radius: 3px;
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -141,6 +146,9 @@ input#targetScoreInputMobile {
   font-weight: 900 !important;
   line-height: 1 !important;
   text-decoration: none !important;
+  
+  /* Lepší hover efekt */
+  box-shadow: 0 0 3px var(--neon-green);
 }
 
 /* Responzivní velikosti - Bootstrap breakpointy */

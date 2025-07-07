@@ -2,16 +2,19 @@
    💬 CHAT - Styly pro chatovací rozhraní
    ============================================================================= */
 
-/* Bootstrap-first: d-flex flex-column h-100 rounded-top rounded-2 rounded-md-3 overflow-hidden border-0 shadow-none */
+/* Bootstrap-first: d-flex flex-column h-100 rounded-top rounded-2 rounded-md-3 overflow-hidden border-2 */
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   border-radius: 0.5rem; /* Mobilní radius */
   overflow: hidden;
-  border: none;
-  box-shadow: none;
+  /* Neonové olemování jako hlavní panel */
+  border: 2px solid var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green), 
+              0 0 15px rgba(var(--neon-green-rgb), 0.3);
   min-height: 200px; /* Minimální výška pro mobily */
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 /* Responzivní border radius */
@@ -186,6 +189,50 @@
 
 .chat-message.msg-system:hover::before {
   box-shadow: 0 0 12px var(--neon-yellow), 0 0 20px var(--neon-yellow);
+}
+
+/* Jména AI a systému v chat zprávách */
+.chat-message-header {
+  font-weight: bold;
+  font-size: 0.7rem;
+  margin-bottom: 0.125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  font-family: 'Orbitron', sans-serif;
+}
+
+@media (min-width: 576px) {
+  .chat-message-header {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Barevné rozlišení jmen podle typu AI */
+.chat-message.msg-gemini .chat-message-header {
+  color: var(--neon-blue);
+  text-shadow: 0 0 3px var(--neon-blue);
+}
+
+.chat-message.msg-chatgpt .chat-message-header {
+  color: var(--neon-pink);
+  text-shadow: 0 0 3px var(--neon-pink);
+}
+
+.chat-message.msg-claude .chat-message-header {
+  color: var(--neon-orange);
+  text-shadow: 0 0 3px var(--neon-orange);
+}
+
+.chat-message.msg-system .chat-message-header {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 3px var(--neon-yellow);
+}
+
+.chat-message.msg-human .chat-message-header {
+  color: var(--neon-green);
+  text-shadow: 0 0 3px var(--neon-green);
 }
 
 /* Patička chatu s vstupním polem - Bootstrap-first: bg-dark p-2 p-sm-3 rounded-bottom sticky-bottom */
