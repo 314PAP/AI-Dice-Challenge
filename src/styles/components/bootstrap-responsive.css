@@ -144,6 +144,9 @@
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Povolit flexibilní zmenšení */
 }
 
 .game-box:hover, .chat-box:hover {
@@ -173,21 +176,26 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  gap: 0.75rem; /* Menší mezera pro lepší využití prostoru */
+  gap: 0.5rem; /* Zmenšeno pro více prostoru */
+  min-height: 0;
 }
 
 .h-landscape-100 {
   height: 100% !important;
+  min-height: 0;
 }
 
 /* Mobilní layout třídy pro výšku */
 .h-40 {
-  height: 40% !important; /* Chat - max 40% výšky obrazovky */
-  max-height: 40vh; /* Zajistit max 40% viewport height */
+  height: 35% !important; /* Zmenšeno z 40% na 35% */
+  max-height: 35vh; /* Zajistit max 35% viewport height */
+  flex-shrink: 0;
 }
 
 .h-75 {
-  height: 75% !important; /* Záložní třída pro kompatibilitu */
+  height: 65% !important; /* Zvětšeno z 75% na 65% */
+  flex: 1; /* Flexibilní růst */
+  min-height: 0;
 }
 
 .mb-landscape-0 {
