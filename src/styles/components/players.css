@@ -380,3 +380,200 @@
     font-size: 0.75rem;
   }
 }
+
+/* =============================================================================
+   📱 RESPONSIVE PLAYERS - Mobile-first optimalizace
+   ============================================================================= */
+
+/* Bootstrap-first: d-flex flex-column flex-sm-row justify-content-center align-items-center gap-2 gap-sm-3 flex-wrap */
+.players-container {
+  display: flex;
+  flex-direction: column; /* Mobilní: vertikální layout */
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem; /* Mobilní: menší gap */
+  flex-wrap: wrap;
+  padding: 0.5rem;
+}
+
+/* Responzivní layout pro players */
+@media (min-width: 576px) {
+  .players-container {
+    flex-direction: row; /* SM+: horizontální layout */
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .players-container {
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* Bootstrap-first: bg-dark bg-opacity-75 border-2 rounded-2 p-1 p-sm-2 w-100 w-sm-auto */
+.player {
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: none;
+  border: 1.5px solid; /* Tenčí border pro mobily */
+  max-width: none; /* Mobilní: full width */
+  width: 100%; /* Mobilní: full width */
+  padding: 0.375rem; /* Mobilní: menší padding */
+  border-radius: 6px; /* Menší radius pro mobily */
+  
+  /* Mobilní layout optimalizace */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Responzivní velikosti */
+@media (min-width: 576px) {
+  .player {
+    border-width: 2px;
+    max-width: 120px;
+    width: auto;
+    padding: 0.5rem;
+    border-radius: 8px;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 768px) {
+  .player {
+    max-width: 130px;
+  }
+}
+
+/* Mobilní layout pro player-head */
+.player-head {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0; /* Mobilní: bez margin */
+  margin-right: 0.5rem; /* Mobilní: margin vpravo */
+  order: 1;
+}
+
+@media (min-width: 576px) {
+  .player-head {
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+    order: initial;
+  }
+}
+
+/* Responzivní velikosti avatarů */
+.player-head img {
+  width: 40px; /* Mobilní velikost */
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1.5px solid; /* Tenčí border pro mobily */
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media (min-width: 576px) {
+  .player-head img {
+    width: 50px;
+    height: 50px;
+    border-width: 2px;
+  }
+}
+
+@media (min-width: 768px) {
+  .player-head img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Mobilní layout pro player info */
+.player-info {
+  display: flex;
+  flex-direction: column;
+  order: 2;
+  flex-grow: 1;
+}
+
+@media (min-width: 576px) {
+  .player-info {
+    order: initial;
+    flex-grow: 0;
+  }
+}
+
+/* Responzivní typography */
+.player-name {
+  font-size: 0.75rem; /* Mobilní font */
+  font-weight: 700;
+  text-align: left; /* Mobilní: zarovnání vlevo */
+  margin-bottom: 0.125rem;
+  font-family: 'Orbitron', sans-serif;
+  line-height: 1.1;
+}
+
+@media (min-width: 576px) {
+  .player-name {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .player-name {
+    font-size: 0.9rem;
+  }
+}
+
+.player-score {
+  font-size: 1rem; /* Mobilní font */
+  font-weight: 900;
+  text-align: left; /* Mobilní: zarovnání vlevo */
+  font-family: 'Orbitron', sans-serif;
+  line-height: 1.1;
+}
+
+@media (min-width: 576px) {
+  .player-score {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .player-score {
+    font-size: 1.2rem;
+  }
+}
+
+/* Mobilní optimalizace aktivního hráče */
+.player.active {
+  z-index: 2;
+  transform: scale(1.02); /* Menší scale pro mobily */
+  box-shadow: var(--glow-md) var(--neon-color, var(--neon-green)); /* Menší glow */
+}
+
+@media (min-width: 576px) {
+  .player.active {
+    transform: scale(1.05);
+    box-shadow: var(--glow-lg) var(--neon-color, var(--neon-green));
+  }
+}
+
+/* Redukované animace na mobilech */
+@media (hover: none) {
+  .player.active {
+    transform: none;
+  }
+  
+  .player.active .player-head img {
+    box-shadow: var(--glow-sm) var(--neon-color, var(--neon-green));
+  }
+}

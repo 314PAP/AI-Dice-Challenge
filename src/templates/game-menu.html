@@ -1,29 +1,28 @@
 <!-- MENU STAV - Bootstrap-first responzivní design -->
-<div class="game-header text-center d-none d-md-block" id="gameHeader">
+<div class="game-header text-center px-3 px-sm-4 px-md-0" id="gameHeader">
     <!-- Nadpis s Bootstrap responzivní typography -->
-    <h1 class="game-title title-responsive text-neon-green mb-2 mb-md-3 mb-lg-4">
-        <i class="ri-dice-line me-1 me-md-2"></i>
+    <h1 class="game-title title-responsive text-neon-green mb-2 mb-sm-3 mb-md-4 fs-3 fs-sm-2 fs-md-1">
+        <i class="ri-dice-line me-1 me-sm-2"></i>
         <span class="title-text">AI Kostková Výzva</span>
     </h1>
     
     <!-- Neonová kostka pod nadpisem -->
-    <div class="neon-dice-decoration mb-2 mb-md-3 mb-lg-4">
-        <i class="ri-dice-6-line dice-icon neon-green fs-1 fs-md-2"></i>
+    <div class="neon-dice-decoration mb-2 mb-sm-3 mb-md-4">
+        <i class="ri-dice-6-line dice-icon neon-green fs-2 fs-sm-1"></i>
     </div>
     
     <!-- Nápis "Cílové skóre" s Bootstrap spacing -->
-    <div class="score-label text-neon-orange mb-2 mb-md-3">
-        <i class="ri-star-line me-1 me-md-2"></i>
-        <span class="score-label-text fs-6 fs-md-5">Cílové skóre</span>
+    <div class="score-label text-neon-orange mb-2 mb-sm-3">
+        <i class="ri-star-line me-1 me-sm-2"></i>
+        <span class="score-label-text fs-6 fs-sm-5">Cílové skóre</span>
     </div>
     
     <!-- Orámečkované nastavení skóre - Bootstrap-first responsive -->
-    <div class="d-flex justify-content-center mb-2 mb-md-3 mb-lg-4">
-        <div class="position-relative" style="max-width: 280px;">
+    <div class="d-flex justify-content-center mb-3 mb-sm-4">
+        <div class="position-relative w-100" style="max-width: 280px;">
             <input type="number" id="targetScoreInput" 
-                   class="form-control-neon text-center pe-5 fs-6 fs-md-5" 
-                   value="10000" min="1000" step="1000" 
-                   style="width: clamp(140px, 50vw, 180px);">
+                   class="form-control-neon text-center pe-5 fs-6 fs-sm-5 w-100" 
+                   value="10000" min="1000" step="1000">
             <div class="score-arrows position-absolute top-50 translate-middle-y end-0 me-2">
                 <button type="button" class="score-arrow arrow-up d-block mb-1" id="scoreUpBtn">
                     <i class="ri-arrow-up-s-fill fs-6"></i>
@@ -35,16 +34,16 @@
         </div>
     </div>
     
-    <!-- Tlačítka s Bootstrap responsive třídami -->
-    <div class="menu-buttons d-flex flex-column align-items-center gap-2 gap-md-3">
+    <!-- Tlačítka s Bootstrap responsive třídami a mobile-first optimalizace -->
+    <div class="menu-buttons d-flex flex-column align-items-center gap-2 gap-sm-3 w-100">
         <!-- Začít hru - Zelená -->
-        <button class="btn btn-neon-green btn-lg btn-responsive-desktop text-nowrap" id="startGameBtn">
+        <button class="btn btn-neon-green btn-mobile-md btn-mobile-full btn-touch-spacing text-nowrap" id="startGameBtn">
             <i class="ri-gamepad-line me-2"></i>
             <span>Začít hru</span>
         </button>
         
         <!-- Pravidla - Modrá -->
-        <button class="btn btn-neon-blue btn-lg btn-responsive-desktop text-nowrap" id="rulesBtn">
+        <button class="btn btn-neon-blue btn-mobile-md btn-mobile-full btn-touch-spacing text-nowrap" id="rulesBtn">
             <i class="ri-book-open-line me-2"></i>
             <span>Pravidla</span>
         </button>

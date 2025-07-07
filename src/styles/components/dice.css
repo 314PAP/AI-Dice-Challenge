@@ -2,63 +2,129 @@
    🎲 DICE - Stylování kostek s neonovými efekty
    ============================================================================= */
 
-/* Bootstrap-first: d-flex flex-wrap justify-content-center my-3 gap-3 */
+/* Bootstrap-first: d-flex flex-wrap justify-content-center my-3 gap-2 gap-sm-3 */
 .all-dice-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 1rem 0;
-  gap: 1rem;
+  margin: 0.75rem 0; /* Redukce pro mobily */
+  gap: 0.5rem; /* Mobilní gap */
 }
 
-/* Bootstrap-first: d-flex flex-nowrap mt-3 gap-2 justify-content-center overflow-auto */
+/* Responzivní gap pro kostky */
+@media (min-width: 576px) {
+  .all-dice-container {
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .all-dice-container {
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+}
+
+/* Bootstrap-first: d-flex flex-nowrap mt-2 mt-sm-3 gap-1 gap-sm-2 justify-content-center overflow-auto px-2 px-sm-0 */
 .banked-dice-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  margin-top: 1rem;
-  gap: 0.5rem;
+  margin-top: 0.5rem; /* Mobilní margin */
+  gap: 0.25rem; /* Mobilní gap */
   justify-content: center;
   overflow-x: auto;
+  padding: 0 0.5rem; /* Mobilní padding pro scroll */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--neon-blue-rgb), 0.5) transparent;
 }
 
-/* Bootstrap-first: d-flex align-items-center justify-content-center rounded-3 m-1 transition-all */
-.dice {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  font-weight: bold;
-  border-radius: 12px;
-  margin: 0.25rem;
-  transition: all 0.2s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: var(--neon-green);
-  border: 2px solid var(--neon-green);
-  text-shadow: 0 0 5px var(--neon-green);
-  box-shadow: 0 0 5px var(--neon-green);
-  font-family: 'Orbitron', sans-serif;
-  cursor: pointer;
-}
-
-/* Responzivní velikosti kostek */
-@media (max-width: 576px) {
-  .dice {
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    border-radius: 8px;
+/* Responzivní úpravy pro banked dice */
+@media (min-width: 576px) {
+  .banked-dice-container {
+    margin-top: 0.75rem;
+    gap: 0.5rem;
+    padding: 0;
   }
 }
 
-@media (min-width: 577px) and (max-width: 768px) {
+@media (min-width: 768px) {
+  .banked-dice-container {
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+}
+
+/* Webkit scrollbar pro banked dice */
+.banked-dice-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.banked-dice-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.banked-dice-container::-webkit-scrollbar-thumb {
+  background: rgba(var(--neon-blue-rgb), 0.5);
+  border-radius: 2px;
+}
+
+/* Bootstrap-first: d-flex align-items-center justify-content-center rounded-2 rounded-md-3 m-1 transition-all user-select-none */
+.dice {
+  /* Mobilní velikosti (default) */
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 8px;
+  margin: 0.125rem; /* Mobilní margin */
+  transition: all 0.2s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: var(--neon-green);
+  border: 1.5px solid var(--neon-green); /* Tenčí border pro mobily */
+  text-shadow: 0 0 3px var(--neon-green);
+  box-shadow: 0 0 3px var(--neon-green);
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation; /* Better touch handling */
+}
+
+/* Responzivní velikosti kostek */
+@media (min-width: 576px) {
   .dice {
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
     border-radius: 10px;
+    margin: 0.25rem;
+    border-width: 2px;
+    text-shadow: 0 0 4px var(--neon-green);
+    box-shadow: 0 0 4px var(--neon-green);
+  }
+}
+
+@media (min-width: 768px) {
+  .dice {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    border-radius: 12px;
+    text-shadow: 0 0 5px var(--neon-green);
+    box-shadow: 0 0 5px var(--neon-green);
+  }
+}
+
+@media (min-width: 992px) {
+  .dice {
+    width: 64px;
+    height: 64px;
+    font-size: 30px;
   }
 }
 
