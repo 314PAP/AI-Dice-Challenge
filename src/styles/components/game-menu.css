@@ -379,50 +379,58 @@ input#targetScoreInputMobile {
 }
 
 /* =============================================================================
-   🎯 SCORE ARROWS - Správné zobrazování podle breakpointů
+   🎮 MENU LAYOUT FIXES - Oprava překrývání a spacing
    ============================================================================= */
 
-/* Desktop šipky - pouze na MD+ */
-#scoreUpBtn, #scoreDownBtn {
-  display: none;
+/* Menu sekce - lepší spacing pro zabránění překrývání */
+.menu-middle-section {
+  margin-bottom: 2rem !important; /* Větší mezera pod cílovým skóre */
 }
 
-@media (min-width: 768px) {
-  #scoreUpBtn, #scoreDownBtn {
-    display: flex;
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .menu-middle-section {
+    margin-bottom: 2.5rem !important; /* Ještě větší mezera na středních desktop */
   }
 }
 
-/* Mobilní šipky - pouze na SM- */  
-#scoreUpBtnMobile, #scoreDownBtnMobile {
+@media (min-width: 992px) {
+  .menu-middle-section {
+    margin-bottom: 3rem !important; /* Maximální mezera na velkých desktop */
+  }
+}
+
+/* Horní sekce - kompaktnější na menších desktop */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .menu-top-section .game-title {
+    font-size: 1.75rem !important; /* Menší nadpis */
+    margin-bottom: 1rem !important;
+  }
+  
+  .neon-dice-decoration {
+    margin: 0.5rem 0 1rem 0 !important; /* Kompaktnější spacing */
+  }
+}
+
+/* Spodní sekce - lepší alignment */
+.menu-bottom-section {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Změna z center na flex-start */
+  align-items: center;
+  gap: 1rem;
 }
 
-@media (min-width: 768px) {
-  #scoreUpBtnMobile, #scoreDownBtnMobile {
-    display: none;
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .menu-bottom-section {
+    gap: 0.75rem; /* Menší gap na středních desktop */
   }
 }
 
-/* Skrytí mobilního inputu na desktopu */
-#targetScoreInputMobile {
-  display: block;
-}
-
-@media (min-width: 768px) {
-  #targetScoreInputMobile {
-    display: none;
-  }
-}
-
-/* Desktop input - skrytí na mobilech */
-#targetScoreInput {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  #targetScoreInput {
-    display: block;
+/* Tlačítka - kompaktnější na středních desktop */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .menu-buttons .btn {
+    padding: 0.5rem 1rem !important; /* Menší padding */
+    font-size: 0.875rem !important; /* Menší font */
   }
 }
 

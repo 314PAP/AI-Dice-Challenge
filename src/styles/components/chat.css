@@ -57,7 +57,7 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(var(--neon-green-rgb), 0.5) rgba(0, 0, 0, 0.2);
   min-height: 0; /* Bootstrap-first: umožní flex shrinking */
-  max-height: 250px; /* Přizpůsobená max výška pro mobily */
+  max-height: 40vh; /* Mobilní max výška - 40% viewport height */
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
 }
@@ -66,26 +66,26 @@
 @media (min-width: 576px) {
   .chat-messages {
     padding: 0.375rem;
-    max-height: 300px;
+    max-height: 45vh; /* Mírně více prostoru na větších mobilech */
   }
 }
 
 @media (min-width: 768px) {
   .chat-messages {
     padding: 0.5rem;
-    max-height: 400px;
+    max-height: 65vh; /* Desktop: více prostoru */
   }
 }
 
 @media (min-width: 992px) {
   .chat-messages {
-    max-height: 500px;
+    max-height: 70vh; /* Velký desktop: ještě více prostoru */
   }
 }
 
 @media (min-width: 1200px) {
   .chat-messages {
-    max-height: 600px;
+    max-height: 75vh; /* Extra velký desktop: maximum prostoru */
   }
 }
 
@@ -426,10 +426,11 @@
   .chat-container {
     height: 100%;
     border-radius: 0.5rem;
+    max-height: 40vh; /* Omezení na 40% viewport height pro mobily */
   }
   
   .chat-messages {
-    max-height: calc(20vh - 75px);
+    max-height: calc(40vh - 120px); /* Odečteme prostor pro header a input */
     min-height: 70px;
   }
   

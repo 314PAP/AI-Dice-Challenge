@@ -908,3 +908,108 @@
     max-width: 25%;
   }
 }
+
+/* =============================================================================
+   💬 DESKTOP CHAT OPTIMALIZACE - Maximální využití prostoru
+   ============================================================================= */
+
+/* Desktop chat - využití celé dostupné výšky */
+@media (min-width: 768px) {
+  .chat-container {
+    height: 100vh; /* Celá výška viewportu */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-messages {
+    flex: 1; /* Zabere veškerý dostupný prostor */
+    max-height: none; /* Odstraníme omezení max-height */
+    height: auto;
+    overflow-y: auto;
+  }
+  
+  .chat-header {
+    flex-shrink: 0; /* Nepřizpůsobuje se */
+    padding: 0.75rem 1rem;
+  }
+  
+  .chat-input {
+    flex-shrink: 0; /* Nepřizpůsobuje se */
+    margin-top: auto;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Desktop layout proporce - 75% hra / 25% chat */
+@media (min-width: 768px) {
+  .layout-desktop-proportional {
+    display: flex;
+    height: 100vh;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .game-area-desktop {
+    flex: 0 0 75%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .chat-area-desktop {
+    flex: 0 0 25%;
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* =============================================================================
+   📱 MOBILNÍ CHAT CONSTRAINTS - 40% výšky obrazovky
+   ============================================================================= */
+
+@media (max-width: 767.98px) {
+  .chat-mobile-constraint {
+    max-height: 40vh !important;
+    height: 40vh !important;
+    overflow: hidden;
+  }
+  
+  .chat-mobile-constraint .chat-messages {
+    max-height: calc(40vh - 100px) !important; /* Odečteme header + input */
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .chat-mobile-constraint .chat-header {
+    flex-shrink: 0;
+    padding: 0.5rem;
+  }
+  
+  .chat-mobile-constraint .chat-input {
+    flex-shrink: 0;
+    padding: 0.5rem;
+  }
+}
+
+/* Extra small mobilní optimalizace */
+@media (max-width: 479.98px) {
+  .chat-mobile-constraint {
+    max-height: 35vh !important;
+    height: 35vh !important;
+  }
+  
+  .chat-mobile-constraint .chat-messages {
+    max-height: calc(35vh - 80px) !important;
+  }
+  
+  .chat-mobile-constraint .chat-header {
+    padding: 0.25rem;
+    font-size: 0.75rem;
+  }
+  
+  .chat-mobile-constraint .chat-input {
+    padding: 0.25rem;
+  }
+}
