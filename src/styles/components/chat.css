@@ -178,6 +178,28 @@
   }
 }
 
+/* Mobilní chat - zajistit správnou výšku pro chat messages */
+@media (max-width: 767.98px) {
+  /* Chat container v mobilní verzi musí využít celou dostupnou výšku */
+  .chat-container {
+    height: 100% !important;
+  }
+  
+  /* Chat messages se musí správně roztáhnout */
+  .chat-messages {
+    flex-grow: 1 !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Zajistit, že chat header a input nezaberou příliš místa */
+  .chat-input {
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+  }
+}
+
 /* Chat send button style - Bootstrap-first bez !important */
 .btn-neon-chat {
   --bs-btn-color: var(--neon-green);
