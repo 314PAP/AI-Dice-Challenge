@@ -161,16 +161,17 @@
   height: 40px;
   width: 40px;
   margin: 0 auto;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid var(--neon-green);
-  box-shadow: var(--glow-sm) var(--neon-green);
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  border: 3px solid; /* Používáme border bez specifické barvy, barvy se nastaví specifickými selektory */
+  box-shadow: 0 0 8px; /* Box shadow bez specifické barvy */
 }
 
 .mobile-avatar {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50% !important; /* Zajištění kulatého tvaru */
 }
 
 .mobile-player-name {
@@ -186,25 +187,25 @@
   text-shadow: var(--glow-sm) var(--neon-green);
 }
 
-/* Specifické barvy pro každého hráče */
-.human-player .player-head-mobile {
-  border-color: var(--neon-green);
-  box-shadow: var(--glow-sm) var(--neon-green);
+/* Specifické barvy pro každého hráče - důraznější styly */
+.player-mobile.human-player .player-head-mobile {
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 8px var(--neon-green) !important;
 }
 
-.gemini-player .player-head-mobile {
-  border-color: var(--neon-blue);
-  box-shadow: var(--glow-sm) var(--neon-blue);
+.player-mobile.gemini-player .player-head-mobile {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 8px var(--neon-blue) !important;
 }
 
-.chatgpt-player .player-head-mobile {
-  border-color: var(--neon-pink);
-  box-shadow: var(--glow-sm) var(--neon-pink);
+.player-mobile.chatgpt-player .player-head-mobile {
+  border-color: var(--neon-pink) !important;
+  box-shadow: 0 0 8px var(--neon-pink) !important;
 }
 
-.claude-player .player-head-mobile {
-  border-color: var(--neon-orange);
-  box-shadow: var(--glow-sm) var(--neon-orange);
+.player-mobile.claude-player .player-head-mobile {
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 8px var(--neon-orange) !important;
 }
 
 /* Mobilní informace o tahu */
@@ -233,8 +234,10 @@
 /* Responzivní mobilní avatary */
 @media (max-width: 576px) {
   .player-head-mobile {
-    height: 35px;
-    width: 35px;
+    height: 35px !important;
+    width: 35px !important;
+    border-width: 3px !important;
+    border-style: solid !important;
   }
   
   .mobile-player-name {
@@ -253,12 +256,35 @@
     flex: 1;
     min-width: 0;
   }
+  
+  /* Explicitní zajištění správných barev ohraničení pro mobilní zobrazení */
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 8px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 8px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 8px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 8px var(--neon-orange) !important;
+  }
 }
 
 @media (max-width: 480px) {
   .player-head-mobile {
-    height: 32px;
-    width: 32px;
+    height: 32px !important;
+    width: 32px !important;
+    border-width: 3px !important;
+    border-style: solid !important;
   }
   
   .mobile-player-name {
@@ -276,8 +302,10 @@
 
 @media (max-width: 320px) {
   .player-head-mobile {
-    height: 28px;
-    width: 28px;
+    height: 28px !important;
+    width: 28px !important;
+    border-width: 2px !important;
+    border-style: solid !important;
   }
   
   .mobile-player-name {
@@ -591,5 +619,1102 @@
   .roll-controls .btn {
     flex: 1;
     min-width: 0;
+  }
+}
+
+/* Explicitní mobilní styly pro avatary s vysokou prioritou */
+@media (max-width: 990px) {
+  .player-head-mobile {
+    border-width: 3px !important;
+    border-style: solid !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 8px var(--neon-green) !important;
+  }
+  
+  .gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 8px var(--neon-blue) !important;
+  }
+  
+  .chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 8px var(--neon-pink) !important;
+  }
+  
+  .claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 8px var(--neon-orange) !important;
+  }
+  
+  /* Přidaná extra specifická pravidla pro obrazy uvnitř */
+  .player-head-mobile img.mobile-avatar {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro nejmenší obrazovky */
+@media (max-width: 320px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro obrazovky do 480px */
+@media (max-width: 480px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Explicitní mobilní styly pro avatary s vysokou prioritou */
+@media (max-width: 990px) {
+  .player-head-mobile {
+    border-width: 3px !important;
+    border-style: solid !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 8px var(--neon-green) !important;
+  }
+  
+  .gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 8px var(--neon-blue) !important;
+  }
+  
+  .chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 8px var(--neon-pink) !important;
+  }
+  
+  .claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 8px var(--neon-orange) !important;
+  }
+  
+  /* Přidaná extra specifická pravidla pro obrazy uvnitř */
+  .player-head-mobile img.mobile-avatar {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro nejmenší obrazovky */
+@media (max-width: 320px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro obrazovky do 480px */
+@media (max-width: 480px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Explicitní mobilní styly pro avatary s vysokou prioritou */
+@media (max-width: 990px) {
+  .player-head-mobile {
+    border-width: 3px !important;
+    border-style: solid !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 8px var(--neon-green) !important;
+  }
+  
+  .gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 8px var(--neon-blue) !important;
+  }
+  
+  .chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 8px var(--neon-pink) !important;
+  }
+  
+  .claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 8px var(--neon-orange) !important;
+  }
+  
+  /* Přidaná extra specifická pravidla pro obrazy uvnitř */
+  .player-head-mobile img.mobile-avatar {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro nejmenší obrazovky */
+@media (max-width: 320px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro obrazovky do 480px */
+@media (max-width: 480px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Explicitní mobilní styly pro avatary s vysokou prioritou */
+@media (max-width: 990px) {
+  .player-head-mobile {
+    border-width: 3px !important;
+    border-style: solid !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 8px var(--neon-green) !important;
+  }
+  
+  .gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 8px var(--neon-blue) !important;
+  }
+  
+  .chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 8px var(--neon-pink) !important;
+  }
+  
+  .claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 8px var(--neon-orange) !important;
+  }
+  
+  /* Přidaná extra specifická pravidla pro obrazy uvnitř */
+  .player-head-mobile img.mobile-avatar {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro nejmenší obrazovky */
+@media (max-width: 320px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro obrazovky do 480px */
+@media (max-width: 480px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Explicitní mobilní styly pro avatary s vysokou prioritou */
+@media (max-width: 990px) {
+  .player-head-mobile {
+    border-width: 3px !important;
+    border-style: solid !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 8px var(--neon-green) !important;
+  }
+  
+  .gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 8px var(--neon-blue) !important;
+  }
+  
+  .chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 8px var(--neon-pink) !important;
+  }
+  
+  .claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 8px var(--neon-orange) !important;
+  }
+  
+  /* Přidaná extra specifická pravidla pro obrazy uvnitř */
+  .player-head-mobile img.mobile-avatar {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro nejmenší obrazovky */
+@media (max-width: 320px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro obrazovky do 480px */
+@media (max-width: 480px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Explicitní mobilní styly pro avatary s vysokou prioritou */
+@media (max-width: 990px) {
+  .player-head-mobile {
+    border-width: 3px !important;
+    border-style: solid !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 8px var(--neon-green) !important;
+  }
+  
+  .gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 8px var(--neon-blue) !important;
+  }
+  
+  .chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 8px var(--neon-pink) !important;
+  }
+  
+  .claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 8px var(--neon-orange) !important;
+  }
+  
+  /* Přidaná extra specifická pravidla pro obrazy uvnitř */
+  .player-head-mobile img.mobile-avatar {
+    border-radius: 50% !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro nejmenší obrazovky */
+@media (max-width: 320px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro obrazovky do 480px */
+@media (max-width: 480px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: 0.5rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.35rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+  
+  .players-container {
+    gap: 0.5rem !important;
+  }
+  
+  .player {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .player-head {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-head img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-name {
+    font-size: 0.7rem;
+  }
+  
+  .player-score {
+    font-size: 0.65rem;
+  }
+  
+  .roll-controls {
+    gap: 0.2rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-area {
+    padding: 0.3rem;
+  }
+  
+  .turn-info, .current-turn-score, .target-info {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+  
+  .players-container {
+    gap: 0.3rem !important;
+  }
+  
+  .player-head {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-head img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .player-name {
+    font-size: 0.65rem;
+  }
+  
+  .player-score {
+    font-size: 0.6rem;
+  }
+  
+  .roll-controls {
+    gap: 0.1rem !important;
+  }
+  
+  .roll-controls .btn {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* Explicitní zajištění správných barev ohraničení pro nejmenší obrazovky */
+@media (max-width: 320px) {
+  .player-mobile.human-player .player-head-mobile {
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 0 5px var(--neon-green) !important;
+  }
+  
+  .player-mobile.gemini-player .player-head-mobile {
+    border-color: var(--neon-blue) !important;
+    box-shadow: 0 0 5px var(--neon-blue) !important;
+  }
+  
+  .player-mobile.chatgpt-player .player-head-mobile {
+    border-color: var(--neon-pink) !important;
+    box-shadow: 0 0 5px var(--neon-pink) !important;
+  }
+  
+  .player-mobile.claude-player .player-head-mobile {
+    border-color: var(--neon-orange) !important;
+    box-shadow: 0 0 5px var(--neon-orange) !important;
   }
 }
