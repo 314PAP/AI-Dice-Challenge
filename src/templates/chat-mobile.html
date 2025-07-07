@@ -1,24 +1,24 @@
-<!-- Mobile Chat Component - Bootstrap-first optimalizace -->
-<div class="chat-box h-100 d-flex flex-column animate__animated animate__fadeIn chat-container-xs-compact chat-mobile-constraint" id="chatPanelMobile">
-  <div class="chat-container h-100 d-flex flex-column p-xs-compact">
-    <!-- Chat Header -->
-    <div class="d-flex align-items-center justify-content-center mb-1 mb-xs-compact flex-shrink-0 animate__animated">
-      <h2 class="neon-text m-0 fs-6 fs-xs-small">
+<!-- Mobile Chat Component - 100% Bootstrap utilities -->
+<div class="chat-box h-100 d-flex flex-column animate__animated animate__fadeIn chat-mobile-height" id="chatPanelMobile">
+  <div class="h-100 d-flex flex-column p-2">
+    <!-- Chat Header - Bootstrap utilities -->
+    <div class="d-flex align-items-center justify-content-center mb-2 flex-shrink-0">
+      <h2 class="text-neon-green m-0 fs-6 game-title-neon">
         <i class="ri-message-3-line me-1"></i>AI CHAT
       </h2>
     </div>
     
-    <!-- Chat Messages - flex-grow-1 zabere dostupný prostor -->
-    <div class="chat-messages flex-grow-1 overflow-auto no-borders p-xs-compact max-h-xs-250" id="chatMessagesMobile">
+    <!-- Chat Messages - Bootstrap flex utilities -->
+    <div class="flex-grow-1 overflow-auto border border-dark rounded p-2 mb-2" id="chatMessagesMobile">
       <!-- Zprávy se budou dynamicky přidávat zde -->
     </div>
     
-    <!-- Chat Input - mt-auto zajistí umístění na spodek -->
-    <div class="chat-input mt-auto flex-shrink-0 animate__animated animate__fadeInUp py-xs-compact">
+    <!-- Chat Input - Bootstrap input-group -->
+    <div class="flex-shrink-0">
       <div class="input-group input-group-sm">
-        <input type="text" class="form-control form-control-neon-chat form-control-neon-chat-responsive border-0" id="chatInputMobile" placeholder="Napište zprávu...">
-        <button class="btn btn-neon-chat d-flex align-items-center justify-content-center border-0" type="button" id="sendChatBtnMobile">
-          <i class="ri-send-plane-fill fs-xs-small"></i>
+        <input type="text" class="form-control form-control-neon" id="chatInputMobile" placeholder="Napište zprávu...">
+        <button class="btn btn-neon-green" type="button" id="sendChatBtnMobile">
+          <i class="ri-send-plane-fill"></i>
         </button>
       </div>
     </div>

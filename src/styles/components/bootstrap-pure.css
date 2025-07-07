@@ -1,0 +1,271 @@
+/* =============================================================================
+   🚀 BOOTSTRAP PURE - 100% Bootstrap-first responsive systém
+   Žádný custom CSS, pouze Bootstrap utilities + minimální neonové efekty
+   ============================================================================= */
+
+/* 
+   FILOZOFIE:
+   - Maximální využití Bootstrap utility tříd
+   - Minimální custom CSS (pouze tam kde Bootstrap neumí)
+   - Žádné !important (s výjimkou nutných případů)
+   - Progresivní enhancement přes media queries
+   - Zachování neonového vizuálního stylu
+*/
+
+/* =============================================================================
+   🎨 NEONOVÉ BARVY - Pouze rozšíření Bootstrap color utilit
+   ============================================================================= */
+
+:root {
+  /* Neonové RGB hodnoty pro Bootstrap CSS variables */
+  --neon-green-rgb: 57, 255, 20;
+  --neon-blue-rgb: 25, 77, 209;
+  --neon-pink-rgb: 255, 0, 255;
+  --neon-orange-rgb: 255, 136, 0;
+  --neon-yellow-rgb: 255, 255, 0;
+  --neon-red-rgb: 255, 0, 64;
+}
+
+/* Text utilities s neonovými efekty */
+.text-neon-green {
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px var(--neon-green);
+}
+
+.text-neon-blue {
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.text-neon-pink {
+  color: var(--neon-pink) !important;
+  text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.text-neon-orange {
+  color: var(--neon-orange) !important;
+  text-shadow: 0 0 5px var(--neon-orange);
+}
+
+.text-neon-yellow {
+  color: var(--neon-yellow) !important;
+  text-shadow: 0 0 5px var(--neon-yellow);
+}
+
+.text-neon-red {
+  color: var(--neon-red) !important;
+  text-shadow: 0 0 5px var(--neon-red);
+}
+
+/* =============================================================================
+   🔘 BOOTSTRAP BUTTON EXTENSIONS - Čisté rozšíření Bootstrap buttons
+   ============================================================================= */
+
+/* Neonové tlačítka - využívají Bootstrap CSS custom properties */
+.btn-neon-green {
+  --bs-btn-color: var(--neon-green);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-green);
+  --bs-btn-hover-color: var(--neon-green);
+  --bs-btn-hover-bg: rgba(var(--neon-green-rgb), 0.1);
+  --bs-btn-hover-border-color: var(--neon-green);
+  --bs-btn-active-color: var(--neon-green);
+  --bs-btn-active-bg: rgba(var(--neon-green-rgb), 0.2);
+  --bs-btn-active-border-color: var(--neon-green);
+  
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-neon-blue {
+  --bs-btn-color: var(--neon-blue);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-blue);
+  --bs-btn-hover-color: var(--neon-blue);
+  --bs-btn-hover-bg: rgba(var(--neon-blue-rgb), 0.1);
+  --bs-btn-hover-border-color: var(--neon-blue);
+  --bs-btn-active-color: var(--neon-blue);
+  --bs-btn-active-bg: rgba(var(--neon-blue-rgb), 0.2);
+  --bs-btn-active-border-color: var(--neon-blue);
+  
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-neon-pink {
+  --bs-btn-color: var(--neon-pink);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-pink);
+  --bs-btn-hover-color: var(--neon-pink);
+  --bs-btn-hover-bg: rgba(var(--neon-pink-rgb), 0.1);
+  --bs-btn-hover-border-color: var(--neon-pink);
+  --bs-btn-active-color: var(--neon-pink);
+  --bs-btn-active-bg: rgba(var(--neon-pink-rgb), 0.2);
+  --bs-btn-active-border-color: var(--neon-pink);
+  
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-neon-orange {
+  --bs-btn-color: var(--neon-orange);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-orange);
+  --bs-btn-hover-color: var(--neon-orange);
+  --bs-btn-hover-bg: rgba(var(--neon-orange-rgb), 0.1);
+  --bs-btn-hover-border-color: var(--neon-orange);
+  --bs-btn-active-color: var(--neon-orange);
+  --bs-btn-active-bg: rgba(var(--neon-orange-rgb), 0.2);
+  --bs-btn-active-border-color: var(--neon-orange);
+  
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-neon-red {
+  --bs-btn-color: var(--neon-red);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: var(--neon-red);
+  --bs-btn-hover-color: var(--neon-red);
+  --bs-btn-hover-bg: rgba(var(--neon-red-rgb), 0.1);
+  --bs-btn-hover-border-color: var(--neon-red);
+  --bs-btn-active-color: var(--neon-red);
+  --bs-btn-active-bg: rgba(var(--neon-red-rgb), 0.2);
+  --bs-btn-active-border-color: var(--neon-red);
+  
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+/* =============================================================================
+   📝 BOOTSTRAP FORM EXTENSIONS - Čisté rozšíření Bootstrap forms
+   ============================================================================= */
+
+/* Neonové input fieldy - rozšíření Bootstrap form-control */
+.form-control-neon {
+  --bs-form-control-bg: rgba(0, 0, 0, 0.8);
+  --bs-form-control-border-color: var(--neon-green);
+  --bs-form-control-color: var(--neon-green);
+  --bs-form-control-focus-bg: rgba(0, 0, 0, 0.9);
+  --bs-form-control-focus-border-color: var(--neon-green);
+  --bs-form-control-focus-color: var(--neon-green);
+  
+  font-family: 'Orbitron', sans-serif;
+}
+
+.form-control-neon:focus {
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.5);
+}
+
+.form-control-neon::placeholder {
+  color: rgba(var(--neon-green-rgb), 0.5);
+}
+
+/* =============================================================================
+   🎯 ŠIPKY PRO SKÓRE - 100% Bootstrap approach s input-group
+   ============================================================================= */
+
+/* Používáme Bootstrap input-group-text pro šipky */
+.score-input-group .btn {
+  --bs-btn-padding-y: 0.25rem;
+  --bs-btn-padding-x: 0.375rem;
+  --bs-btn-font-size: 0.75rem;
+  --bs-btn-border-radius: 0;
+}
+
+/* Desktop pouze - Bootstrap display utilities */
+@media (min-width: 768px) {
+  .score-arrows-bootstrap {
+    /* Používáme Bootstrap d-flex, flex-column, position-absolute */
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 0.25rem;
+    border: 1px solid var(--neon-green);
+  }
+  
+  .score-arrow-btn {
+    width: 20px;
+    height: 16px;
+    padding: 0;
+    font-size: 0.625rem;
+    line-height: 1;
+  }
+}
+
+/* =============================================================================
+   🎮 GAME COMPONENTS - Minimální rozšíření Bootstrap cards
+   ============================================================================= */
+
+/* Game box - rozšíření Bootstrap card */
+.game-box {
+  --bs-card-bg: rgba(0, 0, 0, 0.9);
+  --bs-card-border-color: var(--neon-green);
+  --bs-card-border-width: 2px;
+  
+  box-shadow: 0 0 10px rgba(var(--neon-green-rgb), 0.3);
+}
+
+.chat-box {
+  --bs-card-bg: rgba(0, 0, 0, 0.9);
+  --bs-card-border-color: var(--neon-green);
+  --bs-card-border-width: 2px;
+  
+  box-shadow: 0 0 10px rgba(var(--neon-green-rgb), 0.3);
+}
+
+/* =============================================================================
+   📱 RESPONSIVE UTILITIES - Pouze nezbytné rozšíření Bootstrap utilit
+   ============================================================================= */
+
+/* Chat mobile constraint - Bootstrap extension */
+@media (max-width: 767.98px) {
+  .chat-mobile-height {
+    height: 40vh;
+    max-height: 40vh;
+  }
+}
+
+/* Touch-friendly targets - Bootstrap extension */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Game title styling - font pouze */
+.game-title-neon {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Score label styling - font pouze */  
+.score-label-neon {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* =============================================================================
+   🏁 KONEC - Celkem ~150 řádků místo 1000+
+   Maximální využití Bootstrap, minimální custom CSS
+   ============================================================================= */

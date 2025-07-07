@@ -17,24 +17,24 @@
     <!-- Střední sekce - nastavení skóre -->
     <div class="menu-middle-section flex-shrink-0 my-3 my-md-3 mb-4 mb-md-4">
         <!-- Nápis "Cílové skóre" s Bootstrap spacing -->
-        <div class="score-label text-neon-orange mb-3 mb-md-2">
+        <div class="text-center text-neon-orange mb-3 mb-md-2">
             <i class="ri-star-line me-2"></i>
-            <span class="score-label-text fs-5 fs-md-4">Cílové skóre</span>
+            <span class="score-label-neon fs-5 fs-md-4">Cílové skóre</span>
         </div>
         
-        <!-- Orámečkované nastavení skóre - Bootstrap-first responsive -->
+        <!-- Orámečkované nastavení skóre - 100% Bootstrap input-group -->
         <div class="d-flex justify-content-center mb-3 mb-md-2">
-            <div class="position-relative w-100" style="max-width: 320px;">
+            <div class="input-group" style="max-width: 320px;">
                 <input type="number" id="targetScoreInput" 
-                       class="form-control-neon text-center pe-5 fs-5 fs-md-4 w-100" 
+                       class="form-control form-control-neon text-center fs-5 fs-md-4" 
                        value="10000" min="1000" step="1000">
-                <!-- Šipky pouze na desktopu s vylepšenou specificitou -->
-                <div class="score-arrows-desktop">
-                    <button type="button" class="score-arrow-desktop arrow-up" id="scoreUpBtn">
-                        <i class="ri-arrow-up-s-fill"></i>
+                <!-- Bootstrap input-group-text pro šipky - pouze desktop -->
+                <div class="input-group-text d-none d-md-flex flex-column p-1 score-arrows-bootstrap" style="width: 28px;">
+                    <button type="button" class="btn btn-neon-green btn-sm score-arrow-btn p-0 mb-1" id="scoreUpBtn">
+                        <i class="ri-arrow-up-s-line"></i>
                     </button>
-                    <button type="button" class="score-arrow-desktop arrow-down" id="scoreDownBtn">
-                        <i class="ri-arrow-down-s-fill"></i>
+                    <button type="button" class="btn btn-neon-green btn-sm score-arrow-btn p-0" id="scoreDownBtn">
+                        <i class="ri-arrow-down-s-line"></i>
                     </button>
                 </div>
             </div>
