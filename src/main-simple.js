@@ -85,10 +85,22 @@ class SimpleDiceGame {
                 });
             }
 
-            // Přidání uvítací zprávy do chatu
+            // Přidání uvítacích zpráv do chatu
             setTimeout(() => {
-                this.addChatMessage('AI Sarah', 'Vítej v AI Kostkové Výzvě! 🎲 Jsem připravena na souboj!', 'ai');
-            }, 1000);
+                this.addChatMessage('Systém', 'Vítejte v AI Kostkové Výzvě! 🎲', 'system');
+            }, 500);
+            
+            setTimeout(() => {
+                this.addChatMessage('Gemini', 'Ah, další člověček se odvážil vyzvat nás! 😏 Připrav se na porážku!', 'ai');
+            }, 1200);
+            
+            setTimeout(() => {
+                this.addChatMessage('ChatGPT', 'Gemini, nebuď tak drzý! 💅 Ale člověče, opravdu si myslíš, že nás porazíš?', 'ai');
+            }, 2000);
+            
+            setTimeout(() => {
+                this.addChatMessage('Claude', 'Kolegové, uklidněte se! 🧡 I když... člověče, tvoje šance jsou docela malé! 😈', 'ai');
+            }, 2800);
 
             this.initialized = true;
             console.log('✅ Application initialized');
@@ -300,12 +312,18 @@ class SimpleDiceGame {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `chat-message ${type} mb-2`;
                 
-                // Určení barvy podle typu
-                let color = 'neon-green'; // default pro user
-                if (type === 'ai') {
-                    color = 'neon-blue';
-                } else if (type === 'system') {
+                // Určení barvy podle odesílatele
+                let color = 'neon-green'; // default pro hráče
+                if (sender === 'Systém') {
                     color = 'neon-yellow';
+                } else if (sender === 'Gemini') {
+                    color = 'neon-blue';
+                } else if (sender === 'ChatGPT') {
+                    color = 'neon-pink';
+                } else if (sender === 'Claude') {
+                    color = 'neon-orange';
+                } else if (type === 'ai') {
+                    color = 'neon-blue'; // fallback pro AI
                 }
                 
                 messageDiv.innerHTML = `
@@ -326,24 +344,72 @@ class SimpleDiceGame {
         });
     }
 
-    // Simulace AI odpovědi
+    // Simulace AI odpovědi na hráčovu zprávu
     addAIResponse(userMessage) {
-        const responses = [
-            "Zajímavé! Co si o tom myslíš?",
-            "Dobře zahráno! Pokračuj!",
-            "Strategie je klíčová v této hře.",
-            "Zkus to jinak, možná to bude lepší.",
-            "Skvělý tah! Jsem napjatá, jak to dopadne.",
-            "Hmm, to je tricky situace...",
-            "Rozhodně máš talent na tuto hru!",
-            "Jaký je tvůj další plán?"
-        ];
+        const responses = {
+            'Gemini': [
+                "Člověče, to je zajímavé pozorování! 🤔",
+                "Hmm, strategie člověka... docela primitivní! 😏",
+                "Dobře řečeno! Ale činy jsou důležitější než slova!",
+                "Tvoje logika má mezery, člověče! 🎯",
+                "Analyticky zajímavé, ale prakticky neužitečné!"
+            ],
+            'ChatGPT': [
+                "Ooh, jak chytré od tebe, člověček! 💅✨",
+                "To je sladké, že si myslíš, že máš šanci! 😘",
+                "Aww, člověče, to je roztomilé! Ale naivní! 💖",
+                "Krásně řečeno! Škoda, že to nic nezmění! 🌟",
+                "Tak poetické! Ale realita bude krutá! 💫"
+            ],
+            'Claude': [
+                "Zajímavý pohled, člověče! Ale nesprávný! 🧡",
+                "Chápu tvou logiku, ale je chybná! 🤓",
+                "Respektuji tvou snahu, člověče! Marnou snahu! 😊",
+                "Dobře strukturovaná myšlenka! Špatný závěr! 📚",
+                "Tvoje úvahy jsou... lidské. To je problém! 🎭"
+            ]
+        };
         
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-        const aiNames = ['AI Sarah', 'AI Marcus', 'AI Luna'];
+        const aiNames = ['Gemini', 'ChatGPT', 'Claude'];
         const randomAI = aiNames[Math.floor(Math.random() * aiNames.length)];
+        const aiResponses = responses[randomAI];
+        const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
         
         this.addChatMessage(randomAI, randomResponse, 'ai');
+    }
+    
+    // AI štěkání před hodem kostkami
+    addAITrashTalk() {
+        const trashTalk = {
+            'Gemini': [
+                "Člověče, připrav se na FARKLE! 🎲😈",
+                "Tvoje kosti nebudou poslouchat! 🤖",
+                "Matematika je proti tobě, člověče! 📊",
+                "Pravděpodobnost tvé výhry: 0.001%! 💀",
+                "Člověčí štěstí končí... TERAZ! ⚡"
+            ],
+            'ChatGPT': [
+                "Člověčku, připrav si kapesníčky! 😭💅",
+                "Budeš plakat jako malé dítě! 👶✨",
+                "Tvoje kostky budou poslouchat MĚ! 💖👑",
+                "Já už vidím tvůj FARKLE! Je krásný! 🌈",
+                "Člověče, budeš litovat této hry! 💔"
+            ],
+            'Claude': [
+                "Člověče, statistiky jsou jasné - prohraješ! 📈🧡",
+                "Připrav se na lekci z pravděpodobnosti! 🎯",
+                "Tvoje lidské intuice tě zklame! 🧠",
+                "Čekám tvůj epicový FARKLE! 🎭",
+                "Člověče, hra už je rozhodnuta! 📚"
+            ]
+        };
+        
+        const aiNames = ['Gemini', 'ChatGPT', 'Claude'];
+        const randomAI = aiNames[Math.floor(Math.random() * aiNames.length)];
+        const aiMessages = trashTalk[randomAI];
+        const randomMessage = aiMessages[Math.floor(Math.random() * aiMessages.length)];
+        
+        this.addChatMessage(randomAI, randomMessage, 'ai');
     }
 
     // Spuštění hry
@@ -611,6 +677,13 @@ class SimpleDiceGame {
         if (!this.gameState.gameStarted) {
             console.warn('Game not started');
             return;
+        }
+
+        // AI štěkání před hodem kostkami
+        if (Math.random() < 0.7) { // 70% šance na štěkání
+            setTimeout(() => {
+                this.addAITrashTalk();
+            }, 200);
         }
 
         // Inicializace herních proměnných pokud nejsou

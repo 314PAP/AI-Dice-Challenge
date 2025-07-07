@@ -105,6 +105,41 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
+/* Neonový posuvník pro modály */
+.modal-body.scrollbar-neon {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.2);
+}
+
+.modal-body.scrollbar-neon::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body.scrollbar-neon::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+.modal-body.scrollbar-neon::-webkit-scrollbar-thumb {
+  background: var(--neon-green);
+  border-radius: 4px;
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.modal-body.scrollbar-neon::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green);
+  box-shadow: 0 0 10px var(--neon-green);
+}
+
+/* Dodatečné styly pro odstranění bílých barev v modálech */
+.modal-container .text-light {
+  color: var(--neon-green) !important;
+}
+
+.modal-container .border-light {
+  border-color: var(--neon-green) !important;
+}
+
 /* Responzivní úpravy */
 @media (max-width: 767.98px) {
   .modal-container {
