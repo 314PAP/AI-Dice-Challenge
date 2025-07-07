@@ -1,69 +1,79 @@
-<!-- MENU STAV - Bootstrap-first responzivní design -->
-<div class="game-header text-center px-3 px-sm-4 px-md-0" id="gameHeader">
-    <!-- Nadpis s Bootstrap responzivní typography -->
-    <h1 class="game-title title-responsive text-neon-green mb-2 mb-sm-3 mb-md-4 fs-3 fs-sm-2 fs-md-1">
-        <i class="ri-dice-line me-1 me-sm-2"></i>
-        <span class="title-text">AI Kostková Výzva</span>
-    </h1>
-    
-    <!-- Neonová kostka pod nadpisem -->
-    <div class="neon-dice-decoration mb-2 mb-sm-3 mb-md-4">
-        <i class="ri-dice-6-line dice-icon neon-green fs-2 fs-sm-1"></i>
+<!-- MENU STAV - Bootstrap-first responzivní design s maximálním využitím prostoru -->
+<div class="game-header text-center px-3 px-sm-4 px-md-3 h-100 d-flex flex-column justify-content-between" id="gameHeader">
+    <!-- Horní sekce - nadpis a dekorace -->
+    <div class="menu-top-section flex-shrink-0">
+        <!-- Nadpis s Bootstrap responzivní typography -->
+        <h1 class="game-title title-responsive text-neon-green mb-2 mb-sm-3 mb-md-2 display-6 display-md-5 display-lg-4">
+            <i class="ri-dice-line me-2"></i>
+            <span class="title-text">AI Kostková Výzva</span>
+        </h1>
+        
+        <!-- Neonová kostka pod nadpisem -->
+        <div class="neon-dice-decoration mb-3 mb-md-2">
+            <i class="ri-dice-6-line dice-icon neon-green fs-1"></i>
+        </div>
     </div>
     
-    <!-- Nápis "Cílové skóre" s Bootstrap spacing -->
-    <div class="score-label text-neon-orange mb-2 mb-sm-3">
-        <i class="ri-star-line me-1 me-sm-2"></i>
-        <span class="score-label-text fs-6 fs-sm-5">Cílové skóre</span>
-    </div>
-    
-    <!-- Orámečkované nastavení skóre - Bootstrap-first responsive -->
-    <div class="d-flex justify-content-center mb-3 mb-sm-4">
-        <div class="position-relative w-100" style="max-width: 280px;">
-            <input type="number" id="targetScoreInput" 
-                   class="form-control-neon text-center pe-5 fs-6 fs-sm-5 w-100" 
-                   value="10000" min="1000" step="1000">
-            <div class="score-arrows position-absolute top-50 translate-middle-y end-0 me-2">
-                <button type="button" class="score-arrow arrow-up d-block mb-1" id="scoreUpBtn">
-                    <i class="ri-arrow-up-s-fill fs-6"></i>
-                </button>
-                <button type="button" class="score-arrow arrow-down d-block" id="scoreDownBtn">
-                    <i class="ri-arrow-down-s-fill fs-6"></i>
-                </button>
+    <!-- Střední sekce - nastavení skóre -->
+    <div class="menu-middle-section flex-shrink-0 my-3 my-md-2">
+        <!-- Nápis "Cílové skóre" s Bootstrap spacing -->
+        <div class="score-label text-neon-orange mb-3 mb-md-2">
+            <i class="ri-star-line me-2"></i>
+            <span class="score-label-text fs-5 fs-md-4">Cílové skóre</span>
+        </div>
+        
+        <!-- Orámečkované nastavení skóre - Bootstrap-first responsive -->
+        <div class="d-flex justify-content-center mb-3 mb-md-2">
+            <div class="position-relative w-100" style="max-width: 320px;">
+                <input type="number" id="targetScoreInput" 
+                       class="form-control-neon text-center pe-5 fs-5 fs-md-4 w-100" 
+                       value="10000" min="1000" step="1000">
+                <!-- Šipky pouze na desktopu -->
+                <div class="score-arrows position-absolute top-50 translate-middle-y end-0 me-2 d-none d-md-flex">
+                    <button type="button" class="score-arrow arrow-up d-block mb-1" id="scoreUpBtn">
+                        <i class="ri-arrow-up-s-fill"></i>
+                    </button>
+                    <button type="button" class="score-arrow arrow-down d-block" id="scoreDownBtn">
+                        <i class="ri-arrow-down-s-fill"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- Tlačítka s Bootstrap responsive třídami a konzistentní šířkou -->
-    <div class="menu-buttons d-flex flex-column align-items-center gap-2 gap-sm-3 w-100">
-        <!-- Začít hru - Zelená -->
-        <button class="btn btn-neon-green btn-consistent-width btn-touch-spacing text-nowrap" id="startGameBtn">
-            <i class="ri-gamepad-line me-2"></i>
-            <span>Začít hru</span>
-        </button>
-        
-        <!-- Pravidla - Modrá -->
-        <button class="btn btn-neon-blue btn-consistent-width btn-touch-spacing text-nowrap" id="rulesBtn">
-            <i class="ri-book-open-line me-2"></i>
-            <span>Pravidla</span>
-        </button>
-        
-        <!-- Síň slávy - Oranžová -->
-        <button class="btn btn-neon-orange btn-consistent-width btn-touch-spacing text-nowrap" id="hallOfFameBtn">
-            <i class="ri-trophy-line me-2"></i>
-            <span>Síň slávy</span>
-        </button>
-        
-        <!-- Kup mi kávu - Zelená -->
-        <a href="https://buymeacoffee.com/pipap" target="_blank" class="btn btn-neon-green btn-consistent-width btn-touch-spacing text-nowrap text-decoration-none">
-            <i class="ri-cup-line me-2"></i>
-            <span>Kup mi kávu</span>
-        </a>
-        
-        <!-- Opustit hru - Červená -->
-        <button class="btn btn-neon-red btn-consistent-width btn-touch-spacing text-nowrap" id="exitGameBtn">
-            <i class="ri-logout-box-line me-2"></i>
-            <span>Opustit hru</span>
-        </button>
+    <!-- Spodní sekce - tlačítka s flexibilním růstem -->
+    <div class="menu-bottom-section flex-grow-1 d-flex flex-column justify-content-center">
+        <!-- Tlačítka s Bootstrap responsive třídami a větší velikosti -->
+        <div class="menu-buttons d-flex flex-column align-items-center gap-3 gap-md-4 w-100">
+            <!-- Začít hru - Zelená -->
+            <button class="btn btn-neon-green btn-consistent-width btn-touch-spacing text-nowrap fs-5 fs-md-4 py-3" id="startGameBtn">
+                <i class="ri-gamepad-line me-2"></i>
+                <span>Začít hru</span>
+            </button>
+            
+            <!-- Pravidla - Modrá -->
+            <button class="btn btn-neon-blue btn-consistent-width btn-touch-spacing text-nowrap fs-5 fs-md-4 py-3" id="rulesBtn">
+                <i class="ri-book-open-line me-2"></i>
+                <span>Pravidla</span>
+            </button>
+            
+            <!-- Síň slávy - Oranžová -->
+            <button class="btn btn-neon-orange btn-consistent-width btn-touch-spacing text-nowrap fs-5 fs-md-4 py-3" id="hallOfFameBtn">
+                <i class="ri-trophy-line me-2"></i>
+                <span>Síň slávy</span>
+            </button>
+            
+            <!-- Kup mi kávu - Zelená -->
+            <a href="https://buymeacoffee.com/pipap" target="_blank" class="btn btn-neon-green btn-consistent-width btn-touch-spacing text-nowrap text-decoration-none fs-5 fs-md-4 py-3">
+                <i class="ri-cup-line me-2"></i>
+                <span>Kup mi kávu</span>
+            </a>
+            
+            <!-- Opustit hru - Červená -->
+            <button class="btn btn-neon-red btn-consistent-width btn-touch-spacing text-nowrap fs-5 fs-md-4 py-3" id="exitGameBtn">
+                <i class="ri-logout-box-line me-2"></i>
+                <span>Opustit hru</span>
+            </button>
+        </div>
     </div>
 </div>

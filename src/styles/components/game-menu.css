@@ -280,6 +280,152 @@ input#targetScoreInputMobile {
   }
 }
 
+/* =============================================================================
+   🎮 MENU LAYOUT OPTIMIZATION - Maximální využití prostoru
+   ============================================================================= */
+
+/* Game header - flexbox optimalizace pro maximální využití prostoru */
+.game-header {
+  height: 100% !important; /* Vynutit plnou výšku */
+}
+
+/* Menu sekce - flexibilní výška */
+.menu-top-section {
+  flex-shrink: 0;
+  padding: 1rem 0;
+}
+
+.menu-middle-section {
+  flex-shrink: 0;
+  padding: 0.5rem 0;
+}
+
+.menu-bottom-section {
+  flex-grow: 1;
+  min-height: 0; /* Důležité pro flex-grow */
+  padding: 1rem 0;
+}
+
+/* Responzivní padding pro menu sekce */
+@media (min-width: 576px) {
+  .menu-top-section {
+    padding: 1.5rem 0;
+  }
+  
+  .menu-middle-section {
+    padding: 1rem 0;
+  }
+  
+  .menu-bottom-section {
+    padding: 1.5rem 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-top-section {
+    padding: 1rem 0;
+  }
+  
+  .menu-middle-section {
+    padding: 0.75rem 0;
+  }
+  
+  .menu-bottom-section {
+    padding: 1rem 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .menu-top-section {
+    padding: 1.5rem 0;
+  }
+  
+  .menu-middle-section {
+    padding: 1rem 0;
+  }
+  
+  .menu-bottom-section {
+    padding: 1.5rem 0;
+  }
+}
+
+/* Menu buttons - responzivní gap */
+.menu-buttons {
+  gap: 1rem !important;
+}
+
+@media (min-width: 576px) {
+  .menu-buttons {
+    gap: 1.25rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-buttons {
+    gap: 1rem !important; /* Desktop - kompaktnější */
+  }
+}
+
+@media (min-width: 992px) {
+  .menu-buttons {
+    gap: 1.5rem !important; /* Větší desktop */
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-buttons {
+    gap: 2rem !important; /* Velké obrazovky */
+  }
+}
+
+/* =============================================================================
+   🎯 SCORE ARROWS - Správné zobrazování podle breakpointů
+   ============================================================================= */
+
+/* Desktop šipky - pouze na MD+ */
+#scoreUpBtn, #scoreDownBtn {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  #scoreUpBtn, #scoreDownBtn {
+    display: flex;
+  }
+}
+
+/* Mobilní šipky - pouze na SM- */  
+#scoreUpBtnMobile, #scoreDownBtnMobile {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  #scoreUpBtnMobile, #scoreDownBtnMobile {
+    display: none;
+  }
+}
+
+/* Skrytí mobilního inputu na desktopu */
+#targetScoreInputMobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  #targetScoreInputMobile {
+    display: none;
+  }
+}
+
+/* Desktop input - skrytí na mobilech */
+#targetScoreInput {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  #targetScoreInput {
+    display: block;
+  }
+}
+
 /* =================================================================
    � DEPRECATED: Staré Chrome fixy pro neonové třídy
    
