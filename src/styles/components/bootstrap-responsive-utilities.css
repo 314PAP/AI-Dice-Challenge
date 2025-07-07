@@ -634,18 +634,24 @@
 
 /* Chat header - responzivní typography */
 .chat-header {
-  font-size: 1rem;
+  font-size: 0.75rem; /* Extra small */
+}
+
+@media (min-width: 480px) {
+  .chat-header {
+    font-size: 0.875rem;
+  }
 }
 
 @media (min-width: 576px) {
   .chat-header {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 768px) {
   .chat-header {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
 }
 
@@ -663,29 +669,242 @@
 
 /* Chat input - větší responzivní font */
 .form-control-neon-chat {
-  font-size: 1rem !important;
+  font-size: 0.75rem !important; /* Extra small */
+}
+
+@media (min-width: 480px) {
+  .form-control-neon-chat {
+    font-size: 0.875rem !important;
+  }
 }
 
 @media (min-width: 576px) {
   .form-control-neon-chat {
-    font-size: 1.125rem !important;
+    font-size: 1rem !important;
   }
 }
 
 @media (min-width: 768px) {
   .form-control-neon-chat {
-    font-size: 1.25rem !important;
+    font-size: 1.125rem !important;
   }
 }
 
 @media (min-width: 992px) {
   .form-control-neon-chat {
-    font-size: 1.375rem !important;
+    font-size: 1.25rem !important;
   }
 }
 
 @media (min-width: 1200px) {
   .form-control-neon-chat {
-    font-size: 1.5rem !important;
+    font-size: 1.375rem !important;
+  }
+}
+
+/* =============================================================================
+   📱 EXTRA SMALL OPTIMALIZACE - Maximální využití prostoru na malých obrazovkách  
+   ============================================================================= */
+
+/* Kompaktní padding pro extra small */
+.p-xs-compact {
+  padding: 0.25rem;
+}
+
+.px-xs-compact {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.py-xs-compact {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Kompaktní margin pro extra small */
+.m-xs-compact {
+  margin: 0.25rem;
+}
+
+.mx-xs-compact {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.my-xs-compact {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Kompaktní gap pro flexbox */
+.gap-xs-compact {
+  gap: 0.25rem;
+}
+
+/* Extra small typography utilities */
+.fs-xs-tiny { font-size: 0.625rem; } /* 10px */
+.fs-xs-small { font-size: 0.75rem; } /* 12px */
+.fs-xs-normal { font-size: 0.875rem; } /* 14px */
+
+/* Kompaktní line-height pro extra small */
+.lh-xs-compact { line-height: 1.2; }
+.lh-xs-tight { line-height: 1.1; }
+
+/* Optimalizované výšky pro extra small */
+.min-h-xs-100 { min-height: 100px; }
+.min-h-xs-150 { min-height: 150px; }
+.max-h-xs-200 { max-height: 200px; }
+.max-h-xs-250 { max-height: 250px; }
+
+/* =============================================================================
+   🎮 GAME COMPONENT OPTIMALIZACE - Pro lepší mobile experience
+   ============================================================================= */
+
+/* Kompaktní herní komponenty */
+@media (max-width: 479.98px) {
+  .game-container-xs-compact {
+    padding: 0.25rem !important;
+    margin: 0 !important;
+  }
+  
+  .chat-container-xs-compact {
+    min-height: 120px !important;
+    padding: 0.25rem !important;
+  }
+  
+  .menu-xs-compact {
+    gap: 0.5rem !important;
+  }
+  
+  .menu-xs-compact .btn {
+    padding: 0.375rem 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+  
+  .dice-xs-compact {
+    width: 2.5rem !important; /* 40px */
+    height: 2.5rem !important;
+    font-size: 1.25rem !important;
+  }
+  
+  .player-avatar-xs-compact {
+    width: 1.75rem !important; /* 28px */
+    height: 1.75rem !important;
+  }
+}
+
+/* =============================================================================
+   🖥️ DESKTOP ŠIPKY OPTIMALIZACE - Zajištění správného zobrazení
+   ============================================================================= */
+
+/* Desktop šipky - explicitní zobrazení pouze na desktopech */
+@media (min-width: 768px) {
+  .score-arrows-desktop {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 15 !important;
+    pointer-events: auto !important;
+    gap: 1px;
+  }
+  
+  .score-arrow-desktop {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 14px;
+    background: var(--neon-green) !important;
+    color: var(--black-bg) !important;
+    border: 1px solid var(--neon-green) !important;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 10px;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: 0 0 3px var(--neon-green);
+  }
+  
+  .score-arrow-desktop:hover {
+    filter: brightness(1.3);
+    transform: scale(1.15);
+  }
+}
+
+/* Skrýt na mobilech explicitně */
+@media (max-width: 767.98px) {
+  .score-arrows-desktop,
+  .score-arrow-desktop {
+    display: none !important;
+  }
+}
+
+/* =============================================================================
+   💬 CHAT INPUT OPTIMALIZACE - Lepší responzivní škálování
+   ============================================================================= */
+
+/* Chat input s kompaktnějšími velikostmi */
+.form-control-neon-chat-responsive {
+  font-size: 0.75rem !important;
+  padding: 0.375rem 0.5rem !important;
+}
+
+@media (min-width: 480px) {
+  .form-control-neon-chat-responsive {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .form-control-neon-chat-responsive {
+    font-size: 1rem !important;
+    padding: 0.625rem 1rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-control-neon-chat-responsive {
+    font-size: 1.125rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .form-control-neon-chat-responsive {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* =============================================================================
+   🔄 FLEXIBLE LAYOUT UTILITIES - Pro různé velikosti obrazovek
+   ============================================================================= */
+
+/* Flexibilní rozložení pro různé breakpointy */
+.layout-mobile-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .layout-desktop-side {
+    flex-direction: row;
+  }
+}
+
+/* Proporční šířky pro desktop layout */
+@media (min-width: 768px) {
+  .game-main-75 {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+  
+  .chat-side-25 {
+    flex: 0 0 25%;
+    max-width: 25%;
   }
 }
