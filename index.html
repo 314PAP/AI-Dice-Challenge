@@ -26,22 +26,33 @@
     <!-- MUSÍ BÝT PRVNÍ - CSS proměnné -->
     <link rel="stylesheet" href="/src/styles/variables/colors.css">
     <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
-    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
     <link rel="stylesheet" href="/src/styles/components/buttons.css">
     <link rel="stylesheet" href="/src/styles/components/game-menu.css">
-    <link rel="stylesheet" href="/src/styles/components/game-controls.css">
-    <link rel="stylesheet" href="/src/styles/components/players.css">
     <link rel="stylesheet" href="/src/styles/components/dice.css">
     <link rel="stylesheet" href="/src/styles/components/chat.css">
     <link rel="stylesheet" href="/src/styles/components/modals.css">
-    <!-- Bootstrap override MUSÍ BÝT POSLEDNÍ -->
+    <link rel="stylesheet" href="/src/styles/components/players.css">
+    <link rel="stylesheet" href="/src/styles/components/game-controls.css">
+    <!-- Tyto styly MUSÍ BÝT POSLEDNÍ - neonové efekty a bootstrap override -->
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
     <link rel="stylesheet" href="/src/styles/components/bootstrap-override.css">
+    <!-- Kritické opravy pro mobilní zobrazení - ÚPLNĚ POSLEDNÍ -->
+    <link rel="stylesheet" href="/src/styles/components/critical-mobile-fixes.css">
     
     <style>
         /* Nejsilnější možný override pro černé pozadí */
         :root {
             --black-bg: #000000;
             --neon-green: #39ff14;
+            --neon-blue: #194DD1;
+            --neon-pink: #FF00FF;
+            --neon-orange: #FF8800;
+            --glow-sm: 0 0 5px;
+            --glow-md: 0 0 10px;
+            --glow-lg: 0 0 15px;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --radius-base: 8px;
         }
         
         html, body {

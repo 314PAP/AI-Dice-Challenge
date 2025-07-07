@@ -113,7 +113,7 @@
   text-shadow: var(--glow-sm) var(--neon-blue);
 }
 
-/* Mobilní hráči - pouze základní layout, barvy jsou v HTML */
+/* Mobilní hráči */
 .players-container-mobile {
   gap: 0.5rem;
 }
@@ -123,78 +123,25 @@
   min-width: 60px;
   max-width: 80px;
   text-align: center;
-  padding: 0.4rem;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
 }
 
-/* Barevné bordery pro celé karty hráčů */
-.player-mobile.human-player {
-  border-color: var(--neon-green);
-  box-shadow: 0 0 5px rgba(57, 255, 20, 0.3);
-}
-
-.player-mobile.gemini-player {
-  border-color: var(--neon-blue);
-  box-shadow: 0 0 5px rgba(25, 77, 209, 0.3);
-}
-
-.player-mobile.chatgpt-player {
-  border-color: var(--neon-pink);
-  box-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
-}
-
-.player-mobile.claude-player {
-  border-color: var(--neon-orange);
-  box-shadow: 0 0 5px rgba(255, 136, 0, 0.3);
-}
-
-/* Aktivní hráč má silnější glow podle své barvy */
-.player-mobile.active.human-player {
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.6);
-  transform: scale(1.02);
-}
-
-.player-mobile.active.gemini-player {
-  box-shadow: 0 0 10px rgba(25, 77, 209, 0.6);
-  transform: scale(1.02);
-}
-
-.player-mobile.active.chatgpt-player {
-  box-shadow: 0 0 10px rgba(255, 0, 255, 0.6);
-  transform: scale(1.02);
-}
-
-.player-mobile.active.claude-player {
-  box-shadow: 0 0 10px rgba(255, 136, 0, 0.6);
-  transform: scale(1.02);
-}
-
-/* Mobilní avatar základní layout */
 .player-head-mobile {
   height: 40px;
   width: 40px;
-  border: 3px solid transparent;
-  box-shadow: none;
+  margin: 0 auto;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  border: 3px solid var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green);
 }
 
 .mobile-avatar {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-radius: 50% !important;
 }
 
-.mobile-player-name {
-  font-size: 0.7rem;
-  font-weight: 600;
-  margin-bottom: 0.2rem;
-}
-
-.mobile-player-score {
-  font-size: 0.65rem;
-  font-weight: 500;
-}
-
-/* Mobilní texty - základní layout */
 .mobile-player-name {
   font-size: 0.7rem;
   font-weight: 600;
@@ -204,47 +151,6 @@
 .mobile-player-score {
   font-size: 0.8rem;
   font-weight: 700;
-}
-
-/* Hráči-specifické styly s použitím CSS proměnných */
-.player-head-human {
-  border-color: var(--player-human-color);
-  box-shadow: 0 0 8px var(--player-human-color);
-}
-
-.player-name-human,
-.player-score-human {
-  color: var(--player-human-color);
-}
-
-.player-head-gemini {
-  border-color: var(--player-gemini-color);
-  box-shadow: 0 0 8px var(--player-gemini-color);
-}
-
-.player-name-gemini,
-.player-score-gemini {
-  color: var(--player-gemini-color);
-}
-
-.player-head-chatgpt {
-  border-color: var(--player-chatgpt-color);
-  box-shadow: 0 0 8px var(--player-chatgpt-color);
-}
-
-.player-name-chatgpt,
-.player-score-chatgpt {
-  color: var(--player-chatgpt-color);
-}
-
-.player-head-claude {
-  border-color: var(--player-claude-color);
-  box-shadow: 0 0 8px var(--player-claude-color);
-}
-
-.player-name-claude,
-.player-score-claude {
-  color: var(--player-claude-color);
 }
 
 /* Mobilní informace o tahu */
@@ -338,12 +244,6 @@
 
 /* Responzivní mobilní avatary */
 @media (max-width: 576px) {
-  .player-mobile {
-    min-width: 55px;
-    max-width: 75px;
-    padding: 0.3rem;
-  }
-  
   .player-head-mobile {
     height: 35px !important;
     width: 35px !important;
@@ -352,10 +252,6 @@
   
   .mobile-player-name {
     font-size: 0.65rem;
-  }
-  
-  .mobile-player-score {
-    font-size: 0.6rem;
   }
   
   .mobile-player-score {
@@ -373,12 +269,6 @@
 }
 
 @media (max-width: 480px) {
-  .player-mobile {
-    min-width: 50px;
-    max-width: 70px;
-    padding: 0.25rem;
-  }
-  
   .player-head-mobile {
     height: 32px !important;
     width: 32px !important;
@@ -390,7 +280,7 @@
   }
   
   .mobile-player-score {
-    font-size: 0.55rem;
+    font-size: 0.65rem;
   }
   
   .players-container-mobile {

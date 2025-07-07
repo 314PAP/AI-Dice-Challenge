@@ -11,6 +11,12 @@
   --neon-red: #ff3131;    /* Červená pro chyby/varování */
   --neon-yellow: #ffff00; /* Žlutá pro systémové zprávy */
 
+  /* 🎮 HRÁČI - Specifické barvy pro každého hráče */
+  --player-human-color: var(--neon-green);
+  --player-gemini-color: var(--neon-blue);
+  --player-chatgpt-color: var(--neon-pink);
+  --player-claude-color: var(--neon-orange);
+  
   /* RGB varianty pro použití s opacity */
   --neon-green-rgb: 57, 255, 20;
   --neon-blue-rgb: 25, 77, 209;
