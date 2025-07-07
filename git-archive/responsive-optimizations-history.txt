@@ -1,0 +1,10 @@
+1e910fd Oprava mobilních tlačítek a avatarů - neonové třídy
+ec1d5e9 zas ladime ty hadajici se importanty v designu
+0440930 ted se to malem cele posralo vypadky clauda pretizene to maji
+978de55 logika hry funguje odkladani a oznacovani kostek
+020c3b5 opravujeme logiku hry
+c6e799a Enhance responsiveness and styling of game controls and dice containers
+6625084 feat: Add player-specific colors and styles for mobile avatars
+cb7ac74 Oprava stylů pro mobilní avatary a zajištění správného zobrazení barev ohraničení pro různé hráče - stale se nepovedlo
+bfdaf5d Oprava zobrazení skóre hráčů a zajištění dědění barev pro span elementy v CSS
+5efb7dc zatim nejlepší verze
