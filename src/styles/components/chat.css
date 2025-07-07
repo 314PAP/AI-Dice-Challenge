@@ -54,6 +54,65 @@
 .chat-message {
   margin-bottom: 0.5rem;
   line-height: 1.2;
+  position: relative;
+  padding-left: 15px; /* Prostor pro vertikální indikátor */
+}
+
+.chat-message::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, transparent, var(--neon-green), transparent);
+  box-shadow: 0 0 8px var(--neon-green);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.chat-message:hover::before {
+  opacity: 1;
+  width: 4px;
+  box-shadow: 0 0 12px var(--neon-green), 0 0 20px var(--neon-green);
+}
+
+/* Barevné rozlišení indikátorů podle typu zprávy */
+.chat-message.msg-gemini::before {
+  background: linear-gradient(to bottom, transparent, var(--neon-blue), transparent);
+  box-shadow: 0 0 8px var(--neon-blue);
+}
+
+.chat-message.msg-gemini:hover::before {
+  box-shadow: 0 0 12px var(--neon-blue), 0 0 20px var(--neon-blue);
+}
+
+.chat-message.msg-chatgpt::before {
+  background: linear-gradient(to bottom, transparent, var(--neon-pink), transparent);
+  box-shadow: 0 0 8px var(--neon-pink);
+}
+
+.chat-message.msg-chatgpt:hover::before {
+  box-shadow: 0 0 12px var(--neon-pink), 0 0 20px var(--neon-pink);
+}
+
+.chat-message.msg-claude::before {
+  background: linear-gradient(to bottom, transparent, var(--neon-orange), transparent);
+  box-shadow: 0 0 8px var(--neon-orange);
+}
+
+.chat-message.msg-claude:hover::before {
+  box-shadow: 0 0 12px var(--neon-orange), 0 0 20px var(--neon-orange);
+}
+
+.chat-message.msg-system::before {
+  background: linear-gradient(to bottom, transparent, var(--neon-yellow), transparent);
+  box-shadow: 0 0 8px var(--neon-yellow);
+}
+
+.chat-message.msg-system:hover::before {
+  box-shadow: 0 0 12px var(--neon-yellow), 0 0 20px var(--neon-yellow);
 }
 
 /* Patička chatu s vstupním polem - Bootstrap-first styling */
@@ -104,7 +163,9 @@
   font-size: 1.5rem;
 }
 
-/* Barevné rozlišení zpráv */
+/* DEPRECATED - Barevné rozlišení zpráv - používejte Bootstrap-first třídy
+ * .text-neon-green, .text-neon-blue, .text-neon-yellow
+ */
 .chat-message .neon-green {
   color: var(--neon-green);
   text-shadow: 0 0 5px var(--neon-green);

@@ -308,3 +308,75 @@
     font-size: 0.65rem;
   }
 }
+
+/* Mobilní avatary s Bootstrap-first přístupem */
+.mobile-avatar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Bootstrap barvy se aplikují přes utility třídy v HTML */
+.mobile-avatar.border-success {
+  box-shadow: var(--glow-sm) var(--neon-green);
+}
+
+.mobile-avatar.border-primary {
+  box-shadow: var(--glow-sm) var(--neon-blue);
+}
+
+.mobile-avatar.border-danger {
+  box-shadow: var(--glow-sm) var(--neon-pink);
+}
+
+.mobile-avatar.border-warning {
+  box-shadow: var(--glow-sm) var(--neon-orange);
+}
+
+/* Mobilní hráči kontejner */
+.player-mobile {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 0.4rem;
+  border-radius: 6px;
+  text-align: center;
+  min-width: 70px;
+  transition: all 0.3s ease;
+}
+
+.player-mobile.active {
+  transform: scale(1.05);
+}
+
+.mobile-player-name,
+.mobile-player-score {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.mobile-player-score {
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+@media (max-width: 480px) {
+  .mobile-avatar {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .player-mobile {
+    min-width: 60px;
+    padding: 0.3rem;
+  }
+  
+  .mobile-player-name {
+    font-size: 0.65rem;
+  }
+  
+  .mobile-player-score {
+    font-size: 0.75rem;
+  }
+}

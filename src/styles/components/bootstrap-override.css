@@ -13,23 +13,22 @@ html, body {
   background-color: transparent !important;
 }
 
-/* Základní texty */
+/* Základní texty - pouze fallback, ne nutné */
 h1, h2, h3, h4, h5, h6 {
-  color: #39ff14 !important;
+  color: var(--neon-green);
 }
 
+/* Obecné prvky - pouze fallback bez !important */
 p, span, div {
-  color: #39ff14;
+  color: inherit;
 }
 
 /* Menu specifické */
 .game-title {
-  color: #39ff14 !important;
+  color: var(--neon-green);
 }
 
-.btn {
-  color: #39ff14;
-}
+/* Tlačítka NEBUDOU mít defaultní barvu - nechají si vlastní */
 
 /* Bootstrap reset pouze pro pozadí */
 .bg-white, .bg-light {

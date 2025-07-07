@@ -1,0 +1,458 @@
+/* =============================================================================
+   📱 BOOTSTRAP RESPONSIVE - Minimální responzivní rozšíření Bootstrapu
+   ============================================================================= */
+
+/* Pouze nezbytné responzivní utility třídy nad rámec Bootstrapu */
+
+/* Neonové utility třídy - Bootstrap-first přístup */
+.text-neon-green {
+  color: var(--neon-green);
+  text-shadow: var(--glow-sm) var(--neon-green);
+}
+
+.text-neon-blue {
+  color: var(--neon-blue);
+  text-shadow: var(--glow-sm) var(--neon-blue);
+}
+
+.text-neon-pink {
+  color: var(--neon-pink);
+  text-shadow: var(--glow-sm) var(--neon-pink);
+}
+
+.text-neon-orange {
+  color: var(--neon-orange);
+  text-shadow: var(--glow-sm) var(--neon-orange);
+}
+
+.text-neon-yellow {
+  color: var(--neon-yellow);
+  text-shadow: var(--glow-sm) var(--neon-yellow);
+}
+
+.text-neon-red {
+  color: var(--neon-red);
+  text-shadow: var(--glow-sm) var(--neon-red);
+}
+
+/* Neonové pozadí - Bootstrap-first přístup */
+.bg-black {
+  background-color: var(--black-bg);
+}
+
+.bg-neon-glow {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--neon-green);
+  box-shadow: var(--glow-sm) var(--neon-green);
+}
+
+/* Font utility - Bootstrap-first přístup */
+.font-orbitron {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.font-jetbrains {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Responzivní utility rozšíření - Bootstrap-first přístup */
+@media (max-width: 575.98px) {
+  .btn-neon-green,
+  .btn-neon-blue,
+  .btn-neon-pink,
+  .btn-neon-orange,
+  .btn-neon-red {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .text-neon-green,
+  .text-neon-blue,
+  .text-neon-pink,
+  .text-neon-orange,
+  .text-neon-yellow,
+  .text-neon-red {
+    font-size: 0.8rem;
+  }
+}
+
+/* Glow animace utility */
+.neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: var(--glow-sm) var(--neon-green);
+  }
+  to {
+    text-shadow: var(--glow-lg) var(--neon-green);
+  }
+}
+
+/* =============================================================================
+   📱 BOOTSTRAP RESPONSIVE - Minimální responzivní rozšíření Bootstrapu
+   ============================================================================= */
+
+/* Responzivní kontejnery a rámečky - Bootstrap-first přístup */
+.vh-90 {
+  height: 90vh;
+  max-height: 90vh;
+}
+
+.vw-90 {
+  width: 90vw;
+  max-width: 90vw !important;
+}
+
+/* Herní box a chat box - neonové rámečky Bootstrap-first */
+.game-box, .chat-box {
+  border: 2px solid var(--neon-green) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 10px var(--neon-green) !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  padding: 1rem !important;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.game-box:hover, .chat-box:hover {
+  box-shadow: 0 0 15px var(--neon-green), 0 0 25px var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+}
+
+/* Responzivní layout pro hráče - vedle sebe na desktop */
+.players-container {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767.98px) {
+  .players-container {
+    flex-direction: column !important;
+    align-items: center;
+  }
+}
+
+/* Mobilní layout třídy */
+.mobile-landscape-flex-row {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 0.75rem; /* Menší mezera pro lepší využití prostoru */
+}
+
+.h-landscape-100 {
+  height: 100% !important;
+}
+
+/* Mobilní layout třídy pro výšku */
+.h-40 {
+  height: 40% !important; /* Chat - max 40% výšky obrazovky */
+  max-height: 40vh; /* Zajistit max 40% viewport height */
+}
+
+.h-75 {
+  height: 75% !important; /* Záložní třída pro kompatibilitu */
+}
+
+.mb-landscape-0 {
+  margin-bottom: 0 !important;
+}
+
+/* Mobilní specifické styly */
+@media (max-width: 767.98px) {
+  .mobile-landscape-flex-row {
+    padding: 0.5rem;
+    gap: 0.5rem; /* Menší mezera pro lepší využití prostoru */
+  }
+  
+  /* Zajistit, že chat má max 40% výšky i s mezerou */
+  .h-40 {
+    max-height: calc(40vh - 0.5rem); /* Odečtení gap */
+  }
+  
+  /* Speciální styly pro mobilní chat a menu */
+  .game-box, .chat-box {
+    margin-bottom: 0; /* Odstranit extra marginy - gap už je definovaný */
+  }
+  
+  /* Zajistit správné barvy v mobilní verzi */
+  .neon-text {
+    color: var(--neon-green) !important;
+  }
+  
+  .neon-blue {
+    color: var(--neon-blue) !important;
+  }
+  
+  .neon-yellow {
+    color: var(--neon-yellow) !important;
+  }
+  
+  .neon-pink {
+    color: var(--neon-pink) !important;
+  }
+  
+  .neon-orange {
+    color: var(--neon-orange) !important;
+  }
+}
+
+/* Landscape orientace pro mobilní zařízení */
+@media (max-width: 767.98px) and (orientation: landscape) {
+  .mobile-landscape-flex-row {
+    flex-direction: row !important;
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+  
+  .h-landscape-100 {
+    height: 100% !important;
+  }
+  
+  .mb-landscape-0 {
+    margin-bottom: 0 !important;
+  }
+  
+  /* V landscape modu chat zabere 40% šířky místo výšky */
+  .h-40 {
+    height: 100% !important;
+    max-height: none !important;
+    width: 40% !important;
+    max-width: 40% !important;
+  }
+  
+  /* Menu zabere zbývajících 60% mínus gap */
+  .flex-grow-1 {
+    width: calc(60% - 0.75rem) !important;
+  }
+  
+  /* Zajistit správné barvy i v landscape */
+  .neon-text {
+    color: var(--neon-green) !important;
+  }
+  
+  .neon-blue {
+    color: var(--neon-blue) !important;
+  }
+  
+  .neon-yellow {
+    color: var(--neon-yellow) !important;
+  }
+}
+
+/* Velmi malé mobilní displeje */
+@media (max-width: 575.98px) {
+  .vh-90 {
+    height: 95vh !important;
+    max-height: 95vh !important;
+  }
+  
+  .vw-90 {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+  
+  .game-box, .chat-box {
+    padding: 0.5rem !important;
+    border-radius: 8px !important;
+  }
+}
+
+/* Animační zpoždění třídy pro tlačítka */
+.anim-delay-0 { animation-delay: 0.5s !important; }
+.anim-delay-1 { animation-delay: 0.6s !important; }
+.anim-delay-2 { animation-delay: 0.7s !important; }
+.anim-delay-3 { animation-delay: 0.8s !important; }
+.anim-delay-4 { animation-delay: 0.9s !important; }
+.anim-delay-5 { animation-delay: 1.0s !important; }
+.anim-delay-6 { animation-delay: 1.1s !important; }
+.anim-delay-7 { animation-delay: 1.2s !important; }
+.anim-delay-8 { animation-delay: 1.3s !important; }
+.anim-delay-9 { animation-delay: 1.4s !important; }
+
+/* Visibility utility třídy */
+.make-visible {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.make-invisible {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Minimální výška pro různé elementy */
+.min-h-60 { min-height: 60px !important; }
+.min-h-80 { min-height: 80px !important; }
+.min-h-100 { min-height: 100px !important; }
+
+/* Mobilní úpravy pro menu tlačítka */
+@media (max-width: 767.98px) {
+  .menu-btn {
+    min-width: unset !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+  
+  .menu-btn-text {
+    font-size: 0.85rem !important;
+  }
+  
+  .form-control-neon {
+    font-size: 1rem !important;
+    padding: 0.4rem !important;
+  }
+}
+
+/* Menu tlačítka utility třídy - progresivní zvětšování */
+.menu-btn-uniform {
+  width: 320px !important; /* XXL Desktop - nejvetší šířka */
+  min-width: 320px !important;
+  max-width: 320px !important;
+}
+
+@media (max-width: 1399.98px) {
+  .menu-btn-uniform {
+    width: 300px !important; /* XL Desktop - velká šířka */
+    min-width: 300px !important;
+    max-width: 300px !important;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .menu-btn-uniform {
+    width: 280px !important; /* LG Desktop - střední šířka */
+    min-width: 280px !important;
+    max-width: 280px !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .menu-btn-uniform {
+    width: 250px !important; /* MD Desktop - základní šířka */
+    min-width: 250px !important;
+    max-width: 250px !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .menu-btn-uniform {
+    width: 220px !important; /* SM Tablet - zmenšená šířka */
+    min-width: 220px !important;
+    max-width: 220px !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .menu-btn-uniform {
+    width: 190px !important; /* XS Mobil - nejmenší šířka */
+    min-width: 190px !important;
+    max-width: 190px !important;
+  }
+}
+
+/* Progresivní font-size pro menu tlačítka */
+@media (min-width: 992px) {
+  .menu-btn-uniform {
+    font-size: 1.1rem !important; /* LG+ Desktop - větší font */
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-btn-uniform {
+    font-size: 1.2rem !important; /* XL+ Desktop - ještě větší font */
+  }
+}
+
+@media (min-width: 1400px) {
+  .menu-btn-uniform {
+    font-size: 1.3rem !important; /* XXL Desktop - největší font */
+  }
+}
+
+/* Progresivní padding pro menu tlačítka */
+@media (min-width: 992px) {
+  .menu-btn-uniform {
+    padding: 1rem 2rem !important; /* LG+ Desktop - větší padding */
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-btn-uniform {
+    padding: 1.2rem 2.5rem !important; /* XL+ Desktop - ještě větší padding */
+  }
+}
+
+@media (min-width: 1400px) {
+  .menu-btn-uniform {
+    padding: 1.4rem 3rem !important; /* XXL Desktop - největší padding */
+  }
+}
+
+/* Zajištění viditelnosti mobilních menu po návratu ze hry */
+@media (max-width: 767.98px) {
+  #gameMobileContent {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 100% !important;
+  }
+  
+  #gameMobileContent.hidden {
+    display: none !important;
+  }
+  
+  #gameControlsMobile.hidden {
+    display: none !important;
+  }
+  
+  /* Zajistit že mobilní menu má správné zobrazení */
+  .mobile-landscape-flex-row {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Neonové efekty pro mobilní menu */
+  .game-box {
+    border: 2px solid var(--neon-green) !important;
+    box-shadow: 0 0 10px var(--neon-green) !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+  }
+  
+  .neon-text {
+    color: var(--neon-green) !important;
+    text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
+  }
+  
+  .btn-neon {
+    border: 2px solid;
+    text-shadow: 0 0 5px currentColor;
+    background-color: transparent !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  /* DEPRECATED - místo .btn-neon použijte .btn-neon-green, .btn-neon-blue atd. */
+}
+
+/* Landscape orientace pro mobilní zařízení - úprava pro viditelnost */
+@media (max-width: 767.98px) and (orientation: landscape) {
+  #gameMobileContent {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 100% !important;
+    width: 60% !important;
+  }
+  
+  .mobile-landscape-flex-row {
+    flex-direction: row !important;
+  }
+}

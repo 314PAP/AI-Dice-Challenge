@@ -78,14 +78,15 @@
   transform: translateY(-5px) scale(1.05);
 }
 
-/* Odložené kostky - modré bez rámečků */
+/* Odložené kostky - modré s rámečky */
 .dice.banked {
   color: var(--neon-blue);
   text-shadow: 0 0 5px var(--neon-blue);
-  border: none;
-  box-shadow: none;
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
   cursor: default;
   opacity: 1;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 /* Hover efekty - pouze pro kostky, které lze vybrat */
@@ -228,18 +229,18 @@
 
 /* Odložené kostky - stejné jako aktivní, jen modré */
 .dice.banked {
-  color: var(--neon-blue) !important;
-  text-shadow: 0 0 5px var(--neon-blue) !important;
-  border: none !important;
-  box-shadow: none !important;
-  cursor: default !important;
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
+  cursor: default;
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.9) !important;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .dice.banked:hover {
-  transform: none !important;
-  cursor: default !important;
+  transform: none;
+  cursor: default;
 }
 
 /* Responzivní kostky - symetrické zmenšování + responzivní rámečky */

@@ -22,19 +22,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     
-    <!-- ČISTÁ CSS STRUKTURA - pouze potřebné soubory -->
-    <!-- MUSÍ BÝT PRVNÍ - CSS proměnné -->
+    <!-- ČISTÁ CSS STRUKTURA - Bootstrap-first přístup -->
+    <!-- 1. PRVNÍ - CSS proměnné (základ) -->
     <link rel="stylesheet" href="/src/styles/variables/colors.css">
-    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
-    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
+    
+    <!-- 2. Komponenty s Bootstrap-first definicemi -->
     <link rel="stylesheet" href="/src/styles/components/buttons.css">
+    <link rel="stylesheet" href="/src/styles/components/neon-effects.css">
     <link rel="stylesheet" href="/src/styles/components/game-menu.css">
     <link rel="stylesheet" href="/src/styles/components/game-controls.css">
     <link rel="stylesheet" href="/src/styles/components/players.css">
     <link rel="stylesheet" href="/src/styles/components/dice.css">
     <link rel="stylesheet" href="/src/styles/components/chat.css">
     <link rel="stylesheet" href="/src/styles/components/modals.css">
-    <!-- Bootstrap override MUSÍ BÝT POSLEDNÍ -->
+    
+    <!-- 3. Responzivní utility třídy -->
+    <link rel="stylesheet" href="/src/styles/components/bootstrap-responsive.css">
+    
+    <!-- 4. POSLEDNÍ - Bootstrap override (pouze v krajním případě) -->
     <link rel="stylesheet" href="/src/styles/components/bootstrap-override.css">
     
     <style>

@@ -1,7 +1,7 @@
 <!-- MENU STAV - uspořádané menu (výchozí viditelný) -->
 <div class="game-header text-center d-none d-md-block" id="gameHeader">
     <!-- Nadpis uprostřed nahoře -->
-    <h1 class="game-title neon-text fs-neon-1 mb-2 mb-md-3">
+    <h1 class="game-title text-neon-green fs-neon-1 mb-2 mb-md-3">
         <i class="ri-dice-line me-1 me-md-2"></i>
         <span class="title-text">AI Kostková Výzva</span>
     </h1>
@@ -12,7 +12,7 @@
     </div>
     
     <!-- Nápis "Cílové skóre" bez rámečku -->
-    <div class="score-label neon-text mb-2 mb-md-3">
+    <div class="score-label text-neon-orange mb-2 mb-md-3">
         <i class="ri-star-line me-1 me-md-2"></i><span class="score-label-text">Cílové skóre</span>
     </div>
     
@@ -31,34 +31,34 @@
         </div>
     </div>
     
-    <!-- Tlačítka ve správném pořadí s střídajícími se barvami -->
+    <!-- Tlačítka ve správném pořadí s Bootstrap-first třídami -->
     <div class="menu-buttons d-flex flex-column align-items-center gap-1 gap-md-2">
         <!-- Začít hru - Zelená -->
-        <button class="btn btn-neon neon-green menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="startGameBtn">
+        <button class="btn btn-neon-green btn-lg menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="startGameBtn">
             <i class="ri-gamepad-line me-2"></i>
             <span>Začít hru</span>
         </button>
         
         <!-- Pravidla - Modrá -->
-        <button class="btn btn-neon neon-blue menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="rulesBtn">
+        <button class="btn btn-neon-blue btn-lg menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="rulesBtn">
             <i class="ri-book-open-line me-2"></i>
             <span>Pravidla</span>
         </button>
         
         <!-- Síň slávy - Oranžová -->
-        <button class="btn btn-neon neon-orange menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="hallOfFameBtn">
+        <button class="btn btn-neon-orange btn-lg menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="hallOfFameBtn">
             <i class="ri-trophy-line me-2"></i>
             <span>Síň slávy</span>
         </button>
         
         <!-- Kup mi kávu - Zelená -->
-        <a href="https://buymeacoffee.com/pipap" target="_blank" class="btn btn-neon neon-green menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap text-decoration-none">
+        <a href="https://buymeacoffee.com/pipap" target="_blank" class="btn btn-neon-green btn-lg menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap text-decoration-none">
             <i class="ri-cup-line me-2"></i>
             <span>Kup mi kávu</span>
         </a>
         
         <!-- Opustit hru - Červená -->
-        <button class="btn btn-neon neon-red menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="exitGameBtn">
+        <button class="btn btn-neon-red btn-lg menu-btn menu-btn-uniform px-4 py-2 px-md-5 py-md-3 fs-6 fs-md-5 text-nowrap" id="exitGameBtn">
             <i class="ri-logout-box-line me-2"></i>
             <span>Opustit hru</span>
         </button>

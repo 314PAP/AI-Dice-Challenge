@@ -845,12 +845,18 @@ class SimpleDiceGame {
         
         // Zkontroluj celkový počet této hodnoty na herním poli
         if (availableDice) {
+            // Spočítej, kolik těchto kostek je na herním poli
             const totalCount = availableDice.filter(value => value === diceValue).length;
-            // Povolíme výběr pouze pokud:
-            // 1. Na poli je alespoň 3 stejné kostky (lze vytvořit trojici)
-            // 2. Ještě nemáme všechny z této hodnoty vybrané
-            // 3. Nepřekročíme maximální počet (6)
-            return totalCount >= 3 && currentCount < totalCount && currentCount < 6;
+            
+            // Pokud už máme nějaké vybrané, povolíme přidat další
+            if (currentCount > 0) {
+                return currentCount < totalCount && currentCount < 6;
+            }
+            
+            // Povolíme výběr pokud:
+            // 1. Na poli jsou alespoň 3 stejné kostky (lze vytvořit trojici)
+            // 2. NEBO už máme nějaké z této hodnoty vybrané
+            return totalCount >= 3;
         }
         
         // Fallback - starší logika pokud nemáme dostupné kostky
@@ -888,18 +894,39 @@ class SimpleDiceGame {
             // Povolíme výběr POUZE pokud:
             // 1. Aktuální výběr je prázdný a nová kostka má skóre (1 nebo 5, nebo začíná trojici)
             // 2. NEBO nová kostka skutečně přispívá ke skóre (zvyšuje celkové skóre)
+            // 3. NEBO vytváří trojici nebo více stejných kostek (např. [4,4,4])
             let canSelect = false;
             
-            if (selectedDice.length === 0) {
-                // Prázdný výběr - povolíme pouze 1, 5, nebo kostky pro budoucí trojici
-                canSelect = testScore > 0 || this.canBePartOfValidCombination(diceValue, [], this.gameState.currentTurn.diceValues);
-            } else {
-                // Už něco vybráno - zkontroluj, jestli nová kostka přispívá ke skóre
+            // Spočítej počet kostek s konkrétní hodnotou v dostupných kostkách
+            const valueCounts = {};
+            this.gameState.currentTurn.diceValues.forEach(value => {
+                valueCounts[value] = (valueCounts[value] || 0) + 1;
+            });
+            
+            // Speciální kontrola pro trojice - povolíme výběr, pokud jde o trojici stejných
+            if (valueCounts[diceValue] >= 3) {
                 const currentValues = selectedDice.map(i => this.gameState.currentTurn.diceValues[i]);
-                const currentScore = this.calculateScore(currentValues);
+                // Pokud ještě nemáme vybranou žádnou kostku této hodnoty nebo máme pouze stejné hodnoty
+                const hasSameValues = currentValues.every(v => v === diceValue);
+                const selectedCount = currentValues.filter(v => v === diceValue).length;
                 
-                // Nová kostka musí buď zvýšit skóre, nebo být součástí platné kombinace
-                canSelect = testScore > currentScore || this.canBePartOfValidCombination(diceValue, currentValues, this.gameState.currentTurn.diceValues);
+                if (selectedCount === 0 || hasSameValues) {
+                    canSelect = true;
+                }
+            }
+            
+            if (!canSelect) {
+                if (selectedDice.length === 0) {
+                    // Prázdný výběr - povolíme pouze 1, 5, nebo kostky pro budoucí trojici
+                    canSelect = testScore > 0 || this.canBePartOfValidCombination(diceValue, [], this.gameState.currentTurn.diceValues);
+                } else {
+                    // Už něco vybráno - zkontroluj, jestli nová kostka přispívá ke skóre
+                    const currentValues = selectedDice.map(i => this.gameState.currentTurn.diceValues[i]);
+                    const currentScore = this.calculateScore(currentValues);
+                    
+                    // Nová kostka musí buď zvýšit skóre, nebo být součástí platné kombinace
+                    canSelect = testScore > currentScore || this.canBePartOfValidCombination(diceValue, currentValues, this.gameState.currentTurn.diceValues);
+                }
             }
             
             if (canSelect) {
@@ -1075,10 +1102,108 @@ class SimpleDiceGame {
         this.nextPlayer();
     }
 
+    /**
+     * Zobrazí zprávu FARKLE nad avatarem hráče
+     * @param {number} playerIndex - Index hráče (0-3)
+     */
+    showFarkleMessage(playerIndex) {
+        // Definice tříd pro hráče
+        const playerClasses = ['human-player', 'gemini-player', 'chatgpt-player', 'claude-player'];
+        const playerClass = playerClasses[playerIndex];
+        
+        // Najdeme element hráče
+        const playerElement = document.querySelector(`.${playerClass}`);
+        if (!playerElement) {
+            console.error(`🔴 Nelze najít element pro hráče ${playerIndex}`);
+            return;
+        }
+        
+        // Odstraníme existující zprávu, pokud existuje
+        const existingMessage = playerElement.querySelector('.farkle-overlay-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Vytvoříme a nastavíme zprávu FARKLE
+        const farkleMessage = document.createElement('div');
+        farkleMessage.className = 'farkle-overlay-message';
+        farkleMessage.innerHTML = '💥 FARKLE!';
+        farkleMessage.style.cssText = `
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: transparent;
+            color: var(--neon-red);
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
+            text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red);
+            z-index: 1000;
+            animation: farkleMessagePulse 1s infinite alternate;
+            font-size: 18px;
+            white-space: nowrap;
+            pointer-events: none;
+            font-family: 'Orbitron', sans-serif;
+        `;
+        
+        // Přidáme animaci pro pulzování, pokud ještě neexistuje
+        if (!document.getElementById('farkle-animation-style')) {
+            const styleElement = document.createElement('style');
+            styleElement.id = 'farkle-animation-style';
+            styleElement.textContent = `
+                @keyframes farkleMessagePulse {
+                    0% { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
+                    100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+                }
+                
+                .farkle-effect {
+                    animation: farkleShake 0.5s ease-in-out;
+                }
+                
+                @keyframes farkleShake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(styleElement);
+        }
+        
+        // Zajistíme, že player element má relativní pozici pro správné umístění zprávy
+        playerElement.style.position = 'relative';
+        playerElement.appendChild(farkleMessage);
+        
+        // Přidat třídu pro FARKLE efekt
+        playerElement.classList.add('farkle-effect');
+        
+        // Zvýrazníme avatar
+        const avatarElement = playerElement.querySelector('.player-head');
+        if (avatarElement) {
+            avatarElement.style.boxShadow = '0 0 15px var(--neon-red), 0 0 25px var(--neon-red)';
+        }
+        
+        // Odstraníme zprávu a efekty po 3 sekundách
+        setTimeout(() => {
+            playerElement.classList.remove('farkle-effect');
+            if (avatarElement) {
+                avatarElement.style.boxShadow = '';
+            }
+            if (farkleMessage.parentNode) {
+                farkleMessage.remove();
+            }
+        }, 3000);
+    }
+
     // Zpracování FARKLE
     handleFarkle() {
         console.log('💥 FARKLE!');
         this.addChatMessage('Systém', '💥 FARKLE! Žádné bodující kostky! Tah končí s 0 body.', 'system');
+        
+        // Zobrazit zprávu FARKLE nad avatarem hráče
+        this.showFarkleMessage(this.gameState.currentPlayerIndex);
         
         // Reset tahu
         this.gameState.currentTurn = {
@@ -1294,10 +1419,22 @@ class SimpleDiceGame {
             
             if (this.gameState.players[element.index]) {
                 const player = this.gameState.players[element.index];
+                // Přidání pevné šířky pro správné zarovnání nulových hodnot
                 const displayText = `${player.score}`;
                 
-                if (scoreElement) scoreElement.textContent = displayText;
-                if (scoreElementMobile) scoreElementMobile.textContent = displayText;
+                if (scoreElement) {
+                    // Použití vždy stejně velké hodnoty pro správné zarovnání
+                    scoreElement.style.minWidth = "50px"; 
+                    scoreElement.style.display = "inline-block";
+                    scoreElement.style.textAlign = "center";
+                    scoreElement.textContent = displayText;
+                }
+                if (scoreElementMobile) {
+                    scoreElementMobile.style.minWidth = "50px";
+                    scoreElementMobile.style.display = "inline-block";
+                    scoreElementMobile.style.textAlign = "center";
+                    scoreElementMobile.textContent = displayText;
+                }
                 
                 console.log(`📊 updateScore: Player ${player.name}: ${displayText}`);
             }

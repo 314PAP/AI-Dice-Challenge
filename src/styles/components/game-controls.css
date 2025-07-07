@@ -57,9 +57,9 @@
 
 /* Cílové skóre */
 .target-info {
-  border-color: var(--neon-pink);
-  color: var(--neon-pink);
-  box-shadow: var(--glow-sm) var(--neon-pink);
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+  box-shadow: var(--glow-sm) var(--neon-orange);
 }
 
 /* Ovládací tlačítka */

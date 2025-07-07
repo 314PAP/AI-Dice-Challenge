@@ -1,65 +1,56 @@
 /**
  * Neon Effects - speciální efekty pro neonový vzhled
- * Používá pouze 6 definovaných neonových barev
+ * Bootstrap-first přístup, pouze speciální komponenty
  * Minimalizuje !important pro čistší kód
  */
 
-/* Základní neonové texty */
+/* DEPRECATED: Použijte místo toho Bootstrap-first utility třídy:
+ * .text-neon-green, .text-neon-blue, .text-neon-orange, .text-neon-pink, .text-neon-red, .text-neon-yellow
+ * 
+ * Tyto třídy jsou zachovány pouze pro kompatibilitu se starým kódem.
+ * Postupně je nahrazujte Bootstrap-first třídami definovanými v bootstrap-responsive.css
+ */
+
+/* DEPRECATED - nahradit za .text-neon-green */
 .neon-text {
   color: var(--neon-green);
   text-shadow: var(--glow-sm) var(--neon-green);
 }
 
+/* DEPRECATED - nahradit za .text-neon-green */
 .neon-green {
   color: var(--neon-green);
   text-shadow: var(--glow-md) var(--neon-green);
 }
 
+/* DEPRECATED - nahradit za .text-neon-blue */
 .neon-blue {
   color: var(--neon-blue);
   text-shadow: var(--glow-md) var(--neon-blue);
 }
 
+/* DEPRECATED - nahradit za .text-neon-orange */
 .neon-orange {
   color: var(--neon-orange);
   text-shadow: var(--glow-md) var(--neon-orange);
 }
 
+/* DEPRECATED - nahradit za .text-neon-pink */
 .neon-pink {
   color: var(--neon-pink);
   text-shadow: var(--glow-md) var(--neon-pink);
 }
 
+/* DEPRECATED - nahradit za .text-neon-red */
 .neon-red {
   color: var(--neon-red);
   text-shadow: var(--glow-md) var(--neon-red);
 }
 
+/* DEPRECATED - nahradit za .text-neon-yellow */
 .neon-yellow {
   color: var(--neon-yellow);
   text-shadow: var(--glow-md) var(--neon-yellow);
-}
-
-/* Neonové tlačítka - Bootstrap kompatibilní */
-.btn-neon {
-  position: relative;
-  overflow: hidden;
-  background-color: transparent;
-  border: 1px solid var(--neon-green);
-  color: var(--neon-green);
-  text-shadow: var(--glow-sm) var(--neon-green);
-  box-shadow: var(--glow-sm) var(--neon-green);
-  transition: all 0.3s ease;
-}
-
-.btn-neon:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: var(--glow-md) var(--neon-green);
-  color: var(--neon-green);
-}
-
-.btn-neon:active {
-  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Neonové inputy - Bootstrap kompatibilní */
