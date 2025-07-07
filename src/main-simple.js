@@ -818,7 +818,7 @@ class SimpleDiceGame {
     }
 
     // Pomocná funkce pro kontrolu, zda kostka může být součástí validní kombinace
-    canBePartOfValidCombination(diceValue, currentSelection) {
+    canBePartOfValidCombination(diceValue, currentSelection, availableDice = null) {
         // Spočítej kolikrát se každá hodnota vyskytuje ve výběru
         const counts = {};
         currentSelection.forEach(value => {
@@ -830,8 +830,7 @@ class SimpleDiceGame {
             return true;
         }
         
-        // Pro ostatní kostky (2,3,4,6) - musíme už mít alespoň 2 stejné kostky
-        // NELZE vybrat jedinou kostku 2,3,4,6 - musí být alespoň 3 pro trojici
+        // Pro ostatní kostky (2,3,4,6) musíme zkontrolovat celkovou dostupnost na herním poli
         const currentCount = counts[diceValue] || 0;
         
         // Zkontroluj, jestli už nemáme jiné kostky ve výběru
@@ -844,9 +843,17 @@ class SimpleDiceGame {
             return false;
         }
         
-        // Pro kostky 2,3,4,6: povolíme je pouze pokud:
-        // 1. Už máme alespoň 2 stejné (budujeme k trojici) - OPRAVENO z 1 na 2
-        // 2. A celkový počet bude max 6
+        // Zkontroluj celkový počet této hodnoty na herním poli
+        if (availableDice) {
+            const totalCount = availableDice.filter(value => value === diceValue).length;
+            // Povolíme výběr pouze pokud:
+            // 1. Na poli je alespoň 3 stejné kostky (lze vytvořit trojici)
+            // 2. Ještě nemáme všechny z této hodnoty vybrané
+            // 3. Nepřekročíme maximální počet (6)
+            return totalCount >= 3 && currentCount < totalCount && currentCount < 6;
+        }
+        
+        // Fallback - starší logika pokud nemáme dostupné kostky
         return currentCount >= 2 && currentCount < 6;
     }
 
@@ -885,14 +892,14 @@ class SimpleDiceGame {
             
             if (selectedDice.length === 0) {
                 // Prázdný výběr - povolíme pouze 1, 5, nebo kostky pro budoucí trojici
-                canSelect = testScore > 0 || this.canBePartOfValidCombination(diceValue, []);
+                canSelect = testScore > 0 || this.canBePartOfValidCombination(diceValue, [], this.gameState.currentTurn.diceValues);
             } else {
                 // Už něco vybráno - zkontroluj, jestli nová kostka přispívá ke skóre
                 const currentValues = selectedDice.map(i => this.gameState.currentTurn.diceValues[i]);
                 const currentScore = this.calculateScore(currentValues);
                 
                 // Nová kostka musí buď zvýšit skóre, nebo být součástí platné kombinace
-                canSelect = testScore > currentScore || this.canBePartOfValidCombination(diceValue, currentValues);
+                canSelect = testScore > currentScore || this.canBePartOfValidCombination(diceValue, currentValues, this.gameState.currentTurn.diceValues);
             }
             
             if (canSelect) {
@@ -1301,19 +1308,8 @@ class SimpleDiceGame {
         turnScoreElements.forEach(id => {
             const element = document.getElementById(id);
             if (element && this.gameState.currentTurn) {
-                const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
-                const needsEntry = !currentPlayer.hasEnteredGame;
                 const turnScore = this.gameState.currentTurn.turnScore;
-                
-                let displayText = `Skóre tahu: ${turnScore}`;
-                if (needsEntry) {
-                    const needed = this.gameState.gameEntryMinimum - turnScore;
-                    if (needed > 0) {
-                        displayText += ` (potřeba ${needed} pro vstup)`;
-                    } else {
-                        displayText += ` (vstup do hry!)`;
-                    }
-                }
+                const displayText = `Skóre tahu: ${turnScore}`;
                 
                 element.textContent = displayText;
                 console.log(`📊 updateScore: Turn score display: ${displayText}`);
@@ -1326,11 +1322,7 @@ class SimpleDiceGame {
             const element = document.getElementById(id);
             if (element) {
                 const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
-                let displayText = currentPlayer.isHuman ? 'Váš tah!' : `Tah: ${currentPlayer.name}`;
-                
-                if (!currentPlayer.hasEnteredGame) {
-                    displayText += ` (mimo hru - potřeba ${this.gameState.gameEntryMinimum})`;
-                }
+                const displayText = currentPlayer.isHuman ? 'Váš tah!' : `Tah: ${currentPlayer.name}`;
                 
                 element.textContent = displayText;
                 console.log(`📊 updateScore: Turn info display: ${displayText}`);
