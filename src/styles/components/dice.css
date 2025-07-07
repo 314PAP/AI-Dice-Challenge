@@ -2,6 +2,7 @@
    🎲 DICE - Stylování kostek s neonovými efekty
    ============================================================================= */
 
+/* Bootstrap-first: d-flex flex-wrap justify-content-center my-3 gap-3 */
 .all-dice-container {
   display: flex;
   flex-wrap: wrap;
@@ -10,17 +11,18 @@
   gap: 1rem;
 }
 
+/* Bootstrap-first: d-flex flex-nowrap mt-3 gap-2 justify-content-center overflow-auto */
 .banked-dice-container {
   display: flex;
-  flex-direction: row; /* Horizontálně zleva doprava */
-  flex-wrap: nowrap; /* Nepovolíme zalomení - kostky vedle sebe */
+  flex-direction: row;
+  flex-wrap: nowrap;
   margin-top: 1rem;
   gap: 0.5rem;
   justify-content: center;
-  overflow-x: auto; /* Pokud je příliš kostek, umožníme scrollování */
+  overflow-x: auto;
 }
 
-/* Základní kostka s neonovým designem */
+/* Bootstrap-first: d-flex align-items-center justify-content-center rounded-3 m-1 transition-all */
 .dice {
   width: 60px;
   height: 60px;
@@ -33,12 +35,12 @@
   margin: 0.25rem;
   transition: all 0.2s ease-in-out;
   background-color: rgba(0, 0, 0, 0.9);
-  color: var(--neon-green); /* Výchozí barva textu */
+  color: var(--neon-green);
   border: 2px solid var(--neon-green);
   text-shadow: 0 0 5px var(--neon-green);
   box-shadow: 0 0 5px var(--neon-green);
   font-family: 'Orbitron', sans-serif;
-  cursor: pointer; /* Všechny kostky jsou klikatelné */
+  cursor: pointer;
 }
 
 /* Responzivní velikosti kostek */
@@ -95,20 +97,12 @@
   cursor: pointer;
 }
 
-/* Animace pro nově hozené kostky */
-@keyframes diceRoll {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-  50% { opacity: 0.5; }
-  100% { transform: translateY(0) rotate(360deg); opacity: 1; }
-}
+/* Bootstrap-first: Animate.css animace místo custom CSS animací */
+/* Nahrazeno animate.css třídou animate__rotateIn */
 
-.dice-roll-animation {
-  animation: diceRoll 0.5s ease-out;
-}
-
-/* Starý kontejner kostek - skrytý */
+/* Starý kontejner kostek - skrytý pomocí Bootstrap: d-none */
 .dice-container {
-  display: none !important;
+  display: none;
 }
 
 /* Responzivní úpravy pro scroll */
@@ -157,7 +151,7 @@
   box-shadow: var(--glow-md) var(--neon-green);
 }
 
-/* Kombinovaný kontejner pro kostky */
+/* Bootstrap-first: bg-dark bg-opacity-50 border border-success rounded p-3 my-2 */
 .combined-dice-container {
   min-height: 80px;
   background: rgba(0, 0, 0, 0.4);
@@ -188,7 +182,7 @@
   gap: 0.25rem;
 }
 
-/* Aktivní kostky */
+/* Bootstrap-first: d-flex flex-wrap justify-content-center align-items-center gap-2 */
 .active-dice-section, .active-dice-section-mobile {
   display: flex;
   flex-wrap: wrap;

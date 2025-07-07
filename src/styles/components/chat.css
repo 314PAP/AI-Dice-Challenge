@@ -2,15 +2,15 @@
    💬 CHAT - Styly pro chatovací rozhraní
    ============================================================================= */
 
-/* Hlavní kontejner chatu - Bootstrap-first flex layout */
+/* Bootstrap-first: d-flex flex-column h-100 rounded-top overflow-hidden border-0 shadow-none */
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   border-radius: var(--border-radius-lg);
   overflow: hidden;
-  border: none !important;
-  box-shadow: none !important;
+  border: none;
+  box-shadow: none;
 }
 
 /* Hlavička chatu */
@@ -127,6 +127,7 @@
 }
 
 /* Chat input - Bootstrap-first bez borderu */
+/* Bootstrap-first: border-0 */
 .form-control-neon-chat {
   --bs-border-color: transparent;
   --bs-focus-ring-color: transparent;
@@ -138,9 +139,8 @@
   --bs-form-control-focus-border-color: transparent;
   --bs-form-control-focus-box-shadow: none;
   
-  /* Bootstrap-first: explicitní odstranění borderu */
-  border: none !important;
-  outline: none !important;
+  border: none;
+  outline: none;
 }
 
 .form-control-neon-chat::placeholder {
@@ -239,25 +239,22 @@
   }
 }
 
-/* Mobilní chat - zajistit správnou výšku pro chat messages */
+/* Bootstrap-first: h-100 d-md-block mobilní chat styly */
 @media (max-width: 767.98px) {
-  /* Chat container v mobilní verzi musí využít celou dostupnou výšku */
   .chat-container {
-    height: 100% !important;
+    height: 100%;
   }
   
-  /* Chat messages se musí správně roztáhnout */
   .chat-messages {
-    flex-grow: 1 !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    overflow-y: auto !important;
+    flex-grow: 1;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
   }
   
-  /* Zajistit, že chat header a input nezaberou příliš místa */
   .chat-input {
-    flex-shrink: 0 !important;
-    margin-top: auto !important;
+    flex-shrink: 0;
+    margin-top: auto;
   }
 }
 

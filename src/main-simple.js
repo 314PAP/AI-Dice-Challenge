@@ -314,7 +314,7 @@ class SimpleDiceGame {
         });
     }
 
-    // Přidání zprávy do chatu
+    // Přidání zprávy do chatu s animate.css animacemi
     addChatMessage(sender, message, type = 'user') {
         const chatContainers = ['chatMessages', 'chatMessagesMobile'];
         
@@ -326,25 +326,32 @@ class SimpleDiceGame {
                 // Určení barvy a třídy podle odesílatele
                 let color = 'neon-green'; // default pro hráče
                 let messageClass = 'msg-human'; // default
+                let animationType = 'animate__fadeInLeft'; // default animace
                 
                 if (sender === 'Systém') {
                     color = 'neon-yellow';
                     messageClass = 'msg-system';
+                    animationType = 'animate__fadeInDown';
                 } else if (sender === 'Gemini') {
                     color = 'neon-blue';
                     messageClass = 'msg-gemini';
+                    animationType = 'animate__fadeInRight';
                 } else if (sender === 'ChatGPT') {
                     color = 'neon-pink';
                     messageClass = 'msg-chatgpt';
+                    animationType = 'animate__fadeInRight';
                 } else if (sender === 'Claude') {
                     color = 'neon-orange';
                     messageClass = 'msg-claude';
+                    animationType = 'animate__fadeInRight';
                 } else if (type === 'ai') {
                     color = 'neon-blue'; // fallback pro AI
                     messageClass = 'msg-gemini';
+                    animationType = 'animate__fadeInRight';
                 }
                 
-                messageDiv.className = `chat-message ${messageClass} ${type} new-message`;
+                // Bootstrap-first: Animate.css třídy pro zprávy
+                messageDiv.className = `chat-message ${messageClass} ${type} animate__animated ${animationType}`;
                 
                 messageDiv.innerHTML = `
                     <div class="chat-content">
@@ -357,7 +364,7 @@ class SimpleDiceGame {
                 
                 // Odstranění animace po dokončení
                 setTimeout(() => {
-                    messageDiv.classList.remove('new-message');
+                    messageDiv.classList.remove('animate__animated', animationType);
                 }, 800);
             }
         });
@@ -863,7 +870,7 @@ class SimpleDiceGame {
         return currentCount >= 2 && currentCount < 6;
     }
 
-    // Výběr kostky
+    // Výběr kostky s animate.css animací
     selectDice(diceElement) {
         console.log('🎯 Selecting dice');
         
@@ -879,9 +886,18 @@ class SimpleDiceGame {
         console.log(`🎯 Dice selection: index=${index}, value=${diceValue}`);
         
         if (selectedDice.includes(index)) {
-            // Odznačit kostku
+            // Odznačit kostku s animací
             selectedDice.splice(selectedDice.indexOf(index), 1);
             diceElement.classList.remove('selected');
+            // Bootstrap-first: Použití animate.css místo custom CSS
+            diceElement.classList.add('animate__animated', 'animate__bounceOut');
+            setTimeout(() => {
+                diceElement.classList.remove('animate__animated', 'animate__bounceOut');
+                diceElement.classList.add('animate__animated', 'animate__bounceIn');
+                setTimeout(() => {
+                    diceElement.classList.remove('animate__animated', 'animate__bounceIn');
+                }, 300);
+            }, 150);
             console.log(`➖ Dice deselected: index=${index}, value=${diceValue}`);
         } else {
             // Označit kostku - nejprve zkontroluj, jestli může být součástí validní kombinace
@@ -930,12 +946,21 @@ class SimpleDiceGame {
             }
             
             if (canSelect) {
-                // Validní výběr - označit kostku
+                // Validní výběr - označit kostku s animací
                 selectedDice.push(index);
                 diceElement.classList.add('selected');
+                // Bootstrap-first: Animate.css animace pro výběr
+                diceElement.classList.add('animate__animated', 'animate__pulse');
+                setTimeout(() => {
+                    diceElement.classList.remove('animate__animated', 'animate__pulse');
+                }, 600);
                 console.log(`➕ Dice selected: index=${index}, value=${diceValue}`);
             } else {
-                // Nevalidní výběr - NEoznačovat kostku a zobrazit chybu
+                // Nevalidní výběr - animace odmítnutí
+                diceElement.classList.add('animate__animated', 'animate__shakeX');
+                setTimeout(() => {
+                    diceElement.classList.remove('animate__animated', 'animate__shakeX');
+                }, 600);
                 console.warn(`❌ Invalid selection: adding dice ${diceValue} would make selection worthless`);
                 this.addChatMessage('Systém', `❌ Nelze vybrat kostku ${diceValue} - výběr by neměl žádné body!`, 'system');
                 return; // Výstup z funkce - kostka nebude označena
@@ -1103,7 +1128,7 @@ class SimpleDiceGame {
     }
 
     /**
-     * Zobrazí zprávu FARKLE nad avatarem hráče
+     * Zobrazí zprávu FARKLE nad avatarem hráče s animate.css animacemi
      * @param {number} playerIndex - Index hráče (0-3)
      */
     showFarkleMessage(playerIndex) {
@@ -1142,57 +1167,37 @@ class SimpleDiceGame {
             box-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
             text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red);
             z-index: 1000;
-            animation: farkleMessagePulse 1s infinite alternate;
             font-size: 18px;
             white-space: nowrap;
             pointer-events: none;
             font-family: 'Orbitron', sans-serif;
         `;
         
-        // Přidáme animaci pro pulzování, pokud ještě neexistuje
-        if (!document.getElementById('farkle-animation-style')) {
-            const styleElement = document.createElement('style');
-            styleElement.id = 'farkle-animation-style';
-            styleElement.textContent = `
-                @keyframes farkleMessagePulse {
-                    0% { opacity: 0.7; transform: translateX(-50%) scale(0.95); }
-                    100% { opacity: 1; transform: translateX(-50%) scale(1.05); }
-                }
-                
-                .farkle-effect {
-                    animation: farkleShake 0.5s ease-in-out;
-                }
-                
-                @keyframes farkleShake {
-                    0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-5px); }
-                    75% { transform: translateX(5px); }
-                }
-            `;
-            document.head.appendChild(styleElement);
-        }
+        // Bootstrap-first: Animate.css animace pro FARKLE zprávu
+        farkleMessage.classList.add('animate__animated', 'animate__bounceInDown');
         
         // Zajistíme, že player element má relativní pozici pro správné umístění zprávy
         playerElement.style.position = 'relative';
         playerElement.appendChild(farkleMessage);
         
-        // Přidat třídu pro FARKLE efekt
-        playerElement.classList.add('farkle-effect');
-        
-        // Zvýrazníme avatar
+        // Bootstrap-first: Animate.css animace pro avatar
         const avatarElement = playerElement.querySelector('.player-head');
         if (avatarElement) {
             avatarElement.style.boxShadow = '0 0 15px var(--neon-red), 0 0 25px var(--neon-red)';
+            avatarElement.classList.add('animate__animated', 'animate__shakeX');
         }
         
         // Odstraníme zprávu a efekty po 3 sekundách
         setTimeout(() => {
-            playerElement.classList.remove('farkle-effect');
             if (avatarElement) {
                 avatarElement.style.boxShadow = '';
+                avatarElement.classList.remove('animate__animated', 'animate__shakeX');
             }
             if (farkleMessage.parentNode) {
-                farkleMessage.remove();
+                farkleMessage.classList.add('animate__bounceOutUp');
+                setTimeout(() => {
+                    farkleMessage.remove();
+                }, 500);
             }
         }, 3000);
     }
@@ -1320,7 +1325,7 @@ class SimpleDiceGame {
         }
     }
 
-    // Aktualizace zobrazení kostek
+    // Aktualizace zobrazení kostek s animacemi
     updateDiceDisplay() {
         // Používáme nové kontejnery - aktivní kostky do správného kontejneru
         const activeContainers = [
@@ -1341,12 +1346,20 @@ class SimpleDiceGame {
                     diceElement.dataset.index = index;
                     diceElement.textContent = value;
                     
+                    // Bootstrap-first: Animate.css animace pro hození kostkami
+                    diceElement.classList.add('animate__animated', 'animate__rotateIn');
+                    
                     // Označení vybraných kostek
                     if (this.gameState.currentTurn.selectedDice.includes(index)) {
                         diceElement.classList.add('selected');
                     }
                     
                     container.appendChild(diceElement);
+                    
+                    // Odstranění animace po dokončení
+                    setTimeout(() => {
+                        diceElement.classList.remove('animate__animated', 'animate__rotateIn');
+                    }, 800);
                 });
             }
         });

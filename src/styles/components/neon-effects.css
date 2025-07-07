@@ -70,21 +70,25 @@
   outline: none;
 }
 
-/* Neonové rámečky - pouze nezbytné !important */
+/* Bootstrap-first: neonové border utility třídy - použití CSS custom properties místo !important */
 .border-neon-green {
-  border-color: var(--neon-green) !important;
+  --bs-border-color: var(--neon-green);
+  border-color: var(--neon-green);
 }
 
 .border-neon-blue {
-  border-color: var(--neon-blue) !important;
+  --bs-border-color: var(--neon-blue); 
+  border-color: var(--neon-blue);
 }
 
 .border-neon-orange {
-  border-color: var(--neon-orange) !important;
+  --bs-border-color: var(--neon-orange);
+  border-color: var(--neon-orange);
 }
 
 .border-neon-pink {
-  border-color: var(--neon-pink) !important;
+  --bs-border-color: var(--neon-pink);
+  border-color: var(--neon-pink);
 }
 
 .border-neon-red {

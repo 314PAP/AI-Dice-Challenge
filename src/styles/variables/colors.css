@@ -91,16 +91,16 @@
   --bs-neon-yellow-rgb: var(--neon-yellow-rgb);
 }
 
-/* Tmavé schéma pro tělo dokumentu */
+/* Bootstrap-first: tmavé schéma s využitím CSS custom properties */
 body {
   --bs-body-bg: var(--black-bg);
-  --bs-body-color: #fff;
-  --bs-body-color-rgb: 255, 255, 255;
-  background-color: var(--black-bg) !important;
-  color: var(--neon-green) !important;
+  --bs-body-color: var(--neon-green);
+  --bs-body-color-rgb: 57, 255, 20;
+  background-color: var(--black-bg);
+  color: var(--neon-green);
 }
 
 /* HTML element pro jistotu */
 html {
-  background-color: var(--black-bg) !important;
+  background-color: var(--black-bg);
 }
