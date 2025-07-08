@@ -55,7 +55,7 @@
                     <h5 class="text-neon-blue text-center mb-2 mb-lg-3">
                         <i class="bi bi-chat-dots-fill text-neon-blue"></i> AI Chat
                     </h5>
-                    <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-lg-3 p-2 bg-black rounded-2 border-1 border-neon-blue"></div>
+                    <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-lg-3 p-2 bg-black rounded-2 border-1 border-neon-blue chat-scrollable"></div>
                     <div class="chat-input-area">
                         <div class="input-group">
                             <input type="text" id="chatInput" class="form-control bg-black text-neon-blue border-neon-blue" 
@@ -69,23 +69,23 @@
             </div>
         </div>
         
-        <!-- Mobile/Tablet Layout - plné využití prostoru -->
+        <!-- Mobile/Tablet Layout - plné využití prostoru s Bootstrap flex -->
         <div class="d-lg-none h-100 d-flex flex-column">
-            <!-- Game Area -->
-            <div class="flex-grow-1 mb-2">
+            <!-- Game Area - 60% výšky -->
+            <div class="d-flex flex-column mb-2" style="flex: 0 0 60%;">
                 <div class="game-container h-100 border-2 border-neon-green rounded-3 p-2 p-md-3 position-relative overflow-auto bg-black">
                     <div id="gameAreaMobile" class="h-100 d-flex flex-column"></div>
                 </div>
             </div>
             
-            <!-- Chat Area - optimalizované pro mobil -->
-            <div style="height: 180px;" class="flex-shrink-0">
+            <!-- Chat Area - 40% výšky s Bootstrap flex -->
+            <div class="d-flex flex-column" style="flex: 0 0 40%;">
                 <div class="chat-container h-100 border-2 border-neon-blue rounded-3 p-2 d-flex flex-column bg-black">
-                    <h6 class="text-neon-blue text-center mb-1">
+                    <h6 class="text-neon-blue text-center mb-1 flex-shrink-0">
                         <i class="bi bi-chat-dots-fill text-neon-blue"></i> AI Chat
                     </h6>
-                    <div id="chatMessagesMobile" class="flex-grow-1 overflow-auto mb-2 p-2 bg-black rounded-2 border-1 border-neon-blue"></div>
-                    <div class="chat-input-area">
+                    <div id="chatMessagesMobile" class="flex-grow-1 overflow-auto mb-2 p-2 bg-black rounded-2 border-1 border-neon-blue chat-scrollable"></div>
+                    <div class="chat-input-area flex-shrink-0">
                         <div class="input-group input-group-sm">
                             <input type="text" id="chatInputMobile" class="form-control bg-black text-neon-blue border-neon-blue" 
                                    placeholder="Zpráva..." autocomplete="off">

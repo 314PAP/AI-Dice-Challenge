@@ -289,22 +289,36 @@
   transition: all 0.2s ease !important;
 }
 
-/* Scrollbar pro autocomplete dropdown - neonový styl */
+/* NEONOVÉ SCROLLBARY - Bootstrap theming compliant */
+.chat-scrollable::-webkit-scrollbar,
 .autocomplete-dropdown::-webkit-scrollbar {
   width: 8px !important;
 }
+
+.chat-scrollable::-webkit-scrollbar-track,
 .autocomplete-dropdown::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.5) !important;
   border-radius: 4px !important;
 }
+
+.chat-scrollable::-webkit-scrollbar-thumb,
 .autocomplete-dropdown::-webkit-scrollbar-thumb {
   background: var(--neon-blue) !important;
   border-radius: 4px !important;
   box-shadow: 0 0 5px rgba(25, 77, 209, 0.5) !important;
 }
+
+.chat-scrollable::-webkit-scrollbar-thumb:hover,
 .autocomplete-dropdown::-webkit-scrollbar-thumb:hover {
   background: var(--neon-blue) !important;
   box-shadow: 0 0 10px rgba(25, 77, 209, 0.8) !important;
+}
+
+/* Firefox scrollbar styling - Bootstrap theming */
+.chat-scrollable,
+.autocomplete-dropdown {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--neon-blue) rgba(0, 0, 0, 0.5) !important;
 }
 
 /* 100% VIEWPORT VYUŽITÍ - maximální responzivita */
@@ -316,19 +330,38 @@ html, body {
 }
 .container-fluid { min-height: 100vh !important; }
 
-/* RESPONZIVNÍ KOSTKY - Bootstrap responsive breakpoints */
+/* BOOTSTRAP MOBILNÍ OPTIMALIZACE - theming compliant */
 @media (max-width: 991.98px) {
+  /* Mobilní chat 40% viewport */
+  .chat-container {
+    min-height: 40vh !important;
+  }
+  
+  /* Mobilní game area 60% viewport */
+  .game-container {
+    min-height: 60vh !important;
+  }
+  
+  /* Responzivní kostky */
   .dice { 
     width: 50px !important; 
     height: 50px !important; 
     font-size: 1.3rem !important; 
   }
 }
+
 @media (max-width: 575.98px) {
+  /* Extra malé obrazovky */
   .dice { 
     width: 45px !important; 
     height: 45px !important; 
     font-size: 1.2rem !important; 
+  }
+  
+  /* Kompaktní spacing na mobilech */
+  .chat-container,
+  .game-container {
+    padding: 0.75rem !important;
   }
 }
 
