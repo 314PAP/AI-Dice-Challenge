@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Mobile Layout Debug</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Náš OPRAVENÝ CSS -->
+    <link rel="stylesheet" href="/src/styles/bootstrap-first-pure.css">
+    
+    <style>
+        /* Debug borders */
+        .debug-border { border: 2px dashed yellow !important; }
+        .debug-green { border: 2px solid lime !important; }
+        .debug-red { border: 2px solid red !important; }
+        
+        /* Mobile viewport simulation */
+        body {
+            max-width: 414px;
+            margin: 0 auto;
+            border: 3px solid var(--neon-pink);
+        }
+        
+        .debug-info {
+            position: fixed;
+            top: 5px;
+            right: 5px;
+            background: var(--neon-yellow);
+            color: black;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body class="bg-black text-neon-green h-100 overflow-hidden m-0 p-0">
+    
+    <div class="debug-info">📱 Mobile Debug</div>
+    
+    <!-- Main Application Container -->
+    <div class="w-100 h-100 p-2 min-vh-100 debug-border">
+        
+        <!-- Mobile Layout - Force show -->
+        <div class="h-100 d-flex flex-column debug-green">
+            <!-- Game Area - 60% -->
+            <div class="d-flex flex-column mb-2 mobile-game-area debug-red">
+                <div class="game-container h-100 border-2 border-neon-green rounded-3 p-2 position-relative overflow-auto bg-black">
+                    <h5 class="text-neon-green text-center mb-2">
+                        <i class="bi bi-dice-6-fill"></i> Game Area (60%)
+                    </h5>
+                    
+                    <!-- Sample game content -->
+                    <div class="row g-1 mb-2">
+                        <div class="col-4"><div class="dice">1</div></div>
+                        <div class="col-4"><div class="dice">2</div></div>
+                        <div class="col-4"><div class="dice">3</div></div>
+                        <div class="col-4"><div class="dice">4</div></div>
+                        <div class="col-4"><div class="dice">5</div></div>
+                        <div class="col-4"><div class="dice">6</div></div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-neon-green btn-sm me-1">Hodit</button>
+                        <button class="btn btn-neon-orange btn-sm">Ukončit</button>
+                    </div>
+                    
+                    <!-- Extra content to test scrolling -->
+                    <div class="mt-2">
+                        <div class="alert alert-neon-yellow">Extra content 1</div>
+                        <div class="alert alert-neon-blue">Extra content 2</div>
+                        <div class="alert alert-neon-pink">Extra content 3</div>
+                        <div class="alert alert-neon-green">Extra content 4</div>
+                        <div class="alert alert-neon-orange">Extra content 5</div>
+                        <div class="text-neon-red text-center">🔽 Test scrollování 🔽</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Area - 40% -->
+            <div class="d-flex flex-column mobile-chat-area debug-red">
+                <div class="chat-container h-100 border-2 border-neon-blue rounded-3 p-2 d-flex flex-column bg-black">
+                    <h6 class="text-neon-blue text-center mb-1 flex-shrink-0">
+                        <i class="bi bi-chat-dots-fill text-neon-blue"></i> Chat (40%)
+                    </h6>
+                    <div class="flex-grow-1 overflow-auto mb-2 p-2 bg-black rounded-2 border-1 border-neon-blue">
+                        <!-- Long chat content to test scrolling -->
+                        <div class="alert alert-neon-green mb-1">
+                            <strong>Hráč:</strong> Ahoj všichni!
+                        </div>
+                        <div class="alert alert-neon-blue mb-1">
+                            <strong>Gemini:</strong> Zdravím! Jsem připraven hrát.
+                        </div>
+                        <div class="alert alert-neon-pink mb-1">
+                            <strong>ChatGPT:</strong> Skvělé! Začínáme?
+                        </div>
+                        <div class="alert alert-neon-orange mb-1">
+                            <strong>Claude:</strong> Hodně štěstí všem!
+                        </div>
+                        <div class="alert alert-neon-green mb-1">
+                            <strong>Hráč:</strong> Hodit kostky!
+                        </div>
+                        <div class="alert alert-neon-blue mb-1">
+                            <strong>Gemini:</strong> Dobrý hod!
+                        </div>
+                        <div class="alert alert-neon-pink mb-1">
+                            <strong>ChatGPT:</strong> Máš štěstí!
+                        </div>
+                        <div class="alert alert-neon-orange mb-1">
+                            <strong>Claude:</strong> Wow, skvělé skóre!
+                        </div>
+                        <div class="alert alert-neon-red mb-1">
+                            <strong>Systém:</strong> Test scrollování...
+                        </div>
+                        <div class="alert alert-neon-yellow mb-1">
+                            <strong>Debug:</strong> Posuvník by měl být neonový!
+                        </div>
+                        <div class="text-neon-blue text-center">🔽 Scrolluj dolů 🔽</div>
+                    </div>
+                    <div class="chat-input-area flex-shrink-0">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control bg-black text-neon-blue border-neon-blue" 
+                                   placeholder="Test scrollování..." value="Testovací zpráva">
+                            <button class="btn btn-neon-blue btn-sm">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Fixed footer for debug info -->
+    <div class="position-fixed bottom-0 start-0 end-0 bg-dark text-light p-1 text-center" style="font-size: 11px;">
+        📱 60% Game | 40% Chat | Bez !important | Neonové scrollbary | Bootstrap utility třídy
+    </div>
+</body>
+</html>

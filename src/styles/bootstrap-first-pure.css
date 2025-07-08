@@ -24,6 +24,11 @@
 }
 
 /* BOOTSTRAP UTILITY EXTENSIONS - luxusní neonové barvy */
+/* Loading screen z-index */
+.loading-z-index {
+  z-index: 9999;
+}
+
 .text-neon-green { 
   color: var(--neon-green) !important; 
   text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
@@ -289,79 +294,97 @@
   transition: all 0.2s ease !important;
 }
 
-/* NEONOVÉ SCROLLBARY - Bootstrap theming compliant */
+/* UNIVERZÁLNÍ NEONOVÉ SCROLLBARY - Bootstrap theming compliant */
+/* Aplikováno na všechny scrollovatelné elementy ve hře */
+.overflow-auto::-webkit-scrollbar,
 .chat-scrollable::-webkit-scrollbar,
-.autocomplete-dropdown::-webkit-scrollbar {
-  width: 8px !important;
+.autocomplete-dropdown::-webkit-scrollbar,
+.game-container::-webkit-scrollbar {
+  width: 8px;
 }
 
+.overflow-auto::-webkit-scrollbar-track,
 .chat-scrollable::-webkit-scrollbar-track,
-.autocomplete-dropdown::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.5) !important;
-  border-radius: 4px !important;
+.autocomplete-dropdown::-webkit-scrollbar-track,
+.game-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
 }
 
+.overflow-auto::-webkit-scrollbar-thumb,
 .chat-scrollable::-webkit-scrollbar-thumb,
-.autocomplete-dropdown::-webkit-scrollbar-thumb {
-  background: var(--neon-blue) !important;
-  border-radius: 4px !important;
-  box-shadow: 0 0 5px rgba(25, 77, 209, 0.5) !important;
+.autocomplete-dropdown::-webkit-scrollbar-thumb,
+.game-container::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(25, 77, 209, 0.5);
 }
 
+.overflow-auto::-webkit-scrollbar-thumb:hover,
 .chat-scrollable::-webkit-scrollbar-thumb:hover,
-.autocomplete-dropdown::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-blue) !important;
-  box-shadow: 0 0 10px rgba(25, 77, 209, 0.8) !important;
+.autocomplete-dropdown::-webkit-scrollbar-thumb:hover,
+.game-container::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(25, 77, 209, 0.8);
 }
 
 /* Firefox scrollbar styling - Bootstrap theming */
+.overflow-auto,
 .chat-scrollable,
-.autocomplete-dropdown {
-  scrollbar-width: thin !important;
-  scrollbar-color: var(--neon-blue) rgba(0, 0, 0, 0.5) !important;
+.autocomplete-dropdown,
+.game-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) rgba(0, 0, 0, 0.5);
 }
 
 /* 100% VIEWPORT VYUŽITÍ - maximální responzivita */
 html, body { 
-  height: 100vh !important; 
-  margin: 0 !important; 
-  padding: 0 !important; 
-  font-family: 'Orbitron', monospace !important;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', monospace;
 }
-.container-fluid { min-height: 100vh !important; }
+.container-fluid { 
+  min-height: 100vh; 
+}
 
 /* BOOTSTRAP MOBILNÍ OPTIMALIZACE - theming compliant */
+/* Mobilní layout poměry - nahrazuje inline styly */
+.mobile-game-area {
+  flex: 0 0 60%;
+}
+
+.mobile-chat-area {
+  flex: 0 0 40%;
+}
+
 @media (max-width: 991.98px) {
-  /* Mobilní chat 40% viewport */
-  .chat-container {
-    min-height: 40vh !important;
-  }
-  
-  /* Mobilní game area 60% viewport */
-  .game-container {
-    min-height: 60vh !important;
-  }
-  
   /* Responzivní kostky */
   .dice { 
-    width: 50px !important; 
-    height: 50px !important; 
-    font-size: 1.3rem !important; 
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  /* Kompaktní spacing na mobilech */
+  .chat-container,
+  .game-container {
+    padding: 0.75rem;
   }
 }
 
 @media (max-width: 575.98px) {
   /* Extra malé obrazovky */
   .dice { 
-    width: 45px !important; 
-    height: 45px !important; 
-    font-size: 1.2rem !important; 
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
   }
   
-  /* Kompaktní spacing na mobilech */
+  /* Ještě kompaktnější spacing */
   .chat-container,
   .game-container {
-    padding: 0.75rem !important;
+    padding: 0.5rem;
   }
 }
 
