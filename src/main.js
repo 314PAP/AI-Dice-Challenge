@@ -111,6 +111,9 @@ class AIDiceGame {
         
         // Přidání uvítacích zpráv
         this.chatUI.addWelcomeMessages();
+        
+        // Trigger initial render of UI
+        this.gameUI.renderUI(gameState.getState());
     }
 
     /**
