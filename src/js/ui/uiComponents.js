@@ -4,7 +4,7 @@
  */
 
 /**
- * Vytvoří tlačítko s neonovým efektem
+ * Vytvoří tlačítko s neonovým efektem - plně responzivní pro všechny režimy zobrazení
  * @param {string} text - Text tlačítka
  * @param {string} color - Barva tlačítka (green, blue, purple, orange, yellow)
  * @param {string} [icon=null] - Bootstrap ikona (bi-xxx)
@@ -20,10 +20,17 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
     let buttonContent = '';
     
     if (icon) {
-        buttonContent += `<i class="bi ${icon} me-2"></i>`;
+        // Menší mezera na malých zařízeních pro úsporu místa
+        buttonContent += `<i class="bi ${icon} me-1 me-sm-2"></i>`;
     }
     
-    buttonContent += text;
+    // Pro velmi malé displeje (landscape) přidáme speciální třídu
+    const isShortText = text.length <= 10;
+    const displayText = window.innerHeight <= 400 && !isShortText ? 
+        `<span class="d-none d-sm-inline">${text}</span><span class="d-inline d-sm-none">${text.substring(0, 4)}...</span>` : 
+        text;
+    
+    buttonContent += displayText;
     button.innerHTML = buttonContent;
     
     if (onClick) {

@@ -44,19 +44,20 @@
     <div id="app" class="flex-grow-1 w-100 p-2 p-lg-3 d-none">
         
         <!-- Responzivní Bootstrap Grid Layout - Mobile First -->
-        <div class="row h-100 g-2 g-lg-3">
+        <div class="row h-100 g-2 g-lg-3 landscape-flex-row">
             <!-- Game Area - na desktopu vlevo, na mobilu nahoře, v landscape na levé polovině -->
-            <div class="col-12 col-lg-8 h-100 mb-2 mb-lg-0">
-                <div class="h-100 border-wide-neon-green rounded-3 p-2 p-md-3 position-relative overflow-auto bg-black">
+            <div class="col-12 col-lg-8 h-100 mb-2 mb-lg-0 landscape-w-50">
+                <div class="h-100 border-wide-neon-green rounded-3 p-2 p-md-3 position-relative overflow-auto bg-black landscape-py-1">
                     <div id="gameArea" class="h-100 d-flex flex-column"></div>
                 </div>
             </div>
             
             <!-- Chat Area - na desktopu vpravo, na mobilu dole, v landscape na pravé polovině -->
-            <div class="col-12 col-lg-4 h-100">
-                <div class="border-wide-neon-blue rounded-3 p-2 p-lg-3 d-flex flex-column bg-black h-100">
-                    <h5 class="text-neon-blue text-center mb-2 mb-md-3">
-                        <i class="bi bi-chat-dots-fill text-neon-blue"></i> AI Chat
+            <div class="col-12 col-lg-4 h-100 landscape-w-50">
+                <div class="border-wide-neon-blue rounded-3 p-2 p-lg-3 d-flex flex-column bg-black h-100 landscape-py-1">
+                    <h5 class="text-neon-blue text-center mb-2 mb-md-3 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-chat-dots-fill text-neon-blue me-1 me-sm-2"></i>
+                        <span class="d-inline">AI Chat</span>
                     </h5>
                     <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-lg-3 p-2 bg-black rounded-2 border-1 border-neon-blue"></div>
                     <div class="sticky-bottom bg-black pt-2">

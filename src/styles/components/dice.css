@@ -18,22 +18,33 @@
   position: relative;
 }
 
-/* Responzivní velikosti kostek */
-@media (max-width: 576px) {
+/* Responzivní velikosti kostek pomocí Bootstrap breakpointů */
+
+/* Extra small devices - výchozí velikost */
+.dice {
+  width: 45px;
+  height: 45px;
+  border-width: 1px;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
   .dice {
-    width: 45px;
-    height: 45px;
-    border-width: 1px;
+    width: 50px;
+    height: 50px;
   }
 }
 
+/* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
   .dice {
     width: 55px;
     height: 55px;
+    border-width: 2px;
   }
 }
 
+/* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .dice {
     width: 65px;
@@ -42,12 +53,29 @@
   }
 }
 
-/* Landscape orientace - menší kostky */
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .dice {
+    width: 70px;
+    height: 70px;
+    border-width: 3px;
+  }
+}
+
+/* Landscape optimalizace na všechny velikosti obrazovek */
 @media (orientation: landscape) and (max-height: 500px) {
   .dice {
-    width: 40px;
-    height: 40px;
-    border-width: 1px;
+    width: 35px !important;
+    height: 35px !important;
+    border-width: 1px !important;
+    margin: 0.25rem !important;
+    padding: 0.1rem !important;
+  }
+  
+  /* Zmenšení teček pro lepší čitelnost */
+  .dot {
+    width: 6px !important;
+    height: 6px !important;
   }
 }
 

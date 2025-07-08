@@ -66,8 +66,115 @@
     width: 50% !important;
   }
   
+  .landscape-w-auto {
+    width: auto !important;
+  }
+  
   .landscape-py-1 {
     padding-top: 0.25rem !important;
     padding-bottom: 0.25rem !important;
+  }
+  
+  .landscape-small-text {
+    font-size: 0.875rem !important;
+  }
+  
+  /* Optimalizace pro chat a herní plochu */
+  .col-12 {
+    max-height: 100%;
+  }
+  
+  /* Zrušení marginu mezi sloupci v landscape režimu */
+  .mb-2.mb-lg-0 {
+    margin-bottom: 0 !important;
+  }
+  
+  /* Landscape optimalizace pro flex a grid layout */
+  .flex-landscape-row {
+    flex-direction: row !important;
+  }
+  
+  .flex-landscape-column {
+    flex-direction: column !important;
+  }
+  
+  .w-landscape-auto {
+    width: auto !important;
+  }
+  
+  .w-landscape-45 {
+    width: 45% !important;
+  }
+  
+  .gap-landscape-1 {
+    gap: 0.25rem !important;
+  }
+  
+  .gap-landscape-2 {
+    gap: 0.5rem !important;
+  }
+}
+
+/* Responzivní velikosti tlačítek */
+.btn-xs {
+  padding: 0.2rem 0.4rem !important;
+  font-size: 0.75rem !important;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+}
+
+@media (min-width: 768px) {
+  .btn-md-lg {
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* Landscape optimalizace pro tlačítka */
+@media (orientation: landscape) and (max-height: 500px) {
+  .btn-lg, .btn-md-lg {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Zarovnání obsahu v landscape režimu */
+@media (orientation: landscape) and (max-height: 600px) {
+  .flex-landscape-row {
+    flex-direction: row !important;
+  }
+  
+  .flex-landscape-column {
+    flex-direction: column !important;
+  }
+  
+  .h-landscape-auto {
+    height: auto !important;
+  }
+  
+  .overflow-landscape-auto {
+    overflow: auto !important;
+  }
+  
+  .w-landscape-50 {
+    width: 50% !important;
+  }
+  
+  /* Oprava přetékání obsahu */
+  .h-100 > .d-flex {
+    min-height: 0;
+  }
+  
+  /* Zajištění správné výšky herní oblasti v landscape módu */
+  #gameArea {
+    min-height: calc(100vh - 6rem) !important;
+  }
+  
+  /* Zajištění, že chat area bude správně zobrazena vedle herní plochy */
+  .row.h-100 > .col-12 {
+    max-height: 100vh !important;
   }
 }
