@@ -114,17 +114,14 @@ export class ChatUI {
             colorClass = `text-neon-${aiPersonalities[message.sender].color}`;
         }
         
-        // Bootstrap-first responsive design pro chat zprávy - zabraňuje overflow
+        // Bootstrap-first responsive design pro chat zprávy
         return `
-            <div class="chat-message mb-1 mb-md-2 p-2 rounded-2 bg-black border border-opacity-25 border-secondary ${colorClass} w-100" 
-                 style="word-wrap: break-word; overflow-wrap: anywhere; hyphens: auto; max-width: 100%;">
-                <div class="chat-header mb-1 d-flex justify-content-between align-items-start flex-wrap">
-                    <strong class="text-truncate flex-shrink-0 me-2" style="max-width: 70%;">${message.sender}:</strong>
-                    <small class="text-muted flex-shrink-0 small d-none d-sm-inline">${message.timestamp || ''}</small>
+            <div class="chat-message mb-2 p-2 rounded bg-black border border-secondary ${colorClass} overflow-safe">
+                <div class="chat-header mb-1 d-flex justify-content-between align-items-center">
+                    <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
+                    <small class="text-muted flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>
                 </div>
-                <div class="chat-content" 
-                     style="font-size: 0.85rem; word-wrap: break-word; overflow-wrap: anywhere; 
-                            white-space: pre-wrap; hyphens: auto; max-width: 100%; line-height: 1.3;">
+                <div class="chat-content small" style="word-wrap: break-word; overflow-wrap: break-word;">
                     ${message.content}
                 </div>
             </div>
