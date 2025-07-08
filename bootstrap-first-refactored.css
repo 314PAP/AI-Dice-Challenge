@@ -411,7 +411,32 @@ html, body {
 
 /* Background utilities */
 .bg-neon-glow-effect {
-  background: radial-gradient(circle, rgba(0, 255, 0, 0.1), transparent);
+  background: radial-gradient(circle, rgba(var(--neon-green-rgb), 0.1), transparent);
+}
+
+/* Barevné varianty bg-neon-glow-effect */
+.bg-neon-glow-effect-green {
+  background: radial-gradient(circle, rgba(var(--neon-green-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-blue {
+  background: radial-gradient(circle, rgba(var(--neon-blue-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-purple {
+  background: radial-gradient(circle, rgba(var(--neon-purple-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-orange {
+  background: radial-gradient(circle, rgba(var(--neon-orange-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-red {
+  background: radial-gradient(circle, rgba(var(--neon-red-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-yellow {
+  background: radial-gradient(circle, rgba(var(--neon-yellow-rgb), 0.1), transparent);
 }
 
 /* ===================================================================
@@ -702,6 +727,11 @@ html, body {
 /* ===================================================================
    8. UTILITY OVERRIDES (minimální, pouze kde nutné)
    ================================================================= */
+
+/* Kurzor pointer pro interaktivní prvky (autocomplete) */
+.cursor-pointer {
+  cursor: pointer;
+}
 
 /* Bootstrap spinner barvy - jediny override */
 .spinner-border.text-neon-green {

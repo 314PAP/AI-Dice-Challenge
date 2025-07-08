@@ -932,7 +932,7 @@ class UltraBootstrapDiceGame {
         if (chatInput) {
             this.chatAutocomplete = new UltraBootstrapAutocomplete(chatInput, {
                 suggestions: [...this.chatHistory],
-                neonColor: 'blue',
+                neonColor: 'blue', // Konzistentní s neon-blue (#194DD1)
                 storageKey: 'aidice-chat-history',
                 maxResults: 8,
                 placeholder: 'Napište zprávu AI...'
@@ -944,7 +944,7 @@ class UltraBootstrapDiceGame {
         if (chatInputMobile) {
             this.chatAutocompleteMobile = new UltraBootstrapAutocomplete(chatInputMobile, {
                 suggestions: [...this.chatHistory],
-                neonColor: 'blue',
+                neonColor: 'blue', // Konzistentní s neon-blue (#194DD1)
                 storageKey: 'aidice-chat-history-mobile',
                 maxResults: 6,
                 placeholder: 'Zpráva...'

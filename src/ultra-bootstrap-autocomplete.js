@@ -10,7 +10,7 @@ class UltraBootstrapAutocomplete {
             suggestions: options.suggestions || [],
             maxResults: options.maxResults || 8,
             placeholder: options.placeholder || 'Začněte psát...',
-            neonColor: options.neonColor || 'blue',
+            neonColor: options.neonColor || 'blue', // výchozí barva je modrá (blue)
             storageKey: options.storageKey || 'autocomplete-history',
             ...options
         };
@@ -42,8 +42,8 @@ class UltraBootstrapAutocomplete {
         this.dropdown.style.maxHeight = '200px';
         this.dropdown.style.overflowY = 'auto';
         
-        // Přidat box-shadow efekt
-        this.dropdown.style.boxShadow = `0 0 15px rgba(var(--bs-${this.options.neonColor}-rgb), 0.4)`;
+        // Přidat box-shadow efekt pomocí CSS proměnných definovaných v bootstrap-first-refactored.css
+        this.dropdown.style.boxShadow = `0 0 15px rgba(var(--neon-${this.options.neonColor}-rgb), 0.4)`;
         
         // Vložit dropdown hned za input element
         this.input.parentNode.style.position = 'relative';
@@ -168,18 +168,19 @@ class UltraBootstrapAutocomplete {
             item.addEventListener('mouseenter', () => {
                 // Odstranit aktivní třídu z ostatních
                 this.dropdown.querySelectorAll('.autocomplete-item').forEach(el => {
-                    el.classList.remove('bg-neon-' + this.options.neonColor);
+                    // Použijeme třídu odpovídající refaktorovanému CSS (bg-neon-glow-effect-color)
+                    el.classList.remove(`bg-neon-glow-effect-${this.options.neonColor}`);
                     el.style.textShadow = '';
                 });
                 
-                // Přidat hover efekt
-                item.classList.add('bg-neon-' + this.options.neonColor);
+                // Přidat hover efekt s konzistentní barvou pozadí - využíváme přímo CSS třídy
+                item.classList.add(`bg-neon-glow-effect-${this.options.neonColor}`);
                 item.style.textShadow = '0 0 8px currentColor';
                 this.selectedIndex = index;
             });
             
             item.addEventListener('mouseleave', () => {
-                item.classList.remove('bg-neon-' + this.options.neonColor);
+                item.classList.remove(`bg-neon-glow-effect-${this.options.neonColor}`);
                 item.style.textShadow = '';
             });
             
@@ -196,13 +197,13 @@ class UltraBootstrapAutocomplete {
             const isSelected = index === this.selectedIndex;
             
             if (isSelected) {
-                item.classList.add('bg-neon-' + this.options.neonColor);
+                item.classList.add(`bg-neon-glow-effect-${this.options.neonColor}`);
                 item.style.textShadow = '0 0 8px currentColor';
                 
                 // Scroll into view if needed
                 item.scrollIntoView({ block: 'nearest' });
             } else {
-                item.classList.remove('bg-neon-' + this.options.neonColor);
+                item.classList.remove(`bg-neon-glow-effect-${this.options.neonColor}`);
                 item.style.textShadow = '';
             }
         });
