@@ -491,8 +491,8 @@ class UltraMinimalDiceGame {
             title: 'Vítěz!',
             html: `
                 <div class="text-center">
-                    <i class="bi bi-${winner.avatar} text-${winner.color} display-1"></i>
-                    <h3 class="text-${winner.color} mt-3">${winner.name}</h3>
+                    <i class="bi bi-${winner.avatar} text-neon-${winner.color} display-1"></i>
+                    <h3 class="text-neon-${winner.color} mt-3">${winner.name}</h3>
                     <p>Skóre: ${winner.score} bodů</p>
                 </div>
             `,
@@ -536,7 +536,7 @@ class UltraMinimalDiceGame {
     showHallOfFame() {
         Swal.fire({
             title: 'Síň slávy',
-            html: '<div class="text-center"><i class="bi bi-trophy-fill text-warning display-1"></i><p>Zatím žádní šampioni!</p></div>',
+            html: '<div class="text-center"><i class="bi bi-trophy-fill text-neon-yellow display-1"></i><p>Zatím žádní šampioni!</p></div>',
             confirmButtonText: 'Zavřít',
             background: '#0d1117',
             color: '#39ff14'

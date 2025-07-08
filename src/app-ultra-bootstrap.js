@@ -712,8 +712,8 @@ class UltraBootstrapDiceGame {
             title: 'Vítěz!',
             html: `
                 <div class="text-center">
-                    <div class="fs-1 mb-3"><i class="bi ${winner.avatar} text-${winner.color}"></i></div>
-                    <h3 class="text-${winner.color}">${winner.name}</h3>
+                    <div class="fs-1 mb-3"><i class="bi ${winner.avatar} text-neon-${winner.color}"></i></div>
+                    <h3 class="text-neon-${winner.color}">${winner.name}</h3>
                     <p>Skóre: ${winner.score} bodů</p>
                     <hr>
                     <h5>Finální pořadí:</h5>
@@ -721,7 +721,7 @@ class UltraBootstrapDiceGame {
                         .sort((a, b) => b.score - a.score)
                         .map((player, index) => `
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span>${index + 1}. <i class="bi ${player.avatar} text-${player.color}"></i> ${player.name}</span>
+                                <span>${index + 1}. <i class="bi ${player.avatar} text-neon-${player.color}"></i> ${player.name}</span>
                                 <span class="fw-bold">${player.score} bodů</span>
                             </div>
                         `).join('')}

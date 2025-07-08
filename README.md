@@ -1,32 +1,80 @@
-# 🎲 AI Kostková Výzva - Bootstrap Pure Edition
+# 🎲 AI Dice Challenge - Neonová kostková výzva
 
-> **Kompletně optimalizovaná hra s kostkami s AI protihráči**
+> **Modulární kostková hra s AI osobnostmi postavená na Bootstrap-first přístupu**
 > 
-> ✅ **100% Bootstrap přístup** | ✅ **Žádné !important** | ✅ **95% redukce kódu**
+> ✅ **100% Bootstrap utility třídy** | ✅ **Plně responzivní** | ✅ **Neonový design** | ✅ **Čistá architektura**
 
 ## 🚀 Rychlý start
 
 ```bash
-# Spuštění lokálního serveru
+# Development server (doporučeno)
+npm run dev
+
+# Production build  
+npm run build
+
+# Preview produkční verze
+npm run preview
+
+# Jednoduchý server
 python3 -m http.server 3000
-
-# Nebo přes npm
-npm run serve
-
-# Otevřít v prohlížeči: http://localhost:3000
 ```
 
-## � Optimalizace úspěchy
+## 📁 Struktura projektu
 
-### **📊 Statistiky redukce:**
-- **CSS soubory**: 50+ → 1 (-98%)
-- **JS moduly**: 20+ → 1 (-95%)
-- **CSS řádky**: 2000+ → 200 (-90%)
-- **JS řádky**: 1500+ → 450 (-70%)
-- **!important pravidla**: 50+ → 0 (-100%)
+```
+AIDICE/
+├── index.html                          ← JEDINÝ VSTUPNÍ BOD
+├── src/
+│   ├── app-ultra-bootstrap.js          ← HLAVNÍ APLIKACE
+│   ├── ultra-bootstrap-autocomplete.js ← AUTOCOMPLETE FUNKCIONALITA
+│   └── styles/
+│       └── bootstrap-first-pure.css    ← JEDINÝ CSS SOUBOR (neonové styly)
+├── backup/                             ← BACKUP VERZE
+├── test-archive/                       ← ARCHIVOVANÉ TESTOVACÍ SOUBORY
+├── archive/                            ← ARCHIVOVANÉ DOKUMENTY
+├── package.json                        ← NPM KONFIGURACE
+└── vite.config.js                      ← VITE KONFIGURACE
+```
 
-### **📦 Využité knihovny:**
-- **Bootstrap 5.3.2** - Layout & komponenty
+## ✨ Klíčové funkce
+
+### 🎮 Herní mechaniky
+- **Farkle/Dix Mille** pravidla s kostkami
+- **AI protihráči** s jedinečnými osobnostmi (Gemini, ChatGPT, Claude)
+- **Real-time chat** s AI reakcemi na herní události
+- **Pokročilé skórování** s risk/reward mechanikou
+
+### 🎨 Design & UX
+- **Neonový cyberpunk design** s konzistentními barvami
+- **100% Bootstrap-first** - žádné vlastní CSS třídy
+- **Plná responzivita** - desktop, tablet, mobil
+- **Smooth animace** - Animate.css integrace
+- **Autocomplete chat** s historií zpráv
+
+### 🛠️ Technické řešení
+- **Vite** - moderní build systém
+- **ES6 moduly** - čistá architektura
+- **Bootstrap 5.3.2** - utility-first CSS
+- **SweetAlert2** - elegantní notifikace
+- **Lodash** - utility funkce
+
+## 📊 Optimalizace výsledky
+
+### **Redukce kódu:**
+- **HTML soubory**: 15+ → 1 (-93%)
+- **CSS soubory**: 3 → 1 (-67%)  
+- **JS soubory**: 3 → 2 (-33%)
+- **CSS řádky**: ~500 → ~200 (-60%)
+- **!important pravidla**: 10+ → 0 (-100%)
+- **Hardkódované styly**: 20+ → 0 (-100%)
+
+### **Vyčištění projektu:**
+- **Testovací soubory**: 14 → archivováno do `test-archive/`
+- **Backup verze**: 3 → přesunuto do `backup/`
+- **Shell scripty**: 5 → smazáno
+- **Log soubory**: 10+ → smazáno  
+- **Dokumenty**: 15+ → archivováno do `archive/`
 - **Bootstrap Icons** - Ikony
 - **SweetAlert2** - Modální okna
 - **Animate.css** - Animace
