@@ -15,14 +15,7 @@ class UltraBootstrapDiceGame {
                 { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'bi-cpu-fill', color: 'purple' },
                 { name: 'Claude', score: 0, isHuman: false, avatar: 'bi-lightning-charge-fill', color: 'orange' }
             ],
-            currentPlayerI            customClass: {
-                popup: 'bg-black text-neon-green border-wide-neon-yellow',
-                confirmButton: 'btn btn-neon-yellow'
-            }
-        });
-    }
-
-    initChatListeners() {,
+            currentPlayerIndex: 0,
             targetScore: 10000,
             gameStarted: false,
             currentRoll: [],

@@ -1,9 +1,9 @@
 /* ===================================================================
-   AI DICE CHALLENGE - BOOTSTRAP-FIRST REFAKTOROVANÝ CSS
+   AI DICE CHALLENGE - BOOTSTRAP-FIRST PURE CSS
    ===================================================================
    
    100% Bootstrap-compatible, mobile-first, utility-based CSS
-   0 !important rules, pouze rozšíření Bootstrap systému
+   Minimální použití !important (pouze pro SweetAlert2 komponenty)
    
    Struktura:
    1. CSS proměnné a základní nastavení
@@ -12,6 +12,9 @@
    4. Herní komponenty (kostky, chat)
    5. Layout a responzivita
    6. Scrollbar styling
+   7. Animace a transitions
+   8. Utility overrides
+   9. SweetAlert2 neonové styly
    ================================================================= */
 
 /* ===================================================================
@@ -24,7 +27,7 @@ html, body {
 }
 
 :root {
-  /* Neonové barvy - sjednoceno s bootstrap-first-pure.css */
+  /* Neonové barvy - základní paleta aplikace */
   --neon-green: #39ff14;
   --neon-green-rgb: 57, 255, 20;
   --neon-blue: #194DD1;
@@ -768,10 +771,14 @@ html, body {
 }
 
 /* ===================================================================
-   7. SweetAlert2 neonové styly
+   9. SweetAlert2 neonové styly (výjimečně s !important pravidly)
    ================================================================= */
 
-/* Přidání neonového orámování pro všechna modální okna */
+/* 
+ * Přidání neonového orámování pro všechna modální okna
+ * Poznámka: SweetAlert2 má vlastní styly s vysokou specificitou,
+ * proto zde výjimečně používáme !important pro jejich přepsání
+ */
 .swal2-popup {
   border: var(--border-neon-thick) solid var(--neon-green) !important;
   box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6) !important;
