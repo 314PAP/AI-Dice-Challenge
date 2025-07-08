@@ -303,24 +303,24 @@ class UltraBootstrapDiceGame {
                             <!-- Bootstrap oficiální button layout - responsive -->
                             <div class="d-flex justify-content-center flex-wrap">
                                 <div class="d-flex flex-wrap justify-content-center">
-                                    <button class="btn btn-neon-green btn-sm mx-1 mb-2 d-md-none" onclick="app.rollDice()" id="rollBtnMobile">
+                                    <button class="btn btn-neon btn-sm mx-1 mb-2 d-md-none" data-neon-color="green" onclick="app.rollDice()" id="rollBtnMobile">
                                         <i class="bi bi-dice-6-fill"></i> Hodit
                                     </button>
-                                    <button class="btn btn-neon-green mx-1 mb-2 d-none d-md-inline-block" onclick="app.rollDice()" id="rollBtnDesktop">
+                                    <button class="btn btn-neon mx-1 mb-2 d-none d-md-inline-block" data-neon-color="green" onclick="app.rollDice()" id="rollBtnDesktop">
                                         <i class="bi bi-dice-6-fill"></i> Hodit
                                     </button>
                                     
-                                    <button class="btn btn-neon-blue btn-sm mx-1 mb-2 d-md-none" onclick="app.holdDice()" id="holdBtnMobile" disabled>
+                                    <button class="btn btn-neon btn-sm mx-1 mb-2 d-md-none" data-neon-color="blue" onclick="app.holdDice()" id="holdBtnMobile" disabled>
                                         <i class="bi bi-collection-fill"></i> Odložit
                                     </button>
-                                    <button class="btn btn-neon-blue mx-1 mb-2 d-none d-md-inline-block" onclick="app.holdDice()" id="holdBtnDesktop" disabled>
+                                    <button class="btn btn-neon mx-1 mb-2 d-none d-md-inline-block" data-neon-color="blue" onclick="app.holdDice()" id="holdBtnDesktop" disabled>
                                         <i class="bi bi-collection-fill"></i> Odložit
                                     </button>
                                 
-                                    <button class="btn btn-neon-orange btn-sm mx-1 mb-2 d-md-none" onclick="app.endTurn()" id="endBtnMobile">
+                                    <button class="btn btn-neon btn-sm mx-1 mb-2 d-md-none" data-neon-color="orange" onclick="app.endTurn()" id="endBtnMobile">
                                         <i class="bi bi-stop-fill"></i> Ukončit tah
                                     </button>
-                                    <button class="btn btn-neon-orange mx-1 mb-2 d-none d-md-inline-block" onclick="app.endTurn()" id="endBtnDesktop">
+                                    <button class="btn btn-neon mx-1 mb-2 d-none d-md-inline-block" data-neon-color="orange" onclick="app.endTurn()" id="endBtnDesktop">
                                         <i class="bi bi-stop-fill"></i> Ukončit tah
                                     </button>
                                 </div>
@@ -337,7 +337,7 @@ class UltraBootstrapDiceGame {
 
                     <!-- Bottom Controls - Bootstrap oficiální utilities -->
                     <div class="text-center mt-auto">
-                        <button class="btn btn-neon-red btn-sm" onclick="app.endGame()">
+                        <button class="btn btn-neon btn-sm" data-neon-color="red" onclick="app.endGame()">
                             <i class="bi bi-stop-circle-fill"></i> Ukončit hru
                         </button>
                     </div>
@@ -769,7 +769,11 @@ class UltraBootstrapDiceGame {
             confirmButtonText: 'Rozumím',
             customClass: {
                 popup: 'bg-black text-neon-green border-wide-neon-blue',
-                confirmButton: 'btn btn-neon-blue'
+                confirmButton: 'btn btn-neon',
+                customClass: {
+                    popup: 'border-wide-neon-blue'
+                },
+                buttonsStyling: false
             }
         });
     }
@@ -787,7 +791,11 @@ class UltraBootstrapDiceGame {
             confirmButtonText: 'Zavřít',
             customClass: {
                 popup: 'bg-black text-neon-green border-wide-neon-yellow',
-                confirmButton: 'btn btn-neon-yellow'
+                confirmButton: 'btn btn-neon',
+                customClass: {
+                    popup: 'border-wide-neon-yellow'
+                },
+                buttonsStyling: false
             }
         });
     }

@@ -1,0 +1,700 @@
+/* ===================================================================
+   AI DICE CHALLENGE - BOOTSTRAP-FIRST OPTIMIZED CSS
+   ===================================================================
+   
+   Optimalizovaný a vyčištěný kód s minimálním použitím vlastního CSS.
+   Využití nativních Bootstrap tříd a utility.
+   DRY princip (Don't Repeat Yourself) pomocí CSS proměnných a root selektorů.
+   
+   Struktura:
+   1. CSS proměnné a základní nastavení
+   2. Neonová tlačítka s generickým systémem
+   3. Neonové utility třídy
+   4. Herní komponenty (kostky, chat)
+   5. Layout a responzivita
+   6. Animace a transitions
+   7. SweetAlert2 neonové styly
+   ================================================================= */
+
+/* ===================================================================
+   1. CSS PROMĚNNÉ A ZÁKLADNÍ NASTAVENÍ
+   ================================================================= */
+
+/* Bootstrap HTML/Body full height setup */
+html, body {
+  height: 100%;
+}
+
+:root {
+  /* Neonové barvy - základní paleta aplikace */
+  --neon-green: #39ff14;
+  --neon-green-rgb: 57, 255, 20;
+  --neon-blue: #194DD1;
+  --neon-blue-rgb: 25, 77, 209;
+  --neon-purple: #FF00FF;
+  --neon-purple-rgb: 255, 0, 255;
+  --neon-orange: #FF8800;
+  --neon-orange-rgb: 255, 136, 0;
+  --neon-red: #ff3131;
+  --neon-red-rgb: 255, 49, 49;
+  --neon-yellow: #ffff00;
+  --neon-yellow-rgb: 255, 255, 0;
+  
+  /* Neonové efekty */
+  --neon-glow: 0 0 20px currentColor;
+  --neon-glow-strong: 0 0 30px currentColor, 0 0 40px currentColor;
+  --neon-text-shadow: 0 0 10px currentColor;
+  
+  /* Z-index scale (kompatibilní s Bootstrap) */
+  --z-loading: 1055; /* Bootstrap modal + 10 */
+  
+  /* Border widths */
+  --border-neon-thin: 1px;
+  --border-neon-medium: 2px;
+  --border-neon-thick: 3px;
+  
+  /* Layout rozměry */
+  --chat-height-mobile: 200px;
+}
+
+/* Font loading optimalizace */
+.font-orbitron {
+  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+  font-display: swap;
+}
+
+/* ===================================================================
+   2. NEONOVÁ TLAČÍTKA - ZJEDNODUŠENÝ A UNIFIKOVANÝ SYSTÉM
+   ================================================================= */
+
+/* Základní neon-btn třída - společné vlastnosti pro všechna tlačítka */
+.btn-neon {
+  background-color: transparent;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: var(--neon-text-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  border-width: var(--border-neon-medium);
+}
+
+/* Hover a focus stavy */
+.btn-neon:hover,
+.btn-neon:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+/* Active stav - použití !important nutné pro přepsání Bootstrap výchozích stylů */
+.btn-neon:active,
+.btn.btn-neon:active,
+.btn-neon.active,
+.btn.btn-neon.active {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  transform: scale(0.98);
+}
+
+/* Generický systém neonových barev pro tlačítka pomocí data atributu */
+.btn-neon[data-neon-color="green"],
+.btn-neon-green {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.btn-neon[data-neon-color="green"]:hover,
+.btn-neon[data-neon-color="green"]:focus,
+.btn-neon-green:hover,
+.btn-neon-green:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6);
+}
+
+.btn-neon[data-neon-color="green"]:active,
+.btn.btn-neon[data-neon-color="green"]:active,
+.btn-neon[data-neon-color="green"].active,
+.btn.btn-neon[data-neon-color="green"].active,
+.btn-neon-green:active,
+.btn.btn-neon-green:active,
+.btn-neon-green.active,
+.btn.btn-neon-green.active {
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7) !important;
+}
+
+.btn-neon[data-neon-color="blue"],
+.btn-neon-blue {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+.btn-neon[data-neon-color="blue"]:hover,
+.btn-neon[data-neon-color="blue"]:focus,
+.btn-neon-blue:hover,
+.btn-neon-blue:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6);
+}
+
+.btn-neon[data-neon-color="blue"]:active,
+.btn.btn-neon[data-neon-color="blue"]:active,
+.btn-neon[data-neon-color="blue"].active,
+.btn.btn-neon[data-neon-color="blue"].active,
+.btn-neon-blue:active,
+.btn.btn-neon-blue:active,
+.btn-neon-blue.active,
+.btn.btn-neon-blue.active {
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.7) !important;
+}
+
+.btn-neon[data-neon-color="red"],
+.btn-neon-red {
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+}
+
+.btn-neon[data-neon-color="red"]:hover,
+.btn-neon[data-neon-color="red"]:focus,
+.btn-neon-red:hover,
+.btn-neon-red:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.6);
+}
+
+.btn-neon[data-neon-color="red"]:active,
+.btn.btn-neon[data-neon-color="red"]:active,
+.btn-neon[data-neon-color="red"].active,
+.btn.btn-neon[data-neon-color="red"].active,
+.btn-neon-red:active,
+.btn.btn-neon-red:active,
+.btn-neon-red.active,
+.btn.btn-neon-red.active {
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.7) !important;
+}
+
+.btn-neon[data-neon-color="orange"],
+.btn-neon-orange {
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+}
+
+.btn-neon[data-neon-color="orange"]:hover,
+.btn-neon[data-neon-color="orange"]:focus,
+.btn-neon-orange:hover,
+.btn-neon-orange:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6);
+}
+
+.btn-neon[data-neon-color="orange"]:active,
+.btn.btn-neon[data-neon-color="orange"]:active,
+.btn-neon[data-neon-color="orange"].active,
+.btn.btn-neon[data-neon-color="orange"].active,
+.btn-neon-orange:active,
+.btn.btn-neon-orange:active,
+.btn-neon-orange.active,
+.btn.btn-neon-orange.active {
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.7) !important;
+}
+
+.btn-neon[data-neon-color="purple"],
+.btn-neon-purple {
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
+}
+
+.btn-neon[data-neon-color="purple"]:hover,
+.btn-neon[data-neon-color="purple"]:focus,
+.btn-neon-purple:hover,
+.btn-neon-purple:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.6);
+}
+
+.btn-neon[data-neon-color="purple"]:active,
+.btn.btn-neon[data-neon-color="purple"]:active,
+.btn-neon[data-neon-color="purple"].active,
+.btn.btn-neon[data-neon-color="purple"].active,
+.btn-neon-purple:active,
+.btn.btn-neon-purple:active,
+.btn-neon-purple.active,
+.btn.btn-neon-purple.active {
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.7) !important;
+}
+
+.btn-neon[data-neon-color="yellow"],
+.btn-neon-yellow {
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+}
+
+.btn-neon[data-neon-color="yellow"]:hover,
+.btn-neon[data-neon-color="yellow"]:focus,
+.btn-neon-yellow:hover,
+.btn-neon-yellow:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.6);
+}
+
+.btn-neon[data-neon-color="yellow"]:active,
+.btn.btn-neon[data-neon-color="yellow"]:active,
+.btn-neon[data-neon-color="yellow"].active,
+.btn.btn-neon[data-neon-color="yellow"].active,
+.btn-neon-yellow:active,
+.btn.btn-neon-yellow:active,
+.btn-neon-yellow.active,
+.btn.btn-neon-yellow.active {
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.7) !important;
+}
+
+/* Backwards compatibility pro Bootstrap přístupy */
+.btn-neon-primary {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+.btn-neon-primary:hover,
+.btn-neon-primary:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6);
+}
+
+.btn-neon-primary:active,
+.btn.btn-neon-primary:active,
+.btn-neon-primary.active,
+.btn.btn-neon-primary.active {
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.7) !important;
+}
+
+.btn-neon-success {
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.btn-neon-success:hover,
+.btn-neon-success:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6);
+}
+
+.btn-neon-success:active,
+.btn.btn-neon-success:active,
+.btn-neon-success.active,
+.btn.btn-neon-success.active {
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7) !important;
+}
+
+.btn-neon-warning {
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+}
+
+.btn-neon-warning:hover,
+.btn-neon-warning:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6);
+}
+
+.btn-neon-warning:active,
+.btn.btn-neon-warning:active,
+.btn-neon-warning.active,
+.btn.btn-neon-warning.active {
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.7) !important;
+}
+
+/* ===================================================================
+   3. NEONOVÉ UTILITY TŘÍDY
+   ================================================================= */
+
+/* Text utilities - využití Bootstrap způsobu */
+.text-neon-green { color: var(--neon-green) !important; }
+.text-neon-blue { color: var(--neon-blue) !important; }
+.text-neon-purple { color: var(--neon-purple) !important; }
+.text-neon-orange { color: var(--neon-orange) !important; }
+.text-neon-red { color: var(--neon-red) !important; }
+.text-neon-yellow { color: var(--neon-yellow) !important; }
+
+/* Border utilities */
+.border-neon-green { border-color: var(--neon-green) !important; }
+.border-neon-blue { border-color: var(--neon-blue) !important; }
+.border-neon-purple { border-color: var(--neon-purple) !important; }
+.border-neon-orange { border-color: var(--neon-orange) !important; }
+.border-neon-red { border-color: var(--neon-red) !important; }
+.border-neon-yellow { border-color: var(--neon-yellow) !important; }
+
+/* Efekty - jednoduché třídy */
+.neon-text-glow { text-shadow: var(--neon-text-shadow); }
+.neon-text-glow-strong { text-shadow: var(--neon-glow-strong); }
+.neon-border-glow { box-shadow: var(--neon-glow); }
+.neon-border-glow-strong { box-shadow: var(--neon-glow-strong); }
+
+/* Utility třídy - pomocí nativních Bootstrap přístupů */
+.cursor-pointer { cursor: pointer; }
+.transition-all { transition: all 0.2s ease; }
+
+/* Kombinované border + glow utility */
+.border-wide-neon-green {
+  border: var(--border-neon-thick) solid var(--neon-green);
+  box-shadow: inset var(--neon-glow), var(--neon-glow);
+}
+
+.border-wide-neon-blue {
+  border: var(--border-neon-thick) solid var(--neon-blue);
+  box-shadow: inset 0 0 10px rgba(var(--neon-blue-rgb), 0.3), 0 0 20px rgba(var(--neon-blue-rgb), 0.3);
+}
+
+.border-wide-neon-purple {
+  border: var(--border-neon-thick) solid var(--neon-purple);
+  box-shadow: inset 0 0 10px rgba(var(--neon-purple-rgb), 0.3), 0 0 20px rgba(var(--neon-purple-rgb), 0.3);
+}
+
+.border-wide-neon-orange {
+  border: var(--border-neon-thick) solid var(--neon-orange);
+  box-shadow: inset 0 0 10px rgba(var(--neon-orange-rgb), 0.3), 0 0 20px rgba(var(--neon-orange-rgb), 0.3);
+}
+
+.border-wide-neon-red {
+  border: var(--border-neon-thick) solid var(--neon-red);
+  box-shadow: inset 0 0 10px rgba(var(--neon-red-rgb), 0.3), 0 0 20px rgba(var(--neon-red-rgb), 0.3);
+}
+
+.border-wide-neon-yellow {
+  border: var(--border-neon-thick) solid var(--neon-yellow);
+  box-shadow: inset 0 0 10px rgba(var(--neon-yellow-rgb), 0.3), 0 0 20px rgba(var(--neon-yellow-rgb), 0.3);
+}
+
+/* Background utilities - zjednodušené použití CSS proměnných */
+.bg-neon-glow-effect {
+  background: radial-gradient(circle, rgba(var(--neon-green-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-green { background: radial-gradient(circle, rgba(var(--neon-green-rgb), 0.1), transparent); }
+.bg-neon-glow-blue { background: radial-gradient(circle, rgba(var(--neon-blue-rgb), 0.1), transparent); }
+.bg-neon-glow-purple { background: radial-gradient(circle, rgba(var(--neon-purple-rgb), 0.1), transparent); }
+.bg-neon-glow-orange { background: radial-gradient(circle, rgba(var(--neon-orange-rgb), 0.1), transparent); }
+.bg-neon-glow-red { background: radial-gradient(circle, rgba(var(--neon-red-rgb), 0.1), transparent); }
+.bg-neon-glow-yellow { background: radial-gradient(circle, rgba(var(--neon-yellow-rgb), 0.1), transparent); }
+
+/* Form control styling */
+.neon-input {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: var(--border-neon-medium) solid var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: inset var(--neon-glow);
+}
+
+.neon-input:focus {
+  background-color: rgba(0, 0, 0, 0.9);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: inset var(--neon-glow), var(--neon-glow);
+}
+
+/* ===================================================================
+   4. HERNÍ KOMPONENTY (kostky, chat)
+   ================================================================= */
+
+/* Kostky - mobile-first */
+.neon-dice-container {
+  width: 3rem;
+  height: 3rem;
+  display: inline-block;
+  perspective: 200px;
+}
+
+.dice-face {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a, #333);
+  border: var(--border-neon-medium) solid var(--neon-green);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dice-face:hover {
+  transform: rotateX(10deg) rotateY(10deg);
+}
+
+.neon-dice-glow {
+  box-shadow: var(--neon-glow);
+}
+
+.dice-face.selected {
+  border-color: var(--neon-blue);
+  box-shadow: var(--neon-glow-strong);
+  color: var(--neon-blue);
+}
+
+/* Dice dots */
+.dice-dot {
+  width: 0.3rem;
+  height: 0.3rem;
+  background-color: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 5px var(--neon-green);
+  margin: 0.1rem;
+}
+
+.dice-face.selected .dice-dot {
+  background-color: var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
+}
+
+/* Dice face layouts - využití flexboxu */
+.dice-face-1 .dice-dot:nth-child(1) { margin: auto; }
+.dice-face-2 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-2 .dice-dot:nth-child(2) { align-self: flex-end; margin-left: auto; }
+.dice-face-3 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-3 .dice-dot:nth-child(2) { margin: auto; }
+.dice-face-3 .dice-dot:nth-child(3) { align-self: flex-end; margin-left: auto; }
+.dice-face-4 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-4 .dice-dot:nth-child(2) { align-self: flex-start; margin-left: auto; }
+.dice-face-4 .dice-dot:nth-child(3) { align-self: flex-end; }
+.dice-face-4 .dice-dot:nth-child(4) { align-self: flex-end; margin-left: auto; }
+.dice-face-5 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-5 .dice-dot:nth-child(2) { align-self: flex-start; margin-left: auto; }
+.dice-face-5 .dice-dot:nth-child(3) { margin: auto; }
+.dice-face-5 .dice-dot:nth-child(4) { align-self: flex-end; }
+.dice-face-5 .dice-dot:nth-child(5) { align-self: flex-end; margin-left: auto; }
+.dice-face-6 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-6 .dice-dot:nth-child(2) { align-self: flex-start; margin-left: auto; }
+.dice-face-6 .dice-dot:nth-child(3) { align-self: center; }
+.dice-face-6 .dice-dot:nth-child(4) { align-self: center; margin-left: auto; }
+.dice-face-6 .dice-dot:nth-child(5) { align-self: flex-end; }
+.dice-face-6 .dice-dot:nth-child(6) { align-self: flex-end; margin-left: auto; }
+
+/* Chat komponenty */
+.neon-chat-message {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  word-wrap: break-word;
+}
+
+.neon-chat-message-ai {
+  background-color: rgba(var(--neon-green-rgb), 0.1);
+  border-left: var(--border-neon-thick) solid var(--neon-green);
+  color: var(--neon-green);
+}
+
+.neon-chat-message-user {
+  background-color: rgba(var(--neon-blue-rgb), 0.1);
+  border-left: var(--border-neon-thick) solid var(--neon-blue);
+  color: var(--neon-blue);
+  margin-left: auto;
+  max-width: 80%;
+}
+
+/* ===================================================================
+   5. LAYOUT A RESPONZIVITA (mobile-first)
+   ================================================================= */
+
+/* Avatar card sizing utilities */
+.avatar-card-container {
+  min-width: 120px;
+  max-width: 200px;
+}
+
+/* Chat container sizing utilities */
+.chat-container-height {
+  height: 200px;
+}
+
+/* Pro menší obrazovky */
+@media (max-width: 576px) {
+  .avatar-card-container {
+    min-width: 100px;
+    max-width: 150px;
+  }
+  
+  .btn-touch-spacing {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .menu-btn-uniform {
+    min-width: 200px;
+  }
+}
+
+/* Responsive dice sizes */
+@media (min-width: 768px) {
+  .neon-dice-container {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .dice-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0.15rem;
+  }
+  
+  .btn-consistent-width {
+    min-width: 250px;
+  }
+}
+
+@media (min-width: 992px) {
+  .neon-dice-container {
+    width: 5rem;
+    height: 5rem;
+  }
+  
+  .dice-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin: 0.2rem;
+  }
+}
+
+/* Custom scrollbars */
+.neon-chat-messages::-webkit-scrollbar,
+.chat-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.neon-chat-messages::-webkit-scrollbar-track,
+.chat-scrollable::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.neon-chat-messages::-webkit-scrollbar-thumb,
+.chat-scrollable::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--neon-green), var(--neon-blue));
+  border-radius: 4px;
+  box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.neon-chat-messages,
+.chat-scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.3);
+}
+
+/* Z-index helper */
+.loading-z-index {
+  z-index: var(--z-loading);
+}
+
+/* Mobile control buttons */
+.mobile-control-btn {
+  min-width: 80px;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.mobile-quit-btn {
+  min-width: 150px;
+  padding: 0.5rem 1rem;
+}
+
+/* Button consistency helpers */
+.btn-consistent-width {
+  min-width: 200px;
+}
+
+/* ===================================================================
+   6. ANIMACE A TRANSITIONS
+   ================================================================= */
+
+/* Využití Animate.css knihovny - pouze rozšiřující vlastnosti */
+@keyframes neon-pulse {
+  0%, 100% { 
+    box-shadow: var(--neon-glow); 
+  }
+  50% { 
+    box-shadow: var(--neon-glow-strong); 
+  }
+}
+
+.neon-pulse {
+  animation: neon-pulse 2s infinite;
+}
+
+/* Reduced motion respekt */
+@media (prefers-reduced-motion: reduce) {
+  .neon-pulse {
+    animation: none;
+  }
+  
+  .btn-neon,
+  .neon-dice-container,
+  .dice-face {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   7. SWEETALERT2 NEONOVÉ STYLY
+   ================================================================= */
+
+/* 
+ * Přidání neonového orámování pro všechna modální okna
+ * Poznámka: SweetAlert2 má vlastní styly s vysokou specificitou,
+ * proto zde výjimečně používáme !important pro jejich přepsání
+ */
+.swal2-popup {
+  border: var(--border-neon-thick) solid var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6) !important;
+  background-color: black !important;
+  color: var(--neon-green) !important;
+}
+
+/* Neonové styly pro tlačítka v SweetAlert2 */
+.swal2-confirm.swal2-styled {
+  background-color: transparent !important;
+  color: var(--neon-blue) !important;
+  border: var(--border-neon-medium) solid var(--neon-blue) !important;
+  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb), 0.4) !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 8px currentColor !important;
+  transition: all 0.3s ease !important;
+}
+
+.swal2-confirm.swal2-styled:hover {
+  background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6) !important;
+  transform: scale(1.05) !important;
+}
+
+/* Specifické třídy pro různé barvy SweetAlert2 popup */
+.swal2-popup.border-wide-neon-blue {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6) !important;
+}
+
+.swal2-popup.border-wide-neon-yellow {
+  border-color: var(--neon-yellow) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.6) !important;
+}
+
+.swal2-popup.border-wide-neon-orange {
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6) !important;
+}
+
+.swal2-popup.border-wide-neon-purple {
+  border-color: var(--neon-purple) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.6) !important;
+}
+
+.swal2-popup.border-wide-neon-red {
+  border-color: var(--neon-red) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.6) !important;
+}
