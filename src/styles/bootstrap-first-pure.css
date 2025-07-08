@@ -146,6 +146,17 @@ html, body {
   transform: scale(1.05);
 }
 
+.btn-neon-green:active,
+.btn.btn-neon-green:active,
+.btn-neon-green.active,
+.btn.btn-neon-green.active {
+  background-color: rgba(var(--neon-green-rgb), 0.15) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
 .btn-neon-blue {
   background-color: transparent;
   border-color: var(--neon-blue);
@@ -163,6 +174,17 @@ html, body {
   color: var(--neon-blue);
   box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6);
   transform: scale(1.05);
+}
+
+.btn-neon-blue:active,
+.btn.btn-neon-blue:active,
+.btn-neon-blue.active,
+.btn.btn-neon-blue.active {
+  background-color: rgba(var(--neon-blue-rgb), 0.15) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.7) !important;
+  transform: scale(0.98);
 }
 
 .btn-neon-purple {
@@ -184,6 +206,17 @@ html, body {
   transform: scale(1.05);
 }
 
+.btn-neon-purple:active,
+.btn.btn-neon-purple:active,
+.btn-neon-purple.active,
+.btn.btn-neon-purple.active {
+  background-color: rgba(var(--neon-purple-rgb), 0.15) !important;
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
 .btn-neon-orange {
   background-color: transparent;
   border-color: var(--neon-orange);
@@ -201,6 +234,17 @@ html, body {
   color: var(--neon-orange);
   box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6);
   transform: scale(1.05);
+}
+
+.btn-neon-orange:active,
+.btn.btn-neon-orange:active,
+.btn-neon-orange.active,
+.btn.btn-neon-orange.active {
+  background-color: rgba(var(--neon-orange-rgb), 0.15) !important;
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.7) !important;
+  transform: scale(0.98);
 }
 
 .btn-neon-red {
@@ -222,6 +266,17 @@ html, body {
   transform: scale(1.05);
 }
 
+.btn-neon-red:active,
+.btn.btn-neon-red:active,
+.btn-neon-red.active,
+.btn.btn-neon-red.active {
+  background-color: rgba(var(--neon-red-rgb), 0.15) !important;
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
 .btn-neon-yellow {
   background-color: transparent;
   border-color: var(--neon-yellow);
@@ -239,6 +294,17 @@ html, body {
   color: var(--neon-yellow);
   box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.6);
   transform: scale(1.05);
+}
+
+.btn-neon-yellow:active,
+.btn.btn-neon-yellow:active,
+.btn-neon-yellow.active,
+.btn.btn-neon-yellow.active {
+  background-color: rgba(var(--neon-yellow-rgb), 0.15) !important;
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.7) !important;
+  transform: scale(0.98);
 }
 
 /* Form control rozšíření */
@@ -831,6 +897,88 @@ html, body {
 }
 
 /* ===================================================================
-   KONEC SOUBORU - 0 !important pravidel
+   10. OVERRIDE PRO ACTIVE STAVY TLAČÍTEK
+   =================================================================
+
+   Použití !important je zde nezbytné, protože:
+   1. Bootstrap má vlastní definice pro .btn.active a .btn:active
+      které mají vyšší specificitu a přepisovaly by naše styly
+   2. Pro zachování konzistentní neonové identity potřebujeme
+      zajistit, aby tlačítka měla při stisknutí správnou barvu
+   3. Tyto pravidla řeší specifický problém, kdy červené tlačítko
+      se při stisknutí změnilo na zelené kvůli Bootstrap nastavení
+   
+   Použití kombinace selektorů zvyšuje specificitu nad základní Bootstrap třídy.
+   Kombinace .btn.btn-neon-* má vyšší specificitu než samotné .btn:active
+*/
+
+.btn-neon-green:active,
+.btn.btn-neon-green:active,
+.btn-neon-green.active,
+.btn.btn-neon-green.active {
+  background-color: rgba(var(--neon-green-rgb), 0.15) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
+.btn-neon-blue:active,
+.btn.btn-neon-blue:active,
+.btn-neon-blue.active,
+.btn.btn-neon-blue.active {
+  background-color: rgba(var(--neon-blue-rgb), 0.15) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
+.btn-neon-purple:active,
+.btn.btn-neon-purple:active,
+.btn-neon-purple.active,
+.btn.btn-neon-purple.active {
+  background-color: rgba(var(--neon-purple-rgb), 0.15) !important;
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
+.btn-neon-orange:active,
+.btn.btn-neon-orange:active,
+.btn-neon-orange.active,
+.btn.btn-neon-orange.active {
+  background-color: rgba(var(--neon-orange-rgb), 0.15) !important;
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
+.btn-neon-red:active,
+.btn.btn-neon-red:active,
+.btn-neon-red.active,
+.btn.btn-neon-red.active {
+  background-color: rgba(var(--neon-red-rgb), 0.15) !important;
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
+.btn-neon-yellow:active,
+.btn.btn-neon-yellow:active,
+.btn-neon-yellow.active,
+.btn.btn-neon-yellow.active {
+  background-color: rgba(var(--neon-yellow-rgb), 0.15) !important;
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.7) !important;
+  transform: scale(0.98);
+}
+
+/* ===================================================================
+   KONEC SOUBORU
    Bootstrap-first, mobile-first, utility-based design dokončen
    ================================================================= */
