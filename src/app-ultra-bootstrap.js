@@ -185,55 +185,62 @@ class UltraBootstrapDiceGame {
     renderGameBoard() {
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
         
-        // Kompletně Bootstrap layout - žádné vlastní CSS!
+        // Kompletně Bootstrap layout - responzivní avatary 90% šířky!
         const gameHTML = `
             <div class="h-100 d-flex flex-column">
-                <!-- Player Cards - Bootstrap Grid -->
-                <div class="row mb-3 g-2">
-                    ${this.gameState.players.map((player, index) => `
-                        <div class="col-lg-3 col-md-6 col-6">
-                            <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
-                                <div class="card-body text-center p-2">
-                                    <div class="mb-2">
-                                        <i class="bi ${player.avatar} text-neon-${player.color} fs-4"></i>
+                <!-- Player Cards - 90% šířky, vždy vedle sebe, plně responzivní -->
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="d-flex flex-wrap justify-content-center gap-2 gap-lg-3" style="width: 90%;">
+                        ${this.gameState.players.map((player, index) => `
+                            <div class="flex-fill" style="min-width: 120px; max-width: 200px;">
+                                <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
+                                    <div class="card-body text-center p-2 p-lg-3">
+                                        <div class="mb-2">
+                                            <i class="bi ${player.avatar} text-neon-${player.color} fs-3 fs-lg-2"></i>
+                                        </div>
+                                        <div class="fw-bold text-neon-${player.color} small">${player.name}</div>
+                                        <div class="text-neon-${player.color} small">${player.score} bodů</div>
                                     </div>
-                                    <div class="fw-bold text-neon-${player.color} small">${player.name}</div>
-                                    <div class="text-neon-${player.color} small">${player.score} bodů</div>
                                 </div>
                             </div>
-                        </div>
-                    `).join('')}
+                        `).join('')}
+                    </div>
                 </div>
 
                 <!-- Game Controls - Bootstrap Flexbox -->
                 <div class="flex-grow-1 d-flex flex-column justify-content-center">
                     <div class="text-center mb-4">
-                        <h3 class="text-neon-green mb-3">
+                        <h3 class="text-neon-green mb-3 fs-4 fs-lg-3">
                             <i class="bi ${currentPlayer.avatar} text-neon-${currentPlayer.color}"></i> 
                             Na řadě: <span class="text-neon-${currentPlayer.color}">${currentPlayer.name}</span>
                         </h3>
-                        <div class="text-neon-yellow fs-5 mb-3">
-                            Aktuální skóre tahu: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
+                        <div class="text-neon-yellow fs-6 fs-lg-5 mb-3">
+                            Skóre tahu: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
                         </div>
                     </div>
 
-                    <!-- Dice Area - Bootstrap Flexbox -->
+                    <!-- Dice Area - Bootstrap Flexbox, plně responzivní -->
                     <div class="text-center mb-4">
-                        <div id="diceContainer" class="d-flex justify-content-center gap-3 flex-wrap mb-4">
+                        <div id="diceContainer" class="d-flex justify-content-center gap-2 gap-lg-3 flex-wrap mb-4">
                             ${this.generateDiceHTML()}
                         </div>
                         
                         ${currentPlayer.isHuman ? `
-                            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                                <button class="btn btn-neon-green" onclick="app.rollDice()" id="rollBtn">
-                                    <i class="bi bi-dice-6-fill"></i> Hodit kostky
-                                </button>
-                                <button class="btn btn-neon-blue" onclick="app.holdDice()" id="holdBtn" disabled>
-                                    <i class="bi bi-collection-fill"></i> Odložit pole
-                                </button>
-                                <button class="btn btn-neon-orange" onclick="app.endTurn()" id="endBtn">
-                                    <i class="bi bi-stop-fill"></i> Ukončit tah
-                                </button>
+                            <!-- Desktop: všechna tlačítka v řadě, Mobil: dvě řady -->
+                            <div class="d-flex justify-content-center gap-2 gap-lg-3 flex-wrap">
+                                <div class="d-flex gap-2 flex-wrap justify-content-center">
+                                    <button class="btn btn-neon-green btn-sm btn-lg-normal" onclick="app.rollDice()" id="rollBtn">
+                                        <i class="bi bi-dice-6-fill"></i> Hodit
+                                    </button>
+                                    <button class="btn btn-neon-blue btn-sm btn-lg-normal" onclick="app.holdDice()" id="holdBtn" disabled>
+                                        <i class="bi bi-collection-fill"></i> Odložit
+                                    </button>
+                                </div>
+                                <div class="d-flex gap-2 flex-wrap justify-content-center">
+                                    <button class="btn btn-neon-orange btn-sm btn-lg-normal" onclick="app.endTurn()" id="endBtn">
+                                        <i class="bi bi-stop-fill"></i> Ukončit tah
+                                    </button>
+                                </div>
                             </div>
                         ` : `
                             <div class="text-center">
