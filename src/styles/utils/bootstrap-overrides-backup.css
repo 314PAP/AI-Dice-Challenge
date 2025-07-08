@@ -132,6 +132,77 @@ body {
   background: var(--neon-cyan);
 }
 
+/* Landscape orientace - Bootstrap responsive optimalizace */
+@media (orientation: landscape) and (max-height: 600px) {
+  .container-fluid {
+    padding: 0;
+  }
+  
+  .p-2 {
+    padding: 0.25rem !important;
+  }
+  
+  .p-md-3 {
+    padding: 0.5rem !important;
+  }
+  
+  .mb-2, .mb-md-3 {
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Chat input kompaktnější v landscape */
+  .input-group .form-control {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .input-group .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile first optimalizace */
+@media (max-width: 575.98px) {
+  .container-fluid {
+    padding: 0;
+  }
+  
+  .p-2 {
+    padding: 0.5rem !important;
+  }
+  
+  /* Chat zprávy kompaktnější na mobilech */
+  #chatMessages {
+    min-height: 150px !important;
+  }
+  
+  /* Input group optimalizace pro mobil */
+  .input-group .form-control {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .input-group .btn {
+    padding: 0.5rem;
+    min-width: 50px;
+  }
+}
+
+/* Tablet breakpoint optimalizace */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  #chatMessages {
+    min-height: 250px !important;
+  }
+}
+
+/* Desktop optimalizace */
+@media (min-width: 992px) {
+  #chatMessages {
+    min-height: 300px !important;
+  }
+}
+
 /* Bezpečnostní pravidla pro zabránění overflow */
 .overflow-safe, .position-relative {
   overflow: hidden;
@@ -247,46 +318,5 @@ body {
   
   #chatMessages {
     min-height: 150px !important;
-  }
-}
-
-/* Mobile first optimalizace */
-@media (max-width: 575.98px) {
-  .container-fluid {
-    padding: 0;
-  }
-  
-  .p-2 {
-    padding: 0.5rem !important;
-  }
-  
-  /* Chat zprávy kompaktnější na mobilech */
-  #chatMessages {
-    min-height: 150px !important;
-  }
-  
-  /* Input group optimalizace pro mobil */
-  .input-group .form-control {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
-  
-  .input-group .btn {
-    padding: 0.5rem;
-    min-width: 50px;
-  }
-}
-
-/* Tablet breakpoint optimalizace */
-@media (min-width: 576px) and (max-width: 991.98px) {
-  #chatMessages {
-    min-height: 250px !important;
-  }
-}
-
-/* Desktop optimalizace */
-@media (min-width: 992px) {
-  #chatMessages {
-    min-height: 300px !important;
   }
 }
