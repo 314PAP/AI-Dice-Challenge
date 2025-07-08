@@ -426,44 +426,44 @@ export class GameUI {
      */
     renderRules() {
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100';
+        container.className = 'd-flex flex-column h-100 p-2 p-md-3';
         
-        // Nadpis - kompaktnější v landscape režimu
+        // Nadpis - Bootstrap responsive typography
         const title = document.createElement('h1');
-        title.className = 'text-neon-blue fs-fluid-1 mb-2 mb-md-3 text-center';
-        title.innerHTML = '<i class="bi bi-book-fill"></i> Pravidla hry';
+        title.className = 'text-neon-blue h2 h-md-1 mb-3 mb-md-4 text-center';
+        title.innerHTML = '<i class="bi bi-book-fill me-2"></i>Pravidla hry';
         container.appendChild(title);
         
-        // Pravidla - responzivní layout s podporou pro scroll
+        // Pravidla - Bootstrap responsive container s overflow
         const rulesContainer = document.createElement('div');
-        rulesContainer.className = 'flex-grow-1 overflow-auto px-1';
+        rulesContainer.className = 'flex-grow-1 overflow-auto px-0 px-md-2';
         
-        // Vytvoření pravidel v responsivní kartě - kompaktnější layout pro malé obrazovky
+        // Vytvoření pravidel v responsivní kartě - Bootstrap-first approach
         const rulesCard = createNeonCard('Pravidla kostkovky', 'blue', `
-            <div class="rule-section mb-2 mb-md-3">
-                <h4 class="text-neon-blue fs-fluid-3">Cíl hry</h4>
-                <p class="small">Dosáhnout jako první cílového skóre (výchozí je 10 000 bodů).</p>
+            <div class="mb-3 mb-lg-4">
+                <h4 class="text-neon-blue h5 h-md-4 mb-2">Cíl hry</h4>
+                <p class="text-neon-green mb-0">Dosáhnout jako první cílového skóre (výchozí je 10 000 bodů).</p>
             </div>
             
-            <div class="rule-section mb-2 mb-md-3">
-                <h4 class="text-neon-blue fs-fluid-3">Průběh tahu</h4>
-                <ol class="small ps-4">
-                    <li class="mb-1">Hráč hodí všemi šesti kostkami.</li>
-                    <li class="mb-1">Musí vybrat alespoň jednu bodovanou kombinaci.</li>
-                    <li class="mb-1">Může buď ukončit tah a připsat si body, nebo pokračovat s házením zbývajícími kostkami.</li>
-                    <li class="mb-1">Pokud pokračuje a hodí kombinaci bez bodů, ztrácí všechny body z aktuálního tahu.</li>
+            <div class="mb-3 mb-lg-4">
+                <h4 class="text-neon-blue h5 h-md-4 mb-2">Průběh tahu</h4>
+                <ol class="text-neon-green ps-3 ps-md-4 mb-0">
+                    <li class="mb-1 mb-md-2">Hráč hodí všemi šesti kostkami.</li>
+                    <li class="mb-1 mb-md-2">Musí vybrat alespoň jednu bodovanou kombinaci.</li>
+                    <li class="mb-1 mb-md-2">Může buď ukončit tah a připsat si body, nebo pokračovat s házením zbývajícími kostkami.</li>
+                    <li class="mb-1 mb-md-2">Pokud pokračuje a hodí kombinaci bez bodů, ztrácí všechny body z aktuálního tahu.</li>
                 </ol>
             </div>
             
-            <div class="rule-section">
-                <h4 class="text-neon-blue fs-fluid-3">Bodování</h4>
-                <ul class="small ps-4">
-                    <li class="mb-1">Jednička = 100 bodů</li>
-                    <li class="mb-1">Pětka = 50 bodů</li>
-                    <li class="mb-1">Tři stejné kostky = hodnota × 100 (tři jedničky = 1000)</li>
-                    <li class="mb-1">Čtyři stejné kostky = hodnota × 200</li>
-                    <li class="mb-1">Pět stejných kostek = hodnota × 400</li>
-                    <li class="mb-1">Šest stejných kostek = hodnota × 800</li>
+            <div class="mb-0">
+                <h4 class="text-neon-blue h5 h-md-4 mb-2">Bodování</h4>
+                <ul class="text-neon-green ps-3 ps-md-4 mb-0">
+                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Jednička</span> = 100 bodů</li>
+                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Pětka</span> = 50 bodů</li>
+                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Tři stejné kostky</span> = hodnota × 100 (tři jedničky = 1000)</li>
+                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Čtyři stejné kostky</span> = hodnota × 200</li>
+                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Pět stejných kostek</span> = hodnota × 400</li>
+                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Šest stejných kostek</span> = hodnota × 800</li>
                 </ul>
             </div>
         `);
@@ -471,12 +471,12 @@ export class GameUI {
         rulesContainer.appendChild(rulesCard);
         container.appendChild(rulesContainer);
         
-        // Tlačítko zpět - sticky na spodek
+        // Tlačítko zpět - Bootstrap responsive button
         const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'mt-auto pt-2';
+        buttonContainer.className = 'mt-auto pt-3 d-flex justify-content-center';
         
         const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm btn-md-lg w-100 btn-no-scale');
+            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm btn-md-regular px-4 py-2 btn-no-scale');
         buttonContainer.appendChild(backBtn);
         container.appendChild(buttonContainer);
         

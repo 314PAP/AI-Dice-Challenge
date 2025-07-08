@@ -214,3 +214,35 @@
   background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
   box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.5) !important;
 }
+
+/* Bootstrap Card overrides pro neonové barvy */
+.card.bg-black {
+  background-color: #000 !important;
+}
+
+.card.bg-black .card-header {
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.card.bg-black .card-body {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.card.bg-black .card-body p,
+.card.bg-black .card-body li,
+.card.bg-black .card-body span {
+  color: inherit !important;
+}
+
+/* Bootstrap Typography responsive overrides */
+@media (max-width: 576px) {
+  .h2.h-md-1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .h5.h-md-4 {
+    font-size: 1.1rem !important;
+  }
+}
