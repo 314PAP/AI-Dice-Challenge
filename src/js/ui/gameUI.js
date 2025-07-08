@@ -491,6 +491,8 @@ export class GameUI {
     renderHallOfFame() {
         const container = document.createElement('div');
         container.className = 'd-flex flex-column h-100';
+        container.style.overflow = 'visible';
+        container.style.padding = '0.25rem';
         
         // Nadpis - kompaktnější v landscape režimu
         const title = document.createElement('h1');
@@ -541,12 +543,14 @@ export class GameUI {
         recordsContainer.appendChild(table);
         container.appendChild(recordsContainer);
         
-        // Tlačítko zpět - sticky na spodek, kompaktní design
+        // Tlačítko zpět - sticky na spodek, kompaktní design s overflow protection
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'mt-auto pt-2 d-flex justify-content-center';
+        buttonContainer.style.overflow = 'visible';
+        buttonContainer.style.padding = '0.5rem';
         
         const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2 btn-no-scale');
+            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2');
         buttonContainer.appendChild(backBtn);
         container.appendChild(buttonContainer);
         
