@@ -516,22 +516,22 @@ export class GameUI {
         
         // Optimalizace pro malé obrazovky - menší písmo, kompaktnější rozložení
         table.innerHTML = `
-            <table class="table table-dark table-hover table-sm">
-                <thead class="text-neon-orange">
-                    <tr>
-                        <th scope="col" class="text-center">#</th>
-                        <th scope="col">Jméno</th>
-                        <th scope="col" class="text-center">Skóre</th>
-                        <th scope="col" class="text-center d-none d-sm-table-cell">Datum</th>
+            <table class="table table-sm neon-table">
+                <thead>
+                    <tr class="border-bottom border-neon-orange">
+                        <th scope="col" class="text-center text-neon-orange">#</th>
+                        <th scope="col" class="text-neon-orange">Jméno</th>
+                        <th scope="col" class="text-center text-neon-orange">Skóre</th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell text-neon-orange">Datum</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${records.map((record, index) => `
                         <tr>
                             <th scope="row" class="text-neon-yellow text-center">${index + 1}</th>
-                            <td>${record.name}</td>
+                            <td class="text-neon-blue">${record.name}</td>
                             <td class="text-neon-green text-center">${record.score}</td>
-                            <td class="text-center d-none d-sm-table-cell">${record.date}</td>
+                            <td class="text-center d-none d-sm-table-cell text-neon-purple">${record.date}</td>
                         </tr>
                     `).join('')}
                 </tbody>

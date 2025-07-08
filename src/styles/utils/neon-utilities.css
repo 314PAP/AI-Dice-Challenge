@@ -66,22 +66,22 @@
 /* Neonové border šířky a styly */
 .border-wide-neon-green {
   border: var(--border-neon-medium) solid var(--neon-green);
-  box-shadow: var(--neon-glow);
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7);
 }
 
 .border-wide-neon-blue {
   border: var(--border-neon-medium) solid var(--neon-blue);
-  box-shadow: var(--neon-glow);
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.7);
 }
 
 .border-wide-neon-purple {
   border: var(--border-neon-medium) solid var(--neon-purple);
-  box-shadow: var(--neon-glow);
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.7);
 }
 
 .border-wide-neon-orange {
   border: var(--border-neon-medium) solid var(--neon-orange);
-  box-shadow: var(--neon-glow);
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.7);
 }
 
 /* Neonové glow efekty */
@@ -99,4 +99,41 @@
 
 .neon-glow-orange {
   box-shadow: 0 0 10px 2px rgba(var(--neon-orange-rgb), 0.7);
+}
+
+/* Neonové tabulky */
+.neon-table {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.neon-table th,
+.neon-table td {
+  vertical-align: middle;
+  padding: 0.75rem;
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.neon-table thead th {
+  border-bottom: 2px solid var(--neon-orange) !important;
+  font-weight: bold;
+}
+
+.neon-table tbody tr:hover {
+  background-color: rgba(var(--neon-green-rgb), 0.1) !important;
+}
+
+.neon-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+/* Odstranění všech default Bootstrap table stylů */
+.neon-table tbody tr:nth-child(odd) {
+  background-color: transparent !important;
+}
+
+.neon-table tbody tr:nth-child(even) {
+  background-color: transparent !important;
 }
