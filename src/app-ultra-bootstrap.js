@@ -134,7 +134,8 @@ class UltraBootstrapDiceGame {
                 controls: {
                     container: 'd-flex justify-content-center align-items-center mb-4',
                     decrease: {
-                        classes: 'btn btn-neon-blue me-3',
+                        classes: 'btn btn-neon me-3',
+                        attributes: {'data-neon-color': 'blue'},
                         icon: 'bi-dash-lg',
                         action: -1000
                     },
@@ -143,7 +144,8 @@ class UltraBootstrapDiceGame {
                         id: 'targetScoreDisplay'
                     },
                     increase: {
-                        classes: 'btn btn-neon-blue ms-3', 
+                        classes: 'btn btn-neon ms-3',
+                        attributes: {'data-neon-color': 'blue'},
                         icon: 'bi-plus-lg',
                         action: 1000
                     }
@@ -153,19 +155,22 @@ class UltraBootstrapDiceGame {
                 container: 'd-flex flex-column align-items-center',
                 items: [
                     {
-                        classes: 'btn btn-neon-green btn-lg px-5 mb-3 animate__animated animate__pulse animate__infinite',
+                        classes: 'btn btn-neon btn-lg px-5 mb-3 animate__animated animate__pulse animate__infinite',
+                        attributes: {'data-neon-color': 'green'},
                         icon: 'bi-play-fill',
                         text: 'ZAČÍT HRU',
                         action: 'startGame'
                     },
                     {
-                        classes: 'btn btn-neon-blue px-4 mb-3',
+                        classes: 'btn btn-neon px-4 mb-3',
+                        attributes: {'data-neon-color': 'blue'},
                         icon: 'bi-book-fill', 
                         text: 'Pravidla',
                         action: 'showRules'
                     },
                     {
-                        classes: 'btn btn-neon-orange px-4',
+                        classes: 'btn btn-neon px-4',
+                        attributes: {'data-neon-color': 'orange'},
                         icon: 'bi-trophy-fill',
                         text: 'Síň slávy', 
                         action: 'showHallOfFame'
@@ -203,11 +208,18 @@ class UltraBootstrapDiceGame {
                 </${config.targetScore.section.tag}>
 
                 <div class="${config.buttons.container}">
-                    ${config.buttons.items.map(button => `
-                        <button class="${button.classes}" onclick="app.${button.action}()">
+                    ${config.buttons.items.map(button => {
+                        const attributesStr = button.attributes ? 
+                            Object.entries(button.attributes)
+                                .map(([key, value]) => `${key}="${value}"`)
+                                .join(' ') 
+                            : '';
+                        return `
+                        <button class="${button.classes}" ${attributesStr} onclick="app.${button.action}()">
                             <i class="bi ${button.icon}"></i> ${button.text}
                         </button>
-                    `).join('')}
+                        `;
+                    }).join('')}
                 </div>
             </${config.container.tag}>
         `;
@@ -351,7 +363,7 @@ class UltraBootstrapDiceGame {
 
     generateDiceHTML() {
         if (this.gameState.currentRoll.length === 0) {
-            return '<div class="text-muted">Hoďte kostkami pro začátek tahu</div>';
+            return '<div class="text-neon-green neon-text-glow">Hoďte kostkami pro začátek tahu</div>';
         }
 
         return this.gameState.currentRoll.map((value, index) => `

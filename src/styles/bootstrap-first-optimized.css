@@ -68,21 +68,28 @@ html, body {
    ================================================================= */
 
 /* Základní neon-btn třída - společné vlastnosti pro všechna tlačítka */
-.btn-neon {
-  background-color: transparent;
-  font-weight: 600;
-  text-transform: uppercase;
-  text-shadow: var(--neon-text-shadow);
-  transition: all 0.3s ease;
-  position: relative;
-  border-width: var(--border-neon-medium);
+.btn-neon,
+.btn.btn-neon {
+  background-color: transparent !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  text-shadow: var(--neon-text-shadow) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  border-width: var(--border-neon-medium) !important;
+  border-style: solid !important;
+  outline: none !important;
 }
 
 /* Hover a focus stavy */
 .btn-neon:hover,
-.btn-neon:focus {
-  background-color: rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
+.btn-neon:focus,
+.btn.btn-neon:hover,
+.btn.btn-neon:focus {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  transform: scale(1.05) !important;
+  color: inherit !important;
+  border-color: inherit !important;
 }
 
 /* Active stav - použití !important nutné pro přepsání Bootstrap výchozích stylů */
@@ -91,7 +98,9 @@ html, body {
 .btn-neon.active,
 .btn.btn-neon.active {
   background-color: rgba(0, 0, 0, 0.3) !important;
-  transform: scale(0.98);
+  transform: scale(0.98) !important;
+  color: inherit !important;
+  border-color: inherit !important;
 }
 
 /* Generický systém neonových barev pro tlačítka pomocí data atributu */
@@ -122,16 +131,24 @@ html, body {
 }
 
 .btn-neon[data-neon-color="blue"],
-.btn-neon-blue {
-  border-color: var(--neon-blue);
-  color: var(--neon-blue);
+.btn.btn-neon[data-neon-color="blue"],
+.btn-neon-blue,
+.btn.btn-neon-blue {
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
 }
 
 .btn-neon[data-neon-color="blue"]:hover,
 .btn-neon[data-neon-color="blue"]:focus,
+.btn.btn-neon[data-neon-color="blue"]:hover,
+.btn.btn-neon[data-neon-color="blue"]:focus,
 .btn-neon-blue:hover,
-.btn-neon-blue:focus {
-  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6);
+.btn-neon-blue:focus,
+.btn.btn-neon-blue:hover,
+.btn.btn-neon-blue:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
 }
 
 .btn-neon[data-neon-color="blue"]:active,
@@ -872,4 +889,19 @@ select.form-select.text-neon-blue {
   padding: 0.5rem 0.75rem;
   height: auto;
   font-size: 0.9rem;
+}
+
+/* 
+ * Speciální fixní pravidlo pro Bootstrap konflikty s hover stavy tlačítek
+ * Zajištuje, že i při komplexním nastavení v Bootstrap CSS bude zachován neonový styl
+ */
+.btn[class*="btn-neon"] *, 
+.btn-neon * {
+  color: inherit !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-neon:hover *,
+.btn[class*="btn-neon"]:hover * {
+  color: inherit !important;
 }
