@@ -700,11 +700,53 @@ html, body {
     height: 100vh !important;
     max-height: 100vh !important;
     min-height: 100vh !important;
+    padding-bottom: 0.75rem !important; /* Spodní padding pro celou aplikaci */
   }
   
   /* Main mobile container */
   .d-lg-none {
     height: 100% !important;
     max-height: 100% !important;
+    padding-bottom: 0.5rem !important; /* Extra spodní prostor */
+  }
+  
+  /* Chat container spodní margin pro lepší UX */
+  .mobile-chat-area {
+    margin-bottom: 0.5rem !important; /* Spodní margin pro chat */
+  }
+  
+  /* Chat container uvnitř také s paddingem */
+  .mobile-chat-area .chat-container {
+    margin-bottom: 0.25rem !important; /* Jemný spodní margin */
+  }
+}
+
+/* EXTRA SMALL MOBILE PADDING - ještě více prostoru na malých obrazovkách */
+@media (max-width: 575.98px) {
+  #app {
+    padding-bottom: 1rem !important; /* Více spodního paddingu na malých mobilech */
+  }
+  
+  .d-lg-none {
+    padding-bottom: 0.75rem !important; /* Více prostoru na malých obrazovkách */
+  }
+  
+  .mobile-chat-area {
+    margin-bottom: 0.75rem !important; /* Více spodního marginu */
+  }
+}
+
+/* VELMI MALÉ OBRAZOVKY - maximum spacing */
+@media (max-width: 479.98px) {
+  #app {
+    padding-bottom: 1.25rem !important; /* Maximum spodní padding */
+  }
+  
+  .d-lg-none {
+    padding-bottom: 1rem !important; /* Hodně prostoru na velmi malých obrazovkách */
+  }
+  
+  .mobile-chat-area {
+    margin-bottom: 1rem !important; /* Maximum spodní margin pro chat */
   }
 }
