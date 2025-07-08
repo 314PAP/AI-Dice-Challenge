@@ -615,6 +615,11 @@ select.text-neon-yellow.form-control {
   max-width: 200px;
 }
 
+/* Utility třída pro flex bez zalomení */
+.flex-nowrap-important {
+  flex-wrap: nowrap !important;
+}
+
 /* Chat container sizing utilities */
 .chat-container-height {
   height: 200px;
@@ -623,8 +628,16 @@ select.text-neon-yellow.form-control {
 /* Pro menší obrazovky */
 @media (max-width: 576px) {
   .avatar-card-container {
-    min-width: 100px;
-    max-width: 150px;
+    min-width: 80px;
+    max-width: 120px;
+  }
+}
+
+/* Pro extra malé obrazovky */
+@media (max-width: 400px) {
+  .avatar-card-container {
+    min-width: 70px;
+    max-width: 90px;
   }
   
   .btn-touch-spacing {

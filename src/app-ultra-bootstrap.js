@@ -27,9 +27,8 @@ class UltraBootstrapDiceGame {
         // Chat historie pro autocomplete
         this.chatHistory = JSON.parse(localStorage.getItem('aidice-chat-history') || '[]');
         
-        // Autocomplete instances
+        // Autocomplete instance - jednotná pro desktop i mobilní verzi
         this.chatAutocomplete = null;
-        this.chatAutocompleteMobile = null;
 
         // AI osobnosti - ČISTÉ, bez emoji
         this.aiPersonalities = {
@@ -266,9 +265,25 @@ class UltraBootstrapDiceGame {
         // OFICIÁLNÍ Bootstrap 5.2 layout - responzivní avatary 90% šířky!
         const gameHTML = `
             <div class="h-100 d-flex flex-column">
-                <!-- Player Cards - 90% šířky, Bootstrap oficiální responsive flexbox -->
+                <!-- Hlavní nadpis - vždy viditelný nad avatary -->
+                <div class="text-center mb-2">
+                    <h2 class="text-neon-green fs-3 d-none d-md-block mb-0">
+                        <i class="bi bi-dice-6-fill"></i> AI Kostková Výzva
+                    </h2>
+                    <h3 class="text-neon-green fs-4 d-md-none mb-0">
+                        <i class="bi bi-dice-6-fill"></i> AI Kostková Výzva
+                    </h3>
+                </div>
+
+                <!-- Dynamický nadpis "Farkle" - defaultně skrytý -->
+                <div id="farkleNotification" class="text-center mb-2 d-none animate__animated">
+                    <h2 class="text-neon-red fs-1 d-none d-md-block mb-0 neon-text-glow">FARKLE!</h2>
+                    <h3 class="text-neon-red fs-2 d-md-none mb-0 neon-text-glow">FARKLE!</h3>
+                </div>
+
+                <!-- Player Cards - 90% šířky, Bootstrap oficiální responsive flexbox, žádné zalomení -->
                 <div class="d-flex justify-content-center mb-3">
-                    <div class="d-flex flex-wrap justify-content-center w-neon-90">
+                    <div class="d-flex flex-nowrap-important overflow-auto justify-content-center w-neon-90">
                         ${this.gameState.players.map((player, index) => `
                             <div class="flex-fill mx-1 mb-2 avatar-card-container">
                                 <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
@@ -312,29 +327,30 @@ class UltraBootstrapDiceGame {
                         </div>
                         
                         ${currentPlayer.isHuman ? `
-                            <!-- Bootstrap oficiální button layout - responsive -->
-                            <div class="d-flex justify-content-center flex-wrap">
-                                <div class="d-flex flex-wrap justify-content-center">
-                                    <button class="btn btn-neon btn-sm mx-1 mb-2 d-md-none" data-neon-color="green" onclick="app.rollDice()" id="rollBtnMobile">
-                                        <i class="bi bi-dice-6-fill"></i> Hodit
-                                    </button>
-                                    <button class="btn btn-neon mx-1 mb-2 d-none d-md-inline-block" data-neon-color="green" onclick="app.rollDice()" id="rollBtnDesktop">
-                                        <i class="bi bi-dice-6-fill"></i> Hodit
-                                    </button>
-                                    
-                                    <button class="btn btn-neon btn-sm mx-1 mb-2 d-md-none" data-neon-color="blue" onclick="app.holdDice()" id="holdBtnMobile" disabled>
-                                        <i class="bi bi-collection-fill"></i> Odložit
-                                    </button>
-                                    <button class="btn btn-neon mx-1 mb-2 d-none d-md-inline-block" data-neon-color="blue" onclick="app.holdDice()" id="holdBtnDesktop" disabled>
-                                        <i class="bi bi-collection-fill"></i> Odložit
-                                    </button>
-                                
-                                    <button class="btn btn-neon btn-sm mx-1 mb-2 d-md-none" data-neon-color="orange" onclick="app.endTurn()" id="endBtnMobile">
-                                        <i class="bi bi-stop-fill"></i> Ukončit tah
-                                    </button>
-                                    <button class="btn btn-neon mx-1 mb-2 d-none d-md-inline-block" data-neon-color="orange" onclick="app.endTurn()" id="endBtnDesktop">
-                                        <i class="bi bi-stop-fill"></i> Ukončit tah
-                                    </button>
+                            <!-- Bootstrap Grid System pro tlačítka - responzivní podle velikosti obrazovky -->
+                            <div class="container-fluid p-0">
+                                <div class="row g-2 justify-content-center">
+                                    <!-- Na desktopu vedle sebe, na mobilu 2x2 pod sebou -->
+                                    <div class="col-6 col-md-3">
+                                        <button class="btn btn-neon w-100" data-neon-color="green" onclick="app.rollDice()" id="rollBtn">
+                                            <i class="bi bi-dice-6-fill"></i> <span class="d-none d-md-inline">Hodit</span><span class="d-md-none">Hodit</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <button class="btn btn-neon w-100" data-neon-color="blue" onclick="app.holdDice()" id="holdBtn" disabled>
+                                            <i class="bi bi-collection-fill"></i> <span class="d-none d-md-inline">Odložit</span><span class="d-md-none">Odložit</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <button class="btn btn-neon w-100" data-neon-color="orange" onclick="app.endTurn()" id="endBtn">
+                                            <i class="bi bi-stop-fill"></i> <span class="d-none d-md-inline">Ukončit tah</span><span class="d-md-none">Ukončit tah</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <button class="btn btn-neon w-100" data-neon-color="red" onclick="app.endGame()" id="quitBtn">
+                                            <i class="bi bi-stop-circle-fill"></i> <span class="d-none d-md-inline">Ukončit hru</span><span class="d-md-none">Ukončit hru</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         ` : `
@@ -346,13 +362,8 @@ class UltraBootstrapDiceGame {
                             </div>
                         `}
                     </div>
-
-                    <!-- Bottom Controls - Bootstrap oficiální utilities -->
-                    <div class="text-center mt-auto">
-                        <button class="btn btn-neon btn-sm" data-neon-color="red" onclick="app.endGame()">
-                            <i class="bi bi-stop-circle-fill"></i> Ukončit hru
-                        </button>
-                    </div>
+                    
+                    <!-- Odstraněno duplikované tlačítko "Ukončit hru", protože je součástí grid systému výše -->
                 </div>
             </div>
         `;
@@ -568,19 +579,16 @@ class UltraBootstrapDiceGame {
         this.updateScoreDisplay();
         
         // Bootstrap button state management
-        // Aktualizace obou variant holdBtn (desktop i mobilní)
-        const holdBtns = [
-            document.getElementById('holdBtnMobile'),
-            document.getElementById('holdBtnDesktop')
-        ];
+        // Aktualizace tlačítka holdBtn - již jen jedno společné pro desktop i mobil
+        const holdBtn = document.getElementById('holdBtn');
         
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
         const minScore = currentPlayer.score === 0 ? 300 : 0;
         const isDisabled = score === 0 || this.gameState.turnScore < minScore;
         
-        holdBtns.forEach(btn => {
-            if (btn) btn.disabled = isDisabled;
-        });
+        if (holdBtn) {
+            holdBtn.disabled = isDisabled;
+        }
     }
 
     updateScoreDisplay() {
@@ -649,6 +657,26 @@ class UltraBootstrapDiceGame {
         this.gameState.turnScore = 0;
         this.gameState.currentRoll = [];
         this.gameState.selectedDice = [];
+        
+        // Zobrazen a animovat FARKLE nadpis
+        const farkleElement = document.getElementById('farkleNotification');
+        if (farkleElement) {
+            farkleElement.classList.remove('d-none');
+            farkleElement.classList.add('animate__fadeIn');
+            
+            // Skrýt po 2 sekundách
+            setTimeout(() => {
+                farkleElement.classList.remove('animate__fadeIn');
+                farkleElement.classList.add('animate__fadeOut');
+                
+                // Po dokončení animace skrýt element
+                setTimeout(() => {
+                    farkleElement.classList.remove('animate__fadeOut');
+                    farkleElement.classList.add('d-none');
+                }, 1000);
+            }, 2000);
+        }
+        
         this.nextPlayer();
     }
 
@@ -813,36 +841,26 @@ class UltraBootstrapDiceGame {
     }
 
     setupEventListeners() {
-        // Chat Bootstrap event handlers
-        ['chatInput', 'chatInputMobile'].forEach(inputId => {
-            const input = document.getElementById(inputId);
-            if (input) {
-                input.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') this.sendChatMessage();
-                });
-            }
-        });
+        // Chat Bootstrap event handlers - jednotný input pro mobilní i desktop verzi
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput) {
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') this.sendChatMessage();
+            });
+        }
 
-        ['sendChatBtn', 'sendChatBtnMobile'].forEach(btnId => {
-            const btn = document.getElementById(btnId);
-            if (btn) {
-                btn.addEventListener('click', () => this.sendChatMessage());
-            }
-        });
+        const sendChatBtn = document.getElementById('sendChatBtn');
+        if (sendChatBtn) {
+            sendChatBtn.addEventListener('click', () => this.sendChatMessage());
+        }
     }
 
     sendChatMessage() {
-        const inputs = ['chatInput', 'chatInputMobile'];
+        const chatInput = document.getElementById('chatInput');
         let message = '';
-        let activeInput = null;
-
-        for (const inputId of inputs) {
-            const input = document.getElementById(inputId);
-            if (input && input.value.trim()) {
-                message = input.value.trim();
-                activeInput = input;
-                break;
-            }
+        
+        if (chatInput && chatInput.value.trim()) {
+            message = chatInput.value.trim();
         }
 
         if (message) {
@@ -850,7 +868,7 @@ class UltraBootstrapDiceGame {
             this.addToChatHistory(message);
             
             this.addChatMessage('Hráč', message, 'player');
-            activeInput.value = '';
+            chatInput.value = '';
             
             // AI odpověď
             setTimeout(() => {
@@ -902,13 +920,12 @@ class UltraBootstrapDiceGame {
             </div>
         `;
 
-        ['chatMessages', 'chatMessagesMobile'].forEach(containerId => {
-            const container = document.getElementById(containerId);
-            if (container) {
-                container.innerHTML += messageHTML;
-                container.scrollTop = container.scrollHeight;
-            }
-        });
+        // Jednotný container pro chat zprávy - již nepoužíváme mobilní verzi
+        const chatMessages = document.getElementById('chatMessages');
+        if (chatMessages) {
+            chatMessages.innerHTML += messageHTML;
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     }
 
     addWelcomeMessages() {
@@ -962,7 +979,7 @@ class UltraBootstrapDiceGame {
     }
 
     initializeAutocomplete() {
-        // Inicializovat autocomplete pro desktop chat
+        // Inicializovat autocomplete - jednotný pro desktop i mobilní verzi
         const chatInput = document.getElementById('chatInput');
         if (chatInput) {
             this.chatAutocomplete = new UltraBootstrapAutocomplete(chatInput, {
@@ -971,18 +988,6 @@ class UltraBootstrapDiceGame {
                 storageKey: 'aidice-chat-history',
                 maxResults: 8,
                 placeholder: 'Napište zprávu AI...'
-            });
-        }
-        
-        // Inicializovat autocomplete pro mobilní chat
-        const chatInputMobile = document.getElementById('chatInputMobile');
-        if (chatInputMobile) {
-            this.chatAutocompleteMobile = new UltraBootstrapAutocomplete(chatInputMobile, {
-                suggestions: [...this.chatHistory],
-                neonColor: 'blue', // Konzistentní s neon-blue (#194DD1)
-                storageKey: 'aidice-chat-history-mobile',
-                maxResults: 6,
-                placeholder: 'Zpráva...'
             });
         }
         
