@@ -1,9 +1,0 @@
-/* =============================================================================
-   ✨ KEYFRAME ANIMACE - MODULÁRNÍ SYSTÉM
-   Kompletně modularizovaný systém keyframe animací
-   ============================================================================= */
-
-/* Import všech modulů keyframe animací */
-@import './keyframes/index.css';
-
-

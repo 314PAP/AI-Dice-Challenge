@@ -10,10 +10,10 @@ class UltraBootstrapDiceGame {
         // Herní stav
         this.gameState = {
             players: [
-                { name: 'Hráč', score: 0, isHuman: true, avatar: 'bi-person-circle', color: 'neon-green' },
-                { name: 'Gemini', score: 0, isHuman: false, avatar: 'bi-robot', color: 'neon-blue' },
-                { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'bi-cpu-fill', color: 'neon-pink' },
-                { name: 'Claude', score: 0, isHuman: false, avatar: 'bi-lightning-charge-fill', color: 'neon-orange' }
+                { name: 'Hráč', score: 0, isHuman: true, avatar: 'bi-person-circle', color: 'green' },
+                { name: 'Gemini', score: 0, isHuman: false, avatar: 'bi-robot', color: 'blue' },
+                { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'bi-cpu-fill', color: 'purple' },
+                { name: 'Claude', score: 0, isHuman: false, avatar: 'bi-lightning-charge-fill', color: 'orange' }
             ],
             currentPlayerIndex: 0,
             targetScore: 10000,
@@ -256,9 +256,9 @@ class UltraBootstrapDiceGame {
             <div class="h-100 d-flex flex-column">
                 <!-- Player Cards - 90% šířky, Bootstrap oficiální responsive flexbox -->
                 <div class="d-flex justify-content-center mb-3">
-                    <div class="d-flex flex-wrap justify-content-center" style="width: 90%;">
+                    <div class="d-flex flex-wrap justify-content-center w-90">
                         ${this.gameState.players.map((player, index) => `
-                            <div class="flex-fill mx-1 mb-2" style="min-width: 120px; max-width: 200px;">
+                            <div class="flex-fill mx-1 mb-2 avatar-card-container">
                                 <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
                                     <div class="card-body text-center p-2">
                                         <div class="mb-2">
@@ -842,7 +842,8 @@ class UltraBootstrapDiceGame {
         let messageClass = '';
         
         if (type === 'system') {
-            messageClass = 'alert-neon-green border-start border-neon-green border-3 text-neon-green';
+            // Systémové zprávy mají být žluté podle dokumentace
+            messageClass = 'alert-neon-yellow border-start border-neon-yellow border-3 text-neon-yellow';
         } else if (type === 'player') {
             messageClass = 'alert-neon-green border-start border-neon-green border-3 text-neon-green';
         } else if (type === 'ai') {
@@ -850,7 +851,8 @@ class UltraBootstrapDiceGame {
             if (sender === 'Gemini') {
                 messageClass = 'alert-neon-blue border-start border-neon-blue border-3 text-neon-blue';
             } else if (sender === 'ChatGPT') {
-                messageClass = 'alert-neon-pink border-start border-neon-pink border-3 text-neon-pink';
+                // Používáme purple místo pink pro konzistenci s CSS definicí
+                messageClass = 'alert-neon-purple border-start border-neon-purple border-3 text-neon-purple';
             } else if (sender === 'Claude') {
                 messageClass = 'alert-neon-orange border-start border-neon-orange border-3 text-neon-orange';
             } else {
@@ -860,7 +862,7 @@ class UltraBootstrapDiceGame {
         }
 
         const messageHTML = `
-            <div class="alert ${messageClass} py-2 mb-2 bg-black">
+            <div class="alert ${messageClass} py-2 mb-2 bg-black animate__animated animate__fadeInUp">
                 <small><strong>${sender}:</strong> ${message}</small>
             </div>
         `;

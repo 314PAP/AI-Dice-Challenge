@@ -18,6 +18,11 @@
    1. CSS PROMĚNNÉ A ZÁKLADNÍ NASTAVENÍ
    ================================================================= */
 
+/* Bootstrap HTML/Body full height setup */
+html, body {
+  height: 100%;
+}
+
 :root {
   /* Neonové barvy */
   --neon-green: #00ff00;
@@ -32,16 +37,8 @@
   --neon-glow-strong: 0 0 30px currentColor, 0 0 40px currentColor;
   --neon-text-shadow: 0 0 10px currentColor;
   
-  /* Layout hodnoty */
-  --chat-height-mobile: 40vh;
-  --chat-height-desktop: 60vh;
-  --dice-size-mobile: 3rem;
-  --dice-size-tablet: 4rem;
-  --dice-size-desktop: 5rem;
-  
   /* Z-index scale (kompatibilní s Bootstrap) */
   --z-loading: 1055; /* Bootstrap modal + 10 */
-  --z-fixed-elements: 1020; /* Bootstrap sticky-top */
   
   /* Border widths */
   --border-neon-thin: 1px;
@@ -113,6 +110,121 @@
   filter: brightness(1.1);
 }
 
+/* Neonové button třídy pro všech 6 barev */
+.btn-neon-green {
+  background-color: var(--neon-green);
+  border-color: var(--neon-green);
+  color: #000;
+  font-weight: 600;
+  box-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-green:hover,
+.btn-neon-green:focus {
+  background-color: var(--neon-green);
+  border-color: var(--neon-green);
+  color: #000;
+  box-shadow: var(--neon-glow-strong);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-neon-blue {
+  background-color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  color: #000;
+  font-weight: 600;
+  box-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-blue:hover,
+.btn-neon-blue:focus {
+  background-color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  color: #000;
+  box-shadow: var(--neon-glow-strong);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-neon-purple {
+  background-color: var(--neon-purple);
+  border-color: var(--neon-purple);
+  color: #000;
+  font-weight: 600;
+  box-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-purple:hover,
+.btn-neon-purple:focus {
+  background-color: var(--neon-purple);
+  border-color: var(--neon-purple);
+  color: #000;
+  box-shadow: var(--neon-glow-strong);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-neon-orange {
+  background-color: var(--neon-orange);
+  border-color: var(--neon-orange);
+  color: #000;
+  font-weight: 600;
+  box-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-orange:hover,
+.btn-neon-orange:focus {
+  background-color: var(--neon-orange);
+  border-color: var(--neon-orange);
+  color: #000;
+  box-shadow: var(--neon-glow-strong);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-neon-red {
+  background-color: var(--neon-red);
+  border-color: var(--neon-red);
+  color: #000;
+  font-weight: 600;
+  box-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-red:hover,
+.btn-neon-red:focus {
+  background-color: var(--neon-red);
+  border-color: var(--neon-red);
+  color: #000;
+  box-shadow: var(--neon-glow-strong);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-neon-yellow {
+  background-color: var(--neon-yellow);
+  border-color: var(--neon-yellow);
+  color: #000;
+  font-weight: 600;
+  box-shadow: var(--neon-glow);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-yellow:hover,
+.btn-neon-yellow:focus {
+  background-color: var(--neon-yellow);
+  border-color: var(--neon-yellow);
+  color: #000;
+  box-shadow: var(--neon-glow-strong);
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
 /* Form control rozšíření */
 .neon-input {
   background-color: rgba(0, 0, 0, 0.8);
@@ -148,6 +260,30 @@
    3. NEONOVÉ UTILITY TŘÍDY
    ================================================================= */
 
+/* Avatar card sizing utilities */
+.avatar-card-container {
+  min-width: 120px;
+  max-width: 200px;
+}
+
+/* Chat container sizing utilities */
+.chat-container-height {
+  height: 200px;
+}
+
+/* Container width utilities */
+.w-90 {
+  width: 90%;
+}
+
+/* Pro menší obrazovky */
+@media (max-width: 576px) {
+  .avatar-card-container {
+    min-width: 100px;
+    max-width: 150px;
+  }
+}
+
 /* Text utilities */
 .text-neon-green {
   color: var(--neon-green);
@@ -169,6 +305,10 @@
   color: var(--neon-red);
 }
 
+.text-neon-yellow {
+  color: var(--neon-yellow);
+}
+
 /* Text glow effects */
 .neon-text-glow {
   text-shadow: var(--neon-text-shadow);
@@ -176,6 +316,43 @@
 
 .neon-text-glow-strong {
   text-shadow: var(--neon-glow-strong);
+}
+
+/* Alert neon utilities */
+.alert-neon-green {
+  background-color: rgba(0, 255, 0, 0.15);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.alert-neon-blue {
+  background-color: rgba(0, 89, 255, 0.15);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+}
+
+.alert-neon-purple {
+  background-color: rgba(255, 0, 255, 0.15);
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
+}
+
+.alert-neon-orange {
+  background-color: rgba(255, 128, 0, 0.15);
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+}
+
+.alert-neon-red {
+  background-color: rgba(255, 0, 64, 0.15);
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+}
+
+.alert-neon-yellow {
+  background-color: rgba(255, 255, 0, 0.15);
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
 }
 
 /* Border utilities */
@@ -189,6 +366,18 @@
 
 .border-neon-purple {
   border-color: var(--neon-purple);
+}
+
+.border-neon-orange {
+  border-color: var(--neon-orange);
+}
+
+.border-neon-red {
+  border-color: var(--neon-red);
+}
+
+.border-neon-yellow {
+  border-color: var(--neon-yellow);
 }
 
 /* Border glow utilities */
@@ -206,6 +395,11 @@
   box-shadow: inset var(--neon-glow), var(--neon-glow);
 }
 
+.border-wide-neon-blue {
+  border: var(--border-neon-thick) solid var(--neon-blue);
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.3), 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
 /* Background utilities */
 .bg-neon-glow {
   background: radial-gradient(circle, rgba(0, 255, 0, 0.1), transparent);
@@ -217,8 +411,8 @@
 
 /* Kostky - mobile-first */
 .neon-dice-container {
-  width: var(--dice-size-mobile);
-  height: var(--dice-size-mobile);
+  width: 3rem;
+  height: 3rem;
   display: inline-block;
   perspective: 200px;
 }
@@ -342,16 +536,46 @@
   z-index: var(--z-loading);
 }
 
-/* Game container responsive heights */
-.game-container {
-  min-height: 50vh;
+/* Chat container responsive */
+.chat-scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) transparent;
+}
+
+.chat-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-scrollable::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 3px;
+}
+
+/* Bootstrap Mobile-First utilities */
+.gap-xs-compact {
+  gap: 0.25rem;
+}
+
+@media (max-width: 575.98px) {
+  .btn-touch-spacing {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .menu-btn-uniform {
+    min-width: 200px;
+  }
 }
 
 /* Responsive utilities */
 @media (min-width: 768px) {
   .neon-dice-container {
-    width: var(--dice-size-tablet);
-    height: var(--dice-size-tablet);
+    width: 4rem;
+    height: 4rem;
   }
   
   .dice-dot {
@@ -359,30 +583,18 @@
     height: 0.4rem;
     margin: 0.15rem;
   }
-  
-  .neon-chat-messages {
-    height: var(--chat-height-desktop);
-  }
-  
-  .game-container {
-    min-height: 70vh;
-  }
 }
 
 @media (min-width: 992px) {
   .neon-dice-container {
-    width: var(--dice-size-desktop);
-    height: var(--dice-size-desktop);
+    width: 5rem;
+    height: 5rem;
   }
   
   .dice-dot {
     width: 0.5rem;
     height: 0.5rem;
     margin: 0.2rem;
-  }
-  
-  .game-container {
-    height: 100%;
   }
 }
 
@@ -453,6 +665,29 @@
   .dice-face {
     transition: none;
   }
+}
+
+/* Button consistency helpers */
+.btn-consistent-width {
+  min-width: 200px;
+}
+
+@media (min-width: 768px) {
+  .btn-consistent-width {
+    min-width: 250px;
+  }
+}
+
+/* Mobile control buttons */
+.mobile-control-btn {
+  min-width: 80px;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.mobile-quit-btn {
+  min-width: 150px;
+  padding: 0.5rem 1rem;
 }
 
 /* ===================================================================
