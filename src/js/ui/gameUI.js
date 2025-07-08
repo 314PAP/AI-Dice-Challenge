@@ -516,22 +516,22 @@ export class GameUI {
         
         // Optimalizace pro malé obrazovky - menší písmo, kompaktnější rozložení
         table.innerHTML = `
-            <table class="table table-sm neon-table">
+            <table class="table table-sm neon-table" style="background: transparent; color: inherit;">
                 <thead>
-                    <tr class="border-bottom border-neon-orange">
-                        <th scope="col" class="text-center text-neon-orange">#</th>
-                        <th scope="col" class="text-neon-orange">Jméno</th>
-                        <th scope="col" class="text-center text-neon-orange">Skóre</th>
-                        <th scope="col" class="text-center d-none d-sm-table-cell text-neon-orange">Datum</th>
+                    <tr style="border-bottom: 2px solid var(--neon-orange);">
+                        <th scope="col" class="text-center" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">#</th>
+                        <th scope="col" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">Jméno</th>
+                        <th scope="col" class="text-center" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">Skóre</th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">Datum</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${records.map((record, index) => `
-                        <tr>
-                            <th scope="row" class="text-neon-yellow text-center">${index + 1}</th>
-                            <td class="text-neon-blue">${record.name}</td>
-                            <td class="text-neon-green text-center">${record.score}</td>
-                            <td class="text-center d-none d-sm-table-cell text-neon-purple">${record.date}</td>
+                        <tr style="background: transparent;">
+                            <th scope="row" class="text-center" style="color: var(--neon-yellow) !important; text-shadow: 0 0 10px var(--neon-yellow); background: transparent;">${index + 1}</th>
+                            <td style="color: var(--neon-blue) !important; text-shadow: 0 0 10px var(--neon-blue); background: transparent;">${record.name}</td>
+                            <td class="text-center" style="color: var(--neon-green) !important; text-shadow: 0 0 10px var(--neon-green); background: transparent;">${record.score}</td>
+                            <td class="text-center d-none d-sm-table-cell" style="color: var(--neon-purple) !important; text-shadow: 0 0 10px var(--neon-purple); background: transparent;">${record.date}</td>
                         </tr>
                     `).join('')}
                 </tbody>
