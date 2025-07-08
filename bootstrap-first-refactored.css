@@ -26,11 +26,17 @@ html, body {
 :root {
   /* Neonové barvy */
   --neon-green: #00ff00;
+  --neon-green-rgb: 0, 255, 0;
   --neon-blue: #194DD1;
+  --neon-blue-rgb: 25, 77, 209;
   --neon-purple: #ff00ff;
+  --neon-purple-rgb: 255, 0, 255;
   --neon-orange: #ff8000;
+  --neon-orange-rgb: 255, 128, 0;
   --neon-red: #ff0040;
+  --neon-red-rgb: 255, 0, 64;
   --neon-yellow: #ffff00;
+  --neon-yellow-rgb: 255, 255, 0;
   
   /* Neonové efekty */
   --neon-glow: 0 0 20px currentColor;
@@ -44,6 +50,9 @@ html, body {
   --border-neon-thin: 1px;
   --border-neon-medium: 2px;
   --border-neon-thick: 3px;
+  
+  /* Layout rozměry */
+  --chat-height-mobile: 200px;
 }
 
 /* Font loading optimalizace */
@@ -272,7 +281,7 @@ html, body {
 }
 
 /* Container width utilities */
-.w-90 {
+.w-neon-90 {
   width: 90%;
 }
 
@@ -320,37 +329,37 @@ html, body {
 
 /* Alert neon utilities */
 .alert-neon-green {
-  background-color: rgba(0, 255, 0, 0.15);
+  background-color: rgba(var(--neon-green-rgb), 0.15);
   border-color: var(--neon-green);
   color: var(--neon-green);
 }
 
 .alert-neon-blue {
-  background-color: rgba(25, 77, 209, 0.15);
+  background-color: rgba(var(--neon-blue-rgb), 0.15);
   border-color: var(--neon-blue);
   color: var(--neon-blue);
 }
 
 .alert-neon-purple {
-  background-color: rgba(255, 0, 255, 0.15);
+  background-color: rgba(var(--neon-purple-rgb), 0.15);
   border-color: var(--neon-purple);
   color: var(--neon-purple);
 }
 
 .alert-neon-orange {
-  background-color: rgba(255, 128, 0, 0.15);
+  background-color: rgba(var(--neon-orange-rgb), 0.15);
   border-color: var(--neon-orange);
   color: var(--neon-orange);
 }
 
 .alert-neon-red {
-  background-color: rgba(255, 0, 64, 0.15);
+  background-color: rgba(var(--neon-red-rgb), 0.15);
   border-color: var(--neon-red);
   color: var(--neon-red);
 }
 
 .alert-neon-yellow {
-  background-color: rgba(255, 255, 0, 0.15);
+  background-color: rgba(var(--neon-yellow-rgb), 0.15);
   border-color: var(--neon-yellow);
   color: var(--neon-yellow);
 }
@@ -397,11 +406,11 @@ html, body {
 
 .border-wide-neon-blue {
   border: var(--border-neon-thick) solid var(--neon-blue);
-  box-shadow: inset 0 0 10px rgba(25, 77, 209, 0.3), 0 0 20px rgba(25, 77, 209, 0.3);
+  box-shadow: inset 0 0 10px rgba(var(--neon-blue-rgb), 0.3), 0 0 20px rgba(var(--neon-blue-rgb), 0.3);
 }
 
 /* Background utilities */
-.bg-neon-glow {
+.bg-neon-glow-effect {
   background: radial-gradient(circle, rgba(0, 255, 0, 0.1), transparent);
 }
 
@@ -490,7 +499,7 @@ html, body {
 .neon-chat-messages {
   height: var(--chat-height-mobile);
   overflow-y: auto;
-  border: 1px solid rgba(0, 255, 0, 0.3);
+  border: 1px solid rgba(var(--neon-green-rgb, 0, 255, 0), 0.3);
   border-radius: 0.375rem;
   padding: 0.75rem;
   background-color: rgba(0, 0, 0, 0.6);
@@ -504,13 +513,13 @@ html, body {
 }
 
 .neon-chat-message-ai {
-  background-color: rgba(0, 255, 0, 0.1);
+  background-color: rgba(var(--neon-green-rgb), 0.1);
   border-left: var(--border-neon-thick) solid var(--neon-green);
   color: var(--neon-green);
 }
 
 .neon-chat-message-user {
-  background-color: rgba(25, 77, 209, 0.1);
+  background-color: rgba(var(--neon-blue-rgb), 0.1);
   border-left: var(--border-neon-thick) solid var(--neon-blue);
   color: var(--neon-blue);
   margin-left: auto;

@@ -256,7 +256,7 @@ class UltraBootstrapDiceGame {
             <div class="h-100 d-flex flex-column">
                 <!-- Player Cards - 90% šířky, Bootstrap oficiální responsive flexbox -->
                 <div class="d-flex justify-content-center mb-3">
-                    <div class="d-flex flex-wrap justify-content-center w-90">
+                    <div class="d-flex flex-wrap justify-content-center w-neon-90">
                         ${this.gameState.players.map((player, index) => `
                             <div class="flex-fill mx-1 mb-2 avatar-card-container">
                                 <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
