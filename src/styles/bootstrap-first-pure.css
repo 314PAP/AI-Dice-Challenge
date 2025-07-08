@@ -88,6 +88,32 @@
 .bg-neon-red { background-color: rgba(255, 49, 49, 0.1) !important; }
 .bg-neon-yellow { background-color: rgba(255, 255, 0, 0.1) !important; }
 
+/* KONTEJNERY SE ŠIROIÝMI BORDERY - Bootstrap-first wider borders */
+.border-wide-neon-green { 
+  border: 3px solid var(--neon-green) !important; 
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.6), inset 0 0 8px rgba(57, 255, 20, 0.1) !important;
+}
+.border-wide-neon-blue { 
+  border: 3px solid var(--neon-blue) !important; 
+  box-shadow: 0 0 8px rgba(25, 77, 209, 0.6), inset 0 0 8px rgba(25, 77, 209, 0.1) !important;
+}
+.border-wide-neon-orange { 
+  border: 3px solid var(--neon-orange) !important; 
+  box-shadow: 0 0 8px rgba(255, 136, 0, 0.6), inset 0 0 8px rgba(255, 136, 0, 0.1) !important;
+}
+.border-wide-neon-pink { 
+  border: 3px solid var(--neon-pink) !important; 
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.6), inset 0 0 8px rgba(255, 0, 255, 0.1) !important;
+}
+.border-wide-neon-red { 
+  border: 3px solid var(--neon-red) !important; 
+  box-shadow: 0 0 8px rgba(255, 49, 49, 0.6), inset 0 0 8px rgba(255, 49, 49, 0.1) !important;
+}
+.border-wide-neon-yellow { 
+  border: 3px solid var(--neon-yellow) !important; 
+  box-shadow: 0 0 8px rgba(255, 255, 0, 0.6), inset 0 0 8px rgba(255, 255, 0, 0.1) !important;
+}
+
 /* NEONOVÉ ALERT TŘÍDY - nahrazujeme Bootstrap alert pozadí */
 .alert-neon-green {
   background-color: rgba(57, 255, 20, 0.15) !important;
