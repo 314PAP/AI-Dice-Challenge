@@ -4,7 +4,7 @@
  */
 
 import gameState from '../game/gameState.js';
-import { createNeonButton, createDiceElement } from './uiComponents.js';
+import { createNeonButton, createDiceElement, createNeonCard } from './uiComponents.js';
 
 /**
  * GameUI třída - Zajišťuje veškeré renderování herní plochy
