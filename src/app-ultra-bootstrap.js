@@ -108,52 +108,118 @@ class UltraBootstrapDiceGame {
     }
 
     renderGameMenu() {
-        // 100% OFICIÁLNÍ Bootstrap 5.2 utility třídy!
-        const gameAreaHTML = `
-            <div class="text-center h-100 d-flex flex-column justify-content-center">
-                <h1 class="text-neon-green mb-4 animate__animated animate__bounceIn">
-                    <i class="bi bi-dice-6-fill text-neon-green"></i> AI Kostková Výzva
-                </h1>
-                
-                <div class="mb-4">
-                    <h3 class="text-neon-orange mb-3">
-                        <i class="bi bi-star-fill text-neon-orange"></i> Cílové skóre
-                    </h3>
-                    <div class="d-flex justify-content-center align-items-center mb-4">
-                        <button class="btn btn-neon-blue me-3" onclick="app.adjustTargetScore(-1000)">
-                            <i class="bi bi-dash-lg"></i>
-                        </button>
-                        <span class="fs-3 text-neon-yellow fw-bold mx-3" id="targetScoreDisplay">${this.gameState.targetScore}</span>
-                        <button class="btn btn-neon-blue ms-3" onclick="app.adjustTargetScore(1000)">
-                            <i class="bi bi-plus-lg"></i>
-                        </button>
-                    </div>
-                </div>
+        // KONFIGURAČNÍ OBJEKTY - mnohem čitelnější než template literály
+        const menuConfig = {
+            container: {
+                tag: 'div',
+                classes: 'text-center h-100 d-flex flex-column justify-content-center'
+            },
+            title: {
+                tag: 'h1',
+                classes: 'text-neon-green mb-4 animate__animated animate__bounceIn',
+                icon: 'bi-dice-6-fill text-neon-green',
+                text: 'AI Kostková Výzva'
+            },
+            targetScore: {
+                section: {
+                    tag: 'div',
+                    classes: 'mb-4'
+                },
+                title: {
+                    tag: 'h3', 
+                    classes: 'text-neon-orange mb-3',
+                    icon: 'bi-star-fill text-neon-orange',
+                    text: 'Cílové skóre'
+                },
+                controls: {
+                    container: 'd-flex justify-content-center align-items-center mb-4',
+                    decrease: {
+                        classes: 'btn btn-neon-blue me-3',
+                        icon: 'bi-dash-lg',
+                        action: -1000
+                    },
+                    display: {
+                        classes: 'fs-3 text-neon-yellow fw-bold mx-3',
+                        id: 'targetScoreDisplay'
+                    },
+                    increase: {
+                        classes: 'btn btn-neon-blue ms-3', 
+                        icon: 'bi-plus-lg',
+                        action: 1000
+                    }
+                }
+            },
+            buttons: {
+                container: 'd-flex flex-column align-items-center',
+                items: [
+                    {
+                        classes: 'btn btn-neon-green btn-lg px-5 mb-3 animate__animated animate__pulse animate__infinite',
+                        icon: 'bi-play-fill',
+                        text: 'ZAČÍT HRU',
+                        action: 'startGame'
+                    },
+                    {
+                        classes: 'btn btn-neon-blue px-4 mb-3',
+                        icon: 'bi-book-fill', 
+                        text: 'Pravidla',
+                        action: 'showRules'
+                    },
+                    {
+                        classes: 'btn btn-neon-orange px-4',
+                        icon: 'bi-trophy-fill',
+                        text: 'Síň slávy', 
+                        action: 'showHallOfFame'
+                    }
+                ]
+            }
+        };
 
-                <div class="d-flex flex-column align-items-center">
-                    <button class="btn btn-neon-green btn-lg px-5 mb-3 animate__animated animate__pulse animate__infinite" 
-                            onclick="app.startGame()">
-                        <i class="bi bi-play-fill"></i> ZAČÍT HRU
-                    </button>
-                    
-                    <button class="btn btn-neon-blue px-4 mb-3" onclick="app.showRules()">
-                        <i class="bi bi-book-fill"></i> Pravidla
-                    </button>
-                    
-                    <button class="btn btn-neon-orange px-4" onclick="app.showHallOfFame()">
-                        <i class="bi bi-trophy-fill"></i> Síň slávy
-                    </button>
-                </div>
-            </div>
-        `;
-
+        const gameAreaHTML = this.buildMenuFromConfig(menuConfig);
         this.setGameAreaContent(gameAreaHTML);
     }
 
+    buildMenuFromConfig(config) {
+        return `
+            <${config.container.tag} class="${config.container.classes}">
+                <${config.title.tag} class="${config.title.classes}">
+                    <i class="bi ${config.title.icon}"></i> ${config.title.text}
+                </${config.title.tag}>
+                
+                <${config.targetScore.section.tag} class="${config.targetScore.section.classes}">
+                    <${config.targetScore.title.tag} class="${config.targetScore.title.classes}">
+                        <i class="bi ${config.targetScore.title.icon}"></i> ${config.targetScore.title.text}
+                    </${config.targetScore.title.tag}>
+                    <div class="${config.targetScore.controls.container}">
+                        <button class="${config.targetScore.controls.decrease.classes}" onclick="app.adjustTargetScore(${config.targetScore.controls.decrease.action})">
+                            <i class="bi ${config.targetScore.controls.decrease.icon}"></i>
+                        </button>
+                        <span class="${config.targetScore.controls.display.classes}" id="${config.targetScore.controls.display.id}">
+                            ${this.gameState.targetScore}
+                        </span>
+                        <button class="${config.targetScore.controls.increase.classes}" onclick="app.adjustTargetScore(${config.targetScore.controls.increase.action})">
+                            <i class="bi ${config.targetScore.controls.increase.icon}"></i>
+                        </button>
+                    </div>
+                </${config.targetScore.section.tag}>
+
+                <div class="${config.buttons.container}">
+                    ${config.buttons.items.map(button => `
+                        <button class="${button.classes}" onclick="app.${button.action}()">
+                            <i class="bi ${button.icon}"></i> ${button.text}
+                        </button>
+                    `).join('')}
+                </div>
+            </${config.container.tag}>
+        `;
+    }
+
     setGameAreaContent(html) {
-        // Utility funkce pro nastavení obsahu s Bootstrap třídami
-        document.getElementById('gameArea').innerHTML = html;
-        document.getElementById('gameAreaMobile').innerHTML = html;
+        // Utility funkce pro nastavení obsahu
+        const gameArea = document.getElementById('gameArea');
+        const gameAreaMobile = document.getElementById('gameAreaMobile');
+        
+        if (gameArea) gameArea.innerHTML = html;
+        if (gameAreaMobile) gameAreaMobile.innerHTML = html;
     }
 
     adjustTargetScore(change) {
