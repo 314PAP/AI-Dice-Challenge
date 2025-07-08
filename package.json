@@ -26,13 +26,7 @@
     "prepare": "husky install",
     "auto-commit": "./auto-commit.sh",
     "auto-commit:watch": "./auto-commit-watcher.sh",
-    "auto-commit:force": "./force-commit.sh",
-    "pnpm:dev": "pnpm run dev",
-    "pnpm:build": "pnpm run build",
-    "pnpm:preview": "pnpm run preview",
-    "pnpm:install": "pnpm install",
-    "pnpm:add": "pnpm add",
-    "pnpm:remove": "pnpm remove"
+    "auto-commit:force": "./force-commit.sh"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",
@@ -46,33 +40,9 @@
     "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",
     "prettier": "^3.6.2",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.8.3",
     "vite": "^7.0.0"
   },
-  "dependencies": {
-    "@tailwindcss/typography": "^0.5.16",
-    "animate-on-scroll": "^1.2.5",
-    "animate.css": "^4.1.1",
-    "aos": "^2.3.4",
-    "bootstrap": "^5.3.7",
-    "bootstrap-icons": "^1.13.1",
-    "cssremedy": "^0.1.0-beta.2",
-    "date-fns": "^4.1.0",
-    "event-emitter3": "^1.0.4",
-    "hover.css": "^2.3.2",
-    "lodash": "^4.17.21",
-    "lodash-es": "^4.17.21",
-    "lucide-react": "^0.525.0",
-    "magic.css": "^1.4.8",
-    "mitt": "^3.0.1",
-    "modern-css-reset": "^1.4.0",
-    "normalize.css": "^8.0.1",
-    "prismjs": "^1.30.0",
-    "ramda": "^0.31.3",
-    "sweetalert2": "^11.22.2",
-    "utility-types": "^3.11.0"
-  },
+  "dependencies": {},
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix --max-warnings=1000 || true",
