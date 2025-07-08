@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Layout Debug - AI Kostková Výzva</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="src/styles/bootstrap-first-pure.css" rel="stylesheet">
+    <style>
+        /* Debug styly pro vizualizaci layoutu */
+        .debug-box {
+            border: 3px solid red !important;
+            background-color: rgba(255, 0, 0, 0.1) !important;
+        }
+        .debug-green {
+            border: 3px solid green !important;
+            background-color: rgba(0, 255, 0, 0.1) !important;
+        }
+        .debug-blue {
+            border: 3px solid blue !important;
+            background-color: rgba(0, 0, 255, 0.1) !important;
+        }
+        .debug-info {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="min-vh-100 m-0 p-0 bg-black text-white">
+
+<div class="container-fluid min-vh-100 p-2 d-flex flex-column">
+    <h1 class="text-neon-green text-center mb-3">🎲 Mobile Layout Debug</h1>
+    
+    <!-- Pouze mobilní layout pro testování -->
+    <div class="debug-box h-100 d-flex flex-column position-relative">
+        <div class="debug-info">Main Container (h-100, d-flex, flex-column)</div>
+        
+        <!-- Game Area - Opravená struktura bez d-flex konfliktů -->
+        <div class="debug-green mb-2 mobile-game-area position-relative">
+            <div class="debug-info">Game Area (.mobile-game-area)</div>
+            <div class="game-container h-100 border-2 border-neon-green rounded-3 p-2 p-md-3 position-relative overflow-auto bg-black">
+                <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+                    <h3 class="text-neon-green">🎮 Herní Oblast</h3>
+                    <p class="text-neon-green">Tato oblast by měla zabírat odpovídající % výšky podle media queries</p>
+                    <div class="d-flex gap-2 flex-wrap justify-content-center">
+                        <div class="dice bg-black border-2 border-neon-green rounded text-neon-green d-flex align-items-center justify-content-center">
+                            🎲
+                        </div>
+                        <div class="dice bg-black border-2 border-neon-green rounded text-neon-green d-flex align-items-center justify-content-center">
+                            🎲
+                        </div>
+                        <div class="dice bg-black border-2 border-neon-green rounded text-neon-green d-flex align-items-center justify-content-center">
+                            🎲
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat Area - Opravená struktura bez d-flex konfliktů -->
+        <div class="debug-blue mobile-chat-area position-relative">
+            <div class="debug-info">Chat Area (.mobile-chat-area)</div>
+            <div class="chat-container h-100 border-2 border-neon-blue rounded-3 p-2 d-flex flex-column bg-black">
+                <h6 class="text-neon-blue text-center mb-1 flex-shrink-0">
+                    <i class="bi bi-chat-dots-fill text-neon-blue"></i> AI Chat
+                </h6>
+                <div class="flex-grow-1 overflow-auto mb-2 p-2 bg-black rounded-2 border-1 border-neon-blue">
+                    <div class="text-neon-blue mb-2">🤖 AI: Vítej ve hře!</div>
+                    <div class="text-neon-green mb-2">👤 Hráč: Ahoj!</div>
+                    <div class="text-neon-blue mb-2">🤖 AI: Jak se ti daří?</div>
+                    <div class="text-neon-green mb-2">👤 Hráč: Skvěle, díky!</div>
+                    <div class="text-neon-blue mb-2">🤖 AI: To mě těší! Chtěl bys hrát?</div>
+                    <div class="text-neon-green mb-2">👤 Hráč: Určitě!</div>
+                </div>
+                <div class="chat-input-area flex-shrink-0">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control bg-black text-neon-blue border-neon-blue" 
+                               placeholder="Zpráva..." autocomplete="off">
+                        <button class="btn btn-neon-blue btn-sm">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-fixed bottom-0 start-0 p-2 bg-dark text-white small" style="z-index: 1001;">
+    <div>Viewport: <span id="viewport"></span></div>
+    <div>Game Area Flex: <span id="gameFlexInfo"></span></div>
+    <div>Chat Area Flex: <span id="chatFlexInfo"></span></div>
+</div>
+
+<script>
+function updateDebugInfo() {
+    const viewport = `${window.innerWidth}x${window.innerHeight}`;
+    document.getElementById('viewport').textContent = viewport;
+    
+    const gameArea = document.querySelector('.mobile-game-area');
+    const chatArea = document.querySelector('.mobile-chat-area');
+    
+    if (gameArea && chatArea) {
+        const gameStyle = window.getComputedStyle(gameArea);
+        const chatStyle = window.getComputedStyle(chatArea);
+        
+        document.getElementById('gameFlexInfo').textContent = gameStyle.flex;
+        document.getElementById('chatFlexInfo').textContent = chatStyle.flex;
+    }
+}
+
+// Aktualizuj info při načtení a změně velikosti
+window.addEventListener('load', updateDebugInfo);
+window.addEventListener('resize', updateDebugInfo);
+
+// Simulace změny velikosti pro testování
+setTimeout(updateDebugInfo, 500);
+</script>
+
+</body>
+</html>

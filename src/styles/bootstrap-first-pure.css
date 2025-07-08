@@ -349,16 +349,22 @@ html, body {
 }
 
 /* BOOTSTRAP MOBILNÍ OPTIMALIZACE - theming compliant */
-/* Mobilní layout poměry - nahrazuje inline styly */
-.mobile-game-area {
-  flex: 0 0 60%;
-}
+/* Responzivní mobilní layout poměry podle viewport velikosti */
 
-.mobile-chat-area {
-  flex: 0 0 40%;
-}
-
+/* Základní mobile layout pro střední obrazovky (tablet portrait) */
 @media (max-width: 991.98px) {
+  .mobile-game-area {
+    flex: 0 0 65%; /* Tablet: více prostoru pro hru */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mobile-chat-area {
+    flex: 0 0 35%; /* Tablet: méně prostoru pro chat */
+    display: flex;
+    flex-direction: column;
+  }
+  
   /* Responzivní kostky */
   .dice { 
     width: 50px;
@@ -373,8 +379,36 @@ html, body {
   }
 }
 
+/* Malé mobily (běžné telefony) */
+@media (max-width: 767.98px) {
+  .mobile-game-area {
+    flex: 0 0 60%; /* Standardní mobil: 60/40 poměr */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mobile-chat-area {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Extra malé mobily (malé telefony) */
 @media (max-width: 575.98px) {
-  /* Extra malé obrazovky */
+  .mobile-game-area {
+    flex: 0 0 55%; /* Malý mobil: více prostoru pro chat */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mobile-chat-area {
+    flex: 0 0 45%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Extra malé kostky */
   .dice { 
     width: 45px;
     height: 45px;
@@ -385,6 +419,34 @@ html, body {
   .chat-container,
   .game-container {
     padding: 0.5rem;
+  }
+}
+
+/* Velmi malé obrazovky (landscape phones) */
+@media (max-width: 479.98px) {
+  .mobile-game-area {
+    flex: 0 0 50%; /* Velmi malý: 50/50 pro lepší použitelnost */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mobile-chat-area {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Minimální padding */
+  .chat-container,
+  .game-container {
+    padding: 0.25rem;
+  }
+  
+  /* Kompaktní dice */
+  .dice { 
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
   }
 }
 
