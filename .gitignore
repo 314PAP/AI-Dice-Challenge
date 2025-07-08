@@ -38,3 +38,6 @@ temp/
 tmp/
 cleanup_archive/
 archive/
+
+# Bootstrap documentation folder
+bootstrap-4.0.0*
