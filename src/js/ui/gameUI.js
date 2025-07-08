@@ -476,7 +476,7 @@ export class GameUI {
         buttonContainer.className = 'mt-auto pt-2';
         
         const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm btn-md-lg w-100');
+            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm btn-md-lg w-100 btn-no-scale');
         buttonContainer.appendChild(backBtn);
         container.appendChild(buttonContainer);
         
@@ -546,7 +546,7 @@ export class GameUI {
         buttonContainer.className = 'mt-auto pt-2 d-flex justify-content-center';
         
         const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2');
+            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2 btn-no-scale');
         buttonContainer.appendChild(backBtn);
         container.appendChild(buttonContainer);
         

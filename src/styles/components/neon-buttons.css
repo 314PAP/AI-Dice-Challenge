@@ -22,15 +22,24 @@
   outline: none;
 }
 
-/* Hover a focus stavy - bez scaling pro předcházení overflow */
+/* Hover a focus stavy - s scaling efektem */
 .btn-neon:hover,
 .btn-neon:focus,
 .btn.btn-neon:hover,
 .btn.btn-neon:focus {
   background-color: rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
   color: inherit;
   border-color: inherit;
   box-shadow: var(--neon-glow-strong);
+}
+
+/* Speciální třída pro tlačítka bez scaling - pro zabránění overflow */
+.btn-neon.btn-no-scale:hover,
+.btn-neon.btn-no-scale:focus,
+.btn.btn-neon.btn-no-scale:hover,
+.btn.btn-neon.btn-no-scale:focus {
+  transform: none;
 }
 
 /* Active stav */
