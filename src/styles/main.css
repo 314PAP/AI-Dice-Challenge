@@ -8,24 +8,29 @@
 /* 1. Proměnné a základní nastavení */
 @import './variables/neon-colors.css';
 
-/* 2. Utility třídy a rozšíření Bootstrapu */
+/* 2. Bootstrap overrides - musí být před ostatními moduly */
+@import './utils/bootstrap-overrides.css';
+
+/* 3. Utility třídy a rozšíření Bootstrapu */
 @import './utils/neon-utilities.css';
 @import './utils/responsive-utilities.css';
 @import './responsive-text.css';
 
-/* 3. Komponenty */
+/* 4. Komponenty */
 @import './components/neon-buttons.css';
 @import './components/dice.css';
 
-/* 4. Speciální optimalizace */
+/* 5. Speciální optimalizace */
 @import './landscape-orientation.css';
 
-/* 5. Globální nastavení */
+/* 6. Globální nastavení */
 html, body {
   height: 100%;
   background-color: #000;
   color: #fff;
   font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 /* Font loading optimalizace */

@@ -1,0 +1,219 @@
+/* ===================================================================
+   BOOTSTRAP OVERRIDES PRO NEONOVÝ DESIGN
+   
+   Tento soubor obsahuje pouze nezbytné overrides Bootstrap komponent
+   pro zachování neonového designu a správné responzivity
+   ================================================================= */
+
+/* Globální overflow kontrola */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Bootstrap Card overrides pro neonový design */
+.card {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+}
+
+.card-header {
+  background-color: var(--neon-black) !important;
+  border-bottom-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+}
+
+.card-body {
+  background-color: var(--neon-black) !important;
+  color: var(--neon-green) !important;
+}
+
+/* Bootstrap Table overrides */
+.table {
+  --bs-table-bg: var(--neon-black);
+  --bs-table-color: var(--neon-green);
+  --bs-table-border-color: var(--neon-green);
+  --bs-table-striped-bg: rgba(0, 255, 157, 0.05);
+  --bs-table-hover-bg: rgba(0, 255, 157, 0.1);
+}
+
+.table-dark {
+  --bs-table-bg: var(--neon-black);
+  --bs-table-color: var(--neon-green);
+  --bs-table-border-color: var(--neon-green);
+}
+
+/* Bootstrap Form Controls pro neonový design */
+.form-control {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
+
+.form-control:focus {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 255, 0.25) !important;
+}
+
+.form-control::placeholder {
+  color: rgba(0, 255, 255, 0.6) !important;
+}
+
+/* Bootstrap Input Group - overflow kontrola */
+.input-group {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.input-group .form-control {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.input-group .btn {
+  flex: 0 0 auto;
+}
+
+/* Bootstrap Grid - overflow prevence */
+.container-fluid {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 100%;
+}
+
+.col, .col-*, [class*="col-"] {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Bootstrap Flexbox enhancements pro overflow kontrolu */
+.d-flex {
+  min-width: 0;
+}
+
+.flex-grow-1 {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Responsive scrollbar styling pro všechny prohlížeče */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) var(--neon-black);
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--neon-black);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+}
+
+/* Landscape orientace - Bootstrap responsive optimalizace */
+@media (orientation: landscape) and (max-height: 600px) {
+  .container-fluid {
+    padding: 0;
+  }
+  
+  .p-2 {
+    padding: 0.25rem !important;
+  }
+  
+  .p-md-3 {
+    padding: 0.5rem !important;
+  }
+  
+  .mb-2, .mb-md-3 {
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Chat input kompaktnější v landscape */
+  .input-group .form-control {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .input-group .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Mobile first optimalizace */
+@media (max-width: 575.98px) {
+  .container-fluid {
+    padding: 0;
+  }
+  
+  .p-2 {
+    padding: 0.5rem !important;
+  }
+  
+  /* Chat zprávy kompaktnější na mobilech */
+  #chatMessages {
+    min-height: 150px !important;
+  }
+  
+  /* Input group optimalizace pro mobil */
+  .input-group .form-control {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .input-group .btn {
+    padding: 0.5rem;
+    min-width: 50px;
+  }
+}
+
+/* Tablet breakpoint optimalizace */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  #chatMessages {
+    min-height: 250px !important;
+  }
+}
+
+/* Desktop optimalizace */
+@media (min-width: 992px) {
+  #chatMessages {
+    min-height: 300px !important;
+  }
+}
+
+/* Bezpečnostní pravidla pro zabránění overflow */
+.overflow-safe, .position-relative {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+  max-width: 100%;
+}
+
+/* Z-index management kompatibilní s Bootstrap */
+.loading-z-index {
+  z-index: var(--z-loading);
+}

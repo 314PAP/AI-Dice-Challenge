@@ -26,7 +26,7 @@
     <!-- Centrální CSS soubor - importuje všechny moduly -->
     <link rel="stylesheet" href="/src/styles/main.css">
 </head>
-<body class="bg-black text-neon-green min-vh-100 m-0 p-0 d-flex flex-column">
+<body class="bg-black text-neon-green overflow-hidden">
     
     <!-- Loading Screen -->
     <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center loading-z-index">
@@ -40,36 +40,60 @@
         </div>
     </div>
     
-    <!-- Main Application Container - Full Bootstrap Viewport -->
-    <div id="app" class="flex-grow-1 w-100 p-2 p-lg-3 d-none">
+    <!-- Main Application Container - Bootstrap-first Responsive Layout -->
+    <div id="app" class="vh-100 vw-100 d-none">
         
-        <!-- Responzivní Bootstrap Grid Layout - Mobile First -->
-        <div class="row h-100 g-2 g-lg-3 landscape-flex-row">
-            <!-- Game Area - na desktopu vlevo, na mobilu nahoře, v landscape na levé polovině -->
-            <div class="col-12 col-lg-8 h-100 mb-2 mb-lg-0 landscape-w-50">
-                <div class="h-100 border-wide-neon-green rounded-3 p-2 p-md-3 position-relative overflow-auto bg-black landscape-py-1">
-                    <div id="gameArea" class="h-100 d-flex flex-column"></div>
-                </div>
-            </div>
-            
-            <!-- Chat Area - na desktopu vpravo, na mobilu dole, v landscape na pravé polovině -->
-            <div class="col-12 col-lg-4 h-100 landscape-w-50">
-                <div class="border-wide-neon-blue rounded-3 p-2 p-lg-3 d-flex flex-column bg-black h-100 landscape-py-1">
-                    <h5 class="text-neon-blue text-center mb-2 mb-md-3 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-chat-dots-fill text-neon-blue me-1 me-sm-2"></i>
-                        <span class="d-inline">AI Chat</span>
-                    </h5>
-                    <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-lg-3 p-2 bg-black rounded-2 border-1 border-neon-blue"></div>
-                    <div class="sticky-bottom bg-black pt-2">
-                        <div class="input-group">
-                            <input type="text" id="chatInput" class="form-control bg-black text-neon-blue border-neon-blue" 
-                                   placeholder="Napište zprávu AI..." autocomplete="off">
-                            <button id="sendChatBtn" class="btn btn-neon" data-neon-color="blue">
-                                <i class="bi bi-send-fill"></i>
-                            </button>
+        <!-- Bootstrap Grid - Strict responsive design -->
+        <div class="container-fluid h-100 p-0">
+            <div class="row g-0 h-100">
+                
+                <!-- Game Area Column - Mobile: stacked, Desktop: 8/12 width -->
+                <div class="col-12 col-lg-8 order-1 order-lg-1">
+                    <div class="h-100 d-flex flex-column p-2 p-md-3">
+                        <div class="flex-grow-1 border-wide-neon-green rounded-3 p-2 p-md-3 d-flex flex-column bg-black position-relative overflow-hidden">
+                            <div id="gameArea" class="flex-grow-1 d-flex flex-column overflow-auto"></div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Chat Area Column - Mobile: stacked, Desktop: 4/12 width -->
+                <div class="col-12 col-lg-4 order-2 order-lg-2">
+                    <div class="h-100 d-flex flex-column p-2 p-md-3">
+                        <div class="flex-grow-1 border-wide-neon-blue rounded-3 p-2 p-md-3 d-flex flex-column bg-black position-relative overflow-hidden">
+                            
+                            <!-- Chat Header - Fixed -->
+                            <div class="flex-shrink-0 mb-2 mb-md-3">
+                                <h5 class="text-neon-blue text-center mb-0 d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-chat-dots-fill me-2"></i>
+                                    <span class="d-none d-md-inline">AI Chat</span>
+                                    <span class="d-md-none">Chat</span>
+                                </h5>
+                            </div>
+                            
+                            <!-- Chat Messages - Expandable with safe overflow -->
+                            <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-md-3 p-2 bg-black rounded-2 border border-neon-blue position-relative" style="min-height: 200px;"></div>
+                            
+                            <!-- Chat Input - Fixed at bottom with constrained width -->
+                            <div class="flex-shrink-0">
+                                <div class="input-group" style="max-width: 100%;">
+                                    <input type="text" id="chatInput" 
+                                           class="form-control bg-black text-neon-blue border-neon-blue flex-grow-1" 
+                                           placeholder="Zpráva AI..." 
+                                           autocomplete="off" 
+                                           style="min-width: 0;">
+                                    <button id="sendChatBtn" 
+                                            class="btn btn-neon flex-shrink-0 px-2 px-md-3" 
+                                            data-neon-color="blue"
+                                            style="max-width: 60px;">
+                                        <i class="bi bi-send-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

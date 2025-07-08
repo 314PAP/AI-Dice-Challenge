@@ -1,11 +1,11 @@
 /* ===================================================================
-   RESPONZIVNÍ UTILITY A LAYOUT HELPERS
+   RESPONZIVNÍ UTILITY - BOOTSTRAP EXTENSIONS
    
-   Obsahuje responsive utility třídy nad rámec Bootstrapu
-   pro optimalizaci layoutu na všech zařízeních
+   Pouze rozšíření nad rámec Bootstrap utility tříd
+   Zaměřeno na specific use cases pro neonový design
    ================================================================= */
 
-/* Responsive visibility třídy - doplnění Bootstrap d-* tříd */
+/* Responsive visibility pro specifické výšky */
 @media (max-height: 450px) {
   .d-short-none {
     display: none !important;
@@ -20,185 +20,88 @@
   }
 }
 
-/* Responsive spacing - doplnění Bootstrap spacing systému */
-@media (max-width: 576px) {
-  .small-device-p-1 {
+/* Kompaktní layout pro malá zařízení */
+@media (max-width: 575.98px) {
+  .mobile-compact {
     padding: 0.25rem !important;
-  }
-  
-  .small-device-m-1 {
     margin: 0.25rem !important;
   }
   
-  .small-device-gap-1 {
-    gap: 0.25rem !important;
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
   }
 }
 
-/* Responzivní výška kontejnerů */
-.vh-xs-50 {
-  height: 50vh;
-}
-
-@media (min-width: 576px) {
-  .vh-sm-75 {
-    height: 75vh !important;
-  }
-}
-
-@media (min-width: 768px) {
-  .vh-md-100 {
-    height: 100vh !important;
-  }
-}
-
-/* Layout optimalizace pro landscape orientaci */
+/* Landscape orientace utilities */
 @media (orientation: landscape) and (max-height: 576px) {
-  .landscape-flex-row {
-    flex-direction: row !important;
+  .landscape-compact {
+    padding: 0.25rem !important;
   }
   
-  .landscape-h-100 {
-    height: 100% !important;
-  }
-  
-  .landscape-w-50 {
-    width: 50% !important;
-  }
-  
-  .landscape-w-auto {
-    width: auto !important;
-  }
-  
-  .landscape-py-1 {
-    padding-top: 0.25rem !important;
-    padding-bottom: 0.25rem !important;
-  }
-  
-  .landscape-small-text {
+  .landscape-text-sm {
     font-size: 0.875rem !important;
   }
   
-  /* Optimalizace pro chat a herní plochu */
-  .col-12 {
-    max-height: 100%;
-  }
-  
-  /* Zrušení marginu mezi sloupci v landscape režimu */
-  .mb-2.mb-lg-0 {
-    margin-bottom: 0 !important;
-  }
-  
-  /* Landscape optimalizace pro flex a grid layout */
-  .flex-landscape-row {
-    flex-direction: row !important;
-  }
-  
-  .flex-landscape-column {
-    flex-direction: column !important;
-  }
-  
-  .w-landscape-auto {
-    width: auto !important;
-  }
-  
-  .w-landscape-45 {
-    width: 45% !important;
-  }
-  
-  .gap-landscape-1 {
-    gap: 0.25rem !important;
-  }
-  
-  .gap-landscape-2 {
-    gap: 0.5rem !important;
+  .landscape-min-height {
+    min-height: calc(100vh - 2rem) !important;
   }
 }
 
-/* Responzivní velikosti tlačítek */
+/* Utility pro bezpečný overflow */
+.overflow-safe {
+  overflow: hidden !important;
+  max-width: 100% !important;
+}
+
+.overflow-auto-safe {
+  overflow: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+/* Flexbox utilities pro bezpečné layout */
+.flex-safe {
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+.flex-grow-safe {
+  flex-grow: 1 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Grid safe utilities */
+.col-safe {
+  max-width: 100% !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Responsive button utilities */
 .btn-xs {
   padding: 0.2rem 0.4rem !important;
   font-size: 0.75rem !important;
+  line-height: 1.2 !important;
 }
 
-.btn-sm {
-  padding: 0.25rem 0.5rem !important;
-  font-size: 0.875rem !important;
-}
-
-@media (min-width: 768px) {
-  .btn-md-lg {
-    padding: 0.5rem 1rem !important;
-    font-size: 1rem !important;
-  }
-}
-
-/* Landscape optimalizace pro tlačítka */
 @media (orientation: landscape) and (max-height: 500px) {
-  .btn-lg, .btn-md-lg {
+  .btn, .btn-lg {
     padding: 0.25rem 0.5rem !important;
     font-size: 0.875rem !important;
   }
 }
 
-/* Zarovnání obsahu v landscape režimu */
-@media (orientation: landscape) and (max-height: 600px) {
-  .flex-landscape-row {
-    flex-direction: row !important;
-  }
-  
-  .flex-landscape-column {
-    flex-direction: column !important;
-  }
-  
-  .h-landscape-auto {
-    height: auto !important;
-  }
-  
-  .overflow-landscape-auto {
-    overflow: auto !important;
-  }
-  
-  .w-landscape-50 {
-    width: 50% !important;
-  }
-  
-  /* Oprava přetékání obsahu */
-  .h-100 > .d-flex {
-    min-height: 0;
-  }
-  
-  /* Zajištění správné výšky herní oblasti v landscape módu */
-  #gameArea {
-    min-height: calc(100vh - 6rem) !important;
-  }
-  
-  /* Zajištění, že chat area bude správně zobrazena vedle herní plochy */
-  .row.h-100 > .col-12 {
-    max-height: 100vh !important;
-  }
+/* Input group safe utilities */
+.input-group-safe {
+  max-width: 100% !important;
 }
 
-/* Bezpečnostní CSS pro zabránění overflow v kontejnerech */
-.overflow-safe {
-  overflow: hidden !important;
+.input-group-safe .form-control {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
 }
 
-/* Kompaktní tlačítka pro omezeného prostoru */
-.btn-compact {
-  padding: 0.25rem 0.5rem !important;
-  font-size: 0.8rem !important;
-}
-
-/* Responsive button container - zabránění overflow */
-.btn-container-safe {
-  overflow: hidden;
-  max-width: 100%;
-}
-
-.btn-container-safe .btn {
-  max-width: 100%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.input-group-safe .btn {
+  flex: 0 0 auto !important;
+  max-width: 25% !important;
 }
