@@ -108,7 +108,7 @@ class UltraBootstrapDiceGame {
     }
 
     renderGameMenu() {
-        // 100% Bootstrap utility třídy, žádný vlastní CSS!
+        // 100% OFICIÁLNÍ Bootstrap 5.2 utility třídy!
         const gameAreaHTML = `
             <div class="text-center h-100 d-flex flex-column justify-content-center">
                 <h1 class="text-neon-green mb-4 animate__animated animate__bounceIn">
@@ -119,24 +119,24 @@ class UltraBootstrapDiceGame {
                     <h3 class="text-neon-orange mb-3">
                         <i class="bi bi-star-fill text-neon-orange"></i> Cílové skóre
                     </h3>
-                    <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
-                        <button class="btn btn-neon-blue" onclick="app.adjustTargetScore(-1000)">
+                    <div class="d-flex justify-content-center align-items-center mb-4">
+                        <button class="btn btn-neon-blue me-3" onclick="app.adjustTargetScore(-1000)">
                             <i class="bi bi-dash-lg"></i>
                         </button>
-                        <span class="fs-3 text-neon-yellow fw-bold" id="targetScoreDisplay">${this.gameState.targetScore}</span>
-                        <button class="btn btn-neon-blue" onclick="app.adjustTargetScore(1000)">
+                        <span class="fs-3 text-neon-yellow fw-bold mx-3" id="targetScoreDisplay">${this.gameState.targetScore}</span>
+                        <button class="btn btn-neon-blue ms-3" onclick="app.adjustTargetScore(1000)">
                             <i class="bi bi-plus-lg"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="d-flex flex-column gap-3 align-items-center">
-                    <button class="btn btn-neon-green btn-lg px-5 animate__animated animate__pulse animate__infinite" 
+                <div class="d-flex flex-column align-items-center">
+                    <button class="btn btn-neon-green btn-lg px-5 mb-3 animate__animated animate__pulse animate__infinite" 
                             onclick="app.startGame()">
                         <i class="bi bi-play-fill"></i> ZAČÍT HRU
                     </button>
                     
-                    <button class="btn btn-neon-blue px-4" onclick="app.showRules()">
+                    <button class="btn btn-neon-blue px-4 mb-3" onclick="app.showRules()">
                         <i class="bi bi-book-fill"></i> Pravidla
                     </button>
                     
@@ -185,18 +185,19 @@ class UltraBootstrapDiceGame {
     renderGameBoard() {
         const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
         
-        // Kompletně Bootstrap layout - responzivní avatary 90% šířky!
+        // OFICIÁLNÍ Bootstrap 5.2 layout - responzivní avatary 90% šířky!
         const gameHTML = `
             <div class="h-100 d-flex flex-column">
-                <!-- Player Cards - 90% šířky, vždy vedle sebe, plně responzivní -->
+                <!-- Player Cards - 90% šířky, Bootstrap oficiální responsive flexbox -->
                 <div class="d-flex justify-content-center mb-3">
-                    <div class="d-flex flex-wrap justify-content-center gap-2 gap-lg-3" style="width: 90%;">
+                    <div class="d-flex flex-wrap justify-content-center" style="width: 90%;">
                         ${this.gameState.players.map((player, index) => `
-                            <div class="flex-fill" style="min-width: 120px; max-width: 200px;">
+                            <div class="flex-fill mx-1 mb-2" style="min-width: 120px; max-width: 200px;">
                                 <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
-                                    <div class="card-body text-center p-2 p-lg-3">
+                                    <div class="card-body text-center p-2">
                                         <div class="mb-2">
-                                            <i class="bi ${player.avatar} text-neon-${player.color} fs-3 fs-lg-2"></i>
+                                            <i class="bi ${player.avatar} text-neon-${player.color} fs-2 d-none d-md-inline"></i>
+                                            <i class="bi ${player.avatar} text-neon-${player.color} fs-3 d-md-none"></i>
                                         </div>
                                         <div class="fw-bold text-neon-${player.color} small">${player.name}</div>
                                         <div class="text-neon-${player.color} small">${player.score} bodů</div>
@@ -207,37 +208,54 @@ class UltraBootstrapDiceGame {
                     </div>
                 </div>
 
-                <!-- Game Controls - Bootstrap Flexbox -->
+                <!-- Game Controls - Bootstrap oficiální flexbox -->
                 <div class="flex-grow-1 d-flex flex-column justify-content-center">
                     <div class="text-center mb-4">
-                        <h3 class="text-neon-green mb-3 fs-4 fs-lg-3">
+                        <h3 class="text-neon-green mb-3 fs-3 d-none d-md-block">
                             <i class="bi ${currentPlayer.avatar} text-neon-${currentPlayer.color}"></i> 
                             Na řadě: <span class="text-neon-${currentPlayer.color}">${currentPlayer.name}</span>
                         </h3>
-                        <div class="text-neon-yellow fs-6 fs-lg-5 mb-3">
+                        <h4 class="text-neon-green mb-3 fs-4 d-md-none">
+                            <i class="bi ${currentPlayer.avatar} text-neon-${currentPlayer.color}"></i> 
+                            Na řadě: <span class="text-neon-${currentPlayer.color}">${currentPlayer.name}</span>
+                        </h4>
+                        <div class="text-neon-yellow fs-5 d-none d-md-block mb-3">
+                            Skóre tahu: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
+                        </div>
+                        <div class="text-neon-yellow fs-6 d-md-none mb-3">
                             Skóre tahu: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
                         </div>
                     </div>
 
-                    <!-- Dice Area - Bootstrap Flexbox, plně responzivní -->
+                    <!-- Dice Area - Bootstrap oficiální flexbox s margin spacery -->
                     <div class="text-center mb-4">
-                        <div id="diceContainer" class="d-flex justify-content-center gap-2 gap-lg-3 flex-wrap mb-4">
+                        <div id="diceContainer" class="d-flex justify-content-center flex-wrap mb-4">
                             ${this.generateDiceHTML()}
                         </div>
                         
                         ${currentPlayer.isHuman ? `
-                            <!-- Desktop: všechna tlačítka v řadě, Mobil: dvě řady -->
-                            <div class="d-flex justify-content-center gap-2 gap-lg-3 flex-wrap">
-                                <div class="d-flex gap-2 flex-wrap justify-content-center">
-                                    <button class="btn btn-neon-green btn-sm btn-lg-normal" onclick="app.rollDice()" id="rollBtn">
+                            <!-- Bootstrap oficiální button layout - responsive -->
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <div class="d-flex flex-wrap justify-content-center mb-2">
+                                    <button class="btn btn-neon-green btn-sm mx-1 mb-2 d-md-none" onclick="app.rollDice()" id="rollBtn">
                                         <i class="bi bi-dice-6-fill"></i> Hodit
                                     </button>
-                                    <button class="btn btn-neon-blue btn-sm btn-lg-normal" onclick="app.holdDice()" id="holdBtn" disabled>
+                                    <button class="btn btn-neon-green mx-1 mb-2 d-none d-md-inline-block" onclick="app.rollDice()" id="rollBtn">
+                                        <i class="bi bi-dice-6-fill"></i> Hodit
+                                    </button>
+                                    
+                                    <button class="btn btn-neon-blue btn-sm mx-1 mb-2 d-md-none" onclick="app.holdDice()" id="holdBtn" disabled>
+                                        <i class="bi bi-collection-fill"></i> Odložit
+                                    </button>
+                                    <button class="btn btn-neon-blue mx-1 mb-2 d-none d-md-inline-block" onclick="app.holdDice()" id="holdBtn" disabled>
                                         <i class="bi bi-collection-fill"></i> Odložit
                                     </button>
                                 </div>
-                                <div class="d-flex gap-2 flex-wrap justify-content-center">
-                                    <button class="btn btn-neon-orange btn-sm btn-lg-normal" onclick="app.endTurn()" id="endBtn">
+                                <div class="d-flex flex-wrap justify-content-center">
+                                    <button class="btn btn-neon-orange btn-sm mx-1 mb-2 d-md-none" onclick="app.endTurn()" id="endBtn">
+                                        <i class="bi bi-stop-fill"></i> Ukončit tah
+                                    </button>
+                                    <button class="btn btn-neon-orange mx-1 mb-2 d-none d-md-inline-block" onclick="app.endTurn()" id="endBtn">
                                         <i class="bi bi-stop-fill"></i> Ukončit tah
                                     </button>
                                 </div>
@@ -252,7 +270,7 @@ class UltraBootstrapDiceGame {
                         `}
                     </div>
 
-                    <!-- Bottom Controls - Bootstrap Utilities -->
+                    <!-- Bottom Controls - Bootstrap oficiální utilities -->
                     <div class="text-center mt-auto">
                         <button class="btn btn-neon-red btn-sm" onclick="app.endGame()">
                             <i class="bi bi-stop-circle-fill"></i> Ukončit hru
