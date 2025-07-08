@@ -220,8 +220,53 @@
   transform: scale(1.08) !important;
 }
 
-/* OVERRIDE BOOTSTRAP DEFAULTS - žádné bílé pozadí! */
+/* OVERRIDE BOOTSTRAP DEFAULTS - žádné bílé/světlé pozadí! */
 .alert { background-color: transparent !important; }
+
+/* OVERRIDE BOOTSTRAP TEXT COLORS - pouze neonové barvy */
+.text-muted { 
+  color: rgba(57, 255, 20, 0.6) !important; 
+  text-shadow: 0 0 5px rgba(57, 255, 20, 0.3) !important;
+}
+
+/* Override všechny Bootstrap light colors */
+.text-light { 
+  color: var(--neon-green) !important; 
+  text-shadow: 0 0 8px currentColor !important;
+}
+
+.text-white { 
+  color: var(--neon-green) !important; 
+  text-shadow: 0 0 8px currentColor !important;
+}
+
+.bg-light { 
+  background-color: rgba(57, 255, 20, 0.1) !important; 
+}
+
+.bg-white { 
+  background-color: transparent !important; 
+}
+
+/* Override Bootstrap secondary colors - jsou také světlé */
+.text-secondary { 
+  color: rgba(25, 77, 209, 0.8) !important; 
+  text-shadow: 0 0 5px currentColor !important;
+}
+
+.bg-secondary { 
+  background-color: rgba(25, 77, 209, 0.1) !important; 
+}
+
+/* Override Bootstrap info colors */
+.text-info { 
+  color: var(--neon-blue) !important; 
+  text-shadow: 0 0 8px currentColor !important;
+}
+
+.bg-info { 
+  background-color: rgba(25, 77, 209, 0.1) !important; 
+}
 
 /* FORM CONTROLS - neonové styly */
 .form-control {
