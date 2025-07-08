@@ -182,3 +182,35 @@
   background-color: transparent !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
+
+/* Chat input styly - neonové modré téma */
+#chatInput {
+  background-color: #000 !important;
+  border: 1px solid var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
+
+#chatInput::placeholder {
+  color: rgba(var(--neon-blue-rgb), 0.6) !important;
+  opacity: 1 !important;
+}
+
+#chatInput:focus {
+  background-color: #000 !important;
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.5) !important;
+  color: var(--neon-blue) !important;
+  outline: none !important;
+}
+
+/* Send button neonové styly */
+#sendChatBtn {
+  background-color: transparent !important;
+  border: 1px solid var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
+
+#sendChatBtn:hover {
+  background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
+  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.5) !important;
+}

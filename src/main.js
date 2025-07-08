@@ -91,17 +91,20 @@ class AIDiceGame {
         this.gameUI = new GameUI();
         this.chatUI = new ChatUI();
         
-        // Inicializace autocomplete
-        const chatInput = document.getElementById('chatInput');
-        if (chatInput) {
-            const chatHistory = chatSystem.getChatHistory();
-            this.chatAutocomplete = new UltraBootstrapAutocomplete(chatInput, {
-                suggestions: chatHistory,
-                maxResults: 8,
-                neonColor: 'blue',
-                storageKey: STORAGE_KEYS.CHAT_HISTORY
-            });
-        }
+        // Odstranění případných starých autocomplete elementů
+        this.removeAutocompleteDropdowns();
+        
+        // Autocomplete je dočasně vypnut kvůli responsive problémům
+        // const chatInput = document.getElementById('chatInput');
+        // if (chatInput) {
+        //     const chatHistory = chatSystem.getChatHistory();
+        //     this.chatAutocomplete = new UltraBootstrapAutocomplete(chatInput, {
+        //         suggestions: chatHistory,
+        //         maxResults: 8,
+        //         neonColor: 'blue',
+        //         storageKey: STORAGE_KEYS.CHAT_HISTORY
+        //     });
+        // }
         
         // Načtení uložených nastavení
         this.loadGameSettings();
@@ -194,6 +197,18 @@ class AIDiceGame {
         } else {
             alert(`Chyba: ${message}`);
         }
+    }
+
+    /**
+     * Odstraní všechny autocomplete dropdown elementy ze stránky
+     */
+    removeAutocompleteDropdowns() {
+        const dropdowns = document.querySelectorAll('[style*="z-index: 1050"]');
+        dropdowns.forEach(dropdown => {
+            if (dropdown.className.includes('position-absolute')) {
+                dropdown.remove();
+            }
+        });
     }
 }
 
