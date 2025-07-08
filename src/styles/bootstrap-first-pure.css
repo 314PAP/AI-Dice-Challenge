@@ -463,3 +463,222 @@ html, body {
 }
 
 /* LUXUSNÍ BOOTSTRAP EXTENSIONS 🎉 */
+
+/* RESPONZIVNÍ MENU ELEMENTY - Bootstrap-first responsive design */
+/* Zajišťuje, že všechny elementy v menu se správně škálují */
+
+/* Menu elements responzivní škálování */
+@media (max-width: 991.98px) {
+  /* Nadpisy v menu */
+  .display-6, .display-5, .display-4 {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Target score input a tlačítka */
+  .btn-lg {
+    font-size: 0.9rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+  
+  /* Input groups */
+  .input-group {
+    max-width: 200px !important;
+  }
+  
+  .form-control {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Ještě menší elementy na mobilech */
+  .display-6, .display-5, .display-4 {
+    font-size: 1.3rem !important;
+  }
+  
+  .btn-lg {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+  
+  .btn {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+  
+  .input-group {
+    max-width: 180px !important;
+  }
+  
+  .form-control {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.6rem !important;
+  }
+  
+  /* Icons scaling */
+  .fs-1 {
+    font-size: 2rem !important;
+  }
+  
+  .fs-2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .fs-3 {
+    font-size: 1.2rem !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  /* Extra malé obrazovky */
+  .display-6, .display-5, .display-4 {
+    font-size: 1.1rem !important;
+  }
+  
+  .btn-lg {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
+  
+  .btn {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
+  
+  .input-group {
+    max-width: 160px !important;
+  }
+  
+  .form-control {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+  
+  /* Icons scaling */
+  .fs-1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .fs-2 {
+    font-size: 1.2rem !important;
+  }
+  
+  .fs-3 {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 479.98px) {
+  /* Velmi malé obrazovky */
+  .display-6, .display-5, .display-4 {
+    font-size: 1rem !important;
+  }
+  
+  .btn-lg {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+  
+  .btn {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+  
+  .input-group {
+    max-width: 140px !important;
+  }
+  
+  .form-control {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.4rem !important;
+  }
+  
+  /* Icons scaling */
+  .fs-1 {
+    font-size: 1.2rem !important;
+  }
+  
+  .fs-2 {
+    font-size: 1rem !important;
+  }
+  
+  .fs-3 {
+    font-size: 0.9rem !important;
+  }
+}
+
+/* ANTI-OVERFLOW: Zajišťuje, že žádný element neuteče mimo viewport */
+@media (max-width: 991.98px) {
+  /* Prevence overflow pro všechny hlavní elementy */
+  .container, .container-fluid {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Menu elementy */
+  .game-header, #gameHeader, #gameHeaderMobile {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Input groups a buttons */
+  .input-group, .btn-group {
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+  
+  /* Text elements */
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+}
+
+/* ANTI-FLEX-STUCK: Oprava layoutu, který si drží velikost */
+@media (max-width: 991.98px) {
+  /* Zajištění, že parent kontejner správně řídí flex layout */
+  .d-lg-none.h-100.d-flex.flex-column {
+    min-height: 0 !important; /* Umožní zmenšování */
+    flex: 1 !important; /* Vyplní dostupný prostor */
+  }
+  
+  /* Game a chat oblasti musí respektovat parent flex */
+  .mobile-game-area,
+  .mobile-chat-area {
+    min-height: 0 !important; /* Klíčové - umožní zmenšování */
+    overflow: hidden !important; /* Zabráni utečení obsahu */
+  }
+  
+  /* Container uvnitř musí respektovat flex parent */
+  .game-container,
+  .chat-container {
+    min-height: 0 !important; /* Umožní zmenšování */
+    height: 100% !important; /* Vyplní dostupný prostor z flex parent */
+  }
+  
+  /* Scrollovatelné oblasti */
+  .overflow-auto {
+    min-height: 0 !important; /* Umožní správné scrollování */
+  }
+}
+
+/* VIEWPORT FIX: Zajistí že layout využije celý viewport */
+@media (max-width: 991.98px) {
+  body {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+  }
+  
+  #app {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    min-height: 100vh !important;
+  }
+  
+  /* Main mobile container */
+  .d-lg-none {
+    height: 100% !important;
+    max-height: 100% !important;
+  }
+}
