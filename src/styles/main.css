@@ -9,7 +9,7 @@
 @import './variables/neon-colors.css';
 
 /* 2. Bootstrap overrides - musí být před ostatními moduly */
-@import './utils/bootstrap-overrides.css';
+@import './bootstrap-overrides.css';
 
 /* 3. Utility třídy a rozšíření Bootstrapu */
 @import './utils/neon-utilities.css';

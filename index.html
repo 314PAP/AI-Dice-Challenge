@@ -41,43 +41,43 @@
     </div>
     
     <!-- Main Application Container - Bootstrap-first Responsive Layout -->
-    <div id="app" class="vh-100 vw-100 d-none">
+    <div id="app" class="min-vh-100 d-none">
         
-        <!-- Bootstrap Grid - Strict responsive design -->
-        <div class="container-fluid h-100 p-0">
-            <div class="row g-0 h-100">
+        <!-- Bootstrap Container with 90% viewport and proper padding -->
+        <div class="container-fluid px-2 px-md-3 py-2" style="max-width: 90vw; max-height: 90vh; margin: 5vh auto;">
+            <div class="row g-2 g-md-3 h-100" style="min-height: 85vh;">
                 
-                <!-- Game Area Column - Mobile: stacked, Desktop: 8/12 width -->
-                <div class="col-12 col-lg-8 order-1 order-lg-1">
-                    <div class="h-100 d-flex flex-column p-2 p-md-3">
+                <!-- Game Area Column - 60% on larger screens, full width on mobile -->
+                <div class="col-12 game-area-60 order-1 mobile-game-area">
+                    <div class="h-100 d-flex flex-column">
                         <div class="flex-grow-1 border-wide-neon-green rounded-3 p-2 p-md-3 d-flex flex-column bg-black position-relative overflow-hidden">
                             <div id="gameArea" class="flex-grow-1 d-flex flex-column overflow-auto"></div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Chat Area Column - Mobile: stacked, Desktop: 4/12 width -->
-                <div class="col-12 col-lg-4 order-2 order-lg-2">
-                    <div class="h-100 d-flex flex-column p-2 p-md-3">
+                <!-- Chat Area Column - 40% on larger screens, full width on mobile -->
+                <div class="col-12 chat-area-40 order-2 mobile-chat-area">
+                    <div class="h-100 d-flex flex-column">
                         <div class="flex-grow-1 border-wide-neon-blue rounded-3 p-2 p-md-3 d-flex flex-column bg-black position-relative overflow-hidden">
                             
                             <!-- Chat Header - Fixed -->
-                            <div class="flex-shrink-0 mb-2 mb-md-3">
-                                <h5 class="text-neon-blue text-center mb-0 d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-chat-dots-fill me-2"></i>
-                                    <span class="d-none d-md-inline">AI Chat</span>
-                                    <span class="d-md-none">Chat</span>
+                            <div class="flex-shrink-0 mb-2">
+                                <h5 class="text-neon-blue text-center mb-0 d-flex align-items-center justify-content-center h6 h-md-5">
+                                    <i class="bi bi-chat-dots-fill me-1 me-md-2"></i>
+                                    <span class="d-none d-sm-inline">AI Chat</span>
+                                    <span class="d-sm-none">Chat</span>
                                 </h5>
                             </div>
                             
                             <!-- Chat Messages - Expandable with safe overflow -->
-                            <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-md-3 p-2 bg-black rounded-2 border border-neon-blue position-relative" style="min-height: 200px;"></div>
+                            <div id="chatMessages" class="flex-grow-1 chat-messages-container mb-2 p-2 bg-black rounded-2 border border-neon-blue position-relative overflow-safe"></div>
                             
-                            <!-- Chat Input - Fixed at bottom with constrained width -->
+                            <!-- Chat Input - Fixed at bottom -->
                             <div class="flex-shrink-0">
-                                <div class="input-group" style="max-width: 100%;">
+                                <div class="input-group">
                                     <input type="text" id="chatInput" 
-                                           class="form-control bg-black text-neon-blue border-neon-blue flex-grow-1" 
+                                           class="form-control bg-black text-neon-blue border-neon-blue" 
                                            placeholder="Zpráva AI..." 
                                            autocomplete="off" 
                                            style="min-width: 0;">

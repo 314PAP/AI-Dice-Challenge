@@ -1,0 +1,27 @@
+/* ===================================================================
+   BOOTSTRAP OVERRIDES - MINIMÁLNÍ A KOMPATIBILNÍ
+   
+   Pouze nezbytné úpravy pro neonový design a viewport management
+   Maximálně využívá Bootstrap utility třídy
+   ================================================================= */
+
+/* Základní viewport - pouze nezbytné */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #000;
+}
+
+/* Hlavní app container - Bootstrap compatible */
+#app {
+  background-color: #000;
+}
+
+/* Bezpečnost proti overflow */
+.overflow-safe {
+  overflow-x: hidden;
+  word-wrap: break-word;
+  word-break: break-word;
+}
