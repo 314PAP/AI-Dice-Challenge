@@ -9,10 +9,10 @@ class UltraMinimalDiceGame {
     constructor() {
         this.gameState = {
             players: [
-                { name: 'Hráč', score: 0, isHuman: true, avatar: 'person-circle', color: 'neon-green' },
-                { name: 'Gemini', score: 0, isHuman: false, avatar: 'robot', color: 'neon-blue' },
-                { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'cpu-fill', color: 'neon-pink' },
-                { name: 'Claude', score: 0, isHuman: false, avatar: 'lightning-charge-fill', color: 'neon-orange' }
+                { name: 'Hráč', score: 0, isHuman: true, avatar: 'bi-person-circle', color: 'neon-green' },
+                { name: 'Gemini', score: 0, isHuman: false, avatar: 'bi-robot', color: 'neon-blue' },
+                { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'bi-cpu-fill', color: 'neon-pink' },
+                { name: 'Claude', score: 0, isHuman: false, avatar: 'bi-lightning-charge-fill', color: 'neon-orange' }
             ],
             currentPlayerIndex: 0,
             targetScore: 10000,
@@ -74,24 +74,24 @@ class UltraMinimalDiceGame {
                     <h3 class="text-neon-orange mb-3">
                         <i class="bi bi-star-fill"></i> Cílové skóre
                     </h3>
-                    <div class="d-flex justify-content-center align-items-center gap-3 mb-4">
-                        <button class="btn btn-neon-blue btn-lg" onclick="app.adjustTarget(-1000)">
+                    <div class="d-flex justify-content-center align-items-center mb-4">
+                        <button class="btn btn-neon-blue btn-lg me-3" onclick="app.adjustTarget(-1000)">
                             <i class="bi bi-dash-lg"></i>
                         </button>
-                        <span class="display-5 text-neon-yellow fw-bold" id="targetDisplay">${this.gameState.targetScore}</span>
-                        <button class="btn btn-neon-blue btn-lg" onclick="app.adjustTarget(1000)">
+                        <span class="display-5 text-neon-yellow fw-bold mx-3" id="targetDisplay">${this.gameState.targetScore}</span>
+                        <button class="btn btn-neon-blue btn-lg ms-3" onclick="app.adjustTarget(1000)">
                             <i class="bi bi-plus-lg"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="d-flex flex-column gap-3 align-items-center">
-                    <button class="btn btn-neon-green btn-lg px-5 animate__animated animate__pulse animate__infinite" 
+                <div class="d-flex flex-column align-items-center">
+                    <button class="btn btn-neon-green btn-lg px-5 mb-3 animate__animated animate__pulse animate__infinite" 
                             onclick="app.startGame()">
                         <i class="bi bi-play-fill"></i> ZAČÍT HRU
                     </button>
                     
-                    <button class="btn btn-neon-blue px-4" onclick="app.showRules()">
+                    <button class="btn btn-neon-blue px-4 mb-3" onclick="app.showRules()">
                         <i class="bi bi-book-fill"></i> Pravidla
                     </button>
                     
@@ -127,61 +127,92 @@ class UltraMinimalDiceGame {
     renderGameBoard() {
         const current = this.gameState.players[this.gameState.currentPlayerIndex];
         
+        // OFICIÁLNÍ Bootstrap 5.2 layout - sjednoceno s ultra-bootstrap variantou
         const html = `
             <div class="h-100 d-flex flex-column">
-                <!-- Players Row - 100% Bootstrap -->
-                <div class="row g-2 mb-3">
-                    ${this.gameState.players.map((player, index) => `
-                        <div class="col-lg-3 col-6">
-                            <div class="card bg-dark border border-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'}">
-                                <div class="card-body text-center p-2">
-                                    <i class="bi bi-${player.avatar} text-${player.color} fs-3"></i>
-                                    <div class="text-${player.color} fw-bold">${player.name}</div>
-                                    <div class="text-${player.color}">${player.score} bodů</div>
+                <!-- Player Cards - 90% šířky, Bootstrap oficiální responsive flexbox -->
+                <div class="d-flex justify-content-center mb-3">
+                    <div class="d-flex flex-wrap justify-content-center" style="width: 90%;">
+                        ${this.gameState.players.map((player, index) => `
+                            <div class="flex-fill mx-1 mb-2" style="min-width: 120px; max-width: 200px;">
+                                <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
+                                    <div class="card-body text-center p-2">
+                                        <div class="mb-2">
+                                            <i class="bi ${player.avatar} text-neon-${player.color} fs-2 d-none d-md-inline"></i>
+                                            <i class="bi ${player.avatar} text-neon-${player.color} fs-3 d-md-none"></i>
+                                        </div>
+                                        <div class="fw-bold text-neon-${player.color} small">${player.name}</div>
+                                        <div class="text-neon-${player.color} small">${player.score} bodů</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `).join('')}
+                        `).join('')}
+                    </div>
                 </div>
 
-                <!-- Game Area - 100% Bootstrap -->
+                <!-- Game Controls - Bootstrap oficiální flexbox -->
                 <div class="flex-grow-1 d-flex flex-column justify-content-center">
                     <div class="text-center mb-4">
-                        <h3 class="text-neon-green">
-                            Na řadě: <i class="bi bi-${current.avatar} text-${current.color}"></i> ${current.name}
+                        <h3 class="text-neon-green mb-3 fs-3 d-none d-md-block">
+                            <i class="bi ${current.avatar} text-neon-${current.color}"></i> 
+                            Na řadě: <span class="text-neon-${current.color}">${current.name}</span>
                         </h3>
-                        <div class="text-neon-yellow fs-5">
-                            Aktuální skóre: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
+                        <h4 class="text-neon-green mb-3 fs-4 d-md-none">
+                            <i class="bi ${current.avatar} text-neon-${current.color}"></i> 
+                            Na řadě: <span class="text-neon-${current.color}">${current.name}</span>
+                        </h4>
+                        <div class="text-neon-yellow fs-5 d-none d-md-block mb-3">
+                            Skóre tahu: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
+                        </div>
+                        <div class="text-neon-yellow fs-6 d-md-none mb-3">
+                            Skóre tahu: <span id="turnScore" class="fw-bold">${this.gameState.turnScore}</span>
                         </div>
                     </div>
 
-                    <!-- Dice Container - 100% Bootstrap -->
+                    <!-- Dice Area - Bootstrap oficiální flexbox s margin spacery -->
                     <div class="text-center mb-4">
-                        <div id="diceContainer" class="d-flex justify-content-center gap-3 flex-wrap mb-3">
+                        <div id="diceContainer" class="d-flex justify-content-center flex-wrap mb-4">
                             ${this.generateDiceHTML()}
                         </div>
                         
                         ${current.isHuman ? `
-                            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                                <button class="btn btn-neon-green" onclick="app.rollDice()" id="rollBtn">
-                                    <i class="bi bi-dice-6-fill"></i> Hodit kostky
-                                </button>
-                                <button class="btn btn-neon-blue" onclick="app.holdDice()" id="holdBtn" disabled>
-                                    <i class="bi bi-collection-fill"></i> Odložit pole
-                                </button>
-                                <button class="btn btn-neon-orange" onclick="app.endTurn()" id="endBtn">
-                                    <i class="bi bi-stop-fill"></i> Ukončit tah
-                                </button>
+                            <!-- Bootstrap oficiální button layout - responsive -->
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <div class="d-flex flex-wrap justify-content-center mb-2">
+                                    <button class="btn btn-neon-green btn-sm mx-1 mb-2 d-md-none" onclick="app.rollDice()" id="rollBtn">
+                                        <i class="bi bi-dice-6-fill"></i> Hodit
+                                    </button>
+                                    <button class="btn btn-neon-green mx-1 mb-2 d-none d-md-inline-block" onclick="app.rollDice()" id="rollBtn">
+                                        <i class="bi bi-dice-6-fill"></i> Hodit kostky
+                                    </button>
+                                    
+                                    <button class="btn btn-neon-blue btn-sm mx-1 mb-2 d-md-none" onclick="app.holdDice()" id="holdBtn" disabled>
+                                        <i class="bi bi-collection-fill"></i> Odložit
+                                    </button>
+                                    <button class="btn btn-neon-blue mx-1 mb-2 d-none d-md-inline-block" onclick="app.holdDice()" id="holdBtn" disabled>
+                                        <i class="bi bi-collection-fill"></i> Odložit pole
+                                    </button>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-center">
+                                    <button class="btn btn-neon-orange btn-sm mx-1 mb-2 d-md-none" onclick="app.endTurn()" id="endBtn">
+                                        <i class="bi bi-stop-fill"></i> Ukončit tah
+                                    </button>
+                                    <button class="btn btn-neon-orange mx-1 mb-2 d-none d-md-inline-block" onclick="app.endTurn()" id="endBtn">
+                                        <i class="bi bi-stop-fill"></i> Ukončit tah
+                                    </button>
+                                </div>
                             </div>
                         ` : `
                             <div class="text-center">
-                                <div class="spinner-border text-neon-blue" role="status"></div>
-                                <div class="mt-2 text-neon-blue">AI přemýšlí...</div>
+                                <div class="spinner-border text-neon-blue mb-3" role="status">
+                                    <span class="visually-hidden">AI přemýšlí...</span>
+                                </div>
+                                <div class="text-neon-blue">AI přemýšlí...</div>
                             </div>
                         `}
                     </div>
 
-                    <!-- End Game Button - 100% Bootstrap -->
+                    <!-- Bottom Controls - Bootstrap oficiální utilities -->
                     <div class="text-center mt-auto">
                         <button class="btn btn-neon-red btn-sm" onclick="app.endGame()">
                             <i class="bi bi-stop-circle-fill"></i> Ukončit hru
@@ -203,8 +234,7 @@ class UltraMinimalDiceGame {
         }
 
         return this.gameState.currentRoll.map((value, index) => `
-            <div class="dice rounded-3 d-flex align-items-center justify-content-center fw-bold user-select-none cursor-pointer
-                        ${this.gameState.selectedDice.includes(index) ? 'selected' : ''}" 
+            <div class="dice d-flex align-items-center justify-content-center fs-4 fw-bold ${this.gameState.selectedDice.includes(index) ? 'selected' : ''}" 
                  data-index="${index}" data-value="${value}">
                 ${value}
             </div>
@@ -563,9 +593,9 @@ class UltraMinimalDiceGame {
     addChatMessage(sender, message, type) {
         const typeClass = type === 'system' ? 'neon-green' : type === 'ai' ? 'neon-blue' : 'neon-orange';
         const html = `
-            <div class="p-2 mb-2 border-start border-3 border-${typeClass} bg-dark rounded">
-                <strong class="text-${typeClass}">${sender}:</strong> 
-                <span class="text-${typeClass}">${message}</span>
+            <div class="p-2 mb-2 border-start border-3 border-neon-${typeClass} bg-black rounded">
+                <strong class="text-neon-${typeClass}">${sender}:</strong> 
+                <span class="text-neon-${typeClass}">${message}</span>
             </div>
         `;
 
