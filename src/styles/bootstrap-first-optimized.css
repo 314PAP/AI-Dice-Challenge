@@ -321,6 +321,55 @@ html, body {
 .text-neon-red { color: var(--neon-red) !important; }
 .text-neon-yellow { color: var(--neon-yellow) !important; }
 
+/* Formulářové prvky s neonovými barvami (přepisují Bootstrap) */
+.form-control.text-neon-green,
+input.text-neon-green.form-control,
+textarea.text-neon-green.form-control,
+select.text-neon-green.form-control {
+  color: var(--neon-green) !important;
+  caret-color: var(--neon-green) !important;
+}
+
+.form-control.text-neon-blue,
+input.text-neon-blue.form-control,
+textarea.text-neon-blue.form-control,
+select.text-neon-blue.form-control {
+  color: var(--neon-blue) !important;
+  caret-color: var(--neon-blue) !important;
+}
+
+.form-control.text-neon-purple,
+input.text-neon-purple.form-control,
+textarea.text-neon-purple.form-control,
+select.text-neon-purple.form-control {
+  color: var(--neon-purple) !important;
+  caret-color: var(--neon-purple) !important;
+}
+
+.form-control.text-neon-orange,
+input.text-neon-orange.form-control,
+textarea.text-neon-orange.form-control,
+select.text-neon-orange.form-control {
+  color: var(--neon-orange) !important;
+  caret-color: var(--neon-orange) !important;
+}
+
+.form-control.text-neon-red,
+input.text-neon-red.form-control,
+textarea.text-neon-red.form-control,
+select.text-neon-red.form-control {
+  color: var(--neon-red) !important;
+  caret-color: var(--neon-red) !important;
+}
+
+.form-control.text-neon-yellow,
+input.text-neon-yellow.form-control,
+textarea.text-neon-yellow.form-control,
+select.text-neon-yellow.form-control {
+  color: var(--neon-yellow) !important;
+  caret-color: var(--neon-yellow) !important;
+}
+
 /* Border utilities */
 .border-neon-green { border-color: var(--neon-green) !important; }
 .border-neon-blue { border-color: var(--neon-blue) !important; }
@@ -697,4 +746,130 @@ html, body {
 .swal2-popup.border-wide-neon-red {
   border-color: var(--neon-red) !important;
   box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.6) !important;
+}
+
+/* ===================================================================
+   4. FORMULÁŘOVÉ PRVKY S NEONOVÝM EFEKTEM
+   ================================================================= */
+
+/* Formuláře s neonovým efektem - focus stavy */
+.form-control:focus {
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Neonové focus stavy pro inputy podle barvy */
+.form-control.border-neon-green:focus {
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.6) !important;
+}
+
+.form-control.border-neon-blue:focus {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-blue-rgb), 0.6) !important;
+}
+
+.form-control.border-neon-purple:focus {
+  border-color: var(--neon-purple) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-purple-rgb), 0.6) !important;
+}
+
+.form-control.border-neon-orange:focus {
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-orange-rgb), 0.6) !important;
+}
+
+.form-control.border-neon-red:focus {
+  border-color: var(--neon-red) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-red-rgb), 0.6) !important;
+}
+
+.form-control.border-neon-yellow:focus {
+  border-color: var(--neon-yellow) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-yellow-rgb), 0.6) !important;
+}
+
+/* Generická neonová třída pro inputy */
+.neon-input {
+  background-color: black !important;
+  color: inherit !important;
+  border-width: 1px !important;
+  transition: all 0.2s ease !important;
+}
+
+.neon-input:focus {
+  box-shadow: 0 0 10px currentColor !important;
+  border-color: currentColor !important;
+}
+
+/* Placeholder styly pro neonové inputy */
+.form-control.text-neon-green::placeholder { color: rgba(var(--neon-green-rgb), 0.6) !important; }
+.form-control.text-neon-blue::placeholder { color: rgba(var(--neon-blue-rgb), 0.6) !important; }
+.form-control.text-neon-purple::placeholder { color: rgba(var(--neon-purple-rgb), 0.6) !important; }
+.form-control.text-neon-orange::placeholder { color: rgba(var(--neon-orange-rgb), 0.6) !important; }
+.form-control.text-neon-red::placeholder { color: rgba(var(--neon-red-rgb), 0.6) !important; }
+.form-control.text-neon-yellow::placeholder { color: rgba(var(--neon-yellow-rgb), 0.6) !important; }
+
+/* Input groups s neonovým efektem */
+.input-group-neon .form-control,
+.input-group-neon .input-group-text,
+.input-group-neon .btn {
+  border-color: inherit;
+  color: inherit;
+}
+
+.input-group-neon .form-control:focus {
+  border-color: inherit !important;
+  box-shadow: 0 0 10px currentColor !important;
+}
+
+/* Textarea s neonovým scrollbarem */
+textarea.form-control.neon-textarea::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+textarea.form-control.neon-textarea::-webkit-scrollbar-thumb {
+  background-color: currentColor;
+  border-radius: 4px;
+}
+
+/* Vylepšení kontrastu textu pro čitelnost */
+.form-control[class*="text-neon-"] {
+  font-weight: 500;
+  text-shadow: 0 0 2px currentColor;
+}
+
+/* Select prvky s neonovým efektem */
+select.form-select[class*="text-neon-"] {
+  color: inherit !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+select.form-select.text-neon-green {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2339ff14' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+select.form-select.text-neon-blue {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23194DD1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+/* Form-check s neonovými barvami */
+.form-check-input:checked[class*="neon-"] {
+  background-color: currentColor !important;
+  border-color: currentColor !important;
+  box-shadow: 0 0 5px currentColor !important;
+}
+
+/* Přepisujeme disabled styl inputů pro neonové barvy */
+.form-control[class*="text-neon-"]:disabled,
+.form-control[class*="text-neon-"][readonly] {
+  opacity: 0.7;
+  color: inherit !important;
+}
+
+/* Chat input optimalizace */
+.chat-input-area .form-control {
+  padding: 0.5rem 0.75rem;
+  height: auto;
+  font-size: 0.9rem;
 }
