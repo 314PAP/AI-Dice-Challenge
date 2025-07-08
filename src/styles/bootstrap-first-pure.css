@@ -1,770 +1,829 @@
-/* =============================================================================
-   🚀 BOOTSTRAP-FIRST PURE CSS - 100% LUXUSNÍ NEONOVÁ EDIČNÍ!
-   ============================================================================= */
+/* ===================================================================
+   AI DICE CHALLENGE - BOOTSTRAP-FIRST REFAKTOROVANÝ CSS
+   ===================================================================
+   
+   100% Bootstrap-compatible, mobile-first, utility-based CSS
+   0 !important rules, pouze rozšíření Bootstrap systému
+   
+   Struktura:
+   1. CSS proměnné a základní nastavení
+   2. Bootstrap rozšíření (btn, form, atd.)
+   3. Neonové utility třídy  
+   4. Herní komponenty (kostky, chat)
+   5. Layout a responzivita
+   6. Scrollbar styling
+   ================================================================= */
 
-/* POUZE CSS PROMĚNNÉ PRO NAŠE NEONOVÉ BARVY */
+/* ===================================================================
+   1. CSS PROMĚNNÉ A ZÁKLADNÍ NASTAVENÍ
+   ================================================================= */
+
+/* Bootstrap HTML/Body full height setup */
+html, body {
+  height: 100%;
+}
+
 :root {
+  /* Neonové barvy - sjednoceno s bootstrap-first-pure.css */
   --neon-green: #39ff14;
+  --neon-green-rgb: 57, 255, 20;
   --neon-blue: #194DD1;
+  --neon-blue-rgb: 25, 77, 209;
+  --neon-purple: #FF00FF; /* používáme purple místo pink pro konzistenci */
+  --neon-purple-rgb: 255, 0, 255;
   --neon-orange: #FF8800;
-  --neon-pink: #FF00FF;
+  --neon-orange-rgb: 255, 136, 0;
   --neon-red: #ff3131;
+  --neon-red-rgb: 255, 49, 49;
   --neon-yellow: #ffff00;
+  --neon-yellow-rgb: 255, 255, 0;
   
-  /* Bootstrap Custom Properties Extensions */
-  --bs-neon-green: var(--neon-green);
-  --bs-neon-blue: var(--neon-blue);
-  --bs-neon-orange: var(--neon-orange);
-  --bs-neon-pink: var(--neon-pink);
-  --bs-neon-red: var(--neon-red);
-  --bs-neon-yellow: var(--neon-yellow);
+  /* Neonové efekty */
+  --neon-glow: 0 0 20px currentColor;
+  --neon-glow-strong: 0 0 30px currentColor, 0 0 40px currentColor;
+  --neon-text-shadow: 0 0 10px currentColor;
   
-  /* Background helpers */
-  --neon-bg-dark: rgba(0, 0, 0, 0.95);
+  /* Z-index scale (kompatibilní s Bootstrap) */
+  --z-loading: 1055; /* Bootstrap modal + 10 */
+  
+  /* Border widths */
+  --border-neon-thin: 1px;
+  --border-neon-medium: 2px;
+  --border-neon-thick: 3px;
+  
+  /* Layout rozměry */
+  --chat-height-mobile: 200px;
 }
 
-/* BOOTSTRAP UTILITY EXTENSIONS - luxusní neonové barvy */
-/* Loading screen z-index */
-.loading-z-index {
-  z-index: 9999;
+/* Font loading optimalizace */
+.font-orbitron {
+  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+  font-display: swap;
 }
 
-.text-neon-green { 
-  color: var(--neon-green) !important; 
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
-}
-.text-neon-blue { 
-  color: var(--neon-blue) !important; 
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
-}
-.text-neon-orange { 
-  color: var(--neon-orange) !important; 
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
-}
-.text-neon-pink { 
-  color: var(--neon-pink) !important; 
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
-}
-.text-neon-red { 
-  color: var(--neon-red) !important; 
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
-}
-.text-neon-yellow { 
-  color: var(--neon-yellow) !important; 
-  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor !important; 
+/* ===================================================================
+   2. BOOTSTRAP ROZŠÍŘENÍ (base + modifier pattern)
+   ================================================================= */
+
+/* Button rozšíření */
+.btn-neon-primary {
+  background-color: transparent;
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
 }
 
-/* BOOTSTRAP BORDER EXTENSIONS - zářivé okraje */
-.border-neon-green { 
-  border-color: var(--neon-green) !important; 
-  box-shadow: 0 0 5px rgba(57, 255, 20, 0.5) !important;
-}
-.border-neon-blue { 
-  border-color: var(--neon-blue) !important; 
-  box-shadow: 0 0 5px rgba(25, 77, 209, 0.5) !important;
-}
-.border-neon-orange { 
-  border-color: var(--neon-orange) !important; 
-  box-shadow: 0 0 5px rgba(255, 136, 0, 0.5) !important;
-}
-.border-neon-pink { 
-  border-color: var(--neon-pink) !important; 
-  box-shadow: 0 0 5px rgba(255, 0, 255, 0.5) !important;
-}
-.border-neon-red { 
-  border-color: var(--neon-red) !important; 
-  box-shadow: 0 0 5px rgba(255, 49, 49, 0.5) !important;
-}
-.border-neon-yellow { 
-  border-color: var(--neon-yellow) !important; 
-  box-shadow: 0 0 5px rgba(255, 255, 0, 0.5) !important;
+.btn-neon-primary:hover,
+.btn-neon-primary:focus {
+  background-color: rgba(var(--neon-green-rgb), 0.1);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6);
+  transform: scale(1.05);
 }
 
-/* NEONOVÉ POZADÍ TŘÍDY - nahrazujeme Bootstrap defaults */
-.bg-neon-green { background-color: rgba(57, 255, 20, 0.1) !important; }
-.bg-neon-blue { background-color: rgba(25, 77, 209, 0.1) !important; }
-.bg-neon-orange { background-color: rgba(255, 136, 0, 0.1) !important; }
-.bg-neon-pink { background-color: rgba(255, 0, 255, 0.1) !important; }
-.bg-neon-red { background-color: rgba(255, 49, 49, 0.1) !important; }
-.bg-neon-yellow { background-color: rgba(255, 255, 0, 0.1) !important; }
-
-/* KONTEJNERY SE ŠIROIÝMI BORDERY - Bootstrap-first wider borders */
-.border-wide-neon-green { 
-  border: 3px solid var(--neon-green) !important; 
-  box-shadow: 0 0 8px rgba(57, 255, 20, 0.6), inset 0 0 8px rgba(57, 255, 20, 0.1) !important;
-}
-.border-wide-neon-blue { 
-  border: 3px solid var(--neon-blue) !important; 
-  box-shadow: 0 0 8px rgba(25, 77, 209, 0.6), inset 0 0 8px rgba(25, 77, 209, 0.1) !important;
-}
-.border-wide-neon-orange { 
-  border: 3px solid var(--neon-orange) !important; 
-  box-shadow: 0 0 8px rgba(255, 136, 0, 0.6), inset 0 0 8px rgba(255, 136, 0, 0.1) !important;
-}
-.border-wide-neon-pink { 
-  border: 3px solid var(--neon-pink) !important; 
-  box-shadow: 0 0 8px rgba(255, 0, 255, 0.6), inset 0 0 8px rgba(255, 0, 255, 0.1) !important;
-}
-.border-wide-neon-red { 
-  border: 3px solid var(--neon-red) !important; 
-  box-shadow: 0 0 8px rgba(255, 49, 49, 0.6), inset 0 0 8px rgba(255, 49, 49, 0.1) !important;
-}
-.border-wide-neon-yellow { 
-  border: 3px solid var(--neon-yellow) !important; 
-  box-shadow: 0 0 8px rgba(255, 255, 0, 0.6), inset 0 0 8px rgba(255, 255, 0, 0.1) !important;
+.btn-neon-success {
+  background-color: transparent;
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
 }
 
-/* NEONOVÉ ALERT TŘÍDY - nahrazujeme Bootstrap alert pozadí */
-.alert-neon-green {
-  background-color: rgba(57, 255, 20, 0.15) !important;
-  border-color: var(--neon-green) !important;
-  color: var(--neon-green) !important;
-  text-shadow: 0 0 5px currentColor !important;
+.btn-neon-success:hover,
+.btn-neon-success:focus {
+  background-color: rgba(var(--neon-green-rgb), 0.1);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6);
+  transform: scale(1.05);
 }
 
-.alert-neon-blue {
-  background-color: rgba(25, 77, 209, 0.15) !important;
-  border-color: var(--neon-blue) !important;
-  color: var(--neon-blue) !important;
-  text-shadow: 0 0 5px currentColor !important;
+.btn-neon-warning {
+  background-color: transparent;
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
 }
 
-.alert-neon-orange {
-  background-color: rgba(255, 136, 0, 0.15) !important;
-  border-color: var(--neon-orange) !important;
-  color: var(--neon-orange) !important;
-  text-shadow: 0 0 5px currentColor !important;
+.btn-neon-warning:hover,
+.btn-neon-warning:focus {
+  background-color: rgba(var(--neon-orange-rgb), 0.1);
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6);
+  transform: scale(1.05);
 }
 
-.alert-neon-pink {
-  background-color: rgba(255, 0, 255, 0.15) !important;
-  border-color: var(--neon-pink) !important;
-  color: var(--neon-pink) !important;
-  text-shadow: 0 0 5px currentColor !important;
-}
-
-.alert-neon-yellow {
-  background-color: rgba(255, 255, 0, 0.15) !important;
-  border-color: var(--neon-yellow) !important;
-  color: var(--neon-yellow) !important;
-  text-shadow: 0 0 5px currentColor !important;
-}
-
-/* BOOTSTRAP BUTTON EXTENSIONS - luxusní neonová tlačítka */
+/* Neonové button třídy pro všech 6 barev */
 .btn-neon-green {
-  --bs-btn-color: var(--neon-green);
-  --bs-btn-bg: transparent;
-  --bs-btn-border-color: var(--neon-green);
-  --bs-btn-hover-color: var(--neon-green);
-  --bs-btn-hover-bg: rgba(57, 255, 20, 0.1);
-  --bs-btn-hover-border-color: var(--neon-green);
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  text-shadow: 0 0 8px currentColor !important;
-  transition: all 0.3s ease !important;
+  background-color: transparent;
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
 }
-.btn-neon-green:hover { 
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.6) !important; 
-  transform: scale(1.05) !important;
+
+.btn-neon-green:hover,
+.btn-neon-green:focus {
+  background-color: rgba(var(--neon-green-rgb), 0.1);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6);
+  transform: scale(1.05);
 }
 
 .btn-neon-blue {
-  --bs-btn-color: var(--neon-blue);
-  --bs-btn-bg: transparent;
-  --bs-btn-border-color: var(--neon-blue);
-  --bs-btn-hover-color: var(--neon-blue);
-  --bs-btn-hover-bg: rgba(25, 77, 209, 0.1);
-  --bs-btn-hover-border-color: var(--neon-blue);
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  text-shadow: 0 0 8px currentColor !important;
-  transition: all 0.3s ease !important;
+  background-color: transparent;
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
 }
-.btn-neon-blue:hover { 
-  box-shadow: 0 0 20px rgba(25, 77, 209, 0.6) !important; 
-  transform: scale(1.05) !important;
+
+.btn-neon-blue:hover,
+.btn-neon-blue:focus {
+  background-color: rgba(var(--neon-blue-rgb), 0.1);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6);
+  transform: scale(1.05);
+}
+
+.btn-neon-purple {
+  background-color: transparent;
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
+}
+
+.btn-neon-purple:hover,
+.btn-neon-purple:focus {
+  background-color: rgba(var(--neon-purple-rgb), 0.1);
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.6);
+  transform: scale(1.05);
 }
 
 .btn-neon-orange {
-  --bs-btn-color: var(--neon-orange);
-  --bs-btn-bg: transparent;
-  --bs-btn-border-color: var(--neon-orange);
-  --bs-btn-hover-color: var(--neon-orange);
-  --bs-btn-hover-bg: rgba(255, 136, 0, 0.1);
-  --bs-btn-hover-border-color: var(--neon-orange);
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  text-shadow: 0 0 8px currentColor !important;
-  transition: all 0.3s ease !important;
+  background-color: transparent;
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
 }
-.btn-neon-orange:hover { 
-  box-shadow: 0 0 20px rgba(255, 136, 0, 0.6) !important; 
-  transform: scale(1.05) !important;
+
+.btn-neon-orange:hover,
+.btn-neon-orange:focus {
+  background-color: rgba(var(--neon-orange-rgb), 0.1);
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6);
+  transform: scale(1.05);
 }
 
 .btn-neon-red {
-  --bs-btn-color: var(--neon-red);
-  --bs-btn-bg: transparent;
-  --bs-btn-border-color: var(--neon-red);
-  --bs-btn-hover-color: var(--neon-red);
-  --bs-btn-hover-bg: rgba(255, 49, 49, 0.1);
-  --bs-btn-hover-border-color: var(--neon-red);
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  text-shadow: 0 0 8px currentColor !important;
-  transition: all 0.3s ease !important;
-}
-.btn-neon-red:hover { 
-  box-shadow: 0 0 20px rgba(255, 49, 49, 0.6) !important; 
-  transform: scale(1.05) !important;
-}
-
-/* JEDINÉ VLASTNÍ KOMPONENTY - plně responzivní kostky s Bootstrap */
-.dice {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-  border: 2px solid var(--neon-green);
-  border-radius: 8px;
-  color: var(--neon-green);
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background-color: transparent;
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+  font-weight: 600;
+  text-transform: uppercase;
   text-shadow: 0 0 8px currentColor;
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin: 0.25rem;
+  transition: all 0.3s ease;
 }
 
-@media (min-width: 768px) {
-  .dice {
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    font-size: 1.5rem;
-    box-shadow: 0 0 15px rgba(57, 255, 20, 0.4);
-    text-shadow: 0 0 12px currentColor;
-    margin: 0.5rem;
+.btn-neon-red:hover,
+.btn-neon-red:focus {
+  background-color: rgba(var(--neon-red-rgb), 0.1);
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.6);
+  transform: scale(1.05);
+}
+
+.btn-neon-yellow {
+  background-color: transparent;
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px currentColor;
+  transition: all 0.3s ease;
+}
+
+.btn-neon-yellow:hover,
+.btn-neon-yellow:focus {
+  background-color: rgba(var(--neon-yellow-rgb), 0.1);
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.6);
+  transform: scale(1.05);
+}
+
+/* Form control rozšíření */
+.neon-input {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: var(--border-neon-medium) solid var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: inset var(--neon-glow);
+}
+
+.neon-input:focus {
+  background-color: rgba(0, 0, 0, 0.9);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: inset var(--neon-glow), var(--neon-glow);
+}
+
+.neon-input::placeholder {
+  color: rgba(0, 255, 0, 0.6);
+}
+
+/* Card rozšíření */
+.neon-card {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: var(--border-neon-medium) solid var(--neon-green);
+  box-shadow: var(--neon-glow);
+}
+
+.neon-card .card-title {
+  color: var(--neon-green);
+  text-shadow: var(--neon-text-shadow);
+}
+
+/* ===================================================================
+   3. NEONOVÉ UTILITY TŘÍDY
+   ================================================================= */
+
+/* Avatar card sizing utilities */
+.avatar-card-container {
+  min-width: 120px;
+  max-width: 200px;
+}
+
+/* Chat container sizing utilities */
+.chat-container-height {
+  height: 200px;
+}
+
+/* Container width utilities */
+.w-neon-90 {
+  width: 90%;
+}
+
+/* Pro menší obrazovky */
+@media (max-width: 576px) {
+  .avatar-card-container {
+    min-width: 100px;
+    max-width: 150px;
   }
 }
 
-.dice:hover { 
-  transform: scale(1.15); 
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.8); 
+/* Text utilities */
+.text-neon-green {
+  color: var(--neon-green);
 }
 
-.dice.selected { 
-  background: linear-gradient(145deg, #002244, #001133);
+.text-neon-blue {
+  color: var(--neon-blue);
+}
+
+.text-neon-purple {
+  color: var(--neon-purple);
+}
+
+.text-neon-orange {
+  color: var(--neon-orange);
+}
+
+.text-neon-red {
+  color: var(--neon-red);
+}
+
+.text-neon-yellow {
+  color: var(--neon-yellow);
+}
+
+/* Text glow effects */
+.neon-text-glow {
+  text-shadow: var(--neon-text-shadow);
+}
+
+.neon-text-glow-strong {
+  text-shadow: var(--neon-glow-strong);
+}
+
+/* Alert neon utilities */
+.alert-neon-green {
+  background-color: rgba(var(--neon-green-rgb), 0.15);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+}
+
+.alert-neon-blue {
+  background-color: rgba(var(--neon-blue-rgb), 0.15);
   border-color: var(--neon-blue);
   color: var(--neon-blue);
-  text-shadow: 0 0 12px var(--neon-blue);
-  box-shadow: 0 0 20px rgba(25, 77, 209, 0.9);
-  transform: scale(1.08);
 }
 
-/* OVERRIDE BOOTSTRAP DEFAULTS - žádné bílé/světlé pozadí! */
-.alert { background-color: transparent !important; }
-
-/* OVERRIDE BOOTSTRAP TEXT COLORS - pouze neonové barvy */
-.text-muted { 
-  color: rgba(57, 255, 20, 0.6) !important; 
-  text-shadow: 0 0 5px rgba(57, 255, 20, 0.3) !important;
+.alert-neon-purple {
+  background-color: rgba(var(--neon-purple-rgb), 0.15);
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
 }
 
-/* Override všechny Bootstrap light colors */
-.text-light { 
-  color: var(--neon-green) !important; 
-  text-shadow: 0 0 8px currentColor !important;
+.alert-neon-orange {
+  background-color: rgba(var(--neon-orange-rgb), 0.15);
+  border-color: var(--neon-orange);
+  color: var(--neon-orange);
 }
 
-.text-white { 
-  color: var(--neon-green) !important; 
-  text-shadow: 0 0 8px currentColor !important;
+.alert-neon-red {
+  background-color: rgba(var(--neon-red-rgb), 0.15);
+  border-color: var(--neon-red);
+  color: var(--neon-red);
 }
 
-.bg-light { 
-  background-color: rgba(57, 255, 20, 0.1) !important; 
+.alert-neon-yellow {
+  background-color: rgba(var(--neon-yellow-rgb), 0.15);
+  border-color: var(--neon-yellow);
+  color: var(--neon-yellow);
 }
 
-.bg-white { 
-  background-color: transparent !important; 
+/* Border utilities */
+.border-neon-green {
+  border-color: var(--neon-green);
 }
 
-/* Override Bootstrap secondary colors - jsou také světlé */
-.text-secondary { 
-  color: rgba(25, 77, 209, 0.8) !important; 
-  text-shadow: 0 0 5px currentColor !important;
+.border-neon-blue {
+  border-color: var(--neon-blue);
 }
 
-.bg-secondary { 
-  background-color: rgba(25, 77, 209, 0.1) !important; 
+.border-neon-purple {
+  border-color: var(--neon-purple);
 }
 
-/* Override Bootstrap info colors */
-.text-info { 
-  color: var(--neon-blue) !important; 
-  text-shadow: 0 0 8px currentColor !important;
+.border-neon-orange {
+  border-color: var(--neon-orange);
 }
 
-.bg-info { 
-  background-color: rgba(25, 77, 209, 0.1) !important; 
+.border-neon-red {
+  border-color: var(--neon-red);
 }
 
-/* FORM CONTROLS - neonové styly */
-.form-control {
-  background-color: transparent !important;
-  border-color: var(--neon-blue) !important;
-  color: var(--neon-blue) !important;
-}
-.form-control:focus { 
-  border-color: var(--neon-blue) !important;
-  box-shadow: 0 0 0 0.2rem rgba(25, 77, 209, 0.25), 0 0 10px rgba(25, 77, 209, 0.5) !important;
-  background-color: transparent !important;
-}
-.form-control::placeholder {
-  color: rgba(25, 77, 209, 0.7) !important;
+.border-neon-yellow {
+  border-color: var(--neon-yellow);
 }
 
-/* ULTRA BOOTSTRAP AUTOCOMPLETE - 100% neonové styly */
-.autocomplete-item {
-  cursor: pointer !important;
-  transition: all 0.2s ease !important;
+/* Border glow utilities */
+.border-neon-glow {
+  box-shadow: var(--neon-glow);
 }
 
-/* UNIVERZÁLNÍ NEONOVÉ SCROLLBARY - Bootstrap theming compliant */
-/* Aplikováno na všechny scrollovatelné elementy ve hře */
-.overflow-auto::-webkit-scrollbar,
-.chat-scrollable::-webkit-scrollbar,
-.autocomplete-dropdown::-webkit-scrollbar,
-.game-container::-webkit-scrollbar {
+.border-neon-glow-strong {
+  box-shadow: var(--neon-glow-strong);
+}
+
+/* Transition utilities */
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+/* Cursor utilities */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Combined border + glow utilities */
+.border-wide-neon-green {
+  border: var(--border-neon-thick) solid var(--neon-green);
+  box-shadow: inset var(--neon-glow), var(--neon-glow);
+}
+
+.border-wide-neon-blue {
+  border: var(--border-neon-thick) solid var(--neon-blue);
+  box-shadow: inset 0 0 10px rgba(var(--neon-blue-rgb), 0.3), 0 0 20px rgba(var(--neon-blue-rgb), 0.3);
+}
+
+/* Background utilities */
+.bg-neon-glow-effect {
+  background: radial-gradient(circle, rgba(var(--neon-green-rgb), 0.1), transparent);
+}
+
+/* Barevné varianty bg-neon-glow-effect */
+.bg-neon-glow-effect-green {
+  background: radial-gradient(circle, rgba(var(--neon-green-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-blue {
+  background: radial-gradient(circle, rgba(var(--neon-blue-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-purple {
+  background: radial-gradient(circle, rgba(var(--neon-purple-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-orange {
+  background: radial-gradient(circle, rgba(var(--neon-orange-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-red {
+  background: radial-gradient(circle, rgba(var(--neon-red-rgb), 0.1), transparent);
+}
+
+.bg-neon-glow-effect-yellow {
+  background: radial-gradient(circle, rgba(var(--neon-yellow-rgb), 0.1), transparent);
+}
+
+/* ===================================================================
+   4. HERNÍ KOMPONENTY
+   ================================================================= */
+
+/* Kostky - mobile-first */
+.neon-dice-container {
+  width: 3rem;
+  height: 3rem;
+  display: inline-block;
+  perspective: 200px;
+}
+
+.dice-face {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a, #333);
+  border: var(--border-neon-medium) solid var(--neon-green);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dice-face:hover {
+  transform: rotateX(10deg) rotateY(10deg);
+}
+
+.neon-dice-glow {
+  box-shadow: var(--neon-glow);
+}
+
+.dice-face.selected {
+  border-color: var(--neon-blue);
+  box-shadow: var(--neon-glow-strong);
+  color: var(--neon-blue);
+}
+
+/* Dice dots */
+.dice-dot {
+  width: 0.3rem;
+  height: 0.3rem;
+  background-color: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 5px var(--neon-green);
+  margin: 0.1rem;
+}
+
+.dice-face.selected .dice-dot {
+  background-color: var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
+}
+
+/* Dice face layouts */
+.dice-face-1 .dice-dot:nth-child(1) { margin: auto; }
+.dice-face-2 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-2 .dice-dot:nth-child(2) { align-self: flex-end; margin-left: auto; }
+.dice-face-3 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-3 .dice-dot:nth-child(2) { margin: auto; }
+.dice-face-3 .dice-dot:nth-child(3) { align-self: flex-end; margin-left: auto; }
+.dice-face-4 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-4 .dice-dot:nth-child(2) { align-self: flex-start; margin-left: auto; }
+.dice-face-4 .dice-dot:nth-child(3) { align-self: flex-end; }
+.dice-face-4 .dice-dot:nth-child(4) { align-self: flex-end; margin-left: auto; }
+.dice-face-5 .dice-dot:nth-child(1) { align-self: flex-start; }
+.dice-face-5 .dice-dot:nth-child(2) { align-self: flex-start; margin-left: auto; }
+.dice-face-5 .dice-dot:nth-child(3) { margin: auto; }
+.dice-face-5 .dice-dot:nth-child(4) { align-self: flex-end; }
+.dice-face-5 .dice-dot:nth-child(5) { align-self: flex-end; margin-left: auto; }
+
+/* Chat komponenty */
+.neon-chat-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: var(--border-neon-medium) solid var(--neon-green);
+  border-radius: 0.5rem;
+  box-shadow: inset var(--neon-glow);
+  padding: 1rem;
+}
+
+.neon-chat-messages {
+  height: var(--chat-height-mobile);
+  overflow-y: auto;
+  border: 1px solid rgba(var(--neon-green-rgb, 0, 255, 0), 0.3);
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.neon-chat-message {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  word-wrap: break-word;
+}
+
+.neon-chat-message-ai {
+  background-color: rgba(var(--neon-green-rgb), 0.1);
+  border-left: var(--border-neon-thick) solid var(--neon-green);
+  color: var(--neon-green);
+}
+
+.neon-chat-message-user {
+  background-color: rgba(var(--neon-blue-rgb), 0.1);
+  border-left: var(--border-neon-thick) solid var(--neon-blue);
+  color: var(--neon-blue);
+  margin-left: auto;
+  max-width: 80%;
+}
+
+.neon-chat-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.neon-chat-input-group .form-control {
+  flex: 1;
+}
+
+/* ===================================================================
+   5. LAYOUT A RESPONZIVITA (mobile-first)
+   ================================================================= */
+
+/* Loading screen */
+.loading-z-index {
+  z-index: var(--z-loading);
+}
+
+/* Chat container responsive */
+.chat-scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) transparent;
+}
+
+.chat-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-scrollable::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 3px;
+}
+
+/* Bootstrap Mobile-First utilities */
+.gap-xs-compact {
+  gap: 0.25rem;
+}
+
+@media (max-width: 575.98px) {
+  .btn-touch-spacing {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .menu-btn-uniform {
+    min-width: 200px;
+  }
+}
+
+/* Responsive utilities */
+@media (min-width: 768px) {
+  .neon-dice-container {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .dice-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0.15rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .neon-dice-container {
+    width: 5rem;
+    height: 5rem;
+  }
+  
+  .dice-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin: 0.2rem;
+  }
+}
+
+/* ===================================================================
+   6. SCROLLBAR STYLING
+   ================================================================= */
+
+/* Custom scrollbars pro webkit browsers */
+.neon-chat-messages::-webkit-scrollbar {
   width: 8px;
 }
 
-.overflow-auto::-webkit-scrollbar-track,
-.chat-scrollable::-webkit-scrollbar-track,
-.autocomplete-dropdown::-webkit-scrollbar-track,
-.game-container::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.5);
+.neon-chat-messages::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
 }
 
-.overflow-auto::-webkit-scrollbar-thumb,
-.chat-scrollable::-webkit-scrollbar-thumb,
-.autocomplete-dropdown::-webkit-scrollbar-thumb,
-.game-container::-webkit-scrollbar-thumb {
-  background: var(--neon-blue);
+.neon-chat-messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--neon-green), var(--neon-blue));
   border-radius: 4px;
-  box-shadow: 0 0 5px rgba(25, 77, 209, 0.5);
+  box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.5);
 }
 
-.overflow-auto::-webkit-scrollbar-thumb:hover,
-.chat-scrollable::-webkit-scrollbar-thumb:hover,
-.autocomplete-dropdown::-webkit-scrollbar-thumb:hover,
-.game-container::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-blue);
-  box-shadow: 0 0 10px rgba(25, 77, 209, 0.8);
+.neon-chat-messages::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--neon-blue), var(--neon-green));
 }
 
-/* Firefox scrollbar styling - Bootstrap theming */
-.overflow-auto,
-.chat-scrollable,
-.autocomplete-dropdown,
-.game-container {
+/* Firefox scrollbar */
+.neon-chat-messages {
   scrollbar-width: thin;
-  scrollbar-color: var(--neon-blue) rgba(0, 0, 0, 0.5);
+  scrollbar-color: var(--neon-green) rgba(0, 0, 0, 0.3);
 }
 
-/* 100% VIEWPORT VYUŽITÍ - maximální responzivita */
-html, body { 
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  font-family: 'Orbitron', monospace;
-}
-.container-fluid { 
-  min-height: 100vh; 
+/* ===================================================================
+   7. ANIMACE A TRANSITIONS
+   ================================================================= */
+
+/* Hover animace pro interaktivní prvky */
+.btn,
+.neon-dice-container,
+.neon-card {
+  transition: all 0.3s ease;
 }
 
-/* BOOTSTRAP MOBILNÍ OPTIMALIZACE - theming compliant */
-/* Responzivní mobilní layout poměry podle viewport velikosti */
-
-/* Základní mobile layout pro střední obrazovky (tablet portrait) */
-@media (max-width: 991.98px) {
-  .mobile-game-area {
-    flex: 0 0 65%; /* Tablet: více prostoru pro hru */
-    display: flex;
-    flex-direction: column;
+/* Pulse animace pro důležité prvky */
+@keyframes neon-pulse {
+  0%, 100% { 
+    box-shadow: var(--neon-glow); 
   }
-  
-  .mobile-chat-area {
-    flex: 0 0 35%; /* Tablet: méně prostoru pro chat */
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Responzivní kostky */
-  .dice { 
-    width: 50px;
-    height: 50px;
-    font-size: 1.3rem;
-  }
-  
-  /* Kompaktní spacing na mobilech */
-  .chat-container,
-  .game-container {
-    padding: 0.75rem;
+  50% { 
+    box-shadow: var(--neon-glow-strong); 
   }
 }
 
-/* Malé mobily (běžné telefony) */
-@media (max-width: 767.98px) {
-  .mobile-game-area {
-    flex: 0 0 60%; /* Standardní mobil: 60/40 poměr */
-    display: flex;
-    flex-direction: column;
+.neon-pulse {
+  animation: neon-pulse 2s infinite;
+}
+
+/* Reduced motion respekt */
+@media (prefers-reduced-motion: reduce) {
+  .neon-pulse {
+    animation: none;
   }
   
-  .mobile-chat-area {
-    flex: 0 0 40%;
-    display: flex;
-    flex-direction: column;
+  .btn,
+  .neon-dice-container,
+  .neon-card,
+  .dice-face {
+    transition: none;
   }
 }
 
-/* Extra malé mobily (malé telefony) */
-@media (max-width: 575.98px) {
-  .mobile-game-area {
-    flex: 0 0 55%; /* Malý mobil: více prostoru pro chat */
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .mobile-chat-area {
-    flex: 0 0 45%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Extra malé kostky */
-  .dice { 
-    width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
-  }
-  
-  /* Ještě kompaktnější spacing */
-  .chat-container,
-  .game-container {
-    padding: 0.5rem;
+/* Button consistency helpers */
+.btn-consistent-width {
+  min-width: 200px;
+}
+
+@media (min-width: 768px) {
+  .btn-consistent-width {
+    min-width: 250px;
   }
 }
 
-/* Velmi malé obrazovky (landscape phones) */
-@media (max-width: 479.98px) {
-  .mobile-game-area {
-    flex: 0 0 50%; /* Velmi malý: 50/50 pro lepší použitelnost */
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .mobile-chat-area {
-    flex: 0 0 50%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Minimální padding */
-  .chat-container,
-  .game-container {
-    padding: 0.25rem;
-  }
-  
-  /* Kompaktní dice */
-  .dice { 
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
-  }
+/* Mobile control buttons */
+.mobile-control-btn {
+  min-width: 80px;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
 }
 
-/* BOOTSTRAP SPINNER NEONOVÉ BARVY */
+.mobile-quit-btn {
+  min-width: 150px;
+  padding: 0.5rem 1rem;
+}
+
+/* ===================================================================
+   8. UTILITY OVERRIDES (minimální, pouze kde nutné)
+   ================================================================= */
+
+/* Kurzor pointer pro interaktivní prvky (autocomplete) */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Bootstrap spinner barvy - jediny override */
 .spinner-border.text-neon-green {
-  border-color: transparent !important;
-  border-top-color: var(--neon-green) !important;
-  border-right-color: var(--neon-green) !important;
-}
-.spinner-border.text-neon-blue {
-  border-color: transparent !important;
-  border-top-color: var(--neon-blue) !important;
-  border-right-color: var(--neon-blue) !important;
+  border-color: var(--neon-green);
+  border-right-color: transparent;
 }
 
-/* LUXUSNÍ BOOTSTRAP EXTENSIONS 🎉 */
-
-/* RESPONZIVNÍ MENU ELEMENTY - Bootstrap-first responsive design */
-/* Zajišťuje, že všechny elementy v menu se správně škálují */
-
-/* Menu elements responzivní škálování */
-@media (max-width: 991.98px) {
-  /* Nadpisy v menu */
-  .display-6, .display-5, .display-4 {
-    font-size: 1.5rem !important;
-  }
-  
-  /* Target score input a tlačítka */
-  .btn-lg {
-    font-size: 0.9rem !important;
-    padding: 0.5rem 1rem !important;
-  }
-  
-  /* Input groups */
-  .input-group {
-    max-width: 200px !important;
-  }
-  
-  .form-control {
-    font-size: 0.9rem !important;
-  }
+/* Ensure black background dominance */
+.bg-black {
+  background-color: #000000;
 }
 
-@media (max-width: 767.98px) {
-  /* Ještě menší elementy na mobilech */
-  .display-6, .display-5, .display-4 {
-    font-size: 1.3rem !important;
-  }
-  
-  .btn-lg {
-    font-size: 0.8rem !important;
-    padding: 0.4rem 0.8rem !important;
-  }
-  
-  .btn {
-    font-size: 0.8rem !important;
-    padding: 0.4rem 0.8rem !important;
-  }
-  
-  .input-group {
-    max-width: 180px !important;
-  }
-  
-  .form-control {
-    font-size: 0.8rem !important;
-    padding: 0.4rem 0.6rem !important;
-  }
-  
-  /* Icons scaling */
-  .fs-1 {
-    font-size: 2rem !important;
-  }
-  
-  .fs-2 {
-    font-size: 1.5rem !important;
-  }
-  
-  .fs-3 {
-    font-size: 1.2rem !important;
-  }
+/* Zabránění FOUC (Flash of Unstyled Content) */
+.d-none-until-loaded {
+  display: none;
 }
 
-@media (max-width: 575.98px) {
-  /* Extra malé obrazovky */
-  .display-6, .display-5, .display-4 {
-    font-size: 1.1rem !important;
-  }
-  
-  .btn-lg {
-    font-size: 0.75rem !important;
-    padding: 0.3rem 0.6rem !important;
-  }
-  
-  .btn {
-    font-size: 0.75rem !important;
-    padding: 0.3rem 0.6rem !important;
-  }
-  
-  .input-group {
-    max-width: 160px !important;
-  }
-  
-  .form-control {
-    font-size: 0.75rem !important;
-    padding: 0.3rem 0.5rem !important;
-  }
-  
-  /* Icons scaling */
-  .fs-1 {
-    font-size: 1.5rem !important;
-  }
-  
-  .fs-2 {
-    font-size: 1.2rem !important;
-  }
-  
-  .fs-3 {
-    font-size: 1rem !important;
-  }
+.loaded .d-none-until-loaded {
+  display: block;
 }
 
-@media (max-width: 479.98px) {
-  /* Velmi malé obrazovky */
-  .display-6, .display-5, .display-4 {
-    font-size: 1rem !important;
-  }
-  
-  .btn-lg {
-    font-size: 0.7rem !important;
-    padding: 0.25rem 0.5rem !important;
-  }
-  
-  .btn {
-    font-size: 0.7rem !important;
-    padding: 0.25rem 0.5rem !important;
-  }
-  
-  .input-group {
-    max-width: 140px !important;
-  }
-  
-  .form-control {
-    font-size: 0.7rem !important;
-    padding: 0.25rem 0.4rem !important;
-  }
-  
-  /* Icons scaling */
-  .fs-1 {
-    font-size: 1.2rem !important;
-  }
-  
-  .fs-2 {
-    font-size: 1rem !important;
-  }
-  
-  .fs-3 {
-    font-size: 0.9rem !important;
-  }
+/* ===================================================================
+   7. SweetAlert2 neonové styly
+   ================================================================= */
+
+/* Přidání neonového orámování pro všechna modální okna */
+.swal2-popup {
+  border: var(--border-neon-thick) solid var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6) !important;
+  background-color: black !important;
+  color: var(--neon-green) !important;
 }
 
-/* ANTI-OVERFLOW: Zajišťuje, že žádný element neuteče mimo viewport */
-@media (max-width: 991.98px) {
-  /* Prevence overflow pro všechny hlavní elementy */
-  .container, .container-fluid {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  
-  /* Menu elementy */
-  .game-header, #gameHeader, #gameHeaderMobile {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  
-  /* Input groups a buttons */
-  .input-group, .btn-group {
-    max-width: 100% !important;
-    flex-wrap: wrap !important;
-  }
-  
-  /* Text elements */
-  h1, h2, h3, h4, h5, h6 {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-  }
+/* Neonové styly pro tlačítka v SweetAlert2 */
+.swal2-confirm.swal2-styled {
+  background-color: transparent !important;
+  color: var(--neon-blue) !important;
+  border: var(--border-neon-medium) solid var(--neon-blue) !important;
+  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb), 0.4) !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  text-shadow: 0 0 8px currentColor !important;
+  transition: all 0.3s ease !important;
 }
 
-/* ANTI-FLEX-STUCK: Oprava layoutu, který si drží velikost */
-@media (max-width: 991.98px) {
-  /* Zajištění, že parent kontejner správně řídí flex layout */
-  .d-lg-none.h-100.d-flex.flex-column {
-    min-height: 0 !important; /* Umožní zmenšování */
-    flex: 1 !important; /* Vyplní dostupný prostor */
-  }
-  
-  /* Game a chat oblasti musí respektovat parent flex */
-  .mobile-game-area,
-  .mobile-chat-area {
-    min-height: 0 !important; /* Klíčové - umožní zmenšování */
-    overflow: hidden !important; /* Zabráni utečení obsahu */
-  }
-  
-  /* Container uvnitř musí respektovat flex parent */
-  .game-container,
-  .chat-container {
-    min-height: 0 !important; /* Umožní zmenšování */
-    height: 100% !important; /* Vyplní dostupný prostor z flex parent */
-  }
-  
-  /* Scrollovatelné oblasti */
-  .overflow-auto {
-    min-height: 0 !important; /* Umožní správné scrollování */
-  }
+.swal2-confirm.swal2-styled:hover {
+  background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6) !important;
+  transform: scale(1.05) !important;
 }
 
-/* VIEWPORT FIX: Zajistí že layout využije celý viewport */
-@media (max-width: 991.98px) {
-  body {
-    height: 100vh !important;
-    max-height: 100vh !important;
-    overflow: hidden !important;
-  }
-  
-  #app {
-    height: 100vh !important;
-    max-height: 100vh !important;
-    min-height: 100vh !important;
-    padding-bottom: 0.75rem !important; /* Spodní padding pro celou aplikaci */
-  }
-  
-  /* Main mobile container */
-  .d-lg-none {
-    height: 100% !important;
-    max-height: 100% !important;
-    padding-bottom: 0.5rem !important; /* Extra spodní prostor */
-  }
-  
-  /* Chat container spodní margin pro lepší UX */
-  .mobile-chat-area {
-    margin-bottom: 0.5rem !important; /* Spodní margin pro chat */
-  }
-  
-  /* Chat container uvnitř také s paddingem */
-  .mobile-chat-area .chat-container {
-    margin-bottom: 0.25rem !important; /* Jemný spodní margin */
-  }
+/* Specifické třídy pro různé barvy SweetAlert2 popup */
+.swal2-popup.border-wide-neon-blue {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.6) !important;
 }
 
-/* EXTRA SMALL MOBILE PADDING - ještě více prostoru na malých obrazovkách */
-@media (max-width: 575.98px) {
-  #app {
-    padding-bottom: 1rem !important; /* Více spodního paddingu na malých mobilech */
-  }
-  
-  .d-lg-none {
-    padding-bottom: 0.75rem !important; /* Více prostoru na malých obrazovkách */
-  }
-  
-  .mobile-chat-area {
-    margin-bottom: 0.75rem !important; /* Více spodního marginu */
-  }
+.swal2-popup.border-wide-neon-yellow {
+  border-color: var(--neon-yellow) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.6) !important;
 }
 
-/* VELMI MALÉ OBRAZOVKY - maximum spacing */
-@media (max-width: 479.98px) {
-  #app {
-    padding-bottom: 1.25rem !important; /* Maximum spodní padding */
-  }
-  
-  .d-lg-none {
-    padding-bottom: 1rem !important; /* Hodně prostoru na velmi malých obrazovkách */
-  }
-  
-  .mobile-chat-area {
-    margin-bottom: 1rem !important; /* Maximum spodní margin pro chat */
-  }
+.swal2-popup.border-wide-neon-orange {
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6) !important;
 }
 
-/* RESPONZIVNÍ TLAČÍTKA - mobilní a desktop layout */
-/* Odstraněno - používáme oficiální Bootstrap třídy d-md-none a d-none d-md-inline-block */
+.swal2-popup.border-wide-neon-purple {
+  border-color: var(--neon-purple) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.6) !important;
+}
+
+.swal2-popup.border-wide-neon-red {
+  border-color: var(--neon-red) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.6) !important;
+}
+
+/* ===================================================================
+   KONEC SOUBORU - 0 !important pravidel
+   Bootstrap-first, mobile-first, utility-based design dokončen
+   ================================================================= */

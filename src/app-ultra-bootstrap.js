@@ -15,7 +15,14 @@ class UltraBootstrapDiceGame {
                 { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'bi-cpu-fill', color: 'purple' },
                 { name: 'Claude', score: 0, isHuman: false, avatar: 'bi-lightning-charge-fill', color: 'orange' }
             ],
-            currentPlayerIndex: 0,
+            currentPlayerI            customClass: {
+                popup: 'bg-black text-neon-green border-wide-neon-yellow',
+                confirmButton: 'btn btn-neon-yellow'
+            }
+        });
+    }
+
+    initChatListeners() {,
             targetScore: 10000,
             gameStarted: false,
             currentRoll: [],
@@ -302,26 +309,25 @@ class UltraBootstrapDiceGame {
                         ${currentPlayer.isHuman ? `
                             <!-- Bootstrap oficiální button layout - responsive -->
                             <div class="d-flex justify-content-center flex-wrap">
-                                <div class="d-flex flex-wrap justify-content-center mb-2">
-                                    <button class="btn btn-neon-green btn-sm mx-1 mb-2 d-md-none" onclick="app.rollDice()" id="rollBtn">
+                                <div class="d-flex flex-wrap justify-content-center">
+                                    <button class="btn btn-neon-green btn-sm mx-1 mb-2 d-md-none" onclick="app.rollDice()" id="rollBtnMobile">
                                         <i class="bi bi-dice-6-fill"></i> Hodit
                                     </button>
-                                    <button class="btn btn-neon-green mx-1 mb-2 d-none d-md-inline-block" onclick="app.rollDice()" id="rollBtn">
+                                    <button class="btn btn-neon-green mx-1 mb-2 d-none d-md-inline-block" onclick="app.rollDice()" id="rollBtnDesktop">
                                         <i class="bi bi-dice-6-fill"></i> Hodit
                                     </button>
                                     
-                                    <button class="btn btn-neon-blue btn-sm mx-1 mb-2 d-md-none" onclick="app.holdDice()" id="holdBtn" disabled>
+                                    <button class="btn btn-neon-blue btn-sm mx-1 mb-2 d-md-none" onclick="app.holdDice()" id="holdBtnMobile" disabled>
                                         <i class="bi bi-collection-fill"></i> Odložit
                                     </button>
-                                    <button class="btn btn-neon-blue mx-1 mb-2 d-none d-md-inline-block" onclick="app.holdDice()" id="holdBtn" disabled>
+                                    <button class="btn btn-neon-blue mx-1 mb-2 d-none d-md-inline-block" onclick="app.holdDice()" id="holdBtnDesktop" disabled>
                                         <i class="bi bi-collection-fill"></i> Odložit
                                     </button>
-                                </div>
-                                <div class="d-flex flex-wrap justify-content-center">
-                                    <button class="btn btn-neon-orange btn-sm mx-1 mb-2 d-md-none" onclick="app.endTurn()" id="endBtn">
+                                
+                                    <button class="btn btn-neon-orange btn-sm mx-1 mb-2 d-md-none" onclick="app.endTurn()" id="endBtnMobile">
                                         <i class="bi bi-stop-fill"></i> Ukončit tah
                                     </button>
-                                    <button class="btn btn-neon-orange mx-1 mb-2 d-none d-md-inline-block" onclick="app.endTurn()" id="endBtn">
+                                    <button class="btn btn-neon-orange mx-1 mb-2 d-none d-md-inline-block" onclick="app.endTurn()" id="endBtnDesktop">
                                         <i class="bi bi-stop-fill"></i> Ukončit tah
                                     </button>
                                 </div>
@@ -557,12 +563,19 @@ class UltraBootstrapDiceGame {
         this.updateScoreDisplay();
         
         // Bootstrap button state management
-        const holdBtn = document.getElementById('holdBtn');
-        if (holdBtn) {
-            const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
-            const minScore = currentPlayer.score === 0 ? 300 : 0;
-            holdBtn.disabled = score === 0 || this.gameState.turnScore < minScore;
-        }
+        // Aktualizace obou variant holdBtn (desktop i mobilní)
+        const holdBtns = [
+            document.getElementById('holdBtnMobile'),
+            document.getElementById('holdBtnDesktop')
+        ];
+        
+        const currentPlayer = this.gameState.players[this.gameState.currentPlayerIndex];
+        const minScore = currentPlayer.score === 0 ? 300 : 0;
+        const isDisabled = score === 0 || this.gameState.turnScore < minScore;
+        
+        holdBtns.forEach(btn => {
+            if (btn) btn.disabled = isDisabled;
+        });
     }
 
     updateScoreDisplay() {
@@ -762,7 +775,8 @@ class UltraBootstrapDiceGame {
             `,
             confirmButtonText: 'Rozumím',
             customClass: {
-                popup: 'bg-black text-neon-green'
+                popup: 'bg-black text-neon-green border-wide-neon-blue',
+                confirmButton: 'btn btn-neon-blue'
             }
         });
     }
@@ -779,7 +793,8 @@ class UltraBootstrapDiceGame {
             `,
             confirmButtonText: 'Zavřít',
             customClass: {
-                popup: 'bg-black text-neon-green'
+                popup: 'bg-black text-neon-green border-wide-neon-yellow',
+                confirmButton: 'btn btn-neon-yellow'
             }
         });
     }
@@ -839,31 +854,38 @@ class UltraBootstrapDiceGame {
 
     addChatMessage(sender, message, type) {
         // 100% neonové Bootstrap třídy s barvami podle hráče
-        let messageClass = '';
+        let textColor = '';
+        let borderColor = '';
         
         if (type === 'system') {
             // Systémové zprávy mají být žluté podle dokumentace
-            messageClass = 'alert-neon-yellow border-start border-neon-yellow border-3 text-neon-yellow';
+            textColor = 'text-neon-yellow';
+            borderColor = 'border-neon-yellow';
         } else if (type === 'player') {
-            messageClass = 'alert-neon-green border-start border-neon-green border-3 text-neon-green';
+            textColor = 'text-neon-green';
+            borderColor = 'border-neon-green';
         } else if (type === 'ai') {
             // Specifické barvy pro každého AI podle jména
             if (sender === 'Gemini') {
-                messageClass = 'alert-neon-blue border-start border-neon-blue border-3 text-neon-blue';
+                textColor = 'text-neon-blue';
+                borderColor = 'border-neon-blue';
             } else if (sender === 'ChatGPT') {
                 // Používáme purple místo pink pro konzistenci s CSS definicí
-                messageClass = 'alert-neon-purple border-start border-neon-purple border-3 text-neon-purple';
+                textColor = 'text-neon-purple';
+                borderColor = 'border-neon-purple';
             } else if (sender === 'Claude') {
-                messageClass = 'alert-neon-orange border-start border-neon-orange border-3 text-neon-orange';
+                textColor = 'text-neon-orange';
+                borderColor = 'border-neon-orange';
             } else {
                 // Fallback pro neznámé AI
-                messageClass = 'alert-neon-blue border-start border-neon-blue border-3 text-neon-blue';
+                textColor = 'text-neon-blue';
+                borderColor = 'border-neon-blue';
             }
         }
 
         const messageHTML = `
-            <div class="alert ${messageClass} py-2 mb-2 bg-black animate__animated animate__fadeInUp">
-                <small><strong>${sender}:</strong> ${message}</small>
+            <div class="py-2 mb-2 bg-black border-start border-3 ${borderColor} animate__animated animate__fadeInUp">
+                <small class="${textColor} neon-text-glow"><strong>${sender}:</strong> ${message}</small>
             </div>
         `;
 

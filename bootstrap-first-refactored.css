@@ -24,17 +24,17 @@ html, body {
 }
 
 :root {
-  /* Neonové barvy */
-  --neon-green: #00ff00;
-  --neon-green-rgb: 0, 255, 0;
+  /* Neonové barvy - sjednoceno s bootstrap-first-pure.css */
+  --neon-green: #39ff14;
+  --neon-green-rgb: 57, 255, 20;
   --neon-blue: #194DD1;
   --neon-blue-rgb: 25, 77, 209;
-  --neon-purple: #ff00ff;
+  --neon-purple: #FF00FF; /* používáme purple místo pink pro konzistenci */
   --neon-purple-rgb: 255, 0, 255;
-  --neon-orange: #ff8000;
-  --neon-orange-rgb: 255, 128, 0;
-  --neon-red: #ff0040;
-  --neon-red-rgb: 255, 0, 64;
+  --neon-orange: #FF8800;
+  --neon-orange-rgb: 255, 136, 0;
+  --neon-red: #ff3131;
+  --neon-red-rgb: 255, 49, 49;
   --neon-yellow: #ffff00;
   --neon-yellow-rgb: 255, 255, 0;
   
