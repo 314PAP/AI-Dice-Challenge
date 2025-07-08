@@ -1,0 +1,136 @@
+/* ===================================================================
+   HERNÍ KOMPONENTY - KOSTKY
+   
+   Styly pro herní kostky a jejich animace
+   ================================================================= */
+
+@import '../variables/neon-colors.css';
+
+/* Základní styly pro kostky */
+.dice {
+  width: 60px;
+  height: 60px;
+  background-color: #111;
+  border: 2px solid var(--neon-green);
+  box-shadow: 0 0 10px var(--neon-green);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Responzivní velikosti kostek */
+@media (max-width: 576px) {
+  .dice {
+    width: 45px;
+    height: 45px;
+    border-width: 1px;
+  }
+}
+
+@media (min-width: 768px) {
+  .dice {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+@media (min-width: 992px) {
+  .dice {
+    width: 65px;
+    height: 65px;
+    border-width: 2px;
+  }
+}
+
+/* Landscape orientace - menší kostky */
+@media (orientation: landscape) and (max-height: 500px) {
+  .dice {
+    width: 40px;
+    height: 40px;
+    border-width: 1px;
+  }
+}
+
+/* Vybraná kostka - zvýrazněná */
+.dice.selected {
+  border-color: var(--neon-yellow);
+  box-shadow: 0 0 15px var(--neon-yellow);
+  transform: translateY(-5px);
+}
+
+/* Efekt při najetí myší */
+.dice:hover:not(.selected) {
+  border-color: rgba(var(--neon-green-rgb), 0.8);
+  transform: scale(1.05);
+}
+
+/* Animace házení kostkou */
+.dice.rolling {
+  animation: diceRoll 0.8s ease-in-out;
+}
+
+@keyframes diceRoll {
+  0% { transform: rotateX(0) rotateY(0); }
+  20% { transform: rotateX(180deg) rotateY(90deg); }
+  40% { transform: rotateX(360deg) rotateY(180deg); }
+  60% { transform: rotateX(180deg) rotateY(270deg); }
+  80% { transform: rotateX(360deg) rotateY(360deg); }
+  100% { transform: rotateX(0) rotateY(0); }
+}
+
+/* Styly pro tečky na kostkách */
+.dot {
+  position: absolute;
+  width: 25%;
+  height: 25%;
+  background-color: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Responzivní velikost teček */
+@media (max-width: 576px) {
+  .dot {
+    width: 20%;
+    height: 20%;
+  }
+}
+
+/* Pozice teček */
+.dot.center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dot.top-left {
+  top: 20%;
+  left: 20%;
+}
+
+.dot.top-right {
+  top: 20%;
+  right: 20%;
+}
+
+.dot.middle-left {
+  top: 50%;
+  left: 20%;
+  transform: translateY(-50%);
+}
+
+.dot.middle-right {
+  top: 50%;
+  right: 20%;
+  transform: translateY(-50%);
+}
+
+.dot.bottom-left {
+  bottom: 20%;
+  left: 20%;
+}
+
+.dot.bottom-right {
+  bottom: 20%;
+  right: 20%;
+}

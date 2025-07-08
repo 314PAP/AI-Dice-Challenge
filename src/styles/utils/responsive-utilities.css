@@ -1,0 +1,73 @@
+/* ===================================================================
+   RESPONZIVNÍ UTILITY A LAYOUT HELPERS
+   
+   Obsahuje responsive utility třídy nad rámec Bootstrapu
+   pro optimalizaci layoutu na všech zařízeních
+   ================================================================= */
+
+/* Responsive visibility třídy - doplnění Bootstrap d-* tříd */
+@media (max-height: 450px) {
+  .d-short-none {
+    display: none !important;
+  }
+  
+  .d-short-block {
+    display: block !important;
+  }
+  
+  .d-short-flex {
+    display: flex !important;
+  }
+}
+
+/* Responsive spacing - doplnění Bootstrap spacing systému */
+@media (max-width: 576px) {
+  .small-device-p-1 {
+    padding: 0.25rem !important;
+  }
+  
+  .small-device-m-1 {
+    margin: 0.25rem !important;
+  }
+  
+  .small-device-gap-1 {
+    gap: 0.25rem !important;
+  }
+}
+
+/* Responzivní výška kontejnerů */
+.vh-xs-50 {
+  height: 50vh;
+}
+
+@media (min-width: 576px) {
+  .vh-sm-75 {
+    height: 75vh !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .vh-md-100 {
+    height: 100vh !important;
+  }
+}
+
+/* Layout optimalizace pro landscape orientaci */
+@media (orientation: landscape) and (max-height: 576px) {
+  .landscape-flex-row {
+    flex-direction: row !important;
+  }
+  
+  .landscape-h-100 {
+    height: 100% !important;
+  }
+  
+  .landscape-w-50 {
+    width: 50% !important;
+  }
+  
+  .landscape-py-1 {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+}

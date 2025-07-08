@@ -1,0 +1,40 @@
+/* ===================================================================
+   HLAVNÍ CSS SOUBOR - CENTRÁLNÍ IMPORT VŠECH MODULŮ
+   
+   Tento soubor slouží jako centrální bod pro import všech CSS modulů
+   a zajišťuje správné pořadí načítání a snadnou správu závislostí.
+   ================================================================= */
+
+/* 1. Proměnné a základní nastavení */
+@import './variables/neon-colors.css';
+
+/* 2. Utility třídy a rozšíření Bootstrapu */
+@import './utils/neon-utilities.css';
+@import './utils/responsive-utilities.css';
+@import './responsive-text.css';
+
+/* 3. Komponenty */
+@import './components/neon-buttons.css';
+@import './components/dice.css';
+
+/* 4. Speciální optimalizace */
+@import './landscape-orientation.css';
+
+/* 5. Globální nastavení */
+html, body {
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+}
+
+/* Font loading optimalizace */
+.font-orbitron {
+  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+  font-display: swap;
+}
+
+/* Z-index scale (kompatibilní s Bootstrap) */
+:root {
+  --z-loading: 1055; /* Bootstrap modal + 10 */
+}
