@@ -29,6 +29,8 @@
 - ✅ **Chat s autocomplete**: Ultra Bootstrap Autocomplete s historií
 - ✅ **localStorage**: Automatické ukládání chat historie
 - ✅ **Klávesové zkratky**: ↑↓ navigace, Enter výběr, Escape zavření
+- ✅ **Mobilní layout**: 60% game, 40% chat (přesné poměry)
+- ✅ **Neonové scrollbary**: Webkit + Firefox cross-browser support
 - ✅ **Animace**: Smooth hover efekty a přechody
 
 ### 📁 ARCHITEKTURA - ČISTÁ
