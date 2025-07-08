@@ -190,16 +190,16 @@ class DiceGameApp {
         
         const gameHTML = `
             <div class="h-100 d-flex flex-column">
-                <!-- Player Info -->
-                <div class="row mb-3">
+                <!-- Player Info - Responzivní avatary v jedné řadě -->
+                <div class="row mb-3 g-2">
                     ${this.gameState.players.map((player, index) => `
-                        <div class="col-lg-3 col-md-6 col-6 mb-2">
-                            <div class="player-card ${index === this.gameState.currentPlayerIndex ? 'active' : ''} ${this.getPlayerCardClass(player)}">
-                                <div class="text-center">
-                                    <div class="fs-4 mb-1"><i class="bi ${player.avatar} text-${player.color}"></i></div>
-                                    <div class="fw-bold text-${player.color}">${player.name}</div>
-                                    <div class="text-${player.color}">${player.score} bodů</div>
+                        <div class="col-3">
+                            <div class="player-card ${index === this.gameState.currentPlayerIndex ? 'active' : ''} ${this.getPlayerCardClass(player)} p-2 text-center">
+                                <div class="avatar-container mb-1">
+                                    <i class="bi ${player.avatar} text-${player.color} fs-3 fs-md-2 fs-lg-1"></i>
                                 </div>
+                                <div class="player-name fw-bold text-${player.color} small">${player.name}</div>
+                                <div class="player-score text-${player.color} small">${player.score}</div>
                             </div>
                         </div>
                     `).join('')}
@@ -208,25 +208,25 @@ class DiceGameApp {
                 <!-- Game Controls -->
                 <div class="flex-grow-1 d-flex flex-column justify-content-center">
                     <div class="text-center mb-4">
-                        <h3 class="text-neon-green">Na řadě: <i class="bi ${currentPlayer.avatar} text-${currentPlayer.color}"></i> ${currentPlayer.name}</h3>
-                        <div class="text-neon-yellow fs-5">Aktuální skóre tahu: <span id="turnScore">${this.gameState.turnScore}</span></div>
+                        <h4 class="text-neon-green mb-2">Na řadě: <i class="bi ${currentPlayer.avatar} text-${currentPlayer.color}"></i> ${currentPlayer.name}</h4>
+                        <div class="text-neon-yellow fs-6">Skóre tahu: <span id="turnScore">${this.gameState.turnScore}</span></div>
                     </div>
 
                     <!-- Dice Area -->
                     <div class="text-center mb-4">
-                        <div id="diceContainer" class="d-flex justify-content-center gap-3 flex-wrap mb-3">
+                        <div id="diceContainer" class="d-flex justify-content-center gap-2 gap-md-3 flex-wrap mb-3">
                             ${this.generateDiceHTML()}
                         </div>
                         
                         ${currentPlayer.isHuman ? `
-                            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                                <button class="btn btn-neon-green" onclick="app.rollDice()" id="rollBtn">
-                                    <i class="bi bi-dice-6-fill"></i> Hodit kostky
+                            <div class="game-buttons d-flex justify-content-center gap-2 flex-wrap">
+                                <button class="btn btn-success text-white" onclick="app.rollDice()" id="rollBtn">
+                                    <i class="bi bi-dice-6-fill"></i> Hodit
                                 </button>
-                                <button class="btn btn-neon-blue" onclick="app.holdDice()" id="holdBtn" disabled>
-                                    <i class="bi bi-collection-fill"></i> Odložit pole
+                                <button class="btn btn-primary text-white" onclick="app.holdDice()" id="holdBtn" disabled>
+                                    <i class="bi bi-collection-fill"></i> Odložit
                                 </button>
-                                <button class="btn btn-neon-orange" onclick="app.endTurn()" id="endBtn">
+                                <button class="btn btn-warning text-white" onclick="app.endTurn()" id="endBtn">
                                     <i class="bi bi-stop-fill"></i> Ukončit tah
                                 </button>
                             </div>
@@ -242,7 +242,7 @@ class DiceGameApp {
 
                     <!-- Game Info -->
                     <div class="text-center mt-auto">
-                        <button class="btn btn-neon-red btn-sm" onclick="app.endGame()">
+                        <button class="btn btn-danger text-white btn-sm" onclick="app.endGame()">
                             <i class="bi bi-stop-circle-fill"></i> Ukončit hru
                         </button>
                     </div>
