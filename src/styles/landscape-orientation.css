@@ -1,0 +1,87 @@
+/* ===================================================================
+   LANDSCAPE ORIENTATION OPTIMIZATIONS
+   Mobile-first landscape optimalizace pro zařízení s nižší výškou
+   ================================================================= */
+
+@media (max-height: 600px) and (orientation: landscape) {
+  /* Upravený layout pro mobil v landscape orientaci */
+  .row {
+    flex-direction: row !important;
+  }
+  
+  /* Změna rozložení na 50/50 v landscape režimu na mobilech */
+  @media (max-width: 991.98px) {
+    .col-12 {
+      width: 50%;
+      max-height: 100%;
+    }
+    
+    /* Zrušení marginu mezi sloupci */
+    .col-12.mb-2 {
+      margin-bottom: 0 !important;
+    }
+    
+    /* Menší padding pro lepší využití prostoru */
+    .p-2 {
+      padding: 0.4rem !important;
+    }
+    
+    /* Menší text pro lepší využití prostoru */
+    .fs-3, .fs-4 {
+      font-size: 1rem !important;
+    }
+    
+    .fs-5 {
+      font-size: 0.9rem !important;
+    }
+    
+    /* Optimalizace pro tlačítka */
+    .btn {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+    
+    /* Zúžení vstupního pole */
+    .input-group {
+      max-width: 100%;
+    }
+    
+    /* Kompaktnější karty hráčů */
+    .card-body {
+      padding: 0.35rem !important;
+    }
+  }
+}
+
+/* Další optimalizace pro extrémně malé výšky (např. iPhone SE v landscape) */
+@media (max-height: 400px) and (orientation: landscape) {
+  /* Ještě kompaktnější layout */
+  #app {
+    padding: 0.25rem !important;
+  }
+  
+  .g-2 {
+    --bs-gutter-x: 0.25rem !important;
+    --bs-gutter-y: 0.25rem !important;
+  }
+  
+  /* Menší mezery mezi prvky */
+  .mb-2, .mb-3, .mb-4 {
+    margin-bottom: 0.25rem !important;
+  }
+  
+  /* Extrémně kompaktní tlačítka */
+  .btn {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Optimalizace pro přehlednost */
+  .d-md-block {
+    display: none !important;
+  }
+  
+  .d-md-none {
+    display: block !important;
+  }
+}

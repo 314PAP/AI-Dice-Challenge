@@ -2,9 +2,8 @@
    AI DICE CHALLENGE - BOOTSTRAP-FIRST OPTIMIZED CSS
    ===================================================================
    
-   Optimalizovaný a vyčištěný kód s minimálním použitím vlastního CSS.
-   Využití nativních Bootstrap tříd a utility.
-   DRY princip (Don't Repeat Yourself) pomocí CSS proměnných a root selektorů.
+   100% Bootstrap-compatible, mobile-first, utility-based CSS
+   0 !important pravidel, pouze rozšíření Bootstrap systému
    
    Struktura:
    1. CSS proměnné a základní nastavení
@@ -53,9 +52,6 @@ html, body {
   --border-neon-thin: 1px;
   --border-neon-medium: 2px;
   --border-neon-thick: 3px;
-  
-  /* Layout rozměry */
-  --chat-height-mobile: 200px;
 }
 
 /* Font loading optimalizace */
@@ -71,15 +67,15 @@ html, body {
 /* Základní neon-btn třída - společné vlastnosti pro všechna tlačítka */
 .btn-neon,
 .btn.btn-neon {
-  background-color: transparent !important;
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  text-shadow: var(--neon-text-shadow) !important;
-  transition: all 0.3s ease !important;
-  position: relative !important;
-  border-width: var(--border-neon-medium) !important;
-  border-style: solid !important;
-  outline: none !important;
+  background-color: transparent;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: var(--neon-text-shadow);
+  transition: all 0.3s ease;
+  position: relative;
+  border-width: var(--border-neon-medium);
+  border-style: solid;
+  outline: none;
 }
 
 /* Hover a focus stavy */
@@ -87,21 +83,21 @@ html, body {
 .btn-neon:focus,
 .btn.btn-neon:hover,
 .btn.btn-neon:focus {
-  background-color: rgba(0, 0, 0, 0.2) !important;
-  transform: scale(1.05) !important;
-  color: inherit !important;
-  border-color: inherit !important;
+  background-color: rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  color: inherit;
+  border-color: inherit;
 }
 
-/* Active stav - použití !important nutné pro přepsání Bootstrap výchozích stylů */
+/* Active stav */
 .btn-neon:active,
 .btn.btn-neon:active,
 .btn-neon.active,
 .btn.btn-neon.active {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  transform: scale(0.98) !important;
-  color: inherit !important;
-  border-color: inherit !important;
+  background-color: rgba(0, 0, 0, 0.3);
+  transform: scale(0.98);
+  color: inherit;
+  border-color: inherit;
 }
 
 /* Generický systém neonových barev pro tlačítka pomocí data atributu */
@@ -109,8 +105,8 @@ html, body {
 .btn.btn-neon[data-neon-color="green"],
 .btn-neon-green,
 .btn.btn-neon-green {
-  border-color: var(--neon-green) !important;
-  color: var(--neon-green) !important;
+  border-color: var(--neon-green);
+  color: var(--neon-green);
 }
 
 .btn-neon[data-neon-color="green"]:hover,
@@ -121,9 +117,9 @@ html, body {
 .btn-neon-green:focus,
 .btn.btn-neon-green:hover,
 .btn.btn-neon-green:focus {
-  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6) !important;
-  border-color: var(--neon-green) !important;
-  color: var(--neon-green) !important;
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6);
+  border-color: var(--neon-green);
+  color: var(--neon-green);
 }
 
 .btn-neon[data-neon-color="green"]:active,
@@ -134,9 +130,9 @@ html, body {
 .btn.btn-neon-green:active,
 .btn-neon-green.active,
 .btn.btn-neon-green.active {
-  border-color: var(--neon-green) !important;
-  color: var(--neon-green) !important;
-  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7) !important;
+  border-color: var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7);
 }
 
 .btn-neon[data-neon-color="blue"],
@@ -509,16 +505,37 @@ select.text-neon-yellow.form-control {
    ================================================================= */
 
 /* Kostky - mobile-first */
-.neon-dice-container {
+/* Jednotný systém pro kostky v CSS a JS */
+.dice {
   width: 3rem;
   height: 3rem;
+  margin: 0.5rem;
+  background: linear-gradient(135deg, #1a1a1a, #333);
+  border: var(--border-neon-medium) solid var(--neon-green);
+  border-radius: 0.5rem;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--neon-glow);
+}
+
+.dice:hover {
+  transform: rotateX(10deg) rotateY(10deg);
+}
+
+.dice.selected {
+  border-color: var(--neon-blue);
+  box-shadow: var(--neon-glow-strong);
+  color: var(--neon-blue);
+}
+
+/* Zachování zpětné kompatibility */
+.neon-dice-container {
   display: inline-block;
   perspective: 200px;
 }
 
 .dice-face {
-  width: 100%;
-  height: 100%;
   background: linear-gradient(135deg, #1a1a1a, #333);
   border: var(--border-neon-medium) solid var(--neon-green);
   border-radius: 0.5rem;
@@ -537,12 +554,6 @@ select.text-neon-yellow.form-control {
 
 .neon-dice-glow {
   box-shadow: var(--neon-glow);
-}
-
-.dice-face.selected {
-  border-color: var(--neon-blue);
-  box-shadow: var(--neon-glow-strong);
-  color: var(--neon-blue);
 }
 
 /* Dice dots */
@@ -610,49 +621,29 @@ select.text-neon-yellow.form-control {
    ================================================================= */
 
 /* Avatar card sizing utilities */
-.avatar-card-container {
-  min-width: 120px;
-  max-width: 200px;
-}
+/* Odstraněno - využíváme Bootstrap grid system místo vlastních width omezení 
+   row-cols-4 zajišťuje, že avatary budou vždy vedle sebe */
 
 /* Utility třída pro flex bez zalomení */
-.flex-nowrap-important {
-  flex-wrap: nowrap !important;
-}
+/* Odstraněna zbytečná třída flex-nowrap-important, 
+   používáme standardní Bootstrap třídu .flex-nowrap místo ní */
 
-/* Chat container sizing utilities */
-.chat-container-height {
-  height: 200px;
-}
+/* Odstraněno - používáme standardní Bootstrap třídy pro výšky */
 
-/* Pro menší obrazovky */
-@media (max-width: 576px) {
-  .avatar-card-container {
-    min-width: 80px;
-    max-width: 120px;
+/* Mobile-first přístup - výchozí nastavení je pro mobilní zařízení */
+
+/* Responzivní velikosti kostek */
+@media (min-width: 576px) {
+  /* Středně velké kostky pro tablety */
+  .dice {
+    width: 3.5rem;
+    height: 3.5rem;
   }
 }
 
-/* Pro extra malé obrazovky */
-@media (max-width: 400px) {
-  .avatar-card-container {
-    min-width: 70px;
-    max-width: 90px;
-  }
-  
-  .btn-touch-spacing {
-    min-height: 44px;
-    padding: 0.5rem 1rem;
-  }
-  
-  .menu-btn-uniform {
-    min-width: 200px;
-  }
-}
-
-/* Responsive dice sizes */
+/* Větší zařízení - desktopy */
 @media (min-width: 768px) {
-  .neon-dice-container {
+  .dice {
     width: 4rem;
     height: 4rem;
   }
@@ -662,22 +653,37 @@ select.text-neon-yellow.form-control {
     height: 0.4rem;
     margin: 0.15rem;
   }
-  
-  .btn-consistent-width {
-    min-width: 250px;
-  }
 }
 
 @media (min-width: 992px) {
-  .neon-dice-container {
-    width: 5rem;
-    height: 5rem;
+  .dice {
+    width: 4.5rem;
+    height: 4.5rem;
   }
   
   .dice-dot {
     width: 0.5rem;
     height: 0.5rem;
     margin: 0.2rem;
+  }
+}
+
+/* Speciální úprava pro landscape orientaci na mobilech */
+@media (max-height: 600px) and (orientation: landscape) {
+  .dice {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0.3rem;
+  }
+  
+  /* Zmenšení paddingu pro lepší využití prostoru */
+  #app {
+    padding: 0.5rem !important;
+  }
+  
+  /* Zmenšení mezer v gridu */
+  .row.g-2 {
+    --bs-gutter-x: 0.5rem;
   }
 }
 
@@ -711,22 +717,8 @@ select.text-neon-yellow.form-control {
   z-index: var(--z-loading);
 }
 
-/* Mobile control buttons */
-.mobile-control-btn {
-  min-width: 80px;
-  padding: 0.375rem 0.5rem;
-  font-size: 0.875rem;
-}
-
-.mobile-quit-btn {
-  min-width: 150px;
-  padding: 0.5rem 1rem;
-}
-
-/* Button consistency helpers */
-.btn-consistent-width {
-  min-width: 200px;
-}
+/* Odstraněno - místo natvrdo definovaných šířek a výšek tlačítek 
+   používáme standardní Bootstrap třídy jako btn-sm, btn-lg a responzivní grid */
 
 /* ===================================================================
    6. ANIMACE A TRANSITIONS
@@ -941,11 +933,8 @@ select.form-select.text-neon-blue {
 }
 
 /* Chat input optimalizace */
-.chat-input-area .form-control {
-  padding: 0.5rem 0.75rem;
-  height: auto;
-  font-size: 0.9rem;
-}
+/* Odstraněno - nahrazeno Bootstrap třídami jako sticky-bottom, bg-black, atd. 
+   Vše řešíme standardními Bootstrap utility třídami */
 
 /* 
  * Speciální fixní pravidlo pro Bootstrap konflikty s hover stavy tlačítek
@@ -988,63 +977,64 @@ select.form-select.text-neon-blue {
    ================================================================= */
 
 /* Rozšíření Bootstrap utility tříd pro lepší použitelnost */
-.w-neon-90 { width: 90% !important; }
-.w-neon-80 { width: 80% !important; }
-.w-neon-70 { width: 70% !important; }
+/* Odstraněna zbytečná .w-neon-90 třída, používáme standardní Bootstrap třídy 
+   jako mx-auto a max-width přes inline style kde je potřeba */
+/* Odstraněny fixní šířky, používáme nativní Bootstrap třídy jako col-*
+   a container-fluid s odpovídajícími paddingami */
 
-/* Flexbox pomocné utility */
-.flex-gap-1 { gap: 0.25rem !important; }
-.flex-gap-2 { gap: 0.5rem !important; }
-.flex-gap-3 { gap: 1rem !important; }
-.flex-gap-4 { gap: 1.5rem !important; }
-.flex-gap-5 { gap: 3rem !important; }
+/* Pozicovaní a layout utility */
+/* Odstraněno - používáme nativní Bootstrap třídu .sticky-bottom bez !important */
 
-/* Jednotné velikosti ikon */
-.icon-sm { font-size: 1rem !important; }
-.icon-md { font-size: 1.5rem !important; }
-.icon-lg { font-size: 2rem !important; }
-.icon-xl { font-size: 3rem !important; }
+/* Odstraněno - používáme nativní Bootstrap třídy d-flex, justify-content-center, align-items-center */
 
-/* Scrollbary a overflow pomocné třídy */
-.overflow-y-auto { overflow-y: auto !important; }
-.overflow-x-auto { overflow-x: auto !important; }
+/* Odstraněno - používáme standardní Bootstrap třídy pro responzivní layouty a výšky */
 
-/* Z-index utility */
-.z-index-dropdown { z-index: 1000 !important; }
-.z-index-sticky { z-index: 1020 !important; }
-.z-index-fixed { z-index: 1030 !important; }
-.z-index-modal { z-index: 1050 !important; }
-.z-index-tooltip { z-index: 1080 !important; }
+/* Flexbox pomocné utility - odstraněny !important, použijeme nativní Bootstrap g-* třídy kde je to možné */
+.flex-gap-1 { gap: 0.25rem; }
+.flex-gap-2 { gap: 0.5rem; }
+.flex-gap-3 { gap: 1rem; }
+.flex-gap-4 { gap: 1.5rem; }
+.flex-gap-5 { gap: 3rem; }
 
-/* Custom hover efekty kompatibilní s Bootstrap */
-.hover-grow { transition: transform 0.3s ease !important; }
-.hover-grow:hover { transform: scale(1.05) !important; }
+/* Jednotné velikosti ikon - odstraněny !important, používáme Bootstrap fs-* třídy */
+.icon-sm { font-size: 1rem; }
+.icon-md { font-size: 1.5rem; }
+.icon-lg { font-size: 2rem; }
+.icon-xl { font-size: 3rem; }
 
-.hover-lighten { transition: filter 0.3s ease !important; }
-.hover-lighten:hover { filter: brightness(1.2) !important; }
+/* Odstraněno - používáme nativní Bootstrap třídy overflow-y-auto a overflow-x-auto */
 
-/* Focus style utilities */
+/* Odstraněno - nepotřebné vlastní z-index utility, používáme standardní Bootstrap vrstvy a CSS proměnné */
+
+/* Custom hover efekty - odstraněny zbytečné !important */
+.hover-grow { transition: transform 0.3s ease; }
+.hover-grow:hover { transform: scale(1.05); }
+
+.hover-lighten { transition: filter 0.3s ease; }
+.hover-lighten:hover { filter: brightness(1.2); }
+
+/* Focus style utilities - odstraněny !important */
 .focus-neon:focus {
-  outline: none !important;
-  box-shadow: 0 0 0 0.25rem rgba(var(--neon-blue-rgb), 0.5) !important;
+  outline: none;
+  box-shadow: 0 0 0 0.25rem rgba(var(--neon-blue-rgb), 0.5);
 }
 
-/* Utlita třídy pro pozice - rozšíření Bootstrap */
+/* Utlita třídy pro pozice - odstraněny !important */
 .position-center {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .position-center-x {
-  position: absolute !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .position-center-y {
-  position: absolute !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }

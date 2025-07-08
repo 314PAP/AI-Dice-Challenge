@@ -1,0 +1,66 @@
+/* ===================================================================
+   BOOTSTRAP ROZŠÍŘENÍ PRO RESPONZIVITU TEXTU
+   ================================================================= */
+
+/* Pomocné utility třídy pro velikost tlačítek podle breakpointů */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .btn-md-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+  }
+}
+
+/* Fluid Typography pro responzivní text, který se přizpůsobuje velikosti obrazovky */
+.fs-fluid-1 {
+  font-size: calc(1.5rem + 1.5vw);
+}
+
+.fs-fluid-2 {
+  font-size: calc(1.325rem + 0.9vw);
+}
+
+.fs-fluid-3 {
+  font-size: calc(1.2rem + 0.6vw);
+}
+
+.fs-fluid-4 {
+  font-size: calc(1.1rem + 0.3vw);
+}
+
+.fs-fluid-5 {
+  font-size: calc(1rem + 0.15vw);
+}
+
+/* Plynulé změny marginu a paddingu podle velikosti obrazovky */
+.p-fluid {
+  padding: calc(0.5rem + 0.5vw);
+}
+
+.m-fluid {
+  margin: calc(0.5rem + 0.5vw);
+}
+
+.mb-fluid {
+  margin-bottom: calc(0.5rem + 0.5vw);
+}
+
+.mt-fluid {
+  margin-top: calc(0.5rem + 0.5vw);
+}
+
+/* Optimalizace pro landscape orientaci */
+@media (orientation: landscape) and (max-height: 500px) {
+  .landscape-compact {
+    padding: 0.25rem !important;
+    margin: 0.25rem !important;
+  }
+  
+  .landscape-small-text {
+    font-size: 0.875rem !important;
+  }
+}

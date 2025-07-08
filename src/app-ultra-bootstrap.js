@@ -281,11 +281,11 @@ class UltraBootstrapDiceGame {
                     <h3 class="text-neon-red fs-2 d-md-none mb-0 neon-text-glow">FARKLE!</h3>
                 </div>
 
-                <!-- Player Cards - 90% šířky, Bootstrap oficiální responsive flexbox, žádné zalomení -->
-                <div class="d-flex justify-content-center mb-3">
-                    <div class="d-flex flex-nowrap-important overflow-auto justify-content-center w-neon-90">
+                <!-- Player Cards - plně responzivní, bez fixních šířek -->
+                <div class="container-fluid px-0 mb-3">
+                    <div class="row row-cols-4 g-2">
                         ${this.gameState.players.map((player, index) => `
-                            <div class="flex-fill mx-1 mb-2 avatar-card-container">
+                            <div class="col">
                                 <div class="card bg-black border-neon-${player.color} ${index === this.gameState.currentPlayerIndex ? 'border-3' : 'border-2'} h-100">
                                     <div class="card-body text-center p-2">
                                         <div class="mb-2">
@@ -320,35 +320,35 @@ class UltraBootstrapDiceGame {
                         </div>
                     </div>
 
-                    <!-- Dice Area - Bootstrap oficiální flexbox s margin spacery -->
-                    <div class="text-center mb-4">
-                        <div id="diceContainer" class="d-flex justify-content-center flex-wrap mb-4">
+                    <!-- Dice Area - Plně responzivní Bootstrap flexbox -->
+                    <div class="text-center mb-3 mb-md-4">
+                        <div id="diceContainer" class="d-flex justify-content-center flex-wrap align-items-center mx-auto mb-3 mb-md-4">
                             ${this.generateDiceHTML()}
                         </div>
                         
                         ${currentPlayer.isHuman ? `
-                            <!-- Bootstrap Grid System pro tlačítka - responzivní podle velikosti obrazovky -->
+                            <!-- Fully Bootstrap Grid System pro tlačítka - plně responzivní pro všechny orientace -->
                             <div class="container-fluid p-0">
-                                <div class="row g-2 justify-content-center">
-                                    <!-- Na desktopu vedle sebe, na mobilu 2x2 pod sebou -->
-                                    <div class="col-6 col-md-3">
-                                        <button class="btn btn-neon w-100" data-neon-color="green" onclick="app.rollDice()" id="rollBtn">
-                                            <i class="bi bi-dice-6-fill"></i> <span class="d-none d-md-inline">Hodit</span><span class="d-md-none">Hodit</span>
+                                <div class="row g-2 g-md-3 justify-content-center">
+                                    <!-- Responzivní tlačítka - optimalizováno pro všechny velikosti a orientace -->
+                                    <div class="col-6 col-md-3 mb-2 mb-md-0">
+                                        <button class="btn btn-neon btn-sm btn-md-lg w-100" data-neon-color="green" onclick="app.rollDice()" id="rollBtn">
+                                            <i class="bi bi-dice-6-fill"></i> <span class="d-none d-sm-inline">Hodit</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-6 col-md-3 mb-2 mb-md-0">
+                                        <button class="btn btn-neon btn-sm btn-md-lg w-100" data-neon-color="blue" onclick="app.holdDice()" id="holdBtn" disabled>
+                                            <i class="bi bi-collection-fill"></i> <span class="d-none d-sm-inline">Odložit</span>
                                         </button>
                                     </div>
                                     <div class="col-6 col-md-3">
-                                        <button class="btn btn-neon w-100" data-neon-color="blue" onclick="app.holdDice()" id="holdBtn" disabled>
-                                            <i class="bi bi-collection-fill"></i> <span class="d-none d-md-inline">Odložit</span><span class="d-md-none">Odložit</span>
+                                        <button class="btn btn-neon btn-sm btn-md-lg w-100" data-neon-color="orange" onclick="app.endTurn()" id="endBtn">
+                                            <i class="bi bi-stop-fill"></i> <span class="d-none d-sm-inline">Ukončit tah</span>
                                         </button>
                                     </div>
                                     <div class="col-6 col-md-3">
-                                        <button class="btn btn-neon w-100" data-neon-color="orange" onclick="app.endTurn()" id="endBtn">
-                                            <i class="bi bi-stop-fill"></i> <span class="d-none d-md-inline">Ukončit tah</span><span class="d-md-none">Ukončit tah</span>
-                                        </button>
-                                    </div>
-                                    <div class="col-12 col-md-3">
-                                        <button class="btn btn-neon w-100" data-neon-color="red" onclick="app.endGame()" id="quitBtn">
-                                            <i class="bi bi-stop-circle-fill"></i> <span class="d-none d-md-inline">Ukončit hru</span><span class="d-md-none">Ukončit hru</span>
+                                        <button class="btn btn-neon btn-sm btn-md-lg w-100" data-neon-color="red" onclick="app.endGame()" id="quitBtn">
+                                            <i class="bi bi-stop-circle-fill"></i> <span class="d-none d-sm-inline">Ukončit hru</span>
                                         </button>
                                     </div>
                                 </div>
@@ -374,11 +374,12 @@ class UltraBootstrapDiceGame {
 
     generateDiceHTML() {
         if (this.gameState.currentRoll.length === 0) {
-            return '<div class="text-neon-green neon-text-glow">Hoďte kostkami pro začátek tahu</div>';
+            return '<div class="text-neon-green neon-text-glow fs-5">Hoďte kostkami pro začátek tahu</div>';
         }
 
+        // Responzivní velikost textu podle obrazovky
         return this.gameState.currentRoll.map((value, index) => `
-            <div class="dice d-flex align-items-center justify-content-center fs-4 fw-bold ${this.gameState.selectedDice.includes(index) ? 'selected' : ''}" 
+            <div class="dice d-flex align-items-center justify-content-center fs-5 fs-md-4 fw-bold ${this.gameState.selectedDice.includes(index) ? 'selected' : ''}" 
                  data-index="${index}" data-value="${value}">
                 ${value}
             </div>
@@ -924,7 +925,19 @@ class UltraBootstrapDiceGame {
         const chatMessages = document.getElementById('chatMessages');
         if (chatMessages) {
             chatMessages.innerHTML += messageHTML;
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Zajistíme plynulé scrollování na mobilních zařízeních
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Ujistíme se, že na mobilních zařízeních je chat viditelný
+                if (window.innerWidth <= 576) {
+                    const chatArea = document.querySelector('.sticky-bottom');
+                    if (chatArea) {
+                        chatArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }
+                }
+            }, 50);
         }
     }
 
