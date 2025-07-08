@@ -541,12 +541,12 @@ export class GameUI {
         recordsContainer.appendChild(table);
         container.appendChild(recordsContainer);
         
-        // Tlačítko zpět - sticky na spodek
+        // Tlačítko zpět - sticky na spodek, kompaktní design
         const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'mt-auto pt-2';
+        buttonContainer.className = 'mt-auto pt-2 d-flex justify-content-center';
         
         const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm btn-md-lg w-100');
+            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2');
         buttonContainer.appendChild(backBtn);
         container.appendChild(buttonContainer);
         

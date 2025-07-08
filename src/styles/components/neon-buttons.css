@@ -22,15 +22,15 @@
   outline: none;
 }
 
-/* Hover a focus stavy */
+/* Hover a focus stavy - bez scaling pro předcházení overflow */
 .btn-neon:hover,
 .btn-neon:focus,
 .btn.btn-neon:hover,
 .btn.btn-neon:focus {
   background-color: rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
   color: inherit;
   border-color: inherit;
+  box-shadow: var(--neon-glow-strong);
 }
 
 /* Active stav */

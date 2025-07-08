@@ -178,3 +178,27 @@
     max-height: 100vh !important;
   }
 }
+
+/* Bezpečnostní CSS pro zabránění overflow v kontejnerech */
+.overflow-safe {
+  overflow: hidden !important;
+}
+
+/* Kompaktní tlačítka pro omezeného prostoru */
+.btn-compact {
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.8rem !important;
+}
+
+/* Responsive button container - zabránění overflow */
+.btn-container-safe {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.btn-container-safe .btn {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
