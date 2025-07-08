@@ -14,6 +14,7 @@
    5. Layout a responzivita
    6. Animace a transitions
    7. SweetAlert2 neonové styly
+   8. Bootstrap rozšiřující utility třídy
    ================================================================= */
 
 /* ===================================================================
@@ -105,16 +106,24 @@ html, body {
 
 /* Generický systém neonových barev pro tlačítka pomocí data atributu */
 .btn-neon[data-neon-color="green"],
-.btn-neon-green {
-  border-color: var(--neon-green);
-  color: var(--neon-green);
+.btn.btn-neon[data-neon-color="green"],
+.btn-neon-green,
+.btn.btn-neon-green {
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
 }
 
 .btn-neon[data-neon-color="green"]:hover,
 .btn-neon[data-neon-color="green"]:focus,
+.btn.btn-neon[data-neon-color="green"]:hover,
+.btn.btn-neon[data-neon-color="green"]:focus,
 .btn-neon-green:hover,
-.btn-neon-green:focus {
-  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6);
+.btn-neon-green:focus,
+.btn.btn-neon-green:hover,
+.btn.btn-neon-green:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.6) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
 }
 
 .btn-neon[data-neon-color="green"]:active,
@@ -165,16 +174,24 @@ html, body {
 }
 
 .btn-neon[data-neon-color="red"],
-.btn-neon-red {
-  border-color: var(--neon-red);
-  color: var(--neon-red);
+.btn.btn-neon[data-neon-color="red"],
+.btn-neon-red,
+.btn.btn-neon-red {
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
 }
 
 .btn-neon[data-neon-color="red"]:hover,
 .btn-neon[data-neon-color="red"]:focus,
+.btn.btn-neon[data-neon-color="red"]:hover,
+.btn.btn-neon[data-neon-color="red"]:focus,
 .btn-neon-red:hover,
-.btn-neon-red:focus {
-  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.6);
+.btn-neon-red:focus,
+.btn.btn-neon-red:hover,
+.btn.btn-neon-red:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-red-rgb), 0.6) !important;
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
 }
 
 .btn-neon[data-neon-color="red"]:active,
@@ -191,16 +208,24 @@ html, body {
 }
 
 .btn-neon[data-neon-color="orange"],
-.btn-neon-orange {
-  border-color: var(--neon-orange);
-  color: var(--neon-orange);
+.btn.btn-neon[data-neon-color="orange"],
+.btn-neon-orange,
+.btn.btn-neon-orange {
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
 }
 
 .btn-neon[data-neon-color="orange"]:hover,
 .btn-neon[data-neon-color="orange"]:focus,
+.btn.btn-neon[data-neon-color="orange"]:hover,
+.btn.btn-neon[data-neon-color="orange"]:focus,
 .btn-neon-orange:hover,
-.btn-neon-orange:focus {
-  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6);
+.btn-neon-orange:focus,
+.btn.btn-neon-orange:hover,
+.btn.btn-neon-orange:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.6) !important;
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange) !important;
 }
 
 .btn-neon[data-neon-color="orange"]:active,
@@ -217,16 +242,24 @@ html, body {
 }
 
 .btn-neon[data-neon-color="purple"],
-.btn-neon-purple {
-  border-color: var(--neon-purple);
-  color: var(--neon-purple);
+.btn.btn-neon[data-neon-color="purple"],
+.btn-neon-purple,
+.btn.btn-neon-purple {
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
 }
 
 .btn-neon[data-neon-color="purple"]:hover,
 .btn-neon[data-neon-color="purple"]:focus,
+.btn.btn-neon[data-neon-color="purple"]:hover,
+.btn.btn-neon[data-neon-color="purple"]:focus,
 .btn-neon-purple:hover,
-.btn-neon-purple:focus {
-  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.6);
+.btn-neon-purple:focus,
+.btn.btn-neon-purple:hover,
+.btn.btn-neon-purple:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.6) !important;
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
 }
 
 .btn-neon[data-neon-color="purple"]:active,
@@ -243,16 +276,24 @@ html, body {
 }
 
 .btn-neon[data-neon-color="yellow"],
-.btn-neon-yellow {
-  border-color: var(--neon-yellow);
-  color: var(--neon-yellow);
+.btn.btn-neon[data-neon-color="yellow"],
+.btn-neon-yellow,
+.btn.btn-neon-yellow {
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
 }
 
 .btn-neon[data-neon-color="yellow"]:hover,
 .btn-neon[data-neon-color="yellow"]:focus,
+.btn.btn-neon[data-neon-color="yellow"]:hover,
+.btn.btn-neon[data-neon-color="yellow"]:focus,
 .btn-neon-yellow:hover,
-.btn-neon-yellow:focus {
-  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.6);
+.btn-neon-yellow:focus,
+.btn.btn-neon-yellow:hover,
+.btn.btn-neon-yellow:focus {
+  box-shadow: 0 0 20px rgba(var(--neon-yellow-rgb), 0.6) !important;
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
 }
 
 .btn-neon[data-neon-color="yellow"]:active,
@@ -678,23 +719,25 @@ select.text-neon-yellow.form-control {
    6. ANIMACE A TRANSITIONS
    ================================================================= */
 
-/* Využití Animate.css knihovny - pouze rozšiřující vlastnosti */
-@keyframes neon-pulse {
-  0%, 100% { 
-    box-shadow: var(--neon-glow); 
-  }
-  50% { 
-    box-shadow: var(--neon-glow-strong); 
-  }
+/* Využití Animate.css knihovny místo vlastních animací */
+.animate-neon-glow {
+  animation: animate__pulse 2s infinite;
 }
 
-.neon-pulse {
-  animation: neon-pulse 2s infinite;
+/* Vlastní třídy pro Animate.css kombinace */
+.animate-neon-attention {
+  animation: animate__headShake 1.5s;
+}
+
+.animate-neon-entrance {
+  animation: animate__fadeIn 0.5s;
 }
 
 /* Reduced motion respekt */
 @media (prefers-reduced-motion: reduce) {
-  .neon-pulse {
+  .animate-neon-glow,
+  .animate-neon-attention,
+  .animate-neon-entrance {
     animation: none;
   }
   
@@ -896,12 +939,99 @@ select.form-select.text-neon-blue {
  * Zajištuje, že i při komplexním nastavení v Bootstrap CSS bude zachován neonový styl
  */
 .btn[class*="btn-neon"] *, 
-.btn-neon * {
+.btn-neon *,
+.btn[class*="btn-neon"] i, 
+.btn-neon i {
   color: inherit !important;
   transition: all 0.3s ease !important;
 }
 
 .btn-neon:hover *,
-.btn[class*="btn-neon"]:hover * {
+.btn[class*="btn-neon"]:hover *,
+.btn-neon:hover i,
+.btn[class*="btn-neon"]:hover i,
+.btn-neon:focus *,
+.btn[class*="btn-neon"]:focus *,
+.btn-neon:focus i,
+.btn[class*="btn-neon"]:focus i {
   color: inherit !important;
+}
+
+/* Posílení priority pro data atributy tlačítek */
+.btn-neon[data-neon-color] {
+  color: var(--neon-color, inherit) !important;
+  border-color: var(--neon-color, inherit) !important;
+}
+
+.btn-neon[data-neon-color="green"] { --neon-color: var(--neon-green) !important; }
+.btn-neon[data-neon-color="blue"] { --neon-color: var(--neon-blue) !important; }
+.btn-neon[data-neon-color="red"] { --neon-color: var(--neon-red) !important; }
+.btn-neon[data-neon-color="orange"] { --neon-color: var(--neon-orange) !important; }
+.btn-neon[data-neon-color="purple"] { --neon-color: var(--neon-purple) !important; }
+.btn-neon[data-neon-color="yellow"] { --neon-color: var(--neon-yellow) !important; }
+
+/* ===================================================================
+   8. BOOTSTRAP ROZŠIŘUJÍCÍ UTILITY TŘÍDY
+   ================================================================= */
+
+/* Rozšíření Bootstrap utility tříd pro lepší použitelnost */
+.w-neon-90 { width: 90% !important; }
+.w-neon-80 { width: 80% !important; }
+.w-neon-70 { width: 70% !important; }
+
+/* Flexbox pomocné utility */
+.flex-gap-1 { gap: 0.25rem !important; }
+.flex-gap-2 { gap: 0.5rem !important; }
+.flex-gap-3 { gap: 1rem !important; }
+.flex-gap-4 { gap: 1.5rem !important; }
+.flex-gap-5 { gap: 3rem !important; }
+
+/* Jednotné velikosti ikon */
+.icon-sm { font-size: 1rem !important; }
+.icon-md { font-size: 1.5rem !important; }
+.icon-lg { font-size: 2rem !important; }
+.icon-xl { font-size: 3rem !important; }
+
+/* Scrollbary a overflow pomocné třídy */
+.overflow-y-auto { overflow-y: auto !important; }
+.overflow-x-auto { overflow-x: auto !important; }
+
+/* Z-index utility */
+.z-index-dropdown { z-index: 1000 !important; }
+.z-index-sticky { z-index: 1020 !important; }
+.z-index-fixed { z-index: 1030 !important; }
+.z-index-modal { z-index: 1050 !important; }
+.z-index-tooltip { z-index: 1080 !important; }
+
+/* Custom hover efekty kompatibilní s Bootstrap */
+.hover-grow { transition: transform 0.3s ease !important; }
+.hover-grow:hover { transform: scale(1.05) !important; }
+
+.hover-lighten { transition: filter 0.3s ease !important; }
+.hover-lighten:hover { filter: brightness(1.2) !important; }
+
+/* Focus style utilities */
+.focus-neon:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--neon-blue-rgb), 0.5) !important;
+}
+
+/* Utlita třídy pro pozice - rozšíření Bootstrap */
+.position-center {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.position-center-x {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.position-center-y {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
 }

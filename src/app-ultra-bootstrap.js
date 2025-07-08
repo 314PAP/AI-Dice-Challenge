@@ -195,13 +195,13 @@ class UltraBootstrapDiceGame {
                         <i class="bi ${config.targetScore.title.icon}"></i> ${config.targetScore.title.text}
                     </${config.targetScore.title.tag}>
                     <div class="${config.targetScore.controls.container}">
-                        <button class="${config.targetScore.controls.decrease.classes}" onclick="app.adjustTargetScore(${config.targetScore.controls.decrease.action})">
+                        <button class="${config.targetScore.controls.decrease.classes}" ${config.targetScore.controls.decrease.attributes ? Object.entries(config.targetScore.controls.decrease.attributes).map(([key, value]) => `${key}="${value}"`).join(' ') : ''} onclick="app.adjustTargetScore(${config.targetScore.controls.decrease.action})">
                             <i class="bi ${config.targetScore.controls.decrease.icon}"></i>
                         </button>
                         <span class="${config.targetScore.controls.display.classes}" id="${config.targetScore.controls.display.id}">
                             ${this.gameState.targetScore}
                         </span>
-                        <button class="${config.targetScore.controls.increase.classes}" onclick="app.adjustTargetScore(${config.targetScore.controls.increase.action})">
+                        <button class="${config.targetScore.controls.increase.classes}" ${config.targetScore.controls.increase.attributes ? Object.entries(config.targetScore.controls.increase.attributes).map(([key, value]) => `${key}="${value}"`).join(' ') : ''} onclick="app.adjustTargetScore(${config.targetScore.controls.increase.action})">
                             <i class="bi ${config.targetScore.controls.increase.icon}"></i>
                         </button>
                     </div>
