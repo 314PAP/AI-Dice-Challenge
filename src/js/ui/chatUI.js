@@ -5,6 +5,8 @@
 
 import chatSystem from '../ai/chatSystem.js';
 import { aiPersonalities } from '../ai/personalities.js';
+import { UI_CONSTANTS, CHAT_CONSTANTS } from '../utils/constants.js';
+import { pxToRem } from '../utils/colors.js';
 
 /**
  * ChatUI třída - Zajišťuje veškeré renderování a interakci s chatovacím rozhraním
@@ -46,7 +48,7 @@ export class ChatUI {
         if (!message) return;
         
         // Přidáme zprávu od hráče
-        chatSystem.addMessage('Hráč', message, 'green');
+        chatSystem.addMessage(CHAT_CONSTANTS.PLAYER_NAME, message, 'green');
         
         // Vyčistíme input
         this.chatInput.value = '';
@@ -72,7 +74,7 @@ export class ChatUI {
             
             // Aktualizujeme zobrazení
             this.renderMessages();
-        }, 800 + Math.random() * 1200); // Náhodný delay mezi 800ms a 2000ms
+        }, UI_CONSTANTS.AI_RESPONSE_MIN_DELAY + Math.random() * UI_CONSTANTS.AI_RESPONSE_RANDOM_DELAY); // Náhodný delay mezi 800ms a 2000ms
     }
 
     /**
@@ -84,7 +86,8 @@ export class ChatUI {
         const messages = chatSystem.getMessages();
         
         // Zachováme scrollování na konec, pokud je uživatel na konci
-        const shouldScroll = this.chatContainer.scrollTop + this.chatContainer.clientHeight >= this.chatContainer.scrollHeight - 50;
+        const shouldScroll = this.chatContainer.scrollTop + this.chatContainer.clientHeight >= 
+            this.chatContainer.scrollHeight - UI_CONSTANTS.SCROLL_THRESHOLD;
         
         // Vytvoříme HTML pro zprávy
         const messagesHTML = messages.map(msg => this.createMessageElement(msg)).join('');
@@ -105,10 +108,10 @@ export class ChatUI {
      */
     createMessageElement(message) {
         // Barva podle odesílatele
-        let colorClass = 'text-white';
-        if (message.sender === 'Hráč') {
+        let colorClass = 'text-light';
+        if (message.sender === CHAT_CONSTANTS.PLAYER_NAME) {
             colorClass = 'text-neon-green';
-        } else if (message.sender === 'Systém') {
+        } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
             colorClass = 'text-neon-yellow';
         } else if (aiPersonalities[message.sender]) {
             colorClass = `text-neon-${aiPersonalities[message.sender].color}`;
@@ -121,7 +124,7 @@ export class ChatUI {
                     <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
                     <small class="text-muted flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>
                 </div>
-                <div class="chat-content small" style="word-wrap: break-word; overflow-wrap: break-word;">
+                <div class="chat-content small text-break">
                     ${message.content}
                 </div>
             </div>

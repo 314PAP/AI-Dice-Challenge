@@ -24,7 +24,16 @@ export const DICE_CONSTANTS = {
 export const UI_CONSTANTS = {
     DICE_ANIMATION_DURATION: 800,
     MESSAGE_DELAY: 1500,
-    AI_RESPONSE_DELAY: 1000
+    AI_RESPONSE_DELAY: 1000,
+    AI_RESPONSE_MIN_DELAY: 800,  // Minimální zpoždění AI odpovědi v ms
+    AI_RESPONSE_RANDOM_DELAY: 1200,  // Náhodné dodatečné zpoždění v ms
+    SCROLL_THRESHOLD: 50  // Threshold pro auto-scrollování chatu v px
+};
+
+// Konstanty pro chat
+export const CHAT_CONSTANTS = {
+    PLAYER_NAME: 'Hráč',
+    SYSTEM_NAME: 'Systém'
 };
 
 // LocalStorage klíče
