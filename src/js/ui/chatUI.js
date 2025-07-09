@@ -6,7 +6,7 @@
 import chatSystem from '../ai/chatSystem.js';
 import { aiPersonalities } from '../ai/personalities.js';
 import { UI_CONSTANTS, CHAT_CONSTANTS } from '../utils/constants.js';
-import { pxToRem } from '../utils/colors.js';
+import { CHAT_COLORS } from '../utils/colors.js';
 
 /**
  * ChatUI třída - Zajišťuje veškeré renderování a interakci s chatovacím rozhraním
@@ -107,19 +107,61 @@ export class ChatUI {
      * @returns {string} HTML kód zprávy
      */
     createMessageElement(message) {
-        // Barva podle odesílatele
+        // Základní třídy pro zprávu
+        let messageClasses = 'chat-message mb-2 p-2 rounded bg-black overflow-hidden w-100';
         let colorClass = 'text-light';
+        let aiClass = '';
+        
+        // Určení typu zprávy a přidání odpovídajících tříd
         if (message.sender === CHAT_CONSTANTS.PLAYER_NAME) {
-            colorClass = 'text-neon-green';
+            // Zpráva od hráče
+            messageClasses += ' chat-message-user';
+            colorClass = 'text-light'; // Bílý text pro hráče
         } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
-            colorClass = 'text-neon-yellow';
+            // Systémová zpráva
+            messageClasses += ' chat-message-system';
+            colorClass = 'text-neon-purple'; // Fialová pro systémové zprávy
         } else if (aiPersonalities[message.sender]) {
-            colorClass = `text-neon-${aiPersonalities[message.sender].color}`;
+            // Zpráva od AI - přidáme specifickou třídu podle AI osobnosti
+            // Standardizované mapování AI jmen na CSS třídy
+            let aiClassName = '';
+            switch(message.sender.toLowerCase()) {
+                case 'gemini':
+                    aiClassName = 'ai-gemini';
+                    break;
+                case 'chatgpt':
+                case 'gpt':
+                    aiClassName = 'ai-gpt';
+                    break;
+                case 'claude':
+                    aiClassName = 'ai-claude';
+                    break;
+                default:
+                    // Pokud je neznámé jméno, použijeme výchozí třídu
+                    aiClassName = 'ai-gemini';
+            }
+            messageClasses += ` chat-message-ai ${aiClassName}`;
+            
+            // Mapování AI na barvy podle jejich vlastností
+            const aiColor = aiPersonalities[message.sender]?.color || CHAT_COLORS.BLUE;
+            switch(aiColor) {
+                case CHAT_COLORS.BLUE:
+                    colorClass = 'text-neon-blue';
+                    break;
+                case CHAT_COLORS.GREEN:
+                    colorClass = 'text-neon-green';
+                    break;
+                case CHAT_COLORS.ORANGE:
+                    colorClass = 'text-neon-orange';
+                    break;
+                default:
+                    colorClass = 'text-neon-blue';
+            }
         }
         
         // Bootstrap-first responsive design pro chat zprávy
         return `
-            <div class="chat-message mb-2 p-2 rounded bg-black border border-secondary ${colorClass} overflow-hidden w-100">
+            <div class="${messageClasses} ${colorClass}">
                 <div class="chat-header mb-1 d-flex justify-content-between align-items-center">
                     <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
                     <small class="text-muted flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>
