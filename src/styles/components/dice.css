@@ -15,7 +15,7 @@
 .dice {
   width: 3.75rem; /* 60px at 16px base */
   height: 3.75rem;
-  background-color: var(--neon-dark-gray) !important;
+  background-color: var(--neon-black) !important;
   border: 0.125rem solid var(--neon-green) !important; /* 2px */
   box-shadow: 0 0 0.625rem var(--neon-green) !important; /* 10px */
   cursor: pointer;

@@ -7,7 +7,7 @@
 
 // Definice barev z CSS proměnných pro použití v JavaScript
 export const CONSOLE_COLORS = {
-    // Neonové barvy
+    // Neonové barvy - 6 základních
     neonGreen: '#39ff14',
     neonBlue: '#194DD1',
     neonPurple: '#FF00FF',
@@ -15,18 +15,11 @@ export const CONSOLE_COLORS = {
     neonRed: '#ff3131',
     neonYellow: '#ffff00',
     
-    // Tmavé barvy
+    // Tmavé barvy - pouze černá
     neonBlack: '#000000',
-    neonDarkGray: '#111111',
-    neonDarkGray2: '#2a2a2a',
     
-    // Text a pozadí
-    textDark: '#888888',
-    textLight: '#dddddd',
-    textWhite: '#ffffff',
-    bgDark1: '#111111',
-    bgDark2: '#222222',
-    bgDark3: '#333333'
+    // Text - pouze bílá
+    textWhite: '#ffffff'
 };
 
 // Funkce pro převod px na rem - užitečné pro konzolové styly

@@ -20,7 +20,7 @@
 }
 
 .text-info {
-  color: var(--neon-cyan) !important;
+  color: var(--neon-blue) !important;
 }
 
 .text-warning {
@@ -39,33 +39,47 @@
   color: var(--neon-text-white) !important;
 }
 
-/* Pozadí barevné třídy */
+/* Pozadí barevné třídy - vše buď černé nebo s neonovým efektem */
 .bg-primary {
-  background-color: var(--neon-blue) !important;
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-blue) !important;
+  box-shadow: inset 0 0 10px rgba(var(--neon-blue-rgb), 0.3) !important;
 }
 
 .bg-secondary {
-  background-color: var(--neon-purple) !important;
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-purple) !important;
+  box-shadow: inset 0 0 10px rgba(var(--neon-purple-rgb), 0.3) !important;
 }
 
 .bg-success {
-  background-color: var(--neon-green) !important;
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: inset 0 0 10px rgba(var(--neon-green-rgb), 0.3) !important;
 }
 
 .bg-info {
-  background-color: var(--neon-cyan) !important;
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-blue) !important;
+  box-shadow: inset 0 0 10px rgba(var(--neon-blue-rgb), 0.3) !important;
 }
 
 .bg-warning {
-  background-color: var(--neon-yellow) !important;
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-yellow) !important;
+  box-shadow: inset 0 0 10px rgba(var(--neon-yellow-rgb), 0.3) !important;
 }
 
 .bg-danger {
-  background-color: var(--neon-red) !important;
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-red) !important;
+  box-shadow: inset 0 0 10px rgba(var(--neon-red-rgb), 0.3) !important;
 }
 
+/* Light a Dark modifikace */
 .bg-light {
-  background-color: var(--neon-gray-light) !important;
+  background-color: var(--neon-black) !important;
+  color: var(--neon-text-white) !important;
 }
 
 .bg-dark {
@@ -86,7 +100,7 @@
 }
 
 .border-info {
-  border-color: var(--neon-cyan) !important;
+  border-color: var(--neon-blue) !important;
 }
 
 .border-warning {
@@ -98,7 +112,7 @@
 }
 
 .border-light {
-  border-color: var(--neon-gray-light) !important;
+  border-color: var(--neon-blue) !important;
 }
 
 .border-dark {
@@ -122,8 +136,8 @@
 }
 
 .btn-info {
-  background-color: var(--neon-cyan) !important;
-  border-color: var(--neon-cyan) !important;
+  background-color: var(--neon-blue) !important;
+  border-color: var(--neon-blue) !important;
 }
 
 .btn-warning {
@@ -150,7 +164,7 @@
 }
 
 .link-info {
-  color: var(--neon-cyan) !important;
+  color: var(--neon-blue) !important;
 }
 
 .link-warning {
@@ -163,25 +177,202 @@
 
 /* Badge barevné třídy */
 .badge.bg-primary {
-  background-color: var(--neon-blue) !important;
+  background-color: var(--neon-black) !important;
+  color: var(--neon-blue) !important;
+  border: 1px solid var(--neon-blue) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .badge.bg-secondary {
-  background-color: var(--neon-purple) !important;
+  background-color: var(--neon-black) !important;
+  color: var(--neon-purple) !important;
+  border: 1px solid var(--neon-purple) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .badge.bg-success {
-  background-color: var(--neon-green) !important;
+  background-color: var(--neon-black) !important;
+  color: var(--neon-green) !important;
+  border: 1px solid var(--neon-green) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .badge.bg-info {
-  background-color: var(--neon-cyan) !important;
+  background-color: var(--neon-black) !important;
+  color: var(--neon-blue) !important;
+  border: 1px solid var(--neon-blue) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .badge.bg-warning {
-  background-color: var(--neon-yellow) !important;
+  background-color: var(--neon-black) !important;
+  color: var(--neon-yellow) !important;
+  border: 1px solid var(--neon-yellow) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .badge.bg-danger {
-  background-color: var(--neon-red) !important;
+  background-color: var(--neon-black) !important;
+  color: var(--neon-red) !important;
+  border: 1px solid var(--neon-red) !important;
+  text-shadow: var(--neon-text-shadow) !important;
+}
+
+/* Další komponenty s černým pozadím */
+
+/* Karty */
+.card {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.card-header, .card-footer {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Modální okna */
+.modal-content {
+  background-color: var(--neon-black) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.modal-header, .modal-footer {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dropdown-item {
+  color: var(--neon-text-white) !important;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: rgba(var(--neon-blue-rgb), 0.2) !important;
+  color: var(--neon-text-white) !important;
+}
+
+/* Navbar */
+.navbar, .navbar-dark, .navbar-light {
+  background-color: var(--neon-black) !important;
+}
+
+/* Table */
+.table, .table-dark {
+  background-color: transparent !important;
+}
+
+.table tbody tr, .table-dark tbody tr {
+  background-color: transparent !important;
+}
+
+.table-dark, .table-dark td, .table-dark th {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Input pozadí */
+.form-control, .input-group-text {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: var(--neon-text-white) !important;
+}
+
+.form-control:focus {
+  background-color: var(--neon-black) !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--neon-blue-rgb), 0.25) !important;
+}
+
+/* List group */
+.list-group-item {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Progress bars s černým pozadím */
+.progress {
+  background-color: rgba(var(--neon-blue-rgb), 0.2) !important;
+}
+
+/* Toast notifikace */
+.toast {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.toast-header {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Pagination */
+.pagination .page-item .page-link {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: var(--neon-text-white) !important;
+}
+
+/* Accordion */
+.accordion-item, .accordion-header, .accordion-button {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.3) !important;
+  color: var(--neon-text-white) !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--neon-black) !important;
+  box-shadow: inset 0 0 10px rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+/* Další Bootstrap komponenty - vždy černé pozadí */
+.card, .card-header, .card-body, .card-footer {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+.modal-content, .modal-header, .modal-body, .modal-footer {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+.dropdown-item {
+  background-color: var(--neon-black) !important;
+  color: var(--neon-text-white) !important;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: rgba(var(--neon-blue-rgb), 0.2) !important;
+}
+
+.popover, .tooltip {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+.list-group-item {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+/* Form prvky */
+.form-control, .form-select, .input-group-text {
+  background-color: var(--neon-black) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.5) !important;
+  color: var(--neon-text-white) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 0 0.25rem rgba(var(--neon-blue-rgb), 0.25) !important;
 }

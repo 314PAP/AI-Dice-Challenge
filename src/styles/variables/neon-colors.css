@@ -22,8 +22,7 @@
   
   /* Tmavé barvy pro pozadí */
   --neon-black: #000000;
-  --neon-dark-gray: #111111;
-  --neon-dark-gray-rgb: 17, 17, 17;
+  --neon-black-rgb: 0, 0, 0;
   
   /* Neonové efekty a shadows */
   --neon-glow: 0 0 20px currentColor;
@@ -47,10 +46,10 @@
   --scale-hover: 1.05;
   --scale-active: 0.98;
   
-  /* Průhledné barvy pro pozadí a efekty */
+  /* Průhledné barvy pro pozadí a efekty - vždy průhledná černá */
   --neon-bg-hover: rgba(0, 0, 0, 0.2);
   --neon-bg-active: rgba(0, 0, 0, 0.3);
   
-  /* Základní text */
+  /* Základní text - pouze bílá */
   --neon-text-white: #ffffff;
 }

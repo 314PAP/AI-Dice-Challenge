@@ -112,7 +112,7 @@
 .neon-table td {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(var(--neon-blue-rgb), 0.3);
 }
 
 .neon-table thead th {
@@ -124,7 +124,7 @@
 .neon-table tbody th,
 .neon-table tbody td {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(var(--neon-blue-rgb), 0.2);
 }
 
 .neon-table tbody tr:hover th,
@@ -178,7 +178,7 @@
 .table-dark thead th,
 .table-dark tbody tr {
   background-color: transparent;
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(var(--neon-blue-rgb), 0.2);
 }
 
 /* Chat input styly - DISABLED LAYOUT OVERRIDES, ONLY COLORS */
