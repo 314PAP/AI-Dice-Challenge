@@ -50,4 +50,7 @@
   /* Průhledné barvy pro pozadí a efekty */
   --neon-bg-hover: rgba(0, 0, 0, 0.2);
   --neon-bg-active: rgba(0, 0, 0, 0.3);
+  
+  /* Základní text */
+  --neon-text-white: #ffffff;
 }

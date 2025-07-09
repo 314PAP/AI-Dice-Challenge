@@ -3,6 +3,10 @@
    
    Tento soubor slouží jako centrální bod pro import všech CSS modulů
    a zajišťuje správné pořadí načítání a snadnou správu závislostí.
+   
+   POZNÁMKA: Všechny soubory používají čisté CSS (ne SCSS). Veškeré barvy
+   jsou definované v neon-colors.css jako CSS proměnné. Všechny velikosti
+   používají rem jednotky nebo Bootstrap utility třídy pro responzivní design.
    ================================================================= */
 
 /* 1. Proměnné a základní nastavení */
@@ -20,12 +24,12 @@
 
 /* 5. Globální nastavení - pouze neonové styly */
 html {
-  background-color: #000;
+  background-color: var(--neon-black);
 }
 
 body {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--neon-black);
+  color: var(--neon-text-white, #fff);
   font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
 }
 
@@ -35,7 +39,13 @@ body {
   font-display: swap;
 }
 
-/* Z-index scale (kompatibilní s Bootstrap) */
+/* 
+   Z-index scale (kompatibilní s Bootstrap a synchronizováno s JS constants.js)
+   Poznámka: Vždy preferujte použití Z_INDEXES z constants.js v JS kódu
+*/
 :root {
-  --z-loading: 1055; /* Bootstrap modal + 10 */
+  --z-modal: 1050;
+  --z-dropdown: 1000;
+  --z-tooltip: 1070;
+  --z-loading: 1055; /* Bootstrap modal + 5 */
 }
