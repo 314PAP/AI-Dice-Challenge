@@ -68,7 +68,6 @@
 .chat-message-ai {
   background: rgba(var(--neon-black-rgb), 0.3);
   align-self: flex-start;
-  text-shadow: 0 0 5px currentColor;
 }
 
 /* Uživatelské zprávy - bez rámečků, zelená barva */
@@ -81,20 +80,20 @@
 
 /* AI osobnost - Gemini (modrá) */
 .chat-message-ai.ai-gemini {
-  color: var(--neon-blue);
-  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.5);
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.5) !important;
 }
 
 /* AI osobnost - Claude (oranžová) */
 .chat-message-ai.ai-claude {
-  color: var(--neon-orange);
-  text-shadow: 0 0 5px rgba(var(--neon-orange-rgb), 0.5);
+  color: var(--neon-orange) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-orange-rgb), 0.5) !important;
 }
 
 /* AI osobnost - GPT (fialová) */
 .chat-message-ai.ai-gpt {
-  color: var(--neon-purple);
-  text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.5);
+  color: var(--neon-purple) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.5) !important;
 }
 
 /* Systémové zprávy */

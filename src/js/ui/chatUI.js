@@ -116,11 +116,11 @@ export class ChatUI {
         if (message.sender === CHAT_CONSTANTS.PLAYER_NAME) {
             // Zpráva od hráče
             messageClasses += ' chat-message-user';
-            colorClass = 'text-neon-green'; // Zelený text pro hráče
+            colorClass = ''; // Barva definována v CSS
         } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
             // Systémová zpráva
             messageClasses += ' chat-message-system';
-            colorClass = 'text-neon-yellow'; // Žlutá pro systémové zprávy
+            colorClass = ''; // Barva definována v CSS
         } else if (aiPersonalities[message.sender]) {
             // Zpráva od AI - přidáme specifickou třídu podle AI osobnosti
             // Standardizované mapování AI jmen na CSS třídy
@@ -142,26 +142,14 @@ export class ChatUI {
             }
             messageClasses += ` chat-message-ai ${aiClassName}`;
             
-            // Mapování AI na barvy podle jejich vlastností
-            const aiColor = aiPersonalities[message.sender]?.color || CHAT_COLORS.BLUE;
-            switch(aiColor) {
-                case CHAT_COLORS.BLUE:
-                    colorClass = 'text-neon-blue';
-                    break;
-                case CHAT_COLORS.GREEN:
-                    colorClass = 'text-neon-green';
-                    break;
-                case CHAT_COLORS.ORANGE:
-                    colorClass = 'text-neon-orange';
-                    break;
-                default:
-                    colorClass = 'text-neon-blue';
-            }
+            // V případě AI zpráv nemusíme nastavovat colorClass
+            // barvy jsou automaticky aplikovány pomocí CSS tříd ai-gemini, ai-gpt, ai-claude
+            colorClass = '';
         }
         
         // Bootstrap-first responsive design pro chat zprávy
         return `
-            <div class="${messageClasses} ${colorClass}">
+            <div class="${messageClasses}">
                 <div class="chat-header mb-1 d-flex justify-content-between align-items-center">
                     <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
                     <small class="text-muted flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>
