@@ -23,10 +23,10 @@
         height: 100% !important;
         border-radius: 50% !important;
         border: 2px solid transparent !important;
-        border-top-color: var(--neon-blue) !important;
-        border-left-color: var(--neon-blue) !important;
+        border-top-color: var(--neon-green) !important;
+        border-left-color: var(--neon-green) !important;
         animation: neon-spin 1.2s linear infinite !important;
-        box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.4) !important;
+        box-shadow: 0 0 15px rgba(var(--neon-green-rgb), 0.4) !important;
     }
     
     #chatSpinner.neon-spinner-orbital::after {
@@ -53,14 +53,14 @@
     #chatMessages::-webkit-scrollbar-track {
         background: #000000 !important;
         border-radius: 4px !important;
-        box-shadow: inset 0 0 5px rgba(25, 77, 209, 0.1) !important;
+        box-shadow: inset 0 0 5px rgba(57, 255, 20, 0.1) !important;
     }
 
     #chatMessages::-webkit-scrollbar-thumb {
-        background: #194DD1 !important;
+        background: #39ff14 !important; /* Neonově zelená */
         border-radius: 4px !important;
         border: 2px solid #000000 !important;
-        box-shadow: 0 0 5px #194DD1, 0 0 10px rgba(25, 77, 209, 0.5) !important;
+        box-shadow: 0 0 5px #39ff14, 0 0 10px rgba(57, 255, 20, 0.5) !important;
     }
 
     #chatMessages::-webkit-scrollbar-thumb:hover {
@@ -129,19 +129,19 @@
             
             <!-- Chat Area Column - Full height on mobile, 1/3 on sm+ -->
             <div class="col-12 col-sm-4 d-flex flex-column p-1 overflow-hidden mobile-chat-height">
-                <div class="flex-fill bg-black border border-neon-blue rounded p-3 d-flex flex-column overflow-hidden h-100">
+                <div class="flex-fill bg-black border border-neon-green rounded p-3 d-flex flex-column overflow-hidden h-100">
                     
                     <!-- Chat Header -->
-                    <div class="text-center text-light mb-2">
+                    <div class="text-center text-neon-green mb-2">
                         <h6><i class="bi bi-chat-dots-fill"></i> AI Chat</h6>
                     </div>
                     
                     <!-- Chat Messages - Scrollable area s neonovým scrollbarem -->
-                    <div id="chatMessages" class="flex-grow-1 bg-black border-neon-blue border rounded p-2 overflow-auto chat-container" style="min-height: 0;">
+                    <div id="chatMessages" class="flex-grow-1 bg-black border-neon-green border rounded p-2 overflow-auto chat-container" style="min-height: 0;">
                         <!-- Neonový loader - zvýšena specificita -->
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 p-3">
                             <div class="neon-spinner neon-spinner-orbital mb-3 neon-effect chat-spinner" data-spinner-type="orbital" id="chatSpinner"></div>
-                            <div class="neon-spinner-text text-center neon-text">Inicializace AI...</div>
+                            <div class="neon-spinner-text text-center neon-text text-neon-green">Inicializace AI...</div>
                         </div>
                     </div>
                     
@@ -149,10 +149,10 @@
                     <div class="mt-2">
                         <div class="input-group">
                             <input type="text" id="chatInput" 
-                                   class="form-control bg-black text-light border-neon-blue" 
+                                   class="form-control bg-black text-neon-green border-neon-green" 
                                    placeholder="Zpráva AI..." 
                                    autocomplete="off">
-                            <button id="sendChatBtn" class="btn btn-outline-primary border-neon-blue text-neon-blue">
+                            <button id="sendChatBtn" class="btn btn-outline-primary border-neon-green text-neon-green">
                                 <i class="bi bi-send-fill"></i>
                             </button>
                         </div>

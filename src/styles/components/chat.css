@@ -62,11 +62,11 @@
 
 /* AI zprávy */
 .chat-message-ai {
-  background: rgba(var(--neon-blue-rgb), 0.15);
-  border-left: 2px solid var(--neon-blue);
-  color: #fff;
+  background: rgba(var(--neon-green-rgb), 0.15);
+  border-left: 2px solid var(--neon-green);
+  color: var(--neon-green);
   align-self: flex-start;
-  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.5);
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.5);
 }
 
 /* Uživatelské zprávy */

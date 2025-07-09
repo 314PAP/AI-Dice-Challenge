@@ -129,8 +129,8 @@ body [class].neon-spinner-text,
 #app [class].neon-spinner-text {
   font-family: 'Orbitron', sans-serif !important;
   font-size: 0.8rem !important;
-  color: var(--neon-blue) !important;
-  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue) !important;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green) !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
@@ -139,10 +139,10 @@ body [class].neon-spinner-text,
 
 @keyframes neon-text-pulse {
   from {
-    text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+    text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
   }
   to {
-    text-shadow: 0 0 15px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+    text-shadow: 0 0 15px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
   }
 }
 
