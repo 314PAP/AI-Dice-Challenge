@@ -24,10 +24,11 @@ export function showNeonSpinner(containerId, type = 'orbital', message = '', siz
   const wrapper = document.createElement('div');
   wrapper.className = 'd-flex flex-column align-items-center justify-content-center h-100 p-3';
   
-  // Vytvoříme spinner s požadovaným typem
+  // Vytvoříme spinner s požadovaným typem a zajistíme, že přepíše Bootstrap styly
   const spinner = document.createElement('div');
   const sizeClass = size === 'sm' ? 'neon-spinner-sm' : size === 'lg' ? 'neon-spinner-lg' : '';
   spinner.className = `neon-spinner neon-spinner-${type} ${sizeClass} mb-3`;
+  spinner.setAttribute('data-spinner-type', type); // Pro vyšší specificitu a vlastní selekci
   
   wrapper.appendChild(spinner);
   

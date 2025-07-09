@@ -2,29 +2,41 @@
    NEONOVÝ SPINNER/LOADER
    
    Stylový animovaný spinner s neonovým efektem pro použití v celé aplikaci
-   Kompatibilní s Bootstrap třídami
+   Kompatibilní s Bootstrap třídami - přepisuje Bootstrap spinner styly
    ================================================================= */
+   
+/* Reset Bootstrap spinner stylů */
+.neon-spinner.spinner-border,
+.neon-spinner.spinner-grow,
+div[class*="spinner"].neon-spinner {
+  animation: none !important;
+  border: none !important;
+  background-color: transparent !important;
+}
 
 @import '../variables/neon-colors.css';
 
-/* Základní rotující spinner */
+/* Základní rotující spinner - vyšší specificita než Bootstrap */
 .neon-spinner {
-  display: inline-block;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  position: relative;
+  display: inline-block !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  position: relative !important;
+  border: none !important; /* Reset Bootstrap spinner border */
+  margin: 0 auto !important;
+  vertical-align: middle !important;
 }
 
 /* Různé velikosti spinnerů */
-.neon-spinner-sm {
-  width: 1.5rem;
-  height: 1.5rem;
+.neon-spinner.neon-spinner-sm {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
 }
 
-.neon-spinner-lg {
-  width: 3.5rem;
-  height: 3.5rem;
+.neon-spinner.neon-spinner-lg {
+  width: 3.5rem !important;
+  height: 3.5rem !important;
 }
 
 /* Neonový pulzující spinner */
@@ -51,46 +63,50 @@
 }
 
 /* Neonový rotující spinner */
-.neon-spinner-rotate {
-  border: 3px solid transparent;
-  border-top-color: var(--neon-blue);
-  border-right-color: var(--neon-blue);
-  border-radius: 50%;
-  animation: neon-spin 1s linear infinite;
-  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.7);
+.neon-spinner.neon-spinner-rotate {
+  border: 3px solid transparent !important;
+  border-top-color: var(--neon-blue) !important;
+  border-right-color: var(--neon-blue) !important;
+  border-radius: 50% !important;
+  animation: neon-spin 1s linear infinite !important;
+  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.7) !important;
 }
 
 /* Orbitální neonový spinner */
-.neon-spinner-orbital {
-  position: relative;
+.neon-spinner.neon-spinner-orbital {
+  position: relative !important;
+  border: none !important;
+  background-color: transparent !important;
 }
 
-.neon-spinner-orbital::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: var(--neon-blue);
-  border-left-color: var(--neon-blue);
-  animation: neon-spin 1.2s linear infinite;
+.neon-spinner.neon-spinner-orbital::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  border: 2px solid transparent !important;
+  border-top-color: var(--neon-blue) !important;
+  border-left-color: var(--neon-blue) !important;
+  animation: neon-spin 1.2s linear infinite !important;
+  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.4) !important;
 }
 
-.neon-spinner-orbital::after {
-  content: '';
-  position: absolute;
-  top: 15%;
-  left: 15%;
-  width: 70%;
-  height: 70%;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  border-top-color: var(--neon-green);
-  border-left-color: var(--neon-green);
-  animation: neon-spin-reverse 1.8s linear infinite;
+.neon-spinner.neon-spinner-orbital::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 15% !important;
+  left: 15% !important;
+  width: 70% !important;
+  height: 70% !important;
+  border-radius: 50% !important;
+  border: 2px solid transparent !important;
+  border-top-color: var(--neon-green) !important;
+  border-left-color: var(--neon-green) !important;
+  animation: neon-spin-reverse 1.8s linear infinite !important;
+  box-shadow: 0 0 15px rgba(var(--neon-green-rgb), 0.4) !important;
 }
 
 /* Neonový trojitý spinner */
@@ -140,14 +156,14 @@
 
 /* Neonový text spinner */
 .neon-spinner-text {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.8rem;
-  color: var(--neon-blue);
-  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: neon-text-pulse 1.5s ease-in-out infinite alternate;
+  font-family: 'Orbitron', sans-serif !important;
+  font-size: 0.8rem !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  animation: neon-text-pulse 1.5s ease-in-out infinite alternate !important;
 }
 
 /* Animace pro spinnery */

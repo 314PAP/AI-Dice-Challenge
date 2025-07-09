@@ -51,10 +51,9 @@
     <!-- Loading Screen -->
     <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center" style="z-index: 9999;">
         <div class="text-center">
-            <div class="spinner-border text-light mb-3" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <h4 class="text-light">
+            <!-- Neonový spinner místo Bootstrap spinneru -->
+            <div class="neon-spinner neon-spinner-triple neon-spinner-lg mb-3" data-spinner-type="triple"></div>
+            <h4 class="text-neon-blue">
                 <i class="bi bi-dice-6-fill"></i> AI Dice Challenge
             </h4>
         </div>
@@ -93,9 +92,9 @@
                     
                     <!-- Chat Messages - Scrollable area -->
                     <div id="chatMessages" class="flex-grow-1 bg-black border-neon-blue border rounded p-2 overflow-auto" style="min-height: 0;">
-                        <!-- Neonový loader -->
+                        <!-- Neonový loader - zvýšena specificita -->
                         <div class="d-flex flex-column align-items-center justify-content-center h-100 p-3">
-                            <div class="neon-spinner neon-spinner-orbital mb-3"></div>
+                            <div class="neon-spinner neon-spinner-orbital mb-3" data-spinner-type="orbital"></div>
                             <div class="neon-spinner-text text-center">Inicializace AI...</div>
                         </div>
                     </div>
