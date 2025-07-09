@@ -3,6 +3,9 @@
  * Modul obsahuje funkce pro vytváření a aktualizaci UI prvků
  */
 
+import { UI_CONSTANTS, NEON_COLORS, DICE_CONSTANTS } from '../utils/constants.js';
+import { CONSOLE_COLORS, pxToRem } from '../utils/colors.js';
+
 /**
  * Vytvoří tlačítko s neonovým efektem - plně responzivní pro všechny režimy zobrazení
  * @param {string} text - Text tlačítka
@@ -13,9 +16,12 @@
  * @returns {HTMLButtonElement} Vytvořené tlačítko
  */
 export const createNeonButton = (text, color, icon = null, onClick = null, additionalClasses = "") => {
+    // Validace barvy pomocí konstant
+    const validColor = Object.values(NEON_COLORS).includes(color) ? color : NEON_COLORS.GREEN;
+    
     const button = document.createElement('button');
     button.className = `btn btn-neon ${additionalClasses}`;
-    button.setAttribute('data-neon-color', color);
+    button.setAttribute('data-neon-color', validColor);
     
     let buttonContent = '';
     
@@ -24,10 +30,11 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
         buttonContent += `<i class="bi ${icon} me-1 me-sm-2"></i>`;
     }
     
-    // Pro velmi malé displeje (landscape) přidáme speciální třídu
+    // Pro velmi malé displeje použijeme Bootstrap třídy místo testování window.innerHeight
+    // Responzivní zobrazení textu s využitím Bootstrap tříd
     const isShortText = text.length <= 10;
-    const displayText = window.innerHeight <= 400 && !isShortText ? 
-        `<span class="d-none d-sm-inline">${text}</span><span class="d-inline d-sm-none">${text.substring(0, 4)}...</span>` : 
+    const displayText = !isShortText ? 
+        `<span class="d-none d-landscape-inline">${text}</span><span class="d-inline d-landscape-none">${text.substring(0, 4)}...</span>` : 
         text;
     
     buttonContent += displayText;
@@ -49,8 +56,11 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
  * @returns {HTMLDivElement} Vytvořená karta
  */
 export const createNeonCard = (title, color, content = "", headerIcon = null) => {
+    // Validace barvy pomocí konstant
+    const validColor = Object.values(NEON_COLORS).includes(color) ? color : NEON_COLORS.BLUE;
+    
     const card = document.createElement('div');
-    card.className = `card bg-black border-wide-neon-${color} mb-3`;
+    card.className = `card bg-black border-wide-neon-${validColor} mb-3`;
     
     let headerContent = '';
     if (headerIcon) {
@@ -59,7 +69,7 @@ export const createNeonCard = (title, color, content = "", headerIcon = null) =>
     headerContent += title;
     
     card.innerHTML = `
-        <div class="card-header text-neon-${color}">
+        <div class="card-header text-neon-${validColor}">
             ${headerContent}
         </div>
         <div class="card-body">
@@ -78,9 +88,12 @@ export const createNeonCard = (title, color, content = "", headerIcon = null) =>
  * @returns {HTMLDivElement} Vytvořený element kostky
  */
 export const createDiceElement = (value, selected = false, onClick = null) => {
+    // Validace hodnoty pomocí konstant
+    const validValue = Math.min(Math.max(value, DICE_CONSTANTS.MIN_VALUE), DICE_CONSTANTS.MAX_VALUE);
+    
     const dice = document.createElement('div');
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded p-2 m-2`;
-    dice.setAttribute('data-value', value);
+    dice.setAttribute('data-value', validValue);
     
     // Responzivní velikost kostky s využitím Bootstrap tříd
     dice.classList.add('dice-sm', 'dice-md-lg');
