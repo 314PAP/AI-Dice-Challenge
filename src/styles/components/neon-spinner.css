@@ -5,16 +5,20 @@
    Kompatibilní s Bootstrap třídami - přepisuje Bootstrap spinner styly
    ================================================================= */
    
-/* Reset Bootstrap spinner stylů */
-.neon-spinner.spinner-border,
-.neon-spinner.spinner-grow,
-div[class*="spinner"].neon-spinner {
+/* Import neonových barev a proměnných */
+@import '../variables/neon-colors.css';
+
+/* Reset Bootstrap spinner stylů - vyšší specifita */
+html .neon-spinner.spinner-border,
+html .neon-spinner.spinner-grow,
+html div[class*="spinner"].neon-spinner,
+body .neon-spinner.spinner-border,
+body .neon-spinner.spinner-grow,
+body div[class*="spinner"].neon-spinner {
   animation: none !important;
   border: none !important;
   background-color: transparent !important;
 }
-
-@import '../variables/neon-colors.css';
 
 /* Základní rotující spinner - vyšší specificita než Bootstrap */
 .neon-spinner {
