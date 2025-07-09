@@ -48,20 +48,22 @@
     #chatMessages::-webkit-scrollbar {
         width: 6px !important;
         height: 6px !important;
+        background-color: transparent !important;
     }
 
     #chatMessages::-webkit-scrollbar-track {
-        background: #000000 !important;
+        background: transparent !important;
         border-radius: 4px !important;
-        margin-top: 4px !important;
-        margin-bottom: 4px !important;
-        box-shadow: inset 0 0 5px rgba(57, 255, 20, 0.1) !important;
+        margin-top: 8px !important;
+        margin-bottom: 8px !important;
+        margin-right: 2px !important;
+        box-shadow: none !important;
     }
 
     #chatMessages::-webkit-scrollbar-thumb {
         background: #39ff14 !important; /* Neonově zelená */
-        border-radius: 4px !important;
-        border: 2px solid #000000 !important;
+        border-radius: 10px !important;
+        border: 1px solid rgba(57, 255, 20, 0.6) !important;
         box-shadow: 0 0 5px #39ff14, 0 0 10px rgba(57, 255, 20, 0.5) !important;
     }
 
@@ -72,8 +74,8 @@
 
     #chatMessages {
         scrollbar-width: thin !important;
-        scrollbar-color: #39ff14 #000000 !important;
-        padding-right: 8px !important;
+        scrollbar-color: #39ff14 transparent !important;
+        padding-right: 10px !important;
     }
     </style>
     
