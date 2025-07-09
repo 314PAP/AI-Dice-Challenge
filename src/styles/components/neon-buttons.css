@@ -15,7 +15,7 @@
   font-weight: 600;
   text-transform: uppercase;
   text-shadow: var(--neon-text-shadow);
-  transition: all 0.3s ease;
+  transition: var(--transition-normal, all 0.3s ease);
   position: relative;
   border-width: var(--border-neon-medium);
   border-style: solid;
@@ -27,8 +27,8 @@
 .btn-neon:focus,
 .btn.btn-neon:hover,
 .btn.btn-neon:focus {
-  background-color: rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
+  background-color: var(--neon-bg-hover, rgba(0, 0, 0, 0.2));
+  transform: scale(var(--scale-hover, 1.05));
   color: inherit;
   border-color: inherit;
   box-shadow: var(--neon-glow-strong);
@@ -47,8 +47,8 @@
 .btn.btn-neon:active,
 .btn-neon.active,
 .btn.btn-neon.active {
-  background-color: rgba(0, 0, 0, 0.3);
-  transform: scale(0.98);
+  background-color: var(--neon-bg-active, rgba(0, 0, 0, 0.3));
+  transform: scale(var(--scale-active, 0.98));
   color: inherit;
   border-color: inherit;
 }
@@ -110,17 +110,17 @@
 @media (orientation: landscape) and (max-height: 500px) {
   .btn-neon,
   .btn.btn-neon {
-    padding: 0.25rem 0.5rem !important;
-    font-size: 0.8rem !important;
-    border-width: 1px !important;
-    margin-bottom: 0.25rem !important;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border-width: var(--border-neon-thin);
+    margin-bottom: 0.25rem;
   }
   
   /* Zmenšení ikon v tlačítkách */
   .btn-neon .bi,
   .btn.btn-neon .bi {
-    font-size: 0.8rem !important;
-    margin-right: 0.25rem !important;
+    font-size: 0.8rem;
+    margin-right: 0.25rem;
   }
 }
 
@@ -157,7 +157,7 @@
   .btn.btn-neon {
     padding: 0.25rem 0.5rem;
     font-size: 0.85rem;
-    border-width: 1px;
+    border-width: var(--border-neon-thin);
   }
   
   .btn-neon.btn-lg,

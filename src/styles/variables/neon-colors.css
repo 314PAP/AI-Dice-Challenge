@@ -34,4 +34,17 @@
   --border-neon-thin: 1px;
   --border-neon-medium: 2px;
   --border-neon-thick: 3px;
+  
+  /* Transition hodnoty pro animace a efekty */
+  --transition-fast: all 0.2s ease;
+  --transition-normal: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+  
+  /* Scale hodnoty pro transformace */
+  --scale-hover: 1.05;
+  --scale-active: 0.98;
+  
+  /* Průhledné barvy pro pozadí a efekty */
+  --neon-bg-hover: rgba(0, 0, 0, 0.2);
+  --neon-bg-active: rgba(0, 0, 0, 0.3);
 }
