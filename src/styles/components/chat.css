@@ -61,11 +61,12 @@
 
 /* Zprávy v chatu */
 .chat-message {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem; /* Dále zmenšeno - odpovídá Bootstrap třídě mb-1 */
   border-radius: 0.5rem;
   max-width: 85%;
   word-break: break-word;
   line-height: 1.4;
+  padding: 0.25rem; /* Odpovídá Bootstrap třídě p-1 */
 }
 
 /* AI zprávy - základní styl */
@@ -98,6 +99,15 @@
 .chat-message-ai.ai-gpt {
   color: var(--neon-purple) !important;
   text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.5) !important;
+}
+
+/* Minimální padding kolem textu zpráv v chatu */
+.chat-message .px-1.py-0.text-break, 
+.chat-message .text-break {
+  padding-left: 0.1rem !important;
+  padding-right: 0.1rem !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 /* Systémové zprávy */

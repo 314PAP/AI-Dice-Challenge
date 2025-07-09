@@ -108,7 +108,7 @@ export class ChatUI {
      */
     createMessageElement(message) {
         // Základní třídy pro zprávu
-        let messageClasses = 'chat-message mb-2 p-2 rounded bg-black overflow-hidden w-100';
+        let messageClasses = 'chat-message mb-1 p-1 rounded bg-black overflow-hidden w-100';
         let colorClass = 'text-light';
         let aiClass = '';
         
@@ -150,7 +150,7 @@ export class ChatUI {
         // Bootstrap-first responsive design pro chat zprávy - jméno a obsah na stejné řádce
         return `
             <div class="${messageClasses}">
-                <div class="p-1 text-break">
+                <div class="px-1 py-0 text-break">
                     <strong class="me-2">${message.sender}:</strong>${message.content}
                 </div>
             </div>
