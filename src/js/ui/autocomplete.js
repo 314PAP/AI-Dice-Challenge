@@ -3,6 +3,17 @@
  * Rozšíření původního autocomplete s Bootstrap styly a responzivitou
  */
 
+import { STORAGE_KEYS } from '../utils/constants.js';
+import { pxToRem } from '../utils/colors.js';
+
+// Z-index konstanty (kompatibilní s Bootstrap)
+const Z_INDEXES = {
+    DROPDOWN: 1050 // Bootstrap modal z-index level
+};
+
+// Max-height pro dropdown v rem místo px
+const DROPDOWN_MAX_HEIGHT = pxToRem(200); // 12.5rem
+
 /**
  * UltraBootstrapAutocomplete třída - Responzivní autocomplete s neonovým vzhledem
  */
@@ -14,7 +25,7 @@ export class UltraBootstrapAutocomplete {
             maxResults: options.maxResults || 8,
             placeholder: options.placeholder || 'Začněte psát...',
             neonColor: options.neonColor || 'blue',
-            storageKey: options.storageKey || 'autocomplete-history',
+            storageKey: options.storageKey || STORAGE_KEYS.CHAT_HISTORY,
             ...options
         };
         
@@ -47,8 +58,8 @@ export class UltraBootstrapAutocomplete {
             'rounded-3', 'shadow-lg', 'overflow-hidden',
             'd-none', 'mt-1', 'border-neon-glow'
         ].join(' ');
-        this.dropdown.style.zIndex = '1050'; // Bootstrap modal z-index level
-        this.dropdown.style.maxHeight = '200px';
+        this.dropdown.style.zIndex = Z_INDEXES.DROPDOWN;
+        this.dropdown.style.maxHeight = DROPDOWN_MAX_HEIGHT;
         this.dropdown.style.overflowY = 'auto';
         
         // Vložit dropdown hned za input element
@@ -135,7 +146,8 @@ export class UltraBootstrapAutocomplete {
         suggestions.unshift(suggestion);
         
         // Omezíme velikost
-        this.options.suggestions = suggestions.slice(0, 50);
+        const MAX_HISTORY_SIZE = 50; // Maximální počet položek v historii
+        this.options.suggestions = suggestions.slice(0, MAX_HISTORY_SIZE);
         
         // Uložíme do localStorage
         localStorage.setItem(this.options.storageKey, JSON.stringify(this.options.suggestions));
