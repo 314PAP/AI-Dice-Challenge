@@ -8,6 +8,9 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>��</text></svg>" type="image/svg+xml">
     
+    <!-- Kritické CSS styly - načteny před Bootstrapem pro vyšší prioritu -->
+    <link rel="stylesheet" href="/src/styles/critical.css">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -23,10 +26,7 @@
     <!-- SweetAlert2 pro notifikace -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
     
-    <!-- Všechny styly jsou nyní v externích CSS souborech -->
-    <!-- Viz: src/styles/responsive-heights.css a src/styles/forms/neon-forms.css -->
-    
-    <!-- ✅ NEONOVÉ CSS STYLY PŘIPOJENY -->
+    <!-- ✅ NEONOVÉ CSS STYLY PŘIPOJENY (po Bootstrapu pro override ostatních stylů) -->
     <link rel="stylesheet" href="/src/styles/main.css">
 </head>
 <body class="h-100 bg-black text-light">

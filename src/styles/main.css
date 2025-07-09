@@ -4,9 +4,13 @@
    Tento soubor slouží jako centrální bod pro import všech CSS modulů
    a zajišťuje správné pořadí načítání a snadnou správu závislostí.
    
-   POZNÁMKA: Všechny soubory používají čisté CSS (ne SCSS). Veškeré barvy
-   jsou definované v neon-colors.css jako CSS proměnné. Všechny velikosti
-   používají rem jednotky nebo Bootstrap utility třídy pro responzivní design.
+   POZNÁMKA: 
+   1. critical.css je načten před Bootstrapem přímo v HTML 
+      pro zajištění správné priority kritických stylů
+   2. Všechny soubory používají čisté CSS (ne SCSS). 
+   3. Veškeré barvy jsou definované v neon-colors.css jako CSS proměnné.
+   4. Všechny velikosti používají rem jednotky nebo Bootstrap utility 
+      třídy pro responzivní design.
    ================================================================= */
 
 /* 1. Proměnné a základní nastavení */
