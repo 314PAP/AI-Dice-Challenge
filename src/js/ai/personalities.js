@@ -1,5 +1,17 @@
 /**
- * AI Personalities - Definice AI osobností a jejich chování
+ * AI Personalities -    ChatGPT: {
+        responses: [
+            "Ó, to je chytrý tah!",
+            "Hmm, já bych to hrál jinak...",
+            "Zajímavé! Ale počkej, až přijdu na řadu!",
+            "Tvoje štěstí tě brzy opustí!"
+        ],
+        riskTolerance: 0.5,
+        strategyType: "balanced",
+        emoji: "�",
+        color: CHAT_COLORS.PURPLE,
+        avatar: "bi-cpu-fill"
+    },osobností a jejich chování
  * Modul definuje všechny AI osobnosti a jejich reakce v různých herních situacích
  */
 
@@ -7,6 +19,7 @@ import { CHAT_COLORS } from '../utils/colors.js';
 
 /**
  * Definice všech AI osobností s jejich charakteristikami a odpověďmi
+ * Ponechány pouze tři hlavní AI osobnosti: Gemini, ChatGPT a Claude
  */
 export const aiPersonalities = {
     Gemini: {
@@ -31,8 +44,8 @@ export const aiPersonalities = {
         ],
         riskTolerance: 0.5,
         strategyType: "balanced",
-        emoji: "🟣",
-        color: CHAT_COLORS.PURPLE,
+        emoji: "�",
+        color: CHAT_COLORS.GREEN,
         avatar: "bi-cpu-fill"
     },
     Claude: {
