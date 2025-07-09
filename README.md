@@ -1,83 +1,127 @@
-# 🎲 AI Dice Challenge - Neonová kostková výzva
+# 🎲 AI Dice Challenge
 
-> **Modulární kostková hra s AI osobnostmi postavená na Bootstrap-first přístupu**
-> 
-> ✅ **100% Bootstrap utility třídy** | ✅ **Plně responzivní** | ✅ **Neonový design** | ✅ **Čistá architektura**
+Modulární hra s kostkami s AI osobnostmi postavená na **Pure Bootstrap 5.3.2** layoutu.
+
+## ✨ Klíčové funkce
+
+- 🎯 **Pure Bootstrap** - 100% Bootstrap utility classes
+- 📱 **Fully Responsive** - Mobile-first design
+- 🤖 **AI Personalities** - Interaktivní chat systém  
+- 🎲 **Dice Mechanics** - Pokročilá herní logika
+- ⚡ **Vite** - Rychlý build systém
+- 🧩 **Modular Structure** - ES6 moduly
 
 ## 🚀 Rychlý start
 
 ```bash
-# Development server (doporučeno)
+# Klonování
+git clone https://github.com/username/AIDICE.git
+cd AIDICE
+
+# Instalace
+npm install
+
+# Spuštění
 npm run dev
-
-# Production build  
-npm run build
-
-# Preview produkční verze
-npm run preview
 ```
 
-## ✨ Klíčové funkce
+## 📱 Layout Architektura
 
-### 🎮 Herní mechaniky
-- **Farkle/Dix Mille** pravidla s kostkami
-- **AI protihráči** s jedinečnými osobnostmi (Gemini, ChatGPT, Claude)
-- **Real-time chat** s AI reakcemi na herní události
-- **Pokročilé skórování** s risk/reward mechanikou
+### Desktop (≥576px):
+- **Game Area**: 67% šířky (8/12 columns)
+- **Chat Area**: 33% šířky (4/12 columns)
+- **Poměr**: 2:1 (game:chat)
 
-### 🎨 Design & UX
-- **Neonový cyberpunk design** s konzistentními barvami
-- **100% Bootstrap-first** - maximální využití Bootstrap tříd
-- **Plná responzivita** - desktop, tablet, mobil, landscape režim
-- **Smooth animace** - Animate.css integrace
-- **Autocomplete chat** s historií zpráv
+### Mobile (<576px):
+- **Stacked layout**: vertikální
+- **Game Area**: 60vh
+- **Chat Area**: 40vh
 
-## � Responzivní design
-- **Mobile-first přístup** - optimalizováno pro všechny zařízení
-- **Landscape optimalizace** - speciální úpravy pro horizontální orientaci
-- **Flexibilní layout** - automatické přizpůsobení obsahu velikosti obrazovky
-- **Bootstrap breakpointy** - konzistentní práce s XS, SM, MD, LG, XL
+## 🎨 Bootstrap Classes
 
-## 🧩 Modulární architektura
+Layout používá výhradně Bootstrap utility classes:
 
-### JavaScript moduly
-- `/js/game/` - Herní logika, správa stavu, mechaniky kostek
-- `/js/ai/` - AI osobnosti, chatovací odpovědi, reakce
-- `/js/ui/` - Manipulace s DOM, event handlery, animace
-- `/js/utils/` - Pomocné funkce, konstanty
+```html
+<!-- Main Container -->
+<div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
+  <div class="row g-1 flex-fill h-100 overflow-hidden">
+    
+    <!-- Game Area -->
+    <div class="col-12 col-sm-8 d-flex flex-column overflow-hidden">
+      <div class="flex-fill bg-dark border border-success rounded p-2">
+        <!-- Game content -->
+      </div>
+    </div>
+    
+    <!-- Chat Area -->
+    <div class="col-12 col-sm-4 d-flex flex-column overflow-hidden">
+      <div class="flex-fill bg-dark border border-info rounded p-2">
+        <!-- Chat content -->
+      </div>
+    </div>
+    
+  </div>
+</div>
+```
 
-### CSS moduly
-- `/styles/variables/` - CSS proměnné (barvy, velikosti, animace)
-- `/styles/components/` - Znovupoužitelné komponenty
-- `/styles/utils/` - Utility třídy nad rámec Bootstrapu
+## 📚 Dokumentace
 
-## 📊 Technologie a knihovny
-- **Bootstrap 5.3.2** - Frontend framework
-- **Bootstrap Icons** - Ikonový font
-- **Animate.css** - CSS animace
-- **SweetAlert2** - Pokročilé dialogy
-- **Lodash** - Utility knihovna
-- **Vite** - Build nástroj
+Kompletní dokumentace včetně Bootstrap architektury: [`BOOTSTRAP_PURE_LAYOUT_DOKUMENTACE.md`](./BOOTSTRAP_PURE_LAYOUT_DOKUMENTACE.md)
 
-## 📑 Dokumentace
-- [Dokumentace projektu](DOKUMENTACE_PROJEKTU.md) - Kompletní přehled architektury
-- [Responzivní design](RESPONSIVNI_DESIGN.md) - Detailní vysvětlení responzivity
+## 🔧 Tech Stack
 
-## 🎯 Pravidla hry
-- Hoďte kostkami a vyberte skórující kombinace
-- Pokračujte v házení pro více bodů nebo ukončete tah a připište si body
-- Pokud hodíte bez skórujících kostek (FARKLE), ztrácíte body z aktuálního tahu
-- Dosáhněte cílového skóre jako první (standardně 10,000 bodů)
+- **Frontend**: HTML5, ES6+ JavaScript
+- **Styling**: Bootstrap 5.3.2, Bootstrap Icons
+- **Build**: Vite 5+
+- **Libraries**: Animate.css, SweetAlert2, Lodash
+- **Fonts**: Google Fonts (Orbitron)
 
-## 👾 AI osobnosti
-- **Gemini** - Analytická AI s matematickým přístupem
-- **ChatGPT** - Přátelská a nápomocná AI
-- **Claude** - Filosofická AI s hlubokým přemýšlením
+## 📁 Struktura projektu
 
-## 📋 Další kroky vývoje
-- Pokročilá AI strategie
-- Online multiplayer
-- Více herních módů
-- Achievement systém
-- Uživatelské profily
+```
+src/
+├── js/
+│   ├── game/           # Herní logika
+│   ├── ai/             # AI systém
+│   ├── ui/             # UI komponenty
+│   └── utils/          # Pomocné funkce
+├── styles/             # CSS (momentálně vypnuto)
+└── main.js             # Vstupní bod
+```
+
+## 🎯 Výhody Pure Bootstrap
+
+- ✅ **Žádné custom CSS** - snadná údržba
+- ✅ **Responsivní ze základu** - testovaný grid systém  
+- ✅ **Rychlý vývoj** - utility classes
+- ✅ **Browser compatibility** - Bootstrap je kompatibilní
+- ✅ **Malé bundle size** - žádné vlastní CSS
+- ✅ **Konzistentní design** - Bootstrap konvence
+
+## 🔍 Debugging
+
+Console debugging pro layout monitoring:
+- Viewport rozměry
+- Column výšky a poměry  
+- Scrollbar detection
+- Bootstrap class detection
+
+Otevři DevTools (F12) → Console pro detaily.
+
+## 📱 Testování
+
+1. **Desktop**: Ověř 2:1 poměr sloupců
+2. **Mobile**: DevTools → Device toolbar
+3. **Resize**: Změna velikosti okna
+4. **Overflow**: Žádné scrollbary na main container
+
+## 📄 Licence
+
+MIT License - viz [LICENSE](./LICENSE)
+
+---
+
+**Status**: ✅ Production Ready Bootstrap Layout  
+**Verze**: Pure Bootstrap v1.0  
+**Poslední update**: July 9, 2025
 
