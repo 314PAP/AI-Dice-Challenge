@@ -46,10 +46,10 @@
     <!-- ✅ NEONOVÉ CSS STYLY PŘIPOJENY -->
     <link rel="stylesheet" href="/src/styles/main.css">
 </head>
-<body class="h-100 bg-dark text-light">
+<body class="h-100 bg-black text-light">
     
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-dark d-flex justify-content-center align-items-center" style="z-index: 9999;">
+    <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center" style="z-index: 9999;">
         <div class="text-center">
             <div class="spinner-border text-light mb-3" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -66,7 +66,7 @@
             
             <!-- Game Area Column - Full height on mobile, 2/3 on sm+ -->
             <div class="col-12 col-sm-8 d-flex flex-column p-1 overflow-hidden mobile-game-height">
-                <div class="flex-fill bg-dark border border-light rounded p-3 d-flex flex-column overflow-hidden h-100">
+                <div class="flex-fill bg-black border border-neon-blue rounded p-3 d-flex flex-column overflow-hidden h-100">
                     
                     <!-- Game Header -->
                     <div class="text-center text-light mb-2">
@@ -74,7 +74,7 @@
                     </div>
                     
                     <!-- Game Content - Scrollable -->
-                    <div id="gameArea" class="flex-fill overflow-auto bg-secondary p-2 rounded">
+                    <div id="gameArea" class="flex-fill overflow-auto bg-black border border-neon-blue p-2 rounded">
                         <p>Game content area - scrollable</p>
                         <p>Tady bude herní obsah...</p>
                     </div>
@@ -84,7 +84,7 @@
             
             <!-- Chat Area Column - Full height on mobile, 1/3 on sm+ -->
             <div class="col-12 col-sm-4 d-flex flex-column p-1 overflow-hidden mobile-chat-height">
-                <div class="flex-fill bg-dark border border-light rounded p-3 d-flex flex-column overflow-hidden h-100">
+                <div class="flex-fill bg-black border border-neon-blue rounded p-3 d-flex flex-column overflow-hidden h-100">
                     
                     <!-- Chat Header -->
                     <div class="text-center text-light mb-2">
@@ -92,7 +92,7 @@
                     </div>
                     
                     <!-- Chat Messages - Scrollable area -->
-                    <div id="chatMessages" class="flex-grow-1 bg-secondary border-light border rounded p-2 overflow-auto" style="min-height: 0;">
+                    <div id="chatMessages" class="flex-grow-1 bg-black border-neon-blue border rounded p-2 overflow-auto" style="min-height: 0;">
                         <p>Chat zprávy budou zde...</p>
                         <p>Scrollovatelná oblast</p>
                     </div>
@@ -101,7 +101,7 @@
                     <div class="mt-2">
                         <div class="input-group">
                             <input type="text" id="chatInput" 
-                                   class="form-control bg-dark text-light border-light" 
+                                   class="form-control bg-black text-light border-neon-blue" 
                                    placeholder="Zpráva AI..." 
                                    autocomplete="off">
                             <button id="sendChatBtn" class="btn btn-outline-primary border-neon-blue text-neon-blue">
