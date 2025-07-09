@@ -2,6 +2,9 @@
  * Constants - Konstanty a konfigurační hodnoty
  */
 
+// Import převodních funkcí z colors.js
+import { pxToRem } from './colors.js';
+
 // Herní konstanty
 export const GAME_CONSTANTS = {
     MAX_DICE: 6,
@@ -27,8 +30,8 @@ export const UI_CONSTANTS = {
     AI_RESPONSE_DELAY: 1000,
     AI_RESPONSE_MIN_DELAY: 800,  // Minimální zpoždění AI odpovědi v ms
     AI_RESPONSE_RANDOM_DELAY: 1200,  // Náhodné dodatečné zpoždění v ms
-    SCROLL_THRESHOLD: 50,  // Threshold pro auto-scrollování chatu v px
-    NEON_SHADOW_BLUR: 0.625  // 10px převedené na rem (10/16)
+    SCROLL_THRESHOLD: pxToRem(50),  // Threshold pro auto-scrollování chatu
+    NEON_SHADOW_BLUR: 0.625  // Hodnota pro neonové stíny v rem
 };
 
 // Z-indexy pro elementy
@@ -51,7 +54,12 @@ export const STORAGE_KEYS = {
     GAME_SETTINGS: 'aidice-game-settings'
 };
 
-// Neonové barvy
+/**
+ * Neonové barvy - identifikátory pro CSS třídy a data atributy
+ * Používá se napříč aplikací pro konzistentní pojmenování barev
+ * Hodnoty odpovídají CSS třídám (např. text-neon-green, border-neon-blue)
+ * a data atributům (např. data-neon-color="green")
+ */
 export const NEON_COLORS = {
     GREEN: 'green',
     BLUE: 'blue',

@@ -5,9 +5,6 @@
  * Synchronizováno s CSS proměnnými v neon-colors.css
  */
 
-// Import názvů barev z constants.js pro zajištění konzistence
-import { NEON_COLORS } from './constants.js';
-
 // Definice barev z CSS proměnných pro použití v JavaScript
 export const CONSOLE_COLORS = {
     // Neonové barvy
