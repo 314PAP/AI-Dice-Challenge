@@ -3,6 +3,8 @@
  * Modul definuje všechny AI osobnosti a jejich reakce v různých herních situacích
  */
 
+import { CHAT_COLORS } from '../utils/colors.js';
+
 /**
  * Definice všech AI osobností s jejich charakteristikami a odpověďmi
  */
@@ -17,7 +19,7 @@ export const aiPersonalities = {
         riskTolerance: 0.7, // Vyšší riziko = více riskantní AI
         strategyType: "analytical",
         emoji: "🔵",
-        color: "blue",
+        color: CHAT_COLORS.BLUE,
         avatar: "bi-robot"
     },
     ChatGPT: {
@@ -30,7 +32,7 @@ export const aiPersonalities = {
         riskTolerance: 0.5,
         strategyType: "balanced",
         emoji: "🟣",
-        color: "purple",
+        color: CHAT_COLORS.PURPLE,
         avatar: "bi-cpu-fill"
     },
     Claude: {
@@ -43,7 +45,7 @@ export const aiPersonalities = {
         riskTolerance: 0.3, // Nižší riziko = konzervativnější AI
         strategyType: "cautious",
         emoji: "🟠",
-        color: "orange",
+        color: CHAT_COLORS.ORANGE,
         avatar: "bi-lightning-charge-fill"
     }
 };
@@ -68,7 +70,7 @@ export const getRandomAiResponse = (aiName) => {
  * @returns {string} Barva AI
  */
 export const getAiColor = (aiName) => {
-    return aiPersonalities[aiName]?.color || "blue";
+    return aiPersonalities[aiName]?.color || CHAT_COLORS.BLUE;
 };
 
 /**

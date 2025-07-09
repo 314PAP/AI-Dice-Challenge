@@ -21,6 +21,7 @@ import UltraBootstrapAutocomplete from './js/ui/autocomplete.js';
 // Importy z utility modulů
 import { GAME_CONSTANTS, STORAGE_KEYS } from './js/utils/constants.js';
 import { sleep, loadFromLocalStorage, saveToLocalStorage } from './js/utils/helpers.js';
+import { CONSOLE_COLORS, pxToRem } from './js/utils/colors.js';
 
 /**
  * Hlavní třída aplikace, která propojuje všechny komponenty
@@ -73,17 +74,17 @@ class AIDiceGame {
                     const ratio = Math.round(gameCol.offsetHeight / chatCol.offsetHeight * 100) / 100;
                     const isGoodRatio = ratio >= 1.5;
                     
-                    // CSS styly pro barevný výstup
-                    const successStyle = 'background: #222; color: #39ff14; font-weight: bold; padding: 3px 6px; border-radius: 3px;';
-                    const valueStyle = 'color: white; font-weight: bold;';
+                    // CSS styly pro barevný výstup - používáme definované barvy
+                    const successStyle = `background: ${CONSOLE_COLORS.bgDark2}; color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold; padding: ${pxToRem(3)} ${pxToRem(6)}; border-radius: ${pxToRem(3)};`;
+                    const valueStyle = `color: ${CONSOLE_COLORS.textWhite}; font-weight: bold;`;
                     const statusStyle = isGoodRatio 
-                        ? 'color: #39ff14; font-weight: bold;' 
-                        : 'color: #ffff00; font-weight: bold;';
+                        ? `color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold;` 
+                        : `color: ${CONSOLE_COLORS.neonYellow}; font-weight: bold;`;
                     
                     console.log(
                         '%c✅ BOOTSTRAP LAYOUT %c Game:Chat = %c%s %c%s',
                         successStyle,
-                        'color: #aaa;',
+                        `color: ${CONSOLE_COLORS.textDark};`,
                         valueStyle,
                         ratio,
                         statusStyle,
@@ -246,10 +247,10 @@ class AIDiceGame {
                 text: message,
                 icon: 'error',
                 confirmButtonText: 'OK',
-                background: '#000',
-                color: '#fff',
-                iconColor: '#ff3131',
-                confirmButtonColor: '#194DD1'
+                background: CONSOLE_COLORS.neonBlack,
+                color: CONSOLE_COLORS.textWhite,
+                iconColor: CONSOLE_COLORS.neonRed,
+                confirmButtonColor: CONSOLE_COLORS.neonBlue
             });
         } else {
             alert(`Chyba: ${message}`);
@@ -285,8 +286,8 @@ class AIDiceGame {
             isInitializing = false;
             console.log(
                 '%c✅ DEBUG %c Inicializační období dokončeno, dále budou hlášeny pouze neočekávané změny',
-                'background: #222; color: #39ff14; font-weight: bold; padding: 3px 6px; border-radius: 3px;',
-                'color: #aaa;'
+                `background: ${CONSOLE_COLORS.bgDark2}; color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold; padding: ${pxToRem(3)} ${pxToRem(6)}; border-radius: ${pxToRem(3)};`,
+                `color: ${CONSOLE_COLORS.textDark};`
             );
         }, 3000);
 
@@ -305,31 +306,31 @@ class AIDiceGame {
                         if (mutation.attributeName === 'style') {
                             console.warn(
                                 '%c⚠️ UPOZORNĚNÍ %c ZMĚNA STYLE na #app - zkontrolujte layout!',
-                                'background: #333; color: #ffff00; font-weight: bold; padding: 3px 6px; border-radius: 3px;',
-                                'color: #ffff00; font-weight: bold;'
+                                `background: ${CONSOLE_COLORS.bgDark3}; color: ${CONSOLE_COLORS.neonYellow}; font-weight: bold; padding: ${pxToRem(3)} ${pxToRem(6)}; border-radius: ${pxToRem(3)};`,
+                                `color: ${CONSOLE_COLORS.neonYellow}; font-weight: bold;`
                             );
                             console.log(
                                 '%cPůvodní:%c %s\n%cNový:%c %s',
-                                'color: #888;',
-                                'color: #ddd;',
+                                `color: ${CONSOLE_COLORS.textDark};`,
+                                `color: ${CONSOLE_COLORS.textLight};`,
                                 mutation.oldValue || 'none',
-                                'color: #888;',
-                                'color: #ddd;',
+                                `color: ${CONSOLE_COLORS.textDark};`,
+                                `color: ${CONSOLE_COLORS.textLight};`,
                                 mutation.target.getAttribute('style') || 'none'
                             );
                         } else if (mutation.attributeName === 'class') {
                             console.warn(
                                 '%c⚠️ UPOZORNĚNÍ %c ZMĚNA CLASS na #app - zkontrolujte layout!',
-                                'background: #333; color: #ffff00; font-weight: bold; padding: 3px 6px; border-radius: 3px;',
-                                'color: #ffff00; font-weight: bold;'
+                                `background: ${CONSOLE_COLORS.bgDark3}; color: ${CONSOLE_COLORS.neonYellow}; font-weight: bold; padding: ${pxToRem(3)} ${pxToRem(6)}; border-radius: ${pxToRem(3)};`,
+                                `color: ${CONSOLE_COLORS.neonYellow}; font-weight: bold;`
                             );
                             console.log(
                                 '%cPůvodní:%c %s\n%cNový:%c %s',
-                                'color: #888;',
-                                'color: #ddd;',
+                                `color: ${CONSOLE_COLORS.textDark};`,
+                                `color: ${CONSOLE_COLORS.textLight};`,
                                 mutation.oldValue || 'none',
-                                'color: #888;',
-                                'color: #ddd;',
+                                `color: ${CONSOLE_COLORS.textDark};`,
+                                `color: ${CONSOLE_COLORS.textLight};`,
                                 mutation.target.className
                             );
                         }
@@ -402,16 +403,16 @@ class AIDiceGame {
         // Pokud jsou logy vypnuty, nepokračujeme
         if (!ENABLE_DEBUG_LOGS) return;
         
-        // CSS styly pro barevné rozlišení logů
+        // CSS styly pro barevné rozlišení logů - používáme definované barvy z CONSOLE_COLORS
         const styles = {
-            title:    'background: #2a2a2a; color: #39ff14; font-weight: bold; padding: 2px 5px; border-radius: 3px;',
-            success:  'color: #39ff14; font-weight: bold;',
-            warning:  'color: #ffff00; font-weight: bold;',
-            error:    'color: #ff3131; font-weight: bold;',
-            info:     'color: #194DD1; font-weight: bold;',
-            label:    'color: #888; font-weight: normal;',
-            value:    'color: white; font-weight: bold;',
-            detail:   'color: #aaa; font-style: italic;'
+            title:    `background: ${CONSOLE_COLORS.neonDarkGray2}; color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold; padding: ${pxToRem(2)} ${pxToRem(5)}; border-radius: ${pxToRem(3)};`,
+            success:  `color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold;`,
+            warning:  `color: ${CONSOLE_COLORS.neonYellow}; font-weight: bold;`,
+            error:    `color: ${CONSOLE_COLORS.neonRed}; font-weight: bold;`,
+            info:     `color: ${CONSOLE_COLORS.neonBlue}; font-weight: bold;`,
+            label:    `color: ${CONSOLE_COLORS.textDark}; font-weight: normal;`,
+            value:    `color: ${CONSOLE_COLORS.textWhite}; font-weight: bold;`,
+            detail:   `color: ${CONSOLE_COLORS.textDark}; font-style: italic;`
         };
         
         // Neprovádíme plný debug pro každou drobnou změnu během inicializace
@@ -457,7 +458,7 @@ class AIDiceGame {
         }
         
         // Plný debug log pouze pro důležité fáze
-        console.group(`%cBOOTSTRAP LAYOUT DEBUG - ${stage}`, 'background: #111; color: #39ff14; font-weight: bold; padding: 3px 5px; border-radius: 3px;');
+        console.group(`%cBOOTSTRAP LAYOUT DEBUG - ${stage}`, `background: ${CONSOLE_COLORS.bgDark1}; color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold; padding: ${pxToRem(3)} ${pxToRem(5)}; border-radius: ${pxToRem(3)};`);
         
         // Základní viewport info
         const isMobile = window.innerWidth <= 575.98;

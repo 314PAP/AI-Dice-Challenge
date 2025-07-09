@@ -4,6 +4,8 @@
  */
 
 import { getAiColor, getRandomAiResponse } from './personalities.js';
+import { STORAGE_KEYS } from '../utils/constants.js';
+import { CHAT_COLORS } from '../utils/colors.js';
 
 /**
  * ChatSystem třída - Zajišťuje veškerou funkcionalitu chatu s AI
@@ -19,24 +21,24 @@ export class ChatSystem {
      * Načte historii chatu z localStorage
      */
     loadChatHistory() {
-        this.chatHistory = JSON.parse(localStorage.getItem('aidice-chat-history') || '[]');
+        this.chatHistory = JSON.parse(localStorage.getItem(STORAGE_KEYS.CHAT_HISTORY) || '[]');
     }
 
     /**
      * Uloží historii chatu do localStorage
      */
     saveChatHistory() {
-        localStorage.setItem('aidice-chat-history', JSON.stringify(this.chatHistory.slice(-50))); // Ukládáme jen posledních 50 zpráv
+        localStorage.setItem(STORAGE_KEYS.CHAT_HISTORY, JSON.stringify(this.chatHistory.slice(-50))); // Ukládáme jen posledních 50 zpráv
     }
 
     /**
      * Přidá zprávu do chatu
      * @param {string} sender - Odesílatel zprávy
      * @param {string} content - Obsah zprávy
-     * @param {string} [color="white"] - Barva zprávy
+     * @param {string} [color=CHAT_COLORS.WHITE] - Barva zprávy
      * @returns {Object} Vytvořená zpráva
      */
-    addMessage(sender, content, color = "white") {
+    addMessage(sender, content, color = CHAT_COLORS.WHITE) {
         const message = {
             id: Date.now(),
             sender,
@@ -62,7 +64,7 @@ export class ChatSystem {
      * @returns {Object} Vytvořená zpráva
      */
     addSystemMessage(content) {
-        return this.addMessage('Systém', content, 'yellow');
+        return this.addMessage('Systém', content, CHAT_COLORS.YELLOW);
     }
 
     /**
