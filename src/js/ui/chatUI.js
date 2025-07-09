@@ -150,9 +150,8 @@ export class ChatUI {
         // Bootstrap-first responsive design pro chat zprávy
         return `
             <div class="${messageClasses}">
-                <div class="chat-header mb-1 d-flex justify-content-between align-items-center">
+                <div class="chat-header mb-1 d-flex align-items-center">
                     <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
-                    <small class="text-muted flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>
                 </div>
                 <div class="chat-content small text-break">
                     ${message.content}

@@ -44,7 +44,7 @@ export class ChatSystem {
             sender,
             content,
             color,
-            timestamp: new Date()
+            timestamp: '' // Prázdný string místo celého časového razítka
         };
         
         this.messages.push(message);
