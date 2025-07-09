@@ -1,0 +1,190 @@
+/* ===================================================================
+   NEONOVÝ SPINNER/LOADER
+   
+   Stylový animovaný spinner s neonovým efektem pro použití v celé aplikaci
+   Kompatibilní s Bootstrap třídami
+   ================================================================= */
+
+@import '../variables/neon-colors.css';
+
+/* Základní rotující spinner */
+.neon-spinner {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  position: relative;
+}
+
+/* Různé velikosti spinnerů */
+.neon-spinner-sm {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.neon-spinner-lg {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+/* Neonový pulzující spinner */
+.neon-spinner-pulse {
+  position: relative;
+  border-radius: 50%;
+}
+
+.neon-spinner-pulse::before,
+.neon-spinner-pulse::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-blue);
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+.neon-spinner-pulse::after {
+  animation-delay: 1s;
+}
+
+/* Neonový rotující spinner */
+.neon-spinner-rotate {
+  border: 3px solid transparent;
+  border-top-color: var(--neon-blue);
+  border-right-color: var(--neon-blue);
+  border-radius: 50%;
+  animation: neon-spin 1s linear infinite;
+  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.7);
+}
+
+/* Orbitální neonový spinner */
+.neon-spinner-orbital {
+  position: relative;
+}
+
+.neon-spinner-orbital::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--neon-blue);
+  border-left-color: var(--neon-blue);
+  animation: neon-spin 1.2s linear infinite;
+}
+
+.neon-spinner-orbital::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: var(--neon-green);
+  border-left-color: var(--neon-green);
+  animation: neon-spin-reverse 1.8s linear infinite;
+}
+
+/* Neonový trojitý spinner */
+.neon-spinner-triple {
+  position: relative;
+}
+
+.neon-spinner-triple::before,
+.neon-spinner-triple::after,
+.neon-spinner-triple {
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.neon-spinner-triple::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid transparent;
+  border-top-color: var(--neon-blue);
+  border-bottom-color: var(--neon-blue);
+  animation: neon-spin 3s linear infinite;
+}
+
+.neon-spinner-triple::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid transparent;
+  border-left-color: var(--neon-purple);
+  border-right-color: var(--neon-purple);
+  animation: neon-spin-reverse 2s linear infinite;
+}
+
+/* Neonový pulzující kruh */
+.neon-spinner-circle {
+  background-color: rgba(var(--neon-blue-rgb), 0.2);
+  box-shadow: 0 0 15px var(--neon-blue);
+  animation: neon-pulse 1.5s ease-in-out infinite;
+}
+
+/* Neonový text spinner */
+.neon-spinner-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: neon-text-pulse 1.5s ease-in-out infinite alternate;
+}
+
+/* Animace pro spinnery */
+@keyframes neon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes neon-spin-reverse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes neon-text-pulse {
+  from {
+    text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+  }
+  to {
+    text-shadow: 0 0 15px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+  }
+}
