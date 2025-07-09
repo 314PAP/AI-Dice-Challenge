@@ -46,9 +46,10 @@
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
-  border: 1px solid var(--neon-blue);
+  border: 1px solid var(--neon-green);
   border-radius: 0.25rem;
   padding: 0.5rem;
+  background-color: rgba(var(--neon-black-rgb), 0.8);
 }
 
 /* Zprávy v chatu */
@@ -60,31 +61,60 @@
   word-break: break-word;
 }
 
-/* AI zprávy */
+/* AI zprávy - základní styl */
 .chat-message-ai {
-  background: rgba(var(--neon-green-rgb), 0.15);
-  border-left: 2px solid var(--neon-green);
+  background: rgba(var(--neon-black-rgb), 0.3);
   color: var(--neon-green);
   align-self: flex-start;
   text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.5);
 }
 
-/* Uživatelské zprávy */
+/* Uživatelské zprávy - bez rámečků a speciálních barev */
 .chat-message-user {
-  background: rgba(var(--neon-green-rgb), 0.15);
-  border-right: 2px solid var(--neon-green);
+  background: rgba(var(--neon-black-rgb), 0.3);
   color: #fff;
   align-self: flex-end;
+  text-shadow: none;
+}
+
+/* AI osobnost - Gemini (modrá) */
+.chat-message-ai.ai-gemini {
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.5);
+}
+
+/* AI osobnost - Claude (oranžová) */
+.chat-message-ai.ai-claude {
+  color: var(--neon-orange);
+  text-shadow: 0 0 5px rgba(var(--neon-orange-rgb), 0.5);
+}
+
+/* AI osobnost - GPT (zelená) */
+.chat-message-ai.ai-gpt {
+  color: var(--neon-green);
   text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.5);
+}
+
+/* AI osobnost - Llama (žlutá) */
+.chat-message-ai.ai-llama {
+  color: var(--neon-yellow);
+  text-shadow: 0 0 5px rgba(var(--neon-yellow-rgb), 0.5);
+}
+
+/* AI osobnost - Mistral (červená) */
+.chat-message-ai.ai-mistral {
+  color: var(--neon-red);
+  text-shadow: 0 0 5px rgba(var(--neon-red-rgb), 0.5);
 }
 
 /* Systémové zprávy */
 .chat-message-system {
   background: rgba(var(--neon-purple-rgb), 0.15);
-  border: 1px solid var(--neon-purple);
-  color: #fff;
+  border: none;
+  color: var(--neon-purple);
   align-self: center;
   text-align: center;
   font-style: italic;
   text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.5);
+  max-width: 95%;
 }
