@@ -62,10 +62,10 @@
 /* Zprávy v chatu */
 .chat-message {
   margin-bottom: 0.75rem;
-  padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   max-width: 85%;
   word-break: break-word;
+  line-height: 1.4;
 }
 
 /* AI zprávy - základní styl */
