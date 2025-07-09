@@ -98,7 +98,7 @@ export class GameUI {
             'green', 
             'bi-play-fill', 
             () => this.startGame(), 
-            'btn-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
         );
         
         const rulesBtn = createNeonButton(
@@ -106,7 +106,7 @@ export class GameUI {
             'blue', 
             'bi-book-fill', 
             () => this.showRules(), 
-            'btn-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
         );
         
         const hallOfFameBtn = createNeonButton(
@@ -114,7 +114,7 @@ export class GameUI {
             'orange', 
             'bi-trophy-fill', 
             () => this.showHallOfFame(), 
-            'btn-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
         );
         
         buttonsContainer.appendChild(startBtn);
@@ -262,7 +262,7 @@ export class GameUI {
                 'green', 
                 'bi-check-circle-fill',
                 () => this.continueTurn(),
-                'btn-sm btn-md-lg'
+                'btn-custom-sm btn-md-lg'
             );
             
             const endTurnBtn = createNeonButton(
@@ -270,7 +270,7 @@ export class GameUI {
                 'blue', 
                 'bi-skip-forward-fill',
                 () => this.endTurn(),
-                'btn-sm btn-md-lg'
+                'btn-custom-sm btn-md-lg'
             );
             
             buttonRow.appendChild(continueBtn);
@@ -287,7 +287,7 @@ export class GameUI {
             'orange', 
             'bi-list', 
             () => this.showMenu(),
-            'btn-sm btn-md-lg w-100'
+            'btn-custom-sm btn-md-lg w-100'
         );
         menuBtnContainer.appendChild(menuBtn);
         actionButtons.appendChild(menuBtnContainer);
@@ -400,7 +400,7 @@ export class GameUI {
             'green', 
             'bi-play-fill', 
             () => this.startGame(), 
-            'btn-sm btn-md-lg flex-grow-1'
+            'btn-custom-sm btn-md-lg flex-grow-1'
         );
         
         const menuBtn = createNeonButton(
@@ -408,7 +408,7 @@ export class GameUI {
             'blue', 
             'bi-house-fill', 
             () => gameState.updateState({ gamePhase: 'menu' }), 
-            'btn-sm btn-md-lg flex-grow-1'
+            'btn-custom-sm btn-md-lg flex-grow-1'
         );
         
         btnGroup.appendChild(newGameBtn);

@@ -116,7 +116,7 @@ export class ChatUI {
         
         // Bootstrap-first responsive design pro chat zprávy
         return `
-            <div class="chat-message mb-2 p-2 rounded bg-black border border-secondary ${colorClass} overflow-safe">
+            <div class="chat-message mb-2 p-2 rounded bg-black border border-secondary ${colorClass} overflow-hidden w-100">
                 <div class="chat-header mb-1 d-flex justify-content-between align-items-center">
                     <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
                     <small class="text-muted flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>

@@ -14,8 +14,8 @@
 /* Dynamická velikost textu pro různé breakpointy */
 
 /* Velikosti tlačítek optimalizované pro různé breakpointy - 
-   vhodné použít místo základních Bootstrap tříd btn-sm, btn-lg pro více kontroly */
-.btn-sm {
+   RENAMED to avoid Bootstrap conflicts */
+.btn-custom-sm {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
 }
@@ -85,19 +85,19 @@
   padding-right: calc(0.3rem + 0.3vw);
 }
 
-/* Optimalizace pro landscape orientaci - menší prvky pro nízké obrazovky */
+/* Optimalizace pro landscape orientaci - DISABLED !important overrides */
 @media (orientation: landscape) and (max-height: 500px) {
   .landscape-compact {
-    padding: 0.25rem !important;
-    margin: 0.25rem !important;
+    padding: 0.25rem;
+    margin: 0.25rem;
   }
   
   .landscape-small-text {
-    font-size: 0.875rem !important;
+    font-size: 0.875rem;
   }
   
   /* Zmenšení výšky řádků v landscape režimu */
   .landscape-line-height-sm {
-    line-height: 1.2 !important;
+    line-height: 1.2;
   }
 }

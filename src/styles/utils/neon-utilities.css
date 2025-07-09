@@ -101,89 +101,89 @@
   box-shadow: 0 0 10px 2px rgba(var(--neon-orange-rgb), 0.7);
 }
 
-/* Neonové tabulky - silné override pro Bootstrap */
+/* Neonové tabulky - ONLY COLORS, NO LAYOUT OVERRIDES */
 .neon-table {
-  background-color: transparent !important;
-  border: none !important;
-  color: inherit !important;
+  background-color: transparent;
+  border: none;
+  color: inherit;
 }
 
 .neon-table th,
 .neon-table td {
-  vertical-align: middle !important;
-  padding: 0.75rem !important;
-  background-color: transparent !important;
-  border: none !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .neon-table thead th {
-  border-bottom: 2px solid var(--neon-orange) !important;
-  font-weight: bold !important;
-  color: var(--neon-orange) !important;
+  border-bottom: 2px solid var(--neon-orange);
+  font-weight: bold;
+  color: var(--neon-orange);
 }
 
 .neon-table tbody th,
 .neon-table tbody td {
-  background-color: transparent !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .neon-table tbody tr:hover th,
 .neon-table tbody tr:hover td {
-  background-color: rgba(var(--neon-green-rgb), 0.15) !important;
+  background-color: rgba(var(--neon-green-rgb), 0.15);
 }
 
 .neon-table tbody tr {
-  transition: background-color 0.3s ease !important;
-  background-color: transparent !important;
+  transition: background-color 0.3s ease;
+  background-color: transparent;
 }
 
-/* Specifické barvy pro jednotlivé buňky */
+/* Specifické barvy pro jednotlivé buňky - NO LAYOUT OVERRIDES */
 .neon-table .text-neon-yellow {
-  color: var(--neon-yellow) !important;
-  text-shadow: var(--neon-text-shadow) !important;
+  color: var(--neon-yellow);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .neon-table .text-neon-blue {
-  color: var(--neon-blue) !important;
-  text-shadow: var(--neon-text-shadow) !important;
+  color: var(--neon-blue);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .neon-table .text-neon-green {
-  color: var(--neon-green) !important;
-  text-shadow: var(--neon-text-shadow) !important;
+  color: var(--neon-green);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .neon-table .text-neon-purple {
-  color: var(--neon-purple) !important;
-  text-shadow: var(--neon-text-shadow) !important;
+  color: var(--neon-purple);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .neon-table .text-neon-orange {
-  color: var(--neon-orange) !important;
-  text-shadow: var(--neon-text-shadow) !important;
+  color: var(--neon-orange);
+  text-shadow: var(--neon-text-shadow);
 }
 
-/* Odstranění všech default Bootstrap table stylů */
+/* Odstranění všech default Bootstrap table stylů - NO LAYOUT OVERRIDES */
 .neon-table tbody tr:nth-child(odd) {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
 .neon-table tbody tr:nth-child(even) {
-  background-color: transparent !important;
+  background-color: transparent;
 }
 
-/* Override pro table-dark */
+/* Override pro table-dark - NO LAYOUT OVERRIDES */
 .table-dark th,
 .table-dark td,
 .table-dark thead th,
 .table-dark tbody tr {
-  background-color: transparent !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Chat input styly - neonové modré téma */
+/* Chat input styly - DISABLED LAYOUT OVERRIDES, ONLY COLORS */
+/* LAYOUT CONTROLLED BY BOOTSTRAP CLASSES IN HTML */
+/*
 #chatInput {
   background-color: #000 !important;
   border: 1px solid var(--neon-blue) !important;
@@ -202,8 +202,10 @@
   color: var(--neon-blue) !important;
   outline: none !important;
 }
+*/
 
-/* Send button neonové styly */
+/* Send button neonové styly - DISABLED LAYOUT OVERRIDES */
+/*
 #sendChatBtn {
   background-color: transparent !important;
   border: 1px solid var(--neon-blue) !important;
@@ -214,8 +216,10 @@
   background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
   box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.5) !important;
 }
+*/
 
-/* Bootstrap Card overrides pro neonové barvy */
+/* Bootstrap Card overrides - DISABLED, LAYOUT CONTROLLED BY BOOTSTRAP */
+/*
 .card.bg-black {
   background-color: #000 !important;
 }
@@ -235,8 +239,11 @@
 .card.bg-black .card-body span {
   color: inherit !important;
 }
+*/
 
-/* Bootstrap Typography responsive overrides */
+/* Bootstrap Typography responsive overrides - DISABLED */
+/* LAYOUT AND SIZING CONTROLLED BY BOOTSTRAP CLASSES */
+/*
 @media (max-width: 576px) {
   .h2.h-md-1 {
     font-size: 1.5rem !important;
@@ -246,3 +253,4 @@
     font-size: 1.1rem !important;
   }
 }
+*/
