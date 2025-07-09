@@ -5,6 +5,9 @@
 
 import gameState from '../game/gameState.js';
 import { createNeonButton, createDiceElement, createNeonCard } from './uiComponents.js';
+import { UI_CONSTANTS, NEON_COLORS } from '../utils/constants.js';
+import { CONSOLE_COLORS, CHAT_COLORS, pxToRem } from '../utils/colors.js';
+import { rollDie, rollDice, calculatePoints } from '../game/diceMechanics.js';
 
 /**
  * GameUI třída - Zajišťuje veškeré renderování herní plochy
@@ -317,16 +320,13 @@ export class GameUI {
     }
     
     /**
-     * Hodí kostky
+     * Hodí kostky - využívá diceMechanics modul místo vlastní implementace
      */
     rollDice() {
         console.log('Házení kostkami...');
         
-        // Generuje náhodný hod 6 kostkami (hodnoty 1-6)
-        const dice = [];
-        for (let i = 0; i < 6; i++) {
-            dice.push(Math.floor(Math.random() * 6) + 1);
-        }
+        // Využití importované funkce pro hod 6 kostkami
+        const dice = rollDice(6);
         
         // Aktualizuje herní stav
         gameState.updateState({
@@ -487,12 +487,11 @@ export class GameUI {
 
     /**
      * Vykreslí síň slávy - optimalizovaná pro všechny režimy zobrazení
+     * Odstraněny inline styly a nahrazeny Bootstrap třídami
      */
     renderHallOfFame() {
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100';
-        container.style.overflow = 'visible';
-        container.style.padding = '0.25rem';
+        container.className = 'd-flex flex-column h-100 overflow-visible p-1';
         
         // Nadpis - kompaktnější v landscape režimu
         const title = document.createElement('h1');
@@ -517,23 +516,24 @@ export class GameUI {
         table.className = 'table-responsive';
         
         // Optimalizace pro malé obrazovky - menší písmo, kompaktnější rozložení
+        // Odstraněny inline styly a nahrazeny Bootstrap nebo neon třídami
         table.innerHTML = `
-            <table class="table table-sm neon-table" style="background: transparent; color: inherit;">
+            <table class="table table-sm neon-table bg-transparent">
                 <thead>
-                    <tr style="border-bottom: 2px solid var(--neon-orange);">
-                        <th scope="col" class="text-center" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">#</th>
-                        <th scope="col" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">Jméno</th>
-                        <th scope="col" class="text-center" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">Skóre</th>
-                        <th scope="col" class="text-center d-none d-sm-table-cell" style="color: var(--neon-orange) !important; text-shadow: 0 0 10px var(--neon-orange); background: transparent;">Datum</th>
+                    <tr class="neon-orange-border-bottom">
+                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange bg-transparent">#</th>
+                        <th scope="col" class="text-neon-orange neon-text-shadow-orange bg-transparent">Jméno</th>
+                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange bg-transparent">Skóre</th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell text-neon-orange neon-text-shadow-orange bg-transparent">Datum</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${records.map((record, index) => `
-                        <tr style="background: transparent;">
-                            <th scope="row" class="text-center" style="color: var(--neon-yellow) !important; text-shadow: 0 0 10px var(--neon-yellow); background: transparent;">${index + 1}</th>
-                            <td style="color: var(--neon-blue) !important; text-shadow: 0 0 10px var(--neon-blue); background: transparent;">${record.name}</td>
-                            <td class="text-center" style="color: var(--neon-green) !important; text-shadow: 0 0 10px var(--neon-green); background: transparent;">${record.score}</td>
-                            <td class="text-center d-none d-sm-table-cell" style="color: var(--neon-purple) !important; text-shadow: 0 0 10px var(--neon-purple); background: transparent;">${record.date}</td>
+                        <tr class="bg-transparent">
+                            <th scope="row" class="text-center text-neon-yellow neon-text-shadow-yellow bg-transparent">${index + 1}</th>
+                            <td class="text-neon-blue neon-text-shadow-blue bg-transparent">${record.name}</td>
+                            <td class="text-center text-neon-green neon-text-shadow-green bg-transparent">${record.score}</td>
+                            <td class="text-center d-none d-sm-table-cell text-neon-purple neon-text-shadow-purple bg-transparent">${record.date}</td>
                         </tr>
                     `).join('')}
                 </tbody>
@@ -545,9 +545,7 @@ export class GameUI {
         
         // Tlačítko zpět - sticky na spodek, kompaktní design s overflow protection
         const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'mt-auto pt-2 d-flex justify-content-center';
-        buttonContainer.style.overflow = 'visible';
-        buttonContainer.style.padding = '0.5rem';
+        buttonContainer.className = 'mt-auto pt-2 d-flex justify-content-center overflow-visible p-2';
         
         const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
             () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2');
