@@ -71,8 +71,23 @@ class AIDiceGame {
                 const chatCol = document.querySelector('.col-12.col-sm-4');
                 if (gameCol && chatCol && gameCol.offsetHeight > 0 && chatCol.offsetHeight > 0) {
                     const ratio = Math.round(gameCol.offsetHeight / chatCol.offsetHeight * 100) / 100;
+                    const isGoodRatio = ratio >= 1.5;
+                    
+                    // CSS styly pro barevný výstup
+                    const successStyle = 'background: #222; color: #39ff14; font-weight: bold; padding: 3px 6px; border-radius: 3px;';
+                    const valueStyle = 'color: white; font-weight: bold;';
+                    const statusStyle = isGoodRatio 
+                        ? 'color: #39ff14; font-weight: bold;' 
+                        : 'color: #ffff00; font-weight: bold;';
+                    
                     console.log(
-                        `✅ BOOTSTRAP LAYOUT: Game:Chat = ${ratio} ${ratio >= 1.5 ? '(Optimální)' : '(Suboptimální)'}`
+                        '%c✅ BOOTSTRAP LAYOUT %c Game:Chat = %c%s %c%s',
+                        successStyle,
+                        'color: #aaa;',
+                        valueStyle,
+                        ratio,
+                        statusStyle,
+                        isGoodRatio ? '✓ OPTIMÁLNÍ' : '⚠ SUBOPTIMÁLNÍ'
                     );
                 }
             }, 500);
@@ -268,7 +283,11 @@ class AIDiceGame {
         // Po 3 sekundách už nepovažujeme změny za součást inicializace
         setTimeout(() => {
             isInitializing = false;
-            console.log('✅ DEBUG: Inicializační období dokončeno, dále budou hlášeny pouze neočekávané změny');
+            console.log(
+                '%c✅ DEBUG %c Inicializační období dokončeno, dále budou hlášeny pouze neočekávané změny',
+                'background: #222; color: #39ff14; font-weight: bold; padding: 3px 6px; border-radius: 3px;',
+                'color: #aaa;'
+            );
         }, 3000);
 
         const observer = new MutationObserver((mutations) => {
@@ -284,17 +303,35 @@ class AIDiceGame {
                     if (hasCriticalChange && (!isInitializing || changeCount < 3)) {
                         changeCount++;
                         if (mutation.attributeName === 'style') {
-                            console.warn('⚠️ ZMĚNA STYLE na #app - zkontrolujte layout!');
-                            console.log('Detail změny:', {
-                                old: mutation.oldValue,
-                                new: mutation.target.getAttribute('style')
-                            });
+                            console.warn(
+                                '%c⚠️ UPOZORNĚNÍ %c ZMĚNA STYLE na #app - zkontrolujte layout!',
+                                'background: #333; color: #ffff00; font-weight: bold; padding: 3px 6px; border-radius: 3px;',
+                                'color: #ffff00; font-weight: bold;'
+                            );
+                            console.log(
+                                '%cPůvodní:%c %s\n%cNový:%c %s',
+                                'color: #888;',
+                                'color: #ddd;',
+                                mutation.oldValue || 'none',
+                                'color: #888;',
+                                'color: #ddd;',
+                                mutation.target.getAttribute('style') || 'none'
+                            );
                         } else if (mutation.attributeName === 'class') {
-                            console.warn('⚠️ ZMĚNA CLASS na #app - zkontrolujte layout!');
-                            console.log('Detail změny:', {
-                                old: mutation.oldValue,
-                                new: mutation.target.className
-                            });
+                            console.warn(
+                                '%c⚠️ UPOZORNĚNÍ %c ZMĚNA CLASS na #app - zkontrolujte layout!',
+                                'background: #333; color: #ffff00; font-weight: bold; padding: 3px 6px; border-radius: 3px;',
+                                'color: #ffff00; font-weight: bold;'
+                            );
+                            console.log(
+                                '%cPůvodní:%c %s\n%cNový:%c %s',
+                                'color: #888;',
+                                'color: #ddd;',
+                                mutation.oldValue || 'none',
+                                'color: #888;',
+                                'color: #ddd;',
+                                mutation.target.className
+                            );
                         }
                         
                         this.debugAppHeight('PO NEOČEKÁVANÉ ZMĚNĚ ATRIBUTU');
@@ -365,6 +402,18 @@ class AIDiceGame {
         // Pokud jsou logy vypnuty, nepokračujeme
         if (!ENABLE_DEBUG_LOGS) return;
         
+        // CSS styly pro barevné rozlišení logů
+        const styles = {
+            title:    'background: #2a2a2a; color: #39ff14; font-weight: bold; padding: 2px 5px; border-radius: 3px;',
+            success:  'color: #39ff14; font-weight: bold;',
+            warning:  'color: #ffff00; font-weight: bold;',
+            error:    'color: #ff3131; font-weight: bold;',
+            info:     'color: #194DD1; font-weight: bold;',
+            label:    'color: #888; font-weight: normal;',
+            value:    'color: white; font-weight: bold;',
+            detail:   'color: #aaa; font-style: italic;'
+        };
+        
         // Neprovádíme plný debug pro každou drobnou změnu během inicializace
         const isFullDebug = 
             stage === 'PŘED inicializací' || 
@@ -372,8 +421,6 @@ class AIDiceGame {
             stage.includes('NEOČEKÁVANÉ');
             
         const app = document.getElementById('app');
-        const html = document.documentElement;
-        const body = document.body;
         const gameCol = document.querySelector('.col-12.col-sm-8');
         const chatCol = document.querySelector('.col-12.col-sm-4');
         
@@ -387,12 +434,22 @@ class AIDiceGame {
             // Pro základní kontrolu používáme jednoduché info
             if (gameCol && chatCol && gameCol.offsetHeight > 0 && chatCol.offsetHeight > 0) {
                 const ratio = Math.round(gameCol.offsetHeight / chatCol.offsetHeight * 100) / 100;
+                const isGoodRatio = ratio >= 1.5;
+                
                 console.log(
-                    `� Layout ${stage}: ${isMobile ? 'MOBILE' : 'DESKTOP'} ` +
-                    `${window.innerWidth}x${window.innerHeight}, ` +
-                    `Scroll: ${hasScroll ? 'YES' : 'NO'}, ` +
-                    `vh-100: ${hasVh100 ? 'YES' : 'NO'}, ` +
-                    `Game:Chat = ${ratio} ${ratio >= 1.5 ? '✅' : '⚠️'}`
+                    `%cLAYOUT ${stage}%c: ${isMobile ? 'MOBILE' : 'DESKTOP'} ` +
+                    `${window.innerWidth}x${window.innerHeight} | ` +
+                    `Scroll: ${hasScroll ? '%cYES' : '%cNO'}%c | ` +
+                    `vh-100: ${hasVh100 ? '%cYES' : '%cNO'}%c | ` +
+                    `Game:Chat = %c${ratio}%c ${isGoodRatio ? '✓ GOOD' : '⚠ SUB-OPTIMAL'}`,
+                    styles.title,
+                    styles.label,
+                    hasScroll ? styles.warning : styles.success,
+                    styles.label,
+                    hasVh100 ? styles.success : styles.error,
+                    styles.label,
+                    isGoodRatio ? styles.success : styles.warning,
+                    isGoodRatio ? styles.success : styles.warning
                 );
             }
             
@@ -400,36 +457,49 @@ class AIDiceGame {
         }
         
         // Plný debug log pouze pro důležité fáze
-        console.group(`�🔍 BOOTSTRAP LAYOUT DEBUG - ${stage}`);
+        console.group(`%cBOOTSTRAP LAYOUT DEBUG - ${stage}`, 'background: #111; color: #39ff14; font-weight: bold; padding: 3px 5px; border-radius: 3px;');
         
         // Základní viewport info
         const isMobile = window.innerWidth <= 575.98;
-        console.log('📱 Viewport:', window.innerWidth, 'x', window.innerHeight, isMobile ? '(MOBILE)' : '(DESKTOP)');
-        console.log('📏 Document scroll height:', document.documentElement.scrollHeight);
-        console.log('🔄 Has vertical scroll:', document.documentElement.scrollHeight > window.innerHeight ? 'YES' : 'NO');
+        console.log(
+            `%c📱 Viewport:%c ${window.innerWidth} × ${window.innerHeight} %c${isMobile ? 'MOBILE' : 'DESKTOP'}`,
+            styles.info, styles.value, isMobile ? styles.warning : styles.info
+        );
+        
+        const hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+        console.log(
+            `%c📏 Document height:%c ${document.documentElement.scrollHeight}px %c${hasScroll ? '(has scroll)' : '(no scroll)'}`,
+            styles.info, styles.value, hasScroll ? styles.warning : styles.success
+        );
         
         // App container info
         if (app) {
-            console.log('📦 #app container:');
-            console.log('  - Bootstrap classes:', app.className);
-            console.log('  - Computed height:', window.getComputedStyle(app).height);
-            console.log('  - Offset height:', app.offsetHeight, 'px');
-            console.log('  - Has vh-100:', app.classList.contains('vh-100') ? 'YES' : 'NO');
-            console.log('  - Has overflow-hidden:', app.classList.contains('overflow-hidden') ? 'YES' : 'NO');
+            const hasVh100 = app.classList.contains('vh-100');
+            const hasOverflowHidden = app.classList.contains('overflow-hidden');
+            
+            console.log('%c📦 App Container:', styles.info);
+            console.log(`  %cHeight:%c ${app.offsetHeight}px (${window.getComputedStyle(app).height})`, styles.label, styles.value);
+            console.log(`  %cClasses:%c ${hasVh100 ? '%c✓' : '%c⚠'} vh-100 | ${hasOverflowHidden ? '%c✓' : '%c⚠'} overflow-hidden`,
+                styles.label, styles.label, 
+                hasVh100 ? styles.success : styles.error,
+                hasOverflowHidden ? styles.success : styles.error
+            );
         }
         
         // Columns ratio and heights
         if (gameCol && chatCol) {
-            console.log('📊 Game column (col-sm-8):');
-            console.log('  - Height:', gameCol.offsetHeight, 'px');
-            console.log('  - Bootstrap classes:', gameCol.className);
+            const gameHeight = gameCol.offsetHeight;
+            const chatHeight = chatCol.offsetHeight;
+            const ratio = Math.round(gameHeight / Math.max(chatHeight, 1) * 100) / 100;
+            const isGoodRatio = ratio >= 1.5;
             
-            console.log('📊 Chat column (col-sm-4):');
-            console.log('  - Height:', chatCol.offsetHeight, 'px');
-            console.log('  - Bootstrap classes:', chatCol.className);
-            
-            const ratio = Math.round(gameCol.offsetHeight / chatCol.offsetHeight * 100) / 100;
-            console.log('📊 Game:Chat ratio =', ratio, ratio >= 1.5 ? '(GOOD)' : '(BAD - should be ~2:1)');
+            console.log('%c📊 Column Heights:', styles.info);
+            console.log(`  %cGame:%c ${gameHeight}px | %cChat:%c ${chatHeight}px | %cRatio:%c ${ratio} ${isGoodRatio ? '%c✓ OPTIMAL' : '%c⚠ SUB-OPTIMAL'}`,
+                styles.label, styles.value, 
+                styles.label, styles.value,
+                styles.label, styles.value,
+                isGoodRatio ? styles.success : styles.warning
+            );
         }
         
         console.groupEnd();
