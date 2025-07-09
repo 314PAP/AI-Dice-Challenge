@@ -12,7 +12,8 @@
 /* 1. Proměnné a základní nastavení */
 @import './variables/neon-colors.css';
 
-/* 2. Bootstrap overrides - DISABLED */
+/* 2. Bootstrap overrides - přepsání Bootstrap barev neonovými */
+@import './overrides/bootstrap-colors-override.css';
 
 /* 3. Utility třídy a rozšíření Bootstrapu */
 @import './utils/neon-utilities.css';

@@ -1,0 +1,187 @@
+/* ===================================================================
+   BOOTSTRAP BAREVNÉ PŘEPISY
+   
+   Tento soubor přepisuje Bootstrap barevné třídy, aby měly naše neonové
+   barvy vždy přednost. Používá stejné třídy jako Bootstrap, ale s vyšší
+   prioritou díky !important nebo specifičnosti selektoru.
+   ================================================================= */
+
+/* Text barevné třídy */
+.text-primary {
+  color: var(--neon-blue) !important;
+}
+
+.text-secondary {
+  color: var(--neon-purple) !important;
+}
+
+.text-success {
+  color: var(--neon-green) !important;
+}
+
+.text-info {
+  color: var(--neon-cyan) !important;
+}
+
+.text-warning {
+  color: var(--neon-yellow) !important;
+}
+
+.text-danger {
+  color: var(--neon-red) !important;
+}
+
+.text-light {
+  color: var(--neon-white) !important;
+}
+
+.text-dark {
+  color: var(--neon-text-white) !important;
+}
+
+/* Pozadí barevné třídy */
+.bg-primary {
+  background-color: var(--neon-blue) !important;
+}
+
+.bg-secondary {
+  background-color: var(--neon-purple) !important;
+}
+
+.bg-success {
+  background-color: var(--neon-green) !important;
+}
+
+.bg-info {
+  background-color: var(--neon-cyan) !important;
+}
+
+.bg-warning {
+  background-color: var(--neon-yellow) !important;
+}
+
+.bg-danger {
+  background-color: var(--neon-red) !important;
+}
+
+.bg-light {
+  background-color: var(--neon-gray-light) !important;
+}
+
+.bg-dark {
+  background-color: var(--neon-black) !important;
+}
+
+/* Border barevné třídy */
+.border-primary {
+  border-color: var(--neon-blue) !important;
+}
+
+.border-secondary {
+  border-color: var(--neon-purple) !important;
+}
+
+.border-success {
+  border-color: var(--neon-green) !important;
+}
+
+.border-info {
+  border-color: var(--neon-cyan) !important;
+}
+
+.border-warning {
+  border-color: var(--neon-yellow) !important;
+}
+
+.border-danger {
+  border-color: var(--neon-red) !important;
+}
+
+.border-light {
+  border-color: var(--neon-gray-light) !important;
+}
+
+.border-dark {
+  border-color: var(--neon-black) !important;
+}
+
+/* Button barevné třídy */
+.btn-primary {
+  background-color: var(--neon-blue) !important;
+  border-color: var(--neon-blue) !important;
+}
+
+.btn-secondary {
+  background-color: var(--neon-purple) !important;
+  border-color: var(--neon-purple) !important;
+}
+
+.btn-success {
+  background-color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+}
+
+.btn-info {
+  background-color: var(--neon-cyan) !important;
+  border-color: var(--neon-cyan) !important;
+}
+
+.btn-warning {
+  background-color: var(--neon-yellow) !important;
+  border-color: var(--neon-yellow) !important;
+}
+
+.btn-danger {
+  background-color: var(--neon-red) !important;
+  border-color: var(--neon-red) !important;
+}
+
+/* Link barevné třídy */
+.link-primary {
+  color: var(--neon-blue) !important;
+}
+
+.link-secondary {
+  color: var(--neon-purple) !important;
+}
+
+.link-success {
+  color: var(--neon-green) !important;
+}
+
+.link-info {
+  color: var(--neon-cyan) !important;
+}
+
+.link-warning {
+  color: var(--neon-yellow) !important;
+}
+
+.link-danger {
+  color: var(--neon-red) !important;
+}
+
+/* Badge barevné třídy */
+.badge.bg-primary {
+  background-color: var(--neon-blue) !important;
+}
+
+.badge.bg-secondary {
+  background-color: var(--neon-purple) !important;
+}
+
+.badge.bg-success {
+  background-color: var(--neon-green) !important;
+}
+
+.badge.bg-info {
+  background-color: var(--neon-cyan) !important;
+}
+
+.badge.bg-warning {
+  background-color: var(--neon-yellow) !important;
+}
+
+.badge.bg-danger {
+  background-color: var(--neon-red) !important;
+}
