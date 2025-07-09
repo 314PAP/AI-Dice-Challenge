@@ -30,6 +30,9 @@
   --neon-glow-strong: 0 0 30px currentColor, 0 0 40px currentColor;
   --neon-text-shadow: 0 0 10px currentColor;
   
+  /* Neonový stín */
+  --neon-shadow-blur: 0.625rem; /* 10px převedené na rem */
+  
   /* Border widths pro neonové ohraničení */
   --border-neon-thin: 1px;
   --border-neon-medium: 2px;

@@ -27,7 +27,15 @@ export const UI_CONSTANTS = {
     AI_RESPONSE_DELAY: 1000,
     AI_RESPONSE_MIN_DELAY: 800,  // Minimální zpoždění AI odpovědi v ms
     AI_RESPONSE_RANDOM_DELAY: 1200,  // Náhodné dodatečné zpoždění v ms
-    SCROLL_THRESHOLD: 50  // Threshold pro auto-scrollování chatu v px
+    SCROLL_THRESHOLD: 50,  // Threshold pro auto-scrollování chatu v px
+    NEON_SHADOW_BLUR: 0.625  // 10px převedené na rem (10/16)
+};
+
+// Z-indexy pro elementy
+export const Z_INDEXES = {
+    MODAL: 1050,
+    DROPDOWN: 1000,
+    TOOLTIP: 1070
 };
 
 // Konstanty pro chat

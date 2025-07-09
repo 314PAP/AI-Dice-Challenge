@@ -254,3 +254,28 @@
   }
 }
 */
+
+/* Neonové stíny pro různé barvy s použitím CSS proměnných */
+.text-shadow-neon-green {
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-green);
+}
+
+.text-shadow-neon-blue {
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-blue);
+}
+
+.text-shadow-neon-yellow {
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-yellow);
+}
+
+.text-shadow-neon-orange {
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-orange);
+}
+
+.text-shadow-neon-purple {
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-purple);
+}
+
+.text-shadow-neon-red {
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-red);
+}
