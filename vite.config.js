@@ -17,6 +17,8 @@ export default defineConfig({
         'cleanup_archive/**',
         'backup_*/**',
         'node_modules/**'
+        
+
       ]
     }
   }
