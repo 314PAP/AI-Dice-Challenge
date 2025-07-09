@@ -46,7 +46,7 @@ class AIDiceGame {
             // 🔍 DEBUG: Kontrola výšek před inicializací
             this.debugAppHeight('PŘED inicializací');
             
-            // 🔍 DEBUG: Nastavení MutationObserver
+            // 🔍 DEBUG: Nastavení MutationObserver pro sledování kritických změn
             this.setupMutationObserver();
             
             this.hideLoadingScreen();
@@ -64,6 +64,18 @@ class AIDiceGame {
             
             // 🔍 DEBUG: Finální kontrola výšek
             this.debugAppHeight('FINÁLNĚ');
+            
+            // Po úspěšné inicializaci vypíšeme stav layoutu
+            setTimeout(() => {
+                const gameCol = document.querySelector('.col-12.col-sm-8');
+                const chatCol = document.querySelector('.col-12.col-sm-4');
+                if (gameCol && chatCol && gameCol.offsetHeight > 0 && chatCol.offsetHeight > 0) {
+                    const ratio = Math.round(gameCol.offsetHeight / chatCol.offsetHeight * 100) / 100;
+                    console.log(
+                        `✅ BOOTSTRAP LAYOUT: Game:Chat = ${ratio} ${ratio >= 1.5 ? '(Optimální)' : '(Suboptimální)'}`
+                    );
+                }
+            }, 500);
             
         } catch (error) {
             console.error('❌ App init failed:', error);
@@ -92,17 +104,18 @@ class AIDiceGame {
             const loadingScreen = document.getElementById('loadingScreen');
             const app = document.getElementById('app');
             
-            // 🔍 DEBUG: Před skrytím loading screen
-            console.log('🔍 PŘED skrytím loading screen - app classes:', app?.className);
-            
             if (loadingScreen && app) {
+                // Uložení původních tříd pro možné debugování
+                const originalClasses = app.className;
+                
                 loadingScreen.classList.add('animate__animated', 'animate__fadeOut');
                 app.classList.remove('d-none');
                 app.classList.add('animate__animated', 'animate__fadeIn');
                 
-                // 🔍 DEBUG: Po změně tříd
-                console.log('🔍 PO změně tříd - app classes:', app.className);
-                this.debugAppHeight('PO změně visibility tříd');
+                // 🔍 DEBUG: Kontrola změn tříd - pouze pokud je skutečný rozdíl
+                if (originalClasses !== app.className) {
+                    this.debugAppHeight('PO změně visibility tříd');
+                }
                 
                 setTimeout(() => loadingScreen.remove(), 800);
             }
@@ -246,20 +259,45 @@ class AIDiceGame {
     setupMutationObserver() {
         const app = document.getElementById('app');
         if (!app) return;
+        
+        // Počítadlo změn - použijeme pro omezení logu jen na důležité změny
+        let changeCount = 0;
+        // Příznak pro sledování očekávaných změn při inicializaci
+        let isInitializing = true;
+        
+        // Po 3 sekundách už nepovažujeme změny za součást inicializace
+        setTimeout(() => {
+            isInitializing = false;
+            console.log('✅ DEBUG: Inicializační období dokončeno, dále budou hlášeny pouze neočekávané změny');
+        }, 3000);
 
         const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 if (mutation.type === 'attributes') {
-                    if (mutation.attributeName === 'style') {
-                        console.warn('🚨 DETEKOVÁNA ZMĚNA STYLE na #app!');
-                        console.log('Starý style:', mutation.oldValue);
-                        console.log('Nový style:', mutation.target.getAttribute('style'));
-                        this.debugAppHeight('PO ZMĚNĚ STYLE ATRIBUTU');
-                    } else if (mutation.attributeName === 'class') {
-                        console.warn('🚨 DETEKOVÁNA ZMĚNA CLASS na #app!');
-                        console.log('Starý class:', mutation.oldValue);
-                        console.log('Nový class:', mutation.target.className);
-                        this.debugAppHeight('PO ZMĚNĚ CLASS ATRIBUTU');
+                    // Kontrola kritických změn
+                    const hasCriticalChange = this.checkForCriticalChanges(mutation);
+                    
+                    // Logujeme pouze pokud:
+                    // 1. Došlo ke kritické změně (ztráta důležitých tříd)
+                    // 2. Nejsme v inicializační fázi
+                    // 3. Maximálně 3 logy pro každý typ (zabránění spamu)
+                    if (hasCriticalChange && (!isInitializing || changeCount < 3)) {
+                        changeCount++;
+                        if (mutation.attributeName === 'style') {
+                            console.warn('⚠️ ZMĚNA STYLE na #app - zkontrolujte layout!');
+                            console.log('Detail změny:', {
+                                old: mutation.oldValue,
+                                new: mutation.target.getAttribute('style')
+                            });
+                        } else if (mutation.attributeName === 'class') {
+                            console.warn('⚠️ ZMĚNA CLASS na #app - zkontrolujte layout!');
+                            console.log('Detail změny:', {
+                                old: mutation.oldValue,
+                                new: mutation.target.className
+                            });
+                        }
+                        
+                        this.debugAppHeight('PO NEOČEKÁVANÉ ZMĚNĚ ATRIBUTU');
                     }
                 }
             });
@@ -271,20 +309,98 @@ class AIDiceGame {
             attributeFilter: ['style', 'class']
         });
 
-        console.log('🔍 MutationObserver nastaven pro sledování změn #app');
+        console.log('🔍 MutationObserver nastaven pro sledování kritických změn layoutu');
+    }
+    
+    /**
+     * Kontroluje, zda došlo k důležitým změnám v atributech
+     * @param {MutationRecord} mutation - Záznam o změně
+     * @returns {boolean} - True pokud došlo k důležité změně, jinak False
+     */
+    checkForCriticalChanges(mutation) {
+        // Kontrola změny class atributu
+        if (mutation.attributeName === 'class') {
+            const oldClasses = mutation.oldValue ? mutation.oldValue.split(' ') : [];
+            const newClasses = mutation.target.className.split(' ');
+            
+            // Sledujeme pouze ztrátu důležitých tříd (vh-100, overflow-hidden)
+            const criticalClasses = ['vh-100', 'overflow-hidden'];
+            
+            // Kontrola, zda byla odstraněna některá kritická třída
+            const lostCriticalClass = criticalClasses.some(cls => 
+                oldClasses.includes(cls) && !newClasses.includes(cls)
+            );
+            
+            // Ignorujeme očekávané změny (např. odstranění d-none při inicializaci)
+            const isExpectedChange = 
+                (oldClasses.includes('d-none') && !newClasses.includes('d-none')) ||
+                (!oldClasses.includes('animate__fadeIn') && newClasses.includes('animate__fadeIn'));
+                
+            return lostCriticalClass && !isExpectedChange;
+        }
+        
+        // Kontrola změny style atributu - vždy považujeme za kritickou
+        if (mutation.attributeName === 'style') {
+            const oldStyle = mutation.oldValue || '';
+            const newStyle = mutation.target.getAttribute('style') || '';
+            
+            // Pokud došlo k přidání/změně stylu, který ovlivňuje layout
+            return newStyle !== oldStyle && 
+                   (newStyle.includes('height') || 
+                    newStyle.includes('width') || 
+                    newStyle.includes('margin') ||
+                    newStyle.includes('overflow'));
+        }
+        
+        return false;
     }
 
     /**
      * 🔍 DEBUG: Funkce pro kontrolu Bootstrap layoutu
      */
     debugAppHeight(stage) {
+        // DEBUG přepínač - nastavte na false pro vypnutí všech debug logů
+        const ENABLE_DEBUG_LOGS = true;
+        
+        // Pokud jsou logy vypnuty, nepokračujeme
+        if (!ENABLE_DEBUG_LOGS) return;
+        
+        // Neprovádíme plný debug pro každou drobnou změnu během inicializace
+        const isFullDebug = 
+            stage === 'PŘED inicializací' || 
+            stage === 'FINÁLNĚ' || 
+            stage.includes('NEOČEKÁVANÉ');
+            
         const app = document.getElementById('app');
         const html = document.documentElement;
         const body = document.body;
         const gameCol = document.querySelector('.col-12.col-sm-8');
         const chatCol = document.querySelector('.col-12.col-sm-4');
         
-        console.group(`🔍 BOOTSTRAP LAYOUT DEBUG - ${stage}`);
+        // Pro běžné informace používáme jen krátký log bez console.group
+        if (!isFullDebug) {
+            const isMobile = window.innerWidth <= 575.98;
+            const hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+            const hasVh100 = app?.classList.contains('vh-100');
+            const hasOverflowHidden = app?.classList.contains('overflow-hidden');
+            
+            // Pro základní kontrolu používáme jednoduché info
+            if (gameCol && chatCol && gameCol.offsetHeight > 0 && chatCol.offsetHeight > 0) {
+                const ratio = Math.round(gameCol.offsetHeight / chatCol.offsetHeight * 100) / 100;
+                console.log(
+                    `� Layout ${stage}: ${isMobile ? 'MOBILE' : 'DESKTOP'} ` +
+                    `${window.innerWidth}x${window.innerHeight}, ` +
+                    `Scroll: ${hasScroll ? 'YES' : 'NO'}, ` +
+                    `vh-100: ${hasVh100 ? 'YES' : 'NO'}, ` +
+                    `Game:Chat = ${ratio} ${ratio >= 1.5 ? '✅' : '⚠️'}`
+                );
+            }
+            
+            return;
+        }
+        
+        // Plný debug log pouze pro důležité fáze
+        console.group(`�🔍 BOOTSTRAP LAYOUT DEBUG - ${stage}`);
         
         // Základní viewport info
         const isMobile = window.innerWidth <= 575.98;
@@ -304,11 +420,11 @@ class AIDiceGame {
         
         // Columns ratio and heights
         if (gameCol && chatCol) {
-            console.log('� Game column (col-sm-8):');
+            console.log('📊 Game column (col-sm-8):');
             console.log('  - Height:', gameCol.offsetHeight, 'px');
             console.log('  - Bootstrap classes:', gameCol.className);
             
-            console.log('� Chat column (col-sm-4):');
+            console.log('📊 Chat column (col-sm-4):');
             console.log('  - Height:', chatCol.offsetHeight, 'px');
             console.log('  - Bootstrap classes:', chatCol.className);
             
