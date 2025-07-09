@@ -1,0 +1,37 @@
+/* Emergency layout fix for mobile viewport issues */
+
+/* Viewport height constraints */
+.vh-100-mobile {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+/* Minimal mobile padding */
+@media (max-width: 575.98px) {
+    .p-mobile-minimal {
+        padding: 0.25rem !important;
+    }
+    
+    .mb-mobile-minimal {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* Force columns to be contained within viewport on mobile */
+    .mobile-stack-constrained {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+}
+
+/* Ensure flexbox children don't expand beyond container */
+.flex-constrained {
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.flex-constrained > .flex-grow-1 {
+    min-height: 0;
+    overflow: auto;
+}

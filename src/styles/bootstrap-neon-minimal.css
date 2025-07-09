@@ -1,0 +1,74 @@
+/* ===================================================================
+   BOOTSTRAP-ENHANCED NEON CSS - MINIMÁLNÍ OVERRIDE
+   
+   Používá maximálně Bootstrap utility třídy a přidává pouze nezbytné
+   neonové barvy jako CSS proměnné pro custom komponenty
+   ================================================================= */
+
+:root {
+  /* Neonové barvy - pouze jako CSS variables pro JS/custom třídy */
+  --neon-green: #39ff14;
+  --neon-blue: #194DD1;
+  --neon-purple: #FF00FF;
+  --neon-orange: #FF8800;
+  --neon-red: #ff3131;
+  --neon-yellow: #ffff00;
+  --neon-cyan: #00FFFF;
+  --neon-black: #000000;
+}
+
+/* Bootstrap color extensions - využívá Bootstrap infrastrukturu */
+.text-neon-green { color: var(--neon-green) !important; }
+.text-neon-blue { color: var(--neon-blue) !important; }
+.text-neon-purple { color: var(--neon-purple) !important; }
+.text-neon-orange { color: var(--neon-orange) !important; }
+.text-neon-red { color: var(--neon-red) !important; }
+.text-neon-yellow { color: var(--neon-yellow) !important; }
+.text-neon-cyan { color: var(--neon-cyan) !important; }
+
+.border-neon-green { border-color: var(--neon-green) !important; }
+.border-neon-blue { border-color: var(--neon-blue) !important; }
+.border-neon-purple { border-color: var(--neon-purple) !important; }
+.border-neon-orange { border-color: var(--neon-orange) !important; }
+.border-neon-red { border-color: var(--neon-red) !important; }
+.border-neon-yellow { border-color: var(--neon-yellow) !important; }
+.border-neon-cyan { border-color: var(--neon-cyan) !important; }
+
+/* Neonové glow efekty - pouze kde je potřeba */
+.neon-glow-green {
+  text-shadow: 0 0 5px var(--neon-green), 0 0 10px var(--neon-green);
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.neon-glow-blue {
+  text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
+}
+
+/* Font loading - použije Bootstrap font stack jako fallback */
+body {
+  font-family: 'Orbitron', system-ui, -apple-system, sans-serif;
+}
+
+/* Z-index pro overlay - kompatibilní s Bootstrap */
+.z-overlay {
+  z-index: 1055; /* Bootstrap modal + 10 */
+}
+
+/* Scrollbar styling - pouze kde je nutné */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+}

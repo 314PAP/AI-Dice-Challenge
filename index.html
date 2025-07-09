@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎲 AI Dice Challenge - Neonová kostková výzva</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>" type="image/svg+xml">
+    <title>🎲 AI Dice Challenge</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,100 +11,75 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Animate.css -->
-    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
-    
-    <!-- SweetAlert2 pro notifikace -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
-    
-    <!-- Centrální CSS soubor - importuje všechny moduly -->
-    <link rel="stylesheet" href="/src/styles/main.css">
+    <!-- Minimální CSS pro mobilní výšky (z funkční verze) -->
+    <style>
+    @media (max-width: 575.98px) {
+        .mobile-game-height { height: 60vh !important; }
+        .mobile-chat-height { height: 40vh !important; }
+    }
+    </style>
 </head>
-<body class="bg-black text-neon-green">
+<body class="h-100 bg-black text-white">
     
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center loading-z-index">
+    <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black text-white d-flex justify-content-center align-items-center">
         <div class="text-center">
-            <div class="spinner-border text-neon-green mb-3" role="status">
+            <div class="spinner-border text-white mb-3" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-            <h4 class="text-neon-green animate__animated animate__flash">
-                <i class="bi bi-dice-6-fill text-neon-green"></i> AI Dice Challenge - Neonová kostková výzva
+            <h4 class="text-white">
+                🎲 AI Dice Challenge
             </h4>
         </div>
     </div>
     
-    <!-- Main Application Container - Bootstrap-first Responsive Layout -->
-    <div id="app" class="min-vh-100 w-100 d-none">
-        
-        <!-- Bootstrap Grid - Strict responsive design -->
-        <div class="container-fluid min-vh-100 p-0">
-            <div class="row g-0 min-vh-100">
-                
-                <!-- Game Area Column - Mobile: stacked, Desktop: 8/12 width -->
-                <div class="col-12 col-lg-8 order-1 order-lg-1">
-                    <div class="d-flex flex-column p-2 p-md-3 flex-lg-fill">
-                        <div class="flex-grow-1 border-wide-neon-green rounded-3 p-2 p-md-3 d-flex flex-column bg-black position-relative overflow-hidden">
-                            <div id="gameArea" class="flex-grow-1 d-flex flex-column overflow-auto"></div>
-                        </div>
+    <!-- FUNKČNÍ VERZE Z HISTORIE - Bootstrap-First Layout -->
+    <div id="app" class="container-fluid d-flex flex-column p-2 d-none vh-100 overflow-hidden">
+        <div class="row g-1 flex-fill">
+            
+            <!-- Game Area - Mobile: 60vh, Desktop: col-sm-8 (2/3) -->
+            <div class="col-12 col-sm-8 d-flex flex-column p-1 mobile-game-height">
+                <div class="flex-fill bg-white text-black border border-dark rounded p-2 d-flex flex-column">
+                    
+                    <div class="text-center mb-2">
+                        <h5>🎲 Cílové skóre: 10000</h5>
                     </div>
-                </div>
-                
-                <!-- Chat Area Column - Mobile: stacked, Desktop: 4/12 width -->
-                <div class="col-12 col-lg-4 order-2 order-lg-2">
-                    <div class="d-flex flex-column p-2 p-md-3 flex-lg-fill">
-                        <div class="flex-grow-1 border-wide-neon-blue rounded-3 p-2 p-md-3 d-flex flex-column bg-black position-relative overflow-hidden">
-                            
-                            <!-- Chat Header - Fixed -->
-                            <div class="flex-shrink-0 mb-2 mb-md-3">
-                                <h5 class="text-neon-blue text-center mb-0 d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-chat-dots-fill me-2"></i>
-                                    <span class="d-none d-md-inline">AI Chat</span>
-                                    <span class="d-md-none">Chat</span>
-                                </h5>
-                            </div>
-                            
-                            <!-- Chat Messages - Expandable with safe overflow -->
-                            <div id="chatMessages" class="flex-grow-1 overflow-auto mb-2 mb-md-3 p-2 bg-black rounded-2 border border-neon-blue position-relative"></div>
-                            
-                            <!-- Chat Input - Fixed at bottom with constrained width -->
-                            <div class="flex-shrink-0">
-                                <div class="input-group" style="max-width: 100%;">
-                                    <input type="text" id="chatInput" 
-                                           class="form-control bg-black text-neon-blue border-neon-blue flex-grow-1" 
-                                           placeholder="Zpráva AI..." 
-                                           autocomplete="off" 
-                                           style="min-width: 0;">
-                                    <button id="sendChatBtn" 
-                                            class="btn btn-neon flex-shrink-0 px-2 px-md-3" 
-                                            data-neon-color="blue"
-                                            style="max-width: 60px;">
-                                        <i class="bi bi-send-fill"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                        </div>
+                    
+                    <div id="gameArea" class="flex-fill overflow-auto bg-light border rounded p-2">
+                        <p>Game content area</p>
+                        <p>Scrollable content</p>
                     </div>
+                    
                 </div>
-                
             </div>
+            
+            <!-- Chat Area - Mobile: 40vh, Desktop: col-sm-4 (1/3) -->
+            <div class="col-12 col-sm-4 d-flex flex-column p-1 mobile-chat-height">
+                <div class="flex-fill bg-white text-black border border-dark rounded p-2 d-flex flex-column">
+                    
+                    <div class="text-center mb-2">
+                        <h6>💬 AI Chat</h6>
+                    </div>
+                    
+                    <div id="chatMessages" class="flex-fill overflow-auto bg-light border rounded p-2 mb-2">
+                        <p>Chat messages...</p>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="chatInput" class="form-control" placeholder="Zpráva...">
+                        <button id="sendChatBtn" class="btn btn-outline-dark">▶</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
-    
-    <!-- Lodash utility library -->
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    
-    <!-- Main Application - Modular Structure -->
+    <!-- Main Application -->
     <script type="module" src="/src/main.js"></script>
 </body>
 </html>
