@@ -1,0 +1,16 @@
+/* ===================================================================
+   MOBILNÍ RESPONZIVNÍ STYLY
+   
+   Specifické styly pro mobilní zařízení a responzivní chování aplikace
+   ================================================================= */
+
+/* Výškové nastavení pro mobilní zařízení */
+@media (max-width: 575.98px) {
+  .mobile-game-height {
+    height: 55vh !important;
+  }
+  
+  .mobile-chat-height {
+    height: 35vh !important;
+  }
+}

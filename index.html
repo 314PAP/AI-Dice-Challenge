@@ -23,25 +23,8 @@
     <!-- SweetAlert2 pro notifikace -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
     
-    <!-- Minimal responsive CSS for mobile heights only -->
-    <style>
-    @media (max-width: 575.98px) {
-        .mobile-game-height { height: 55vh !important; }
-        .mobile-chat-height { height: 35vh !important; }
-    }
-    
-    /* Bootstrap-compatible input focus styling - neon style */
-    .form-control:focus {
-        border-color: var(--neon-blue) !important; /* Neonová modrá místo šedé */
-        box-shadow: 0 0 10px rgba(25, 77, 209, 0.5) !important; /* Neonový efekt */
-    }
-    
-    /* Chat input placeholder styling - neon style */
-    #chatInput::placeholder {
-        color: rgba(25, 77, 209, 0.7) !important; /* Průhledná neonová modrá */
-        opacity: 1;
-    }
-    </style>
+    <!-- Všechny styly jsou nyní v externích CSS souborech -->
+    <!-- Viz: src/styles/responsive-heights.css a src/styles/forms/neon-forms.css -->
     
     <!-- ✅ NEONOVÉ CSS STYLY PŘIPOJENY -->
     <link rel="stylesheet" href="/src/styles/main.css">

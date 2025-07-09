@@ -1,0 +1,42 @@
+/* ===================================================================
+   NEONOVÉ FORMULÁŘOVÉ PRVKY
+   
+   Úpravy Bootstrap formulářových prvků pro neonový vzhled
+   ================================================================= */
+
+@import './variables/neon-colors.css';
+
+/* Bootstrap-compatible input focus styling - neon style */
+.form-control:focus {
+  border-color: var(--neon-blue) !important; /* Neonová modrá místo šedé */
+  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb), 0.5) !important; /* Neonový efekt */
+}
+
+/* Chat input placeholder styling - neon style */
+#chatInput::placeholder {
+  color: rgba(var(--neon-blue-rgb), 0.7) !important; /* Průhledná neonová modrá */
+  opacity: 1;
+}
+
+/* Obecný placeholder styling pro všechny formulářové prvky */
+.form-control::placeholder {
+  color: rgba(var(--neon-blue-rgb), 0.5) !important;
+  opacity: 1;
+}
+
+/* Hover efekty pro formulářové prvky */
+.form-control:hover {
+  border-color: var(--neon-blue) !important;
+}
+
+/* Active efekty */
+.form-control:active {
+  border-color: var(--neon-blue) !important;
+}
+
+/* Disabled styly */
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: rgba(var(--neon-black-rgb), 0.8) !important;
+  border-color: rgba(var(--neon-blue-rgb), 0.3) !important;
+}
