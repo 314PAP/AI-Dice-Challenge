@@ -15,9 +15,9 @@
 .dice {
   width: 3.75rem; /* 60px at 16px base */
   height: 3.75rem;
-  background-color: var(--neon-dark-gray);
-  border: 0.125rem solid var(--neon-green); /* 2px */
-  box-shadow: 0 0 0.625rem var(--neon-green); /* 10px */
+  background-color: var(--neon-dark-gray) !important;
+  border: 0.125rem solid var(--neon-green) !important; /* 2px */
+  box-shadow: 0 0 0.625rem var(--neon-green) !important; /* 10px */
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -89,15 +89,15 @@
 
 /* Vybraná kostka - zvýrazněná */
 .dice.selected {
-  border-color: var(--neon-yellow);
-  box-shadow: 0 0 0.9375rem var(--neon-yellow); /* 15px */
-  transform: translateY(-0.3125rem); /* -5px */
+  border-color: var(--neon-yellow) !important;
+  box-shadow: 0 0 0.9375rem var(--neon-yellow) !important; /* 15px */
+  transform: translateY(-0.3125rem) !important; /* -5px */
 }
 
 /* Efekt při najetí myší */
 .dice:hover:not(.selected) {
-  border-color: rgba(var(--neon-green-rgb), 0.8);
-  transform: scale(1.05);
+  border-color: rgba(var(--neon-green-rgb), 0.8) !important;
+  transform: scale(1.05) !important;
 }
 
 /* Animace házení kostkou */
@@ -119,9 +119,9 @@
   position: absolute;
   width: 25%;
   height: 25%;
-  background-color: var(--neon-green);
+  background-color: var(--neon-green) !important;
   border-radius: 50%;
-  box-shadow: 0 0 0.3125rem var(--neon-green); /* 5px */
+  box-shadow: 0 0 0.3125rem var(--neon-green) !important; /* 5px */
 }
 
 /* Responzivní velikost teček */

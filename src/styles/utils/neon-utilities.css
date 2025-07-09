@@ -9,33 +9,33 @@
 
 /* Neonové textové barvy - rozšiřující Bootstrap text-* utility */
 .text-neon-green {
-  color: var(--neon-green);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-green) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-blue {
-  color: var(--neon-blue);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-blue) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-purple {
-  color: var(--neon-purple);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-purple) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-orange {
-  color: var(--neon-orange);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-orange) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-red {
-  color: var(--neon-red);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-red) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-yellow {
-  color: var(--neon-yellow);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-yellow) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 /* Neonové border utility - rozšíření Bootstrap border-* utility */
@@ -139,28 +139,28 @@
 
 /* Specifické barvy pro jednotlivé buňky - NO LAYOUT OVERRIDES */
 .neon-table .text-neon-yellow {
-  color: var(--neon-yellow);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-yellow) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .neon-table .text-neon-blue {
-  color: var(--neon-blue);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-blue) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .neon-table .text-neon-green {
-  color: var(--neon-green);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-green) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .neon-table .text-neon-purple {
-  color: var(--neon-purple);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-purple) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 .neon-table .text-neon-orange {
-  color: var(--neon-orange);
-  text-shadow: var(--neon-text-shadow);
+  color: var(--neon-orange) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 /* Odstranění všech default Bootstrap table stylů - NO LAYOUT OVERRIDES */
@@ -257,25 +257,25 @@
 
 /* Neonové stíny pro různé barvy s použitím CSS proměnných */
 .text-shadow-neon-green {
-    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-green);
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-green) !important;
 }
 
 .text-shadow-neon-blue {
-    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-blue);
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-blue) !important;
 }
 
 .text-shadow-neon-yellow {
-    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-yellow);
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-yellow) !important;
 }
 
 .text-shadow-neon-orange {
-    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-orange);
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-orange) !important;
 }
 
 .text-shadow-neon-purple {
-    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-purple);
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-purple) !important;
 }
 
 .text-shadow-neon-red {
-    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-red);
+    text-shadow: 0 0 var(--neon-shadow-blur) var(--neon-red) !important;
 }

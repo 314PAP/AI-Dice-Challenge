@@ -27,11 +27,11 @@
 .btn-neon:focus,
 .btn.btn-neon:hover,
 .btn.btn-neon:focus {
-  background-color: var(--neon-bg-hover, rgba(0, 0, 0, 0.2));
-  transform: scale(var(--scale-hover, 1.05));
-  color: inherit;
-  border-color: inherit;
-  box-shadow: var(--neon-glow-strong);
+  background-color: var(--neon-bg-hover, rgba(0, 0, 0, 0.2)) !important;
+  transform: scale(var(--scale-hover, 1.05)) !important;
+  color: inherit !important;
+  border-color: inherit !important;
+  box-shadow: var(--neon-glow-strong) !important;
 }
 
 /* Speciální třída pro tlačítka bez scaling - pro zabránění overflow */
@@ -47,46 +47,46 @@
 .btn.btn-neon:active,
 .btn-neon.active,
 .btn.btn-neon.active {
-  background-color: var(--neon-bg-active, rgba(0, 0, 0, 0.3));
-  transform: scale(var(--scale-active, 0.98));
-  color: inherit;
-  border-color: inherit;
+  background-color: var(--neon-bg-active, rgba(0, 0, 0, 0.3)) !important;
+  transform: scale(var(--scale-active, 0.98)) !important;
+  color: inherit !important;
+  border-color: inherit !important;
 }
 
 /* Varianty barev neonových tlačítek */
 .btn-neon[data-neon-color="green"],
 .btn.btn-neon[data-neon-color="green"] {
-  color: var(--neon-green);
-  border-color: var(--neon-green);
-  box-shadow: var(--neon-glow);
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: var(--neon-glow) !important;
 }
 
 .btn-neon[data-neon-color="blue"],
 .btn.btn-neon[data-neon-color="blue"] {
-  color: var(--neon-blue);
-  border-color: var(--neon-blue);
-  box-shadow: var(--neon-glow);
+  color: var(--neon-blue) !important;
+  border-color: var(--neon-blue) !important;
+  box-shadow: var(--neon-glow) !important;
 }
 
 .btn-neon[data-neon-color="purple"],
 .btn.btn-neon[data-neon-color="purple"] {
-  color: var(--neon-purple);
-  border-color: var(--neon-purple);
-  box-shadow: var(--neon-glow);
+  color: var(--neon-purple) !important;
+  border-color: var(--neon-purple) !important;
+  box-shadow: var(--neon-glow) !important;
 }
 
 .btn-neon[data-neon-color="orange"],
 .btn.btn-neon[data-neon-color="orange"] {
-  color: var(--neon-orange);
-  border-color: var(--neon-orange);
-  box-shadow: var(--neon-glow);
+  color: var(--neon-orange) !important;
+  border-color: var(--neon-orange) !important;
+  box-shadow: var(--neon-glow) !important;
 }
 
 .btn-neon[data-neon-color="yellow"],
 .btn.btn-neon[data-neon-color="yellow"] {
-  color: var(--neon-yellow);
-  border-color: var(--neon-yellow);
-  box-shadow: var(--neon-glow);
+  color: var(--neon-yellow) !important;
+  border-color: var(--neon-yellow) !important;
+  box-shadow: var(--neon-glow) !important;
 }
 
 /* Responzivní varianty pro různé velikosti obrazovek - plně kompatibilní s Bootstrap breakpointy */
