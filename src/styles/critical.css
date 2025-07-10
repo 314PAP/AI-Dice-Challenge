@@ -31,13 +31,13 @@
 /* Bootstrap-compatible input focus styling - neon style 
    Vyšší specifita s použitím [class] selektoru */
 .form-control[class]:focus {
-  border-color: var(--neon-blue) !important; /* Neonová modrá místo šedé */
-  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb), 0.5) !important; /* Neonový efekt */
+  border-color: var(--neon-green) !important; /* Neonová zelená místo modré */
+  box-shadow: 0 0 10px rgba(var(--neon-green-rgb), 0.5) !important; /* Neonový efekt */
 }
 
 /* Chat input placeholder styling - neon style */
 #chatInput[id]::placeholder {
-  color: rgba(var(--neon-blue-rgb), 0.7) !important; /* Průhledná neonová modrá */
+  color: rgba(var(--neon-green-rgb), 0.7) !important; /* Průhledná neonová zelená */
   opacity: 1;
 }
 
