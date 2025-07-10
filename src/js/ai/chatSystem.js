@@ -6,6 +6,8 @@
 import { getAiColor, getRandomAiResponse } from './personalities.js';
 import { STORAGE_KEYS } from '../utils/constants.js';
 import { CHAT_COLORS } from '../utils/colors.js';
+// Importujeme nový modul pro AI interakce
+import { detectGameEvent, getRandomInteraction, shouldTriggerInteraction } from './aiInteractions.js';
 
 /**
  * ChatSystem třída - Zajišťuje veškerou funkcionalitu chatu s AI
@@ -78,6 +80,54 @@ export class ChatSystem {
         const color = getAiColor(aiName);
         
         return this.addMessage(aiName, messageContent, color);
+    }
+
+    /**
+     * Zpracuje sekvenci interakcí mezi AI postavami
+     * @param {Array} interactionSequence - Sekvence interakcí mezi AI
+     * @param {number} [delay=1000] - Prodleva mezi zprávami v ms
+     */
+    processAiInteractionSequence(interactionSequence, delay = 1000) {
+        if (!interactionSequence || interactionSequence.length === 0) return;
+        
+        // Projdeme každou interakci v sekvenci a přidáme ji do chatu s časovým odstupem
+        interactionSequence.forEach((interaction, index) => {
+            setTimeout(() => {
+                this.addAiMessage(interaction.ai, interaction.message);
+                
+                // Notifikujeme UI o nové zprávě
+                if (typeof window !== 'undefined' && window.dispatchEvent) {
+                    window.dispatchEvent(new CustomEvent('chat:new-message', { 
+                        detail: { 
+                            sender: interaction.ai, 
+                            message: interaction.message 
+                        } 
+                    }));
+                }
+            }, index * delay);
+        });
+    }
+
+    /**
+     * Zpracuje herní událost a případně spustí interakci mezi AI
+     * @param {Array<number>} diceValues - Hodnoty hozených kostek
+     * @param {number} score - Dosažené skóre v tahu
+     * @param {string} triggerAi - Jméno AI, které má reakci spustit (nebo "ANY")
+     */
+    processGameEvent(diceValues, score, triggerAi = "ANY") {
+        // Detekujeme typ herní události
+        const eventType = detectGameEvent(diceValues, score);
+        
+        // Pokud nebyla detekována žádná událost nebo náhoda rozhodne, že se interakce nemá spustit
+        if (!eventType || !shouldTriggerInteraction()) return;
+        
+        // Získáme náhodnou interakci pro detekovanou událost
+        const interactionSequence = getRandomInteraction(eventType, triggerAi);
+        
+        // Pokud existuje interakce, spustíme sekvenci
+        if (interactionSequence) {
+            this.processAiInteractionSequence(interactionSequence);
+        }
     }
 
     /**
