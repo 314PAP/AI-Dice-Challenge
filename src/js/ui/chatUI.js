@@ -141,19 +141,8 @@ export class ChatUI {
             aiClassName = aiClassMap[aiName] || `ai-${aiName.replace(/[^a-z]/g, '')}`;
             messageClasses += ` chat-message-ai ${aiClassName}`;
             
-            // Optimalizované mapování AI barev na Bootstrap utility třídy
-            const aiColor = aiPersonalities[message.sender]?.color || CHAT_COLORS.BLUE;
-            const colorClassMap = {
-                [CHAT_COLORS.BLUE]: 'text-neon-blue',
-                [CHAT_COLORS.GREEN]: 'text-neon-green',
-                [CHAT_COLORS.PURPLE]: 'text-neon-purple',
-                [CHAT_COLORS.ORANGE]: 'text-neon-orange',
-                [CHAT_COLORS.RED]: 'text-neon-red',
-                [CHAT_COLORS.YELLOW]: 'text-neon-yellow'
-            };
-            
-            // Použij přímé mapování nebo výchozí modrou barvu
-            colorClass = colorClassMap[aiColor] || 'text-neon-blue';
+            // Pro AI zprávy nepoužíváme colorClass, barvy jsou definovány v CSS pomocí ai-* tříd
+            colorClass = '';
         }
         
         // Bootstrap-first responsive design s neonovými efekty pro chat zprávy

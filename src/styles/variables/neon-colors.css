@@ -52,4 +52,5 @@
   
   /* Základní text - pouze bílá */
   --neon-text-white: #ffffff;
+  --neon-white: #ffffff; /* Alias pro bootstrap kompatibilitu */
 }
