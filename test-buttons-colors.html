@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test barevných tlačítek a text-light</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Naše CSS soubory -->
+    <link rel="stylesheet" href="src/styles/main.css">
+    
+    <style>
+        .test-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #ccc;
+        }
+        .disable-colors .test-section {
+            border-color: #333;
+        }
+    </style>
+</head>
+<body class="p-4">
+    
+    <div class="container">
+        <h1 class="mb-4">Test barevného systému</h1>
+        
+        <!-- Ovládání CSS -->
+        <div class="test-section">
+            <h2>Ovládání CSS</h2>
+            <button id="toggleColors" class="btn btn-primary">Vypnout barevné CSS</button>
+            <p class="mt-2 small">Klikni pro přepnutí barevného CSS (simuluje vypnutí colors-bootstrap-simple.css)</p>
+        </div>
+        
+        <!-- Test text-light -->
+        <div class="test-section">
+            <h2>Test Bootstrap text-light</h2>
+            <div class="bg-dark p-3 rounded">
+                <p class="text-light mb-2">Tento text má třídu 'text-light' - měl by být VŽDY bílý</p>
+                <p class="text-white mb-2">Tento text má třídu 'text-white' - také bílý</p>
+                <p class="mb-0">Tento text nemá barevnou třídu - měl by být neonově zelený při zapnutém CSS</p>
+            </div>
+        </div>
+        
+        <!-- Test všech barevných tlačítek -->
+        <div class="test-section">
+            <h2>Neonová tlačítka - všechny barvy</h2>
+            <div class="row g-2">
+                <div class="col-md-2">
+                    <button class="btn btn-neon-green w-100">
+                        <i class="bi bi-check-circle"></i> Green
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-neon-blue w-100">
+                        <i class="bi bi-info-circle"></i> Blue
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-neon-purple w-100">
+                        <i class="bi bi-star"></i> Purple
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-neon-orange w-100">
+                        <i class="bi bi-exclamation-triangle"></i> Orange
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-neon-red w-100">
+                        <i class="bi bi-x-circle"></i> Red
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-neon-yellow w-100">
+                        <i class="bi bi-lightning"></i> Yellow
+                    </button>
+                </div>
+            </div>
+            <p class="mt-2 small">Každé tlačítko má jinou barvu. Při hover má animaci ve své barvě.</p>
+        </div>
+        
+        <!-- Test základního .btn-neon -->
+        <div class="test-section">
+            <h2>Základní .btn-neon (defaultně zelený)</h2>
+            <button class="btn btn-neon">
+                <i class="bi bi-gear"></i> Základní neonové tlačítko
+            </button>
+        </div>
+        
+        <!-- Test Bootstrap tlačítek -->
+        <div class="test-section">
+            <h2>Bootstrap tlačítka (bez neonových stylů)</h2>
+            <button class="btn btn-primary me-2">Primary</button>
+            <button class="btn btn-secondary me-2">Secondary</button>
+            <button class="btn btn-success me-2">Success</button>
+            <button class="btn btn-outline-primary me-2">Outline Primary</button>
+            <p class="mt-2 small">Tato tlačítka by se neměla změnit při zapnutí/vypnutí našeho CSS</p>
+        </div>
+        
+        <!-- Test utility tříd -->
+        <div class="test-section">
+            <h2>Naše utility třídy</h2>
+            <div class="row g-2">
+                <div class="col-md-2">
+                    <div class="p-2 border border-neon-green rounded">
+                        <span class="text-neon-green">Green text</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="p-2 border border-neon-blue rounded">
+                        <span class="text-neon-blue">Blue text</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="p-2 border border-neon-purple rounded">
+                        <span class="text-neon-purple">Purple text</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="p-2 border border-neon-orange rounded">
+                        <span class="text-neon-orange">Orange text</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="p-2 border border-neon-red rounded">
+                        <span class="text-neon-red">Red text</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="p-2 border border-neon-yellow rounded">
+                        <span class="text-neon-yellow">Yellow text</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // Simulace vypnutí barevného CSS
+        const toggleBtn = document.getElementById('toggleColors');
+        const cssLinks = document.querySelectorAll('link[href*="styles"]');
+        let colorsEnabled = true;
+        
+        toggleBtn.addEventListener('click', () => {
+            if (colorsEnabled) {
+                // Vypnout barevné CSS
+                cssLinks.forEach(link => {
+                    if (link.href.includes('main.css')) {
+                        link.disabled = true;
+                    }
+                });
+                document.body.classList.add('disable-colors');
+                toggleBtn.textContent = 'Zapnout barevné CSS';
+                toggleBtn.className = 'btn btn-outline-primary';
+            } else {
+                // Zapnout barevné CSS
+                cssLinks.forEach(link => {
+                    link.disabled = false;
+                });
+                document.body.classList.remove('disable-colors');
+                toggleBtn.textContent = 'Vypnout barevné CSS';
+                toggleBtn.className = 'btn btn-primary';
+            }
+            colorsEnabled = !colorsEnabled;
+        });
+    </script>
+</body>
+</html>

@@ -306,7 +306,11 @@
 
 #chatMessages::-webkit-scrollbar-thumb {
   border-radius: 0.25rem;
-  border: 0.125rem solid transparent;
+  border: 0.0625rem solid transparent;
+}
+
+#chatMessages {
+  scrollbar-width: thin;
 }
 
 /* ===== KOMPONENTY - FORMULÁŘE VELIKOSTI ===== */
@@ -406,4 +410,53 @@
 
 .overflow-y-auto {
   overflow-y: auto !important;
+}
+
+/* === RESPONSIVE LAYOUT & SIZING === */
+
+/* === Z-INDEX UTILITY === */
+.z-index-top {
+    z-index: 9999;
+}
+
+/* === MIN-HEIGHT UTILITY === */
+.min-h-0 {
+    min-height: 0;
+}
+
+/* === SPINNER ANIMACE ===== */
+
+/* Orbital spinner pro chat */
+#chatSpinner.neon-spinner-orbital::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 0.125rem solid transparent;
+  animation: neon-spin 1.2s linear infinite;
+}
+
+#chatSpinner.neon-spinner-orbital::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  border: 0.125rem solid transparent;
+  animation: neon-spin-reverse 1.8s linear infinite;
+}
+
+@keyframes neon-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes neon-spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
 }

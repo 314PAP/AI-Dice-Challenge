@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dice Game - Test S Barvami</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Kompletní CSS systém (s barvami) -->
+    <link rel="stylesheet" href="src/styles/main.css">
+    
+    <script type="module" src="src/app-ultra-bootstrap.js"></script>
+</head>
+<body>
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-12">
+                
+                <!-- Header s titulkem -->
+                <div class="text-center mb-4">
+                    <h1 class="display-4 fw-bold mb-2 text-neon-green">🎲 AI DICE GAME 🎲</h1>
+                    <p class="lead text-neon-cyan">Test aplikace S barevným CSS - měly by být neonové barvy</p>
+                </div>
+                
+                <!-- Chat container test -->
+                <div class="row mb-4">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="d-flex flex-column border-neon-green border rounded p-3" style="height: 300px;">
+                            
+                            <!-- Chat Messages - měl by být neonový -->
+                            <div class="flex-grow-1 bg-black border-neon-green border rounded p-2 overflow-auto min-h-0">
+                                <div class="d-flex flex-column align-items-center justify-content-center h-100 p-3">
+                                    <div class="neon-spinner neon-spinner-orbital mb-3" data-spinner-type="orbital"></div>
+                                    <p class="text-neon-cyan">Čekání na zprávy...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Input field -->
+                            <div class="d-flex mt-2">
+                                <input type="text" class="form-control me-2 bg-black text-light border-neon-cyan" placeholder="Napište zprávu...">
+                                <!-- Test neonového tlačítka -->
+                                <button class="btn btn-neon-green">
+                                    <i class="bi bi-send-fill me-1"></i>
+                                    Odeslat
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Test různých neonových tlačítek -->
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-neon-purple">Test neonových tlačítek:</h3>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <button class="btn btn-neon-green">Neon Green</button>
+                            <button class="btn btn-neon-blue">Neon Blue</button>
+                            <button class="btn btn-neon-purple">Neon Purple</button>
+                            <button class="btn btn-neon-orange">Neon Orange</button>
+                            <button class="btn btn-neon-red">Neon Red</button>
+                            <button class="btn btn-neon-yellow">Neon Yellow</button>
+                        </div>
+                        
+                        <h4 class="text-neon-orange">Utility třídy pro text:</h4>
+                        <div class="mb-3">
+                            <p class="text-neon-green">Text Neon Green</p>
+                            <p class="text-neon-blue">Text Neon Blue</p>
+                            <p class="text-neon-purple">Text Neon Purple</p>
+                            <p class="text-neon-orange">Text Neon Orange</p>
+                            <p class="text-neon-red">Text Neon Red</p>
+                            <p class="text-neon-yellow">Text Neon Yellow</p>
+                            <p class="text-neon-cyan">Text Neon Cyan</p>
+                            <p class="text-light bg-dark p-2">Text Light (vždy bílý)</p>
+                        </div>
+                        
+                        <h4 class="text-neon-cyan">Border utility třídy:</h4>
+                        <div class="mb-3">
+                            <div class="border-neon-green border rounded p-2 mb-2 text-neon-green">Border Neon Green</div>
+                            <div class="border-neon-blue border rounded p-2 mb-2 text-neon-blue">Border Neon Blue</div>
+                            <div class="border-neon-purple border rounded p-2 mb-2 text-neon-purple">Border Neon Purple</div>
+                        </div>
+                        
+                        <div class="alert bg-black border-neon-cyan text-neon-cyan">
+                            <strong>✅ Kontrola:</strong> Všechny barvy by měly být neonové (zelená, modrá, fialová, oranžová, červená, žlutá, cyan)
+                            - text-light by měl zůstat VŽDY bílý!
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Test komponent s neony -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card bg-black border-neon-green">
+                            <div class="card-header border-neon-green">
+                                <h5 class="card-title mb-0 text-neon-green">Neonová Karta</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-light">Tato karta by měla mít neonové hranice a text.</p>
+                                <button class="btn btn-neon-blue">Neonová Akce</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="bg-black border-neon-purple border rounded p-3">
+                            <h5 class="text-neon-purple mb-3">Neonový Seznam</h5>
+                            <div class="text-neon-cyan mb-2">✓ Všechny barvy jsou neonové</div>
+                            <div class="text-neon-green mb-2">✓ Hover efekty fungují</div>
+                            <div class="text-neon-orange mb-2">✓ Text-light zůstává bílý</div>
+                            <div class="text-light mb-2">✓ Toto je text-light (bílý)</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
