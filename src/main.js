@@ -76,7 +76,7 @@ class AIDiceGame {
                     
                     // CSS styly pro barevný výstup - používáme definované barvy
                     const successStyle = `background: ${CONSOLE_COLORS.bgDark2}; color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold; padding: ${pxToRem(3)} ${pxToRem(6)}; border-radius: ${pxToRem(3)};`;
-                    const valueStyle = `color: ${CONSOLE_COLORS.textWhite}; font-weight: bold;`;
+                    const valueStyle = `color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold;`;
                     const statusStyle = isGoodRatio 
                         ? `color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold;` 
                         : `color: ${CONSOLE_COLORS.neonYellow}; font-weight: bold;`;
@@ -248,7 +248,7 @@ class AIDiceGame {
                 icon: 'error',
                 confirmButtonText: 'OK',
                 background: CONSOLE_COLORS.neonBlack,
-                color: CONSOLE_COLORS.textWhite,
+                color: CONSOLE_COLORS.neonGreen,
                 iconColor: CONSOLE_COLORS.neonRed,
                 confirmButtonColor: CONSOLE_COLORS.neonBlue
             });
@@ -411,7 +411,7 @@ class AIDiceGame {
             error:    `color: ${CONSOLE_COLORS.neonRed}; font-weight: bold;`,
             info:     `color: ${CONSOLE_COLORS.neonBlue}; font-weight: bold;`,
             label:    `color: ${CONSOLE_COLORS.textDark}; font-weight: normal;`,
-            value:    `color: ${CONSOLE_COLORS.textWhite}; font-weight: bold;`,
+            value:    `color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold;`,
             detail:   `color: ${CONSOLE_COLORS.textDark}; font-style: italic;`
         };
         
