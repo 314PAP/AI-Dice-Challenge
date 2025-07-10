@@ -1,20 +1,16 @@
 /* ===================================================================
-   HLAVNÍ CSS SOUBOR - SJEDNOCENÝ SYSTÉM
+   MINIMÁLNÍ CSS - POUZE 2 HLAVNÍ SOUBORY
    
-   Jediný import pro barvy + komponenty
+   Čistý systém se 2 hlavními soubory:
+   1. colors-bootstrap.css - všechny barvy a barevné efekty
+   2. responsive-bootstrap.css - všechny velikosti a responzivita
    ================================================================= */
 
 /* JEDINÝ SOUBOR PRO VŠECHNY BARVY */
 @import './colors-bootstrap.css';
 
-/* KOMPONENTY */
-@import './responsive-text.css';
-@import './responsive-heights.css';
-@import './components/neon-buttons.css';
-@import './components/dice.css';
-@import './components/neon-spinner.css';
-@import './components/chat.css';
-@import './forms/neon-forms.css';
+/* JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI A RESPONZIVITU */
+@import './responsive-bootstrap.css';
 
 /* Z-index proměnné */
 :root {
