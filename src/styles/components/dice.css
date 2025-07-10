@@ -9,7 +9,7 @@
    - .border-neon-green, .border-neon-blue, atd.
    ================================================================= */
 
-@import '../variables/neon-colors.css';
+/* Barvy jsou načteny z colors-bootstrap.css v main.css */
 
 /* Základní styly pro kostky - Bootstrap-compatible */
 .dice {

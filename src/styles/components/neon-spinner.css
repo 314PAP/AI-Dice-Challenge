@@ -5,8 +5,7 @@
    Kompatibilní s Bootstrap třídami - přepisuje Bootstrap spinner styly
    ================================================================= */
    
-/* Import neonových barev a proměnných */
-@import '../variables/neon-colors.css';
+/* Barvy jsou načteny z colors-bootstrap.css v main.css */
 
 /* Reset Bootstrap spinner stylů - vyšší specifita */
 html .neon-spinner.spinner-border,

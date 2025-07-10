@@ -4,7 +4,7 @@
    Úpravy Bootstrap formulářových prvků pro neonový vzhled
    ================================================================= */
 
-@import '../variables/neon-colors.css';
+/* Barvy jsou načteny z colors-bootstrap.css v main.css */
 
 /* Bootstrap-compatible input focus styling - neon style */
 .form-control[class]:focus {
