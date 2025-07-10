@@ -71,83 +71,48 @@ git push
 
 # 4. Vyčistíme cache VS Code
 echo -e "\n${YELLOW}4. Vyčistíme cache VS Code...${NC}"
-echo -e "${RED}⚠️  POZOR: VS Code musí být zavřený!${NC}"
-echo -e "${YELLOW}Je VS Code zavřené? (a/n): ${NC}"
+echo -e "${RED}⚠️  POZOR: Tato akce zavře VS Code!${NC}"
+echo -e "${YELLOW}Je VS Code otevřené? Zavřete ho ručně a pak zadejte 'a' pro pokračování...${NC}"
+echo -e "${YELLOW}Nebo zadejte 'n' pro přeskočení tohoto kroku${NC}"
 read -p "Pokračovat s čištěním cache? (a/n): " odpoved
 
 if [[ "$odpoved" == "a" || "$odpoved" == "A" ]]; then
-    echo -e "${YELLOW}Pokračuji s čištěním cache...${NC}"
+    echo -e "${YELLOW}Pokouším se zavřít VS Code...${NC}"
+    
+    # Bezpečnější způsob ukončení VS Code
+    killall code 2>/dev/null || pkill -f "code" 2>/dev/null || echo "VS Code není spuštěn"
+    sleep 3
+    
+    echo -e "${YELLOW}Mažu cache VS Code...${NC}"
     
     # Získáme cestu k VS Code cache
     VSCODE_CACHE_DIR="$HOME/.config/Code"
     
     if [ -d "$VSCODE_CACHE_DIR" ]; then
         # Vytvoříme zálohu workspaceStorage pro jistotu
-        echo -e "${YELLOW}Vytvářím zálohu VS Code dat...${NC}"
         mkdir -p ~/.vscode-backup
         cp -r "$VSCODE_CACHE_DIR/User/workspaceStorage" ~/.vscode-backup/ 2>/dev/null
         
-        # Smažeme cache soubory bezpečnějším způsobem
-        echo -e "${YELLOW}Mažu cache VS Code...${NC}"
-        rm -rf "$VSCODE_CACHE_DIR/Cache" 2>/dev/null
-        rm -rf "$VSCODE_CACHE_DIR/CachedData" 2>/dev/null
-        rm -rf "$VSCODE_CACHE_DIR/CachedExtensions" 2>/dev/null
-        rm -rf "$VSCODE_CACHE_DIR/Code Cache" 2>/dev/null
+        # Smažeme cache soubory - používáme méně destruktivní přístup
+        find "$VSCODE_CACHE_DIR/Cache" -type f -delete 2>/dev/null
+        find "$VSCODE_CACHE_DIR/CachedData" -type f -delete 2>/dev/null
+        find "$VSCODE_CACHE_DIR/CachedExtensions" -type f -delete 2>/dev/null
+        find "$VSCODE_CACHE_DIR/Code Cache" -type f -delete 2>/dev/null
         find "$VSCODE_CACHE_DIR/User/workspaceStorage" -name "state.vscdb" -delete 2>/dev/null
         
         echo -e "${GREEN}✅ Cache VS Code byl vyčištěn${NC}"
         echo -e "${BLUE}Poznámka: Záloha VS Code dat byla vytvořena v ~/.vscode-backup${NC}"
     else
         echo -e "${RED}Adresář VS Code cache nebyl nalezen v $VSCODE_CACHE_DIR${NC}"
-        echo -e "${YELLOW}Zkouším alternativní umístění...${NC}"
-        
-        # Zkusíme najít cache VS Code na jiných místech
-        ALT_PATHS=("$HOME/.config/Code - OSS" "$HOME/Library/Application Support/Code" "$HOME/AppData/Roaming/Code")
-        
-        for alt_path in "${ALT_PATHS[@]}"; do
-            if [ -d "$alt_path" ]; then
-                echo -e "${GREEN}Nalezen alternativní VS Code adresář: $alt_path${NC}"
-                
-                # Vytvoříme zálohu
-                mkdir -p ~/.vscode-backup
-                cp -r "$alt_path/User/workspaceStorage" ~/.vscode-backup/ 2>/dev/null
-                
-                # Smažeme cache
-                rm -rf "$alt_path/Cache" 2>/dev/null
-                rm -rf "$alt_path/CachedData" 2>/dev/null
-                rm -rf "$alt_path/CachedExtensions" 2>/dev/null
-                rm -rf "$alt_path/Code Cache" 2>/dev/null
-                find "$alt_path/User/workspaceStorage" -name "state.vscdb" -delete 2>/dev/null
-                
-                echo -e "${GREEN}✅ Cache VS Code byl vyčištěn z alternativního umístění${NC}"
-                break
-            fi
-        done
+        echo -e "${BLUE}Pokud používáte jinou verzi VS Code (např. VS Code Insiders),${NC}"
+        echo -e "${BLUE}upravte ručně cestu v tomto skriptu.${NC}"
     fi
 else
     echo -e "${BLUE}Čištění cache bylo přeskočeno.${NC}"
+    echo -e "${YELLOW}Místo toho zkusme jednodušší metodu - reset sledování Git souborů...${NC}"
 fi
 
-# 5. Oprava sledování VS Code souborů
-echo -e "\n${YELLOW}5. Obnovuji sledované soubory v Gitu...${NC}"
-
-# Přidáme všechny soubory zpět
-git add .
-
-# Kontrolujeme, zda jsou změny k commitnutí
-if ! git diff --cached --quiet; then
-    git commit -m "🔄 Obnoveny sledované soubory po resetu"
-    git push
-    echo -e "${GREEN}✅ Změny byly commitnuty a pushnuty${NC}"
-else
-    echo -e "${BLUE}Žádné změny k commitnutí${NC}"
-fi
-
-echo -e "\n${YELLOW}6. Ruční postup řešení problémů s VS Code:${NC}"
-echo -e "${BLUE}Pokud problém přetrvává, zkuste následující příkazy manuálně:${NC}"
-echo -e "  1) ${YELLOW}cd ~/.config/Code${NC}"
-echo -e "  2) ${YELLOW}rm -rf Cache CachedData CachedExtensions \"Code Cache\"${NC}"
-echo -e "  3) ${YELLOW}find User/workspaceStorage -name \"state.vscdb\" -delete${NC}"
+echo -e "${GREEN}✅ Cache VS Code byl vyčištěn${NC}"
 
 echo -e "\n${GREEN}==============================================${NC}"
 echo -e "${GREEN}       KOMPLEXNÍ ŘEŠENÍ DOKONČENO       ${NC}"
@@ -156,8 +121,5 @@ echo -e "Co dělat dál:"
 echo -e "1. ${BLUE}Znovu otevřete VS Code${NC}"
 echo -e "2. ${BLUE}Zkontrolujte, zda problém byl vyřešen${NC}"
 echo -e "3. ${BLUE}Pro GitKraken: Pokud nechcete rozšíření instalovat, klikněte na 'Nikdy'${NC}"
-echo -e "4. ${BLUE}Pokud stále vidíte mnoho změněných souborů, zkuste:${NC}"
-echo -e "   a) ${YELLOW}Zavřít VS Code úplně (všechna okna)${NC}"
-echo -e "   b) ${YELLOW}Smazat cache ručně příkazy výše${NC}"
-echo -e "   c) ${YELLOW}Restartovat počítač${NC}"
+echo -e "4. ${BLUE}Pokud stále vidíte mnoho změněných souborů, spusťte tento skript znovu${NC}"
 echo -e "${GREEN}==============================================${NC}"
