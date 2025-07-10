@@ -1,17 +1,5 @@
 /**
- * AI Personalities -    ChatGPT: {
-        responses: [
-            "Ó, to je chytrý tah!",
-            "Hmm, já bych to hrál jinak...",
-            "Zajímavé! Ale počkej, až přijdu na řadu!",
-            "Tvoje štěstí tě brzy opustí!"
-        ],
-        riskTolerance: 0.5,
-        strategyType: "balanced",
-        emoji: "�",
-        color: CHAT_COLORS.PURPLE,
-        avatar: "bi-cpu-fill"
-    },osobností a jejich chování
+ * AI Personalities - Definice AI osobností a jejich chování
  * Modul definuje všechny AI osobnosti a jejich reakce v různých herních situacích
  */
 
@@ -19,7 +7,6 @@ import { CHAT_COLORS } from '../utils/colors.js';
 
 /**
  * Definice všech AI osobností s jejich charakteristikami a odpověďmi
- * Ponechány pouze tři hlavní AI osobnosti: Gemini, ChatGPT a Claude
  */
 export const aiPersonalities = {
     Gemini: {
@@ -35,7 +22,7 @@ export const aiPersonalities = {
         color: CHAT_COLORS.BLUE,
         avatar: "bi-robot"
     },
-    ChatGPT: {
+    GPT: {
         responses: [
             "Ó, to je chytrý tah!",
             "Hmm, já bych to hrál jinak...",
@@ -60,6 +47,32 @@ export const aiPersonalities = {
         emoji: "🟠",
         color: CHAT_COLORS.ORANGE,
         avatar: "bi-lightning-charge-fill"
+    },
+    Llama: {
+        responses: [
+            "*hýká nadšením* To je skvělé!",
+            "Kostky jsou moje vášeň!",
+            "Nemůžu se dočkat svého tahu!",
+            "Takhle se to hraje, sleduj!"
+        ],
+        riskTolerance: 0.8, // Velmi riskantní AI
+        strategyType: "risky",
+        emoji: "🟡",
+        color: CHAT_COLORS.YELLOW,
+        avatar: "bi-stars"
+    },
+    Mistral: {
+        responses: [
+            "*chladně* Zajímavá volba.",
+            "Analyzuji tvůj tah.",
+            "Přizpůsobuji svou strategii.",
+            "Efektivní, ale ne optimální."
+        ],
+        riskTolerance: 0.4, // Mírně konzervativní
+        strategyType: "calculated",
+        emoji: "🔴",
+        color: CHAT_COLORS.RED,
+        avatar: "bi-cpu"
     }
 };
 

@@ -1,16 +1,13 @@
 /**
- * Game UI - Uživatelské rozhraní hry
- * Modul odpovědný za vykreslování herních prvků a zpracování interakcí
+ * Game UI Manager - Správa herního UI
+ * Stará se o vykreslování a aktualizaci herního rozhraní
  */
 
-// Importy potřebných modulů
 import gameState from '../game/gameState.js';
-import { GAME_CONSTANTS } from '../utils/constants.js';
+import { createNeonButton, createDiceElement, createNeonCard } from './uiComponents.js';
+import { UI_CONSTANTS, NEON_COLORS } from '../utils/constants.js';
+import { CONSOLE_COLORS, CHAT_COLORS, pxToRem } from '../utils/colors.js';
 import { rollDie, rollDice, calculatePoints } from '../game/diceMechanics.js';
-import chatSystem from '../ai/chatSystem.js'; // Importujeme chatSystem pro AI interakce
-import { detectGameEvent } from '../ai/aiInteractions.js'; // Importujeme detekci herních událostí
-import { animateDiceRoll, showSuccessMessage } from './animations.js';
-import { createNeonButton, createNeonCard } from './uiComponents.js'; // Import funkcí pro vytváření neonových komponent
 
 /**
  * GameUI třída - Zajišťuje veškeré renderování herní plochy
@@ -331,25 +328,13 @@ export class GameUI {
         // Využití importované funkce pro hod 6 kostkami
         const dice = rollDice(6);
         
-        // Vypočítáme body pro tento hod
-        const points = calculatePoints(dice);
-        
         // Aktualizuje herní stav
         gameState.updateState({
             currentRoll: dice,
             selectedDice: []
         });
         
-        // Získáme aktuálního hráče
-        const state = gameState.getState();
-        const currentPlayer = state.players[state.currentPlayerIndex];
-        
-        // Pokud se jedná o AI hráče, pošleme událost do chat systému pro případné AI interakce
-        if (!currentPlayer.isHuman) {
-            chatSystem.processGameEvent(dice, points, currentPlayer.name);
-        }
-        
-        console.log('Hozeno:', dice, 'Body:', points);
+        console.log('Hozeno:', dice);
     }
     
     /**
@@ -364,44 +349,8 @@ export class GameUI {
      * Ukončí aktuální tah
      */
     endTurn() {
-        // Získáme aktuální herní stav
-        const state = gameState.getState();
-        const currentPlayer = state.players[state.currentPlayerIndex];
-        
-        // Vypočítáme skóre pro vybrané kostky
-        const selectedDiceValues = state.selectedDice.map(index => state.currentRoll[index]);
-        const turnScore = calculatePoints(selectedDiceValues);
-        
-        console.log('Ukončení tahu...', 'Hráč:', currentPlayer.name, 'Body:', turnScore);
-        
-        // Pokud máme platné body a je to lidský hráč, zkontrolujeme, zda to spustí AI interakce
-        if (turnScore > 0 && currentPlayer.isHuman) {
-            chatSystem.processGameEvent(selectedDiceValues, turnScore, "ANY");
-        }
-        
-        // Přidáme body hráči a přepneme na dalšího hráče
-        // (Poznámka: Toto je zjednodušený příklad, skutečná implementace by byla komplexnější)
-        const updatedPlayers = [...state.players];
-        updatedPlayers[state.currentPlayerIndex].score += turnScore;
-        
-        // Kontrola výhry
-        if (updatedPlayers[state.currentPlayerIndex].score >= state.targetScore) {
-            // Oznámíme výhru a ukončíme hru
-            console.log('Hráč', currentPlayer.name, 'vyhrál!');
-            // TODO: Implementace oznámení výhry
-        } else {
-            // Přepneme na dalšího hráče
-            const nextPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
-            
-            // Aktualizujeme herní stav
-            gameState.updateState({
-                players: updatedPlayers,
-                currentPlayerIndex: nextPlayerIndex,
-                currentRoll: [],
-                selectedDice: [],
-                turnScore: 0
-            });
-        }
+        // Implementace ukončení tahu
+        console.log('Ukončení tahu...');
     }
     
     /**
@@ -485,10 +434,9 @@ export class GameUI {
         title.innerHTML = '<i class="bi bi-book-fill me-2"></i>Pravidla hry';
         container.appendChild(title);
         
-        // Pravidla - Bootstrap responsive container s overflow a paddingem pro scrollbar
+        // Pravidla - Bootstrap responsive container s overflow
         const rulesContainer = document.createElement('div');
-        rulesContainer.className = 'flex-grow-1 px-0 px-md-2 rules-container';
-        // Odstraněn padding-right, protože je nyní aplikován přímo na card-body
+        rulesContainer.className = 'flex-grow-1 overflow-auto px-0 px-md-2';
         
         // Vytvoření pravidel v responsivní kartě - Bootstrap-first approach
         const rulesCard = createNeonCard('Pravidla kostkovky', 'blue', `

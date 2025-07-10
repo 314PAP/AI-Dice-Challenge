@@ -6,7 +6,7 @@
 import chatSystem from '../ai/chatSystem.js';
 import { aiPersonalities } from '../ai/personalities.js';
 import { UI_CONSTANTS, CHAT_CONSTANTS } from '../utils/constants.js';
-import { CHAT_COLORS } from '../utils/colors.js';
+import { pxToRem } from '../utils/colors.js';
 
 /**
  * ChatUI třída - Zajišťuje veškeré renderování a interakci s chatovacím rozhraním
@@ -85,9 +85,9 @@ export class ChatUI {
         
         const messages = chatSystem.getMessages();
         
-        // Vždy scrollujeme na konec, aby chat sledoval poslední zprávy
-        // Uživatelské zkušenosti jsou důležitější než zachování pozice v chatu
-        const shouldScroll = true;
+        // Zachováme scrollování na konec, pokud je uživatel na konci
+        const shouldScroll = this.chatContainer.scrollTop + this.chatContainer.clientHeight >= 
+            this.chatContainer.scrollHeight - UI_CONSTANTS.SCROLL_THRESHOLD;
         
         // Vytvoříme HTML pro zprávy
         const messagesHTML = messages.map(msg => this.createMessageElement(msg)).join('');
@@ -95,7 +95,7 @@ export class ChatUI {
         // Aktualizujeme obsah
         this.chatContainer.innerHTML = messagesHTML;
         
-        // Vždy scrollujeme na konec
+        // Scrollujeme na konec, pokud byl uživatel na konci
         if (shouldScroll) {
             this.scrollToBottom();
         }
@@ -108,7 +108,7 @@ export class ChatUI {
      */
     createMessageElement(message) {
         // Základní třídy pro zprávu
-        let messageClasses = 'chat-message mb-1 p-1 rounded bg-black overflow-hidden w-100';
+        let messageClasses = 'chat-message mb-2 p-2 rounded bg-black overflow-hidden w-100';
         let colorClass = 'text-light';
         let aiClass = '';
         
@@ -116,42 +116,55 @@ export class ChatUI {
         if (message.sender === CHAT_CONSTANTS.PLAYER_NAME) {
             // Zpráva od hráče
             messageClasses += ' chat-message-user';
-            colorClass = ''; // Barva definována v CSS
+            colorClass = 'text-light'; // Bílý text pro hráče
         } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
             // Systémová zpráva
             messageClasses += ' chat-message-system';
-            colorClass = ''; // Barva definována v CSS
+            colorClass = 'text-neon-purple'; // Fialová pro systémové zprávy
         } else if (aiPersonalities[message.sender]) {
             // Zpráva od AI - přidáme specifickou třídu podle AI osobnosti
             // Standardizované mapování AI jmen na CSS třídy
+            const aiName = message.sender.toLowerCase();
             let aiClassName = '';
-            switch(message.sender.toLowerCase()) {
-                case 'gemini':
-                    aiClassName = 'ai-gemini';
-                    break;
-                case 'chatgpt':
-                case 'gpt':
-                    aiClassName = 'ai-gpt';
-                    break;
-                case 'claude':
-                    aiClassName = 'ai-claude';
-                    break;
-                default:
-                    // Pokud je neznámé jméno, použijeme výchozí třídu
-                    aiClassName = 'ai-gemini';
-            }
+            
+            // Optimalizované mapování AI jmen na CSS třídy
+            const aiClassMap = {
+                'gemini': 'ai-gemini',
+                'gpt': 'ai-gpt', 
+                'chatgpt': 'ai-gpt',
+                'claude': 'ai-claude',
+                'llama': 'ai-llama',
+                'mistral': 'ai-mistral'
+            };
+            
+            // Použij přímé mapování nebo extrahuj název z textu
+            aiClassName = aiClassMap[aiName] || `ai-${aiName.replace(/[^a-z]/g, '')}`;
             messageClasses += ` chat-message-ai ${aiClassName}`;
             
-            // V případě AI zpráv nemusíme nastavovat colorClass
-            // barvy jsou automaticky aplikovány pomocí CSS tříd ai-gemini, ai-gpt, ai-claude
-            colorClass = '';
+            // Optimalizované mapování AI barev na Bootstrap utility třídy
+            const aiColor = aiPersonalities[message.sender]?.color || CHAT_COLORS.BLUE;
+            const colorClassMap = {
+                [CHAT_COLORS.BLUE]: 'text-neon-blue',
+                [CHAT_COLORS.GREEN]: 'text-neon-green',
+                [CHAT_COLORS.PURPLE]: 'text-neon-purple',
+                [CHAT_COLORS.ORANGE]: 'text-neon-orange',
+                [CHAT_COLORS.RED]: 'text-neon-red',
+                [CHAT_COLORS.YELLOW]: 'text-neon-yellow'
+            };
+            
+            // Použij přímé mapování nebo výchozí modrou barvu
+            colorClass = colorClassMap[aiColor] || 'text-neon-blue';
         }
         
-        // Bootstrap-first responsive design pro chat zprávy - jméno a obsah na stejné řádce
+        // Bootstrap-first responsive design s neonovými efekty pro chat zprávy
         return `
-            <div class="${messageClasses}">
-                <div class="px-1 py-0 text-break">
-                    <strong class="me-2">${message.sender}:</strong>${message.content}
+            <div class="${messageClasses} ${colorClass}">
+                <div class="chat-header mb-1 d-flex justify-content-between align-items-center">
+                    <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
+                    <small class="text-white-50 flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>
+                </div>
+                <div class="chat-content small text-break">
+                    ${message.content}
                 </div>
             </div>
         `;
@@ -174,6 +187,8 @@ export class ChatUI {
         chatSystem.addAiMessage('Gemini', 'Připravte se na analytickou výzvu!');
         chatSystem.addAiMessage('ChatGPT', 'Bude to skvělá hra!');
         chatSystem.addAiMessage('Claude', 'Hodně štěstí!');
+        chatSystem.addAiMessage('Llama', '*hýká nadšením* Kostky jsou moje vášeň!');
+        chatSystem.addAiMessage('Mistral', '*chladně* Jsem připraven analyzovat vaše tahy.');
         
         this.renderMessages();
         this.scrollToBottom();

@@ -23,15 +23,12 @@
 @import './utils/neon-utilities.css';
 @import './responsive-text.css';
 @import './responsive-heights.css';
-@import './responsive-orientation.css';
 
 /* 4. Komponenty */
 @import './components/neon-buttons.css';
 @import './components/dice.css';
 @import './components/neon-spinner.css';
 @import './components/chat.css';
-@import './components/chat-buttons.css';
-@import './components/rules.css';
 
 /* 5. Formulářové prvky */
 @import './forms/neon-forms.css';

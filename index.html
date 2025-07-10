@@ -46,24 +46,20 @@
     
     /* Inline neonové styly pro scrollbar s nejvyšší prioritou */
     #chatMessages::-webkit-scrollbar {
-        width: 6px !important;
-        height: 6px !important;
-        background-color: transparent !important;
+        width: 8px !important;
+        height: 8px !important;
     }
 
     #chatMessages::-webkit-scrollbar-track {
-        background: transparent !important;
+        background: #000000 !important;
         border-radius: 4px !important;
-        margin-top: 8px !important;
-        margin-bottom: 8px !important;
-        margin-right: 2px !important;
-        box-shadow: none !important;
+        box-shadow: inset 0 0 5px rgba(57, 255, 20, 0.1) !important;
     }
 
     #chatMessages::-webkit-scrollbar-thumb {
         background: #39ff14 !important; /* Neonově zelená */
-        border-radius: 10px !important;
-        border: 1px solid rgba(57, 255, 20, 0.6) !important;
+        border-radius: 4px !important;
+        border: 2px solid #000000 !important;
         box-shadow: 0 0 5px #39ff14, 0 0 10px rgba(57, 255, 20, 0.5) !important;
     }
 
@@ -74,8 +70,7 @@
 
     #chatMessages {
         scrollbar-width: thin !important;
-        scrollbar-color: #39ff14 transparent !important;
-        padding-right: 10px !important;
+        scrollbar-color: #194DD1 #000000 !important;
     }
     </style>
     
@@ -104,8 +99,8 @@
         <div class="text-center">
             <!-- Neonový spinner místo Bootstrap spinneru -->
             <div class="neon-spinner neon-spinner-triple neon-spinner-lg mb-3" data-spinner-type="triple"></div>
-            <h4 class="text-neon-green">
-                <i class="bi bi-dice-6-fill"></i> AI Kostková Výzva
+            <h4 class="text-neon-blue">
+                <i class="bi bi-dice-6-fill"></i> AI Dice Challenge
             </h4>
         </div>
     </div>
@@ -116,11 +111,11 @@
             
             <!-- Game Area Column - Full height on mobile, 2/3 on sm+ -->
             <div class="col-12 col-sm-8 d-flex flex-column p-1 overflow-hidden mobile-game-height">
-                <div class="flex-fill bg-black border border-neon-blue rounded p-3 d-flex flex-column overflow-hidden">
+                <div class="flex-fill bg-black border border-neon-blue rounded p-3 d-flex flex-column overflow-hidden h-100">
                     
                     <!-- Game Header -->
-                    <div class="text-center text-neon-green mb-2">
-                        <h5><i class="bi bi-dice-6-fill"></i> AI Kostková Výzva</h5>
+                    <div class="text-center text-light mb-2">
+                        <h5><i class="bi bi-dice-6-fill"></i> Cílové skóre: 10000</h5>
                     </div>
                     
                     <!-- Game Content - Scrollable -->
@@ -134,7 +129,7 @@
             
             <!-- Chat Area Column - Full height on mobile, 1/3 on sm+ -->
             <div class="col-12 col-sm-4 d-flex flex-column p-1 overflow-hidden mobile-chat-height">
-                <div class="flex-fill bg-black border border-neon-green rounded p-3 d-flex flex-column overflow-hidden">
+                <div class="flex-fill bg-black border border-neon-green rounded p-3 d-flex flex-column overflow-hidden h-100">
                     
                     <!-- Chat Header -->
                     <div class="text-center text-neon-green mb-2">
@@ -157,7 +152,7 @@
                                    class="form-control bg-black text-neon-green border-neon-green" 
                                    placeholder="Zpráva AI..." 
                                    autocomplete="off">
-                            <button id="sendChatBtn" class="btn btn-outline-success border-neon-green text-neon-green">
+                            <button id="sendChatBtn" class="btn btn-outline-primary border-neon-green text-neon-green">
                                 <i class="bi bi-send-fill"></i>
                             </button>
                         </div>

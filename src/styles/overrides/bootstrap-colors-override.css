@@ -32,11 +32,11 @@
 }
 
 .text-light {
-  color: var(--neon-text-white) !important;
+  color: var(--neon-white) !important;
 }
 
 .text-dark {
-  color: var(--neon-black) !important;
+  color: var(--neon-text-white) !important;
 }
 
 /* Pozadí barevné třídy - vše buď černé nebo s neonovým efektem */
