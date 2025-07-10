@@ -85,9 +85,9 @@ export class ChatUI {
         
         const messages = chatSystem.getMessages();
         
-        // Zachováme scrollování na konec, pokud je uživatel na konci
-        const shouldScroll = this.chatContainer.scrollTop + this.chatContainer.clientHeight >= 
-            this.chatContainer.scrollHeight - UI_CONSTANTS.SCROLL_THRESHOLD;
+        // Vždy scrollujeme na konec, aby chat sledoval poslední zprávy
+        // Uživatelské zkušenosti jsou důležitější než zachování pozice v chatu
+        const shouldScroll = true;
         
         // Vytvoříme HTML pro zprávy
         const messagesHTML = messages.map(msg => this.createMessageElement(msg)).join('');
@@ -95,7 +95,7 @@ export class ChatUI {
         // Aktualizujeme obsah
         this.chatContainer.innerHTML = messagesHTML;
         
-        // Scrollujeme na konec, pokud byl uživatel na konci
+        // Vždy scrollujeme na konec
         if (shouldScroll) {
             this.scrollToBottom();
         }

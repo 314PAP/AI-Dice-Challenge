@@ -85,12 +85,13 @@ export class ChatSystem {
     /**
      * Zpracuje sekvenci interakcí mezi AI postavami
      * @param {Array} interactionSequence - Sekvence interakcí mezi AI
-     * @param {number} [delay=1000] - Prodleva mezi zprávami v ms
+     * @param {number} [delay=1800] - Prodleva mezi zprávami v ms (zvýšeno pro lepší čitelnost)
      */
-    processAiInteractionSequence(interactionSequence, delay = 1000) {
+    processAiInteractionSequence(interactionSequence, delay = 1800) {
         if (!interactionSequence || interactionSequence.length === 0) return;
         
         // Projdeme každou interakci v sekvenci a přidáme ji do chatu s časovým odstupem
+        // Použijeme delší prodlevu mezi zprávami, aby uživatel měl čas si je přečíst
         interactionSequence.forEach((interaction, index) => {
             setTimeout(() => {
                 this.addAiMessage(interaction.ai, interaction.message);
@@ -104,7 +105,7 @@ export class ChatSystem {
                         } 
                     }));
                 }
-            }, index * delay);
+            }, index * delay); // Delší prodleva pro lepší čitelnost dialogů
         });
     }
 

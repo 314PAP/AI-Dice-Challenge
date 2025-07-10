@@ -166,3 +166,41 @@
     font-size: 0.95rem;
   }
 }
+
+/* Neonový scrollbar pro pravidla a další scrollovatelné oblasti */
+/* Tento styl se aplikuje na všechny scrollovatelné oblasti kromě chatu, který má vlastní stylování */
+.overflow-auto:not(#chatMessages)::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+}
+
+.overflow-auto:not(#chatMessages)::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 2px;
+}
+
+.overflow-auto:not(#chatMessages)::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 10px;
+  border: 1px solid rgba(var(--neon-blue-rgb), 0.6);
+  box-shadow: 0 0 5px var(--neon-blue), 0 0 10px rgba(var(--neon-blue-rgb), 0.5);
+}
+
+.overflow-auto:not(#chatMessages)::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-purple);
+  box-shadow: 0 0 8px var(--neon-purple), 0 0 15px rgba(var(--neon-purple-rgb), 0.6);
+}
+
+.overflow-auto:not(#chatMessages)::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+.overflow-auto:not(#chatMessages) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) transparent;
+}

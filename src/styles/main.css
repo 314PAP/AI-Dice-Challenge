@@ -30,6 +30,7 @@
 @import './components/neon-spinner.css';
 @import './components/chat.css';
 @import './components/chat-buttons.css';
+@import './components/rules.css';
 
 /* 5. Formulářové prvky */
 @import './forms/neon-forms.css';

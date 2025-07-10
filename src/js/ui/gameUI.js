@@ -485,9 +485,10 @@ export class GameUI {
         title.innerHTML = '<i class="bi bi-book-fill me-2"></i>Pravidla hry';
         container.appendChild(title);
         
-        // Pravidla - Bootstrap responsive container s overflow
+        // Pravidla - Bootstrap responsive container s overflow a paddingem pro scrollbar
         const rulesContainer = document.createElement('div');
-        rulesContainer.className = 'flex-grow-1 overflow-auto px-0 px-md-2';
+        rulesContainer.className = 'flex-grow-1 overflow-auto px-0 px-md-2 rules-container';
+        rulesContainer.style.paddingRight = '15px'; // Extra padding pro scrollbar
         
         // Vytvoření pravidel v responsivní kartě - Bootstrap-first approach
         const rulesCard = createNeonCard('Pravidla kostkovky', 'blue', `
