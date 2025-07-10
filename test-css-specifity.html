@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Specifita Test</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- NAŠE CSS styly (po Bootstrapu!) -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body class="bg-dark text-light p-4">
+    <div class="container">
+        <h1 class="text-neon-green mb-4">🔍 Test CSS Specifity - Diagnostika tlačítek</h1>
+        
+        <div class="row g-3">
+            <!-- Test 1: Základní btn-outline-primary -->
+            <div class="col-12">
+                <h3 class="text-warning">Test 1: Základní btn-outline-primary</h3>
+                <button class="btn btn-outline-primary">
+                    <i class="bi bi-send-fill"></i> Bootstrap Default
+                </button>
+                <p class="small text-secondary mt-1">
+                    Měl by být modrý (Bootstrap default)
+                </p>
+            </div>
+            
+            <!-- Test 2: btn-outline-primary + text-neon-green -->
+            <div class="col-12">
+                <h3 class="text-warning">Test 2: btn-outline-primary + text-neon-green</h3>
+                <button class="btn btn-outline-primary text-neon-green">
+                    <i class="bi bi-send-fill"></i> Zelený text
+                </button>
+                <p class="small text-secondary mt-1">
+                    Měl by být zelený text (naše override)
+                </p>
+            </div>
+            
+            <!-- Test 3: btn-outline-primary + border-neon-green -->
+            <div class="col-12">
+                <h3 class="text-warning">Test 3: btn-outline-primary + border-neon-green</h3>
+                <button class="btn btn-outline-primary border-neon-green">
+                    <i class="bi bi-send-fill"></i> Zelený border
+                </button>
+                <p class="small text-secondary mt-1">
+                    Měl by být zelený border (naše override)
+                </p>
+            </div>
+            
+            <!-- Test 4: PLNÁ KOMBINACE (jako v aplikaci) -->
+            <div class="col-12">
+                <h3 class="text-success">Test 4: Plná kombinace (jako v aplikaci)</h3>
+                <button id="sendChatBtn" class="btn btn-outline-primary border-neon-green text-neon-green">
+                    <i class="bi bi-send-fill"></i> Finální test
+                </button>
+                <p class="small text-secondary mt-1">
+                    Měl by být zcela zelený (text + border) s neonovým efektem
+                </p>
+            </div>
+            
+            <!-- Test 5: Pouze utility třídy -->
+            <div class="col-12">
+                <h3 class="text-warning">Test 5: Pouze utility třídy</h3>
+                <button class="btn border-neon-green text-neon-green">
+                    <i class="bi bi-send-fill"></i> Utility only
+                </button>
+                <p class="small text-secondary mt-1">
+                    Měl by být zcela zelený (bez Bootstrap btn-outline-*)
+                </p>
+            </div>
+            
+            <!-- Test 6: Kontrola CSS proměnných -->
+            <div class="col-12">
+                <h3 class="text-warning">Test 6: CSS proměnné kontrola</h3>
+                <div class="p-3 border rounded" style="background-color: var(--neon-black); color: var(--neon-green); border-color: var(--neon-green) !important;">
+                    <p>Pozadí: var(--neon-black)</p>
+                    <p>Text: var(--neon-green)</p>
+                    <p>Border: var(--neon-green)</p>
+                </div>
+                <p class="small text-secondary mt-1">
+                    Zkontroluje, jestli fungují CSS proměnné
+                </p>
+            </div>
+        </div>
+        
+        <!-- Zobrazení computed styles -->
+        <div class="mt-5">
+            <h3 class="text-info">🔍 Diagnostické informace</h3>
+            <button id="diagnoseBtn" class="btn btn-info">Spustit diagnostiku</button>
+            <pre id="diagnostics" class="bg-black text-light p-3 mt-3 small" style="display: none;"></pre>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('diagnoseBtn').addEventListener('click', function() {
+            const sendBtn = document.getElementById('sendChatBtn');
+            const computed = window.getComputedStyle(sendBtn);
+            
+            const diagnostics = {
+                'Color': computed.color,
+                'Border Color': computed.borderColor,
+                'Background Color': computed.backgroundColor,
+                'Text Shadow': computed.textShadow,
+                'Box Shadow': computed.boxShadow,
+                'CSS Classes': sendBtn.className,
+                'CSS Variables': {
+                    '--neon-green': getComputedStyle(document.documentElement).getPropertyValue('--neon-green'),
+                    '--neon-blue': getComputedStyle(document.documentElement).getPropertyValue('--neon-blue'),
+                    '--neon-black': getComputedStyle(document.documentElement).getPropertyValue('--neon-black')
+                }
+            };
+            
+            document.getElementById('diagnostics').style.display = 'block';
+            document.getElementById('diagnostics').textContent = JSON.stringify(diagnostics, null, 2);
+        });
+    </script>
+</body>
+</html>

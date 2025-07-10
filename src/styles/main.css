@@ -16,22 +16,22 @@
 /* 1. Proměnné a základní nastavení */
 @import './variables/neon-colors.css';
 
-/* 2. Bootstrap overrides - přepsání Bootstrap barev neonovými */
-@import './overrides/bootstrap-colors-override.css';
-
-/* 3. Utility třídy a rozšíření Bootstrapu */
+/* 2. Utility třídy a rozšíření Bootstrapu */
 @import './utils/neon-utilities.css';
 @import './responsive-text.css';
 @import './responsive-heights.css';
 
-/* 4. Komponenty */
+/* 3. Komponenty */
 @import './components/neon-buttons.css';
 @import './components/dice.css';
 @import './components/neon-spinner.css';
 @import './components/chat.css';
 
-/* 5. Formulářové prvky */
+/* 4. Formulářové prvky */
 @import './forms/neon-forms.css';
+
+/* 5. Bootstrap overrides - MUSÍ BÝT NA KONCI pro nejvyšší prioritu */
+@import './overrides/bootstrap-colors-override.css';
 
 /* 6. Globální nastavení - pouze neonové styly */
 html {
