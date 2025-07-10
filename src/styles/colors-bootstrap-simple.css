@@ -166,34 +166,16 @@ body {
 
 .chat-message-ai.ai-gemini {
   color: var(--neon-blue);
-  text-shadow: 0 0 0.3125rem rgba(var(--neon-blue-rgb), 0.5);
-  box-shadow: 0 0 0.3125rem rgba(var(--neon-blue-rgb), 0.3);
-}
-
-.chat-message-ai.ai-gemini:hover {
-  box-shadow: 0 0 0.625rem rgba(var(--neon-blue-rgb), 0.5);
 }
 
 /* AI osobnost - ChatGPT (purpurová) */
 .chat-message-ai.ai-gpt {
   color: var(--neon-purple);
-  text-shadow: 0 0 0.3125rem rgba(var(--neon-purple-rgb), 0.5);
-  box-shadow: 0 0 0.3125rem rgba(var(--neon-purple-rgb), 0.3);
-}
-
-.chat-message-ai.ai-gpt:hover {
-  box-shadow: 0 0 0.625rem rgba(var(--neon-purple-rgb), 0.5);
 }
 
 /* AI osobnost - Claude (oranžová) */
 .chat-message-ai.ai-claude {
   color: var(--neon-orange);
-  text-shadow: 0 0 0.3125rem rgba(var(--neon-orange-rgb), 0.5);
-  box-shadow: 0 0 0.3125rem rgba(var(--neon-orange-rgb), 0.3);
-}
-
-.chat-message-ai.ai-claude:hover {
-  box-shadow: 0 0 0.625rem rgba(var(--neon-orange-rgb), 0.5);
 }
 
 /* Neonová tlačítka - různé barvy */

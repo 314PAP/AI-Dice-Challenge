@@ -146,12 +146,7 @@ export class ChatUI {
         // Bootstrap-first responsive design s neonovými efekty pro chat zprávy
         return `
             <div class="${messageClasses} ${colorClass}">
-                <div class="chat-header mb-1">
-                    <strong class="text-truncate">${message.sender}:</strong>
-                </div>
-                <div class="chat-content small text-break">
-                    ${message.content}
-                </div>
+                <strong>${message.sender}:</strong> ${message.content}
             </div>
         `;
     }
