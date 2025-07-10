@@ -6,7 +6,7 @@
 import chatSystem from '../ai/chatSystem.js';
 import { aiPersonalities } from '../ai/personalities.js';
 import { UI_CONSTANTS, CHAT_CONSTANTS } from '../utils/constants.js';
-import { pxToRem } from '../utils/colors.js';
+import { pxToRem, CHAT_COLORS } from '../utils/colors.js';
 
 /**
  * ChatUI třída - Zajišťuje veškeré renderování a interakci s chatovacím rozhraním
