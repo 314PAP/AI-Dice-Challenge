@@ -1,3 +1,10 @@
 .history/
 .backup/
 
+# Další soubory k ignorování
+.vscode/tasks.json
+archive/
+dist/
+dokumentybtrap/
+node_modules/
+src/styles/archive/
