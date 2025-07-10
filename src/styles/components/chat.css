@@ -80,7 +80,7 @@
 /* Uživatelské zprávy - bez rámečků a speciálních barev */
 .chat-message-user {
   background: rgba(var(--neon-black-rgb), 0.3);
-  color: #fff;
+  color: var(--neon-green);
   align-self: flex-end;
   text-shadow: none;
   border: none;

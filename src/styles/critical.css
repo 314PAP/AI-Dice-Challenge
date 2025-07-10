@@ -56,7 +56,7 @@
 /* Základní barva pozadí a textu */
 html, body {
   background-color: var(--neon-black);
-  color: #fff;
+  color: var(--neon-green);
 }
 
 /* Kritické styly pro neonové spinnery - vyšší specifita */

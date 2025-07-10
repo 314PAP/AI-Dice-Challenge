@@ -35,10 +35,10 @@ export class ChatSystem {
      * Přidá zprávu do chatu
      * @param {string} sender - Odesílatel zprávy
      * @param {string} content - Obsah zprávy
-     * @param {string} [color=CHAT_COLORS.WHITE] - Barva zprávy
+     * @param {string} [color=CHAT_COLORS.GREEN] - Barva zprávy
      * @returns {Object} Vytvořená zpráva
      */
-    addMessage(sender, content, color = CHAT_COLORS.WHITE) {
+    addMessage(sender, content, color = CHAT_COLORS.GREEN) {
         const message = {
             id: Date.now(),
             sender,

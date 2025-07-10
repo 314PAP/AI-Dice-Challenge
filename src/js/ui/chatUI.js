@@ -109,14 +109,14 @@ export class ChatUI {
     createMessageElement(message) {
         // Základní třídy pro zprávu
         let messageClasses = 'chat-message mb-2 p-2 rounded bg-black overflow-hidden w-100';
-        let colorClass = 'text-light';
+        let colorClass = 'text-neon-green';
         let aiClass = '';
         
         // Určení typu zprávy a přidání odpovídajících tříd
         if (message.sender === CHAT_CONSTANTS.PLAYER_NAME) {
             // Zpráva od hráče
             messageClasses += ' chat-message-user';
-            colorClass = 'text-light'; // Bílý text pro hráče
+            colorClass = 'text-neon-green'; // Zelený text pro hráče
         } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
             // Systémová zpráva
             messageClasses += ' chat-message-system';
@@ -150,7 +150,7 @@ export class ChatUI {
             <div class="${messageClasses} ${colorClass}">
                 <div class="chat-header mb-1 d-flex justify-content-between align-items-center">
                     <strong class="text-truncate flex-grow-1">${message.sender}:</strong>
-                    <small class="text-white-50 flex-shrink-0 ms-2 d-none d-md-inline">${message.timestamp || ''}</small>
+                    <small class="text-neon-green flex-shrink-0 ms-2 d-none d-md-inline" style="opacity: 0.5">${message.timestamp || ''}</small>
                 </div>
                 <div class="chat-content small text-break">
                     ${message.content}

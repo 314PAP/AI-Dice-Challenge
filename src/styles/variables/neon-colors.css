@@ -49,8 +49,4 @@
   /* Průhledné barvy pro pozadí a efekty - vždy průhledná černá */
   --neon-bg-hover: rgba(0, 0, 0, 0.2);
   --neon-bg-active: rgba(0, 0, 0, 0.3);
-  
-  /* Základní text - pouze bílá */
-  --neon-text-white: #ffffff;
-  --neon-white: #ffffff; /* Alias pro bootstrap kompatibilitu */
 }

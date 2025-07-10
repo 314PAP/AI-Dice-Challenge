@@ -16,10 +16,7 @@ export const CONSOLE_COLORS = {
     neonYellow: '#ffff00',
     
     // Tmavé barvy - pouze černá
-    neonBlack: '#000000',
-    
-    // Text - pouze bílá
-    textWhite: '#ffffff'
+    neonBlack: '#000000'
 };
 
 // Funkce pro převod px na rem - užitečné pro konzolové styly
@@ -30,10 +27,8 @@ export function pxToRem(px) {
 /**
  * Mapování názvů neonových barev na hexadecimální hodnoty
  * Pro použití v chatSystem a dalších modulech
- * Mapuje konstanty z NEON_COLORS na hodnoty z CONSOLE_COLORS
  */
 export const CHAT_COLORS = {
-    WHITE: CONSOLE_COLORS.textWhite,
     GREEN: CONSOLE_COLORS.neonGreen,
     BLUE: CONSOLE_COLORS.neonBlue,
     PURPLE: CONSOLE_COLORS.neonPurple,

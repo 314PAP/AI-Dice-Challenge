@@ -40,7 +40,7 @@ html {
 
 body {
   background-color: var(--neon-black);
-  color: var(--neon-text-white, #fff);
+  color: var(--neon-green);
   font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
 }
 
