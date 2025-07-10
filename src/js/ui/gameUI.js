@@ -10,6 +10,7 @@ import { rollDie, rollDice, calculatePoints } from '../game/diceMechanics.js';
 import chatSystem from '../ai/chatSystem.js'; // Importujeme chatSystem pro AI interakce
 import { detectGameEvent } from '../ai/aiInteractions.js'; // Importujeme detekci herních událostí
 import { animateDiceRoll, showSuccessMessage } from './animations.js';
+import { createNeonButton } from './uiComponents.js'; // Import funkce pro vytváření neonových tlačítek
 
 /**
  * GameUI třída - Zajišťuje veškeré renderování herní plochy
