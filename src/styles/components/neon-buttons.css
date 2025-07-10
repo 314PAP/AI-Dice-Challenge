@@ -88,6 +88,13 @@
   box-shadow: var(--neon-glow) !important;
 }
 
+.btn-neon[data-neon-color="red"],
+.btn.btn-neon[data-neon-color="red"] {
+  color: var(--neon-red) !important;
+  border-color: var(--neon-red) !important;
+  box-shadow: var(--neon-glow) !important;
+}
+
 /* Responzivní varianty pro různé velikosti obrazovek - plně kompatibilní s Bootstrap breakpointy */
 /* Výchozí velikost pro mobilní telefony */
 .btn-neon,

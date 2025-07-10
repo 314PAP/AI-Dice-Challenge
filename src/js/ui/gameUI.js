@@ -120,9 +120,18 @@ export class GameUI {
             'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
         );
         
+        const exitGameBtn = createNeonButton(
+            'UKONČIT HRU', 
+            'red', 
+            'bi-power', 
+            () => window.close(), 
+            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+        );
+        
         buttonsContainer.appendChild(startBtn);
         buttonsContainer.appendChild(rulesBtn);
         buttonsContainer.appendChild(hallOfFameBtn);
+        buttonsContainer.appendChild(exitGameBtn);
         
         container.appendChild(buttonsContainer);
         
