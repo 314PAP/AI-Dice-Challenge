@@ -43,8 +43,7 @@ export class ChatSystem {
             id: Date.now(),
             sender,
             content,
-            color,
-            timestamp: new Date()
+            color
         };
         
         this.messages.push(message);
