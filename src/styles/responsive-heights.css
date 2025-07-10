@@ -1,8 +1,25 @@
 /* ===================================================================
-   MOBILNÍ RESPONZIVNÍ STYLY
+   RESPONZIVNÍ STYLY VÝŠEK
    
-   Specifické styly pro mobilní zařízení a responzivní chování aplikace
+   Specifické styly pro responzivní chování aplikace na různých zařízeních
    ================================================================= */
+
+/* Výchozí výškové nastavení pro všechna zařízení */
+.mobile-game-height,
+.mobile-chat-height {
+  height: auto !important;
+}
+
+/* Výškové nastavení pro velké obrazovky (tablety a notebooky) */
+@media (min-width: 576px) {
+  .mobile-game-height {
+    height: 100% !important;
+  }
+  
+  .mobile-chat-height {
+    height: 100% !important;
+  }
+}
 
 /* Výškové nastavení pro mobilní zařízení */
 @media (max-width: 575.98px) {
@@ -12,5 +29,18 @@
   
   .mobile-chat-height {
     height: 35vh !important;
+  }
+}
+
+/* Výškové nastavení pro telefony v režimu landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+  .mobile-game-height {
+    height: 100% !important;
+    max-height: calc(100vh - 3rem);
+  }
+  
+  .mobile-chat-height {
+    height: 100% !important;
+    max-height: calc(100vh - 3rem);
   }
 }

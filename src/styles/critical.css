@@ -17,6 +17,12 @@
   --neon-black-rgb: 0, 0, 0;
 }
 
+/* Výchozí výškové nastavení pro všechna zařízení */
+.mobile-game-height,
+.mobile-chat-height {
+  height: auto !important;
+}
+
 /* Výškové nastavení pro mobilní zařízení */
 @media (max-width: 575.98px) {
   .mobile-game-height {

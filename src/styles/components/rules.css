@@ -26,6 +26,19 @@
   padding-right: 15px;
 }
 
+/* Responzivní úpravy pro různá zařízení */
+@media (min-width: 576px) {
+  .rules-container .card .card-body {
+    max-height: calc(100vh - 200px);
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .rules-container .card .card-body {
+    max-height: calc(100vh - 150px);
+  }
+}
+
 /* Neonový scrollbar pro card-body v pravidlech */
 .rules-container .card .card-body::-webkit-scrollbar {
   width: 8px;

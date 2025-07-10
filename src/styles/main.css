@@ -23,6 +23,7 @@
 @import './utils/neon-utilities.css';
 @import './responsive-text.css';
 @import './responsive-heights.css';
+@import './responsive-orientation.css';
 
 /* 4. Komponenty */
 @import './components/neon-buttons.css';

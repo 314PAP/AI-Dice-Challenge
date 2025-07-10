@@ -1,0 +1,49 @@
+/* ===================================================================
+   RESPONZIVNÍ STYLY PRO ORIENTACI OBRAZOVKY
+   
+   Specifické styly pro různé orientace obrazovky (landscape/portrait)
+   ================================================================= */
+
+/* Landscape režim na mobilních zařízeních */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Upravený layout pro landscape režim */
+  #app.vh-100 {
+    height: 100% !important;
+    min-height: 100vh;
+  }
+
+  /* Kompaktnější hlavičky */
+  .text-center.text-neon-green.mb-2 h5,
+  .text-center.text-neon-green.mb-2 h6 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Menší výška chatových zpráv a kompaktnější layout */
+  .chat-message {
+    padding: 0.25rem 0.5rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  /* Menší okraje a paddiny */
+  .p-3 {
+    padding: 0.5rem !important;
+  }
+
+  .p-2 {
+    padding: 0.25rem !important;
+  }
+
+  .mb-2 {
+    margin-bottom: 0.25rem !important;
+  }
+}
+
+/* Speciální úpravy pro velké obrazovky */
+@media (min-width: 992px) {
+  /* Efektivnější využití prostoru na velkých displejích */
+  .mobile-game-height, 
+  .mobile-chat-height {
+    max-height: none !important;
+  }
+}
