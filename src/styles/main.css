@@ -19,3 +19,12 @@
   --z-tooltip: 1070;
   --z-loading: 1055;
 }
+
+/* Základní utility třídy pro funkčnost bez našich CSS souborů */
+.z-index-top {
+    z-index: 9999;
+}
+
+.min-h-0 {
+    min-height: 0;
+}

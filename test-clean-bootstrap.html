@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Dice Challenge - Clean Bootstrap Test</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>" type="image/svg+xml">
+    
+    <!-- POUZE Bootstrap CSS - žádné další knihovny -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Základní utility třídy -->
+    <style>
+        .z-index-top {
+            z-index: 9999;
+        }
+        .min-h-0 {
+            min-height: 0;
+        }
+    </style>
+</head>
+<body class="h-100">
+    
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-light d-flex justify-content-center align-items-center z-index-top">
+        <div class="text-center">
+            <!-- Bootstrap spinner -->
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h4 class="text-primary">
+                <i class="bi bi-dice-6-fill"></i> AI Dice Challenge
+            </h4>
+        </div>
+    </div>
+    
+    <!-- Main Application Container -->
+    <div id="app" class="container-fluid d-flex flex-column p-3 p-md-4 vh-100 overflow-hidden">
+        <div class="row g-0 flex-fill h-100 overflow-hidden mx-1 mx-md-2">
+            
+            <!-- Game Area Column -->
+            <div class="col-12 col-sm-8 d-flex flex-column p-1 overflow-hidden">
+                <div class="flex-fill bg-light border rounded p-3 d-flex flex-column overflow-hidden h-100">
+                    
+                    <!-- Game Header -->
+                    <div class="text-center mb-2">
+                        <h5><i class="bi bi-dice-6-fill"></i> AI Kostková Výzva</h5>
+                    </div>
+                    
+                    <!-- Game Content -->
+                    <div id="gameArea" class="flex-fill overflow-auto bg-light border p-2 rounded">
+                        
+                        <!-- Target Score Section -->
+                        <div class="text-center mb-4">
+                            <h4><i class="bi bi-star-fill"></i> Cílové skóre</h4>
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <button class="btn btn-outline-secondary btn-sm me-2">-</button>
+                                <span class="h5 mx-3">10000</span>
+                                <button class="btn btn-outline-secondary btn-sm ms-2">+</button>
+                            </div>
+                            
+                            <!-- Game Controls -->
+                            <div class="d-grid gap-2 mb-3">
+                                <button class="btn btn-primary btn-lg">
+                                    <i class="bi bi-play-fill"></i> ZAČÍT HRU
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="bi bi-book-fill"></i> PRAVIDLA
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="bi bi-trophy-fill"></i> SÍŇ SLÁVY
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Chat Area Column -->
+            <div class="col-12 col-sm-4 d-flex flex-column p-1 overflow-hidden">
+                <div class="flex-fill bg-light border rounded p-3 d-flex flex-column overflow-hidden h-100">
+                    
+                    <!-- Chat Header -->
+                    <div class="text-center mb-2">
+                        <h6><i class="bi bi-chat-dots-fill"></i> AI Chat</h6>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="flex-grow-1 bg-light border rounded p-2 overflow-auto min-h-0">
+                        
+                        <!-- Sample chat messages -->
+                        <div class="mb-2 p-2 bg-white rounded border">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong class="text-success">AI Kouč:</strong>
+                                    <p class="mb-0 small">Vítejte v AI Kostkové Výzvě!</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-2 p-2 bg-white rounded border">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <strong class="text-primary">Stratég:</strong>
+                                    <p class="mb-0 small">Připraven na analytickou výzvu?</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="mt-2">
+                        <div class="input-group">
+                            <input type="text" id="chatInput" 
+                                   class="form-control" 
+                                   placeholder="Zpráva AI..." 
+                                   autocomplete="off">
+                            <button id="sendChatBtn" class="btn btn-primary">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- POUZE Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Test script pro responzivitu -->
+    <script>
+        // Skrýt loading screen
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 1000);
+        });
+        
+        // Log responzivity
+        window.addEventListener('resize', function() {
+            const width = window.innerWidth;
+            console.log(`Window width: ${width}px`);
+            
+            if (width < 576) {
+                console.log('📱 MOBILE: Columns should stack vertically');
+            } else {
+                console.log('💻 DESKTOP: Columns should be side by side (Game 2/3, Chat 1/3)');
+            }
+        });
+        
+        // Initial test
+        console.log('🧪 CLEAN BOOTSTRAP TEST');
+        console.log(`Initial width: ${window.innerWidth}px`);
+    </script>
+</body>
+</html>

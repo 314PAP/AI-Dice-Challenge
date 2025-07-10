@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Dice Challenge - Bootstrap Test</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        /* Pouze základní utility třídy */
+        .z-index-top {
+            z-index: 9999;
+        }
+        .min-h-0 {
+            min-height: 0;
+        }
+    </style>
+</head>
+<body class="h-100">
+    
+    <!-- Main Application Container - Responsive Flexbox Layout -->
+    <div id="app" class="container-fluid d-flex flex-column p-3 p-md-4 vh-100 overflow-hidden">
+        <div class="row g-0 flex-fill h-100 overflow-hidden mx-1 mx-md-2">
+            
+            <!-- Game Area Column - Full height on mobile, 2/3 on sm+ -->
+            <div class="col-12 col-sm-8 d-flex flex-column p-1 overflow-hidden">
+                <div class="flex-fill bg-light border rounded p-3 d-flex flex-column overflow-hidden h-100">
+                    
+                    <!-- Game Header -->
+                    <div class="text-center mb-2">
+                        <h5><i class="bi bi-dice-6-fill"></i> AI Kostková Výzva</h5>
+                    </div>
+                    
+                    <!-- Game Content - Scrollable -->
+                    <div id="gameArea" class="flex-fill overflow-auto bg-light border p-2 rounded">
+                        <p>Game content area - scrollable</p>
+                        <p>Tady bude herní obsah...</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p>Více obsahu pro test scrollování...</p>
+                        <p>Další řádek pro scrollování...</p>
+                        <p>A ještě více obsahu...</p>
+                        <p>Test dlouhého obsahu...</p>
+                        <p>Další text...</p>
+                        <p>Konec obsahu.</p>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Chat Area Column - Full height on mobile, 1/3 on sm+ -->
+            <div class="col-12 col-sm-4 d-flex flex-column p-1 overflow-hidden">
+                <div class="flex-fill bg-light border rounded p-3 d-flex flex-column overflow-hidden h-100">
+                    
+                    <!-- Chat Header -->
+                    <div class="text-center mb-2">
+                        <h6><i class="bi bi-chat-dots-fill"></i> AI Chat</h6>
+                    </div>
+                    
+                    <!-- Chat Messages - Scrollable area -->
+                    <div id="chatMessages" class="flex-grow-1 bg-light border rounded p-2 overflow-auto min-h-0">
+                        <!-- Loader -->
+                        <div class="d-flex flex-column align-items-center justify-content-center h-100 p-3">
+                            <div class="spinner-border text-primary mb-3" role="status" id="chatSpinner">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="text-center text-muted">Inicializace AI...</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="mt-2">
+                        <div class="input-group">
+                            <input type="text" id="chatInput" 
+                                   class="form-control" 
+                                   placeholder="Zpráva AI..." 
+                                   autocomplete="off">
+                            <button id="sendChatBtn" class="btn btn-primary">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Test responzivity
+        window.addEventListener('resize', function() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            console.log(`Window size: ${width}x${height}`);
+            
+            if (width < 576) {
+                console.log('Mobile view: Columns should be stacked');
+            } else {
+                console.log('Desktop view: Columns should be side by side');
+            }
+        });
+        
+        // Initial log
+        console.log('Bootstrap layout loaded');
+        console.log(`Initial window size: ${window.innerWidth}x${window.innerHeight}`);
+    </script>
+</body>
+</html>
