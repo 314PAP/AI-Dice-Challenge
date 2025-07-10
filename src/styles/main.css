@@ -2,15 +2,12 @@
    HLAVNÍ CSS SOUBOR - CENTRÁLNÍ IMPORT VŠECH MODULŮ
    
    Tento soubor slouží jako centrální bod pro import všech CSS modulů
-   a zajišťuje správné pořadí načítání a snadnou správu závislostí.
+   a zajišťuje správné pořadí načítání a sjednotění stylů.
    
    POZNÁMKA: 
-   1. critical.css je načten před Bootstrapem přímo v HTML 
-      pro zajištění správné priority kritických stylů
-   2. Všechny soubory používají čisté CSS (ne SCSS). 
-   3. Veškeré barvy jsou definované v neon-colors.css jako CSS proměnné.
-   4. Všechny velikosti používají rem jednotky nebo Bootstrap utility 
-      třídy pro responzivní design.
+   1. Všechny soubory používají čisté CSS (ne SCSS). 
+   2. Veškeré barvy jsou definované v neon-colors.css jako CSS proměnné.
+   3. Bootstrap override je na konci pro nejvyšší prioritu.
    ================================================================= */
 
 /* 1. Proměnné a základní nastavení */

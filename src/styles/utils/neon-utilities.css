@@ -1,140 +1,126 @@
 /* ===================================================================
-   NEONOVÉ UTILITY TŘÍDY
+   NEONOVÉ UTILITY TŘÍDY - ZJEDNODUŠENÉ
    
-   Rozšíření Bootstrap utility tříd o neonové efekty
-   Umožňuje přidávat neonové barvy a efekty k Bootstrap komponentám
+   Pouze nejzákladnější utility třídy pro barvy bez zbytečných duplikací
    ================================================================= */
 
 @import '../variables/neon-colors.css';
 
-/* Neonové textové barvy - rozšiřující Bootstrap text-* utility - VYŠŠÍ SPECIFITA */
+/* Neonové textové barvy - jednoduché definice s vyšší specificitou */
 .text-neon-green,
 .btn.text-neon-green,
-button.text-neon-green,
-[class*="text-neon-green"] {
+input.text-neon-green,
+textarea.text-neon-green {
   color: var(--neon-green) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-blue,
 .btn.text-neon-blue,
-button.text-neon-blue,
-[class*="text-neon-blue"] {
+input.text-neon-blue,
+textarea.text-neon-blue {
   color: var(--neon-blue) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-purple,
 .btn.text-neon-purple,
-button.text-neon-purple,
-[class*="text-neon-purple"] {
+input.text-neon-purple,
+textarea.text-neon-purple {
   color: var(--neon-purple) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-orange,
 .btn.text-neon-orange,
-button.text-neon-orange,
-[class*="text-neon-orange"] {
+input.text-neon-orange,
+textarea.text-neon-orange {
   color: var(--neon-orange) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-red,
 .btn.text-neon-red,
-button.text-neon-red,
-[class*="text-neon-red"] {
+input.text-neon-red,
+textarea.text-neon-red {
   color: var(--neon-red) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
 .text-neon-yellow,
 .btn.text-neon-yellow,
-button.text-neon-yellow,
-[class*="text-neon-yellow"] {
+input.text-neon-yellow,
+textarea.text-neon-yellow {
   color: var(--neon-yellow) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
-/* Neonové border utility - rozšíření Bootstrap border-* utility - VYŠŠÍ SPECIFITA */
+/* Neonové border utility - jednoduché definice s vyšší specificitou */
 .border-neon-green,
 .btn.border-neon-green,
-button.border-neon-green,
-[class*="border-neon-green"] {
+input.border-neon-green,
+textarea.border-neon-green {
   border-color: var(--neon-green) !important;
 }
 
 .border-neon-blue,
 .btn.border-neon-blue,
-button.border-neon-blue,
-[class*="border-neon-blue"] {
+input.border-neon-blue,
+textarea.border-neon-blue {
   border-color: var(--neon-blue) !important;
 }
 
 .border-neon-purple,
 .btn.border-neon-purple,
-button.border-neon-purple,
-[class*="border-neon-purple"] {
+input.border-neon-purple,
+textarea.border-neon-purple {
   border-color: var(--neon-purple) !important;
 }
 
 .border-neon-orange,
 .btn.border-neon-orange,
-button.border-neon-orange,
-[class*="border-neon-orange"] {
+input.border-neon-orange,
+textarea.border-neon-orange {
   border-color: var(--neon-orange) !important;
 }
 
 .border-neon-red,
 .btn.border-neon-red,
-button.border-neon-red,
-[class*="border-neon-red"] {
+input.border-neon-red,
+textarea.border-neon-red {
   border-color: var(--neon-red) !important;
 }
 
 .border-neon-yellow,
 .btn.border-neon-yellow,
-button.border-neon-yellow,
-[class*="border-neon-yellow"] {
+input.border-neon-yellow,
+textarea.border-neon-yellow {
   border-color: var(--neon-yellow) !important;
 }
 
-/* Neonové border šířky a styly */
-.border-wide-neon-green {
-  border: var(--border-neon-medium) solid var(--neon-green);
-  box-shadow: 0 0 20px rgba(var(--neon-green-rgb), 0.7);
-}
-
-.border-wide-neon-blue {
-  border: var(--border-neon-medium) solid var(--neon-blue);
-  box-shadow: 0 0 20px rgba(var(--neon-blue-rgb), 0.7);
-}
-
-.border-wide-neon-purple {
-  border: var(--border-neon-medium) solid var(--neon-purple);
-  box-shadow: 0 0 20px rgba(var(--neon-purple-rgb), 0.7);
-}
-
-.border-wide-neon-orange {
-  border: var(--border-neon-medium) solid var(--neon-orange);
-  box-shadow: 0 0 20px rgba(var(--neon-orange-rgb), 0.7);
-}
-
-/* Neonové glow efekty */
+/* Glow efekty - pouze základní */
 .neon-glow-green {
-  box-shadow: 0 0 10px 2px rgba(var(--neon-green-rgb), 0.7);
+  box-shadow: 0 0 10px rgba(var(--neon-green-rgb), 0.7) !important;
 }
 
 .neon-glow-blue {
-  box-shadow: 0 0 10px 2px rgba(var(--neon-blue-rgb), 0.7);
+  box-shadow: 0 0 10px rgba(var(--neon-blue-rgb), 0.7) !important;
 }
 
 .neon-glow-purple {
-  box-shadow: 0 0 10px 2px rgba(var(--neon-purple-rgb), 0.7);
+  box-shadow: 0 0 10px rgba(var(--neon-purple-rgb), 0.7) !important;
 }
 
 .neon-glow-orange {
-  box-shadow: 0 0 10px 2px rgba(var(--neon-orange-rgb), 0.7);
+  box-shadow: 0 0 10px rgba(var(--neon-orange-rgb), 0.7) !important;
+}
+
+.neon-glow-red {
+  box-shadow: 0 0 10px rgba(var(--neon-red-rgb), 0.7) !important;
+}
+
+.neon-glow-yellow {
+  box-shadow: 0 0 10px rgba(var(--neon-yellow-rgb), 0.7) !important;
 }
 
 /* Neonové tabulky - ONLY COLORS, NO LAYOUT OVERRIDES */

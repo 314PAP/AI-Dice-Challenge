@@ -1,12 +1,11 @@
 /* ===================================================================
-   NEONOVÉ BARVY A PROMĚNNÉ
+   NEONOVÉ BARVY A PROMĚNNÉ - SJEDNOCENÉ
    
-   Tento modul obsahuje všechny CSS proměnné pro barvy a neonové efekty
-   Vytvoření jako samostatný modul umožňuje snadnější úpravy a konzistenci
+   Všechny CSS proměnné pro barvy a neonové efekty v jednom místě
    ================================================================= */
 
 :root {
-  /* Neonové barvy - základní paleta aplikace */
+  /* ZÁKLADNÍ NEONOVÁ PALETA - 6 barev + černá */
   --neon-green: #39ff14;
   --neon-green-rgb: 57, 255, 20;
   --neon-blue: #194DD1;
@@ -19,34 +18,27 @@
   --neon-red-rgb: 255, 49, 49;
   --neon-yellow: #ffff00;
   --neon-yellow-rgb: 255, 255, 0;
-  
-  /* Tmavé barvy pro pozadí */
   --neon-black: #000000;
   --neon-black-rgb: 0, 0, 0;
   
-  /* Neonové efekty a shadows */
+  /* NEONOVÉ EFEKTY */
+  --neon-text-shadow: 0 0 10px currentColor;
   --neon-glow: 0 0 20px currentColor;
   --neon-glow-strong: 0 0 30px currentColor, 0 0 40px currentColor;
-  --neon-text-shadow: 0 0 10px currentColor;
   
-  /* Neonový stín */
-  --neon-shadow-blur: 0.625rem; /* 10px převedené na rem */
-  
-  /* Border widths pro neonové ohraničení */
+  /* BORDER A ROZMĚRY */
   --border-neon-thin: 1px;
   --border-neon-medium: 2px;
   --border-neon-thick: 3px;
   
-  /* Transition hodnoty pro animace a efekty */
+  /* ANIMACE */
   --transition-fast: all 0.2s ease;
   --transition-normal: all 0.3s ease;
   --transition-slow: all 0.5s ease;
-  
-  /* Scale hodnoty pro transformace */
   --scale-hover: 1.05;
   --scale-active: 0.98;
   
-  /* Průhledné barvy pro pozadí a efekty - vždy průhledná černá */
+  /* POZADÍ EFEKTY */
   --neon-bg-hover: rgba(0, 0, 0, 0.2);
   --neon-bg-active: rgba(0, 0, 0, 0.3);
 }
