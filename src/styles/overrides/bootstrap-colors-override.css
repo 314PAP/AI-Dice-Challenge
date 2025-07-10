@@ -376,3 +376,180 @@
   border-color: var(--neon-blue) !important;
   box-shadow: 0 0 0 0.25rem rgba(var(--neon-blue-rgb), 0.25) !important;
 }
+
+/* Bootstrap Button Override - NEJVYŠŠÍ PRIORITA pro btn třídy */
+
+/* Standard btn třídy */
+.btn-primary {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.8) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-blue-rgb), 0.4) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.6) !important;
+}
+
+.btn-secondary {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.8) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-purple-rgb), 0.4) !important;
+}
+
+.btn-success {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.8) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.4) !important;
+}
+
+.btn-info {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.8) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-blue-rgb), 0.4) !important;
+}
+
+.btn-warning {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-yellow-rgb), 0.8) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-yellow-rgb), 0.4) !important;
+}
+
+.btn-danger {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-red-rgb), 0.8) !important;
+  box-shadow: 0 0 8px rgba(var(--neon-red-rgb), 0.4) !important;
+}
+
+/* OUTLINE BUTTONS - KLÍČOVÉ PRO ŘEŠENÍ PROBLÉMU */
+.btn-outline-primary {
+  background-color: transparent !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+.btn-outline-primary:hover, 
+.btn-outline-primary:focus, 
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+  background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 8px rgba(var(--neon-blue-rgb), 0.8) !important;
+  box-shadow: 0 0 12px rgba(var(--neon-blue-rgb), 0.5) !important;
+}
+
+.btn-outline-secondary {
+  background-color: transparent !important;
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.3) !important;
+}
+
+.btn-outline-success {
+  background-color: transparent !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.3) !important;
+}
+
+.btn-outline-info {
+  background-color: transparent !important;
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-blue-rgb), 0.3) !important;
+}
+
+.btn-outline-warning {
+  background-color: transparent !important;
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-yellow-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-yellow-rgb), 0.3) !important;
+}
+
+.btn-outline-danger {
+  background-color: transparent !important;
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-red-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-red-rgb), 0.3) !important;
+}
+
+.btn-outline-light {
+  background-color: transparent !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.3) !important;
+}
+
+.btn-outline-dark {
+  background-color: transparent !important;
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.3) !important;
+}
+
+/* DŮLEŽITÉ: Override pro kombinace btn tříd s utility třídami */
+.btn-outline-primary.text-neon-green {
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.3) !important;
+}
+
+.btn-outline-primary.border-neon-green {
+  border-color: var(--neon-green) !important;
+}
+
+/* MAXIMÁLNÍ SPECIFITA - kombinace btn s utility třídami */
+.btn.btn-outline-primary.text-neon-green,
+button.btn-outline-primary.text-neon-green,
+.btn-outline-primary.text-neon-green.btn {
+  color: var(--neon-green) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.6) !important;
+}
+
+.btn.btn-outline-primary.border-neon-green,
+button.btn-outline-primary.border-neon-green,
+.btn-outline-primary.border-neon-green.btn {
+  border-color: var(--neon-green) !important;
+}
+
+.btn.btn-outline-primary.text-neon-green.border-neon-green,
+button.btn-outline-primary.text-neon-green.border-neon-green {
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.6) !important;
+  box-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.3) !important;
+}
+
+.btn.btn-outline-primary.text-neon-green.border-neon-green:hover,
+button.btn-outline-primary.text-neon-green.border-neon-green:hover {
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  background-color: rgba(var(--neon-green-rgb), 0.1) !important;
+  text-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.8) !important;
+  box-shadow: 0 0 12px rgba(var(--neon-green-rgb), 0.5) !important;
+}

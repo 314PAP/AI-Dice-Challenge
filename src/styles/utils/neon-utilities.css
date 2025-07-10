@@ -7,59 +7,95 @@
 
 @import '../variables/neon-colors.css';
 
-/* Neonové textové barvy - rozšiřující Bootstrap text-* utility */
-.text-neon-green {
+/* Neonové textové barvy - rozšiřující Bootstrap text-* utility - VYŠŠÍ SPECIFITA */
+.text-neon-green,
+.btn.text-neon-green,
+button.text-neon-green,
+[class*="text-neon-green"] {
   color: var(--neon-green) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
-.text-neon-blue {
+.text-neon-blue,
+.btn.text-neon-blue,
+button.text-neon-blue,
+[class*="text-neon-blue"] {
   color: var(--neon-blue) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
-.text-neon-purple {
+.text-neon-purple,
+.btn.text-neon-purple,
+button.text-neon-purple,
+[class*="text-neon-purple"] {
   color: var(--neon-purple) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
-.text-neon-orange {
+.text-neon-orange,
+.btn.text-neon-orange,
+button.text-neon-orange,
+[class*="text-neon-orange"] {
   color: var(--neon-orange) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
-.text-neon-red {
+.text-neon-red,
+.btn.text-neon-red,
+button.text-neon-red,
+[class*="text-neon-red"] {
   color: var(--neon-red) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
-.text-neon-yellow {
+.text-neon-yellow,
+.btn.text-neon-yellow,
+button.text-neon-yellow,
+[class*="text-neon-yellow"] {
   color: var(--neon-yellow) !important;
   text-shadow: var(--neon-text-shadow) !important;
 }
 
-/* Neonové border utility - rozšíření Bootstrap border-* utility */
-.border-neon-green {
+/* Neonové border utility - rozšíření Bootstrap border-* utility - VYŠŠÍ SPECIFITA */
+.border-neon-green,
+.btn.border-neon-green,
+button.border-neon-green,
+[class*="border-neon-green"] {
   border-color: var(--neon-green) !important;
 }
 
-.border-neon-blue {
+.border-neon-blue,
+.btn.border-neon-blue,
+button.border-neon-blue,
+[class*="border-neon-blue"] {
   border-color: var(--neon-blue) !important;
 }
 
-.border-neon-purple {
+.border-neon-purple,
+.btn.border-neon-purple,
+button.border-neon-purple,
+[class*="border-neon-purple"] {
   border-color: var(--neon-purple) !important;
 }
 
-.border-neon-orange {
+.border-neon-orange,
+.btn.border-neon-orange,
+button.border-neon-orange,
+[class*="border-neon-orange"] {
   border-color: var(--neon-orange) !important;
 }
 
-.border-neon-red {
+.border-neon-red,
+.btn.border-neon-red,
+button.border-neon-red,
+[class*="border-neon-red"] {
   border-color: var(--neon-red) !important;
 }
 
-.border-neon-yellow {
+.border-neon-yellow,
+.btn.border-neon-yellow,
+button.border-neon-yellow,
+[class*="border-neon-yellow"] {
   border-color: var(--neon-yellow) !important;
 }
 
