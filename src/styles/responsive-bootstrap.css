@@ -460,3 +460,33 @@
   0% { transform: rotate(360deg); }
   100% { transform: rotate(0deg); }
 }
+
+/* === MOBILNÍ LAYOUT 60/40 === */
+
+/* Pouze pro mobily (< 576px) */
+@media (max-width: 575.98px) {
+    /* Game area - 60% výšky na mobilu */
+    .mobile-game-area {
+        flex: 0 0 60% !important;
+        min-height: 60% !important;
+        max-height: 60% !important;
+    }
+    
+    /* Chat area - 40% výšky na mobilu */
+    .mobile-chat-area {
+        flex: 0 0 40% !important;
+        min-height: 40% !important;
+        max-height: 40% !important;
+    }
+}
+
+/* Desktop a větší - standardní Bootstrap grid */
+@media (min-width: 576px) {
+    .mobile-game-area {
+        flex: 0 0 66.666667% !important; /* col-sm-8 ekvivalent */
+    }
+    
+    .mobile-chat-area {
+        flex: 0 0 33.333333% !important; /* col-sm-4 ekvivalent */
+    }
+}
