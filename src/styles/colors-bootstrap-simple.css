@@ -155,7 +155,7 @@ body {
 /* Chat zprávy */
 .chat-message-ai {
   background: rgba(var(--neon-black-rgb), 0.3);
-  border: 1px solid currentColor;
+  border: none; /* Bez ohraničení pro AI zprávy */
   /* Bez defaultních barev - nechejte specificke AI styly */
 }
 
@@ -167,7 +167,6 @@ body {
 .chat-message-ai.ai-gemini {
   color: var(--neon-blue);
   text-shadow: 0 0 0.3125rem rgba(var(--neon-blue-rgb), 0.5);
-  border-color: var(--neon-blue);
   box-shadow: 0 0 0.3125rem rgba(var(--neon-blue-rgb), 0.3);
 }
 
@@ -179,7 +178,6 @@ body {
 .chat-message-ai.ai-gpt {
   color: var(--neon-purple);
   text-shadow: 0 0 0.3125rem rgba(var(--neon-purple-rgb), 0.5);
-  border-color: var(--neon-purple);
   box-shadow: 0 0 0.3125rem rgba(var(--neon-purple-rgb), 0.3);
 }
 
@@ -191,7 +189,6 @@ body {
 .chat-message-ai.ai-claude {
   color: var(--neon-orange);
   text-shadow: 0 0 0.3125rem rgba(var(--neon-orange-rgb), 0.5);
-  border-color: var(--neon-orange);
   box-shadow: 0 0 0.3125rem rgba(var(--neon-orange-rgb), 0.3);
 }
 
