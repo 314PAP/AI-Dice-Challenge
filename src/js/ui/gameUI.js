@@ -7,9 +7,9 @@
 import gameState from '../game/gameState.js';
 import { GAME_CONSTANTS } from '../utils/constants.js';
 import { rollDie, rollDice, calculatePoints } from '../game/diceMechanics.js';
-import { animateDiceRoll, showSuccessMessage } from './animations.js';
 import chatSystem from '../ai/chatSystem.js'; // Importujeme chatSystem pro AI interakce
 import { detectGameEvent } from '../ai/aiInteractions.js'; // Importujeme detekci herních událostí
+import { animateDiceRoll, showSuccessMessage } from './animations.js';
 
 /**
  * GameUI třída - Zajišťuje veškeré renderování herní plochy
