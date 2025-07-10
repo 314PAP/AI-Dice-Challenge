@@ -110,57 +110,33 @@
   box-shadow: 0 0 10px rgba(var(--neon-orange-rgb), 0.5);
 }
 
-/* AI osobnost - GPT (zelená) */
+/* AI osobnost - GPT (purpurová) */
 .chat-message-ai.ai-gpt {
-  color: var(--neon-green);
-  text-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.5);
-  border-color: var(--neon-green);
-  box-shadow: 0 0 5px rgba(var(--neon-green-rgb), 0.3);
+  color: var(--neon-purple);
+  text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.5);
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.3);
 }
 
 .chat-message-ai.ai-gpt:hover {
-  box-shadow: 0 0 10px rgba(var(--neon-green-rgb), 0.5);
-}
-
-/* AI osobnost - Llama (žlutá) */
-.chat-message-ai.ai-llama {
-  color: var(--neon-yellow);
-  text-shadow: 0 0 5px rgba(var(--neon-yellow-rgb), 0.5);
-  border-color: var(--neon-yellow);
-  box-shadow: 0 0 5px rgba(var(--neon-yellow-rgb), 0.3);
-}
-
-.chat-message-ai.ai-llama:hover {
-  box-shadow: 0 0 10px rgba(var(--neon-yellow-rgb), 0.5);
-}
-
-/* AI osobnost - Mistral (červená) */
-.chat-message-ai.ai-mistral {
-  color: var(--neon-red);
-  text-shadow: 0 0 5px rgba(var(--neon-red-rgb), 0.5);
-  border-color: var(--neon-red);
-  box-shadow: 0 0 5px rgba(var(--neon-red-rgb), 0.3);
-}
-
-.chat-message-ai.ai-mistral:hover {
-  box-shadow: 0 0 10px rgba(var(--neon-red-rgb), 0.5);
+  box-shadow: 0 0 10px rgba(var(--neon-purple-rgb), 0.5);
 }
 
 /* Systémové zprávy */
 .chat-message-system {
-  background: rgba(var(--neon-purple-rgb), 0.15);
+  background: rgba(var(--neon-yellow-rgb), 0.15);
   border: none;
-  color: var(--neon-purple);
+  color: var(--neon-yellow);
   align-self: center;
   text-align: center;
   font-style: italic;
-  text-shadow: 0 0 5px rgba(var(--neon-purple-rgb), 0.5);
-  box-shadow: 0 0 8px rgba(var(--neon-purple-rgb), 0.2);
+  text-shadow: 0 0 5px rgba(var(--neon-yellow-rgb), 0.5);
+  box-shadow: 0 0 8px rgba(var(--neon-yellow-rgb), 0.2);
   max-width: 95%;
   transition: var(--transition-normal);
 }
 
 .chat-message-system:hover {
-  text-shadow: 0 0 8px rgba(var(--neon-purple-rgb), 0.7);
-  box-shadow: 0 0 12px rgba(var(--neon-purple-rgb), 0.3);
+  text-shadow: 0 0 8px rgba(var(--neon-yellow-rgb), 0.7);
+  box-shadow: 0 0 12px rgba(var(--neon-yellow-rgb), 0.3);
 }

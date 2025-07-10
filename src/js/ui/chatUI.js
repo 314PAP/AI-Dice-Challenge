@@ -120,7 +120,7 @@ export class ChatUI {
         } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
             // Systémová zpráva
             messageClasses += ' chat-message-system';
-            colorClass = 'text-neon-purple'; // Fialová pro systémové zprávy
+            colorClass = 'text-neon-yellow'; // Žlutá pro systémové zprávy
         } else if (aiPersonalities[message.sender]) {
             // Zpráva od AI - přidáme specifickou třídu podle AI osobnosti
             // Standardizované mapování AI jmen na CSS třídy

@@ -32,7 +32,7 @@ export const aiPersonalities = {
         riskTolerance: 0.5,
         strategyType: "balanced",
         emoji: "�",
-        color: CHAT_COLORS.GREEN,
+        color: CHAT_COLORS.PURPLE,
         avatar: "bi-cpu-fill"
     },
     Claude: {
