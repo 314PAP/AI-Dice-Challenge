@@ -132,9 +132,7 @@ export class ChatUI {
                 'gemini': 'ai-gemini',
                 'gpt': 'ai-gpt', 
                 'chatgpt': 'ai-gpt',
-                'claude': 'ai-claude',
-                'llama': 'ai-llama',
-                'mistral': 'ai-mistral'
+                'claude': 'ai-claude'
             };
             
             // Použij přímé mapování nebo extrahuj název z textu
@@ -175,8 +173,6 @@ export class ChatUI {
         chatSystem.addAiMessage('Gemini', 'Připravte se na analytickou výzvu!');
         chatSystem.addAiMessage('ChatGPT', 'Bude to skvělá hra!');
         chatSystem.addAiMessage('Claude', 'Hodně štěstí!');
-        chatSystem.addAiMessage('Llama', '*hýká nadšením* Kostky jsou moje vášeň!');
-        chatSystem.addAiMessage('Mistral', '*chladně* Jsem připraven analyzovat vaše tahy.');
         
         this.renderMessages();
         this.scrollToBottom();

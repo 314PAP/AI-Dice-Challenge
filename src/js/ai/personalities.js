@@ -1,5 +1,5 @@
 /**
- * AI Personalities - Definice AI osobností a jejich chování
+ * AI Personalities - AI osobnosti a jejich chování
  * Modul definuje všechny AI osobnosti a jejich reakce v různých herních situacích
  */
 
@@ -22,7 +22,7 @@ export const aiPersonalities = {
         color: CHAT_COLORS.BLUE,
         avatar: "bi-robot"
     },
-    GPT: {
+    ChatGPT: {
         responses: [
             "Ó, to je chytrý tah!",
             "Hmm, já bych to hrál jinak...",
@@ -47,32 +47,6 @@ export const aiPersonalities = {
         emoji: "🟠",
         color: CHAT_COLORS.ORANGE,
         avatar: "bi-lightning-charge-fill"
-    },
-    Llama: {
-        responses: [
-            "*hýká nadšením* To je skvělé!",
-            "Kostky jsou moje vášeň!",
-            "Nemůžu se dočkat svého tahu!",
-            "Takhle se to hraje, sleduj!"
-        ],
-        riskTolerance: 0.8, // Velmi riskantní AI
-        strategyType: "risky",
-        emoji: "🟡",
-        color: CHAT_COLORS.YELLOW,
-        avatar: "bi-stars"
-    },
-    Mistral: {
-        responses: [
-            "*chladně* Zajímavá volba.",
-            "Analyzuji tvůj tah.",
-            "Přizpůsobuji svou strategii.",
-            "Efektivní, ale ne optimální."
-        ],
-        riskTolerance: 0.4, // Mírně konzervativní
-        strategyType: "calculated",
-        emoji: "🔴",
-        color: CHAT_COLORS.RED,
-        avatar: "bi-cpu"
     }
 };
 
