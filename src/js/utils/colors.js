@@ -1,33 +1,22 @@
 /**
- * colors.js - Sdílené barevné konstanty pro JavaScript
+ * colors.js - Barevné konstanty synchronizované s colors-bootstrap.css
  * 
- * Tento modul poskytuje jednotné barevné proměnné pro použití v JavaScriptu
- * Synchronizováno s CSS proměnnými v neon-colors.css
+ * SYNCHRONIZOVÁNO S: /src/styles/colors-bootstrap.css
+ * 6 neonových barev + černé pozadí
  */
 
-// Definice barev z CSS proměnných pro použití v JavaScript
+// HLAVNÍ BARVY - stejné jako v colors-bootstrap.css
 export const CONSOLE_COLORS = {
-    // Neonové barvy - 6 základních
-    neonGreen: '#39ff14',
-    neonBlue: '#194DD1',
-    neonPurple: '#FF00FF',
-    neonOrange: '#FF8800',
-    neonRed: '#ff3131',
-    neonYellow: '#ffff00',
-    
-    // Tmavé barvy - pouze černá
-    neonBlack: '#000000'
+    neonGreen: '#39ff14',    // --neon-green
+    neonBlue: '#194DD1',     // --neon-blue  
+    neonPurple: '#FF00FF',   // --neon-purple
+    neonOrange: '#FF8800',   // --neon-orange
+    neonRed: '#ff3131',      // --neon-red
+    neonYellow: '#ffff00',   // --neon-yellow
+    neonBlack: '#000000'     // --neon-black
 };
 
-// Funkce pro převod px na rem - užitečné pro konzolové styly
-export function pxToRem(px) {
-    return `${px / 16}rem`;
-}
-
-/**
- * Mapování názvů neonových barev na hexadecimální hodnoty
- * Pro použití v chatSystem a dalších modulech
- */
+// CHAT BARVY - mapování pro chat systém
 export const CHAT_COLORS = {
     GREEN: CONSOLE_COLORS.neonGreen,
     BLUE: CONSOLE_COLORS.neonBlue,
@@ -36,6 +25,11 @@ export const CHAT_COLORS = {
     RED: CONSOLE_COLORS.neonRed,
     YELLOW: CONSOLE_COLORS.neonYellow
 };
+
+// UTILITY FUNKCE
+export function pxToRem(px) {
+    return `${px / 16}rem`;
+}
 
 /**
  * Převede barvu z hex na rgb formát (používá se pro rgba)

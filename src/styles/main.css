@@ -1,59 +1,25 @@
 /* ===================================================================
-   HLAVNÍ CSS SOUBOR - CENTRÁLNÍ IMPORT VŠECH MODULŮ
+   HLAVNÍ CSS SOUBOR - SJEDNOCENÝ SYSTÉM
    
-   Tento soubor slouží jako centrální bod pro import všech CSS modulů
-   a zajišťuje správné pořadí načítání a sjednotění stylů.
-   
-   POZNÁMKA: 
-   1. Všechny soubory používají čisté CSS (ne SCSS). 
-   2. Veškeré barvy jsou definované v neon-colors.css jako CSS proměnné.
-   3. Bootstrap override je na konci pro nejvyšší prioritu.
+   Jediný import pro barvy + komponenty
    ================================================================= */
 
-/* 1. Proměnné a základní nastavení */
-@import './variables/neon-colors.css';
+/* JEDINÝ SOUBOR PRO VŠECHNY BARVY */
+@import './colors-bootstrap.css';
 
-/* 2. Utility třídy a rozšíření Bootstrapu */
-@import './utils/neon-utilities.css';
+/* KOMPONENTY */
 @import './responsive-text.css';
 @import './responsive-heights.css';
-
-/* 3. Komponenty */
 @import './components/neon-buttons.css';
 @import './components/dice.css';
 @import './components/neon-spinner.css';
 @import './components/chat.css';
-
-/* 4. Formulářové prvky */
 @import './forms/neon-forms.css';
 
-/* 5. Bootstrap overrides - MUSÍ BÝT NA KONCI pro nejvyšší prioritu */
-@import './overrides/bootstrap-colors-override.css';
-
-/* 6. Globální nastavení - pouze neonové styly */
-html {
-  background-color: var(--neon-black);
-}
-
-body {
-  background-color: var(--neon-black);
-  color: var(--neon-green);
-  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
-}
-
-/* Font loading optimalizace */
-.font-orbitron {
-  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
-  font-display: swap;
-}
-
-/* 
-   Z-index scale (kompatibilní s Bootstrap a synchronizováno s JS constants.js)
-   Poznámka: Vždy preferujte použití Z_INDEXES z constants.js v JS kódu
-*/
+/* Z-index proměnné */
 :root {
   --z-modal: 1050;
   --z-dropdown: 1000;
   --z-tooltip: 1070;
-  --z-loading: 1055; /* Bootstrap modal + 5 */
+  --z-loading: 1055;
 }
