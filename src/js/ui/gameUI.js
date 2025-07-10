@@ -487,8 +487,8 @@ export class GameUI {
         
         // Pravidla - Bootstrap responsive container s overflow a paddingem pro scrollbar
         const rulesContainer = document.createElement('div');
-        rulesContainer.className = 'flex-grow-1 overflow-auto px-0 px-md-2 rules-container';
-        rulesContainer.style.paddingRight = '15px'; // Extra padding pro scrollbar
+        rulesContainer.className = 'flex-grow-1 px-0 px-md-2 rules-container';
+        // Odstraněn padding-right, protože je nyní aplikován přímo na card-body
         
         // Vytvoření pravidel v responsivní kartě - Bootstrap-first approach
         const rulesCard = createNeonCard('Pravidla kostkovky', 'blue', `

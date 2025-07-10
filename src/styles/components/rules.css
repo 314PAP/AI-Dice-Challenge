@@ -19,6 +19,46 @@
   margin-bottom: 1rem;
 }
 
+/* Nastavení scrollování pro card-body v pravidlech */
+.rules-container .card .card-body {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
+/* Neonový scrollbar pro card-body v pravidlech */
+.rules-container .card .card-body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+
+.rules-container .card .card-body::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 2px;
+  box-shadow: none;
+}
+
+.rules-container .card .card-body::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 10px;
+  border: 1px solid rgba(var(--neon-blue-rgb), 0.6);
+  box-shadow: 0 0 5px var(--neon-blue), 0 0 10px rgba(var(--neon-blue-rgb), 0.5);
+}
+
+.rules-container .card .card-body::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green);
+  box-shadow: 0 0 8px var(--neon-green), 0 0 15px rgba(var(--neon-green-rgb), 0.6);
+}
+
+.rules-container .card .card-body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) transparent;
+}
+
 /* Vylepšení položek v seznamu */
 .rules-container ul li,
 .rules-container ol li {

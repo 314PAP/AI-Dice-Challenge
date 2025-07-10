@@ -77,6 +77,15 @@ export const createNeonCard = (title, color, content = "", headerIcon = null) =>
         </div>
     `;
     
+    // Přidáme třídy pro scrollování, pokud se jedná o kartu pravidel
+    if (title === 'Pravidla kostkovky') {
+        const cardBody = card.querySelector('.card-body');
+        if (cardBody) {
+            // Nastavení scrollování se aplikuje z rules.css, ale zde zajistíme overflow-auto
+            cardBody.classList.add('overflow-auto');
+        }
+    }
+    
     return card;
 };
 
