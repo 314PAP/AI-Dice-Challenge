@@ -120,34 +120,9 @@ html, body {
   border-color: rgba(var(--neon-green-rgb), 0.8) !important;
 }
 
-/* ===== SCROLLBARY - POUZE BARVY, VELIKOSTI ŘEŠENY BOOTSTRAP TŘÍDAMI ===== */
+/* ===== SCROLLBARY - PŘESUNUTO DO responsive-bootstrap.css ===== */
 
-/* Globální scrollbary - pouze neonové barvy */
-*::-webkit-scrollbar-track {
-  background: var(--neon-black);
-  box-shadow: inset 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.05);
-}
-
-*::-webkit-scrollbar-thumb {
-  background: rgba(var(--neon-green-rgb), 0.7);
-  box-shadow: 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.3);
-  border: 0.03125rem solid var(--neon-black);
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-green);
-  box-shadow: 0 0 0.25rem var(--neon-green), 0 0 0.5rem rgba(var(--neon-green-rgb), 0.4);
-}
-
-*::-webkit-scrollbar-corner {
-  background: var(--neon-black);
-}
-
-/* Firefox scrollbary - pouze barvy */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--neon-green) var(--neon-black);
-}
+/* Všechny scrollbar styly jsou nyní v responsive-bootstrap.css pro lepší organizaci */
 
 /* ===== NEONOVÁ TLAČÍTKA - POUZE BARVY A EFEKTY ===== */
 

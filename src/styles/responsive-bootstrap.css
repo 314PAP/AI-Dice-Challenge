@@ -75,96 +75,26 @@
   }
 }
 
-/* ===== RESPONZIVNÍ TEXT A SPACING ===== */
+/* ===== RESPONZIVNÍ TEXT A SPACING - BOOTSTRAP ROZŠÍŘENÍ ===== */
 
-/* Velikosti tlačítek optimalizované pro různé breakpointy */
-.btn-custom-sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+/* Pouze specifické velikosti, které Bootstrap nemá - jinak používej .btn-sm, .btn-lg, .fs-*, .p-* */
+
+/* Fluid Typography - pouze pokud není možné použít Bootstrap .fs-* utility */
+.fs-fluid-hero {
+  font-size: calc(2rem + 2vw); /* Pro hero sekce */
 }
 
-/* Responsive velikosti tlačítek pro větší obrazovky */
-@media (min-width: 768px) {
-  .btn-md-lg {
-    padding: 0.5rem 1rem;
-    font-size: 1.25rem;
-  }
-}
-
-@media (min-width: 992px) {
-  .btn-lg-xl {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.5rem;
-  }
-}
-
-/* Fluid Typography - plynulá změna velikosti textu podle viewport */
-.fs-fluid-1 {
-  font-size: calc(1.5rem + 1.5vw);
-}
-
-.fs-fluid-2 {
-  font-size: calc(1.325rem + 0.9vw);
-}
-
-.fs-fluid-3 {
-  font-size: calc(1.2rem + 0.6vw);
-}
-
-.fs-fluid-4 {
-  font-size: calc(1.1rem + 0.3vw);
-}
-
-.fs-fluid-5 {
-  font-size: calc(1rem + 0.15vw);
-}
-
-/* Plynulé změny spacing podle velikosti obrazovky */
-.p-fluid {
-  padding: calc(0.5rem + 0.5vw);
-}
-
-.m-fluid {
-  margin: calc(0.5rem + 0.5vw);
-}
-
-.mb-fluid {
-  margin-bottom: calc(0.5rem + 0.5vw);
-}
-
-.mt-fluid {
-  margin-top: calc(0.5rem + 0.5vw);
-}
-
-.py-fluid {
-  padding-top: calc(0.3rem + 0.3vw);
-  padding-bottom: calc(0.3rem + 0.3vw);
-}
-
-.px-fluid {
-  padding-left: calc(0.3rem + 0.3vw);
-  padding-right: calc(0.3rem + 0.3vw);
-}
-
-/* Optimalizace pro landscape orientaci */
+/* Landscape optimalizace - pouze specifické hodnoty */
 @media (orientation: landscape) and (max-height: 500px) {
-  .landscape-compact {
-    padding: 0.25rem;
-    margin: 0.25rem;
-  }
-  
-  .landscape-small-text {
-    font-size: 0.875rem;
-  }
-  
-  .landscape-line-height-sm {
-    line-height: 1.2;
+  .landscape-ultra-compact {
+    padding: 0.125rem; /* Menší než Bootstrap .p-1 */
+    margin: 0.125rem;
   }
 }
 
 /* ===== KOMPONENTY - KOSTKY VELIKOSTI ===== */
 
-/* Základní velikosti kostek */
+/* Základní velikosti kostek - specifické pro hru, nelze nahradit Bootstrap */
 .dice {
   width: 2.8125rem; /* 45px */
   height: 2.8125rem;
@@ -174,62 +104,49 @@
   cursor: pointer;
 }
 
-/* Small devices (landscape phones, 576px and up) */
+/* Responzivní velikosti kostek */
 @media (min-width: 576px) {
-  .dice {
-    width: 3.125rem; /* 50px */
-    height: 3.125rem;
-  }
+  .dice { width: 3.125rem; height: 3.125rem; }
 }
 
-/* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .dice {
-    width: 3.4375rem; /* 55px */
+  .dice { 
+    width: 3.4375rem; 
     height: 3.4375rem;
-    border-width: 0.125rem; /* 2px */
+    border-width: 0.125rem;
   }
 }
 
-/* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  .dice {
-    width: 4.0625rem; /* 65px */
+  .dice { 
+    width: 4.0625rem; 
     height: 4.0625rem;
-    border-width: 0.125rem; /* 2px */
   }
 }
 
-/* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
-  .dice {
-    width: 4.375rem; /* 70px */
+  .dice { 
+    width: 4.375rem; 
     height: 4.375rem;
-    border-width: 0.1875rem; /* 3px */
+    border-width: 0.1875rem;
   }
 }
 
-/* Landscape optimalizace pro kostky */
+/* Landscape optimalizace */
 @media (orientation: landscape) and (max-height: 500px) {
   .dice {
     width: 2.1875rem; /* 35px */
     height: 2.1875rem;
-    border-width: 0.0625rem; /* 1px */
+    border-width: 0.0625rem;
   }
   
-  .dice-compact {
-    margin: 0.25rem;
-    padding: 0.1rem;
-  }
-  
-  /* Zmenšení teček pro lepší čitelnost */
   .dot {
     width: 0.375rem; /* 6px */
     height: 0.375rem;
   }
 }
 
-/* Dice transformace při interakcích */
+/* Dice transformace - interakce specifické pro hru */
 .dice.selected {
   transform: translateY(-0.3125rem) !important; /* -5px */
 }
@@ -240,6 +157,7 @@
 
 /* ===== KOMPONENTY - SPINNER VELIKOSTI ===== */
 
+/* Neon spinner - specifické pro hru, Bootstrap má pouze .spinner-border */
 .neon-spinner {
   display: inline-block !important;
   width: 2.5rem !important;
@@ -252,7 +170,7 @@
   border-style: solid !important;
 }
 
-/* Různé velikosti spinnerů */
+/* Různé velikosti spinnerů - pouze pokud Bootstrap .spinner-border-sm nestačí */
 .neon-spinner.neon-spinner-sm {
   width: 1.5rem !important;
   height: 1.5rem !important;
@@ -263,18 +181,9 @@
   height: 3.5rem !important;
 }
 
-/* ===== KOMPONENTY - NEONOVÁ TLAČÍTKA VELIKOSTI ===== */
+/* ===== KOMPONENTY - NEONOVÁ TLAČÍTKA - POUZE EFEKTY ===== */
 
-.btn-neon {
-  font-weight: 600;
-  text-transform: uppercase;
-  position: relative;
-  border-width: 0.125rem;
-  border-style: solid;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
+/* Pouze transformace efekty - velikosti řeší Bootstrap .btn-sm, .btn-lg */
 .btn-neon:hover,
 .btn-neon:focus {
   transform: scale(1.05) !important;
@@ -284,194 +193,32 @@
   transform: scale(0.98) !important;
 }
 
-/* ===== KOMPONENTY - CHAT VELIKOSTI ===== */
+/* ===== KOMPONENTY - CHAT VELIKOSTI - POUZE SPECIFICKÉ ===== */
 
+/* Pouze max-width, zbytek řeší Bootstrap .mb-*, .p-*, .rounded */
 .chat-message {
-  margin-bottom: 0.75rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
   max-width: 85%;
   word-break: break-word;
 }
 
-/* ===== KOMPONENTY - FORMULÁŘE VELIKOSTI ===== */
+/* ===== KOMPONENTY - FORMULÁŘE - ODSTRANĚNO ===== */
 
-/* Bootstrap-compatible spacing pro formuláře */
-.form-control[class] {
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  border-radius: 0.375rem;
-  border-width: 1px;
-  border-style: solid;
-}
+/* Bootstrap .form-control má všechny potřebné styly */
 
-.input-group-text {
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  border-width: 1px;
-  border-style: solid;
-}
+/* ===== RESPONZIVNÍ TLAČÍTKA - ODSTRANĚNO ===== */
 
-/* ===== RESPONZIVNÍ BREAKPOINTY PRO KOMPONENTY ===== */
+/* Používej Bootstrap .btn-sm, .btn-lg a responsive třídy .btn-md-lg apod. */
 
-/* Small devices optimalizace */
-@media (min-width: 576px) {
-  .btn-neon {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-}
+/* ===== LAYOUT UTILITY TŘÍDY - POUZE TO CO BOOTSTRAP NEMÁ ===== */
 
-/* Medium devices optimalizace */
-@media (min-width: 768px) {
-  .btn-neon {
-    padding: 0.6rem 1.2rem;
-    font-size: 1rem;
-  }
-}
-
-/* Large devices optimalizace */
-@media (min-width: 992px) {
-  .btn-neon {
-    padding: 0.7rem 1.4rem;
-    font-size: 1.1rem;
-  }
-}
-
-/* Extra large devices optimalizace */
-@media (min-width: 1200px) {
-  .btn-neon {
-    padding: 0.8rem 1.6rem;
-    font-size: 1.2rem;
-  }
-}
-
-/* ===== RESPONZIVNÍ TLAČÍTKA ===== */
-
-/* Výchozí velikost pro mobilní telefony */
-.btn-neon,
-.btn.btn-neon {
-  padding: 0.375rem 0.75rem;
-  font-size: 0.9rem;
-}
-
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  .btn-neon,
-  .btn.btn-neon {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.95rem;
-  }
-}
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .btn-neon,
-  .btn.btn-neon {
-    padding: 0.5rem 0.875rem;
-    font-size: 1rem;
-  }
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .btn-neon,
-  .btn.btn-neon {
-    padding: 0.5rem 1rem;
-    font-size: 1.1rem;
-  }
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  .btn-neon,
-  .btn.btn-neon {
-    padding: 0.625rem 1.25rem;
-    font-size: 1.2rem;
-  }
-}
-
-/* Landscape orientace - kompaktnější tlačítka */
-@media (orientation: landscape) and (max-height: 500px) {
-  .btn-neon,
-  .btn.btn-neon {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-    border-width: 0.0625rem;
-    margin-bottom: 0.25rem;
-  }
-  
-  /* Zmenšení ikon v tlačítkách */
-  .btn-neon .bi,
-  .btn.btn-neon .bi {
-    font-size: 0.8rem;
-    margin-right: 0.25rem;
-  }
-  
-  .btn-neon.btn-lg,
-  .btn.btn-neon.btn-lg {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.95rem;
-  }
-}
-
-/* ===== LAYOUT UTILITY TŘÍDY ===== */
-
-/* Minimální výška pro komponenty */
-.min-height-0 {
-  min-height: 0 !important;
-}
-
-.min-height-100 {
-  min-height: 100% !important;
-}
-
+/* Velmi specifické utility, které Bootstrap 5 nemá */
 .min-height-100vh {
   min-height: 100vh !important;
 }
 
-/* Maximální šířka pro komponenty */
-.max-width-100 {
-  max-width: 100% !important;
-}
-
-/* Flexbox utility rozšíření */
-.flex-grow-1 {
-  flex-grow: 1 !important;
-}
-
-.flex-shrink-0 {
-  flex-shrink: 0 !important;
-}
-
-/* Overflow utility */
-.overflow-hidden {
-  overflow: hidden !important;
-}
-
-.overflow-auto {
-  overflow: auto !important;
-}
-
-.overflow-x-hidden {
-  overflow-x: hidden !important;
-}
-
-.overflow-y-auto {
-  overflow-y: auto !important;
-}
-
-/* === RESPONSIVE LAYOUT & SIZING === */
-
-/* === Z-INDEX UTILITY === */
+/* Z-index utility - Bootstrap 5 nemá */
 .z-index-top {
     z-index: 9999;
-}
-
-/* === MIN-HEIGHT UTILITY === */
-.min-h-0 {
-    min-height: 0;
 }
 
 /* === SPINNER ANIMACE ===== */
@@ -541,17 +288,49 @@
     }
 }
 
-/* ===== SCROLLBARY - ZELENÉ NEONOVÉ STYLY ===== */
+/* ===== SCROLLBARY - KOMPLETNÍ NASTAVENÍ PRO CELOU HRU ===== */
 
-/* Globální scrollbary - Bootstrap kompatibilní přístup pro celou hru */
+/* Globální scrollbary pro všechny kontejnery - responzivní */
+*::-webkit-scrollbar {
+  width: 0.375rem; /* 6px - základní */
+  height: 0.375rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--neon-black);
+  box-shadow: inset 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.05);
+  margin: 0.125rem; /* DŮLEŽITÉ - odsazení od okraje */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(var(--neon-green-rgb), 0.7);
+  box-shadow: 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.3);
+  border-radius: 0.1875rem;
+  border: 0.03125rem solid var(--neon-black); /* DŮLEŽITÉ - vytvoří odsazení */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green);
+  box-shadow: 0 0 0.25rem var(--neon-green), 0 0 0.5rem rgba(var(--neon-green-rgb), 0.4);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--neon-black);
+}
+
+/* Firefox scrollbary */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-green) var(--neon-black);
+}
+
+/* Bootstrap utility třídy - scrollbary pro overflow kontejnery */
 .overflow-auto, .overflow-scroll, .overflow-y-auto, .overflow-x-auto, 
 [style*="overflow"], .scrollable, .scroll-container {
-  /* Bootstrap scrollbar utility pro všechny přetékající prvky */
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) transparent;
 }
 
-/* Webkit scrollbar - globální styling pro všechny scrollbary */
 .overflow-auto::-webkit-scrollbar, .overflow-scroll::-webkit-scrollbar, 
 .overflow-y-auto::-webkit-scrollbar, .overflow-x-auto::-webkit-scrollbar,
 [style*="overflow"]::-webkit-scrollbar, .scrollable::-webkit-scrollbar,
@@ -565,7 +344,7 @@
 [style*="overflow"]::-webkit-scrollbar-track, .scrollable::-webkit-scrollbar-track,
 .scroll-container::-webkit-scrollbar-track {
   background: transparent;
-  margin: 4px; /* Odsazení od okraje */
+  margin: 4px; /* Bootstrap standard odsazení */
 }
 
 .overflow-auto::-webkit-scrollbar-thumb, .overflow-scroll::-webkit-scrollbar-thumb,
@@ -575,7 +354,7 @@
   background: var(--neon-green);
   border-radius: 4px;
   border: 2px solid transparent;
-  background-clip: content-box; /* Vytvoří odsazení */
+  background-clip: content-box; /* KLÍČOVÉ - vytvoří odsazení od okraje */
 }
 
 .overflow-auto::-webkit-scrollbar-thumb:hover, .overflow-scroll::-webkit-scrollbar-thumb:hover,
@@ -584,6 +363,7 @@
 .scroll-container::-webkit-scrollbar-thumb:hover {
   background: var(--neon-yellow);
   background-clip: content-box;
+  box-shadow: 0 0 0.375rem var(--neon-yellow), 0 0 0.75rem rgba(var(--neon-yellow-rgb), 0.5);
 }
 
 .overflow-auto::-webkit-scrollbar-corner, .overflow-scroll::-webkit-scrollbar-corner,
@@ -593,12 +373,10 @@
   background: transparent;
 }
 
-/* Chat scrollbar - specifické nastavení (stejné jako globální, ale s explicitním paddingem) */
+/* Chat scrollbar - specifické nastavení */
 #chatMessages {
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) transparent;
-  padding: 0.5rem !important; /* Bootstrap standard padding */
-  margin-right: 0.25rem; /* Odsazení pro scrollbar */
 }
 
 #chatMessages::-webkit-scrollbar {
@@ -620,10 +398,6 @@
 #chatMessages::-webkit-scrollbar-thumb:hover {
   background: var(--neon-yellow);
   background-clip: content-box;
-}
-
-#chatMessages::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-yellow);
   box-shadow: 0 0 0.375rem var(--neon-yellow), 0 0 0.75rem rgba(var(--neon-yellow-rgb), 0.5);
 }
 
@@ -631,48 +405,23 @@
   background: var(--neon-black);
 }
 
-/* Globální scrollbary pro všechny kontejnery - responzivní */
-*::-webkit-scrollbar {
-  width: 0.375rem;
-  height: 0.375rem;
-}
-
-*::-webkit-scrollbar-track {
-  background: var(--neon-black);
-  box-shadow: inset 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.05);
-  margin: 0.125rem;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: rgba(var(--neon-green-rgb), 0.7);
-  box-shadow: 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.3);
-  border-radius: 0.1875rem;
-  border: 0.03125rem solid var(--neon-black);
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-green);
-  box-shadow: 0 0 0.25rem var(--neon-green), 0 0 0.5rem rgba(var(--neon-green-rgb), 0.4);
-}
-
-*::-webkit-scrollbar-corner {
-  background: var(--neon-black);
-}
-
-/* Firefox scrollbary */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--neon-green) var(--neon-black);
-}
-
 /* Responsive scrollbary - větší na touch zařízeních */
 @media (pointer: coarse) {
   *::-webkit-scrollbar {
-    width: 0.75rem;
+    width: 0.75rem; /* 12px */
     height: 0.75rem;
   }
+  
+  .overflow-auto::-webkit-scrollbar, .overflow-scroll::-webkit-scrollbar, 
+  .overflow-y-auto::-webkit-scrollbar, .overflow-x-auto::-webkit-scrollbar,
+  [style*="overflow"]::-webkit-scrollbar, .scrollable::-webkit-scrollbar,
+  .scroll-container::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
   #chatMessages::-webkit-scrollbar {
-    width: 0.875rem;
+    width: 0.875rem; /* 14px */
     height: 0.875rem;
   }
 }
@@ -680,11 +429,79 @@
 /* Landscape mode - tenčí scrollbary */
 @media (orientation: landscape) and (max-height: 500px) {
   *::-webkit-scrollbar {
-    width: 0.25rem;
+    width: 0.25rem; /* 4px */
     height: 0.25rem;
   }
+  
+  .overflow-auto::-webkit-scrollbar, .overflow-scroll::-webkit-scrollbar, 
+  .overflow-y-auto::-webkit-scrollbar, .overflow-x-auto::-webkit-scrollbar,
+  [style*="overflow"]::-webkit-scrollbar, .scrollable::-webkit-scrollbar,
+  .scroll-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
   #chatMessages::-webkit-scrollbar {
-    width: 0.375rem;
+    width: 0.375rem; /* 6px */
     height: 0.375rem;
   }
 }
+
+/* ===================================================================
+   BOOTSTRAP-FIRST INSTRUKCE PRO RESPONSIVE-BOOTSTRAP.CSS
+   ================================================================= */
+
+/*
+TENTO SOUBOR OBSAHUJE POUZE:
+✅ Responzivní výšky pro game/chat sekce (specifické pro hru)
+✅ Kostky velikosti (herní komponenty)
+✅ Neon spinner velikosti (nelze nahradit Bootstrap .spinner-border)
+✅ Scrollbar velikosti (responzivní)
+✅ Velmi specifické utility (.min-height-100vh, .z-index-top)
+✅ Mobilní layout 60/40 pro hru
+✅ Spinner animace (specifické pro hru)
+
+MÍSTO VLASTNÍCH STYLŮ POUŽÍVEJ BOOTSTRAP:
+
+PADDING & MARGIN:
+❌ padding: 0.375rem 0.75rem → ✅ class="px-3 py-2"
+❌ margin-bottom: 0.75rem → ✅ class="mb-3"
+
+FONT SIZES:
+❌ font-size: 0.875rem → ✅ class="fs-6" nebo class="small"
+❌ font-size: 1.25rem → ✅ class="fs-5"
+
+BORDER RADIUS:
+❌ border-radius: 0.5rem → ✅ class="rounded"
+❌ border-radius: 0.375rem → ✅ class="rounded" (default)
+
+BUTTON SIZES:
+❌ padding: 0.25rem 0.5rem → ✅ class="btn btn-sm"
+❌ padding: 0.75rem 1.5rem → ✅ class="btn btn-lg"
+
+FLEXBOX:
+❌ flex-grow: 1 → ✅ class="flex-grow-1"
+❌ align-items: center → ✅ class="align-items-center"
+
+OVERFLOW:
+❌ overflow: hidden → ✅ class="overflow-hidden"
+❌ overflow-y: auto → ✅ class="overflow-y-auto"
+
+DISPLAY:
+❌ display: flex → ✅ class="d-flex"
+❌ display: none → ✅ class="d-none"
+
+WIDTH/HEIGHT:
+❌ width: 100% → ✅ class="w-100"
+❌ height: 100% → ✅ class="h-100"
+❌ min-height: 0 → ✅ class="min-h-0" (není v Bootstrap, ale není potřeba)
+
+POSITION:
+❌ position: relative → ✅ class="position-relative"
+❌ position: absolute → ✅ class="position-absolute"
+
+RESPONSIVE BREAKPOINTY:
+❌ @media (min-width: 768px) → ✅ class="d-md-block" nebo class="fs-md-4"
+
+POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
+*/
