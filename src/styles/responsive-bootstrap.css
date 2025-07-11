@@ -2,13 +2,151 @@
    RESPONSIVE-BOOTSTRAP - JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI
    
    Tento soubor obsahuje vše potřebné pro responzivitu a velikosti:
-   1. Responzivní výšky (game/chat sekce)
-   2. Responzivní text a spacing
+   1. RESPONZIVNÍ TYPOGRAFIE (Bootstrap-first)
+   2. Responzivní výšky (game/chat sekce)
    3. Komponenty - velikosti (kostky, tlačítka, spinnery)
    4. Bootstrap rozšíření pro velikosti
    
    BEZ BAREV - pouze sizing, spacing, layout
    ================================================================= */
+
+/* ===== RESPONZIVNÍ TYPOGRAFIE - BOOTSTRAP FIRST ===== */
+
+/*
+BOOTSTRAP FONT-SIZES PRVNÍ VOLBA:
+✅ .fs-1 až .fs-6 (základní velikosti)
+✅ .small (0.875em)
+✅ .lead (1.25em, větší váha)
+✅ .display-1 až .display-6 (hero texty)
+✅ .h1 až .h6 (utility třídy pro velikosti nadpisů)
+
+RESPONZIVNÍ UTILITIES (Bootstrap 5.2+):
+✅ .fs-sm-4, .fs-md-3, .fs-lg-2 (responzivní font-size)
+✅ .display-sm-4, .display-md-3 (responzivní display texty)
+*/
+
+/* GLOBÁLNÍ NASTAVENÍ TYPOGRAFIE - Mobile-First */
+html {
+  /* Bootstrap RFS (Responsive Font Scaling) je automaticky aktivní */
+  font-size: 14px; /* Základní velikost pro mobily */
+}
+
+body {
+  /* Bootstrap už má responsive typography přes RFS */
+  font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.4; /* Kompaktnější pro mobily */
+}
+
+/* TABLET (576px+) - SM breakpoint */
+@media (min-width: 576px) {
+  html {
+    font-size: 15px; /* Mírně větší pro tablety */
+  }
+  
+  body {
+    line-height: 1.5; /* Bootstrap default */
+  }
+}
+
+/* DESKTOP MALÝ (768px+) - MD breakpoint */
+@media (min-width: 768px) {
+  html {
+    font-size: 16px; /* Bootstrap default pro desktop */
+  }
+}
+
+/* DESKTOP VELKÝ (992px+) - LG breakpoint */
+@media (min-width: 992px) {
+  html {
+    font-size: 17px; /* Větší pro velké monitory */
+  }
+}
+
+/* ULTRA WIDE (1200px+) - XL breakpoint */
+@media (min-width: 1200px) {
+  html {
+    font-size: 18px; /* Největší pro ultra wide */
+  }
+  
+  body {
+    line-height: 1.6; /* Větší řádkování pro lepší čitelnost */
+  }
+}
+
+/* XXTRA LARGE (1400px+) - XXL breakpoint */
+@media (min-width: 1400px) {
+  html {
+    font-size: 19px; /* Maximum pro největší obrazovky */
+  }
+}
+
+/* LANDSCAPE OPTIMALIZACE - kompaktnější typografie */
+@media (orientation: landscape) and (max-height: 500px) {
+  html {
+    font-size: 13px; /* Menší pro landscape telefony */
+  }
+  
+  body {
+    line-height: 1.3; /* Kompaktnější řádkování */
+  }
+  
+  /* Menší nadpisy v landscape */
+  .h1, h1 { font-size: calc(1.8rem + 0.5vw) !important; }
+  .h2, h2 { font-size: calc(1.5rem + 0.3vw) !important; }
+  .h3, h3 { font-size: calc(1.3rem + 0.2vw) !important; }
+  .h4, h4 { font-size: calc(1.1rem + 0.1vw) !important; }
+  .h5, h5 { font-size: 1rem !important; }
+  .h6, h6 { font-size: 0.9rem !important; }
+}
+
+/* FLUID TYPOGRAPHY - pouze pro specifické případy kdy Bootstrap nestačí */
+.fs-fluid-game-title {
+  font-size: clamp(1rem, 4vw, 2rem); /* Herní titulky */
+}
+
+.fs-fluid-chat-text {
+  font-size: clamp(0.75rem, 2.5vw, 1rem); /* Chat text */
+}
+
+.fs-fluid-dice-number {
+  font-size: clamp(1.2rem, 5vw, 2.5rem); /* Čísla na kostkách */
+}
+
+/* BUTTON TEXT SCALING - integruje s Bootstrap btn velikostmi */
+.btn {
+  font-size: inherit; /* Respektuje parent font-size */
+}
+
+.btn-sm {
+  font-size: 0.8rem; /* Menší tlačítka */
+}
+
+.btn-lg {
+  font-size: 1.1rem; /* Větší tlačítka */
+}
+
+/* INPUT TEXT SCALING */
+.form-control, .form-select {
+  font-size: inherit; /* Respektuje context */
+}
+
+.form-control-sm {
+  font-size: 0.85rem;
+}
+
+.form-control-lg {
+  font-size: 1.1rem;
+}
+
+/* CHAT SPECIFIC TYPOGRAPHY */
+.chat-message {
+  font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+  line-height: 1.3;
+}
+
+.chat-timestamp {
+  font-size: clamp(0.65rem, 1.8vw, 0.75rem);
+}
 
 /* ===== RESPONZIVNÍ VÝŠKY - GAME/CHAT SEKCE ===== */
 
@@ -75,22 +213,7 @@
   }
 }
 
-/* ===== RESPONZIVNÍ TEXT A SPACING - BOOTSTRAP ROZŠÍŘENÍ ===== */
 
-/* Pouze specifické velikosti, které Bootstrap nemá - jinak používej .btn-sm, .btn-lg, .fs-*, .p-* */
-
-/* Fluid Typography - pouze pokud není možné použít Bootstrap .fs-* utility */
-.fs-fluid-hero {
-  font-size: calc(2rem + 2vw); /* Pro hero sekce */
-}
-
-/* Landscape optimalizace - pouze specifické hodnoty */
-@media (orientation: landscape) and (max-height: 500px) {
-  .landscape-ultra-compact {
-    padding: 0.125rem; /* Menší než Bootstrap .p-1 */
-    margin: 0.125rem;
-  }
-}
 
 /* ===== KOMPONENTY - KOSTKY VELIKOSTI ===== */
 
