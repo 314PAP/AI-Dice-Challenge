@@ -307,10 +307,21 @@ export class GameUI {
             state.currentRoll.forEach((dieValue, index) => {
                 const isSelected = state.selectedDice.includes(index);
                 const diceEl = createDiceElement(
-                    dieValue, 
+                    dieValue || '?', // Zobrazíme ? pro házející kostky
                     isSelected, 
-                    () => this.toggleDiceSelection(index)
+                    state.isRolling ? null : () => this.toggleDiceSelection(index) // Zakážeme klik během házení
                 );
+                
+                // Přidáme animaci házení, pokud je aktivní
+                if (state.isRolling) {
+                    diceEl.classList.add('dice-rolling');
+                    // Zakážeme hover během házení
+                    diceEl.style.pointerEvents = 'none';
+                } else {
+                    diceEl.classList.remove('dice-rolling');
+                    diceEl.style.pointerEvents = 'auto';
+                }
+                
                 diceContainer.appendChild(diceEl);
             });
         }
@@ -517,50 +528,89 @@ export class GameUI {
             }
             console.log(`🎯 Házím ${diceCount} novými kostkami`);
         }
-        
-        // Využití importované funkce
-        const dice = rollDice(diceCount);
-        
-        // Spočítáme body z tohoto hodu
-        const points = calculatePoints(dice);
-        
-        // Aktualizuje herní stav
+
+        // Ukážeme animaci házeních kostek PŘED výsledkem
         gameState.updateState({
-            currentRoll: dice,
-            selectedDice: []
+            currentRoll: Array(diceCount).fill(0), // Dočasně prázdné kostky
+            selectedDice: [],
+            isRolling: true // Nový flag pro animaci
         });
         
-        console.log(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
-        chatSystem.addSystemMessage(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
-        
-        // Zkontrolujeme FARKLE - když hod neobsahuje žádné bodující kostky
-        if (!hasScoringDice(dice)) {
-            const farkleMsg = '💥 FARKLE! Hod neobsahuje žádné bodující kostky! Přicházíte o všechny odložené body tohoto tahu!';
-            console.warn(farkleMsg);
-            chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
-            
-            // Zobrazíme FARKLE pod hráčem
-            this.showPlayerFarkle();
-            
-            // AI reakce na farkle
-            this.triggerAiReactions('farkle', { dice, points: 0 });
-            
-            // Automaticky ukončíme tah s farkle okamžitě
-            setTimeout(() => {
-                this.endTurn(true);
-            }, 1500); // 1.5 sekundy na animaci
-            
-        } else {
-            const successMsg = `✅ Máte kostky na výběr! Označte platné kostky k odložení.`;
-            console.log(successMsg);
-            chatSystem.addSystemMessage(successMsg, CHAT_COLORS.GREEN);
-            
-            // AI reakce ODSTRANĚNA - AI reaguje až při akci hráče (save/endTurn)
-            // this.triggerAiReactions('roll', { dice, points });
-        }
-        
-        // Překreslíme obrazovku
+        // Překreslíme s animací házení
         this.renderGameScreen(gameState.getState());
+        
+        // Po animaci ukážeme výsledek
+        setTimeout(() => {
+            // Využití importované funkce
+            const dice = rollDice(diceCount);
+            
+            // Spočítáme body z tohoto hodu
+            const points = calculatePoints(dice);
+            
+            // Aktualizuje herní stav s výsledkem
+            gameState.updateState({
+                currentRoll: dice,
+                selectedDice: [],
+                isRolling: false
+            });
+            
+            console.log(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
+            chatSystem.addSystemMessage(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
+            
+            // Přidáme "dice-new" třídu pro spawn animaci
+            setTimeout(() => {
+                const diceElements = document.querySelectorAll('.dice:not(.saved)');
+                diceElements.forEach(el => {
+                    el.classList.add('dice-new');
+                    console.log('🎲 Přidávám spawn animaci');
+                });
+                
+                // Odstraníme třídu po animaci
+                setTimeout(() => {
+                    diceElements.forEach(el => el.classList.remove('dice-new'));
+                }, 800);
+            }, 50); // Kratší zpoždění pro lepší synchronizaci
+            
+            // Zkontrolujeme FARKLE - když hod neobsahuje žádné bodující kostky
+            if (!hasScoringDice(dice)) {
+                const farkleMsg = '💥 FARKLE! Hod neobsahuje žádné bodující kostky! Přicházíte o všechny odložené body tohoto tahu!';
+                console.warn(farkleMsg);
+                chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
+                
+                // Přidáme farkle animaci ke kostkám
+                setTimeout(() => {
+                    const diceElements = document.querySelectorAll('.dice:not(.saved)');
+                    diceElements.forEach(el => el.classList.add('dice-farkle'));
+                    
+                    setTimeout(() => {
+                        diceElements.forEach(el => el.classList.remove('dice-farkle'));
+                    }, 1200);
+                }, 200);
+                
+                // Zobrazíme FARKLE pod hráčem
+                this.showPlayerFarkle();
+                
+                // AI reakce na farkle
+                this.triggerAiReactions('farkle', { dice, points: 0 });
+                
+                // Automaticky ukončíme tah s farkle okamžitě
+                setTimeout(() => {
+                    this.endTurn(true);
+                }, 1500); // 1.5 sekundy na animaci
+                
+            } else {
+                const successMsg = `✅ Máte kostky na výběr! Označte platné kostky k odložení.`;
+                console.log(successMsg);
+                chatSystem.addSystemMessage(successMsg, CHAT_COLORS.GREEN);
+                
+                // AI reakce ODSTRANĚNA - AI reaguje až při akci hráče (save/endTurn)
+                // this.triggerAiReactions('roll', { dice, points });
+            }
+            
+            // Překreslíme obrazovku s výsledkem
+            this.renderGameScreen(gameState.getState());
+            
+        }, 1000); // Doba animace házení - prodlouženo na 1 sekundu
     }
 
     
@@ -821,6 +871,15 @@ export class GameUI {
         
         // Spočítáme body z vybraných kostek
         const points = calculatePoints(savedDiceValues);
+        
+        // Přidáme animaci skórování k vybraným kostkám
+        const selectedElements = document.querySelectorAll('.dice.selected');
+        selectedElements.forEach(el => {
+            el.classList.add('dice-scoring');
+            setTimeout(() => {
+                el.classList.remove('dice-scoring');
+            }, 1500);
+        });
         
         // Aktualizujeme stav - přidáme odložené kostky a odstraníme vybrané z currentRoll
         const newSavedDice = [...(state.savedDice || []), ...savedDiceValues];

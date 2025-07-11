@@ -88,8 +88,13 @@ export const createNeonCard = (title, color, content = "", headerIcon = null) =>
  * @returns {HTMLDivElement} Vytvořený element kostky
  */
 export const createDiceElement = (value, selected = false, onClick = null) => {
-    // Validace hodnoty pomocí konstant
-    const validValue = Math.min(Math.max(value, DICE_CONSTANTS.MIN_VALUE), DICE_CONSTANTS.MAX_VALUE);
+    // Validace hodnoty pomocí konstant - speciální případ pro házející kostky
+    let validValue;
+    if (value === '?' || value === 0) {
+        validValue = '?';
+    } else {
+        validValue = Math.min(Math.max(value, DICE_CONSTANTS.MIN_VALUE), DICE_CONSTANTS.MAX_VALUE);
+    }
     
     const dice = document.createElement('div');
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded p-1 m-1 m-sm-2`;
@@ -99,8 +104,17 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     dice.classList.add('dice-sm', 'dice-md-lg');
     
     // Vytvoření patternu s tečkami podle hodnoty kostky
-    const dotPattern = createDotPattern(value);
-    dice.appendChild(dotPattern);
+    let content;
+    if (validValue === '?') {
+        // Pro házející kostky zobrazíme otazník
+        content = document.createElement('div');
+        content.className = 'fs-4 fw-bold';
+        content.textContent = '?';
+    } else {
+        content = createDotPattern(validValue);
+    }
+    
+    dice.appendChild(content);
     
     if (onClick) {
         dice.addEventListener('click', onClick);
