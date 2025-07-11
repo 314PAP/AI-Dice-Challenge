@@ -219,10 +219,10 @@ body {
 
 /* ===== KOMPONENTY - KOSTKY VELIKOSTI ===== */
 
-/* Základní velikosti kostek - specifické pro hru, nelze nahradit Bootstrap */
+/* Základní velikosti kostek - menší pro mobil aby se vešlo 6 kostek */
 .dice {
-  width: 2.8125rem; /* 45px */
-  height: 2.8125rem;
+  width: 2.5rem; /* 40px - menší pro mobil */
+  height: 2.5rem;
   border-width: 0.0625rem; /* 1px */
   transition: all 0.3s ease;
   position: relative;
@@ -278,6 +278,42 @@ body {
 
 .dice:hover:not(.selected) {
   transform: scale(1.05) !important;
+}
+
+/* Dice dots - tečky na kostkách - menší pro mobilní kostky */
+.dot {
+  width: 0.375rem; /* 6px - menší pro mobilní kostky */
+  height: 0.375rem;
+  background-color: var(--neon-green);
+  border-radius: 50%;
+  position: absolute;
+  box-shadow: 0 0 0.1875rem var(--neon-green); /* menší shadow */
+}
+
+/* Pozice teček pro různé hodnoty kostek - vylepšené rozložení bez překrývání */
+.dot.center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.dot.top-left { top: 12%; left: 12%; }
+.dot.top-right { top: 12%; right: 12%; }
+.dot.middle-left { top: 50%; left: 12%; transform: translateY(-50%); }
+.dot.middle-right { top: 50%; right: 12%; transform: translateY(-50%); }
+.dot.bottom-left { bottom: 12%; left: 12%; }
+.dot.bottom-right { bottom: 12%; right: 12%; }
+
+/* Responzivní velikosti teček - škálují se s kostkami */
+@media (min-width: 576px) {
+  .dot { width: 0.5rem; height: 0.5rem; } /* 8px */
+}
+
+@media (min-width: 768px) {
+  .dot { width: 0.625rem; height: 0.625rem; } /* 10px */
+}
+
+@media (min-width: 992px) {
+  .dot { width: 0.75rem; height: 0.75rem; } /* 12px */
+}
+
+@media (min-width: 1200px) {
+  .dot { width: 0.875rem; height: 0.875rem; } /* 14px */
 }
 
 /* ===== KOMPONENTY - SPINNER VELIKOSTI ===== */

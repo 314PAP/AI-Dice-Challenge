@@ -8,6 +8,7 @@ import { createNeonButton, createDiceElement, createNeonCard } from './uiCompone
 import { UI_CONSTANTS, NEON_COLORS } from '../utils/constants.js';
 import { CONSOLE_COLORS, CHAT_COLORS, pxToRem } from '../utils/colors.js';
 import { rollDie, rollDice, calculatePoints } from '../game/diceMechanics.js';
+import chatSystem from '../ai/chatSystem.js';
 
 /**
  * GameUI třída - Zajišťuje veškeré renderování herní plochy
@@ -83,21 +84,21 @@ export class GameUI {
         const container = document.createElement('div');
         container.className = 'd-flex flex-column justify-content-center align-items-center h-100';
         
-        // Nadpis - kompaktnější v landscape režimu
+        // Nadpis - ČISTÝ BOOTSTRAP
         const title = document.createElement('h1');
-        title.className = 'text-neon-green fs-fluid-1 mb-3 mb-md-4 text-center';
+        title.className = 'text-neon-green display-6 mb-4 text-center';
         title.innerHTML = '<i class="bi bi-star-fill"></i> Cílové skóre';
         container.appendChild(title);
         
-        // Selector pro cílové skóre - optimalizovaný pro landscape
+        // Selector pro cílové skóre - ČISTÝ BOOTSTRAP
         const scoreSelector = document.createElement('div');
-        scoreSelector.className = 'mb-3 mb-md-4 d-flex align-items-center justify-content-center fs-fluid-2';
+        scoreSelector.className = 'mb-4 d-flex align-items-center justify-content-center fs-5';
         
-        // Menší tlačítka v landscape režimu pro úsporu místa
+        // Tlačítka - ČISTÝ BOOTSTRAP
         const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn-sm');
         
         const scoreValue = document.createElement('div');
-        scoreValue.className = 'px-3 px-md-4 text-neon-yellow';
+        scoreValue.className = 'px-4 text-neon-yellow fs-4';
         scoreValue.textContent = gameState.getState().targetScore;
         scoreValue.id = 'targetScoreValue';
         
@@ -109,17 +110,16 @@ export class GameUI {
         
         container.appendChild(scoreSelector);
         
-        // Tlačítka akcí - optimalizovaná pro landscape režim
-        // V landscape režimu zobrazíme tlačítka v mřížce místo pod sebou
+        // Tlačítka akcí - ČISTÝ BOOTSTRAP GRID
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'd-flex flex-column flex-landscape-row flex-wrap justify-content-center w-100 gap-2 px-3';
+        buttonsContainer.className = 'row g-2';
         
         const startBtn = createNeonButton(
             'ZAČÍT HRU', 
             'green', 
             'bi-play-fill', 
             () => this.startGame(), 
-            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+            'btn w-100'
         );
         
         const rulesBtn = createNeonButton(
@@ -127,7 +127,7 @@ export class GameUI {
             'blue', 
             'bi-book-fill', 
             () => this.showRules(), 
-            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+            'btn w-100'
         );
         
         const hallOfFameBtn = createNeonButton(
@@ -135,7 +135,7 @@ export class GameUI {
             'orange', 
             'bi-trophy-fill', 
             () => this.showHallOfFame(), 
-            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+            'btn w-100'
         );
         
         const exitGameBtn = createNeonButton(
@@ -143,13 +143,29 @@ export class GameUI {
             'red', 
             'bi-power', 
             () => window.close(), 
-            'btn-custom-sm btn-md-lg flex-grow-1 w-100 w-landscape-auto'
+            'btn w-100'
         );
         
-        buttonsContainer.appendChild(startBtn);
-        buttonsContainer.appendChild(rulesBtn);
-        buttonsContainer.appendChild(hallOfFameBtn);
-        buttonsContainer.appendChild(exitGameBtn);
+        const col1 = document.createElement('div');
+        col1.className = 'col-12 col-sm-6 mb-2';
+        col1.appendChild(startBtn);
+        
+        const col2 = document.createElement('div');
+        col2.className = 'col-12 col-sm-6 mb-2';
+        col2.appendChild(rulesBtn);
+        
+        const col3 = document.createElement('div');
+        col3.className = 'col-12 col-sm-6 mb-2';
+        col3.appendChild(hallOfFameBtn);
+        
+        const col4 = document.createElement('div');
+        col4.className = 'col-12 col-sm-6 mb-2';
+        col4.appendChild(exitGameBtn);
+        
+        buttonsContainer.appendChild(col1);
+        buttonsContainer.appendChild(col2);
+        buttonsContainer.appendChild(col3);
+        buttonsContainer.appendChild(col4);
         
         container.appendChild(buttonsContainer);
         
@@ -231,47 +247,41 @@ export class GameUI {
         console.log('👤 Aktuální hráč:', currentPlayer);
         
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100';
+        container.className = 'd-flex flex-column h-100 overflow-hidden';
         
-        // DEBUG: Přidáme debug informace
-        const debugInfo = document.createElement('div');
-        debugInfo.className = 'text-neon-yellow small mb-2';
-        debugInfo.innerHTML = `🔍 Debug: Hráč ${currentPlayer.name}, Skóre ${currentPlayer.score}, Fáze ${state.gamePhase}`;
-        container.appendChild(debugInfo);
-        
-        // Header s informacemi o hře - ZJEDNODUŠENÁ VERZE PRO DEBUG
+        // Header s informacemi o hře - ČISTÝ BOOTSTRAP bez custom tříd
         const header = document.createElement('div');
-        header.className = 'mb-3 p-2 border border-neon-blue rounded';
+        header.className = 'row mb-3 p-2 border border-primary rounded';
         
-        // Informace o aktuálním hráči - STATICKÉ STYLY místo fluid
-        const playerInfo = document.createElement('div');
-        playerInfo.className = 'mb-2';
-        playerInfo.innerHTML = `
-            <h3 class="text-neon-green h4 mb-1">
+        // Informace o aktuálním hráči - BOOTSTRAP GRID
+        const playerCol = document.createElement('div');
+        playerCol.className = 'col-8';
+        playerCol.innerHTML = `
+            <h4 class="text-neon-green mb-1">
                 <i class="bi ${currentPlayer.avatar} me-2"></i>${currentPlayer.name}
-            </h3>
-            <div class="text-neon-yellow">Na tahu</div>
+            </h4>
+            <div class="text-neon-yellow small">Na tahu</div>
         `;
-        header.appendChild(playerInfo);
+        header.appendChild(playerCol);
         
-        // Skóre - STATICKÉ STYLY
-        const scoreInfo = document.createElement('div');
-        scoreInfo.className = 'text-end';
-        scoreInfo.innerHTML = `
-            <div class="text-neon-yellow">Skóre:</div>
-            <h4 class="text-neon-green h3">${currentPlayer.score}</h4>
+        // Skóre - BOOTSTRAP GRID
+        const scoreCol = document.createElement('div');
+        scoreCol.className = 'col-4 text-end';
+        scoreCol.innerHTML = `
+            <div class="text-neon-yellow small">Skóre:</div>
+            <h4 class="text-neon-green">${currentPlayer.score}</h4>
         `;
-        header.appendChild(scoreInfo);
+        header.appendChild(scoreCol);
         
         container.appendChild(header);
         
-        // Sekce s kostkami - optimalizovaná pro landscape režim
+        // Sekce s kostkami - ČISTÝ BOOTSTRAP
         const diceSection = document.createElement('div');
-        diceSection.className = 'my-2 my-md-3 text-center';
+        diceSection.className = 'text-center my-3';
         
-        // Kontejner pro kostky - responzivní s využitím flexboxu
+        // Kontejner pro kostky - BOOTSTRAP FLEXBOX s responzivními mezerami
         const diceContainer = document.createElement('div');
-        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center';
+        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-1 gap-sm-2';
         
         // Pokud jsou nějaké kostky, zobrazíme je
         if (state.currentRoll && state.currentRoll.length > 0) {
@@ -285,63 +295,93 @@ export class GameUI {
                 diceContainer.appendChild(diceEl);
             });
         } else {
-            // Pokud nejsou žádné kostky, zobrazíme tlačítko pro hod
-            const rollBtn = createNeonButton(
-                'HODIT KOSTKY', 
-                'green', 
-                'bi-dice-3-fill', 
-                () => this.rollDice(),
-                'btn my-2 my-md-3'
-            );
-            diceContainer.appendChild(rollBtn);
+            // Pokud nejsou žádné kostky, zobrazíme informativní text
+            const infoText = document.createElement('div');
+            infoText.className = 'text-neon-yellow fs-5';
+            infoText.innerHTML = '<i class="bi bi-dice-6"></i> Stiskněte HODIT pro začátek';
+            diceContainer.appendChild(infoText);
         }
         
         diceSection.appendChild(diceContainer);
         container.appendChild(diceSection);
         
-        // Akční tlačítka - responzivní s využitím Bootstrap tříd
+        // Akční tlačítka - TĚSNĚ POD KOSTKAMI, ne na spodku
         const actionButtons = document.createElement('div');
-        actionButtons.className = 'mt-auto d-flex justify-content-center flex-wrap gap-2';
+        actionButtons.className = 'mt-3 mb-3'; // Změna z mt-auto na mt-3
         
-        // Různá tlačítka podle stavu hry - optimalizovaná pro landscape režim
-        if (state.currentRoll && state.currentRoll.length > 0) {
-            const buttonRow = document.createElement('div');
-            buttonRow.className = 'd-flex justify-content-center gap-2 w-100';
+        // Kontejner pro tlačítka - BOOTSTRAP GRID s menšími tlačítky
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'row g-2 px-2'; // Přidán padding pro okraje
         
-            const continueBtn = createNeonButton(
-                'POKRAČOVAT', 
-                'green', 
-                'bi-check-circle-fill',
-                () => this.continueTurn(),
-                'btn-custom-sm btn-md-lg'
-            );
-            
-            const endTurnBtn = createNeonButton(
-                'UKONČIT TAH', 
-                'blue', 
-                'bi-skip-forward-fill',
-                () => this.endTurn(),
-                'btn-custom-sm btn-md-lg'
-            );
-            
-            buttonRow.appendChild(continueBtn);
-            buttonRow.appendChild(endTurnBtn);
-            actionButtons.appendChild(buttonRow);
+        // Tlačítko HODIT - vždy dostupné
+        const rollBtn = createNeonButton(
+            'HODIT', 
+            'green', 
+            'bi-dice-6-fill',
+            () => this.rollDice(),
+            'btn-sm w-100' // Menší tlačítko s plnou šířkou
+        );
+        
+        const rollCol = document.createElement('div');
+        rollCol.className = 'col-6 mb-2'; // col-6 místo col-sm-6 pro konzistentní 2x2 grid
+        rollCol.appendChild(rollBtn);
+        buttonsContainer.appendChild(rollCol);
+        
+        // Tlačítko ODLOŽIT - vždy viditelné, ale disabled pokud nejsou vybrané kostky
+        const saveBtn = createNeonButton(
+            'ODLOŽIT', 
+            'blue', 
+            'bi-floppy-fill',
+            () => this.saveDice(),
+            'btn-sm w-100' // Menší tlačítko s plnou šířkou
+        );
+        
+        // Disable tlačítko pokud nejsou vybrané kostky
+        if (!state.selectedDice || state.selectedDice.length === 0) {
+            saveBtn.disabled = true;
+            saveBtn.style.opacity = '0.5';
         }
         
-        // Tlačítko pro menu - vždy viditelné, ale menší v landscape režimu
-        const menuBtnContainer = document.createElement('div');
-        menuBtnContainer.className = 'w-100 mt-2';
+        const saveCol = document.createElement('div');
+        saveCol.className = 'col-6 mb-2'; // col-6 místo col-sm-6
+        saveCol.appendChild(saveBtn);
+        buttonsContainer.appendChild(saveCol);
         
+        // Tlačítko UKONČIT TAH - vždy viditelné, ale disabled pokud není hod
+        const endTurnBtn = createNeonButton(
+            'UKONČIT TAH', 
+            'orange', 
+            'bi-skip-forward-fill',
+            () => this.endTurn(),
+            'btn-sm w-100' // Menší tlačítko s plnou šířkou
+        );
+        
+        // Disable tlačítko pokud není hod
+        if (!state.currentRoll || state.currentRoll.length === 0) {
+            endTurnBtn.disabled = true;
+            endTurnBtn.style.opacity = '0.5';
+        }
+        
+        const endCol = document.createElement('div');
+        endCol.className = 'col-6 mb-2'; // col-6 místo col-sm-6
+        endCol.appendChild(endTurnBtn);
+        buttonsContainer.appendChild(endCol);
+        
+        // Tlačítko MENU - vždy dostupné
         const menuBtn = createNeonButton(
             'MENU', 
-            'orange', 
+            'red', 
             'bi-list', 
             () => this.showMenu(),
-            'btn-custom-sm btn-md-lg w-100'
+            'btn-sm w-100' // Menší tlačítko s plnou šířkou
         );
-        menuBtnContainer.appendChild(menuBtn);
-        actionButtons.appendChild(menuBtnContainer);
+        
+        const menuCol = document.createElement('div');
+        menuCol.className = 'col-6 mb-2'; // col-6 místo col-sm-6
+        menuCol.appendChild(menuBtn);
+        buttonsContainer.appendChild(menuCol);
+        
+        actionButtons.appendChild(buttonsContainer);
         
         container.appendChild(actionButtons);
         
@@ -375,10 +415,13 @@ export class GameUI {
      * Hodí kostky - využívá diceMechanics modul místo vlastní implementace
      */
     rollDice() {
-        console.log('Házení kostkami...');
+        console.log('🎲 Házení kostkami...');
         
         // Využití importované funkce pro hod 6 kostkami
         const dice = rollDice(6);
+        
+        // Spočítáme body z tohoto hodu
+        const points = calculatePoints(dice);
         
         // Aktualizuje herní stav
         gameState.updateState({
@@ -386,7 +429,22 @@ export class GameUI {
             selectedDice: []
         });
         
-        console.log('Hozeno:', dice);
+        console.log(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
+        chatSystem.addSystemMessage(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
+        
+        // Zkontrolujeme, zda hod obsahuje bodující kostky
+        if (points === 0) {
+            const warningMsg = '⚠️ POZOR: Tento hod neobsahuje žádné bodující kostky! Musíte ukončit tah.';
+            console.warn(warningMsg);
+            chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
+        } else {
+            const successMsg = `✅ Dobré! Máte ${points} bodů z tohoto hodu. Vyberte kostky k odložení nebo pokračujte.`;
+            console.log(successMsg);
+            chatSystem.addSystemMessage(successMsg, CHAT_COLORS.GREEN);
+        }
+        
+        // Překreslíme obrazovku
+        this.renderGameScreen(gameState.getState());
     }
     
     /**
@@ -620,6 +678,131 @@ export class GameUI {
         } else {
             console.warn('⚠️ GameUI.renderHallOfFame: gameArea není dostupný');
         }
+    }
+
+    /**
+     * Odloží vybrané kostky - přesune je z aktuálního hodu do odložených
+     */
+    saveDice() {
+        const state = gameState.getState();
+        
+        if (!state.selectedDice || state.selectedDice.length === 0) {
+            const warningMsg = '⚠️ Vyberte kostky k odložení!';
+            console.warn(warningMsg);
+            chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
+            return;
+        }
+        
+        if (!state.currentRoll || state.currentRoll.length === 0) {
+            const warningMsg = '⚠️ Nejsou žádné kostky k odložení';
+            console.warn(warningMsg);
+            chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
+            return;
+        }
+        
+        // Získáme hodnoty vybraných kostek
+        const savedDiceValues = state.selectedDice.map(index => state.currentRoll[index]);
+        
+        // Spočítáme body z vybraných kostek
+        const points = calculatePoints(savedDiceValues);
+        
+        if (points === 0) {
+            const warningMsg = '⚠️ POZOR: Vybrané kostky nemají žádnou hodnotu! Vyberte bodující kostky (1, 5, nebo trojice).';
+            console.warn(warningMsg);
+            chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
+            return;
+        }
+        
+        // Aktualizujeme stav - přidáme odložené kostky a vymažeme výběr
+        const newSavedDice = [...(state.savedDice || []), ...savedDiceValues];
+        const newSavedPoints = calculatePoints(newSavedDice);
+        
+        console.log(`💾 Odkládám kostky: [${savedDiceValues.join(', ')}] = ${points} bodů`);
+        console.log(`📊 Celkem odloženo: [${newSavedDice.join(', ')}] = ${newSavedPoints} bodů`);
+        
+        chatSystem.addSystemMessage(`💾 Odkládám kostky: [${savedDiceValues.join(', ')}] = ${points} bodů`);
+        chatSystem.addSystemMessage(`📊 Celkem odloženo: [${newSavedDice.join(', ')}] = ${newSavedPoints} bodů`, CHAT_COLORS.BLUE);
+        
+        gameState.updateState({ 
+            savedDice: newSavedDice,
+            selectedDice: [],
+            currentRoll: [] // Vyčistíme aktuální hod
+        });
+        
+        // Překreslíme obrazovku
+        this.renderGameScreen(gameState.getState());
+    }
+
+    /**
+     * Pokračuje v tahu - placeholder pro budoucí implementaci
+     */
+    continueTurn() {
+        console.log('🎯 Pokračuji v tahu...');
+        // TODO: Implementovat logiku pokračování tahu
+    }
+
+    /**
+     * Ukončí aktuální tah
+     */
+    endTurn() {
+        const state = gameState.getState();
+        
+        // Kontrola, zda hráč má odložené nějaké kostky
+        if (!state.savedDice || state.savedDice.length === 0) {
+            const warningMsg = '⚠️ POZOR: Nemůžete ukončit tah bez odložených kostek! Nejdříve odložte bodující kostky.';
+            console.warn(warningMsg);
+            chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
+            return;
+        }
+        
+        console.log('⏭️ Ukončuji tah...');
+        
+        const players = [...state.players];
+        const currentPlayer = players[state.currentPlayerIndex];
+        
+        if (!currentPlayer) {
+            console.error('❌ Aktuální hráč nenalezen');
+            return;
+        }
+        
+        // Spočítáme body z odložených kostek
+        const points = calculatePoints(state.savedDice || []);
+        const oldScore = currentPlayer.score;
+        currentPlayer.score += points;
+        
+        console.log(`📊 Hráč ${currentPlayer.name}:`);
+        console.log(`   • Odložené kostky: [${state.savedDice.join(', ')}]`);
+        console.log(`   • Získané body: ${points}`);
+        console.log(`   • Skóre: ${oldScore} → ${currentPlayer.score}`);
+        
+        chatSystem.addSystemMessage(`📊 Hráč ${currentPlayer.name}: Odložené kostky [${state.savedDice.join(', ')}] = ${points} bodů`);
+        chatSystem.addSystemMessage(`🎯 Skóre: ${oldScore} → ${currentPlayer.score}`, CHAT_COLORS.BLUE);
+        
+        // Kontrola vítězství
+        if (currentPlayer.score >= state.targetScore) {
+            const victoryMsg = `🏆 VÍTĚZSTVÍ! ${currentPlayer.name} dosáhl cílového skóre ${state.targetScore}!`;
+            console.log(victoryMsg);
+            chatSystem.addSystemMessage(victoryMsg, CHAT_COLORS.GREEN);
+            // TODO: Zobrazit obrazovku vítězství
+        }
+        
+        // Přejdeme na dalšího hráče
+        const nextPlayerIndex = (state.currentPlayerIndex + 1) % players.length;
+        const nextPlayer = players[nextPlayerIndex];
+        
+        console.log(`👤 Další hráč: ${nextPlayer.name}`);
+        chatSystem.addSystemMessage(`👤 Další hráč: ${nextPlayer.name}`, CHAT_COLORS.PURPLE);
+        
+        gameState.updateState({
+            players,
+            currentPlayerIndex: nextPlayerIndex,
+            currentRoll: [],
+            selectedDice: [],
+            savedDice: []
+        });
+        
+        // Překreslíme obrazovku
+        this.renderGameScreen(gameState.getState());
     }
 }
 

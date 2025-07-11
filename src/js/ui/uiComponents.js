@@ -92,7 +92,7 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     const validValue = Math.min(Math.max(value, DICE_CONSTANTS.MIN_VALUE), DICE_CONSTANTS.MAX_VALUE);
     
     const dice = document.createElement('div');
-    dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded p-2 m-2`;
+    dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded p-1 m-1 m-sm-2`;
     dice.setAttribute('data-value', validValue);
     
     // Responzivní velikost kostky s využitím Bootstrap tříd
@@ -116,7 +116,7 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
  */
 const createDotPattern = (value) => {
     const pattern = document.createElement('div');
-    pattern.className = 'd-flex flex-wrap justify-content-around align-items-center w-100 h-100';
+    pattern.className = 'position-relative w-100 h-100'; // Změna na relativní pozicování
     
     const dotCount = value;
     
