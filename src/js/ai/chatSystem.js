@@ -60,10 +60,11 @@ export class ChatSystem {
     /**
      * Přidá systémovou zprávu do chatu
      * @param {string} content - Obsah zprávy
+     * @param {string} [color=CHAT_COLORS.PURPLE] - Barva zprávy
      * @returns {Object} Vytvořená zpráva
      */
-    addSystemMessage(content) {
-        return this.addMessage('Systém', content, CHAT_COLORS.PURPLE);
+    addSystemMessage(content, color = CHAT_COLORS.PURPLE) {
+        return this.addMessage('Systém', content, color);
     }
 
     /**

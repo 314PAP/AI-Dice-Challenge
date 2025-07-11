@@ -20,7 +20,7 @@ export const aiPersonalities = {
         strategyType: "analytical",
         emoji: "🔵",
         color: CHAT_COLORS.BLUE,
-        avatar: "bi-robot"
+        avatar: "gemini.jpeg"
     },
     ChatGPT: {
         responses: [
@@ -31,9 +31,9 @@ export const aiPersonalities = {
         ],
         riskTolerance: 0.5,
         strategyType: "balanced",
-        emoji: "�",
+        emoji: "🟣",
         color: CHAT_COLORS.PURPLE,
-        avatar: "bi-cpu-fill"
+        avatar: "gpt.jpeg"
     },
     Claude: {
         responses: [
@@ -46,7 +46,7 @@ export const aiPersonalities = {
         strategyType: "cautious",
         emoji: "🟠",
         color: CHAT_COLORS.ORANGE,
-        avatar: "bi-lightning-charge-fill"
+        avatar: "claude.jpeg"
     }
 };
 

@@ -6,10 +6,10 @@
 // Výchozí herní stav
 const initialGameState = {
     players: [
-        { name: 'Hráč', score: 0, isHuman: true, avatar: 'bi-person-circle', color: 'green' },
-        { name: 'Gemini', score: 0, isHuman: false, avatar: 'bi-robot', color: 'blue' },
-        { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'bi-cpu-fill', color: 'purple' },
-        { name: 'Claude', score: 0, isHuman: false, avatar: 'bi-lightning-charge-fill', color: 'orange' }
+        { name: 'Hráč', score: 0, isHuman: true, avatar: 'mind.jpeg', color: 'green' },
+        { name: 'Gemini', score: 0, isHuman: false, avatar: 'gemini.jpeg', color: 'blue' },
+        { name: 'ChatGPT', score: 0, isHuman: false, avatar: 'gpt.jpeg', color: 'purple' },
+        { name: 'Claude', score: 0, isHuman: false, avatar: 'claude.jpeg', color: 'orange' }
     ],
     currentPlayerIndex: 0,
     targetScore: 10000,
