@@ -308,8 +308,23 @@ import gameState from './js/game/gameState.js';
 
 Tato dokumentace je **LIVING DOCUMENT** - aktualizuj ji při každé významné změně.
 
-**Poslední aktualizace**: 11. července 2025  
-**Další kontrola**: Po dokončení CSS oprav
+**Posleduí aktualizace**: 11. července 2025  
+**Status**: ✅ CSS/Loading/Chat problémy vyřešeny  
+**Zbývající úkoly**: Testování herní logiky  
+**Další kontrola**: Po dokončení herní funkcionalnosti  
+
+### 🔄 ZMĚNY V TÉTO AKTUALIZACI
+
+1. ✅ **Opraveny CSS kolize** - chat zprávy mají správné zelené barvy
+2. ✅ **Loading screen** - černé pozadí s neonovými efekty, delší trvání
+3. ✅ **Vyčištění** - odstraněny prázdné soubory a zastaralé dokumentace  
+4. ✅ **Dokumentace** - vytvořena centrální dokumentace a aktualizovaný README
+
+### 📋 NÁSLEDUJÍCÍ KROKY
+
+1. **Testovat herní mechaniky** - ověřit funkčnost po kliknutí "ZAČÍT HRU"
+2. **Implementovat chybějící logiku** - dokončit dice mechanics a AI rozhodování
+3. **Finální optimalizace** - kontrola Bootstrap kompatibility
 
 ---
 
