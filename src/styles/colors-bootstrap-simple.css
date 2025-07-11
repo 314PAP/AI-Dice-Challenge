@@ -35,11 +35,7 @@
 html, body {
   background-color: var(--neon-black);
   font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
-}
-
-/* Základní neonová zelená pro texty - ale neřeší Bootstrap utility třídy */
-body {
-  color: var(--neon-green);
+  /* Odstraněno color: var(--neon-green) - nechávám pouze utility třídy */
 }
 
 /* ===== NAŠE UTILITY TŘÍDY - BEZ BOOTSTRAP OVERRIDE ===== */
@@ -122,11 +118,14 @@ body {
   animation: spin 1s linear infinite !important;
 }
 
-/* Chat spinner - zelená barva s vysokou prioritou */
-#chatSpinner.spinner-border,
-div#chatSpinner.spinner-border {
+/* Chat spinner - ABSOLUTNĚ NEJVYŠŠÍ PRIORITA */
+html body .container-fluid #chatSpinner.spinner-border,
+html body div#chatSpinner.spinner-border.text-neon-green,
+body #chatSpinner.spinner-border.text-neon-green {
   color: var(--neon-green) !important;
-  border-color: currentColor transparent transparent transparent !important;
+  border-color: var(--neon-green) transparent transparent transparent !important;
+  border-width: 0.25em !important;
+  animation: spinner-border 0.75s linear infinite !important;
 }
 
 @keyframes spin {
@@ -161,12 +160,37 @@ div#chatSpinner.spinner-border {
 
 /* Chat zprávy se definují v components/chat.css */
 
-/* Neonová tlačítka - různé barvy */
-.btn-neon {
+/* Neonová tlačítka - kompletní definice */
+.btn-neon,
+.btn.btn-neon {
   background-color: transparent;
   text-shadow: var(--neon-text-shadow);
   color: var(--neon-green);
   border-color: var(--neon-green);
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  border-width: 0.125rem;
+  border-style: solid;
+  outline: none;
+}
+
+.btn-neon:hover,
+.btn-neon:focus,
+.btn.btn-neon:hover,
+.btn.btn-neon:focus {
+  background-color: rgba(var(--neon-green-rgb), 0.1) !important;
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 1.25rem var(--neon-green) !important;
+  transform: scale(1.05) !important;
+}
+
+.btn-neon:active,
+.btn.btn-neon:active {
+  background-color: rgba(var(--neon-green-rgb), 0.2) !important;
+  transform: scale(0.98) !important;
 }
 
 .btn-neon:hover,
@@ -267,3 +291,11 @@ div#chatSpinner.spinner-border {
   border-color: var(--neon-yellow) !important;
   box-shadow: 0 0 1.25rem var(--neon-yellow) !important;
 }
+
+/* ===== BOOTSTRAP UTILITY OVERRIDE - POUZE POTŘEBNÉ TŘÍDY ===== */
+
+/* Text utility třídy */
+.text-light { color: #ffffff !important; } /* Bílá místo default */
+
+/* Background utility třídy */
+.bg-black { background-color: var(--neon-black) !important; }
