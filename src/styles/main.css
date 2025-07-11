@@ -1,16 +1,13 @@
 /* ===================================================================
-   MINIMÁLNÍ CSS - POUZE 2 HLAVNÍ SOUBORY
+   FINÁLNÍ CSS - POUZE 2 SOUBORY
    
-   Čistý systém se 2 hlavními soubory:
-   1. colors-bootstrap.css - všechny barvy a barevné efekty
-   2. responsive-bootstrap.css - všechny velikosti a responzivita
+   Kompletní systém se PŘESNĚ 2 soubory:
+   1. colors-bootstrap-simple.css - VŠECHNY barvy, tlačítka, chat
+   2. responsive-bootstrap.css - VŠECHNY velikosti a responzivita
    ================================================================= */
 
 /* ZJEDNODUŠENÝ SOUBOR PRO VŠECHNY BARVY */
 @import './colors-bootstrap-simple.css';
-
-/* KOMPONENTY */
-@import './components/neon-buttons.css';
 
 /* JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI A RESPONZIVITU */
 @import './responsive-bootstrap.css';

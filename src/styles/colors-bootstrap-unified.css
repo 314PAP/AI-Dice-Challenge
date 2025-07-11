@@ -1,0 +1,394 @@
+/* ===================================================================
+   COLORS-BOOTSTRAP-UNIFIED - SLOUČENÝ SOUBOR PRO BARVY A TLAČÍTKA
+   
+   Kompletní CSS pro barvy, utility třídy, tlačítka, chat zprávy a spinner
+   Bez závislostí na dalších souborech
+   
+   SYNCHRONIZOVÁNO s colors.js
+   ================================================================= */
+
+/* ===== CSS PROMĚNNÉ - KOMPLETNÍ SADA ===== */
+:root {
+  /* Neonové barvy */
+  --neon-green: #39ff14;
+  --neon-green-rgb: 57, 255, 20;
+  --neon-blue: #194DD1;
+  --neon-blue-rgb: 25, 77, 209;
+  --neon-purple: #FF00FF;
+  --neon-purple-rgb: 255, 0, 255;
+  --neon-orange: #FF8800;
+  --neon-orange-rgb: 255, 136, 0;
+  --neon-red: #ff3131;
+  --neon-red-rgb: 255, 49, 49;
+  --neon-yellow: #ffff00;
+  --neon-yellow-rgb: 255, 255, 0;
+  --neon-black: #000000;
+  --neon-black-rgb: 0, 0, 0;
+  
+  /* Neonové efekty */
+  --neon-text-shadow: 0 0 0.625rem currentColor;
+  --neon-glow: 0 0 1.25rem currentColor;
+  --neon-glow-strong: 0 0 2rem currentColor;
+  
+  /* Rozměry a přechody */
+  --border-neon-medium: 0.125rem;
+  --border-neon-thin: 0.0625rem;
+  --transition-normal: all 0.3s ease;
+  --scale-hover: 1.05;
+  --scale-active: 0.98;
+  --neon-bg-hover: rgba(0, 0, 0, 0.2);
+  --neon-bg-active: rgba(0, 0, 0, 0.3);
+}
+
+/* ===== ZÁKLADNÍ GLOBÁLNÍ STYLY ===== */
+html, body {
+  background-color: var(--neon-black);
+  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+}
+
+/* ===== UTILITY TŘÍDY ===== */
+
+/* Text barvy */
+.text-neon-green { color: var(--neon-green) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-blue { color: var(--neon-blue) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-purple { color: var(--neon-purple) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-orange { color: var(--neon-orange) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-red { color: var(--neon-red) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-yellow { color: var(--neon-yellow) !important; text-shadow: var(--neon-text-shadow); }
+
+/* Border barvy */
+.border-neon-green { border-color: var(--neon-green) !important; }
+.border-neon-blue { border-color: var(--neon-blue) !important; }
+.border-neon-purple { border-color: var(--neon-purple) !important; }
+.border-neon-orange { border-color: var(--neon-orange) !important; }
+.border-neon-red { border-color: var(--neon-red) !important; }
+.border-neon-yellow { border-color: var(--neon-yellow) !important; }
+
+/* Background barvy */
+.bg-neon-black { background-color: var(--neon-black) !important; }
+.bg-neon-green { background-color: var(--neon-green) !important; }
+.bg-neon-blue { background-color: var(--neon-blue) !important; }
+.bg-neon-purple { background-color: var(--neon-purple) !important; }
+.bg-neon-orange { background-color: var(--neon-orange) !important; }
+.bg-neon-red { background-color: var(--neon-red) !important; }
+.bg-neon-yellow { background-color: var(--neon-yellow) !important; }
+
+/* ===== NEONOVÁ TLAČÍTKA - KOMPLETNÍ SYSTÉM ===== */
+
+/* Základní .btn-neon třída */
+.btn-neon,
+.btn.btn-neon {
+  background-color: transparent !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: var(--neon-text-shadow);
+  transition: var(--transition-normal);
+  position: relative;
+  border-width: var(--border-neon-medium);
+  border-style: solid;
+  outline: none;
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+}
+
+/* Hover a focus stavy */
+.btn-neon:hover,
+.btn-neon:focus,
+.btn.btn-neon:hover,
+.btn.btn-neon:focus {
+  background-color: var(--neon-bg-hover) !important;
+  transform: scale(var(--scale-hover)) !important;
+  color: inherit !important;
+  border-color: inherit !important;
+  box-shadow: var(--neon-glow-strong) !important;
+}
+
+/* Active stav */
+.btn-neon:active,
+.btn.btn-neon:active,
+.btn-neon.active,
+.btn.btn-neon.active {
+  background-color: var(--neon-bg-active) !important;
+  transform: scale(var(--scale-active)) !important;
+  color: inherit !important;
+  border-color: inherit !important;
+}
+
+/* Barevné varianty tlačítek */
+.btn-neon-green {
+  background-color: transparent !important;
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  text-shadow: var(--neon-text-shadow);
+}
+
+.btn-neon-green:hover,
+.btn-neon-green:focus {
+  background-color: rgba(var(--neon-green-rgb), 0.1) !important;
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 1.25rem var(--neon-green) !important;
+}
+
+.btn-neon-blue {
+  background-color: transparent !important;
+  color: var(--neon-blue) !important;
+  border-color: var(--neon-blue) !important;
+  text-shadow: var(--neon-text-shadow);
+}
+
+.btn-neon-blue:hover,
+.btn-neon-blue:focus {
+  background-color: rgba(var(--neon-blue-rgb), 0.1) !important;
+  color: var(--neon-blue) !important;
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 1.25rem var(--neon-blue) !important;
+}
+
+.btn-neon-purple {
+  background-color: transparent !important;
+  color: var(--neon-purple) !important;
+  border-color: var(--neon-purple) !important;
+  text-shadow: var(--neon-text-shadow);
+}
+
+.btn-neon-purple:hover,
+.btn-neon-purple:focus {
+  background-color: rgba(var(--neon-purple-rgb), 0.1) !important;
+  color: var(--neon-purple) !important;
+  border-color: var(--neon-purple) !important;
+  box-shadow: 0 0 1.25rem var(--neon-purple) !important;
+}
+
+.btn-neon-orange {
+  background-color: transparent !important;
+  color: var(--neon-orange) !important;
+  border-color: var(--neon-orange) !important;
+  text-shadow: var(--neon-text-shadow);
+}
+
+.btn-neon-orange:hover,
+.btn-neon-orange:focus {
+  background-color: rgba(var(--neon-orange-rgb), 0.1) !important;
+  color: var(--neon-orange) !important;
+  border-color: var(--neon-orange) !important;
+  box-shadow: 0 0 1.25rem var(--neon-orange) !important;
+}
+
+.btn-neon-red {
+  background-color: transparent !important;
+  color: var(--neon-red) !important;
+  border-color: var(--neon-red) !important;
+  text-shadow: var(--neon-text-shadow);
+}
+
+.btn-neon-red:hover,
+.btn-neon-red:focus {
+  background-color: rgba(var(--neon-red-rgb), 0.1) !important;
+  color: var(--neon-red) !important;
+  border-color: var(--neon-red) !important;
+  box-shadow: 0 0 1.25rem var(--neon-red) !important;
+}
+
+.btn-neon-yellow {
+  background-color: transparent !important;
+  color: var(--neon-yellow) !important;
+  border-color: var(--neon-yellow) !important;
+  text-shadow: var(--neon-text-shadow);
+}
+
+.btn-neon-yellow:hover,
+.btn-neon-yellow:focus {
+  background-color: rgba(var(--neon-yellow-rgb), 0.1) !important;
+  color: var(--neon-yellow) !important;
+  border-color: var(--neon-yellow) !important;
+  box-shadow: 0 0 1.25rem var(--neon-yellow) !important;
+}
+
+/* ===== CHAT SPINNER - ABSOLUTNÍ PRIORITA PRO ZELENOU BARVU ===== */
+
+/* NEJSILNĚJŠÍ MOŽNÉ CSS - BOOTSTRAP OVERRIDE */
+html body div.container-fluid #chatSpinner.spinner-border,
+html body div#chatSpinner.spinner-border.text-neon-green,
+body #app #chatSpinner.spinner-border.text-neon-green,
+#chatSpinner.spinner-border,
+.spinner-border#chatSpinner,
+div.spinner-border#chatSpinner.text-neon-green,
+#chatSpinner.spinner-border.text-neon-green,
+div#chatSpinner.spinner-border {
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) transparent transparent transparent !important;
+  border-top-color: var(--neon-green) !important;
+  border-right-color: transparent !important;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+  border-width: 0.25em !important;
+  animation: spinner-border 0.75s linear infinite !important;
+  width: 3rem !important;
+  height: 3rem !important;
+}
+
+/* GLOBÁLNÍ Bootstrap spinner override pro všechny spinnery s text-neon-green */
+.spinner-border.text-neon-green,
+div.spinner-border.text-neon-green {
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) transparent transparent transparent !important;
+  border-top-color: var(--neon-green) !important;
+}
+
+/* Chat spinner kontejner - správné rozestupy od okrajů */
+#chatMessages .d-flex.flex-column.align-items-center.justify-content-center {
+  padding: 2rem 1rem !important;
+  margin: 1rem 0 !important;
+}
+
+/* Chat spinner text - také zelený s odstupem */
+#chatMessages .text-center.text-neon-green {
+  margin-top: 1rem !important;
+  color: var(--neon-green) !important;
+  text-shadow: var(--neon-text-shadow) !important;
+}
+
+/* ===== CHAT ZPRÁVY - BAREVNÉ STYLY ===== */
+
+/* Zprávy v chatu */
+.chat-message {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  max-width: 85%;
+  word-break: break-word;
+}
+
+/* AI zprávy - základní styl */
+.chat-message-ai {
+  background: rgba(var(--neon-black-rgb), 0.3);
+  color: var(--neon-green);
+  align-self: flex-start;
+}
+
+/* Uživatelské zprávy */
+.chat-message-user {
+  background: rgba(var(--neon-black-rgb), 0.3);
+  color: var(--neon-green);
+  align-self: flex-end;
+  text-shadow: none;
+  border: none;
+}
+
+/* AI osobnosti - SPECIFICKÉ BARVY */
+.chat-message-ai.ai-gemini {
+  color: var(--neon-blue) !important;
+}
+
+.chat-message-ai.ai-claude {
+  color: var(--neon-orange) !important;
+}
+
+.chat-message-ai.ai-gpt {
+  color: var(--neon-purple) !important;
+}
+
+.chat-message-ai.ai-llama {
+  color: var(--neon-yellow) !important;
+}
+
+.chat-message-ai.ai-mistral {
+  color: var(--neon-red) !important;
+}
+
+/* Systémové zprávy */
+.chat-message-system {
+  background: rgba(var(--neon-yellow-rgb), 0.15);
+  border: none;
+  color: var(--neon-yellow);
+  align-self: center;
+  text-align: center;
+  font-style: italic;
+  max-width: 95%;
+}
+
+/* ===== OSTATNÍ KOMPONENTY ===== */
+
+/* Formuláře */
+.form-control,
+.form-select,
+.input-group-text {
+  background-color: var(--neon-black) !important;
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 0.625rem rgba(var(--neon-green-rgb), 0.5) !important;
+  color: var(--neon-green) !important;
+}
+
+.form-control::placeholder {
+  color: rgba(var(--neon-green-rgb), 0.7) !important;
+  opacity: 1 !important;
+}
+
+/* Kostky */
+.dice {
+  background-color: var(--neon-black) !important;
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 0.625rem var(--neon-green) !important;
+}
+
+.dice-rolling {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 0.625rem var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
+
+.dice.selected {
+  border-color: var(--neon-yellow) !important;
+  box-shadow: 0 0 0.9375rem var(--neon-yellow) !important;
+}
+
+.dice:hover:not(.selected) {
+  border-color: rgba(var(--neon-green-rgb), 0.8) !important;
+}
+
+/* Chat scrollbar */
+#chatMessages::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+#chatMessages::-webkit-scrollbar-track {
+  background: var(--neon-black);
+  box-shadow: inset 0 0 0.3125rem rgba(var(--neon-blue-rgb), 0.1);
+}
+
+#chatMessages::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  box-shadow: 0 0 0.3125rem var(--neon-blue), 0 0 0.625rem rgba(var(--neon-blue-rgb), 0.5);
+}
+
+#chatMessages::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-purple);
+  box-shadow: 0 0 0.5rem var(--neon-purple), 0 0 0.9375rem rgba(var(--neon-purple-rgb), 0.6);
+}
+
+#chatMessages::-webkit-scrollbar-corner {
+  background: var(--neon-black);
+}
+
+#chatMessages {
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) var(--neon-black);
+}
+
+/* ===== BOOTSTRAP UTILITY OVERRIDE ===== */
+
+/* Text utility třídy */
+.text-light { color: #ffffff !important; }
+
+/* Background utility třídy */
+.bg-black { background-color: var(--neon-black) !important; }
