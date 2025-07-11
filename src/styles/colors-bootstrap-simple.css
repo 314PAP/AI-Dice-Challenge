@@ -439,11 +439,13 @@ html, body {
   background: rgba(var(--neon-black-rgb), 0.3);
   color: var(--neon-green);
   border: 1px solid transparent;
+  font-size: 1rem;
 }
 
 /* AI zprávy - základní styl */
 .chat-message-ai {
   align-self: flex-start;
+  font-size: 1rem;
 }
 
 /* Uživatelské zprávy */
@@ -453,6 +455,7 @@ html, body {
   align-self: flex-end;
   text-shadow: none;
   border: none;
+  font-size: 1rem;
 }
 
 /* AI osobnosti - SPECIFICKÉ BARVY */
@@ -485,4 +488,15 @@ html, body {
   text-align: center;
   font-style: italic;
   max-width: 95%;
+  font-size: 1rem;
+}
+
+/* Menší text pro chat na malých displejích */
+@media (max-width: 600px) {
+  .chat-message,
+  .chat-message-ai,
+  .chat-message-user,
+  .chat-message-system {
+    font-size: 0.8rem;
+  }
 }

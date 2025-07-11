@@ -294,25 +294,6 @@
   word-break: break-word;
 }
 
-/* Chat scrollbar velikosti */
-#chatMessages::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-
-#chatMessages::-webkit-scrollbar-track {
-  border-radius: 0.25rem;
-}
-
-#chatMessages::-webkit-scrollbar-thumb {
-  border-radius: 0.25rem;
-  border: 0.0625rem solid transparent;
-}
-
-#chatMessages {
-  scrollbar-width: thin;
-}
-
 /* ===== KOMPONENTY - FORMULÁŘE VELIKOSTI ===== */
 
 /* Bootstrap-compatible spacing pro formuláře */
