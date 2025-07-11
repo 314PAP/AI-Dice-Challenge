@@ -500,3 +500,46 @@ html, body {
     font-size: 0.8rem;
   }
 }
+
+/* Silnější padding pro scrollovací boxy - vždy na pravé straně, i když je Bootstrap utility třída */
+.scrollable, .overflow-auto, .overflow-scroll, .overflow-auto > div, .overflow-scroll > div {
+  padding-right: 0.75rem !important;
+}
+
+/* Menu layout - flex-wrap a zmenšení tlačítek i textu na malých displejích */
+.menu-score, .menu-settings {
+  font-size: 1.2rem;
+  max-width: 100%;
+  word-break: break-word;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.menu-settings button, .menu-settings .btn, .menu-score button, .menu-score .btn {
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .menu-score, .menu-settings {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.25rem;
+    gap: 0.25rem;
+  }
+  .menu-settings button, .menu-settings .btn, .menu-score button, .menu-score .btn {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.25rem;
+  }
+}
+@media (max-width: 400px) {
+  .menu-score, .menu-settings {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.15rem;
+    gap: 0.1rem;
+  }
+  .menu-settings button, .menu-settings .btn, .menu-score button, .menu-score .btn {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.15rem;
+  }
+}
