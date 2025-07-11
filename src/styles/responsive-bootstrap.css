@@ -266,8 +266,8 @@ body {
   }
   
   .dot {
-    width: 0.375rem; /* 6px */
-    height: 0.375rem;
+    width: 0.25rem; /* 4px - zmenšeno o třetinu */
+    height: 0.25rem;
   }
 }
 
@@ -280,14 +280,14 @@ body {
   transform: scale(1.05) !important;
 }
 
-/* Dice dots - tečky na kostkách - menší pro mobilní kostky */
+/* Dice dots - tečky na kostkách - zmenšené o třetinu */
 .dot {
-  width: 0.375rem; /* 6px - menší pro mobilní kostky */
-  height: 0.375rem;
+  width: 0.25rem; /* 4px - zmenšeno o třetinu */
+  height: 0.25rem;
   background-color: var(--neon-green);
   border-radius: 50%;
   position: absolute;
-  box-shadow: 0 0 0.1875rem var(--neon-green); /* menší shadow */
+  box-shadow: 0 0 0.125rem var(--neon-green); /* zmenšený shadow */
 }
 
 /* Pozice teček pro různé hodnoty kostek - vylepšené rozložení bez překrývání */
@@ -299,21 +299,21 @@ body {
 .dot.bottom-left { bottom: 12%; left: 12%; }
 .dot.bottom-right { bottom: 12%; right: 12%; }
 
-/* Responzivní velikosti teček - škálují se s kostkami */
+/* Responzivní velikosti teček - zmenšené o třetinu */
 @media (min-width: 576px) {
-  .dot { width: 0.5rem; height: 0.5rem; } /* 8px */
+  .dot { width: 0.3125rem; height: 0.3125rem; } /* 5px */
 }
 
 @media (min-width: 768px) {
-  .dot { width: 0.625rem; height: 0.625rem; } /* 10px */
+  .dot { width: 0.4375rem; height: 0.4375rem; } /* 7px */
 }
 
 @media (min-width: 992px) {
-  .dot { width: 0.75rem; height: 0.75rem; } /* 12px */
+  .dot { width: 0.5rem; height: 0.5rem; } /* 8px */
 }
 
 @media (min-width: 1200px) {
-  .dot { width: 0.875rem; height: 0.875rem; } /* 14px */
+  .dot { width: 0.5625rem; height: 0.5625rem; } /* 9px */
 }
 
 /* ===== KOMPONENTY - SPINNER VELIKOSTI ===== */

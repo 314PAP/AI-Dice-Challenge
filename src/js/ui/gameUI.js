@@ -377,9 +377,9 @@ export class GameUI {
         
         // HODIT je povoleno když:
         // 1. Na začátku tahu (currentRoll je prázdné)
-        // 2. Po odložení kostek - OPRAVENO: můžeme hodit se zbývajícími kostkami
-        // 3. Vždy pokud není právě házení v progresu
-        const canRoll = !state.isRolling;
+        // 2. Po odložení kostek (žádné vybrané kostky)
+        // 3. Není právě házení v progresu
+        const canRoll = !state.isRolling && (!state.selectedDice || state.selectedDice.length === 0);
         
         if (isAiTurn) {
             rollBtn.disabled = true;
