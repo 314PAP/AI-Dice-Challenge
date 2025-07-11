@@ -36,11 +36,6 @@ html, body {
   font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
 }
 
-/* Základní neonová zelená pro texty */
-body {
-  color: var(--neon-green);
-}
-
 /* ===== NAŠE UTILITY TŘÍDY ===== */
 
 /* Text barvy */
