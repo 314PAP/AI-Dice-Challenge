@@ -75,12 +75,23 @@ export class AiPlayerController {
             
             // Kontrola, zda je AI stále na tahu
             if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
+                console.log(`🤖 AI ${aiPlayer.name} už není na tahu, ukončuji rozhodování`);
                 break;
             }
             
             // Pokud není co odložit, může být farkle (už se zpracuje automaticky)
             if (!currentState.currentRoll || currentState.currentRoll.length === 0) {
+                console.log(`🤖 AI ${aiPlayer.name} nemá kostky na stole, ukončuji rozhodování`);
                 break;
+            }
+            
+            // KONTROLA FARKLE - pokud jsou na stole kostky, ale žádné nejsou bodující
+            if (currentState.currentRoll && currentState.currentRoll.length > 0) {
+                if (!hasScoringDice(currentState.currentRoll)) {
+                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE, čeká na automatické ukončení`);
+                    chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
+                    break; // Necháme GameLogic aby zpracoval farkle
+                }
             }
             
             // AI rozhodování

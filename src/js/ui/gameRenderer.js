@@ -55,17 +55,45 @@ export class GameRenderer {
         const playersSection = document.createElement('div');
         playersSection.className = 'row g-1 g-sm-2 mb-3';
         
+        // Přidáme informaci o finálním kole nad karty hráčů
+        if (state.finalRound) {
+            const finalRoundAlert = document.createElement('div');
+            finalRoundAlert.className = 'col-12 mb-2';
+            finalRoundAlert.innerHTML = `
+                <div class="alert border border-neon-orange text-neon-orange text-center py-1 py-sm-2" style="background-color: rgba(255, 136, 0, 0.1);">
+                    <strong>🚨 FINÁLNÍ KOLO</strong> - ${state.finalRoundLeader} dosáhl cíle!
+                </div>
+            `;
+            playersSection.appendChild(finalRoundAlert);
+        }
+        
         state.players.forEach((player, index) => {
             const isCurrentPlayer = index === state.currentPlayerIndex;
+            const isLeader = state.finalRound && player.name === state.finalRoundLeader;
             
             // Vždy 4 sloupce v jednom řádku - responzivní
             const playerCol = document.createElement('div');
             playerCol.className = 'col-3';
             
             // Čistá karta hráče s neonovým rámečkem podle barvy
+            let cardClasses = `card bg-black border border-neon-${player.color} ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
+            if (isLeader) {
+                cardClasses += ' border-neon-orange border-3'; // Leader má oranžový rámeček
+            }
+            
             const playerCard = document.createElement('div');
-            playerCard.className = `card bg-black border border-neon-${player.color} ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
+            playerCard.className = cardClasses;
             playerCard.id = `player-card-${index}`; // ID pro animace
+            
+            // Status pro finální kolo
+            let statusContent = '';
+            if (state.finalRound) {
+                if (isLeader) {
+                    statusContent = '<div class="text-neon-orange fw-bold" style="font-size: clamp(0.5rem, 1.2vw, 0.65rem);">👑 LEADER</div>';
+                } else {
+                    statusContent = '<div class="text-neon-yellow" style="font-size: clamp(0.5rem, 1.2vw, 0.65rem);">Last chance!</div>';
+                }
+            }
             
             // Responzivní obsah - responzivní avatary s Bootstrap
             playerCard.innerHTML = `
@@ -78,7 +106,7 @@ export class GameRenderer {
                     <div class="text-neon-${player.color} small fw-bold mb-1 text-truncate">${player.name}</div>
                     <div class="text-neon-green" style="font-size: clamp(0.6rem, 1.5vw, 0.7rem);">Score:</div>
                     <div class="text-neon-green fw-bold" style="font-size: clamp(0.7rem, 2vw, 0.875rem);">${player.score}</div>
-                    <div id="player-status-${index}" class="mt-1" style="min-height: 1rem; font-size: clamp(0.6rem, 1.5vw, 0.75rem);"></div>
+                    <div id="player-status-${index}" class="mt-1" style="min-height: 1rem; font-size: clamp(0.6rem, 1.5vw, 0.75rem);">${statusContent}</div>
                 </div>
             `;
             

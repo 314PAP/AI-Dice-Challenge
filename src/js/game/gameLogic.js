@@ -398,16 +398,69 @@ export class GameLogic {
     }
 
     /**
-     * Kontroluje vítězství
+     * Kontroluje vítězství a spravuje finální kolo
      */
     checkVictory(player) {
         const state = gameState.getState();
+        
         if (player.score >= state.targetScore) {
-            const victoryMsg = `🏆 VÍTĚZSTVÍ! ${player.name} dosáhl cílového skóre ${state.targetScore}!`;
-            console.log(victoryMsg);
-            chatSystem.addSystemMessage(victoryMsg, CHAT_COLORS.GREEN);
-            gameState.updateState({ gamePhase: 'gameover' });
+            if (!state.finalRound) {
+                // První hráč dosáhl cílového skóre - začíná finální kolo
+                const finalRoundMsg = `🚨 FINÁLNÍ KOLO! ${player.name} dosáhl ${state.targetScore} bodů. Ostatní hráči mají ještě jeden tah!`;
+                console.log(finalRoundMsg);
+                chatSystem.addSystemMessage(finalRoundMsg, CHAT_COLORS.ORANGE);
+                
+                gameState.updateState({ 
+                    finalRound: true,
+                    finalRoundLeader: player.name,
+                    finalRoundStartPlayerIndex: state.currentPlayerIndex
+                });
+            } else {
+                // Finální kolo už běží - zkontroluj jestli všichni dostali šanci
+                this.checkFinalRoundCompletion();
+            }
+        } else if (state.finalRound) {
+            // Finální kolo běží, zkontroluj dokončení
+            this.checkFinalRoundCompletion();
         }
+    }
+
+    /**
+     * Kontroluje, zda je finální kolo dokončeno
+     */
+    checkFinalRoundCompletion() {
+        const state = gameState.getState();
+        
+        if (!state.finalRound) return;
+        
+        // Zkontroluj, zda jsme dokončili celé kolo (všichni hráči měli šanci)
+        const nextPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
+        
+        if (nextPlayerIndex === state.finalRoundStartPlayerIndex) {
+            // Finální kolo dokončeno - najdi vítěze
+            this.endGame();
+        }
+    }
+
+    /**
+     * Ukončí hru a vyhlásí vítěze
+     */
+    endGame() {
+        const state = gameState.getState();
+        
+        // Najdi hráče s nejvyšším skóre
+        const winner = state.players.reduce((prev, current) => 
+            (prev.score > current.score) ? prev : current);
+        
+        const victoryMsg = `🏆 KONEC HRY! ${winner.name} vyhrává s ${winner.score} body!`;
+        console.log(victoryMsg);
+        chatSystem.addSystemMessage(victoryMsg, CHAT_COLORS.GREEN);
+        
+        // Zobraz finální skóre všech hráčů
+        const scoreMsg = `📊 Finální skóre: ${state.players.map(p => `${p.name}: ${p.score}`).join(', ')}`;
+        chatSystem.addSystemMessage(scoreMsg, CHAT_COLORS.BLUE);
+        
+        gameState.updateState({ gamePhase: 'gameover' });
     }
 
     /**
@@ -421,10 +474,20 @@ export class GameLogic {
         const nextPlayer = state.players[nextPlayerIndex];
         
         console.log(`👤 Další hráč: ${nextPlayer.name}`);
-        chatSystem.addSystemMessage(`👤 Další hráč: ${nextPlayer.name}`, CHAT_COLORS.PURPLE);
+        
+        if (state.finalRound) {
+            chatSystem.addSystemMessage(`👤 FINÁLNÍ KOLO: ${nextPlayer.name} na tahu`, CHAT_COLORS.ORANGE);
+        } else {
+            chatSystem.addSystemMessage(`👤 Další hráč: ${nextPlayer.name}`, CHAT_COLORS.PURPLE);
+        }
         
         gameState.updateState({
             currentPlayerIndex: nextPlayerIndex
         });
+        
+        // Po přepnutí hráče zkontroluj finální kolo
+        if (state.finalRound) {
+            this.checkFinalRoundCompletion();
+        }
     }
 }

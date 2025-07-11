@@ -18,7 +18,11 @@ const initialGameState = {
     selectedDice: [],
     savedDice: [],
     turnScore: 0,
-    gamePhase: 'menu'
+    gamePhase: 'menu',
+    // Finální kolo mechanika
+    finalRound: false,
+    finalRoundLeader: null,
+    finalRoundStartPlayerIndex: -1
 };
 
 /**
