@@ -1,9 +1,10 @@
 /* ===================================================================
-   COLORS-BOOTSTRAP-SIMPLE - ČISTÝ SOUBOR PRO BARVY
+   COLORS-BOOTSTRAP-SIMPLE - ZJEDNODUŠENÝ SOUBOR PRO BARVY
    
-   Pouze 2 hlavní soubory:
-   1. colors-bootstrap-simple.css - všechny barvy a barevné efekty
-   2. responsive-bootstrap.css - všechny velikosti a responzivita
+   Jednoduchý a robustní systém:
+   1. CSS proměnné (6 neonových barev + černá)
+   2. Pouze naše vlastní utility třídy (bez Bootstrap override)
+   3. Základní globální styly
    
    SYNCHRONIZOVÁNO s colors.js
    ================================================================= */
@@ -34,14 +35,10 @@
 html, body {
   background-color: var(--neon-black);
   font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+  /* Odstraněno color: var(--neon-green) - nechávám pouze utility třídy */
 }
 
-/* Základní neonová zelená pro texty */
-body {
-  color: var(--neon-green);
-}
-
-/* ===== NAŠE UTILITY TŘÍDY ===== */
+/* ===== NAŠE UTILITY TŘÍDY - BEZ BOOTSTRAP OVERRIDE ===== */
 
 /* Text barvy */
 .text-neon-green { color: var(--neon-green) !important; text-shadow: var(--neon-text-shadow); }
@@ -68,7 +65,7 @@ body {
 .bg-neon-red { background-color: var(--neon-red) !important; }
 .bg-neon-yellow { background-color: var(--neon-yellow) !important; }
 
-/* ===== KOMPONENTY ===== */
+/* ===== KOMPONENTY - POUZE BARVY ===== */
 
 /* Formuláře */
 .form-control,
@@ -115,26 +112,25 @@ body {
   border-color: rgba(var(--neon-green-rgb), 0.8) !important;
 }
 
+/* Spinner */
+.neon-spinner {
+  border-color: transparent transparent var(--neon-blue) transparent !important;
+  animation: spin 1s linear infinite !important;
+}
+
 /* ===== CHAT SPINNER - ABSOLUTNÍ PRIORITA PRO ZELENOU BARVU ===== */
 
-/* Nejvyšší možná specificity pro Bootstrap spinner override */
-html body div.container-fluid #chatSpinner.spinner-border.text-neon-green,
-html body #app #chatSpinner.spinner-border.text-neon-green,
-body div#chatSpinner.spinner-border.text-neon-green,
-#chatSpinner.spinner-border.text-neon-green,
-.spinner-border#chatSpinner.text-neon-green,
-div#chatSpinner.spinner-border,
+/* Chat spinner - maximální specifita pro zajištění zelené barvy */
+html body .container-fluid #chatSpinner.spinner-border,
+html body div#chatSpinner.spinner-border.text-neon-green,
+body #app #chatSpinner.spinner-border.text-neon-green,
 #chatSpinner.spinner-border {
   color: var(--neon-green) !important;
   border-color: var(--neon-green) transparent transparent transparent !important;
-  border-top-color: var(--neon-green) !important;
-  border-right-color: transparent !important;
-  border-bottom-color: transparent !important;
-  border-left-color: transparent !important;
   border-width: 0.25em !important;
+  animation: spinner-border 0.75s linear infinite !important;
   width: 3rem !important;
   height: 3rem !important;
-  animation: spinner-border 0.75s linear infinite !important;
 }
 
 /* Chat spinner kontejner - správné rozestupy od okrajů */
@@ -151,11 +147,6 @@ div#chatSpinner.spinner-border,
 }
 
 /* Chat scrollbar */
-#chatMessages::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-
 #chatMessages::-webkit-scrollbar-track {
   background: var(--neon-black);
   box-shadow: inset 0 0 0.3125rem rgba(var(--neon-blue-rgb), 0.1);
@@ -180,39 +171,28 @@ div#chatSpinner.spinner-border,
   scrollbar-color: var(--neon-blue) var(--neon-black);
 }
 
-/* ===== NEONOVÁ TLAČÍTKA ===== */
+/* Chat zprávy se definují v components/chat.css */
 
-/* Základní .btn-neon třída s defaultní zelenou barvou */
-.btn-neon,
-.btn.btn-neon {
-  background-color: transparent !important;
-  color: var(--neon-green) !important;
-  border-color: var(--neon-green) !important;
-  text-shadow: var(--neon-text-shadow) !important;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
-  border-width: 0.125rem;
-  border-style: solid;
-  outline: none;
+.btn-neon:active,
+.btn.btn-neon:active {
+  background-color: rgba(var(--neon-green-rgb), 0.2) !important;
+  transform: scale(0.98) !important;
 }
 
 .btn-neon:hover,
-.btn-neon:focus,
-.btn.btn-neon:hover,
-.btn.btn-neon:focus {
+.btn-neon:focus {
   background-color: rgba(var(--neon-green-rgb), 0.1) !important;
   color: var(--neon-green) !important;
   border-color: var(--neon-green) !important;
   box-shadow: 0 0 1.25rem var(--neon-green) !important;
-  transform: scale(1.05) !important;
 }
 
 /* Barevné varianty tlačítek */
 .btn-neon-green {
-  color: var(--neon-green) !important;
-  border-color: var(--neon-green) !important;
+  background-color: transparent;
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .btn-neon-green:hover,
@@ -224,8 +204,10 @@ div#chatSpinner.spinner-border,
 }
 
 .btn-neon-blue {
-  color: var(--neon-blue) !important;
-  border-color: var(--neon-blue) !important;
+  background-color: transparent;
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .btn-neon-blue:hover,
@@ -237,8 +219,10 @@ div#chatSpinner.spinner-border,
 }
 
 .btn-neon-purple {
-  color: var(--neon-purple) !important;
-  border-color: var(--neon-purple) !important;
+  background-color: transparent;
+  color: var(--neon-purple);
+  border-color: var(--neon-purple);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .btn-neon-purple:hover,
@@ -250,8 +234,10 @@ div#chatSpinner.spinner-border,
 }
 
 .btn-neon-orange {
-  color: var(--neon-orange) !important;
-  border-color: var(--neon-orange) !important;
+  background-color: transparent;
+  color: var(--neon-orange);
+  border-color: var(--neon-orange);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .btn-neon-orange:hover,
@@ -263,8 +249,10 @@ div#chatSpinner.spinner-border,
 }
 
 .btn-neon-red {
-  color: var(--neon-red) !important;
-  border-color: var(--neon-red) !important;
+  background-color: transparent;
+  color: var(--neon-red);
+  border-color: var(--neon-red);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .btn-neon-red:hover,
@@ -276,8 +264,10 @@ div#chatSpinner.spinner-border,
 }
 
 .btn-neon-yellow {
-  color: var(--neon-yellow) !important;
-  border-color: var(--neon-yellow) !important;
+  background-color: transparent;
+  color: var(--neon-yellow);
+  border-color: var(--neon-yellow);
+  text-shadow: var(--neon-text-shadow);
 }
 
 .btn-neon-yellow:hover,
@@ -288,55 +278,90 @@ div#chatSpinner.spinner-border,
   box-shadow: 0 0 1.25rem var(--neon-yellow) !important;
 }
 
-/* ===== BOOTSTRAP UTILITY OVERRIDE - POUZE NUTNÉ ===== */
+/* ===== NEONOVÉ SPINNERY ===== */
 
-/* Text utility třídy - pouze light má zůstat bílou */
-.text-light { 
-  color: #ffffff !important; 
+/* Reset Bootstrap spinner stylů - vyšší specifita */
+html .neon-spinner.spinner-border,
+html .neon-spinner.spinner-grow,
+html div[class*="spinner"].neon-spinner,
+body .neon-spinner.spinner-border,
+body .neon-spinner.spinner-grow,
+body div[class*="spinner"].neon-spinner {
+  animation: none !important;
+  border: none !important;
+  background-color: transparent !important;
 }
+
+/* Základní rotující spinner */
+.neon-spinner {
+  display: inline-block !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  border-radius: 50% !important;
+  position: relative !important;
+  border: none !important;
+  margin: 0 auto !important;
+  vertical-align: middle !important;
+}
+
+/* Neonový rotující spinner */
+.neon-spinner.neon-spinner-rotate {
+  border: 3px solid transparent !important;
+  border-top-color: var(--neon-blue) !important;
+  border-right-color: var(--neon-blue) !important;
+  border-radius: 50% !important;
+  animation: neon-spin 1s linear infinite !important;
+  box-shadow: 0 0 15px rgba(var(--neon-blue-rgb), 0.7) !important;
+}
+
+/* Orbitální neonový spinner */
+.neon-spinner.neon-spinner-orbital::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  border: 2px solid transparent !important;
+  border-top-color: var(--neon-blue) !important;
+  border-left-color: var(--neon-blue) !important;
+  animation: neon-spin 1.2s linear infinite !important;
+}
+
+.neon-spinner.neon-spinner-orbital::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 15% !important;
+  left: 15% !important;
+  width: 70% !important;
+  height: 70% !important;
+  border-radius: 50% !important;
+  border: 2px solid transparent !important;
+  border-top-color: var(--neon-green) !important;
+  border-left-color: var(--neon-green) !important;
+  animation: neon-spin-reverse 1.8s linear infinite !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes neon-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes neon-spin-reverse {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+/* ===== BOOTSTRAP UTILITY OVERRIDE - POUZE POTŘEBNÉ TŘÍDY ===== */
+
+/* Text utility třídy */
+.text-light { color: #ffffff !important; } /* Bílá místo default */
 
 /* Background utility třídy */
-.bg-black { 
-  background-color: var(--neon-black) !important; 
-}
-
-/* ===== BOOTSTRAP COLORS OVERRIDE - KRITICKÉ TŘÍDY ===== */
-
-/* Bootstrap spinner - globální override */
-.spinner-border {
-  border-color: currentColor transparent transparent transparent !important;
-}
-
-/* Override Bootstrap default colors pouze tam, kde je potřeba */
-.text-primary { color: var(--neon-blue) !important; }
-.text-secondary { color: var(--neon-purple) !important; }
-.text-success { color: var(--neon-green) !important; }
-.text-info { color: var(--neon-blue) !important; }
-.text-warning { color: var(--neon-yellow) !important; }
-.text-danger { color: var(--neon-red) !important; }
-.text-dark { color: var(--neon-green) !important; }
-
-/* Bootstrap button colors - pouze když není použita naše neon třída */
-.btn-primary:not(.btn-neon):not([class*="btn-neon"]) {
-  background-color: var(--neon-blue) !important;
-  border-color: var(--neon-blue) !important;
-  color: white !important;
-}
-
-.btn-success:not(.btn-neon):not([class*="btn-neon"]) {
-  background-color: var(--neon-green) !important;
-  border-color: var(--neon-green) !important;
-  color: black !important;
-}
-
-.btn-danger:not(.btn-neon):not([class*="btn-neon"]) {
-  background-color: var(--neon-red) !important;
-  border-color: var(--neon-red) !important;
-  color: white !important;
-}
-
-.btn-warning:not(.btn-neon):not([class*="btn-neon"]) {
-  background-color: var(--neon-yellow) !important;
-  border-color: var(--neon-yellow) !important;
-  color: black !important;
-}
+.bg-black { background-color: var(--neon-black) !important; }
