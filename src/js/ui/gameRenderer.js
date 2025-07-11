@@ -184,7 +184,7 @@ export class GameRenderer {
         const buttonsContainer = document.createElement('div');
         buttonsContainer.className = 'row g-2 px-2';
         
-        const isAiTurn = currentPlayer && currentPlayer.isAi;
+        const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
         // OPRAVENÁ LOGIKA HÁZENÍ
         const canRoll = !state.isRolling; // Jednoduše - můžeme hodit pokud neházíme
