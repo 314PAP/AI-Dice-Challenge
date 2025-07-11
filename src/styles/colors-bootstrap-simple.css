@@ -379,6 +379,9 @@ div#chatSpinner.spinner-border,
 }
 
 /* Override Bootstrap default colors pouze tam, kde je potřeba */
+/* POZOR: Tyto overrides mohou konfliktovat s našimi specifickými třídami! */
+/* Zakomentováno kvůli konfliktu s chat spinnerem */
+/*
 .text-primary { color: var(--neon-blue) !important; }
 .text-secondary { color: var(--neon-purple) !important; }
 .text-success { color: var(--neon-green) !important; }
@@ -386,6 +389,7 @@ div#chatSpinner.spinner-border,
 .text-warning { color: var(--neon-yellow) !important; }
 .text-danger { color: var(--neon-red) !important; }
 .text-dark { color: var(--neon-green) !important; }
+*/
 
 /* Bootstrap button colors - pouze když není použita naše neon třída */
 .btn-primary:not(.btn-neon):not([class*="btn-neon"]) {
@@ -410,59 +414,4 @@ div#chatSpinner.spinner-border,
   background-color: var(--neon-yellow) !important;
   border-color: var(--neon-yellow) !important;
   color: black !important;
-}
-
-/* ===== CHAT ZPRÁVY - BAREVNÉ STYLY ===== */
-
-/* Zprávy v chatu - základní styly */
-.chat-message {
-  background: rgba(var(--neon-black-rgb), 0.3);
-  color: var(--neon-green);
-  border: 1px solid transparent;
-}
-
-/* AI zprávy - základní styl */
-.chat-message-ai {
-  align-self: flex-start;
-}
-
-/* Uživatelské zprávy */
-.chat-message-user {
-  background: rgba(var(--neon-black-rgb), 0.3);
-  color: var(--neon-green);
-  align-self: flex-end;
-  text-shadow: none;
-  border: none;
-}
-
-/* AI osobnosti - SPECIFICKÉ BARVY */
-.chat-message-ai.ai-gemini {
-  color: var(--neon-blue) !important;
-}
-
-.chat-message-ai.ai-claude {
-  color: var(--neon-orange) !important;
-}
-
-.chat-message-ai.ai-gpt {
-  color: var(--neon-purple) !important;
-}
-
-.chat-message-ai.ai-llama {
-  color: var(--neon-yellow) !important;
-}
-
-.chat-message-ai.ai-mistral {
-  color: var(--neon-red) !important;
-}
-
-/* Systémové zprávy */
-.chat-message-system {
-  background: rgba(var(--neon-yellow-rgb), 0.15);
-  border: none;
-  color: var(--neon-yellow);
-  align-self: center;
-  text-align: center;
-  font-style: italic;
-  max-width: 95%;
 }
