@@ -318,10 +318,10 @@ body {
 
 /* ===== KOMPONENTY - CHAT VELIKOSTI - POUZE SPECIFICKÉ ===== */
 
-/* Pouze max-width, zbytek řeší Bootstrap .mb-*, .p-*, .rounded */
+/* ODSTRANĚNO: max-width - používej Bootstrap .w-* nebo .mw-* utility */
 .chat-message {
-  max-width: 85%;
-  word-break: break-word;
+  /* ODSTRANĚNO: max-width: 85% - použij class="mw-100" nebo class="w-85" */
+  word-break: break-word; /* Toto Bootstrap nemá jako utility */
 }
 
 /* ===== KOMPONENTY - FORMULÁŘE - ODSTRANĚNO ===== */
@@ -334,12 +334,10 @@ body {
 
 /* ===== LAYOUT UTILITY TŘÍDY - POUZE TO CO BOOTSTRAP NEMÁ ===== */
 
-/* Velmi specifické utility, které Bootstrap 5 nemá */
-.min-height-100vh {
-  min-height: 100vh !important;
-}
+/* POZNÁMKA: Bootstrap 5 má .min-vh-100, takže .min-height-100vh je zbytečný */
+/* POUŽÍVEJ MÍSTO TOHO: class="min-vh-100" */
 
-/* Z-index utility - Bootstrap 5 nemá */
+/* Z-index utility - Bootstrap 5 nemá specifické z-index utility */
 .z-index-top {
     z-index: 9999;
 }

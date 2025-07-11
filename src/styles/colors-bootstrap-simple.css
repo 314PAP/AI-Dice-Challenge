@@ -268,7 +268,7 @@ html, body {
 .chat-message {
   background: rgba(var(--neon-black-rgb), 0.3);
   color: var(--neon-green);
-  border: 1px solid transparent;
+  border: var(--border-neon-thin) solid transparent;
 }
 
 /* AI zprávy - pouze barvy */
@@ -314,19 +314,21 @@ html, body {
   align-self: center;
   text-align: center;
   font-style: italic;
-  max-width: 95%;
+  /* ODSTRANĚNO: max-width: 95% - používej Bootstrap .w-* utility třídy */
 }
 
 /* ===== ZBÝVAJÍCÍ UTILITY STYLY - POUZE NUTNÉ MINIMUM ===== */
 
-/* Upravujeme pouze hodnoty, které Bootstrap nedokáže pokrýt */
+/* ODSTRANĚNO: Veškeré padding/margin definice */
+/* POUŽÍVEJ MÍSTO TOHO: Bootstrap .p-*, .pe-*, .py-* utility třídy */
 
-/* Speciální scrollable padding - pouze když není možné použít Bootstrap py-* nebo pe-* */
-.scrollable:not([class*="py-"]):not([class*="pe-"]), 
-.overflow-auto:not([class*="py-"]):not([class*="pe-"]), 
-.overflow-scroll:not([class*="py-"]):not([class*="pe-"]) {
-  padding-right: 0.75rem !important;
-}
+/* Příklad jak nahradit odstraněné styly:
+❌ ODSTRANĚNO: padding-right: 0.75rem
+✅ POUŽIJ: class="pe-3"
+
+❌ ODSTRANĚNO: max-width: 95%  
+✅ POUŽIJ: class="w-95" (nebo .mw-100 pro max-width: 100%)
+*/
 
 /* ===================================================================
    BOOTSTRAP-FIRST PRAVIDLA PRO BUDOUCÍ ÚPRAVY

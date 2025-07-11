@@ -16,19 +16,18 @@
 /* BOOTSTRAP RESPONSIVE UTILITY ROZŠÍŘENÍ */
 @import './bootstrap-responsive-utils.css';
 
-/* Z-index proměnné */
+/* Z-index proměnné - Bootstrap nedefinuje tyto specifické hodnoty */
 :root {
-  --z-modal: 1050;
-  --z-dropdown: 1000;
-  --z-tooltip: 1070;
-  --z-loading: 1055;
+  --z-modal: 1050;     /* Bootstrap modal z-index */
+  --z-dropdown: 1000;  /* Bootstrap dropdown z-index */
+  --z-tooltip: 1070;   /* Bootstrap tooltip z-index */
+  --z-loading: 1055;   /* Vlastní loading screen */
 }
 
-/* Základní utility třídy pro funkčnost bez našich CSS souborů */
+/* POUZE utility třídy které Bootstrap 5 nemá */
 .z-index-top {
-    z-index: 9999;
+    z-index: 9999; /* Pro absolutně nejvyšší vrstvu */
 }
 
-.min-h-0 {
-    min-height: 0;
-}
+/* ODSTRANĚNO: .min-h-0 - Bootstrap 5 má .min-h-0 utility třídu! */
+/* POUŽÍVEJ MÍSTO TOHO: class="min-h-0" (Bootstrap má tuto třídu) */
