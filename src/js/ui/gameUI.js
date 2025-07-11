@@ -484,7 +484,7 @@ export class GameUI {
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'mt-auto pt-3 d-flex justify-content-center';
         
-        const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
+        const backBtn = createNeonButton('ZPĚT DO MENU', 'orange', 'bi-arrow-left-circle-fill', 
             () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm btn-md-regular px-4 py-2 btn-no-scale');
         buttonContainer.appendChild(backBtn);
         container.appendChild(buttonContainer);
@@ -524,25 +524,26 @@ export class GameUI {
         const table = document.createElement('div');
         table.className = 'table-responsive';
         
-        // Optimalizace pro malé obrazovky - menší písmo, kompaktnější rozložení
-        // Odstraněny inline styly a nahrazeny Bootstrap nebo neon třídami
+        // Optimalizace pro malé obrazovky - Bootstrap-first přístup
+        // ODSTRANĚNO: Zbytečné bg-transparent třídy (black background je default)
+        // OPRAVENO: neon-orange-border-bottom → neon-green-border-bottom (zelené oddělovače)
         table.innerHTML = `
-            <table class="table table-sm neon-table bg-transparent">
+            <table class="table table-sm neon-table">
                 <thead>
-                    <tr class="neon-orange-border-bottom">
-                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange bg-transparent">#</th>
-                        <th scope="col" class="text-neon-orange neon-text-shadow-orange bg-transparent">Jméno</th>
-                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange bg-transparent">Skóre</th>
-                        <th scope="col" class="text-center d-none d-sm-table-cell text-neon-orange neon-text-shadow-orange bg-transparent">Datum</th>
+                    <tr class="neon-green-border-bottom">
+                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange">#</th>
+                        <th scope="col" class="text-neon-orange neon-text-shadow-orange">Jméno</th>
+                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange">Skóre</th>
+                        <th scope="col" class="text-center d-none d-sm-table-cell text-neon-orange neon-text-shadow-orange">Datum</th>
                     </tr>
                 </thead>
                 <tbody>
                     ${records.map((record, index) => `
-                        <tr class="bg-transparent">
-                            <th scope="row" class="text-center text-neon-yellow neon-text-shadow-yellow bg-transparent">${index + 1}</th>
-                            <td class="text-neon-blue neon-text-shadow-blue bg-transparent">${record.name}</td>
-                            <td class="text-center text-neon-green neon-text-shadow-green bg-transparent">${record.score}</td>
-                            <td class="text-center d-none d-sm-table-cell text-neon-purple neon-text-shadow-purple bg-transparent">${record.date}</td>
+                        <tr>
+                            <th scope="row" class="text-center text-neon-yellow neon-text-shadow-yellow">${index + 1}</th>
+                            <td class="text-neon-blue neon-text-shadow-blue">${record.name}</td>
+                            <td class="text-center text-neon-green neon-text-shadow-green">${record.score}</td>
+                            <td class="text-center d-none d-sm-table-cell text-neon-purple neon-text-shadow-purple">${record.date}</td>
                         </tr>
                     `).join('')}
                 </tbody>
@@ -556,7 +557,7 @@ export class GameUI {
         const buttonContainer = document.createElement('div');
         buttonContainer.className = 'mt-auto pt-2 d-flex justify-content-center overflow-visible p-2';
         
-        const backBtn = createNeonButton('ZPĚT DO MENU', 'green', 'bi-arrow-left-circle-fill', 
+        const backBtn = createNeonButton('ZPĚT DO MENU', 'orange', 'bi-arrow-left-circle-fill', 
             () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2');
         buttonContainer.appendChild(backBtn);
         container.appendChild(buttonContainer);
