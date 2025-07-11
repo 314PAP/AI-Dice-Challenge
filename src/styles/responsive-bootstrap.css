@@ -490,16 +490,3 @@
         flex: 0 0 33.333333% !important; /* col-sm-4 ekvivalent */
     }
 }
-
-/* === CHAT SPINNER ROZESTUPY === */
-
-/* Chat spinner kontejner - větší rozestupy od okrajů */
-#chatMessages .d-flex.flex-column.align-items-center.justify-content-center {
-  padding: 2rem 1rem !important; /* Větší padding od okrajů chatu */
-  margin: 1rem 0 !important; /* Dodatečný margin shora a zdola */
-}
-
-/* Chat spinner text - odstup od spinneru */
-#chatMessages .text-center.text-neon-green {
-  margin-top: 1rem !important;
-}

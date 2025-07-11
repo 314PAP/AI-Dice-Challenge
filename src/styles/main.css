@@ -9,6 +9,10 @@
 /* ZJEDNODUŠENÝ SOUBOR PRO VŠECHNY BARVY */
 @import './colors-bootstrap-simple.css';
 
+/* KOMPONENTY */
+@import './components/neon-buttons.css';
+@import './components/neon-spinner.css';
+
 /* JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI A RESPONZIVITU */
 @import './responsive-bootstrap.css';
 
