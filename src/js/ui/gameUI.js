@@ -13,14 +13,40 @@ import chatSystem from '../ai/chatSystem.js';
 /**
  * GameUI třída - Zajišťuje veškeré renderování herní plochy
  */
+/**
+ * Game UI - Hlavní UI kontroler (REFAKTOROVANÝ)
+ * 
+ * OBSAH MODULU (po refaktoringu):
+ * - Orchestrace UI komponent
+ * - Routing mezi obrazovkami
+ * - Event handling pro uživatelské akce
+ * - Integrace s ostatními moduly
+ * 
+ * PŘESUNUTO DO JINÝCH MODULŮ:
+ * - Herní logika → game/gameLogic.js
+ * - AI logika → ai/aiPlayerController.js
+ * - Vykreslování → ui/gameRenderer.js
+ * - Menu a obrazovky → ui/menuRenderer.js (TODO)
+ */
+
+import gameState from '../game/gameState.js';
+import { GameLogic } from '../game/gameLogic.js';
+import { GameRenderer } from './gameRenderer.js';
+import { AiPlayerController } from '../ai/aiPlayerController.js';
+import { createNeonButton } from './uiComponents.js';
+
 export class GameUI {
     constructor() {
         this.gameArea = document.getElementById('gameArea');
         
+        // Inicializace modulů
+        this.gameRenderer = new GameRenderer();
+        this.gameLogic = new GameLogic(this.gameRenderer);
+        this.aiController = new AiPlayerController(this.gameLogic);
+        
         // Ověříme, že gameArea existuje
         if (!this.gameArea) {
             console.warn('⚠️ GameUI: Element #gameArea nenalezen. GameUI bude čekat na DOM.');
-            // Pokusíme se najít gameArea po načtení DOM
             document.addEventListener('DOMContentLoaded', () => {
                 this.gameArea = document.getElementById('gameArea');
                 if (this.gameArea) {
@@ -76,6 +102,89 @@ export class GameUI {
                 this.renderMainMenu();
         }
     }
+
+    /**
+     * Vykreslí herní obrazovku pomocí GameRenderer
+     * @param {Object} state - Aktuální herní stav
+     */
+    renderGameScreen(state) {
+        console.log('🎮 GameUI: Deleguji vykreslení na GameRenderer');
+        
+        // Připravíme callbacks pro GameRenderer
+        const callbacks = {
+            toggleDiceSelection: (index) => this.toggleDiceSelection(index),
+            rollDice: () => this.gameLogic.rollDice(),
+            saveDice: () => this.gameLogic.saveDice(),
+            endTurn: () => this.gameLogic.endTurn(),
+            showMenuWithConfirmation: () => this.showMenuWithConfirmation()
+        };
+        
+        // Delegujeme vykreslení na GameRenderer
+        const gameContainer = this.gameRenderer.renderGameScreen(state, callbacks);
+        
+        if (gameContainer && this.gameArea) {
+            this.gameArea.appendChild(gameContainer);
+            
+            // Pokud je na tahu AI hráč, spustíme jeho automatický tah
+            const currentPlayer = state.players[state.currentPlayerIndex];
+            if (currentPlayer && !currentPlayer.isHuman && !state.isRolling) {
+                setTimeout(() => {
+                    this.aiController.playAiTurn(currentPlayer);
+                }, 1500);
+            }
+        }
+    }
+
+    /**
+     * Přepíná výběr kostky
+     * @param {number} index - Index kostky
+     */
+    toggleDiceSelection(index) {
+        console.log('🎯 GameUI: toggleDiceSelection volán s indexem:', index);
+        const state = gameState.getState();
+        let selectedDice = [...state.selectedDice];
+        
+        if (selectedDice.includes(index)) {
+            // Odznačování - vždy povoleno
+            selectedDice = selectedDice.filter(i => i !== index);
+            console.log('➖ Odebírám index', index);
+        } else {
+            // Označování - kontrolujeme platnost kostky
+            const dieValue = state.currentRoll[index];
+            
+            if (this.isValidDiceSelection(dieValue, state.currentRoll)) {
+                selectedDice.push(index);
+                console.log('➕ Přidávám kostku', dieValue, 'index', index);
+            } else {
+                const warningMsg = `⚠️ Kostka ${dieValue} nemůže být označena! Potřebujete alespoň 3 stejné kostky.`;
+                console.warn(warningMsg);
+                return;
+            }
+        }
+        
+        gameState.updateState({ selectedDice });
+    }
+
+    /**
+     * Kontroluje, zda lze kostku vybrat
+     * @param {number} dieValue - Hodnota kostky
+     * @param {Array} currentRoll - Aktuální hod
+     * @returns {boolean} Zda lze kostku vybrat
+     */
+    isValidDiceSelection(dieValue, currentRoll) {
+        // Jedničky a pětky lze vždy vybrat
+        if (dieValue === 1 || dieValue === 5) {
+            return true;
+        }
+        
+        // Pro ostatní hodnoty musí být alespoň 3 stejné
+        const countOfValue = currentRoll.filter(die => die === dieValue).length;
+        return countOfValue >= 3;
+    }
+
+    // =============================================================================
+    // MENU A OSTATNÍ OBRAZOVKY (TODO: přesunout do MenuRenderer)
+    // =============================================================================
 
     /**
      * Vykreslí hlavní menu - optimalizované pro všechny režimy zobrazení
