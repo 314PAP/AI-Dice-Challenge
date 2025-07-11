@@ -142,6 +142,8 @@ body {
 .chat-message {
   font-size: clamp(0.8rem, 2.2vw, 0.95rem);
   line-height: 1.3;
+  word-break: break-word; /* Toto Bootstrap nemá jako utility */
+  /* ODSTRANĚNO: max-width: 85% - použij class="mw-100" nebo class="w-85" */
 }
 
 .chat-timestamp {
@@ -318,11 +320,7 @@ body {
 
 /* ===== KOMPONENTY - CHAT VELIKOSTI - POUZE SPECIFICKÉ ===== */
 
-/* ODSTRANĚNO: max-width - používej Bootstrap .w-* nebo .mw-* utility */
-.chat-message {
-  /* ODSTRANĚNO: max-width: 85% - použij class="mw-100" nebo class="w-85" */
-  word-break: break-word; /* Toto Bootstrap nemá jako utility */
-}
+/* DUPLICITNÍ KÓD ODSTRANĚN - .chat-message už je definován výše v CHAT SPECIFIC TYPOGRAPHY */
 
 /* ===== KOMPONENTY - FORMULÁŘE - ODSTRANĚNO ===== */
 

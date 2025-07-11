@@ -311,8 +311,8 @@ html, body {
   background: rgba(var(--neon-yellow-rgb), 0.15);
   border: none;
   color: var(--neon-yellow);
-  align-self: center;
-  text-align: center;
+  align-self: flex-start; /* OPRAVENO: stejné jako AI zprávy */
+  /* ODSTRANĚNO: text-align: center - systémové zprávy nejsou vycentrované */
   font-style: italic;
   /* ODSTRANĚNO: max-width: 95% - používej Bootstrap .w-* utility třídy */
 }
