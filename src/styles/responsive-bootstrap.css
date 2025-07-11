@@ -219,41 +219,45 @@ body {
 
 /* ===== KOMPONENTY - KOSTKY VELIKOSTI ===== */
 
-/* Základní velikosti kostek - menší pro mobil aby se vešlo 6 kostek */
+/* Základní velikosti kostek - garantovaně responzivní pro 6 kostek na řádek */
 .dice {
-  width: 2.5rem; /* 40px - menší pro mobil */
-  height: 2.5rem;
+  width: 2.25rem; /* 36px - zmenšeno pro garantovaný jeden řádek */
+  height: 2.25rem;
   border-width: 0.0625rem; /* 1px */
   transition: all 0.3s ease;
   position: relative;
   cursor: pointer;
+  margin: 0.125rem; /* 2px margin pro mezery */
 }
 
-/* Responzivní velikosti kostek */
+/* Responzivní velikosti kostek - konzervativní přístup */
 @media (min-width: 576px) {
-  .dice { width: 3.125rem; height: 3.125rem; }
+  .dice { width: 2.75rem; height: 2.75rem; margin: 0.1875rem; } /* 44px + 3px margin */
 }
 
 @media (min-width: 768px) {
   .dice { 
-    width: 3.4375rem; 
-    height: 3.4375rem;
+    width: 3.25rem; 
+    height: 3.25rem;
     border-width: 0.125rem;
+    margin: 0.25rem; /* 52px + 4px margin */
   }
 }
 
 @media (min-width: 992px) {
   .dice { 
-    width: 4.0625rem; 
-    height: 4.0625rem;
+    width: 3.75rem; 
+    height: 3.75rem;
+    margin: 0.3125rem; /* 60px + 5px margin */
   }
 }
 
 @media (min-width: 1200px) {
   .dice { 
-    width: 4.375rem; 
-    height: 4.375rem;
+    width: 4.25rem; 
+    height: 4.25rem;
     border-width: 0.1875rem;
+    margin: 0.375rem; /* 68px + 6px margin */
   }
 }
 

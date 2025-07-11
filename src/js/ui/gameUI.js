@@ -376,10 +376,13 @@ export class GameUI {
         const hasSavedDice = state.savedDice && state.savedDice.length > 0;
         
         // HODIT je povoleno když:
-        // 1. Na začátku tahu (currentRoll je prázdné)
-        // 2. Po odložení kostek (žádné vybrané kostky)
-        // 3. Není právě házení v progresu
-        const canRoll = !state.isRolling && (!state.selectedDice || state.selectedDice.length === 0);
+        // 1. Na začátku tahu (žádné kostky na stole)  
+        // 2. Po odložení kostek (žádné vybrané kostky a nejsou kostky na stole)
+        // 3. Hot dice (všechny kostky odloženy, currentRoll prázdné)
+        // 4. Není právě házení v progresu
+        const canRoll = !state.isRolling && 
+                       (!state.selectedDice || state.selectedDice.length === 0) &&
+                       (!state.currentRoll || state.currentRoll.length === 0);
         
         if (isAiTurn) {
             rollBtn.disabled = true;
