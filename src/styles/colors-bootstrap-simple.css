@@ -372,6 +372,12 @@ div#chatSpinner.spinner-border,
   border-color: currentColor transparent transparent transparent !important;
 }
 
+/* Speciální override pro text-neon-green spinnery */
+.spinner-border.text-neon-green {
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) transparent transparent transparent !important;
+}
+
 /* Override Bootstrap default colors pouze tam, kde je potřeba */
 .text-primary { color: var(--neon-blue) !important; }
 .text-secondary { color: var(--neon-purple) !important; }
