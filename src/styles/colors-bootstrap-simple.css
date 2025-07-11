@@ -118,19 +118,32 @@ html, body {
   animation: spin 1s linear infinite !important;
 }
 
-/* Chat spinner - ABSOLUTNĚ NEJVYŠŠÍ PRIORITA */
+/* ===== CHAT SPINNER - ABSOLUTNÍ PRIORITA PRO ZELENOU BARVU ===== */
+
+/* Chat spinner - maximální specifita pro zajištění zelené barvy */
 html body .container-fluid #chatSpinner.spinner-border,
 html body div#chatSpinner.spinner-border.text-neon-green,
-body #chatSpinner.spinner-border.text-neon-green {
+body #app #chatSpinner.spinner-border.text-neon-green,
+#chatSpinner.spinner-border {
   color: var(--neon-green) !important;
   border-color: var(--neon-green) transparent transparent transparent !important;
   border-width: 0.25em !important;
   animation: spinner-border 0.75s linear infinite !important;
+  width: 3rem !important;
+  height: 3rem !important;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* Chat spinner kontejner - správné rozestupy od okrajů */
+#chatMessages .d-flex.flex-column.align-items-center.justify-content-center {
+  padding: 2rem 1rem !important;
+  margin: 1rem 0 !important;
+}
+
+/* Chat spinner text - také zelený s odstupem */
+#chatMessages .text-center.text-neon-green {
+  margin-top: 1rem !important;
+  color: var(--neon-green) !important;
+  text-shadow: var(--neon-text-shadow) !important;
 }
 
 /* Chat scrollbar */
@@ -159,33 +172,6 @@ body #chatSpinner.spinner-border.text-neon-green {
 }
 
 /* Chat zprávy se definují v components/chat.css */
-
-/* Neonová tlačítka - kompletní definice */
-.btn-neon,
-.btn.btn-neon {
-  background-color: transparent;
-  text-shadow: var(--neon-text-shadow);
-  color: var(--neon-green);
-  border-color: var(--neon-green);
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
-  border-width: 0.125rem;
-  border-style: solid;
-  outline: none;
-}
-
-.btn-neon:hover,
-.btn-neon:focus,
-.btn.btn-neon:hover,
-.btn.btn-neon:focus {
-  background-color: rgba(var(--neon-green-rgb), 0.1) !important;
-  color: var(--neon-green) !important;
-  border-color: var(--neon-green) !important;
-  box-shadow: 0 0 1.25rem var(--neon-green) !important;
-  transform: scale(1.05) !important;
-}
 
 .btn-neon:active,
 .btn.btn-neon:active {
@@ -355,6 +341,11 @@ body div[class*="spinner"].neon-spinner {
   border-top-color: var(--neon-green) !important;
   border-left-color: var(--neon-green) !important;
   animation: neon-spin-reverse 1.8s linear infinite !important;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes neon-spin {

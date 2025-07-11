@@ -366,6 +366,75 @@
   }
 }
 
+/* ===== RESPONZIVNÍ TLAČÍTKA ===== */
+
+/* Výchozí velikost pro mobilní telefony */
+.btn-neon,
+.btn.btn-neon {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .btn-neon,
+  .btn.btn-neon {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .btn-neon,
+  .btn.btn-neon {
+    padding: 0.5rem 0.875rem;
+    font-size: 1rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .btn-neon,
+  .btn.btn-neon {
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .btn-neon,
+  .btn.btn-neon {
+    padding: 0.625rem 1.25rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Landscape orientace - kompaktnější tlačítka */
+@media (orientation: landscape) and (max-height: 500px) {
+  .btn-neon,
+  .btn.btn-neon {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border-width: 0.0625rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Zmenšení ikon v tlačítkách */
+  .btn-neon .bi,
+  .btn.btn-neon .bi {
+    font-size: 0.8rem;
+    margin-right: 0.25rem;
+  }
+  
+  .btn-neon.btn-lg,
+  .btn.btn-neon.btn-lg {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.95rem;
+  }
+}
+
 /* ===== LAYOUT UTILITY TŘÍDY ===== */
 
 /* Minimální výška pro komponenty */
