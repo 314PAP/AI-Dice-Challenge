@@ -152,31 +152,7 @@ body {
   scrollbar-color: var(--neon-blue) var(--neon-black);
 }
 
-/* Chat zprávy */
-.chat-message-ai {
-  background: rgba(var(--neon-black-rgb), 0.3);
-  border: none; /* Bez ohraničení pro AI zprávy */
-  /* Bez defaultních barev - nechejte specificke AI styly */
-}
-
-.chat-message-user {
-  background: rgba(var(--neon-black-rgb), 0.3);
-  color: var(--neon-green);
-}
-
-.chat-message-ai.ai-gemini {
-  color: var(--neon-blue);
-}
-
-/* AI osobnost - ChatGPT (purpurová) */
-.chat-message-ai.ai-gpt {
-  color: var(--neon-purple);
-}
-
-/* AI osobnost - Claude (oranžová) */
-.chat-message-ai.ai-claude {
-  color: var(--neon-orange);
-}
+/* Chat zprávy se definují v components/chat.css */
 
 /* Neonová tlačítka - různé barvy */
 .btn-neon {

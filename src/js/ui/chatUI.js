@@ -114,13 +114,13 @@ export class ChatUI {
         
         // Určení typu zprávy a přidání odpovídajících tříd
         if (message.sender === CHAT_CONSTANTS.PLAYER_NAME) {
-            // Zpráva od hráče
+            // Zpráva od hráče - barvu definuje CSS komponenta chat-message-user
             messageClasses += ' chat-message-user';
-            colorClass = 'text-neon-green'; // Zelený text pro hráče
+            colorClass = ''; // Nepoužíváme Bootstrap utility třídu, barvu definuje CSS komponenta
         } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
             // Systémová zpráva
             messageClasses += ' chat-message-system';
-            colorClass = 'text-neon-yellow'; // Žlutá pro systémové zprávy
+            colorClass = ''; // Barvu definuje CSS komponenta
         } else if (aiPersonalities[message.sender]) {
             // Zpráva od AI - přidáme specifickou třídu podle AI osobnosti
             // Standardizované mapování AI jmen na CSS třídy

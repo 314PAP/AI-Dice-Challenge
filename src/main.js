@@ -113,9 +113,10 @@ class AIDiceGame {
     }
 
     /**
-     * Skryje úvodní načítací obrazovku
+     * Skryje úvodní načítací obrazovku s vylepšenými animacemi
      */
     hideLoadingScreen() {
+        // Delší čekání pro pěknější loading experience (2 sekundy)
         setTimeout(() => {
             const loadingScreen = document.getElementById('loadingScreen');
             const app = document.getElementById('app');
@@ -124,18 +125,33 @@ class AIDiceGame {
                 // Uložení původních tříd pro možné debugování
                 const originalClasses = app.className;
                 
-                loadingScreen.classList.add('animate__animated', 'animate__fadeOut');
+                // Přidáme pěknou fade out animaci s delším trváním
+                loadingScreen.style.transition = 'opacity 0.8s ease-out';
+                loadingScreen.style.opacity = '0';
+                
+                // Zobrazíme hlavní aplikaci s fade in efektem
                 app.classList.remove('d-none');
-                app.classList.add('animate__animated', 'animate__fadeIn');
+                app.style.opacity = '0';
+                app.style.transition = 'opacity 0.6s ease-in';
+                
+                // Po krátké pauze zapneme fade in pro hlavní aplikaci
+                setTimeout(() => {
+                    app.style.opacity = '1';
+                }, 100);
                 
                 // 🔍 DEBUG: Kontrola změn tříd - pouze pokud je skutečný rozdíl
                 if (originalClasses !== app.className) {
                     this.debugAppHeight('PO změně visibility tříd');
                 }
                 
-                setTimeout(() => loadingScreen.remove(), 800);
+                // Odstranění loading screen až po dokončení animace
+                setTimeout(() => {
+                    if (loadingScreen.parentNode) {
+                        loadingScreen.remove();
+                    }
+                }, 1000);
             }
-        }, 500);
+        }, 2000); // Zvýšeno z 500ms na 2000ms pro delší loading
     }
 
     /**

@@ -1,34 +1,104 @@
-<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
+<!-- AUTOMATICKY GENEROVANÉ INSTRUKCE Z KOMPLETNI_DOKUMENTACE_SYSTEMU.md -->
+<!-- Datum generování: 11. července 2025 -->
 
-# AI Dice Game - Copilot Instructions
+# 🎲 AI Dice Challenge - Copilot Instructions
 
-Toto je modulární hra s kostkami založená na Vite s AI osobnostmi. Projekt se řídí těmito konvencemi:
+**⚠️ DŮLEŽITÉ**: Tyto instrukce jsou automaticky synchronizované s `KOMPLETNI_DOKUMENTACE_SYSTEMU.md`
 
-## Zásady pro vývoj
+## 🎯 AKTUÁLNÍ STAV PROJEKTU
 
-### Používání Bootstrapu a knihoven
+### ✅ CO FUNGUJE
+- Bootstrap layout (100% responzivní)
+- Menu systém s neonovými barvami
+- Chat UI (vizuálně správné)
+- Modularita ES6 modulů
 
-- **Primárně používáme Bootstrap** pro všechny layouty a komponenty
-- Preferujeme **využívání utility tříd** Bootstrapu místo vlastního CSS
-- Pro vlastní styly používáme **CSS proměnné** a **Bootstrap rozšíření**
-- Vždy dáváme přednost existujícím knihovnám před vlastním řešením
-- Při každé úpravě **nahrazujeme vlastní CSS** Bootstrap třídami kde je to možné
-- Navrhujeme **lepší řešení s Bootstrapem**, pokud existují (vždy po schválení)
+### ⚠️ PRIORITNÍ OPRAVY
+1. **Chat roller** - modrý místo zeleného (CSS kolize)
+2. **Loading screen** - bílé pozadí místo černého  
+3. **Herní plocha** - nefunkční po startu hry
+4. **CSS konflikty** - duplicitní definice barev
 
-### Modulární struktura kódu
+## 🎨 CSS ZÁSADY
 
-- Soubory **nesmí přesáhnout 150 řádků** kódu
-- Optimální velikost souborů je **50-100 řádků**
-- Každý modul má jasně definovanou jednu zodpovědnost
-- Při úpravách velkých souborů je **rozdělíme na menší moduly**
-- Preferujeme **více malých komponent** než méně velkých
+### Barevný systém
+```css
+/* JEDINÉ POVOLENÉ BARVY */
+--neon-green: #39ff14;
+--neon-blue: #194DD1;
+--neon-purple: #FF00FF;
+--neon-orange: #FF8800;
+--neon-red: #ff3131;
+--neon-yellow: #ffff00;
+--neon-black: #000000;
+```
 
-### Design a styly
+### Bootstrap Priority
+1. **PRVNÍ**: Bootstrap utility třídy
+2. **DRUHÉ**: Naše neon-* rozšíření
+3. **POSLEDNÍ**: Vlastní CSS (pouze nutné minimum)
 
-- Zachováváme **neonový design** v celé aplikaci
-- Používáme CSS proměnné pro konzistenci barev
-- Preferujeme **Bootstrap komponenty** s vlastními styly
-- Vždy navrhujeme zlepšení, která zachovávají vizuální identitu
+### Povolené CSS třídy
+```css
+/* Text barvy */
+.text-neon-green, .text-neon-blue, .text-neon-purple,
+.text-neon-orange, .text-neon-red, .text-neon-yellow
+
+/* Okraje */  
+.border-neon-green, .border-neon-blue, .border-neon-purple,
+.border-neon-orange, .border-neon-red, .border-neon-yellow
+
+/* Tlačítka */
+.btn-neon[data-neon-color="green|blue|purple|orange|red|yellow"]
+
+/* Pozadí */
+.bg-neon-black
+```
+
+## ⚙️ JAVASCRIPT ZÁSADY
+
+### Modulární struktura
+- **MAX 150 řádků** na soubor
+- **Jedna zodpovědnost** na modul
+- **ES6 moduly** povinně
+
+### Import pattern
+```javascript
+// VŽDY používej centrální moduly
+import { CONSOLE_COLORS } from './js/utils/colors.js';
+import gameState from './js/game/gameState.js';
+import chatSystem from './js/ai/chatSystem.js';
+```
+
+### Barevné konstanty v JS
+```javascript
+// JEDINÝ ZDROJ BAREV
+CONSOLE_COLORS = {
+    neonGreen: '#39ff14',
+    neonBlue: '#194DD1', 
+    neonPurple: '#FF00FF',
+    neonOrange: '#FF8800',
+    neonRed: '#ff3131',
+    neonYellow: '#ffff00',
+    neonBlack: '#000000'
+}
+```
+
+## 🚨 ZAKÁZANÉ AKCE
+
+- ❌ **NEPŘEPISUJ Bootstrap** core třídy
+- ❌ **NEVYTVÁŘEJ** nové CSS soubory bez konzultace
+- ❌ **NEPOUŽÍVEJ** inline styly
+- ❌ **NEDUPLICUJ** CSS definice
+- ❌ **NEMĚŇ** funkční Bootstrap layout
+
+## ✅ POVOLENÉ AKCE
+
+- ✅ **POUŽÍVEJ** Bootstrap utility classes
+- ✅ **ROZŠIŘUJ** pomocí neon-* tříd  
+- ✅ **TESTUJ** na všech breakpointech
+- ✅ **ZACHOVEJ** modularitu
+- ✅ **KONZULTUJ** před většími změnami
 
 ## Struktura projektu
 
