@@ -22,7 +22,10 @@ const initialGameState = {
     // Finální kolo mechanika
     finalRound: false,
     finalRoundLeader: null,
-    finalRoundStartPlayerIndex: -1
+    finalRoundStartPlayerIndex: -1,
+    // Ochrana proti duplicitnímu zpracování
+    isFarkleProcessing: false,
+    isRolling: false
 };
 
 /**

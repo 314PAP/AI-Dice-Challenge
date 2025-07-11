@@ -136,6 +136,16 @@ export class GameLogic {
      * @param {Array} dice - Kostky
      */
     handleFarkle(dice) {
+        // OCHRANA PROTI DUPLICITNÍM VOLÁNÍM
+        const currentState = gameState.getState();
+        if (currentState.isFarkleProcessing) {
+            console.log('⚠️ Farkle už se zpracovává, ignoruji duplicitní volání');
+            return;
+        }
+
+        // Označíme, že zpracováváme farkle
+        gameState.updateState({ isFarkleProcessing: true });
+
         const farkleMsg = '💥 FARKLE! Hod neobsahuje žádné bodující kostky! Přicházíte o všechny odložené body tohoto tahu!';
         console.warn(farkleMsg);
         chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
@@ -482,7 +492,14 @@ export class GameLogic {
         }
         
         gameState.updateState({
-            currentPlayerIndex: nextPlayerIndex
+            currentPlayerIndex: nextPlayerIndex,
+            // Reset stavů pro nový tah
+            currentRoll: [],
+            selectedDice: [],
+            savedDice: [],
+            turnScore: 0,
+            isFarkleProcessing: false,
+            isRolling: false
         });
         
         // Po přepnutí hráče zkontroluj finální kolo
