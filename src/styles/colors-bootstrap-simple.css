@@ -120,26 +120,12 @@ html, body {
   border-color: rgba(var(--neon-green-rgb), 0.8) !important;
 }
 
-/* ===== CHAT SPINNER - ABSOLUTNÍ PRIORITA PRO ZELENOU BARVU ===== */
+/* ===== CHAT SPINNER - JEDNODUCHÝ OVERRIDE ===== */
 
-/* Nejvyšší možná specificity pro Bootstrap spinner override */
-html body div.container-fluid #chatSpinner.spinner-border.text-neon-green,
-html body #app #chatSpinner.spinner-border.text-neon-green,
-body div#chatSpinner.spinner-border.text-neon-green,
-#chatSpinner.spinner-border.text-neon-green,
-.spinner-border#chatSpinner.text-neon-green,
-div#chatSpinner.spinner-border,
-#chatSpinner.spinner-border {
+/* Základní spinner override */
+.spinner-border.text-neon-green {
   color: var(--neon-green) !important;
   border-color: var(--neon-green) transparent transparent transparent !important;
-  border-top-color: var(--neon-green) !important;
-  border-right-color: transparent !important;
-  border-bottom-color: transparent !important;
-  border-left-color: transparent !important;
-  border-width: 0.25em !important;
-  width: 3rem !important;
-  height: 3rem !important;
-  animation: spinner-border 0.75s linear infinite !important;
 }
 
 /* Chat spinner kontejner - správné rozestupy od okrajů */
@@ -372,16 +358,7 @@ div#chatSpinner.spinner-border,
   border-color: currentColor transparent transparent transparent !important;
 }
 
-/* Speciální override pro text-neon-green spinnery */
-.spinner-border.text-neon-green {
-  color: var(--neon-green) !important;
-  border-color: var(--neon-green) transparent transparent transparent !important;
-}
-
 /* Override Bootstrap default colors pouze tam, kde je potřeba */
-/* POZOR: Tyto overrides mohou konfliktovat s našimi specifickými třídami! */
-/* Zakomentováno kvůli konfliktu s chat spinnerem */
-/*
 .text-primary { color: var(--neon-blue) !important; }
 .text-secondary { color: var(--neon-purple) !important; }
 .text-success { color: var(--neon-green) !important; }
@@ -389,7 +366,6 @@ div#chatSpinner.spinner-border,
 .text-warning { color: var(--neon-yellow) !important; }
 .text-danger { color: var(--neon-red) !important; }
 .text-dark { color: var(--neon-green) !important; }
-*/
 
 /* Bootstrap button colors - pouze když není použita naše neon třída */
 .btn-primary:not(.btn-neon):not([class*="btn-neon"]) {
@@ -414,4 +390,59 @@ div#chatSpinner.spinner-border,
   background-color: var(--neon-yellow) !important;
   border-color: var(--neon-yellow) !important;
   color: black !important;
+}
+
+/* ===== CHAT ZPRÁVY - BAREVNÉ STYLY ===== */
+
+/* Zprávy v chatu - základní styly */
+.chat-message {
+  background: rgba(var(--neon-black-rgb), 0.3);
+  color: var(--neon-green);
+  border: 1px solid transparent;
+}
+
+/* AI zprávy - základní styl */
+.chat-message-ai {
+  align-self: flex-start;
+}
+
+/* Uživatelské zprávy */
+.chat-message-user {
+  background: rgba(var(--neon-black-rgb), 0.3);
+  color: var(--neon-green);
+  align-self: flex-end;
+  text-shadow: none;
+  border: none;
+}
+
+/* AI osobnosti - SPECIFICKÉ BARVY */
+.chat-message-ai.ai-gemini {
+  color: var(--neon-blue) !important;
+}
+
+.chat-message-ai.ai-claude {
+  color: var(--neon-orange) !important;
+}
+
+.chat-message-ai.ai-gpt {
+  color: var(--neon-purple) !important;
+}
+
+.chat-message-ai.ai-llama {
+  color: var(--neon-yellow) !important;
+}
+
+.chat-message-ai.ai-mistral {
+  color: var(--neon-red) !important;
+}
+
+/* Systémové zprávy */
+.chat-message-system {
+  background: rgba(var(--neon-yellow-rgb), 0.15);
+  border: none;
+  color: var(--neon-yellow);
+  align-self: center;
+  text-align: center;
+  font-style: italic;
+  max-width: 95%;
 }
