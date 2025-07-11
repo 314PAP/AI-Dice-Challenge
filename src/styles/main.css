@@ -7,7 +7,7 @@
    ================================================================= */
 
 /* ZJEDNODUŠENÝ SOUBOR PRO VŠECHNY BARVY */
-/*@import './colors-bootstrap-simple.css';
+@import './colors-bootstrap-simple.css';
 
 /* JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI A RESPONZIVITU */
 @import './responsive-bootstrap.css';
