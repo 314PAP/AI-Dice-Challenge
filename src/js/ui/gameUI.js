@@ -210,6 +210,14 @@ export class GameUI {
             players: gameState.getState().players.map(p => ({ ...p, score: 0 }))
         });
         console.log('Nový herní stav:', gameState.getState());
+        
+        // Pokud začíná AI hráč, spustíme jeho tah
+        const currentPlayer = gameState.getState().players[0];
+        if (!currentPlayer.isHuman) {
+            setTimeout(() => {
+                this.playAiTurn(currentPlayer);
+            }, 2000); // Krátká pauza po startu hry
+        }
     }
 
     /**
@@ -262,19 +270,21 @@ export class GameUI {
             
             // Čistá karta hráče s neonovým rámečkem podle barvy
             const playerCard = document.createElement('div');
-            playerCard.className = `card bg-black border border-neon-${player.color} ${isCurrentPlayer ? 'border-3' : 'border-2'}`;
+            playerCard.className = `card bg-black border border-neon-${player.color} ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
+            playerCard.id = `player-card-${index}`; // ID pro animace
             
             // Responzivní obsah - větší ikona, menší text
             playerCard.innerHTML = `
                 <div class="card-body text-center p-1 p-sm-2">
                     <div class="mb-1 mb-sm-2">
                         <img src="ai-icons/${player.avatar}" alt="${player.name}" 
-                             class="rounded-circle" 
-                             style="width: 48px; height: 48px; object-fit: cover;">
+                             class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''}" 
+                             style="width: 72px; height: 72px; object-fit: cover;">
                     </div>
                     <div class="text-neon-${player.color} small fw-bold mb-1">${player.name}</div>
                     <div class="text-neon-green" style="font-size: 0.7rem;">Score:</div>
                     <div class="text-neon-green fw-bold small">${player.score}</div>
+                    <div id="player-status-${index}" class="mt-1" style="min-height: 1.5rem;"></div>
                 </div>
             `;
             
@@ -446,11 +456,34 @@ export class GameUI {
         let selectedDice = [...state.selectedDice];
         
         if (selectedDice.includes(index)) {
+            // Odznačování - vždy povoleno
             selectedDice = selectedDice.filter(i => i !== index);
             console.log('➖ Odebírám index', index, 'nové selectedDice:', selectedDice);
         } else {
-            selectedDice.push(index);
-            console.log('➕ Přidávám index', index, 'nové selectedDice:', selectedDice);
+            // Označování - kontrolujeme, zda kostka má platnou hodnotu
+            const dieValue = state.currentRoll[index];
+            
+            // Kontrola, zda lze kostku odložit samostatně (1 nebo 5)
+            if (dieValue === 1 || dieValue === 5) {
+                selectedDice.push(index);
+                console.log('➕ Přidávám platnou kostku', dieValue, 'index', index);
+            } else {
+                // Pro 2,3,4,6 - musíme zkontrolovat, zda existuje trojice/více této hodnoty
+                const availableDice = state.currentRoll;
+                const countOfValue = availableDice.filter(die => die === dieValue).length;
+                
+                if (countOfValue >= 3) {
+                    // Existuje trojice této hodnoty - kostku lze označit
+                    selectedDice.push(index);
+                    console.log('➕ Přidávám kostku do trojice/více', dieValue, 'index', index, `(${countOfValue} kusů k dispozici)`);
+                } else {
+                    // Kostka nemůže být označena - není součástí trojice
+                    const warningMsg = `⚠️ Kostka ${dieValue} nemůže být označena! Potřebujete alespoň 3 stejné kostky (máte jen ${countOfValue}).`;
+                    console.warn(warningMsg);
+                    chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
+                    return; // Nepokračujeme v aktualizaci stavu
+                }
+            }
         }
         
         gameState.updateState({ selectedDice });
@@ -506,21 +539,24 @@ export class GameUI {
             console.warn(farkleMsg);
             chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
             
+            // Zobrazíme FARKLE pod hráčem
+            this.showPlayerFarkle();
+            
             // AI reakce na farkle
             this.triggerAiReactions('farkle', { dice, points: 0 });
             
-            // Automaticky ukončíme tah s farkle
+            // Automaticky ukončíme tah s farkle okamžitě
             setTimeout(() => {
                 this.endTurn(true);
-            }, 2000); // 2 sekundy na přečtení zprávy
+            }, 1500); // 1.5 sekundy na animaci
             
         } else {
             const successMsg = `✅ Máte kostky na výběr! Označte platné kostky k odložení.`;
             console.log(successMsg);
             chatSystem.addSystemMessage(successMsg, CHAT_COLORS.GREEN);
             
-            // AI reakce na úspěšný hod
-            this.triggerAiReactions('roll', { dice, points });
+            // AI reakce ODSTRANĚNA - AI reaguje až při akci hráče (save/endTurn)
+            // this.triggerAiReactions('roll', { dice, points });
         }
         
         // Překreslíme obrazovku
@@ -853,7 +889,10 @@ export class GameUI {
         const state = gameState.getState();
         
         // Kontrola, zda hráč má body k ukončení tahu (kromě farkle)
-        if (!isFarkle && (!state.savedDice || state.savedDice.length === 0) && (!state.turnScore || state.turnScore === 0)) {
+        const hasSavedDice = state.savedDice && state.savedDice.length > 0;
+        const hasTurnScore = state.turnScore && state.turnScore > 0;
+        
+        if (!isFarkle && !hasSavedDice && !hasTurnScore) {
             const warningMsg = '⚠️ POZOR: Nemůžete ukončit tah bez odložených kostek nebo bodů! Nejdříve odložte bodující kostky.';
             console.warn(warningMsg);
             chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
@@ -878,6 +917,15 @@ export class GameUI {
             const savedDicePoints = calculatePoints(state.savedDice || []);
             const turnScorePoints = state.turnScore || 0;
             points = savedDicePoints + turnScorePoints;
+            
+            // KONTROLA MINIMÁLNÍHO SKÓRE: První zápis musí být min. 300 bodů
+            if (currentPlayer.score === 0 && points < 300) {
+                const warningMsg = `⚠️ POZOR: První zápis musí být minimálně 300 bodů! Máte jen ${points} bodů. Pokračujte v tahu nebo riskujte!`;
+                console.warn(warningMsg);
+                chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
+                return;
+            }
+            
             currentPlayer.score += points;
             
             console.log(`📊 Hráč ${currentPlayer.name}:`);
@@ -931,6 +979,13 @@ export class GameUI {
         
         // Překreslíme obrazovku
         this.renderGameScreen(gameState.getState());
+        
+        // Pokud je další hráč AI, spustíme jeho automatický tah
+        if (!nextPlayer.isHuman) {
+            setTimeout(() => {
+                this.playAiTurn(nextPlayer);
+            }, 1500); // Krátká pauza pro realističnost
+        }
     }
 
     /**
@@ -942,16 +997,19 @@ export class GameUI {
         const state = gameState.getState();
         const currentPlayer = state.players[state.currentPlayerIndex];
         
-        // Pouze pro lidského hráče
-        if (!currentPlayer.isHuman) return;
+        // POUZE pro lidského hráče - AI nekomentuje své vlastní tahy
+        if (!currentPlayer.isHuman) {
+            console.log(`🤖 AI reakce přeskočeny - na tahu je AI hráč ${currentPlayer.name}`);
+            return;
+        }
         
         // Získáme AI hráče (všichni kromě aktuálního)
         const aiPlayers = state.players.filter(player => !player.isHuman);
         
-        // Náhodně vybereme 1-2 AI pro reakci (ne všichni najednou)
+        // Náhodně vybereme 1 AI pro reakci (ne všichni najednou)
         const reactingAI = aiPlayers
             .sort(() => Math.random() - 0.5)
-            .slice(0, Math.random() > 0.5 ? 1 : 2);
+            .slice(0, 1); // Jen jedna AI reaguje, aby to nebylo moc chaotické
         
         // Reakce s prodlevou pro realističnost
         reactingAI.forEach((aiPlayer, index) => {
@@ -961,33 +1019,263 @@ export class GameUI {
                 switch (eventType) {
                     case 'roll':
                         if (eventData.points > 500) {
-                            reaction = `Wow, ${eventData.points} bodů! To je skvělé!`;
+                            reaction = `Wow, ${currentPlayer.name}! ${eventData.points} bodů! Skvělý hod! 🎯`;
                         } else if (eventData.points > 200) {
-                            reaction = `Slušný hod, ${eventData.points} bodů.`;
+                            reaction = `Slušný hod, ${currentPlayer.name}! ${eventData.points} bodů není špatné! 👍`;
                         } else {
-                            reaction = `Hmm, jen ${eventData.points} bodů...`;
+                            reaction = `Hmm, ${currentPlayer.name}, jen ${eventData.points} bodů... Zkus štěstí znovu! 🎲`;
                         }
                         break;
                         
                     case 'farkle':
-                        reaction = `Ha! FARKLE! To se stává i těm nejlepším.`;
+                        reaction = `Ach ne, ${currentPlayer.name}! FARKLE! 💥 To se stává i těm nejlepším! 😅`;
                         break;
                         
                     case 'save':
-                        reaction = `Chytrá volba! Odložit ${eventData.savedCount} kostek.`;
+                        if (eventData.savedCount >= 4) {
+                            reaction = `Výborně, ${currentPlayer.name}! Odložit ${eventData.savedCount} kostek je chytrá volba! 🧠`;
+                        } else {
+                            reaction = `Dobře, ${currentPlayer.name}! Bezpečná hra s ${eventData.savedCount} kostkami! 💪`;
+                        }
                         break;
                         
                     case 'endTurn':
-                        reaction = `${eventData.points} bodů za tah? ${eventData.points > 1000 ? 'Výborně!' : 'Mohlo být lepší...'}`;
+                        if (eventData.points > 1000) {
+                            reaction = `${currentPlayer.name}, ${eventData.points} bodů za tah?! To je úžasné! 🏆`;
+                        } else if (eventData.points > 500) {
+                            reaction = `Pěkných ${eventData.points} bodů, ${currentPlayer.name}! Solidní tah! ⭐`;
+                        } else {
+                            reaction = `${eventData.points} bodů, ${currentPlayer.name}... Příště to bude lepší! 💫`;
+                        }
                         break;
                         
                     default:
-                        reaction = 'Zajímavý tah!';
+                        reaction = `Zajímavý tah, ${currentPlayer.name}! 🎮`;
                 }
                 
                 chatSystem.addAiMessage(aiPlayer.name, reaction);
             }, (index + 1) * 1000); // 1-2 sekundy prodleva mezi reakcemi
         });
+    }
+    
+    /**
+     * Hraje automatický tah za AI hráče
+     * @param {Object} aiPlayer - AI hráč na tahu
+     */
+    async playAiTurn(aiPlayer) {
+        console.log(`🤖 ${aiPlayer.name} hraje automaticky...`);
+        chatSystem.addSystemMessage(`🤖 ${aiPlayer.name} přemýšlí...`, CHAT_COLORS.BLUE);
+        
+        const state = gameState.getState();
+        
+        // Pokud AI není na tahu, ukončíme
+        if (state.players[state.currentPlayerIndex].name !== aiPlayer.name) {
+            console.warn('⚠️ AI není na tahu!');
+            return;
+        }
+        
+        try {
+            // Pokud nejsou kostky na stole, začneme hodem
+            if (!state.currentRoll || state.currentRoll.length === 0) {
+                await this.delay(1000);
+                chatSystem.addAiMessage(aiPlayer.name, "Začínám tah! 🎲");
+                this.rollDice();
+                await this.delay(2000);
+            }
+            
+            // AI rozhodování loop
+            let attempts = 0;
+            const maxAttempts = 10; // Ochrana proti nekonečné smyčce
+            
+            while (attempts < maxAttempts) {
+                attempts++;
+                const currentState = gameState.getState();
+                
+                // Kontrola, zda je AI stále na tahu
+                if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
+                    break;
+                }
+                
+                // Pokud není co odložit, může být farkle (už se zpracuje automaticky)
+                if (!currentState.currentRoll || currentState.currentRoll.length === 0) {
+                    break;
+                }
+                
+                // AI rozhodování
+                const decision = this.makeAiDecision(aiPlayer, currentState);
+                
+                if (decision.action === 'save') {
+                    // AI označí kostky a pak je odloží
+                    console.log(`🤖 AI ${aiPlayer.name} vybírá kostky:`, decision.diceToSave);
+                    gameState.updateState({ selectedDice: decision.diceToSave });
+                    await this.delay(500);
+                    
+                    const selectedValues = decision.diceToSave.map(i => currentState.currentRoll[i]);
+                    chatSystem.addAiMessage(aiPlayer.name, `Odkládám kostky: [${selectedValues.join(', ')}] 💾`);
+                    
+                    this.saveDice();
+                    await this.delay(1500);
+                    
+                } else if (decision.action === 'roll') {
+                    // Házet znovu
+                    chatSystem.addAiMessage(aiPlayer.name, "Zkusím štěstí znovu! 🎯");
+                    await this.delay(1000);
+                    this.rollDice();
+                    await this.delay(2000);
+                    
+                } else if (decision.action === 'endTurn') {
+                    // Pokusit se ukončit tah
+                    const currentPoints = calculatePoints(currentState.savedDice || []) + (currentState.turnScore || 0);
+                    
+                    // Kontrola, zda AI může skutečně ukončit tah (má dost bodů)
+                    if (aiPlayer.score === 0 && currentPoints < 300) {
+                        // AI nemůže ukončit tah - pokračuj v hraní
+                        console.log(`🤖 ${aiPlayer.name} nemůže ukončit tah s ${currentPoints} body, pokračuje...`);
+                        chatSystem.addAiMessage(aiPlayer.name, `Nemám dost bodů (${currentPoints}/300), musím pokračovat! 💪`);
+                        
+                        // Zkusit házt znovu, pokud je to možné
+                        if (currentState.currentRoll && currentState.currentRoll.length > 0) {
+                            await this.delay(1000);
+                            this.rollDice();
+                            await this.delay(2000);
+                        } else {
+                            // Nemůže házet, musí odložit více kostek
+                            break;
+                        }
+                    } else {
+                        // AI může ukončit tah
+                        chatSystem.addAiMessage(aiPlayer.name, `Ukončujem tah s ${currentPoints} body! ✨`);
+                        await this.delay(1000);
+                        this.endTurn();
+                        break;
+                    }
+                }
+            }
+            
+            if (attempts >= maxAttempts) {
+                console.warn(`⚠️ AI ${aiPlayer.name} dosáhlo max pokusů, vynucuji ukončení tahu`);
+                this.endTurn(true); // Vynucené ukončení jako farkle
+            }
+            
+        } catch (error) {
+            console.error('❌ Chyba v AI tahu:', error);
+            chatSystem.addSystemMessage(`❌ Chyba v AI tahu pro ${aiPlayer.name}`, CHAT_COLORS.RED);
+        }
+    }
+    
+    /**
+     * AI rozhodování o dalším tahu
+     * @param {Object} aiPlayer - AI hráč
+     * @param {Object} state - Aktuální herní stav
+     * @returns {Object} Rozhodnutí AI
+     */
+    makeAiDecision(aiPlayer, state) {
+        // Jednoduchá AI logika - odložit nejlepší kostky, pak rozhodnout
+        const bestDice = this.findBestDiceToSave(state.currentRoll);
+        
+        if (bestDice.length === 0) {
+            // Žádné kostky k odložení - farkle se zpracuje automaticky
+            return { action: 'endTurn' };
+        }
+        
+        // Spočítáme aktuální body v tahu
+        const currentTurnPoints = calculatePoints(state.savedDice || []) + (state.turnScore || 0);
+        const newPoints = calculatePoints(bestDice.map(i => state.currentRoll[i]));
+        const totalPoints = currentTurnPoints + newPoints;
+        
+        // DŮLEŽITÉ: Pokud je to první zápis a nemáme dost bodů, MUSÍME pokračovat
+        if (aiPlayer.score === 0 && totalPoints < 300) {
+            // Nejdříve odložíme dostupné kostky
+            if (bestDice.length > 0) {
+                return { action: 'save', diceToSave: bestDice };
+            } else {
+                // Pokud nejsou kostky k odložení, musíme házet znovu (nebo bude farkle)
+                return { action: 'roll' };
+            }
+        }
+        
+        // Pokud už máme 300+ bodů, můžeme uvažovat o ukončení
+        if (totalPoints >= 300) {
+            // Rozhodování podle strategie AI
+            if (totalPoints >= 500 || Math.random() > 0.6) {
+                return { action: 'endTurn' };
+            } else {
+                return { action: 'save', diceToSave: bestDice };
+            }
+        }
+        
+        // Máme méně než 300, ale už máme nějaké skóre - můžeme riskovat nebo pokračovat
+        if (totalPoints >= 200 && Math.random() > 0.7) {
+            return { action: 'endTurn' };
+        } else {
+            return { action: 'save', diceToSave: bestDice };
+        }
+    }
+    
+    /**
+     * Najde nejlepší kostky k odložení
+     * @param {Array} dice - Kostky na stole
+     * @returns {Array} Indexy nejlepších kostek
+     */
+    findBestDiceToSave(dice) {
+        const indices = [];
+        
+        // Najdeme všechny jedničky a pětky
+        dice.forEach((value, index) => {
+            if (value === 1 || value === 5) {
+                indices.push(index);
+            }
+        });
+        
+        // Pokud nenašli jedničky/pětky, hledáme trojice
+        if (indices.length === 0) {
+            const counts = {};
+            dice.forEach((value, index) => {
+                if (!counts[value]) counts[value] = [];
+                counts[value].push(index);
+            });
+            
+            // Najdeme trojice nebo více
+            for (const [value, valueIndices] of Object.entries(counts)) {
+                if (valueIndices.length >= 3) {
+                    indices.push(...valueIndices);
+                    break; // Bereme jen jednu trojici
+                }
+            }
+        }
+        
+        return indices;
+    }
+    
+    /**
+     * Pomocná funkce pro zpoždění
+     * @param {number} ms - Milisekundy
+     */
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    /**
+     * Zobrazí FARKLE animaci u aktuálního hráče
+     */
+    showPlayerFarkle() {
+        const state = gameState.getState();
+        const playerCard = document.getElementById(`player-card-${state.currentPlayerIndex}`);
+        const playerStatus = document.getElementById(`player-status-${state.currentPlayerIndex}`);
+        
+        if (playerCard && playerStatus) {
+            // Přidáme FARKLE animaci na kartu
+            playerCard.classList.add('player-farkle');
+            
+            // Zobrazíme FARKLE text
+            playerStatus.innerHTML = '<div class="farkle-text">FARKLE!</div>';
+            
+            // Odstraníme animaci po 3 sekundách
+            setTimeout(() => {
+                playerCard.classList.remove('player-farkle');
+                playerStatus.innerHTML = '';
+            }, 3000);
+        }
     }
 }
 

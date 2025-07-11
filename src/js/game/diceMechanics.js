@@ -37,18 +37,31 @@ export const calculatePoints = (dice) => {
     let points = 0;
     const counts = countDiceValues(dice);
     
-    // Tři a více stejných kostek
+    // Tři a více stejných kostek - podle počtu kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
-        if (counts[value] >= 3) {
+        const count = counts[value];
+        if (count >= 3) {
             // Speciální bodování pro jednotky
             if (value === DICE_CONSTANTS.MIN_VALUE) {
-                points += DICE_CONSTANTS.ONES_TRIPLET_POINTS * Math.floor(counts[value] / 3);
+                // Trojice jedniček = 1000, čtveřice = 2000, pětice = 4000, šestica = 8000
+                switch (count) {
+                    case 3: points += 1000; break;
+                    case 4: points += 2000; break;
+                    case 5: points += 4000; break;
+                    case 6: points += 8000; break;
+                }
             } else {
-                points += value * DICE_CONSTANTS.TRIPLET_BASE_POINTS * Math.floor(counts[value] / 3);
+                // Ostatní čísla: trojice = hodnota × 100, pak se zdvojnásobuje
+                switch (count) {
+                    case 3: points += value * 100; break;    // 3×2 = 200
+                    case 4: points += value * 200; break;    // 4×2 = 400  
+                    case 5: points += value * 400; break;    // 5×2 = 800
+                    case 6: points += value * 800; break;    // 6×2 = 1600
+                }
             }
             
             // Odečteme již započítané kostky
-            counts[value] %= 3;
+            counts[value] = 0;
         }
     }
     

@@ -320,7 +320,7 @@ html, body {
   color: var(--neon-yellow);
   align-self: flex-start; /* OPRAVENO: stejné jako AI zprávy */
   /* ODSTRANĚNO: text-align: center - systémové zprávy nejsou vycentrované */
-  font-style: italic;
+  /* ODSTRANĚNO: font-style: italic - jednotný styl s AI zprávami */
   /* ODSTRANĚNO: max-width: 95% - používej Bootstrap .w-* utility třídy */
 }
 
@@ -445,3 +445,166 @@ V TOMTO SOUBORU POUZE:
 ❌ Display, flex properties
 ❌ Media queries pro velikosti (pouze pro barvy)
 */
+
+/* ===== ANIMACE PRO HERNÍ STAVY ===== */
+
+/* Aktivní hráč - pulsující neonový border */
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0.5rem currentColor;
+    border-width: 2px;
+  }
+  50% {
+    box-shadow: 0 0 1.5rem currentColor, 0 0 2.5rem currentColor;
+    border-width: 3px;
+  }
+}
+
+/* Neonové pulsování pro rámečky karet - vylepšená verze */
+@keyframes card-neon-pulse {
+  0%, 100% {
+    border-color: currentColor;
+    box-shadow: 0 0 0.5rem currentColor;
+  }
+  50% {
+    border-color: currentColor;
+    box-shadow: 0 0 1.5rem currentColor, 0 0 2.5rem currentColor;
+  }
+}
+
+/* Aplikace neonového pulsování na aktivní kartu */
+.player-active {
+  animation: card-neon-pulse 2s ease-in-out infinite;
+  border-style: solid !important;
+}
+
+/* FARKLE stav - červené blikání */
+@keyframes farkle-blink {
+  0%, 50%, 100% {
+    background-color: var(--neon-black);
+    color: var(--neon-red);
+    box-shadow: 0 0 1rem var(--neon-red);
+  }
+  25%, 75% {
+    background-color: var(--neon-red);
+    color: var(--neon-black);
+    box-shadow: 0 0 2rem var(--neon-red);
+  }
+}
+
+/* Třída pro FARKLE stav */
+.player-farkle {
+  animation: farkle-blink 0.8s ease-in-out 3;
+  border-color: var(--neon-red) !important;
+}
+
+/* FARKLE text */
+.farkle-text {
+  color: var(--neon-red);
+  text-shadow: 0 0 0.625rem var(--neon-red);
+  font-weight: bold;
+  font-size: 1.2rem;
+  animation: farkle-blink 0.8s ease-in-out 3;
+}
+
+/* ===== ANIMACE PRO AVATARY HRÁČŮ ===== */
+
+/* Základní avatar styl */
+.player-avatar {
+  transition: var(--transition-normal);
+  border: 3px solid transparent;
+  padding: 2px; /* Malý padding pro lepší zobrazení borderu */
+}
+
+/* Jemná animace pro všechny avatary - lehké pulsování */
+@keyframes avatar-gentle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0.3rem rgba(var(--neon-green-rgb), 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0.5rem rgba(var(--neon-green-rgb), 0.5);
+  }
+}
+
+.player-avatar:hover {
+  animation: avatar-gentle-pulse 2s ease-in-out infinite;
+}
+
+/* Aktivní hráč - výrazná neonová animace kolem avataru */
+@keyframes avatar-active-glow {
+  0%, 100% {
+    border-color: currentColor;
+    box-shadow: 0 0 0.5rem currentColor, 0 0 1rem currentColor;
+    transform: scale(1);
+  }
+  25% {
+    border-color: currentColor;
+    box-shadow: 0 0 1rem currentColor, 0 0 1.5rem currentColor;
+    transform: scale(1.03);
+  }
+  50% {
+    border-color: currentColor;
+    box-shadow: 0 0 1.5rem currentColor, 0 0 2rem currentColor;
+    transform: scale(1.05);
+  }
+  75% {
+    border-color: currentColor;
+    box-shadow: 0 0 1rem currentColor, 0 0 1.5rem currentColor;
+    transform: scale(1.03);
+  }
+}
+
+/* Aktivní avatar - převezme barvu z card elementu podle border-neon-* třídy */
+.border-neon-green .player-avatar-active {
+  border-color: var(--neon-green) !important;
+  color: var(--neon-green);
+}
+
+.border-neon-blue .player-avatar-active {
+  border-color: var(--neon-blue) !important;
+  color: var(--neon-blue);
+}
+
+.border-neon-purple .player-avatar-active {
+  border-color: var(--neon-purple) !important;
+  color: var(--neon-purple);
+}
+
+.border-neon-orange .player-avatar-active {
+  border-color: var(--neon-orange) !important;
+  color: var(--neon-orange);
+}
+
+.border-neon-red .player-avatar-active {
+  border-color: var(--neon-red) !important;
+  color: var(--neon-red);
+}
+
+.border-neon-yellow .player-avatar-active {
+  border-color: var(--neon-yellow) !important;
+  color: var(--neon-yellow);
+}
+
+/* Společná animace pro všechny aktivní avatary */
+.player-avatar-active {
+  animation: avatar-active-glow 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 3px !important;
+}
+
+/* Responsive velikosti avatarů - použije Bootstrap breakpointy */
+@media (max-width: 576px) {
+  .player-avatar {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .player-avatar {
+    width: 56px !important;
+    height: 56px !important;
+  }
+}

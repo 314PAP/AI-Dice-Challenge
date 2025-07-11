@@ -19,6 +19,9 @@ export class ChatUI {
         
         this.initEventListeners();
         this.renderMessages();
+        
+        // Registrujeme se jako listener pro změny zpráv
+        chatSystem.addListener(() => this.renderMessages());
     }
 
     /**
@@ -85,9 +88,15 @@ export class ChatUI {
         
         const messages = chatSystem.getMessages();
         
-        // Zachováme scrollování na konec, pokud je uživatel na konci
-        const shouldScroll = this.chatContainer.scrollTop + this.chatContainer.clientHeight >= 
+        // Uložíme si předchozí počet zpráv pro detekci nových zpráv
+        const previousMessageCount = this.previousMessageCount || 0;
+        const hasNewMessages = messages.length > previousMessageCount;
+        this.previousMessageCount = messages.length;
+        
+        // Zachováme scrollování na konec, pokud je uživatel na konci NEBO pokud jsou nové zprávy
+        const isAtBottom = this.chatContainer.scrollTop + this.chatContainer.clientHeight >= 
             this.chatContainer.scrollHeight - UI_CONSTANTS.SCROLL_THRESHOLD;
+        const shouldScroll = isAtBottom || hasNewMessages;
         
         // Vytvoříme HTML pro zprávy
         const messagesHTML = messages.map(msg => this.createMessageElement(msg)).join('');
@@ -95,7 +104,7 @@ export class ChatUI {
         // Aktualizujeme obsah
         this.chatContainer.innerHTML = messagesHTML;
         
-        // Scrollujeme na konec, pokud byl uživatel na konci
+        // Scrollujeme na konec, pokud by se mělo scrollovat
         if (shouldScroll) {
             this.scrollToBottom();
         }

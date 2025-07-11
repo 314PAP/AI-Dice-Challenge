@@ -14,7 +14,37 @@ export class ChatSystem {
     constructor() {
         this.messages = [];
         this.chatHistory = [];
+        this.listeners = []; // Přidáme listeners pro UI aktualizace
         this.loadChatHistory();
+    }
+
+    /**
+     * Přidá listener pro změny zpráv
+     * @param {Function} listener - Callback funkce
+     */
+    addListener(listener) {
+        this.listeners.push(listener);
+    }
+
+    /**
+     * Odstraní listener
+     * @param {Function} listener - Callback funkce
+     */
+    removeListener(listener) {
+        this.listeners = this.listeners.filter(l => l !== listener);
+    }
+
+    /**
+     * Notifikuje všechny listenery o změně
+     */
+    notifyListeners() {
+        this.listeners.forEach(listener => {
+            try {
+                listener();
+            } catch (error) {
+                console.error('Chyba v ChatSystem listener:', error);
+            }
+        });
     }
 
     /**
@@ -53,6 +83,9 @@ export class ChatSystem {
             this.chatHistory.push(content);
             this.saveChatHistory();
         }
+        
+        // Notifikujeme UI o nové zprávě
+        this.notifyListeners();
         
         return message;
     }
