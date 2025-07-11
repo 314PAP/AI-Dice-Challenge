@@ -120,7 +120,7 @@ html, body {
   border-color: rgba(var(--neon-green-rgb), 0.8) !important;
 }
 
-/* ===== SCROLLBARY - ZELENÉ NEONOVÉ STYLY ===== */
+/* ===== SCROLLBARY - PŘESUNUTO DO responsive-bootstrap.css ===== */
 
 /* Chat scrollbar - hlavní scrollbar pro chat zprávy */
 #chatMessages::-webkit-scrollbar {
@@ -153,8 +153,7 @@ html, body {
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) var(--neon-black);
   /* Padding-right pro oddělení scrollbaru od obsahu */
-  padding-right: 1.25rem !important;
-  padding-left: 0.5rem !important;
+  padding-right: 0.75rem !important;
 }
 
 /* Globální scrollbary pro všechny kontejnery - responzivní */
@@ -542,23 +541,5 @@ html, body {
   .menu-settings button, .menu-settings .btn, .menu-score button, .menu-score .btn {
     font-size: 0.55rem;
     padding: 0.1rem 0.15rem;
-  }
-}
-
-/* Specifický padding pro chat a herní oblast, aby scrollbar nebyl nalepený na okraj */
-#chatMessages {
-  padding-right: 1.25rem !important;
-  padding-left: 0.5rem !important;
-}
-
-#gameArea {
-  padding-right: 1.25rem !important;
-  padding-left: 0.5rem !important;
-}
-
-@media (max-width: 600px) {
-  #chatMessages, #gameArea {
-    padding-right: 0.75rem !important;
-    padding-left: 0.25rem !important;
   }
 }
