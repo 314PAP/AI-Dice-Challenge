@@ -116,15 +116,14 @@ export class GameLogic {
         });
         
         console.log(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
-        chatSystem.addSystemMessage(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
+        chatSystem.addSystemMessage(`🎯 [${dice.join(', ')}] = ${points} bodů`);
         
         // Zkontrolujeme FARKLE - když hod neobsahuje žádné bodující kostky
         if (!hasScoringDice(dice)) {
             this.handleFarkle(dice);
         } else {
-            const successMsg = `✅ Máte kostky na výběr! Označte platné kostky k odložení.`;
-            console.log(successMsg);
-            chatSystem.addSystemMessage(successMsg, CHAT_COLORS.GREEN);
+            // ODSTRANĚNO: Dlouhá zpráva o výběru kostek - zbytečná
+            console.log(`✅ Kostky na výběr dostupné`);
         }
         
         // Přidáme spawn animaci
@@ -146,7 +145,7 @@ export class GameLogic {
         // Označíme, že zpracováváme farkle
         gameState.updateState({ isFarkleProcessing: true });
 
-        const farkleMsg = '💥 FARKLE! Hod neobsahuje žádné bodující kostky! Přicházíte o všechny odložené body tohoto tahu!';
+        const farkleMsg = '💥 FARKLE!';
         console.warn(farkleMsg);
         chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
         
@@ -258,8 +257,8 @@ export class GameLogic {
         console.log(`📊 Celkem odloženo: [${newSavedDice.join(', ')}] = ${newSavedPoints} bodů`);
         console.log(`🎲 Zbývající kostky k hodu: ${remainingDice.length}`);
         
-        chatSystem.addSystemMessage(`💾 Odkládám kostky: [${savedDiceValues.join(', ')}] = ${points} bodů`);
-        chatSystem.addSystemMessage(`📊 Celkem odloženo: [${newSavedDice.join(', ')}] = ${newSavedPoints} bodů`, CHAT_COLORS.BLUE);
+        // ZKRÁCENO: Jen podstatné info, ne duplikáty
+        chatSystem.addSystemMessage(`� +${points} = ${newSavedPoints} bodů`, CHAT_COLORS.BLUE);
         
         // Kontrola hot dice
         this.checkHotDice(newSavedDice, newSavedPoints, remainingDice);
@@ -276,7 +275,7 @@ export class GameLogic {
         
         if (newSavedDice.length >= 6 && remainingDice.length === 0) {
             // ÚSPĚCH! Všech 6 kostek odloženo - HOT DICE!
-            chatSystem.addSystemMessage(`🎯 SKVĚLÉ! Všech 6 kostek odloženo! Akumulované body: ${newSavedPoints}. Můžete hodit znovu všemi kostkami!`, CHAT_COLORS.GREEN);
+            chatSystem.addSystemMessage(`🎯 HOT DICE! +${newSavedPoints}`, CHAT_COLORS.GREEN);
             
             // HOT DICE - akumulujeme body a resetujeme kostky pro nový hod
             gameState.updateState({ 
@@ -286,7 +285,7 @@ export class GameLogic {
                 currentRoll: [] // Prázdné pro umožnění nového hodu všemi kostkami
             });
         } else if (remainingDice.length > 0) {
-            chatSystem.addSystemMessage(`🎲 Zbývá ${remainingDice.length} kostek k dalšímu hodu`, CHAT_COLORS.YELLOW);
+            // ODSTRANĚNO: Zpráva o zbývajících kostkách - zbytečná
             
             gameState.updateState({ 
                 savedDice: newSavedDice,
@@ -363,7 +362,7 @@ export class GameLogic {
         } else {
             // FARKLE - žádné body se nepřidají
             console.log(`💥 FARKLE pro hráče ${currentPlayer.name} - žádné body!`);
-            chatSystem.addSystemMessage(`💥 ${currentPlayer.name} má FARKLE - přichází o všechny body tohoto tahu!`, CHAT_COLORS.RED);
+            // ODSTRANĚNO: Zbytečná duplikace farkle zprávy
         }
         
         return { player: currentPlayer, points, oldScore, players, isFarkle };
@@ -383,13 +382,13 @@ export class GameLogic {
         console.log(`   • Skóre: ${oldScore} → ${currentPlayer.score}`);
         
         if (turnScorePoints > 0 && savedDicePoints > 0) {
-            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: Odložené kostky [${state.savedDice.join(', ')}] = ${savedDicePoints} bodů + Hot dice ${turnScorePoints} bodů`);
+            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: +${points} bodů`);
         } else if (turnScorePoints > 0) {
-            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: Hot dice body = ${turnScorePoints} bodů`);
+            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: +${points} bodů`);
         } else {
-            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: Odložené kostky [${state.savedDice.join(', ')}] = ${savedDicePoints} bodů`);
+            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: +${points} bodů`);
         }
-        chatSystem.addSystemMessage(`🎯 Skóre: ${oldScore} → ${currentPlayer.score}`, CHAT_COLORS.BLUE);
+        chatSystem.addSystemMessage(`🎯 ${currentPlayer.name}: ${currentPlayer.score}`, CHAT_COLORS.BLUE);
     }
 
     /**
@@ -486,9 +485,9 @@ export class GameLogic {
         console.log(`👤 Další hráč: ${nextPlayer.name}`);
         
         if (state.finalRound) {
-            chatSystem.addSystemMessage(`👤 FINÁLNÍ KOLO: ${nextPlayer.name} na tahu`, CHAT_COLORS.ORANGE);
+            chatSystem.addSystemMessage(`👤 ${nextPlayer.name}`, CHAT_COLORS.ORANGE);
         } else {
-            chatSystem.addSystemMessage(`👤 Další hráč: ${nextPlayer.name}`, CHAT_COLORS.PURPLE);
+            // ODSTRANĚNO: Systémová zpráva o dalším hráči - zbytečná, vidí se v UI
         }
         
         gameState.updateState({

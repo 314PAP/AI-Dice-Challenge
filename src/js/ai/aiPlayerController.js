@@ -32,7 +32,7 @@ export class AiPlayerController {
      */
     async playAiTurn(aiPlayer) {
         console.log(`🤖 AiController: ${aiPlayer.name} hraje automaticky...`);
-        chatSystem.addSystemMessage(`🤖 ${aiPlayer.name} přemýšlí...`, CHAT_COLORS.BLUE);
+        // ODSTRANĚNO: Systémová zpráva "přemýšlí" - ruší AI chat
         
         const state = gameState.getState();
         
