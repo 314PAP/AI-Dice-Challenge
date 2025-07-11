@@ -547,7 +547,8 @@
 #chatMessages {
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) var(--neon-black);
-  padding: 0.75rem !important; /* Odsazení scrollbaru od všech stran */
+  padding: 0.75rem !important; /* Odsazení scrollbaru od všech stran, přebije Bootstrap p-2 */
+  box-sizing: border-box;
 }
 
 #chatMessages::-webkit-scrollbar {
