@@ -15,9 +15,9 @@
  * - triggerAiReactions() - reakce AI na události
  */
 
-import { calculatePoints } from './diceMechanics.js';
-import gameState from './gameState.js';
-import chatSystem from '../ai/chatSystem.js';
+import { calculatePoints, hasScoringDice } from '../game/diceMechanics.js';
+import gameState from '../game/gameState.js';
+import chatSystem from './chatSystem.js';
 import { CHAT_COLORS } from '../utils/colors.js';
 
 export class AiPlayerController {

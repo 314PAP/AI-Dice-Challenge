@@ -127,7 +127,7 @@ export class GameUI {
     toggleDiceSelection(index) {
         console.log('🎯 GameUI: toggleDiceSelection volán s indexem:', index);
         const state = gameState.getState();
-        let selectedDice = [...state.selectedDice];
+        let selectedDice = [...(state.selectedDice || [])];
         
         if (selectedDice.includes(index)) {
             // Odznačování - vždy povoleno
@@ -137,7 +137,7 @@ export class GameUI {
             // Označování - kontrolujeme platnost kostky
             const dieValue = state.currentRoll[index];
             
-            if (this.isValidDiceSelection(dieValue, state.currentRoll)) {
+            if (this.isValidDiceForSelection(dieValue, state.currentRoll)) {
                 selectedDice.push(index);
                 console.log('➕ Přidávám kostku', dieValue, 'index', index);
             } else {
@@ -309,7 +309,7 @@ export class GameUI {
         const currentPlayer = gameState.getState().players[0];
         if (!currentPlayer.isHuman) {
             setTimeout(() => {
-                this.playAiTurn(currentPlayer);
+                this.aiController.playAiTurn(currentPlayer);
             }, 2000); // Krátká pauza po startu hry
         }
     }
@@ -331,45 +331,6 @@ export class GameUI {
     // =============================================================================
     // DELEGOVANÉ HERNÍ FUNKCE (nyní pouze proxies k GameLogic)
     // =============================================================================
-
-    /**
-     * Přepíná výběr kostky - deleguje na GameLogic
-     * @param {number} index - Index kostky
-     */
-    toggleDiceSelection(index) {
-        console.log('🎯 GameUI: Deleguje toggleDiceSelection na index:', index);
-        return this.isValidDiceSelection(index);
-    }
-
-    /**
-     * Kontroluje platnost výběru kostky
-     * @param {number} index - Index kostky
-     */
-    isValidDiceSelection(index) {
-        const state = gameState.getState();
-        let selectedDice = [...(state.selectedDice || [])];
-        
-        if (selectedDice.includes(index)) {
-            // Odznačování - vždy povoleno
-            selectedDice = selectedDice.filter(i => i !== index);
-            console.log('➖ Odebírám index', index);
-        } else {
-            // Označování - kontrolujeme platnost kostky
-            const dieValue = state.currentRoll[index];
-            
-            if (this.isValidDiceForSelection(dieValue, state.currentRoll)) {
-                selectedDice.push(index);
-                console.log('➕ Přidávám kostku', dieValue, 'index', index);
-            } else {
-                const warningMsg = `⚠️ Kostka ${dieValue} nemůže být označena! Potřebujete alespoň 3 stejné kostky.`;
-                console.warn(warningMsg);
-                return false;
-            }
-        }
-        
-        gameState.updateState({ selectedDice });
-        return true;
-    }
 
     
     /**
