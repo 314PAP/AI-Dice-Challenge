@@ -116,6 +116,13 @@ html, body {
   box-shadow: 0 0 0.9375rem var(--neon-yellow) !important;
 }
 
+/* Odložené kostky - modré */
+.dice.saved {
+  border-color: var(--neon-blue) !important;
+  box-shadow: 0 0 0.625rem var(--neon-blue) !important;
+  color: var(--neon-blue) !important;
+}
+
 .dice:hover:not(.selected) {
   border-color: rgba(var(--neon-green-rgb), 0.8) !important;
 }

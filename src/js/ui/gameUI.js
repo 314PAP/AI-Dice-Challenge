@@ -7,7 +7,7 @@ import gameState from '../game/gameState.js';
 import { createNeonButton, createDiceElement, createNeonCard } from './uiComponents.js';
 import { UI_CONSTANTS, NEON_COLORS } from '../utils/constants.js';
 import { CONSOLE_COLORS, CHAT_COLORS, pxToRem } from '../utils/colors.js';
-import { rollDie, rollDice, calculatePoints, hasScoringDice } from '../game/diceMechanics.js';
+import { rollDie, rollDice, calculatePoints, hasScoringDice, isValidFarkleCombination } from '../game/diceMechanics.js';
 import chatSystem from '../ai/chatSystem.js';
 
 /**
@@ -284,30 +284,7 @@ export class GameUI {
         
         container.appendChild(playersSection);
         
-        // Sekce s odloženými kostkami - MODRÁ BARVA
-        if (state.savedDice && state.savedDice.length > 0) {
-            const savedSection = document.createElement('div');
-            savedSection.className = 'text-center mb-3';
-            
-            const savedTitle = document.createElement('div');
-            savedTitle.className = 'text-neon-blue small mb-2';
-            savedTitle.innerHTML = '<i class="bi bi-save"></i> Odložené kostky';
-            savedSection.appendChild(savedTitle);
-            
-            const savedContainer = document.createElement('div');
-            savedContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-1 gap-sm-2';
-            
-            state.savedDice.forEach(dieValue => {
-                const diceEl = createDiceElement(dieValue, false, null);
-                diceEl.classList.add('saved-dice', 'border-neon-blue');
-                savedContainer.appendChild(diceEl);
-            });
-            
-            savedSection.appendChild(savedContainer);
-            container.appendChild(savedSection);
-        }
-        
-        // Sekce s kostkami - ČISTÝ BOOTSTRAP
+        // Sekce s kostkami - odložené i aktuální v jedné řadě
         const diceSection = document.createElement('div');
         diceSection.className = 'text-center my-3';
         
@@ -315,7 +292,7 @@ export class GameUI {
         const diceContainer = document.createElement('div');
         diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-1 gap-sm-2';
         
-        // Pokud jsou nějaké kostky, zobrazíme je
+        // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO
         if (state.currentRoll && state.currentRoll.length > 0) {
             state.currentRoll.forEach((dieValue, index) => {
                 const isSelected = state.selectedDice.includes(index);
@@ -326,22 +303,25 @@ export class GameUI {
                 );
                 diceContainer.appendChild(diceEl);
             });
-        } else {
-            // Pokud nejsou žádné kostky v currentRoll
-            if (state.savedDice && state.savedDice.length > 0) {
-                // Máme odložené kostky, hráč může hodit zbývajícími
-                const infoText = document.createElement('div');
-                infoText.className = 'text-neon-green fs-5';
-                const remainingDice = 6 - (state.savedDice.length % 6);
-                infoText.innerHTML = `<i class="bi bi-dice-6"></i> Hodit ${remainingDice} kostkami?`;
-                diceContainer.appendChild(infoText);
-            } else {
-                // Začátek tahu, žádné kostky
-                const infoText = document.createElement('div');
-                infoText.className = 'text-neon-yellow fs-5';
-                infoText.innerHTML = '<i class="bi bi-dice-6"></i> Stiskněte HODIT pro začátek';
-                diceContainer.appendChild(infoText);
-            }
+        }
+        
+        // Potom zobrazíme odložené kostky (modré, vpravo) - odkládané zprava doleva
+        if (state.savedDice && state.savedDice.length > 0) {
+            state.savedDice.forEach(dieValue => {
+                const diceEl = createDiceElement(dieValue, false, null);
+                // Použijeme CSS třídu saved pro modrou barvu
+                diceEl.classList.add('saved');
+                diceEl.style.filter = 'brightness(0.8)'; // Trochu ztlumit pro rozlišení
+                diceContainer.appendChild(diceEl);
+            });
+        }
+        
+        // Pokud nejsou žádné kostky (ani odložené, ani aktuální)
+        if ((!state.currentRoll || state.currentRoll.length === 0) && (!state.savedDice || state.savedDice.length === 0)) {
+            const infoText = document.createElement('div');
+            infoText.className = 'text-neon-yellow fs-5';
+            infoText.innerHTML = '<i class="bi bi-dice-6"></i> Stiskněte HODIT pro začátek';
+            diceContainer.appendChild(infoText);
         }
         
         diceSection.appendChild(diceContainer);
@@ -355,14 +335,30 @@ export class GameUI {
         const buttonsContainer = document.createElement('div');
         buttonsContainer.className = 'row g-2 px-2'; // Přidán padding pro okraje
         
-        // Tlačítko HODIT - vždy dostupné
+        // Tlačítko HODIT - dostupné když:
+        // 1. Nejsou žádné kostky na stole (začátek tahu nebo po odložení všech kostek)
+        // 2. NEBO jsou kostky na stole, ale žádné nejsou vybrané (hráč může házt znovu se zbývajícími)
         const rollBtn = createNeonButton(
             'HODIT', 
             'green', 
             'bi-dice-6-fill',
             () => this.rollDice(),
-            'btn-sm w-100' // Menší tlačítko s plnou šířkou
+            'btn-sm w-100'
         );
+        
+        // Logika pro disable tlačítka HODIT:
+        // - Zakázané pouze když jsou vybrané kostky (hráč musí je nejdříve odložit nebo odznačit)
+        const hasSelectedDice = state.selectedDice && state.selectedDice.length > 0;
+        
+        if (hasSelectedDice) {
+            rollBtn.disabled = true;
+            rollBtn.style.opacity = '0.5';
+            rollBtn.title = 'Nejdříve odložte nebo odznačte vybrané kostky';
+        } else {
+            rollBtn.disabled = false;
+            rollBtn.style.opacity = '1';
+            rollBtn.title = 'Házet kostkami';
+        }
         
         const rollCol = document.createElement('div');
         rollCol.className = 'col-6 mb-2'; // col-6 místo col-sm-6 pro konzistentní 2x2 grid
@@ -389,7 +385,7 @@ export class GameUI {
         saveCol.appendChild(saveBtn);
         buttonsContainer.appendChild(saveCol);
         
-        // Tlačítko UKONČIT TAH - vždy viditelné, ale disabled pokud není hod
+        // Tlačítko UKONČIT TAH - dostupné když má hráč nějaké body (odložené kostky nebo hot dice)
         const endTurnBtn = createNeonButton(
             'UKONČIT TAH', 
             'orange', 
@@ -398,8 +394,11 @@ export class GameUI {
             'btn-sm w-100' // Menší tlačítko s plnou šířkou
         );
         
-        // Disable tlačítko pokud není hod
-        if (!state.currentRoll || state.currentRoll.length === 0) {
+        // Disable tlačítko pokud nemá žádné body k ukončení
+        const hasSavedDice = state.savedDice && state.savedDice.length > 0;
+        const hasTurnScore = state.turnScore && state.turnScore > 0;
+        
+        if (!hasSavedDice && !hasTurnScore) {
             endTurnBtn.disabled = true;
             endTurnBtn.style.opacity = '0.5';
         }
@@ -441,16 +440,21 @@ export class GameUI {
      * @param {number} index - Index kostky
      */
     toggleDiceSelection(index) {
+        console.log('🎯 toggleDiceSelection volán s indexem:', index);
         const state = gameState.getState();
+        console.log('📊 Aktuální selectedDice:', state.selectedDice);
         let selectedDice = [...state.selectedDice];
         
         if (selectedDice.includes(index)) {
             selectedDice = selectedDice.filter(i => i !== index);
+            console.log('➖ Odebírám index', index, 'nové selectedDice:', selectedDice);
         } else {
             selectedDice.push(index);
+            console.log('➕ Přidávám index', index, 'nové selectedDice:', selectedDice);
         }
         
         gameState.updateState({ selectedDice });
+        console.log('✅ Stav aktualizován, renderuji...');
     }
     
     /**
@@ -463,28 +467,23 @@ export class GameUI {
         
         // Určíme kolik kostek hodit
         let diceCount;
-        const totalSavedDice = (state.savedDice || []).length;
         
+        // Pokud jsou zbývající kostky z předchozího hodu, házíme jimi
         if (state.currentRoll && state.currentRoll.length > 0) {
-            // Pokud už jsou nějaké kostky na stole, hodíme jen těmi co zbývají
             diceCount = state.currentRoll.length;
+            console.log(`🎯 Házím se zbývajícími ${diceCount} kostkami`);
         } else {
-            // Pokud nejsou žádné kostky na stole
+            // Jinak házíme novými kostkami podle toho, kolik jich zbývá
+            const totalSavedDice = (state.savedDice || []).length;
             if (totalSavedDice === 0) {
                 // Začátek tahu - hodíme všemi 6 kostkami
                 diceCount = 6;
-            } else if (totalSavedDice === 6) {
-                // Všechny kostky odloženy - ÚSPĚCH! Hráč může hodit znovu všemi 6
-                diceCount = 6;
-                console.log('🎯 ÚSPĚCH! Všech 6 kostek odloženo - házíme znovu všemi kostkami!');
-                chatSystem.addSystemMessage('🎯 ÚSPĚCH! Všech 6 kostek odloženo - házíte znovu všemi kostkami!', CHAT_COLORS.GREEN);
             } else {
-                // Hodíme zbývajícími kostkami
-                diceCount = 6 - totalSavedDice;
+                // Hot dice - všech 6 kostek bylo odloženo, házíme znovu všemi
+                diceCount = 6;
             }
+            console.log(`🎯 Házím ${diceCount} novými kostkami`);
         }
-        
-        console.log(`🎯 Házím ${diceCount} kostkami`);
         
         // Využití importované funkce
         const dice = rollDice(diceCount);
@@ -515,12 +514,8 @@ export class GameUI {
                 this.endTurn(true);
             }, 2000); // 2 sekundy na přečtení zprávy
             
-        } else if (points === 0) {
-            const warningMsg = '⚠️ POZOR: Tento hod neobsahuje žádné bodující kostky! Musíte ukončit tah.';
-            console.warn(warningMsg);
-            chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
         } else {
-            const successMsg = `✅ Dobré! Máte ${points} bodů z tohoto hodu. Vyberte kostky k odložení nebo pokračujte.`;
+            const successMsg = `✅ Máte kostky na výběr! Označte platné kostky k odložení.`;
             console.log(successMsg);
             chatSystem.addSystemMessage(successMsg, CHAT_COLORS.GREEN);
             
@@ -755,7 +750,13 @@ export class GameUI {
      * Odloží vybrané kostky - přesune je z aktuálního hodu do odložených
      */
     saveDice() {
+        console.log('💾 saveDice() zavolána');
         const state = gameState.getState();
+        console.log('📊 Aktuální stav:', {
+            selectedDice: state.selectedDice,
+            currentRoll: state.currentRoll,
+            savedDice: state.savedDice
+        });
         
         if (!state.selectedDice || state.selectedDice.length === 0) {
             const warningMsg = '⚠️ Vyberte kostky k odložení!';
@@ -774,15 +775,16 @@ export class GameUI {
         // Získáme hodnoty vybraných kostek
         const savedDiceValues = state.selectedDice.map(index => state.currentRoll[index]);
         
-        // Spočítáme body z vybraných kostek
-        const points = calculatePoints(savedDiceValues);
-        
-        if (points === 0) {
-            const warningMsg = '⚠️ POZOR: Vybrané kostky nemají žádnou hodnotu! Vyberte bodující kostky (1, 5, nebo trojice).';
+        // VALIDACE: Zkontroluj, zda jsou kostky podle pravidel Farkle
+        if (!isValidFarkleCombination(savedDiceValues)) {
+            const warningMsg = '⚠️ NEPLATNÁ KOMBINACE! Můžete odložit pouze: jedničky, pětky nebo trojice a více stejných čísel (2,3,4,6).';
             console.warn(warningMsg);
             chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
             return;
         }
+        
+        // Spočítáme body z vybraných kostek
+        const points = calculatePoints(savedDiceValues);
         
         // Aktualizujeme stav - přidáme odložené kostky a odstraníme vybrané z currentRoll
         const newSavedDice = [...(state.savedDice || []), ...savedDiceValues];
@@ -800,13 +802,13 @@ export class GameUI {
         
         // Kontrola zda byly odloženy všechny kostky (6 nebo více)
         if (newSavedDice.length >= 6 && remainingDice.length === 0) {
-            // ÚSPĚCH! Všech 6 kostek odloženo - resetujeme pro nový hod
+            // ÚSPĚCH! Všech 6 kostek odloženo - HOT DICE!
             chatSystem.addSystemMessage(`🎯 SKVĚLÉ! Všech 6 kostek odloženo! Akumulované body: ${newSavedPoints}. Můžete hodit znovu všemi kostkami!`, CHAT_COLORS.GREEN);
             
-            // Aktualizujeme turnScore ale NERESETNEME saved dice - zůstanou pro endTurn
+            // HOT DICE - akumulujeme body a resetujeme kostky pro nový hod
             gameState.updateState({ 
-                turnScore: (state.turnScore || 0) + newSavedPoints,
-                savedDice: newSavedDice, // Zachováme pro konečné skórování
+                turnScore: (state.turnScore || 0) + newSavedPoints, // Akumulujeme body
+                savedDice: [], // VYMAŽEME odložené kostky - hot dice reset
                 selectedDice: [],
                 currentRoll: [] // Prázdné pro umožnění nového hodu všemi kostkami
             });
@@ -850,9 +852,9 @@ export class GameUI {
     endTurn(isFarkle = false) {
         const state = gameState.getState();
         
-        // Kontrola, zda hráč má odložené nějaké kostky (kromě farkle)
-        if (!isFarkle && (!state.savedDice || state.savedDice.length === 0)) {
-            const warningMsg = '⚠️ POZOR: Nemůžete ukončit tah bez odložených kostek! Nejdříve odložte bodující kostky.';
+        // Kontrola, zda hráč má body k ukončení tahu (kromě farkle)
+        if (!isFarkle && (!state.savedDice || state.savedDice.length === 0) && (!state.turnScore || state.turnScore === 0)) {
+            const warningMsg = '⚠️ POZOR: Nemůžete ukončit tah bez odložených kostek nebo bodů! Nejdříve odložte bodující kostky.';
             console.warn(warningMsg);
             chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.RED);
             return;
@@ -872,16 +874,25 @@ export class GameUI {
         let oldScore = currentPlayer.score;
         
         if (!isFarkle) {
-            // Normální ukončení tahu - přidáme body z odložených kostek
-            points = calculatePoints(state.savedDice || []);
+            // Normální ukončení tahu - přidáme body z odložených kostek PLUS akumulované body z hot dice
+            const savedDicePoints = calculatePoints(state.savedDice || []);
+            const turnScorePoints = state.turnScore || 0;
+            points = savedDicePoints + turnScorePoints;
             currentPlayer.score += points;
             
             console.log(`📊 Hráč ${currentPlayer.name}:`);
-            console.log(`   • Odložené kostky: [${state.savedDice.join(', ')}]`);
-            console.log(`   • Získané body: ${points}`);
+            console.log(`   • Odložené kostky: [${state.savedDice ? state.savedDice.join(', ') : 'žádné'}] = ${savedDicePoints} bodů`);
+            console.log(`   • Hot dice body: ${turnScorePoints} bodů`);
+            console.log(`   • Celkem získané body: ${points}`);
             console.log(`   • Skóre: ${oldScore} → ${currentPlayer.score}`);
             
-            chatSystem.addSystemMessage(`📊 Hráč ${currentPlayer.name}: Odložené kostky [${state.savedDice.join(', ')}] = ${points} bodů`);
+            if (turnScorePoints > 0 && savedDicePoints > 0) {
+                chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: Odložené kostky [${state.savedDice.join(', ')}] = ${savedDicePoints} bodů + Hot dice ${turnScorePoints} bodů`);
+            } else if (turnScorePoints > 0) {
+                chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: Hot dice body = ${turnScorePoints} bodů`);
+            } else {
+                chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: Odložené kostky [${state.savedDice.join(', ')}] = ${savedDicePoints} bodů`);
+            }
             chatSystem.addSystemMessage(`🎯 Skóre: ${oldScore} → ${currentPlayer.score}`, CHAT_COLORS.BLUE);
         } else {
             // FARKLE - žádné body se nepřidají
@@ -914,7 +925,8 @@ export class GameUI {
             currentPlayerIndex: nextPlayerIndex,
             currentRoll: [],
             selectedDice: [],
-            savedDice: []
+            savedDice: [],
+            turnScore: 0 // Reset turn score pro nového hráče
         });
         
         // Překreslíme obrazovku

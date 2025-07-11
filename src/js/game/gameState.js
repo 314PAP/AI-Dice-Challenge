@@ -16,6 +16,7 @@ const initialGameState = {
     gameStarted: false,
     currentRoll: [],
     selectedDice: [],
+    savedDice: [],
     turnScore: 0,
     gamePhase: 'menu'
 };
@@ -87,6 +88,7 @@ class GameState {
             currentPlayerIndex: nextPlayerIndex, 
             currentRoll: [],
             selectedDice: [],
+            savedDice: [],
             turnScore: 0 
         });
     }

@@ -100,3 +100,33 @@ export const hasScoringDice = (dice) => {
     
     return false;
 };
+
+/**
+ * Zkontroluje, zda vybrané kostky tvoří platnou Farkle kombinaci
+ * @param {Array<number>} selectedDice - Vybrané kostky k validaci
+ * @returns {boolean} True pokud kombinace je validní podle Farkle pravidel
+ */
+export const isValidFarkleCombination = (selectedDice) => {
+    if (!selectedDice || selectedDice.length === 0) return false;
+    
+    const counts = countDiceValues(selectedDice);
+    
+    // Projdeme všechny hodnoty kostek
+    for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
+        const count = counts[value];
+        if (count === 0) continue; // Žádné kostky této hodnoty
+        
+        if (value === DICE_CONSTANTS.MIN_VALUE || value === 5) {
+            // Jedničky a pětky: můžeme mít libovolný počet (1+, nebo 3+ pro trojice)
+            // Vše je validní - jednotlivé i trojice
+            continue;
+        } else {
+            // Pro 2,3,4,6: MUSÍME mít alespoň 3 stejné (trojice či více)
+            if (count < 3) {
+                return false; // Nevalidní - máme 2,3,4,6 ale méně než 3 kusy
+            }
+        }
+    }
+    
+    return true;
+};
