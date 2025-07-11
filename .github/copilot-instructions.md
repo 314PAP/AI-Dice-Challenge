@@ -8,17 +8,20 @@
 ## 🎯 AKTUÁLNÍ STAV PROJEKTU
 
 ### ✅ CO FUNGUJE
+
 - Bootstrap layout (100% responzivní)
 - Menu systém s neonovými barvami
 - Chat UI (vizuálně správné)
 - Modularita ES6 modulů
 
 ### ⚠️ PRIORITNÍ ÚKOLY (AKTUALIZOVÁNO)
+
 1. **Herní logika** - testovat a dokončit funkčnost po startu hry
 2. **Údržba** - odstranit zastaralé dokumentace
 3. **Optimalizace** - finální kontrola Bootstrap kompatibility
 
 ### ✅ DOKONČENO
+
 - ✅ Chat roller opravený (zelená barva)
 - ✅ Loading screen černé pozadí s animacemi
 - ✅ Prázdné soubory odstraněny
@@ -27,29 +30,32 @@
 ## 🎨 CSS ZÁSADY
 
 ### Barevný systém
+
 ```css
 /* JEDINÉ POVOLENÉ BARVY */
 --neon-green: #39ff14;
---neon-blue: #194DD1;
---neon-purple: #FF00FF;
---neon-orange: #FF8800;
+--neon-blue: #194dd1;
+--neon-purple: #ff00ff;
+--neon-orange: #ff8800;
 --neon-red: #ff3131;
 --neon-yellow: #ffff00;
 --neon-black: #000000;
 ```
 
 ### Bootstrap Priority
+
 1. **PRVNÍ**: Bootstrap utility třídy
-2. **DRUHÉ**: Naše neon-* rozšíření
+2. **DRUHÉ**: Naše neon-\* rozšíření
 3. **POSLEDNÍ**: Vlastní CSS (pouze nutné minimum)
 
 ### Povolené CSS třídy
+
 ```css
 /* Text barvy */
 .text-neon-green, .text-neon-blue, .text-neon-purple,
 .text-neon-orange, .text-neon-red, .text-neon-yellow
 
-/* Okraje */  
+/* Okraje */
 .border-neon-green, .border-neon-blue, .border-neon-purple,
 .border-neon-orange, .border-neon-red, .border-neon-yellow
 
@@ -63,30 +69,33 @@
 ## ⚙️ JAVASCRIPT ZÁSADY
 
 ### Modulární struktura
+
 - **MAX 150 řádků** na soubor
 - **Jedna zodpovědnost** na modul
 - **ES6 moduly** povinně
 
 ### Import pattern
+
 ```javascript
 // VŽDY používej centrální moduly
-import { CONSOLE_COLORS } from './js/utils/colors.js';
-import gameState from './js/game/gameState.js';
-import chatSystem from './js/ai/chatSystem.js';
+import { CONSOLE_COLORS } from "./js/utils/colors.js";
+import gameState from "./js/game/gameState.js";
+import chatSystem from "./js/ai/chatSystem.js";
 ```
 
 ### Barevné konstanty v JS
+
 ```javascript
 // JEDINÝ ZDROJ BAREV
 CONSOLE_COLORS = {
-    neonGreen: '#39ff14',
-    neonBlue: '#194DD1', 
-    neonPurple: '#FF00FF',
-    neonOrange: '#FF8800',
-    neonRed: '#ff3131',
-    neonYellow: '#ffff00',
-    neonBlack: '#000000'
-}
+  neonGreen: "#39ff14",
+  neonBlue: "#194DD1",
+  neonPurple: "#FF00FF",
+  neonOrange: "#FF8800",
+  neonRed: "#ff3131",
+  neonYellow: "#ffff00",
+  neonBlack: "#000000",
+};
 ```
 
 ## 🚨 ZAKÁZANÉ AKCE
@@ -100,7 +109,7 @@ CONSOLE_COLORS = {
 ## ✅ POVOLENÉ AKCE
 
 - ✅ **POUŽÍVEJ** Bootstrap utility classes
-- ✅ **ROZŠIŘUJ** pomocí neon-* tříd  
+- ✅ **ROZŠIŘUJ** pomocí neon-\* tříd
 - ✅ **TESTUJ** na všech breakpointech
 - ✅ **ZACHOVEJ** modularitu
 - ✅ **KONZULTUJ** před většími změnami
