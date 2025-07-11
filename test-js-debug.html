@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 JavaScript Debug Test</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body class="h-100 bg-black text-white">
+    
+    <div class="container-fluid p-3">
+        <h1 class="text-neon-green">🎲 JavaScript Debug Test</h1>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-neon-blue">Postup testování</h2>
+                <div id="debugLog" class="bg-dark border border-neon-green rounded p-3 mt-3">
+                    <div class="text-neon-yellow">Debug log:</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3 class="text-neon-blue">Test 1: Základní import gameState</h3>
+                <div id="gameStateTest" class="text-warning">Čekám...</div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3 class="text-neon-blue">Test 2: Import UI komponent</h3>
+                <div id="uiTest" class="text-warning">Čekám...</div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3 class="text-neon-blue">Test 3: Vytvoření UI elementů</h3>
+                <div id="uiCreationTest"></div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script type="module">
+        const log = (message, type = 'info') => {
+            const debugLog = document.getElementById('debugLog');
+            const colorClass = type === 'error' ? 'text-neon-red' : 
+                               type === 'success' ? 'text-neon-green' : 
+                               type === 'warning' ? 'text-neon-yellow' : 'text-neon-blue';
+            debugLog.innerHTML += `<div class="${colorClass}">${new Date().toLocaleTimeString()}: ${message}</div>`;
+            console.log(message);
+        };
+        
+        log('🚀 Začínám JavaScript debug test');
+        
+        // Test 1: Import gameState
+        try {
+            log('📦 Importuji gameState...');
+            const gameStateModule = await import('./src/js/game/gameState.js');
+            const gameState = gameStateModule.default;
+            
+            log(`✅ gameState importován: ${typeof gameState}`, 'success');
+            log(`🎮 Počáteční stav: ${JSON.stringify(gameState.getState().gamePhase)}`, 'success');
+            document.getElementById('gameStateTest').innerHTML = `<span class="text-neon-green">✅ GameState funguje</span>`;
+            
+            // Test 2: Import UI komponent
+            try {
+                log('📦 Importuji uiComponents...');
+                const uiModule = await import('./src/js/ui/uiComponents.js');
+                const { createNeonButton, createDiceElement } = uiModule;
+                
+                log(`✅ uiComponents importovány`, 'success');
+                document.getElementById('uiTest').innerHTML = `<span class="text-neon-green">✅ UI komponenty fungují</span>`;
+                
+                // Test 3: Vytvoření UI elementů
+                try {
+                    log('🎨 Vytvářím testovací tlačítko...');
+                    const testButton = createNeonButton('TEST TLAČÍTKO', 'green', 'bi-check-circle', () => {
+                        log('🖱️ Test tlačítko kliknuto!', 'success');
+                    });
+                    
+                    log('🎲 Vytvářím testovací kostku...');
+                    const testDice = createDiceElement(3, false, () => {
+                        log('🎲 Test kostka kliknuta!', 'success');
+                    });
+                    
+                    document.getElementById('uiCreationTest').appendChild(testButton);
+                    document.getElementById('uiCreationTest').appendChild(testDice);
+                    
+                    log('✅ UI elementy úspěšně vytvořeny!', 'success');
+                    
+                    // Test 4: Import GameUI
+                    try {
+                        log('📦 Importuji GameUI...');
+                        const GameUIModule = await import('./src/js/ui/gameUI.js');
+                        const GameUI = GameUIModule.default;
+                        
+                        log('🎮 Vytvářím instanci GameUI...');
+                        const gameUI = new GameUI();
+                        
+                        log('✅ GameUI úspěšně vytvořeno!', 'success');
+                        
+                        // Test vykreslení menu
+                        log('🎨 Testuji vykreslení menu...');
+                        gameUI.renderMainMenu();
+                        
+                        log('✅ Vše funguje! Problém je jinde.', 'success');
+                        
+                    } catch (error) {
+                        log(`❌ Chyba při GameUI: ${error.message}`, 'error');
+                        console.error('GameUI error:', error);
+                    }
+                    
+                } catch (error) {
+                    log(`❌ Chyba při vytváření UI elementů: ${error.message}`, 'error');
+                    console.error('UI creation error:', error);
+                }
+                
+            } catch (error) {
+                log(`❌ Chyba při importu UI komponent: ${error.message}`, 'error');
+                console.error('UI import error:', error);
+                document.getElementById('uiTest').innerHTML = `<span class="text-neon-red">❌ Chyba: ${error.message}</span>`;
+            }
+            
+        } catch (error) {
+            log(`❌ Chyba při importu gameState: ${error.message}`, 'error');
+            console.error('GameState import error:', error);
+            document.getElementById('gameStateTest').innerHTML = `<span class="text-neon-red">❌ Chyba: ${error.message}</span>`;
+        }
+    </script>
+</body>
+</html>

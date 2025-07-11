@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Test základního UI</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Naše CSS -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body class="h-100 bg-black text-white">
+    
+    <div class="container-fluid p-3">
+        <h1 class="text-neon-green">🎲 Test základního UI</h1>
+        
+        <!-- Test neonových tříd -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-neon-blue">Test barev</h2>
+                <p class="text-neon-green">Zelená barva</p>
+                <p class="text-neon-blue">Modrá barva</p>
+                <p class="text-neon-orange">Oranžová barva</p>
+                <p class="text-neon-purple">Fialová barva</p>
+                <p class="text-neon-red">Červená barva</p>
+                <p class="text-neon-yellow">Žlutá barva</p>
+            </div>
+        </div>
+        
+        <!-- Test tlačítek -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-neon-blue">Test tlačítek</h2>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button class="btn btn-neon" data-neon-color="green">
+                        <i class="bi bi-play-fill"></i> Zelené tlačítko
+                    </button>
+                    <button class="btn btn-neon" data-neon-color="blue">
+                        <i class="bi bi-info-circle"></i> Modré tlačítko  
+                    </button>
+                    <button class="btn btn-neon" data-neon-color="orange">
+                        <i class="bi bi-trophy"></i> Oranžové tlačítko
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test text shadow tříd -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-neon-blue">Test text shadow</h2>
+                <p class="text-neon-green neon-text-shadow-green">Zelená s text shadow</p>
+                <p class="text-neon-orange neon-text-shadow-orange">Oranžová s text shadow</p>
+                <p class="text-neon-blue neon-text-shadow-blue">Modrá s text shadow</p>
+            </div>
+        </div>
+        
+        <!-- Test table -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-neon-blue">Test tabulky</h2>
+                <div class="table-responsive">
+                    <table class="table table-sm neon-table">
+                        <thead>
+                            <tr class="neon-green-border-bottom">
+                                <th class="text-neon-orange neon-text-shadow-orange">#</th>
+                                <th class="text-neon-orange neon-text-shadow-orange">Jméno</th>
+                                <th class="text-neon-orange neon-text-shadow-orange">Skóre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-neon-yellow neon-text-shadow-yellow">1</td>
+                                <td class="text-neon-blue neon-text-shadow-blue">Hráč</td>
+                                <td class="text-neon-green neon-text-shadow-green">12500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test ikon -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="text-neon-blue">Test Bootstrap ikon</h2>
+                <div class="d-flex gap-3 align-items-center">
+                    <i class="bi bi-person-circle fs-1 text-neon-green"></i>
+                    <i class="bi bi-robot fs-1 text-neon-blue"></i>
+                    <i class="bi bi-cpu-fill fs-1 text-neon-purple"></i>
+                    <i class="bi bi-lightning-charge-fill fs-1 text-neon-orange"></i>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        console.log('Test stránka načtena');
+        console.log('CSS proměnné:', getComputedStyle(document.documentElement).getPropertyValue('--neon-green'));
+        
+        // Test kliknutí na tlačítka
+        document.querySelectorAll('.btn-neon').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                console.log('Kliknuto na tlačítko:', e.target.textContent, 'Color:', e.target.getAttribute('data-neon-color'));
+            });
+        });
+    </script>
+</body>
+</html>

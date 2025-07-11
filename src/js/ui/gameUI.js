@@ -15,6 +15,21 @@ import { rollDie, rollDice, calculatePoints } from '../game/diceMechanics.js';
 export class GameUI {
     constructor() {
         this.gameArea = document.getElementById('gameArea');
+        
+        // Ověříme, že gameArea existuje
+        if (!this.gameArea) {
+            console.warn('⚠️ GameUI: Element #gameArea nenalezen. GameUI bude čekat na DOM.');
+            // Pokusíme se najít gameArea po načtení DOM
+            document.addEventListener('DOMContentLoaded', () => {
+                this.gameArea = document.getElementById('gameArea');
+                if (this.gameArea) {
+                    console.log('✅ GameUI: Element #gameArea nalezen po DOMContentLoaded');
+                    this.initEventListeners();
+                }
+            });
+            return;
+        }
+        
         this.initEventListeners();
     }
 
@@ -31,7 +46,10 @@ export class GameUI {
      * @param {Object} state - Aktuální herní stav
      */
     renderUI(state) {
-        if (!this.gameArea) return;
+        if (!this.gameArea) {
+            console.warn('⚠️ GameUI.renderUI: gameArea element není dostupný');
+            return;
+        }
         
         // Vyčistíme herní plochu
         this.gameArea.innerHTML = '';
@@ -136,8 +154,12 @@ export class GameUI {
         container.appendChild(buttonsContainer);
         
         // Vyčistíme a přidáme nový obsah
-        this.gameArea.innerHTML = '';
-        this.gameArea.appendChild(container);
+        if (this.gameArea) {
+            this.gameArea.innerHTML = '';
+            this.gameArea.appendChild(container);
+        } else {
+            console.warn('⚠️ GameUI.renderMainMenu: gameArea není dostupný');
+        }
     }
 
     /**
@@ -193,34 +215,51 @@ export class GameUI {
      * @param {Object} state - Aktuální herní stav
      */
     renderGameScreen(state) {
-        console.log('Vykresluje se herní obrazovka:', state);
+        console.log('🎮 Vykresluje se herní obrazovka:', state);
+        
+        if (!state.players || state.players.length === 0) {
+            console.error('❌ Žádní hráči v herním stavu!');
+            return;
+        }
+        
+        const currentPlayer = state.players[state.currentPlayerIndex];
+        if (!currentPlayer) {
+            console.error('❌ Aktuální hráč nenalezen! Index:', state.currentPlayerIndex);
+            return;
+        }
+        
+        console.log('👤 Aktuální hráč:', currentPlayer);
         
         const container = document.createElement('div');
         container.className = 'd-flex flex-column h-100';
         
-        // Header s informacemi o hře - plně responzivní pro všechny režimy zobrazení
+        // DEBUG: Přidáme debug informace
+        const debugInfo = document.createElement('div');
+        debugInfo.className = 'text-neon-yellow small mb-2';
+        debugInfo.innerHTML = `🔍 Debug: Hráč ${currentPlayer.name}, Skóre ${currentPlayer.score}, Fáze ${state.gamePhase}`;
+        container.appendChild(debugInfo);
+        
+        // Header s informacemi o hře - ZJEDNODUŠENÁ VERZE PRO DEBUG
         const header = document.createElement('div');
-        header.className = 'mb-2 d-flex justify-content-between align-items-center flex-wrap';
+        header.className = 'mb-3 p-2 border border-neon-blue rounded';
         
-        // Informace o aktuálním hráči
-        const currentPlayer = state.players[state.currentPlayerIndex];
-        
+        // Informace o aktuálním hráči - STATICKÉ STYLY místo fluid
         const playerInfo = document.createElement('div');
-        playerInfo.className = 'mb-1 mb-md-0 text-center text-md-start';
+        playerInfo.className = 'mb-2';
         playerInfo.innerHTML = `
-            <h3 class="fs-fluid-3 mb-1 ${currentPlayer.isHuman ? 'text-neon-green' : `text-neon-${currentPlayer.color}`}">
-                <i class="bi ${currentPlayer.avatar} me-1"></i>${currentPlayer.name}
+            <h3 class="text-neon-green h4 mb-1">
+                <i class="bi ${currentPlayer.avatar} me-2"></i>${currentPlayer.name}
             </h3>
-            <div class="small text-neon-yellow d-none d-sm-block">Na tahu</div>
+            <div class="text-neon-yellow">Na tahu</div>
         `;
         header.appendChild(playerInfo);
         
-        // Skóre - kompaktnější na malých zařízeních
+        // Skóre - STATICKÉ STYLY
         const scoreInfo = document.createElement('div');
-        scoreInfo.className = 'ms-auto text-end';
+        scoreInfo.className = 'text-end';
         scoreInfo.innerHTML = `
-            <div class="text-neon-yellow fs-fluid-4 d-none d-sm-block">Skóre:</div>
-            <h4 class="fs-fluid-3 text-neon-green">${currentPlayer.score}</h4>
+            <div class="text-neon-yellow">Skóre:</div>
+            <h4 class="text-neon-green h3">${currentPlayer.score}</h4>
         `;
         header.appendChild(scoreInfo);
         
@@ -307,8 +346,12 @@ export class GameUI {
         container.appendChild(actionButtons);
         
         // Vyčistíme a přidáme nový obsah
-        this.gameArea.innerHTML = '';
-        this.gameArea.appendChild(container);
+        if (this.gameArea) {
+            this.gameArea.innerHTML = '';
+            this.gameArea.appendChild(container);
+        } else {
+            console.warn('⚠️ GameUI.renderGameScreen: gameArea není dostupný');
+        }
     }
     
     /**
@@ -426,8 +469,12 @@ export class GameUI {
         container.appendChild(btnGroup);
         
         // Vyčistíme a přidáme nový obsah
-        this.gameArea.innerHTML = '';
-        this.gameArea.appendChild(container);
+        if (this.gameArea) {
+            this.gameArea.innerHTML = '';
+            this.gameArea.appendChild(container);
+        } else {
+            console.warn('⚠️ GameUI.renderGameOver: gameArea není dostupný');
+        }
     }
 
     /**
@@ -490,8 +537,12 @@ export class GameUI {
         container.appendChild(buttonContainer);
         
         // Vyčistíme a přidáme nový obsah
-        this.gameArea.innerHTML = '';
-        this.gameArea.appendChild(container);
+        if (this.gameArea) {
+            this.gameArea.innerHTML = '';
+            this.gameArea.appendChild(container);
+        } else {
+            console.warn('⚠️ GameUI.renderRules: gameArea není dostupný');
+        }
     }
 
     /**
@@ -563,8 +614,12 @@ export class GameUI {
         container.appendChild(buttonContainer);
         
         // Vyčistíme a přidáme nový obsah
-        this.gameArea.innerHTML = '';
-        this.gameArea.appendChild(container);
+        if (this.gameArea) {
+            this.gameArea.innerHTML = '';
+            this.gameArea.appendChild(container);
+        } else {
+            console.warn('⚠️ GameUI.renderHallOfFame: gameArea není dostupný');
+        }
     }
 }
 
