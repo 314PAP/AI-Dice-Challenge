@@ -273,18 +273,18 @@ export class GameUI {
             playerCard.className = `card bg-black border border-neon-${player.color} ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
             playerCard.id = `player-card-${index}`; // ID pro animace
             
-            // Responzivní obsah - větší ikona, menší text
+            // Responzivní obsah - responzivní avatary s Bootstrap
             playerCard.innerHTML = `
                 <div class="card-body text-center p-1 p-sm-2">
-                    <div class="mb-1 mb-sm-2">
+                    <div class="mb-1 mb-sm-2 d-flex justify-content-center">
                         <img src="ai-icons/${player.avatar}" alt="${player.name}" 
-                             class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''}" 
-                             style="width: 72px; height: 72px; object-fit: cover;">
+                             class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''} img-fluid" 
+                             style="width: min(12vw, 60px); height: min(12vw, 60px); max-width: 60px; max-height: 60px; object-fit: cover;">
                     </div>
-                    <div class="text-neon-${player.color} small fw-bold mb-1">${player.name}</div>
-                    <div class="text-neon-green" style="font-size: 0.7rem;">Score:</div>
-                    <div class="text-neon-green fw-bold small">${player.score}</div>
-                    <div id="player-status-${index}" class="mt-1" style="min-height: 1.5rem;"></div>
+                    <div class="text-neon-${player.color} small fw-bold mb-1 text-truncate">${player.name}</div>
+                    <div class="text-neon-green" style="font-size: clamp(0.6rem, 1.5vw, 0.7rem);">Score:</div>
+                    <div class="text-neon-green fw-bold" style="font-size: clamp(0.7rem, 2vw, 0.875rem);">${player.score}</div>
+                    <div id="player-status-${index}" class="mt-1" style="min-height: 1rem; font-size: clamp(0.6rem, 1.5vw, 0.75rem);"></div>
                 </div>
             `;
             
@@ -298,9 +298,9 @@ export class GameUI {
         const diceSection = document.createElement('div');
         diceSection.className = 'text-center my-3';
         
-        // Kontejner pro kostky - BOOTSTRAP FLEXBOX s responzivními mezerami
+        // Kontejner pro kostky - Bootstrap flexbox s garantovanou responzivitou
         const diceContainer = document.createElement('div');
-        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-1 gap-sm-2';
+        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center dice-container-responsive';
         
         // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO
         if (state.currentRoll && state.currentRoll.length > 0) {
@@ -356,9 +356,9 @@ export class GameUI {
         const buttonsContainer = document.createElement('div');
         buttonsContainer.className = 'row g-2 px-2'; // Přidán padding pro okraje
         
-        // Tlačítko HODIT - dostupné když:
-        // 1. Nejsou žádné kostky na stole (začátek tahu nebo po odložení všech kostek)
-        // 2. NEBO jsou kostky na stole, ale žádné nejsou vybrané (hráč může házt znovu se zbývajícími)
+        // Tlačítko HODIT - dostupné pouze když:
+        // 1. Na začátku tahu (žádné kostky na stole)
+        // 2. Po odložení všech kostek (hot dice)
         const rollBtn = createNeonButton(
             'HODIT', 
             'green', 
@@ -367,14 +367,28 @@ export class GameUI {
             'btn-sm w-100'
         );
         
-        // Logika pro disable tlačítka HODIT:
-        // - Zakázané pouze když jsou vybrané kostky (hráč musí je nejdříve odložit nebo odznačit)
-        const hasSelectedDice = state.selectedDice && state.selectedDice.length > 0;
+        // KONTROLA AI HRÁČE - blokujeme všechna tlačítka kromě MENU
+        const isAiTurn = currentPlayer && currentPlayer.isAi;
         
-        if (hasSelectedDice) {
+        // Logika pro disable tlačítka HODIT:
+        const hasSelectedDice = state.selectedDice && state.selectedDice.length > 0;
+        const hasCurrentRoll = state.currentRoll && state.currentRoll.length > 0;
+        const hasSavedDice = state.savedDice && state.savedDice.length > 0;
+        
+        // HODIT je povoleno když:
+        // 1. Na začátku tahu (currentRoll je prázdné)
+        // 2. Po odložení všech kostek (currentRoll je prázdné)
+        // 3. NOVĚ: Vždy pokud není právě házení v progresu
+        const canRoll = !state.isRolling;
+        
+        if (isAiTurn) {
+            rollBtn.disabled = true;
+            rollBtn.style.opacity = '0.3';
+            rollBtn.title = 'AI hraje automaticky';
+        } else if (!canRoll) {
             rollBtn.disabled = true;
             rollBtn.style.opacity = '0.5';
-            rollBtn.title = 'Nejdříve odložte nebo odznačte vybrané kostky';
+            rollBtn.title = 'Nejdříve odložte kostky nebo ukončete tah';
         } else {
             rollBtn.disabled = false;
             rollBtn.style.opacity = '1';
@@ -395,10 +409,19 @@ export class GameUI {
             'btn-sm w-100' // Menší tlačítko s plnou šířkou
         );
         
-        // Disable tlačítko pokud nejsou vybrané kostky
-        if (!state.selectedDice || state.selectedDice.length === 0) {
+        // Disable tlačítko pokud nejsou vybrané kostky nebo je AI tah
+        if (isAiTurn) {
+            saveBtn.disabled = true;
+            saveBtn.style.opacity = '0.3';
+            saveBtn.title = 'AI hraje automaticky';
+        } else if (!state.selectedDice || state.selectedDice.length === 0) {
             saveBtn.disabled = true;
             saveBtn.style.opacity = '0.5';
+            saveBtn.title = 'Nejsou vybrané kostky';
+        } else {
+            saveBtn.disabled = false;
+            saveBtn.style.opacity = '1';
+            saveBtn.title = 'Odložit vybrané kostky';
         }
         
         const saveCol = document.createElement('div');
@@ -415,13 +438,21 @@ export class GameUI {
             'btn-sm w-100' // Menší tlačítko s plnou šířkou
         );
         
-        // Disable tlačítko pokud nemá žádné body k ukončení
-        const hasSavedDice = state.savedDice && state.savedDice.length > 0;
+        // Disable tlačítko pokud nemá žádné body k ukončení nebo je AI tah
         const hasTurnScore = state.turnScore && state.turnScore > 0;
         
-        if (!hasSavedDice && !hasTurnScore) {
+        if (isAiTurn) {
+            endTurnBtn.disabled = true;
+            endTurnBtn.style.opacity = '0.3';
+            endTurnBtn.title = 'AI hraje automaticky';
+        } else if (!hasSavedDice && !hasTurnScore) {
             endTurnBtn.disabled = true;
             endTurnBtn.style.opacity = '0.5';
+            endTurnBtn.title = 'Nejsou body k ukončení';
+        } else {
+            endTurnBtn.disabled = false;
+            endTurnBtn.style.opacity = '1';
+            endTurnBtn.title = 'Ukončit tah';
         }
         
         const endCol = document.createElement('div');
@@ -429,12 +460,12 @@ export class GameUI {
         endCol.appendChild(endTurnBtn);
         buttonsContainer.appendChild(endCol);
         
-        // Tlačítko MENU - vždy dostupné
+        // Tlačítko MENU - vždy dostupné s potvrzením
         const menuBtn = createNeonButton(
             'MENU', 
             'red', 
             'bi-list', 
-            () => this.showMenu(),
+            () => this.showMenuWithConfirmation(),
             'btn-sm w-100' // Menší tlačítko s plnou šířkou
         );
         
@@ -539,6 +570,23 @@ export class GameUI {
         // Překreslíme s animací házení
         this.renderGameScreen(gameState.getState());
         
+        // Dynamická animace změny čísel během házení
+        let animationCounter = 0;
+        const animationInterval = setInterval(() => {
+            animationCounter++;
+            const randomDice = Array(diceCount).fill(0).map(() => Math.floor(Math.random() * 6) + 1);
+            
+            // Aktualizujeme kostky s náhodnými čísly pro animaci
+            gameState.updateState({
+                currentRoll: randomDice,
+                isRolling: true
+            });
+            this.renderGameScreen(gameState.getState());
+            
+            // Po 10 iteracích (2 sekundy) ukončíme animaci
+            if (animationCounter >= 10) {
+                clearInterval(animationInterval);
+                
         // Po animaci ukážeme výsledek
         setTimeout(() => {
             // Využití importované funkce
@@ -610,10 +658,176 @@ export class GameUI {
             // Překreslíme obrazovku s výsledkem
             this.renderGameScreen(gameState.getState());
             
-        }, 1000); // Doba animace házení - prodlouženo na 1 sekundu
+                }, 100); // Krátké zpoždění po animaci
+            }
+        }, 200); // Každých 200ms se změní čísla
+            // Využití importované funkce
+            const dice = rollDice(diceCount);
+            
+            // Spočítáme body z tohoto hodu
+            const points = calculatePoints(dice);
+            
+            // Aktualizuje herní stav s výsledkem
+            gameState.updateState({
+                currentRoll: dice,
+                selectedDice: [],
+                isRolling: false
+            });
+            
+            console.log(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
+            chatSystem.addSystemMessage(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
+            
+            // Přidáme "dice-new" třídu pro spawn animaci
+            setTimeout(() => {
+                const diceElements = document.querySelectorAll('.dice:not(.saved)');
+                diceElements.forEach(el => {
+                    el.classList.add('dice-new');
+                    console.log('🎲 Přidávám spawn animaci');
+                });
+                
+                // Odstraníme třídu po animaci
+                setTimeout(() => {
+                    diceElements.forEach(el => el.classList.remove('dice-new'));
+                }, 800);
+            }, 50); // Kratší zpoždění pro lepší synchronizaci
+            
+            // Zkontrolujeme FARKLE - když hod neobsahuje žádné bodující kostky
+            if (!hasScoringDice(dice)) {
+                const farkleMsg = '💥 FARKLE! Hod neobsahuje žádné bodující kostky! Přicházíte o všechny odložené body tohoto tahu!';
+                console.warn(farkleMsg);
+                chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
+                
+                // Přidáme farkle animaci ke kostkám
+                setTimeout(() => {
+                    const diceElements = document.querySelectorAll('.dice:not(.saved)');
+                    diceElements.forEach(el => el.classList.add('dice-farkle'));
+                    
+                    setTimeout(() => {
+                        diceElements.forEach(el => el.classList.remove('dice-farkle'));
+                    }, 1200);
+                }, 200);
+                
+                // Zobrazíme FARKLE pod hráčem
+                this.showPlayerFarkle();
+                
+                // AI reakce na farkle
+                this.triggerAiReactions('farkle', { dice, points: 0 });
+                
+                // Automaticky ukončíme tah s farkle okamžitě
+                setTimeout(() => {
+                    this.endTurn(true);
+                }, 1500); // 1.5 sekundy na animaci
+                
+            } else {
+                const successMsg = `✅ Máte kostky na výběr! Označte platné kostky k odložení.`;
+                console.log(successMsg);
+                chatSystem.addSystemMessage(successMsg, CHAT_COLORS.GREEN);
+                
+                // AI reakce ODSTRANĚNA - AI reaguje až při akci hráče (save/endTurn)
+                // this.triggerAiReactions('roll', { dice, points });
+            }
+            
+            // Překreslíme obrazovku s výsledkem
+            this.renderGameScreen(gameState.getState());
+            
+        }, 2000); // Doba animace házení - prodlouženo na 2 sekundy pro ještě pomalejší rotaci
     }
 
     
+    /**
+     * Zobrazí menu s potvrzovacím dialogem
+     */
+    showMenuWithConfirmation() {
+        this.showStyledConfirmation(
+            'Opravdu chcete odejít do menu?',
+            'Rozehraná hra bude ztracena.',
+            () => this.showMenu()
+        );
+    }
+
+    /**
+     * Zobrazí stylovaný potvrzovací dialog
+     */
+    showStyledConfirmation(title, message, onConfirm) {
+        // Vytvoříme backdrop
+        const backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop fade show';
+        backdrop.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1050;
+            backdrop-filter: blur(5px);
+        `;
+
+        // Vytvoříme modální dialog
+        const modal = document.createElement('div');
+        modal.className = 'modal d-flex align-items-center justify-content-center';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1055;
+            display: flex !important;
+        `;
+
+        modal.innerHTML = `
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-black border-3 border-neon-red" style="box-shadow: 0 0 2rem var(--neon-red);">
+                    <div class="modal-header border-bottom border-neon-red">
+                        <h5 class="modal-title text-neon-red fw-bold">${title}</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p class="text-neon-yellow mb-3">${message}</p>
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button type="button" class="btn btn-neon btn-sm" data-neon-color="green" id="confirm-yes">
+                                <i class="bi bi-check-lg me-1"></i>Ano
+                            </button>
+                            <button type="button" class="btn btn-neon btn-sm" data-neon-color="red" id="confirm-no">
+                                <i class="bi bi-x-lg me-1"></i>Ne
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Přidáme do DOM
+        document.body.appendChild(backdrop);
+        document.body.appendChild(modal);
+
+        // Event listenery
+        const yesBtn = modal.querySelector('#confirm-yes');
+        const noBtn = modal.querySelector('#confirm-no');
+
+        const closeModal = () => {
+            document.body.removeChild(backdrop);
+            document.body.removeChild(modal);
+        };
+
+        yesBtn.addEventListener('click', () => {
+            closeModal();
+            onConfirm();
+        });
+
+        noBtn.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', closeModal);
+
+        // ESC key
+        const escHandler = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
+    }
+
     /**
      * Zobrazí herní menu
      */
@@ -1001,6 +1215,9 @@ export class GameUI {
                 chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: Odložené kostky [${state.savedDice.join(', ')}] = ${savedDicePoints} bodů`);
             }
             chatSystem.addSystemMessage(`🎯 Skóre: ${oldScore} → ${currentPlayer.score}`, CHAT_COLORS.BLUE);
+            
+            // Animace skóre - zvýrazníme kartu hráče
+            this.animatePlayerScore(state.currentPlayerIndex, points);
         } else {
             // FARKLE - žádné body se nepřidají
             console.log(`💥 FARKLE pro hráče ${currentPlayer.name} - žádné body!`);
@@ -1193,13 +1410,24 @@ export class GameUI {
                         chatSystem.addAiMessage(aiPlayer.name, `Nemám dost bodů (${currentPoints}/300), musím pokračovat! 💪`);
                         
                         // Zkusit házt znovu, pokud je to možné
-                        if (currentState.currentRoll && currentState.currentRoll.length > 0) {
+                        if (currentState.currentRoll && currentState.currentRoll.length > 0 && 
+                            (!currentState.selectedDice || currentState.selectedDice.length === 0)) {
                             await this.delay(1000);
                             this.rollDice();
                             await this.delay(2000);
+                        } else if (hasScoringDice(currentState.currentRoll || [])) {
+                            // Pokud jsou na stole bodující kostky, odlož je
+                            const scoringDice = this.findBestScoringDice(currentState.currentRoll);
+                            if (scoringDice.length > 0) {
+                                gameState.updateState({ selectedDice: scoringDice });
+                                await this.delay(500);
+                                this.saveDice();
+                                await this.delay(1500);
+                            } else {
+                                break; // Nemůže pokračovat
+                            }
                         } else {
-                            // Nemůže házet, musí odložit více kostek
-                            break;
+                            break; // Nemůže pokračovat
                         }
                     } else {
                         // AI může ukončit tah
@@ -1315,25 +1543,58 @@ export class GameUI {
     }
     
     /**
+     * Animuje skóre hráče při získání bodů
+     */
+    animatePlayerScore(playerIndex, points) {
+        const playerCard = document.getElementById(`player-card-${playerIndex}`);
+        if (playerCard) {
+            console.log(`🎯 Animuji skóre pro hráče ${playerIndex}: +${points} bodů`);
+            playerCard.classList.add('score-animation');
+            
+            // Odstraníme animaci po dokončení
+            setTimeout(() => {
+                playerCard.classList.remove('score-animation');
+            }, 1000);
+        }
+    }
+
+    /**
      * Zobrazí FARKLE animaci u aktuálního hráče
      */
     showPlayerFarkle() {
         const state = gameState.getState();
-        const playerCard = document.getElementById(`player-card-${state.currentPlayerIndex}`);
-        const playerStatus = document.getElementById(`player-status-${state.currentPlayerIndex}`);
+        console.log('🔥 FARKLE! Hráč:', state.currentPlayerIndex);
         
-        if (playerCard && playerStatus) {
+        const playerCard = document.getElementById(`player-card-${state.currentPlayerIndex}`);
+        
+        console.log('🎯 Player card:', playerCard);
+        
+        if (playerCard) {
             // Přidáme FARKLE animaci na kartu
-            playerCard.classList.add('player-farkle');
+            playerCard.classList.add('player-card-farkle');
+            console.log('✅ FARKLE animace přidána');
             
-            // Zobrazíme FARKLE text
-            playerStatus.innerHTML = '<div class="farkle-text">FARKLE!</div>';
+            // Vytvoříme červený šikmý FARKLE text overlay
+            const farkleOverlay = document.createElement('div');
+            farkleOverlay.className = 'farkle-text-overlay';
+            farkleOverlay.textContent = 'FARKLE!';
+            farkleOverlay.id = `farkle-overlay-${state.currentPlayerIndex}`;
             
-            // Odstraníme animaci po 3 sekundách
+            // Přidáme overlay do karty hráče
+            playerCard.appendChild(farkleOverlay);
+            console.log('✅ FARKLE červený šikmý text overlay přidán');
+            
+            // Odstraníme animaci a overlay po 3 sekundách
             setTimeout(() => {
-                playerCard.classList.remove('player-farkle');
-                playerStatus.innerHTML = '';
+                playerCard.classList.remove('player-card-farkle');
+                const overlay = document.getElementById(`farkle-overlay-${state.currentPlayerIndex}`);
+                if (overlay) {
+                    overlay.remove();
+                }
+                console.log('🔄 FARKLE animace a overlay odstraněny');
             }, 3000);
+        } else {
+            console.error('❌ Nepodařilo se najít player card!');
         }
     }
 }

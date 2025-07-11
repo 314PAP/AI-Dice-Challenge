@@ -97,11 +97,9 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     }
     
     const dice = document.createElement('div');
-    dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded p-1 m-1 m-sm-2`;
+    dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded`;
     dice.setAttribute('data-value', validValue);
     
-    // Responzivní velikost kostky s využitím Bootstrap tříd
-    dice.classList.add('dice-sm', 'dice-md-lg');
     
     // Vytvoření patternu s tečkami podle hodnoty kostky
     let content;
