@@ -186,8 +186,9 @@ export class GameRenderer {
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
-        // OPRAVENÁ LOGIKA HÁZENÍ
-        const canRoll = !state.isRolling; // Jednoduše - můžeme hodit pokud neházíme
+        // OPRAVENÁ LOGIKA HÁZENÍ - kontrola všech podmínek
+        const canRoll = !state.isRolling && 
+                       (!state.currentRoll || state.currentRoll.length === 0); // Můžeme hodit pouze pokud nejsou kostky na stole
         
         // 1. Tlačítko HODIT
         const rollBtn = createNeonButton(
@@ -202,10 +203,14 @@ export class GameRenderer {
             rollBtn.disabled = true;
             rollBtn.style.opacity = '0.3';
             rollBtn.title = 'AI hraje automaticky';
-        } else if (!canRoll) {
+        } else if (state.isRolling) {
             rollBtn.disabled = true;
             rollBtn.style.opacity = '0.5';
             rollBtn.title = 'Probíhá házení...';
+        } else if (state.currentRoll && state.currentRoll.length > 0) {
+            rollBtn.disabled = true;
+            rollBtn.style.opacity = '0.5';
+            rollBtn.title = 'Nejprve odložte kostky nebo ukončete tah';
         } else {
             rollBtn.disabled = false;
             rollBtn.style.opacity = '1';
