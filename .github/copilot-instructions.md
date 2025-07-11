@@ -13,11 +13,16 @@
 - Chat UI (vizuálně správné)
 - Modularita ES6 modulů
 
-### ⚠️ PRIORITNÍ OPRAVY
-1. **Chat roller** - modrý místo zeleného (CSS kolize)
-2. **Loading screen** - bílé pozadí místo černého  
-3. **Herní plocha** - nefunkční po startu hry
-4. **CSS konflikty** - duplicitní definice barev
+### ⚠️ PRIORITNÍ ÚKOLY (AKTUALIZOVÁNO)
+1. **Herní logika** - testovat a dokončit funkčnost po startu hry
+2. **Údržba** - odstranit zastaralé dokumentace
+3. **Optimalizace** - finální kontrola Bootstrap kompatibility
+
+### ✅ DOKONČENO
+- ✅ Chat roller opravený (zelená barva)
+- ✅ Loading screen černé pozadí s animacemi
+- ✅ Prázdné soubory odstraněny
+- ✅ CSS kolize vyřešeny
 
 ## 🎨 CSS ZÁSADY
 

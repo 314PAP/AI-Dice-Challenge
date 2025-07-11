@@ -1,119 +1,170 @@
 # 🎲 AI Dice Challenge
 
-Modulární hra s kostkami s AI osobnostmi postavená na **Pure Bootstrap 5.3.2** layoutu.
+Modulární kostková hra s AI osobnostmi postavená na **Pure Bootstrap 5.3.2** a neonovém designu.
 
-## ✨ Klíčové funkce
+## ✨ Hlavní funkce
 
-- 🎯 **Pure Bootstrap** - 100% Bootstrap utility classes
-- 📱 **Fully Responsive** - Mobile-first design
-- 🤖 **AI Personalities** - Interaktivní chat systém  
-- 🎲 **Dice Mechanics** - Pokročilá herní logika
-- ⚡ **Vite** - Rychlý build systém
-- 🧩 **Modular Structure** - ES6 moduly
+- 🎯 **Pure Bootstrap** - 100% responzivní design
+- 🤖 **AI Personalities** - Interaktivní chat s 3 AI osobnostmi (Gemini, ChatGPT, Claude)
+- 🎲 **Farkle Game Logic** - Kompletní implementace pravidel hry Farkle
+- 🌈 **Neonový design** - Sci-fi vzhled s 6 neonovými barvami
+- ⚡ **ES6 moduly** - Čistá modulární architektura
+- 📱 **Mobile-first** - Optimalizováno pro všechna zařízení
 
 ## 🚀 Rychlý start
 
 ```bash
 # Klonování
-git clone https://github.com/username/AIDICE.git
-cd AIDICE
+git clone https://github.com/314PAP/AI-Dice-Challenge.git
+cd AI-Dice-Challenge
 
 # Instalace
 npm install
 
-# Spuštění
-npm run dev
+# Spuštění dev serveru
+npm start
 ```
 
-## 📱 Layout Architektura
+## 🎨 Neonová barevná paleta
+
+```css
+--neon-green: #39ff14    /* Hlavní barva, texty hráče */
+--neon-blue: #194DD1     /* AI Gemini, prvky UI */
+--neon-purple: #FF00FF   /* AI ChatGPT */
+--neon-orange: #FF8800   /* AI Claude, akční tlačítka */
+--neon-red: #ff3131      /* Varovné prvky */
+--neon-yellow: #ffff00   /* Systémové zprávy */
+--neon-black: #000000    /* Pozadí */
+```
+
+## 📱 Responzivní layout
 
 ### Desktop (≥576px):
-- **Game Area**: 67% šířky (8/12 columns)
-- **Chat Area**: 33% šířky (4/12 columns)
-- **Poměr**: 2:1 (game:chat)
+- **Game Area**: 67% šířky (Bootstrap col-sm-8)
+- **Chat Area**: 33% šířky (Bootstrap col-sm-4) 
+- **Poměr**: 2:1 optimální pro hru
 
 ### Mobile (<576px):
-- **Stacked layout**: vertikální
+- **Vertikální stack** layout
 - **Game Area**: 60vh
 - **Chat Area**: 40vh
 
-## 🎨 Bootstrap Classes
+## � Herní pravidla (Farkle)
 
-Layout používá výhradně Bootstrap utility classes:
+### Cíl hry
+Dosáhnout nastaveného cílového skóre (výchozí 10,000 bodů).
 
-```html
-<!-- Main Container -->
-<div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
-  <div class="row g-1 flex-fill h-100 overflow-hidden">
-    
-    <!-- Game Area -->
-    <div class="col-12 col-sm-8 d-flex flex-column overflow-hidden">
-      <div class="flex-fill bg-dark border border-success rounded p-2">
-        <!-- Game content -->
-      </div>
-    </div>
-    
-    <!-- Chat Area -->
-    <div class="col-12 col-sm-4 d-flex flex-column overflow-hidden">
-      <div class="flex-fill bg-dark border border-info rounded p-2">
-        <!-- Chat content -->
-      </div>
-    </div>
-    
-  </div>
-</div>
+### Bodování
+- **Trojice**: 3× stejná kostka = hodnota × 100 bodů (kromě jedniček)
+- **Trojice jedniček**: 3× jednička = 1,000 bodů
+- **Jednotlivé jedničky**: 100 bodů za každou
+- **Jednotlivé pětky**: 50 bodů za každou
+
+### Průběh tahu
+1. Hráč hodí všemi 6 kostkami
+2. Vybere bodované kostky
+3. Může pokračovat s zbývajícími kostkami nebo ukončit tah
+4. Pokud žádná kostka nedává body = "Farkle" (ztráta všech bodů tahu)
+
+## 🏗️ Architektura
+
+### CSS (Bootstrap-first)
+- **Primární**: Bootstrap utility třídy
+- **Sekundární**: Neonová rozšíření (text-neon-green, border-neon-blue, atd.)
+- **Minimální vlastní CSS**: Pouze pro neonové efekty
+
+### JavaScript (ES6 moduly)
+```
+src/js/
+├── game/         # Herní logika a stav
+├── ai/           # Chat systém a AI osobnosti  
+├── ui/           # UI komponenty a renderování
+└── utils/        # Pomocné funkce a konstanty
 ```
 
-## 📚 Dokumentace
+## 🤖 AI Osobnosti
 
-Kompletní dokumentace včetně Bootstrap architektury: [`BOOTSTRAP_PURE_LAYOUT_DOKUMENTACE.md`](./BOOTSTRAP_PURE_LAYOUT_DOKUMENTACE.md)
+### Gemini (Modrá)
+- **Strategie**: Analytická
+- **Risk tolerance**: 0.7 (vysoká)
+- **Styl**: Chytrý, strategický
 
-## 🔧 Tech Stack
+### ChatGPT (Purpurová)  
+- **Strategie**: Vyvážená
+- **Risk tolerance**: 0.5 (střední)
+- **Styl**: Přátelský, povídavý
+
+### Claude (Oranžová)
+- **Strategie**: Opatrná
+- **Risk tolerance**: 0.3 (nízká)  
+- **Styl**: Promyšlený, opatrný
+
+## 🔧 Technologie
 
 - **Frontend**: HTML5, ES6+ JavaScript
-- **Styling**: Bootstrap 5.3.2, Bootstrap Icons
-- **Build**: Vite 5+
-- **Libraries**: Animate.css, SweetAlert2, Lodash
-- **Fonts**: Google Fonts (Orbitron)
+- **Styling**: Bootstrap 5.3.2, Custom neon CSS
+- **Icons**: Bootstrap Icons
+- **Build**: Vite 5+ (alternativně Python HTTP server)
+- **Fonts**: Orbitron (Google Fonts)
 
-## 📁 Struktura projektu
+## � Struktura projektu
 
 ```
-src/
-├── js/
-│   ├── game/           # Herní logika
-│   ├── ai/             # AI systém
-│   ├── ui/             # UI komponenty
-│   └── utils/          # Pomocné funkce
-├── styles/             # CSS (momentálně vypnuto)
-└── main.js             # Vstupní bod
+├── index.html                    # Hlavní HTML soubor
+├── src/
+│   ├── main.js                   # Vstupní bod aplikace
+│   ├── js/                       # JavaScript moduly
+│   │   ├── game/                 # Herní logika
+│   │   ├── ai/                   # AI a chat systém
+│   │   ├── ui/                   # UI komponenty
+│   │   └── utils/                # Pomocné funkce
+│   └── styles/                   # CSS soubory
+│       ├── main.css              # Hlavní CSS
+│       ├── colors-bootstrap-simple.css  # Neonové barvy
+│       ├── responsive-bootstrap.css     # Responzivní systém
+│       └── components/           # Komponenty CSS
+└── package.json                  # NPM konfigurace
 ```
 
-## 🎯 Výhody Pure Bootstrap
+## 🧪 Testování
 
-- ✅ **Žádné custom CSS** - snadná údržba
-- ✅ **Responsivní ze základu** - testovaný grid systém  
-- ✅ **Rychlý vývoj** - utility classes
-- ✅ **Browser compatibility** - Bootstrap je kompatibilní
-- ✅ **Malé bundle size** - žádné vlastní CSS
-- ✅ **Konzistentní design** - Bootstrap konvence
+1. **Bootstrap test**: `test-bootstrap-pure.html` - čistý Bootstrap layout
+2. **Barevný test**: `test-buttons-colors.html` - ověření neonových barev
+3. **Responzivní test**: Resize okna nebo DevTools device toolbar
 
-## 🔍 Debugging
+## � Development Status
 
-Console debugging pro layout monitoring:
-- Viewport rozměry
-- Column výšky a poměry  
-- Scrollbar detection
-- Bootstrap class detection
+### ✅ Dokončeno
+- Bootstrap responzivní layout
+- Neonový design systém
+- Chat UI s barevnými AI osobnostmi
+- Loading screen s animacemi
+- Modulární JavaScript architektura
+- CSS optimalizace a čištění
 
-Otevři DevTools (F12) → Console pro detaily.
+### ⚠️ Zbývá dokončit
+- Kompletní herní logika (funkcionalita kostek)
+- AI rozhodovací algoritmy
+- Síň slávy persistence
+- Pokročilé animace
 
-## 📱 Testování
+## 📄 Dokumentace
 
-1. **Desktop**: Ověř 2:1 poměr sloupců
-2. **Mobile**: DevTools → Device toolbar
-3. **Resize**: Změna velikosti okna
-4. **Overflow**: Žádné scrollbary na main container
+**Hlavní dokumentace**: [`KOMPLETNI_DOKUMENTACE_SYSTEMU.md`](./KOMPLETNI_DOKUMENTACE_SYSTEMU.md)
+
+Obsahuje:
+- Detailní CSS/JS architektura
+- Pokyny pro Copilota
+- Identifikované problémy a řešení
+- Barevný systém a utility třídy
+
+## 🤝 Přispívání
+
+1. Fork projektu
+2. Dodržuj Bootstrap-first přístup
+3. Používej neonovou barevnou paletu
+4. Zachovej modularitu (max 150 řádků/soubor)
+5. Testuj na různých zařízeních
 
 ## 📄 Licence
 
@@ -121,7 +172,7 @@ MIT License - viz [LICENSE](./LICENSE)
 
 ---
 
-**Status**: ✅ Production Ready Bootstrap Layout  
-**Verze**: Pure Bootstrap v1.0  
-**Poslední update**: July 9, 2025
+**Verze**: 1.0  
+**Status**: 🚧 Aktivní vývoj  
+**Poslední update**: 11. července 2025
 
