@@ -11,6 +11,7 @@
 
 /* KOMPONENTY */
 @import './components/neon-buttons.css';
+@import './components/neon-spinner.css';
 
 /* JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI A RESPONZIVITU */
 @import './responsive-bootstrap.css';
