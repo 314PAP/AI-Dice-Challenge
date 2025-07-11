@@ -73,6 +73,12 @@ export class AiPlayerController {
             attempts++;
             const currentState = gameState.getState();
             
+            // KONTROLA ZRUŠENÉHO TAHU - pokud se zpracovává farkle, ukončíme
+            if (currentState.isFarkleProcessing) {
+                console.log(`🤖 AI ${aiPlayer.name} - farkle se už zpracovává, ukončuji rozhodování`);
+                break;
+            }
+            
             // Kontrola, zda je AI stále na tahu
             if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
                 console.log(`🤖 AI ${aiPlayer.name} už není na tahu, ukončuji rozhodování`);
