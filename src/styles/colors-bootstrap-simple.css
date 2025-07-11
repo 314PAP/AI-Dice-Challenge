@@ -120,27 +120,6 @@ html, body {
   border-color: rgba(var(--neon-green-rgb), 0.8) !important;
 }
 
-/* ===== CHAT SPINNER - JEDNODUCHÝ OVERRIDE ===== */
-
-/* Základní spinner override */
-.spinner-border.text-neon-green {
-  color: var(--neon-green) !important;
-  border-color: var(--neon-green) transparent transparent transparent !important;
-}
-
-/* Chat spinner kontejner - správné rozestupy od okrajů */
-#chatMessages .d-flex.flex-column.align-items-center.justify-content-center {
-  padding: 2rem 1rem !important;
-  margin: 1rem 0 !important;
-}
-
-/* Chat spinner text - také zelený s odstupem */
-#chatMessages .text-center.text-neon-green {
-  margin-top: 1rem !important;
-  color: var(--neon-green) !important;
-  text-shadow: var(--neon-text-shadow) !important;
-}
-
 /* Chat scrollbar */
 #chatMessages::-webkit-scrollbar {
   width: 0.5rem;
@@ -352,11 +331,6 @@ html, body {
 }
 
 /* ===== BOOTSTRAP COLORS OVERRIDE - KRITICKÉ TŘÍDY ===== */
-
-/* Bootstrap spinner - globální override */
-.spinner-border {
-  border-color: currentColor transparent transparent transparent !important;
-}
 
 /* Override Bootstrap default colors pouze tam, kde je potřeba */
 .text-primary { color: var(--neon-blue) !important; }
