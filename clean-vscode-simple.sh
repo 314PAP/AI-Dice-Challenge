@@ -60,4 +60,5 @@ echo -e "1. ${YELLOW}Otevřít VS Code znovu${NC}"
 echo -e "2. ${YELLOW}Otevřít váš projekt${NC}"
 echo -e "3. ${YELLOW}Zkontrolovat, zda problém se sledováním souborů byl vyřešen${NC}"
 echo
+echo -e "${GREEN}💡 Tip: VS Code byl nedávno aktualizován na verzi 1.102.0${NC}"
 echo -e "${GREEN}Pokud problém přetrvává, restartujte celý počítač.${NC}"
