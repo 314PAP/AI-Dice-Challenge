@@ -116,7 +116,7 @@ export class GameLogic {
         });
         
         console.log(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
-        chatSystem.addSystemMessage(`🎯 [${dice.join(', ')}] = ${points} bodů`);
+        // ODSTRANĚNO: Systémová zpráva s body z hodu - napovídá hráči
         
         // Zkontrolujeme FARKLE - když hod neobsahuje žádné bodující kostky
         if (!hasScoringDice(dice)) {
@@ -381,13 +381,7 @@ export class GameLogic {
         console.log(`   • Celkem získané body: ${points}`);
         console.log(`   • Skóre: ${oldScore} → ${currentPlayer.score}`);
         
-        if (turnScorePoints > 0 && savedDicePoints > 0) {
-            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: +${points} bodů`);
-        } else if (turnScorePoints > 0) {
-            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: +${points} bodů`);
-        } else {
-            chatSystem.addSystemMessage(`📊 ${currentPlayer.name}: +${points} bodů`);
-        }
+        // ODSTRANĚNO: Duplikátní zprávy o přidělených bodech - zbytečné
         chatSystem.addSystemMessage(`🎯 ${currentPlayer.name}: ${currentPlayer.score}`, CHAT_COLORS.BLUE);
     }
 
