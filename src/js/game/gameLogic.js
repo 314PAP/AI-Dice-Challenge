@@ -8,7 +8,8 @@
  * - Farkle detekce a zpracování
  * - Hot dice mechanika
  * - Kontrola vítězství
- * 
+        // ZKRÁCENO: Jen podstatné info - jen přidané body, ne celkový součet
+        chatSystem.addSystemMessage(`� +${points} bodů`, CHAT_COLORS.BLUE); 
  * FUNKCE PŘESUNUTÉ Z gameUI.js:
  * - rollDice() - házení s animacemi
  * - saveDice() - odložení a validace 

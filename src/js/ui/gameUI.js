@@ -25,6 +25,7 @@ export class GameUI {
     constructor() {
         this.gameArea = document.getElementById('gameArea');
         this.aiTurnInProgress = false; // Flag pro kontrolu AI tahu
+        this.lastPlayerIndex = undefined; // Pro sledování změny hráče
         
         // Inicializace modulů
         this.gameRenderer = new GameRenderer();
@@ -64,6 +65,13 @@ export class GameUI {
             console.warn('⚠️ GameUI.renderUI: gameArea element není dostupný');
             return;
         }
+
+        // Kontrola změny hráče - reset AI flagu
+        if (this.lastPlayerIndex !== undefined && this.lastPlayerIndex !== state.currentPlayerIndex) {
+            console.log(`🔄 GameUI: Hráč se změnil z ${this.lastPlayerIndex} na ${state.currentPlayerIndex}, resetuji AI flag`);
+            this.aiTurnInProgress = false;
+        }
+        this.lastPlayerIndex = state.currentPlayerIndex;
         
         // Vyčistíme herní plochu
         this.gameArea.innerHTML = '';
@@ -110,11 +118,16 @@ export class GameUI {
         const gameContainer = this.gameRenderer.renderGameScreen(state, callbacks);
         
         if (gameContainer && this.gameArea) {
+            // VYČISTÍME kontejner před novým vykreslením
+            this.gameArea.innerHTML = '';
             this.gameArea.appendChild(gameContainer);
             
             // Pokud je na tahu AI hráč, spustíme jeho automatický tah (pouze jednou)
             const currentPlayer = state.players[state.currentPlayerIndex];
-            if (currentPlayer && !currentPlayer.isHuman && !state.isRolling && !this.aiTurnInProgress) {
+            if (currentPlayer && !currentPlayer.isHuman && !state.isRolling && !this.aiTurnInProgress && 
+                !state.isFarkleProcessing && (state.currentRoll.length === 0 || state.currentRoll.length === 6)) {
+                // Spustíme AI pouze na začátku tahu (prázdné kostky) nebo na začátku nového hodu (6 kostek)
+                console.log(`🤖 GameUI: Spouštím AI pro ${currentPlayer.name}`);
                 this.aiTurnInProgress = true;
                 setTimeout(() => {
                     this.aiController.playAiTurn(currentPlayer).finally(() => {
