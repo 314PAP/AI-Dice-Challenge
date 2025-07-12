@@ -186,9 +186,9 @@ export class GameRenderer {
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
-        // OPRAVENÁ LOGIKA HÁZENÍ - kontrola všech podmínek
+        // OPRAVENÁ LOGIKA HÁZENÍ - můžeme hodit pokud nejsme uprostřed hodu a nejsou vybrané kostky
         const canRoll = !state.isRolling && 
-                       (!state.currentRoll || state.currentRoll.length === 0); // Můžeme hodit pouze pokud nejsou kostky na stole
+                       (!state.selectedDice || state.selectedDice.length === 0); // Můžeme hodit pokud nejsou vybrané kostky
         
         // 1. Tlačítko HODIT
         const rollBtn = createNeonButton(
