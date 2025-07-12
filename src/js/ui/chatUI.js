@@ -21,8 +21,8 @@ export class ChatUI {
         this.initEventListeners();
         this.renderMessages();
         
-        // Registrujeme se jako listener pro změny zpráv s throttling
-        chatSystem.addListener(() => this.throttledRenderMessages());
+        // Registrujeme se jako listener pro změny zpráv BEZ throttling
+        chatSystem.addListener(() => this.renderMessages());
     }
 
     /**

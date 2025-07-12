@@ -148,6 +148,12 @@ export class GameLogic {
 
         const state = gameState.getState();
         const currentPlayer = state.players[state.currentPlayerIndex];
+        
+        // Označíme hráče jako mající FARKLE
+        const updatedPlayers = [...state.players];
+        updatedPlayers[state.currentPlayerIndex] = { ...currentPlayer, hasFarkle: true };
+        gameState.updateState({ players: updatedPlayers });
+        
         const farkleMsg = `💥 ${currentPlayer.name} FARKLE!`;
         console.warn(farkleMsg);
         chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
@@ -481,6 +487,12 @@ export class GameLogic {
         
         console.log(`👤 Další hráč: ${nextPlayer.name}`);
         
+        // Resetujeme FARKLE flag u všech hráčů
+        const playersWithoutFarkle = state.players.map(player => ({
+            ...player,
+            hasFarkle: false
+        }));
+        
         if (state.finalRound) {
             chatSystem.addSystemMessage(`👤 ${nextPlayer.name}`, CHAT_COLORS.ORANGE);
         } else {
@@ -489,6 +501,7 @@ export class GameLogic {
         
         gameState.updateState({
             currentPlayerIndex: nextPlayerIndex,
+            players: playersWithoutFarkle, // Reset FARKLE flagů
             // Reset stavů pro nový tah
             currentRoll: [],
             selectedDice: [],

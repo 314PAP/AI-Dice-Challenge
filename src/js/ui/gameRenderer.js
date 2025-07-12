@@ -85,9 +85,11 @@ export class GameRenderer {
             playerCard.className = cardClasses;
             playerCard.id = `player-card-${index}`; // ID pro animace
             
-            // Status pro finální kolo
+            // Status pro finální kolo nebo FARKLE
             let statusContent = '';
-            if (state.finalRound) {
+            if (player.hasFarkle) {
+                statusContent = '<div class="text-neon-red fw-bold player-farkle-pulse" style="font-size: clamp(0.5rem, 1.2vw, 0.65rem);">💥 FARKLE!</div>';
+            } else if (state.finalRound) {
                 if (isLeader) {
                     statusContent = '<div class="text-neon-orange fw-bold" style="font-size: clamp(0.5rem, 1.2vw, 0.65rem);">👑 LEADER</div>';
                 } else {
@@ -186,9 +188,20 @@ export class GameRenderer {
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
-        // OPRAVENÁ LOGIKA HÁZENÍ - můžeme hodit pokud nejsme uprostřed hodu a nejsou vybrané kostky
+        // OPRAVENÁ LOGIKA HÁZENÍ - hráč musí odložit vybrané kostky před dalším hodem
+        const hasSelectedDice = state.selectedDice && state.selectedDice.length > 0;
+        const hasCurrentRoll = state.currentRoll && state.currentRoll.length > 0;
+        
+        // Můžeme hodit pouze pokud:
+        // 1. Není animace házení
+        // 2. NEMÁME vybrané kostky (musí je odložit)
+        // 3. Buď nemáme kostky na stole (začátek tahu) nebo všechny kostky už jsou odložené
         const canRoll = !state.isRolling && 
-                       (!state.selectedDice || state.selectedDice.length === 0); // Můžeme hodit pokud nejsou vybrané kostky
+                       !hasSelectedDice && // DŮLEŽITÉ: Nesmí mít vybrané kostky!
+                       (!hasCurrentRoll || state.savedDice.length === 6); // Buď začátek tahu nebo hot dice
+        
+        console.log(`🎲 GameRenderer: canRoll=${canRoll} (isRolling=${state.isRolling}, hasSelected=${hasSelectedDice}, hasCurrentRoll=${hasCurrentRoll})`);
+        
         
         // 1. Tlačítko HODIT
         const rollBtn = createNeonButton(

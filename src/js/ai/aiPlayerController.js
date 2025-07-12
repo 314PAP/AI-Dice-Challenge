@@ -102,10 +102,11 @@ export class AiPlayerController {
             // KONTROLA FARKLE - pokud jsou na stole kostky, ale žádné nejsou bodující
             if (currentState.currentRoll && currentState.currentRoll.length > 0) {
                 if (!hasScoringDice(currentState.currentRoll)) {
-                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - ukončuji rozhodování, GameLogic už to zpracuje`);
+                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - čekám na zpracování...`);
                     chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
-                    // NEPOUŽÍVÁME handleFarkle - to už GameLogic udělal automaticky v finishRoll()
-                    break; // Ukončíme AI loop, čekáme na automatické zpracování
+                    // Čekáme na zpracování FARKLE a přepnutí hráče
+                    await this.delay(2000);
+                    break; // Ukončíme AI loop, GameLogic zpracuje FARKLE
                 }
             }
             

@@ -27,6 +27,7 @@ export class GameUI {
         this.aiTurnInProgress = false; // Flag pro kontrolu AI tahu
         this.lastPlayerIndex = undefined; // Pro sledování změny hráče
         this.lastRenderTime = 0; // Pro omezení renderování
+        this.lastDOMUpdate = 0; // Pro omezení DOM změn
         
         // Inicializace modulů
         this.gameRenderer = new GameRenderer();
@@ -70,9 +71,12 @@ export class GameUI {
         // Omezení renderování během animace (max každých 500ms)
         const now = Date.now();
         if (state.isRolling && (now - this.lastRenderTime) < 500) {
+            console.log('🎮 GameUI: Přeskakuji render během animace');
             return; // Přeskočíme render během rychlé animace
         }
         this.lastRenderTime = now;
+
+        console.log(`🎮 GameUI: Renderuji fázi "${state.gamePhase}" pro hráče ${state.currentPlayerIndex}`);
 
         // Kontrola změny hráče - reset AI flagu
         if (this.lastPlayerIndex !== undefined && this.lastPlayerIndex !== state.currentPlayerIndex) {
@@ -126,10 +130,17 @@ export class GameUI {
         const gameContainer = this.gameRenderer.renderGameScreen(state, callbacks);
         
         if (gameContainer && this.gameArea) {
-            // VYČISTÍME kontejner pouze pokud není animace
-            if (!state.isRolling) {
+            // OPRAVA: NIKDY nevyčistíme kontejner během animace nebo s malým rozdílem času
+            const now = Date.now();
+            const shouldUpdateDOM = !state.isRolling && (now - this.lastDOMUpdate > 300);
+            
+            if (shouldUpdateDOM) {
+                console.log('🎮 GameUI: Aktualizuji DOM (posledně před', now - (this.lastDOMUpdate || 0), 'ms)');
                 this.gameArea.innerHTML = '';
                 this.gameArea.appendChild(gameContainer);
+                this.lastDOMUpdate = now;
+            } else {
+                console.log('🎮 GameUI: Přeskakuji DOM aktualizaci (animace nebo příliš brzy)');
             }
             
             // Pokud je na tahu AI hráč, spustíme jeho automatický tah (pouze jednou)
