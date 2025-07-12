@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test DOM Stability</title>
+    <style>
+        body { background: #000; color: #39ff14; font-family: monospace; padding: 20px; }
+        .test-area { border: 2px solid #39ff14; padding: 20px; margin: 20px 0; }
+        .status { color: #ff3131; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🎮 Test DOM Stability</h1>
+    
+    <div class="test-area" id="testArea">
+        <h3>Testovací plocha</h3>
+        <p>Obsah, který by se neměl ztratit během aktualizací...</p>
+        <button onclick="simulateUpdate()">Simulovat Aktualizaci</button>
+    </div>
+    
+    <div class="status" id="status">Čekáme na test...</div>
+    
+    <script>
+        let updateCount = 0;
+        
+        function simulateUpdate() {
+            updateCount++;
+            const area = document.getElementById('testArea');
+            const status = document.getElementById('status');
+            
+            // Simulace původního problematického kódu
+            const oldWay = false; // false = nový způsob, true = starý problematický
+            
+            if (oldWay) {
+                // STARÝ ZPŮSOB - problematický
+                setTimeout(() => {
+                    area.innerHTML = ''; // Vymaže obsah
+                    setTimeout(() => {
+                        area.innerHTML = `
+                            <h3>Testovací plocha (Update #${updateCount})</h3>
+                            <p>Obsah obnovený po ${Math.random() * 100 | 0}ms...</p>
+                            <button onclick="simulateUpdate()">Simulovat Aktualizaci</button>
+                        `;
+                    }, 50 + Math.random() * 200); // Variabilní delay
+                }, 10);
+                status.textContent = `❌ STARÝ ZPŮSOB: Obsah se ztratí na ${50-200}ms (Update #${updateCount})`;
+            } else {
+                // NOVÝ ZPŮSOB - stabilní
+                const newContent = document.createElement('div');
+                newContent.innerHTML = `
+                    <h3>Testovací plocha (Update #${updateCount})</h3>
+                    <p>Obsah okamžitě nahrazený...</p>
+                    <button onclick="simulateUpdate()">Simulovat Aktualizaci</button>
+                `;
+                area.innerHTML = '';
+                area.appendChild(newContent);
+                status.textContent = `✅ NOVÝ ZPŮSOB: Okamžitá náhrada bez ztráty (Update #${updateCount})`;
+            }
+        }
+        
+        console.log('🎯 Test DOM stability načten');
+    </script>
+</body>
+</html>
