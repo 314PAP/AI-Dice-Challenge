@@ -245,7 +245,7 @@ export class AiPlayerController {
 
     /**
      * AI rozhodování o dalším tahu
-     * PŘESUNUTO Z gameUI.js
+     * INTELIGENTNÍ STRATEGICKÁ LOGIKA
      * @param {Object} aiPlayer - AI hráč
      * @param {Object} state - Aktuální herní stav
      * @returns {Object} Rozhodnutí AI
@@ -264,31 +264,221 @@ export class AiPlayerController {
         const newPoints = calculatePoints(bestDice.map(i => state.currentRoll[i]));
         const totalPoints = currentTurnPoints + newPoints;
         
+        // STRATEGICKÉ ROZHODOVÁNÍ podle herní situace
+        const strategy = this.analyzeGameSituation(aiPlayer, state, totalPoints);
+        
+        console.log(`🤖 AI ${aiPlayer.name} analýza:`, strategy);
+        
         // DŮLEŽITÉ: Pokud je to první zápis a nemáme dost bodů, MUSÍME pokračovat
         if (aiPlayer.score === 0 && totalPoints < 300) {
-            console.log(`🤖 AI ${aiPlayer.name}: První zápis, potřebuji min 300 bodů (mám ${totalPoints})`);
+            chatSystem.addAiMessage(aiPlayer.name, `Potřebuji ještě ${300 - totalPoints} bodů pro první zápis! 🎯`);
             return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
         }
         
-        // AI rozhodování podle získaných bodů a risk/reward
-        if (totalPoints >= 300) {
-            // Máme solidní body
-            const riskFactor = this.calculateRiskFactor(state.currentRoll.length, totalPoints);
-            
-            if (riskFactor > 0.7 || totalPoints >= 600) {
-                // Vysoké riziko nebo dostatečné body - ukončíme tah
-                console.log(`🤖 AI ${aiPlayer.name}: Mám ${totalPoints} bodů, riziko ${riskFactor.toFixed(2)} - ukončuji tah`);
-                return { action: 'save', diceToSave: bestDice, nextAction: 'endTurn' };
+        // Rozhodujeme podle strategie a rizika
+        const decision = this.makeStrategicDecision(aiPlayer, strategy, bestDice, totalPoints);
+        
+        // AI oznámí své rozhodnutí
+        this.announceDecision(aiPlayer, decision, totalPoints, strategy);
+        
+        return decision;
+    }
+
+    /**
+     * Analyzuje herní situaci pro strategické rozhodování
+     * @param {Object} aiPlayer - AI hráč
+     * @param {Object} state - Herní stav
+     * @param {number} turnPoints - Body v aktuálním tahu
+     * @returns {Object} Strategická analýza
+     */
+    analyzeGameSituation(aiPlayer, state, turnPoints) {
+        const players = state.players;
+        const myScore = aiPlayer.score;
+        const targetScore = state.targetScore || 10000;
+        
+        // Najdeme pozici hráče
+        const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
+        const myPosition = sortedPlayers.findIndex(p => p.name === aiPlayer.name) + 1;
+        const leadingScore = sortedPlayers[0].score;
+        const gap = leadingScore - myScore;
+        
+        // Fáze hry
+        const gamePhase = this.determineGamePhase(myScore, leadingScore, targetScore);
+        
+        // Risk tolerance podle situace
+        let riskTolerance = 'conservative'; // conservative, moderate, aggressive
+        
+        if (gamePhase === 'early') {
+            riskTolerance = 'conservative';
+        } else if (gamePhase === 'middle') {
+            riskTolerance = myPosition <= 2 ? 'moderate' : 'aggressive';
+        } else { // late game
+            if (gap > 2000) {
+                riskTolerance = 'aggressive'; // Dohánění
+            } else if (myPosition === 1) {
+                riskTolerance = 'conservative'; // Udržet vedení
             } else {
-                // Střední riziko - odložíme a pokračujeme
-                console.log(`🤖 AI ${aiPlayer.name}: Mám ${totalPoints} bodů, riziko ${riskFactor.toFixed(2)} - pokračuji`);
-                return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
+                riskTolerance = 'aggressive'; // Posledni šance
+            }
+        }
+        
+        return {
+            gamePhase,
+            myPosition,
+            gap,
+            riskTolerance,
+            remainingDice: state.currentRoll?.length || 6,
+            turnPoints
+        };
+    }
+
+    /**
+     * Určí fázi hry
+     * @param {number} myScore - Moje skóre
+     * @param {number} leadingScore - Vedoucí skóre
+     * @param {number} targetScore - Cílové skóre
+     * @returns {string} Fáze hry: early, middle, late
+     */
+    determineGamePhase(myScore, leadingScore, targetScore) {
+        const maxScore = Math.max(myScore, leadingScore);
+        
+        if (maxScore < targetScore * 0.3) return 'early';   // < 3000 bodů
+        if (maxScore < targetScore * 0.7) return 'middle';  // 3000-7000 bodů
+        return 'late';                                       // > 7000 bodů
+    }
+
+    /**
+     * Učiní strategické rozhodnutí
+     * @param {Object} aiPlayer - AI hráč
+     * @param {Object} strategy - Strategická analýza
+     * @param {Array} bestDice - Nejlepší kostky k odložení
+     * @param {number} totalPoints - Celkové body v tahu
+     * @returns {Object} Rozhodnutí
+     */
+    makeStrategicDecision(aiPlayer, strategy, bestDice, totalPoints) {
+        const { riskTolerance, remainingDice, gamePhase } = strategy;
+        
+        // Základní bezpečnostní prahy podle fáze hry
+        const safeThresholds = {
+            early: { conservative: 300, moderate: 400, aggressive: 500 },
+            middle: { conservative: 400, moderate: 600, aggressive: 800 },
+            late: { conservative: 500, moderate: 800, aggressive: 1200 }
+        };
+        
+        const threshold = safeThresholds[gamePhase][riskTolerance];
+        
+        // Pravděpodobnost FARKLE podle počtu kostek
+        const farkleRisk = this.calculateFarkleRisk(remainingDice);
+        
+        // Rozhodovací logika
+        let shouldContinue = false;
+        let reason = '';
+        
+        if (totalPoints < threshold) {
+            // Nemáme dostatek bodů pro bezpečné ukončení
+            if (farkleRisk < 0.6) {
+                shouldContinue = true;
+                reason = `potřebuji více bodů (${totalPoints}/${threshold})`;
+            } else {
+                shouldContinue = false;
+                reason = `riziko příliš vysoké (${(farkleRisk * 100).toFixed(0)}%)`;
             }
         } else {
-            // Málo bodů - musíme riskovat
-            console.log(`🤖 AI ${aiPlayer.name}: Pouze ${totalPoints} bodů - musím riskovat`);
-            return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
+            // Máme dostatek bodů, rozhodujeme podle tolerance rizika
+            switch (riskTolerance) {
+                case 'conservative':
+                    shouldContinue = farkleRisk < 0.3 && totalPoints < threshold * 1.5;
+                    reason = shouldContinue ? 'bezpečné pokračování' : 'zachovávám body';
+                    break;
+                case 'moderate':
+                    shouldContinue = farkleRisk < 0.5 && totalPoints < threshold * 2;
+                    reason = shouldContinue ? 'vyvážené riziko' : 'uspokojivé body';
+                    break;
+                case 'aggressive':
+                    shouldContinue = farkleRisk < 0.7;
+                    reason = shouldContinue ? 'riskneme to!' : 'až moc nebezpečné';
+                    break;
+            }
         }
+        
+        // Náhodný prvek (10% šance na překvapení)
+        if (Math.random() < 0.1) {
+            shouldContinue = !shouldContinue;
+            reason = shouldContinue ? 'zkusím štěstí!' : 'raději opatrně';
+        }
+        
+        return {
+            action: 'save',
+            diceToSave: bestDice,
+            nextAction: shouldContinue ? 'continue' : 'endTurn',
+            reason
+        };
+    }
+
+    /**
+     * Vypočítá riziko FARKLE podle počtu kostek
+     * @param {number} remainingDice - Počet zbývajících kostek
+     * @returns {number} Riziko FARKLE (0-1)
+     */
+    calculateFarkleRisk(remainingDice) {
+        // Empirické hodnoty založené na pravděpodobnosti FARKLE
+        const riskTable = {
+            1: 0.67,  // 1 kostka: 4/6 šance na FARKLE
+            2: 0.56,  // 2 kostky: cca 56%
+            3: 0.42,  // 3 kostky: cca 42%
+            4: 0.29,  // 4 kostky: cca 29%
+            5: 0.19,  // 5 kostek: cca 19%
+            6: 0.13   // 6 kostek: cca 13%
+        };
+        
+        return riskTable[remainingDice] || 0.1;
+    }
+
+    /**
+     * Oznámí rozhodnutí AI
+     * @param {Object} aiPlayer - AI hráč
+     * @param {Object} decision - Rozhodnutí
+     * @param {number} totalPoints - Celkové body
+     * @param {Object} strategy - Strategie
+     */
+    announceDecision(aiPlayer, decision, totalPoints, strategy) {
+        const { reason } = decision;
+        const { riskTolerance, gamePhase, myPosition } = strategy;
+        
+        let message = '';
+        
+        if (decision.nextAction === 'continue') {
+            const messages = [
+                `Mám ${totalPoints} bodů, ale ${reason}! 🎯`,
+                `Pokračujem - ${reason}! 🎲`,
+                `Ještě hodit - ${reason}! ⚡`
+            ];
+            message = messages[Math.floor(Math.random() * messages.length)];
+        } else {
+            const messages = [
+                `Ukončuji s ${totalPoints} body - ${reason}! ✅`,
+                `Stačí mi ${totalPoints} bodů - ${reason}! 💎`,
+                `Bezpečně končím s ${totalPoints} - ${reason}! 🛡️`
+            ];
+            message = messages[Math.floor(Math.random() * messages.length)];
+        }
+        
+        // Přidáme komentář o strategii občas
+        if (Math.random() < 0.3) {
+            const strategyComments = {
+                conservative: ['Hraju opatrně! 🛡️', 'Bezpečnost především! 🎯'],
+                moderate: ['Vyvážená hra! ⚖️', 'Rozumné riziko! 🧠'],
+                aggressive: ['Musím riskovat! ⚡', 'Vše nebo nic! 🔥']
+            };
+            
+            const comment = strategyComments[riskTolerance];
+            if (comment) {
+                message += ' ' + comment[Math.floor(Math.random() * comment.length)];
+            }
+        }
+        
+        console.log(`🤖 AI ${aiPlayer.name} rozhodnutí: ${decision.nextAction} (${reason})`);
+        chatSystem.addAiMessage(aiPlayer.name, message);
     }
 
     /**
