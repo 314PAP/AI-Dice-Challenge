@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🎲 AI Dice - Mobile Perfect Test</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>" type="image/svg+xml">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- POUZE neonové barvy - minimum CSS -->
+    <style>
+        :root {
+            --neon-green: #39ff14;
+            --neon-blue: #194dd1;
+            --neon-purple: #ff00ff;
+            --neon-orange: #ff8800;
+            --neon-red: #ff3131;
+            --neon-yellow: #ffff00;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: #000;
+            color: var(--neon-green);
+            overflow-x: hidden;
+        }
+        
+        .text-neon-green { color: var(--neon-green) !important; }
+        .text-neon-blue { color: var(--neon-blue) !important; }
+        .text-neon-purple { color: var(--neon-purple) !important; }
+        .text-neon-orange { color: var(--neon-orange) !important; }
+        .text-neon-red { color: var(--neon-red) !important; }
+        .text-neon-yellow { color: var(--neon-yellow) !important; }
+        
+        .border-neon-green { border-color: var(--neon-green) !important; }
+        .border-neon-blue { border-color: var(--neon-blue) !important; }
+        
+        .btn-neon {
+            border: 2px solid var(--neon-green);
+            background: transparent;
+            color: var(--neon-green);
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-neon:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+        
+        .dice-button {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--neon-green);
+            background: transparent;
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .dice-button:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+        
+        .dice-button.selected {
+            background: var(--neon-green);
+            color: #000;
+        }
+        
+        /* Chat area styling */
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid var(--neon-blue);
+        }
+        
+        .chat-input {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-green);
+            border-radius: 8px;
+        }
+        
+        .chat-input:focus {
+            background: transparent;
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 576px) {
+            .dice-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            
+            .btn-neon {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            .chat-message {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Landscape mobile optimization */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .dice-button {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body class="h-100">
+    
+    <!-- Main Container - Bootstrap Grid -->
+    <div class="container-fluid h-100 p-2">
+        
+        <!-- Header -->
+        <div class="row mb-2">
+            <div class="col-12 text-center">
+                <h4 class="text-neon-green mb-0">
+                    <i class="bi bi-dice-6-fill"></i> AI Dice Challenge
+                </h4>
+                <small class="text-neon-blue">Mobile Perfect Test</small>
+            </div>
+        </div>
+        
+        <!-- Main Game Area -->
+        <div class="row flex-fill h-100">
+            
+            <!-- Mobile: Full width, Desktop: 8 columns -->
+            <div class="col-12 col-lg-8 h-100 d-flex flex-column mb-3 mb-lg-0">
+                
+                <!-- Game Status -->
+                <div class="card bg-transparent border-neon-green mb-2">
+                    <div class="card-body py-2">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <small class="text-neon-blue d-block">Skóre</small>
+                                <strong class="text-neon-green">12,500</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-neon-blue d-block">Tah</small>
+                                <strong class="text-neon-orange">3/6</strong>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-neon-blue d-block">Hráč</small>
+                                <strong class="text-neon-purple">Tobias</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dice Area -->
+                <div class="card bg-transparent border-neon-blue flex-fill">
+                    <div class="card-header bg-transparent border-neon-blue">
+                        <h6 class="text-neon-blue mb-0">
+                            <i class="bi bi-dice-3-fill"></i> Kostky
+                        </h6>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        
+                        <!-- Active Dice -->
+                        <div class="mb-3">
+                            <small class="text-neon-blue">Aktivní kostky:</small>
+                            <div class="d-flex flex-wrap gap-2 mt-1">
+                                <button class="dice-button">1</button>
+                                <button class="dice-button">3</button>
+                                <button class="dice-button selected">5</button>
+                                <button class="dice-button">2</button>
+                                <button class="dice-button">6</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Saved Dice -->
+                        <div class="mb-3">
+                            <small class="text-neon-green">Uložené kostky:</small>
+                            <div class="d-flex flex-wrap gap-2 mt-1">
+                                <button class="dice-button selected">1</button>
+                                <button class="dice-button selected">1</button>
+                                <button class="dice-button selected">5</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="mt-auto">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <button class="btn btn-neon">
+                                    <i class="bi bi-dice-5"></i> Hodit znovu
+                                </button>
+                                <button class="btn btn-neon">
+                                    <i class="bi bi-check-circle"></i> Uložit body
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Chat Column - Mobile: Full width below, Desktop: 4 columns -->
+            <div class="col-12 col-lg-4 h-100 d-flex flex-column">
+                
+                <div class="card bg-transparent border-neon-purple h-100">
+                    <div class="card-header bg-transparent border-neon-purple">
+                        <h6 class="text-neon-purple mb-0">
+                            <i class="bi bi-chat-dots-fill"></i> AI Chat
+                        </h6>
+                    </div>
+                    <div class="card-body d-flex flex-column p-2">
+                        
+                        <!-- Chat Messages - Scrollable -->
+                        <div class="flex-fill overflow-auto mb-2" style="max-height: 300px;">
+                            
+                            <div class="chat-message">
+                                <strong class="text-neon-orange">Gemini:</strong>
+                                <div class="text-neon-green mt-1">
+                                    Dobře zahráno! Ty tři jedničky ti přinesly pěkné body. 
+                                    Budeš pokračovat nebo si body raději uložíš?
+                                </div>
+                            </div>
+                            
+                            <div class="chat-message">
+                                <strong class="text-neon-blue">Claude:</strong>
+                                <div class="text-neon-green mt-1">
+                                    Strategie je klíčová! S takovým skóre bych zvážil bezpečnou volbu.
+                                </div>
+                            </div>
+                            
+                            <div class="chat-message">
+                                <strong class="text-neon-red">ChatGPT:</strong>
+                                <div class="text-neon-green mt-1">
+                                    Riziko vs. odměna! Zajímavé dilema v této fázi hry.
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="mt-auto">
+                            <div class="input-group">
+                                <input type="text" class="form-control chat-input" placeholder="Napiš zprávu...">
+                                <button class="btn btn-neon" type="button">
+                                    <i class="bi bi-send"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Test Script -->
+    <script>
+        // Test mobile responsiveness
+        console.log('Screen size:', window.innerWidth + 'x' + window.innerHeight);
+        console.log('Device pixel ratio:', window.devicePixelRatio);
+        console.log('User agent:', navigator.userAgent);
+        
+        // Add click handlers for dice
+        document.querySelectorAll('.dice-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        // Test viewport
+        window.addEventListener('resize', function() {
+            console.log('Resize:', window.innerWidth + 'x' + window.innerHeight);
+        });
+        
+        // Test orientation
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                console.log('Orientation changed:', window.innerWidth + 'x' + window.innerHeight);
+            }, 100);
+        });
+    </script>
+</body>
+</html>
