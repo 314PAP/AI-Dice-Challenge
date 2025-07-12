@@ -341,10 +341,11 @@ export class AiPlayerController {
      */
     determineGamePhase(myScore, leadingScore, targetScore) {
         const maxScore = Math.max(myScore, leadingScore);
+        const progress = maxScore / targetScore;
         
-        if (maxScore < targetScore * 0.3) return 'early';   // < 3000 bodů
-        if (maxScore < targetScore * 0.7) return 'middle';  // 3000-7000 bodů
-        return 'late';                                       // > 7000 bodů
+        if (progress < 0.3) return 'early';   // < 30% cíle
+        if (progress < 0.7) return 'middle';  // 30-70% cíle
+        return 'late';                        // > 70% cíle
     }
 
     /**
@@ -357,15 +358,29 @@ export class AiPlayerController {
      */
     makeStrategicDecision(aiPlayer, strategy, bestDice, totalPoints) {
         const { riskTolerance, remainingDice, gamePhase } = strategy;
+        const state = gameState.getState();
+        const targetScore = state.targetScore || 10000;
         
-        // Základní bezpečnostní prahy podle fáze hry
+        // Bezpečnostní prahy jako procenta z cílového skóre
         const safeThresholds = {
-            early: { conservative: 300, moderate: 400, aggressive: 500 },
-            middle: { conservative: 400, moderate: 600, aggressive: 800 },
-            late: { conservative: 500, moderate: 800, aggressive: 1200 }
+            early: { 
+                conservative: Math.max(300, targetScore * 0.03), // 3% z cíle, min 300
+                moderate: Math.max(400, targetScore * 0.04),     // 4% z cíle, min 400  
+                aggressive: Math.max(500, targetScore * 0.05)    // 5% z cíle, min 500
+            },
+            middle: { 
+                conservative: Math.max(400, targetScore * 0.04), // 4% z cíle, min 400
+                moderate: Math.max(600, targetScore * 0.06),     // 6% z cíle, min 600
+                aggressive: Math.max(800, targetScore * 0.08)    // 8% z cíle, min 800
+            },
+            late: { 
+                conservative: Math.max(500, targetScore * 0.05), // 5% z cíle, min 500
+                moderate: Math.max(800, targetScore * 0.08),     // 8% z cíle, min 800
+                aggressive: Math.max(1200, targetScore * 0.12)   // 12% z cíle, min 1200
+            }
         };
         
-        const threshold = safeThresholds[gamePhase][riskTolerance];
+        const threshold = Math.floor(safeThresholds[gamePhase][riskTolerance]);
         
         // Pravděpodobnost FARKLE podle počtu kostek
         const farkleRisk = this.calculateFarkleRisk(remainingDice);
