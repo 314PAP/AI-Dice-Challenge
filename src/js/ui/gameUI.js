@@ -26,6 +26,7 @@ export class GameUI {
         this.gameArea = document.getElementById('gameArea');
         this.aiTurnInProgress = false; // Flag pro kontrolu AI tahu
         this.lastPlayerIndex = undefined; // Pro sledování změny hráče
+        this.lastRenderTime = 0; // Pro omezení renderování
         
         // Inicializace modulů
         this.gameRenderer = new GameRenderer();
@@ -65,6 +66,13 @@ export class GameUI {
             console.warn('⚠️ GameUI.renderUI: gameArea element není dostupný');
             return;
         }
+
+        // Omezení renderování během animace (max každých 500ms)
+        const now = Date.now();
+        if (state.isRolling && (now - this.lastRenderTime) < 500) {
+            return; // Přeskočíme render během rychlé animace
+        }
+        this.lastRenderTime = now;
 
         // Kontrola změny hráče - reset AI flagu
         if (this.lastPlayerIndex !== undefined && this.lastPlayerIndex !== state.currentPlayerIndex) {
@@ -118,9 +126,11 @@ export class GameUI {
         const gameContainer = this.gameRenderer.renderGameScreen(state, callbacks);
         
         if (gameContainer && this.gameArea) {
-            // VYČISTÍME kontejner před novým vykreslením
-            this.gameArea.innerHTML = '';
-            this.gameArea.appendChild(gameContainer);
+            // VYČISTÍME kontejner pouze pokud není animace
+            if (!state.isRolling) {
+                this.gameArea.innerHTML = '';
+                this.gameArea.appendChild(gameContainer);
+            }
             
             // Pokud je na tahu AI hráč, spustíme jeho automatický tah (pouze jednou)
             const currentPlayer = state.players[state.currentPlayerIndex];

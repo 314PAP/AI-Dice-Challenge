@@ -146,7 +146,9 @@ export class GameLogic {
         // Označíme, že zpracováváme farkle
         gameState.updateState({ isFarkleProcessing: true });
 
-        const farkleMsg = '💥 FARKLE!';
+        const state = gameState.getState();
+        const currentPlayer = state.players[state.currentPlayerIndex];
+        const farkleMsg = `💥 ${currentPlayer.name} FARKLE!`;
         console.warn(farkleMsg);
         chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
         
