@@ -24,20 +24,33 @@
 ### 🚨 KRITICKÁ PRAVIDLA (NIKDY NEPORUŠUJ!)
 
 **CSS & STYLING:**
+
 - ❌ **ZAKÁZÁNY inline styly** - `style="..."` NIKDY!
-- ❌ **ZAKÁZÁNO vlastní CSS** - pouze Bootstrap + naše neon-* třídy
+- ❌ **ZAKÁZÁNO vlastní CSS** - pouze Bootstrap + naše neon-\* třídy
 - ✅ **POUŽÍVEJ naše CSS třídy** z `src/styles/colors-bootstrap-simple.css`
 - ✅ **ANIMACE z knihoven** - preferuj CSS animace z existing knihoven
 
+**KOMPLEXNOST KÓDU:**
+
+- ❌ **MAX 3000 řádků JS** - pro hru kostek je 4652 řádků PŘÍLIŠ!
+- ✅ **POUŽÍVEJ JS knihovny** místo vlastního kódu (lodash, ramda, atd.)
+- ✅ **LOGICKÉ A JEDNODUCHÉ** - žádný 3D render, jen kostky!
+- ✅ **REFAKTORUJ** dlouhé funkce na kratší moduly
+
 **POSTUP PŘI KAŽDÉ ZMĚNĚ:**
+
 1. **ZKONTROLUJ** `dokumentybtrap/[component].md`
 2. **POUŽIJ** Bootstrap utility třídy
-3. **POKUD** Bootstrap nemá → použij naše neon-* třídy
+3. **POKUD** Bootstrap nemá → použij naše neon-\* třídy
 4. **JAKO POSLEDNÍ** → vlastní CSS (minimálně)
+5. **POUŽIJ KNIHOVNY** místo vlastních implementací
 
 **SAMOKONTROLA:**
+
 - Před každým commitom zkontroluj: "Používám inline styly?" → OPRAV
 - Před každou animací zkontroluj: "Existuje v CSS knihovně?" → POUŽIJ
+- Před psaním kódu zkontroluj: "Existuje knihovna pro toto?" → POUŽIJ
+- Po refaktoru zkontroluj: "Je kód kratší a jasnější?" → OPTIMALIZUJ
 
 ### ✅ CO FUNGUJE
 

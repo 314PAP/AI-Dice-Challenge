@@ -12,6 +12,8 @@
    [ ] Nepoužívám inline styly?
    [ ] Používám naše CSS třídy místo vlastních?
    [ ] Animace jsou z knihoven, ne vlastní CSS?
+   [ ] Existuje JS knihovna místo vlastního kódu?
+   [ ] Je kód logický a jednoduchý (max 3000 řádků)?
    
    Kompletní systém se PŘESNĚ 3 soubory:
    1. colors-bootstrap-simple.css - VŠECHNY barvy, tlačítka, chat

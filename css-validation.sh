@@ -41,7 +41,45 @@ else
     green "✅ Vlastní CSS soubory v pořádku"
 fi
 
-# 3. Kontrola použití z-index mimo povolené hodnoty
+# 3. Kontrola vlastních animací místo knihoven
+echo ""
+echo "3️⃣ Kontroluji vlastní animace (měly by být z knihoven)..."
+CUSTOM_ANIMATIONS=$(find src/ -name "*.css" -exec grep -n "@keyframes\|animation:" {} \; | grep -v "neon-spin\|dice-idle" 2>/dev/null)
+if [ ! -z "$CUSTOM_ANIMATIONS" ]; then
+    yellow "⚠️ NALEZENY VLASTNÍ ANIMACE (preferuj knihovny):"
+    echo "$CUSTOM_ANIMATIONS"
+    WARNINGS=$((WARNINGS + 1))
+else
+    green "✅ Animace jsou z povolených knihoven"
+fi
+
+# 4. Kontrola komplexnosti kódu (4652 řádků je MOC!)
+echo ""
+echo "4️⃣ Kontroluji komplexnost kódu..."
+JS_LINES=$(find src/ -name "*.js" | xargs wc -l | tail -1 | awk '{print $1}')
+if [ "$JS_LINES" -gt 3000 ]; then
+    red "❌ PŘÍLIŠ MNOHO ŘÁDKŮ JS: $JS_LINES (max 3000 pro hru kostek!)"
+    ERRORS=$((ERRORS + 1))
+elif [ "$JS_LINES" -gt 2000 ]; then
+    yellow "⚠️ Mnoho řádků JS: $JS_LINES (mělo by být méně pro jednoduchou hru)"
+    WARNINGS=$((WARNINGS + 1))
+else
+    green "✅ Počet řádků JS v pořádku: $JS_LINES"
+fi
+
+# 5. Kontrola JS knihoven (měly by být použity místo vlastního kódu)
+echo ""
+echo "5️⃣ Kontroluji použití JS knihoven..."
+DEPENDENCIES=$(grep -c '"dependencies"' package.json 2>/dev/null || echo "0")
+DEV_DEPS=$(grep -c '"devDependencies"' package.json 2>/dev/null || echo "0")
+if [ "$DEPENDENCIES" -eq 0 ] && [ "$JS_LINES" -gt 2000 ]; then
+    yellow "⚠️ Žádné runtime dependencies, ale $JS_LINES řádků - použij knihovny!"
+    WARNINGS=$((WARNINGS + 1))
+else
+    green "✅ Knihovny jsou použity nebo kód je krátký"
+fi
+
+# 6. Kontrola použití z-index mimo povolené hodnoty
 echo ""
 echo "3️⃣ Kontroluji z-index hodnoty..."
 CUSTOM_ZINDEX=$(find src/ -name "*.css" -exec grep -n "z-index:" {} \; | grep -v "z-index: 1050\|z-index: 1000\|z-index: 1070\|z-index: 1055\|z-index: 9999" 2>/dev/null)
@@ -53,9 +91,21 @@ else
     green "✅ Z-index hodnoty v pořádku"
 fi
 
-# 4. Kontrola Bootstrap dokumentace usage
+# 6. Kontrola použití z-index mimo povolené hodnoty
 echo ""
-echo "4️⃣ Kontroluji odkazy na Bootstrap dokumentaci..."
+echo "6️⃣ Kontroluji z-index hodnoty..."
+CUSTOM_ZINDEX=$(find src/ -name "*.css" -exec grep -n "z-index:" {} \; | grep -v "z-index: 1050\|z-index: 1000\|z-index: 1070\|z-index: 1055\|z-index: 9999" 2>/dev/null)
+if [ ! -z "$CUSTOM_ZINDEX" ]; then
+    yellow "⚠️ NALEZENY NEPOVOLENÉ Z-INDEX HODNOTY:"
+    echo "$CUSTOM_ZINDEX"
+    WARNINGS=$((WARNINGS + 1))
+else
+    green "✅ Z-index hodnoty v pořádku"
+fi
+
+# 7. Kontrola Bootstrap dokumentace usage
+echo ""
+echo "7️⃣ Kontroluji odkazy na Bootstrap dokumentaci..."
 DOC_COMMENTS=$(grep -r "dokumentybtrap" src/ 2>/dev/null | wc -l)
 if [ "$DOC_COMMENTS" -lt 1 ]; then
     yellow "⚠️ Málo odkazů na Bootstrap dokumentaci v kódu"
