@@ -187,7 +187,7 @@ export class GameLogic {
      * PŘESUNUTO Z gameUI.js
      */
     saveDice() {
-        console.log('💾 SAVE DEBUG - saveDice() zavolána, call count:', (this.saveCount = (this.saveCount || 0) + 1));
+        console.log('💾 GameLogic: saveDice() zavolána');
         const state = gameState.getState();
         
         if (!state.selectedDice || state.selectedDice.length === 0) {
@@ -286,8 +286,6 @@ export class GameLogic {
             });
         } else if (remainingDice.length > 0) {
             // ODSTRANĚNO: Zpráva o zbývajících kostkách - zbytečná
-            
-            console.log(`🔄 SAVE DEBUG - Aktualizuji stav: savedDice: [${newSavedDice.join(',')}], selectedDice: [], currentRoll: [${remainingDice.join(',')}]`);
             
             gameState.updateState({ 
                 savedDice: newSavedDice,

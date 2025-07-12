@@ -58,8 +58,6 @@ export class GameUI {
      * @param {Object} state - Aktuální herní stav
      */
     renderUI(state) {
-        console.log('🔄 RENDER DEBUG - renderUI volán. gamePhase:', state.gamePhase, 'render count:', (this.renderCount = (this.renderCount || 0) + 1));
-        
         if (!this.gameArea) {
             console.warn('⚠️ GameUI.renderUI: gameArea element není dostupný');
             return;
@@ -127,7 +125,7 @@ export class GameUI {
      * @param {number} index - Index kostky
      */
     toggleDiceSelection(index) {
-        console.log('🎯 TOGGLE DEBUG - toggleDiceSelection volán s indexem:', index, 'call count:', (this.toggleCount = (this.toggleCount || 0) + 1));
+        console.log('🎯 GameUI: toggleDiceSelection volán s indexem:', index);
         const state = gameState.getState();
         let selectedDice = [...(state.selectedDice || [])];
         

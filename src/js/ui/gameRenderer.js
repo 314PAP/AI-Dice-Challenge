@@ -190,8 +190,6 @@ export class GameRenderer {
         const canRoll = !state.isRolling && 
                        (!state.selectedDice || state.selectedDice.length === 0); // Můžeme hodit pokud nejsou vybrané kostky
         
-        console.log(`🔘 BUTTON DEBUG - canRoll: ${canRoll} | isRolling: ${state.isRolling} | selectedDice: [${state.selectedDice?.join(',')}] | currentRoll: [${state.currentRoll?.join(',')}]`);
-        
         // 1. Tlačítko HODIT
         const rollBtn = createNeonButton(
             'HODIT', 
@@ -205,14 +203,16 @@ export class GameRenderer {
             rollBtn.disabled = true;
             rollBtn.style.opacity = '0.3';
             rollBtn.title = 'AI hraje automaticky';
-        } else if (state.isRolling) {
+        } else if (!canRoll) {
             rollBtn.disabled = true;
             rollBtn.style.opacity = '0.5';
-            rollBtn.title = 'Probíhá házení...';
-        } else if (state.currentRoll && state.currentRoll.length > 0) {
-            rollBtn.disabled = true;
-            rollBtn.style.opacity = '0.5';
-            rollBtn.title = 'Nejprve odložte kostky nebo ukončete tah';
+            if (state.isRolling) {
+                rollBtn.title = 'Probíhá házení...';
+            } else if (state.selectedDice && state.selectedDice.length > 0) {
+                rollBtn.title = 'Nejprve odložte vybrané kostky';
+            } else {
+                rollBtn.title = 'Nelze hodit';
+            }
         } else {
             rollBtn.disabled = false;
             rollBtn.style.opacity = '1';
