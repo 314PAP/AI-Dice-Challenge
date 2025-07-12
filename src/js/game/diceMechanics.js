@@ -99,18 +99,36 @@ export const countDiceValues = (dice) => {
  * @returns {boolean} True pokud hod obsahuje bodovanou kombinaci
  */
 export const hasScoringDice = (dice) => {
-    if (!dice || !dice.length) return false;
+    console.log(`🎲 hasScoringDice() volána s kostkami:`, dice);
+    
+    if (!dice || !dice.length) {
+        console.log(`❌ Žádné kostky nebo prázdný array`);
+        return false;
+    }
     
     const counts = countDiceValues(dice);
+    console.log(`🔢 Počty hodnot:`, counts);
     
     // Kontrola na tři a více stejných kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
-        if (counts[value] >= 3) return true;
+        if (counts[value] >= 3) {
+            console.log(`✅ Nalezeny 3+ kostky hodnoty ${value}: ${counts[value]}x`);
+            return true;
+        }
     }
     
     // Kontrola na jedničky a pětky
-    if (counts[DICE_CONSTANTS.MIN_VALUE] > 0 || counts[5] > 0) return true;
+    if (counts[DICE_CONSTANTS.MIN_VALUE] > 0) {
+        console.log(`✅ Nalezeny jedničky: ${counts[DICE_CONSTANTS.MIN_VALUE]}x`);
+        return true;
+    }
     
+    if (counts[5] > 0) {
+        console.log(`✅ Nalezeny pětky: ${counts[5]}x`);
+        return true;
+    }
+    
+    console.log(`❌ Žádné bodující kostky nenalezeny`);
     return false;
 };
 
