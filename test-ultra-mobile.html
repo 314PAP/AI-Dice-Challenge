@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🎲 AI Dice - Ultra Mobile</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --neon-green: #39ff14;
+            --neon-blue: #194dd1;
+            --neon-purple: #ff00ff;
+            --neon-orange: #ff8800;
+            --neon-red: #ff3131;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: var(--neon-green);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-size: 14px;
+        }
+        
+        /* Mobile-first utility classes */
+        .text-neon-green { color: var(--neon-green) !important; }
+        .text-neon-blue { color: var(--neon-blue) !important; }
+        .text-neon-purple { color: var(--neon-purple) !important; }
+        .text-neon-orange { color: var(--neon-orange) !important; }
+        .text-neon-red { color: var(--neon-red) !important; }
+        
+        .border-neon-green { border-color: var(--neon-green) !important; }
+        .border-neon-blue { border-color: var(--neon-blue) !important; }
+        .border-neon-purple { border-color: var(--neon-purple) !important; }
+        
+        /* Mobile-optimized buttons */
+        .btn-mobile {
+            border: 1px solid var(--neon-green);
+            background: transparent;
+            color: var(--neon-green);
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+            min-height: 44px; /* Apple recommendation for touch targets */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        
+        .btn-mobile:hover, .btn-mobile:active {
+            background: var(--neon-green);
+            color: #000;
+        }
+        
+        /* Mobile dice buttons */
+        .dice-mobile {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--neon-green);
+            background: transparent;
+            color: var(--neon-green);
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2px;
+        }
+        
+        .dice-mobile:hover, .dice-mobile:active, .dice-mobile.selected {
+            background: var(--neon-green);
+            color: #000;
+        }
+        
+        /* Mobile card styling */
+        .card-mobile {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+        
+        .card-mobile .card-header {
+            background: transparent;
+            border-bottom: 1px solid var(--neon-blue);
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .card-mobile .card-body {
+            padding: 12px;
+        }
+        
+        /* Mobile chat */
+        .chat-mobile {
+            height: 200px;
+            overflow-y: auto;
+            padding: 8px;
+            border: 1px solid var(--neon-purple);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        
+        .chat-message-mobile {
+            margin-bottom: 8px;
+            padding: 6px;
+            border-left: 2px solid var(--neon-blue);
+            padding-left: 8px;
+        }
+        
+        .chat-input-mobile {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-green);
+            padding: 8px;
+            font-size: 12px;
+            border-radius: 4px;
+            min-height: 44px;
+        }
+        
+        .chat-input-mobile:focus {
+            outline: none;
+            border-color: var(--neon-green);
+            box-shadow: 0 0 5px var(--neon-green);
+        }
+        
+        /* Ultra mobile - velmi malé telefony */
+        @media (max-width: 320px) {
+            body { font-size: 12px; }
+            .dice-mobile { width: 38px; height: 38px; font-size: 14px; }
+            .btn-mobile { padding: 6px 12px; font-size: 11px; }
+            .chat-mobile { height: 150px; }
+        }
+        
+        /* Landscape optimizations */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .chat-mobile { height: 120px; }
+            .card-mobile { margin-bottom: 8px; }
+            .card-mobile .card-body { padding: 8px; }
+        }
+        
+        /* Hover effects only on non-touch devices */
+        @media (hover: hover) {
+            .btn-mobile:hover {
+                box-shadow: 0 0 10px var(--neon-green);
+            }
+            .dice-mobile:hover {
+                box-shadow: 0 0 8px var(--neon-green);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Mobile-optimized container -->
+    <div class="container-fluid p-2" style="min-height: 100vh;">
+        
+        <!-- Header - kompaktní -->
+        <div class="row mb-2">
+            <div class="col-12 text-center">
+                <h5 class="text-neon-green mb-1">
+                    🎲 AI Dice Challenge
+                </h5>
+                <small class="text-neon-blue">Ultra Mobile Test</small>
+            </div>
+        </div>
+        
+        <!-- Game Status Bar -->
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="card-mobile">
+                    <div class="card-body p-2">
+                        <div class="row text-center">
+                            <div class="col-3">
+                                <small class="text-neon-blue d-block">Skóre</small>
+                                <strong class="text-neon-green" style="font-size: 13px;">12,500</strong>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-neon-blue d-block">Tah</small>
+                                <strong class="text-neon-orange" style="font-size: 13px;">3/6</strong>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-neon-blue d-block">Hráč</small>
+                                <strong class="text-neon-purple" style="font-size: 13px;">Tobias</strong>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-neon-blue d-block">Body</small>
+                                <strong class="text-neon-yellow" style="font-size: 13px;">+800</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main content - stacked on mobile -->
+        <div class="row">
+            
+            <!-- Dice Area -->
+            <div class="col-12 order-1">
+                <div class="card-mobile">
+                    <div class="card-header text-neon-blue">
+                        <i class="bi bi-dice-3-fill"></i> Kostky
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Active Dice -->
+                        <div class="mb-3">
+                            <small class="text-neon-blue d-block mb-2">Aktivní kostky:</small>
+                            <div class="d-flex flex-wrap justify-content-center gap-1">
+                                <button class="dice-mobile" data-value="1">1</button>
+                                <button class="dice-mobile" data-value="3">3</button>
+                                <button class="dice-mobile selected" data-value="5">5</button>
+                                <button class="dice-mobile" data-value="2">2</button>
+                                <button class="dice-mobile" data-value="6">6</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Saved Dice -->
+                        <div class="mb-3">
+                            <small class="text-neon-green d-block mb-2">Uložené kostky (800 bodů):</small>
+                            <div class="d-flex flex-wrap justify-content-center gap-1">
+                                <button class="dice-mobile selected" data-value="1">1</button>
+                                <button class="dice-mobile selected" data-value="1">1</button>
+                                <button class="dice-mobile selected" data-value="5">5</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2">
+                            <button class="btn-mobile">
+                                <i class="bi bi-dice-5"></i> Hodit znovu (2 kostky)
+                            </button>
+                            <button class="btn-mobile" style="border-color: var(--neon-orange); color: var(--neon-orange);">
+                                <i class="bi bi-check-circle"></i> Uložit body (800)
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Area -->
+            <div class="col-12 order-2">
+                <div class="card-mobile">
+                    <div class="card-header text-neon-purple">
+                        <i class="bi bi-chat-dots-fill"></i> AI Chat
+                    </div>
+                    <div class="card-body">
+                        
+                        <!-- Chat Messages -->
+                        <div class="chat-mobile">
+                            <div class="chat-message-mobile">
+                                <strong class="text-neon-orange">Gemini:</strong>
+                                <span class="text-neon-green"> Tři jedničky! Skvělý začátek, 800 bodů je slušná jistota.</span>
+                            </div>
+                            <div class="chat-message-mobile">
+                                <strong class="text-neon-blue">Claude:</strong>
+                                <span class="text-neon-green"> S 2 kostkami můžeš risknout. Šance na další body je rozumná.</span>
+                            </div>
+                            <div class="chat-message-mobile">
+                                <strong class="text-neon-red">ChatGPT:</strong>
+                                <span class="text-neon-green"> Bezpečná hra nebo risiko? Rozhodnutí je na tobě!</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Chat Input -->
+                        <div class="d-flex gap-2">
+                            <input type="text" class="chat-input-mobile flex-fill" placeholder="Tvoje zpráva...">
+                            <button class="btn-mobile" style="min-width: 50px;">
+                                <i class="bi bi-send"></i>
+                            </button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Bottom spacer for mobile browsers -->
+        <div style="height: 20px;"></div>
+        
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Mobile-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Prevent zoom on double tap
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function (event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // Handle dice selection
+            document.querySelectorAll('.dice-mobile').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.classList.toggle('selected');
+                    
+                    // Haptic feedback on supported devices
+                    if (navigator.vibrate) {
+                        navigator.vibrate(50);
+                    }
+                });
+                
+                // Touch feedback
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Auto-scroll chat to bottom
+            const chatContainer = document.querySelector('.chat-mobile');
+            if (chatContainer) {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            // Debug info
+            console.log('Mobile test loaded');
+            console.log('Screen:', window.innerWidth + 'x' + window.innerHeight);
+            console.log('Device pixel ratio:', window.devicePixelRatio);
+            console.log('Touch support:', 'ontouchstart' in window);
+            
+            // Handle orientation changes
+            window.addEventListener('orientationchange', function() {
+                setTimeout(() => {
+                    console.log('Orientation changed to:', window.innerWidth + 'x' + window.innerHeight);
+                }, 100);
+            });
+            
+        });
+    </script>
+</body>
+</html>

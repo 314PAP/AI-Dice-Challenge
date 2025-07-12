@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="cs" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 AI Dice Challenge - Neonová kostková výzva</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>" type="image/svg+xml">
+    
+    <!-- Inline neonové styly s nejvyšší prioritou pro chat spinner a scrollbar -->
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>��</text></svg>" type="image/svg+xml">
+    
+
+    
+    <!-- Inline styly - POUZE fallback bez barev pro případ vypnutého colors-bootstrap.css -->
+
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- POSTUPNÉ ZAPÍNÁNÍ EXTERNÍCH CSS KNIHOVEN - KROK 5: Animate.css -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    
+    <!-- SweetAlert2 pro notifikace -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
+    
+    <!-- ✅ ZAPÍNÁM POSTUPNĚ - NYNÍ POUZE BARVY -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+    
+    <!-- Základní utility styly pro test -->
+    <style>
+        .z-index-top { z-index: 9999; }
+        .min-h-0 { min-height: 0; }
+    </style>
+</head>
+<body class="h-100">
+    
+    <!-- Loading Screen s neonovým designem -->
+    <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center z-index-top">
+        <div class="text-center">
+            <!-- Neonový spinner -->
+            <div class="spinner-border text-neon-green mb-3" role="status" style="width: 4rem; height: 4rem; border-width: 0.3rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h3 class="text-neon-green">
+                <i class="bi bi-dice-6-fill"></i> AI Dice Challenge
+            </h3>
+            <p class="text-neon-blue mt-2">Načítání neonové výzvy...</p>
+        </div>
+    </div>
+    
+    <!-- Main Application Container - Responsive Flexbox Layout -->
+    <div id="app" class="container-fluid d-flex flex-column p-3 p-md-4 d-none vh-100 overflow-hidden animate__animated animate__fadeIn">
+        <!-- MOBIL: Vertikální layout, DESKTOP: Horizontální layout -->
+        <div class="d-flex flex-column flex-sm-row g-0 flex-fill h-100 overflow-hidden mx-1 mx-md-2">
+            
+            <!-- Game Area Column - MOBIL: horní část, DESKTOP: levá část -->
+            <div class="col-12 col-sm-8 d-flex flex-column p-1 overflow-hidden mobile-game-area">
+                <div class="flex-fill bg-black border-neon-green border rounded p-3 d-flex flex-column overflow-hidden h-100">
+                    
+                    <!-- Game Header -->
+                    <div class="text-center mb-2">
+                        <h5 class="text-neon-green"><i class="bi bi-dice-6-fill"></i> AI Kostková Výzva</h5>
+                    </div>
+                    
+                    <!-- Game Content - Responsive and Scrollable -->
+                    <div id="gameArea" class="flex-fill overflow-auto bg-black border-neon-green border p-2 rounded min-h-0">
+                        <p>Game content area - scrollable</p>
+                        <p>Tady bude herní obsah...</p>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Chat Area Column - MOBIL: spodní část, DESKTOP: pravá část -->
+            <div class="col-12 col-sm-4 d-flex flex-column p-1 overflow-hidden mobile-chat-area">
+                <div class="flex-fill bg-black border-neon-green border rounded p-3 d-flex flex-column overflow-hidden h-100">
+                    
+                    <!-- Chat Header -->
+                    <div class="text-center mb-2">
+                        <h6 class="text-neon-green"><i class="bi bi-chat-dots-fill"></i> AI Chat</h6>
+                    </div>
+                    
+                    <!-- Chat Messages - Scrollable area -->
+                    <div id="chatMessages" class="flex-grow-1 bg-black border-neon-green border rounded overflow-auto min-h-0">
+                        <!-- Loader -->
+                        <div class="d-flex flex-column align-items-center justify-content-center h-100 p-3">
+                            <div class="spinner-border" role="status" id="chatSpinner">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="text-center text-neon-green">Inicializace AI...</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="mt-2">
+                        <div class="input-group">
+                            <input type="text" id="chatInput" 
+                                   class="form-control bg-black border-neon-green" 
+                                   placeholder="Zpráva AI..." 
+                                   autocomplete="off">
+                            <button id="sendChatBtn" class="btn btn-neon" data-neon-color="green">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- POSTUPNÉ ZAPÍNÁNÍ JS KNIHOVEN - KROK 6: HLAVNÍ APLIKACE -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    
+    <!-- Main Application - Modular Structure -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

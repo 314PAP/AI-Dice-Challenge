@@ -1,20 +1,11 @@
 /* ===================================================================
-   FINÁLNÍ CSS - POUZE 3 SOUBORY
+   MOBILE-FIRST CSS - POUZE UTILITY ROZŠÍŘENÍ
    
-   Kompletní systém se PŘESNĚ 3 soubory:
-   1. colors-bootstrap-simple.css - VŠECHNY barvy, tlačítka, chat
-   2. responsive-bootstrap.css - VŠECHNY velikosti a responzivita
-   3. bootstrap-responsive-utils.css - Bootstrap utility rozšíření
+   Hlavní styly jsou nyní inline v index.html pro lepší mobilní výkon.
+   Tento soubor obsahuje pouze utility rozšíření k Bootstrapu.
    ================================================================= */
 
-/* ZJEDNODUŠENÝ SOUBOR PRO VŠECHNY BARVY */
-@import './colors-bootstrap-simple.css';
-
-/* JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI A RESPONZIVITU */
-@import './responsive-bootstrap.css';
-
-/* BOOTSTRAP RESPONSIVE UTILITY ROZŠÍŘENÍ */
-@import './bootstrap-responsive-utils.css';
+/* POUZE utility rozšíření pro Bootstrap - CSS je nyní inline v HTML */
 
 /* Z-index proměnné - Bootstrap nedefinuje tyto specifické hodnoty */
 :root {
