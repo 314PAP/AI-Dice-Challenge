@@ -196,7 +196,12 @@ export class AiPlayerController {
         const selectedValues = decision.diceToSave.map(i => currentState.currentRoll[i]);
         const points = calculatePoints(selectedValues);
         
-        chatSystem.addAiMessage(aiPlayer.name, `Odkládám kostky [${selectedValues.join(', ')}] za ${points} bodů! 💎`);
+        // Speciální zpráva pro HOT DICE (všechny kostky odloženy)
+        if (decision.diceToSave.length === currentState.currentRoll.length) {
+            chatSystem.addAiMessage(aiPlayer.name, `🔥 HOT DICE! Odložím všechny kostky [${selectedValues.join(', ')}] za ${points} bodů! Házím znovu se všemi kostkami! 🎲🔥`);
+        } else {
+            chatSystem.addAiMessage(aiPlayer.name, `Odkládám kostky [${selectedValues.join(', ')}] za ${points} bodů! 💎`);
+        }
         
         this.gameLogic.saveDice();
         await this.delay(1000);
@@ -269,10 +274,17 @@ export class AiPlayerController {
         
         console.log(`🤖 AI ${aiPlayer.name} analýza:`, strategy);
         
-        // DŮLEŽITÉ: Pokud je to první zápis a nemáme dost bodů, MUSÍME pokračovat
-        if (aiPlayer.score === 0 && totalPoints < 300) {
-            chatSystem.addAiMessage(aiPlayer.name, `Potřebuji ještě ${300 - totalPoints} bodů pro první zápis! 🎯`);
-            return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
+        // DŮLEŽITÉ: Logika prvního zápisu
+        if (aiPlayer.score === 0) {
+            if (totalPoints < 300) {
+                // Nemáme dost bodů pro první zápis - MUSÍME pokračovat
+                chatSystem.addAiMessage(aiPlayer.name, `Potřebuji ještě ${300 - totalPoints} bodů pro první zápis! 🎯`);
+                return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
+            } else {
+                // MÁ DOST BODŮ pro první zápis - ukončit tah!
+                chatSystem.addAiMessage(aiPlayer.name, `Mám ${totalPoints} bodů - dosáhl jsem prvního zápisu! ✅`);
+                return { action: 'save', diceToSave: bestDice, nextAction: 'endTurn' };
+            }
         }
         
         // Rozhodujeme podle strategie a rizika
@@ -525,7 +537,48 @@ export class AiPlayerController {
         
         if (combinations.length === 0) return [];
         
-        // Seřadíme kombinace podle hodnoty bodů na kostku
+        // PRIORITA 1: HOT DICE - pokud můžeme odložit VŠECHNY kostky, uděláme to!
+        const allDiceIndices = dice.map((_, index) => index);
+        const allDicePoints = calculatePoints(dice);
+        
+        if (allDicePoints > 0) {
+            // Zkontrolujeme, zda všechny kostky jsou bodující
+            let allDiceAreScoring = true;
+            const usedInCombos = new Set();
+            
+            // Seřadíme kombinace podle priority (největší kombinace první)
+            const sortedCombos = [...combinations].sort((a, b) => {
+                // Priorita: větší kombinace (více kostek) před menšími
+                if (a.indices.length !== b.indices.length) {
+                    return b.indices.length - a.indices.length;
+                }
+                // Při stejném počtu kostek, vyšší body
+                return b.points - a.points;
+            });
+            
+            // Pokusíme se pokrýt všechny kostky kombinacemi
+            for (const combo of sortedCombos) {
+                let canUseCombo = true;
+                for (const index of combo.indices) {
+                    if (usedInCombos.has(index)) {
+                        canUseCombo = false;
+                        break;
+                    }
+                }
+                if (canUseCombo) {
+                    combo.indices.forEach(index => usedInCombos.add(index));
+                }
+            }
+            
+            // Pokud jsme pokryli všechny kostky, máme HOT DICE!
+            if (usedInCombos.size === dice.length) {
+                console.log(`🔥 AI detekoval HOT DICE! Všechny kostky jsou bodující:`, dice);
+                console.log(`🔥 Odložím všechny kostky za ${allDicePoints} bodů pro HOT DICE bonus!`);
+                return allDiceIndices; // Vrátíme všechny kostky!
+            }
+        }
+        
+        // PRIORITA 2: Pokud ne HOT DICE, vybereme nejlepší kombinaci podle bodů na kostku
         combinations.sort((a, b) => {
             const aPointsPerDie = a.points / a.indices.length;
             const bPointsPerDie = b.points / b.indices.length;
@@ -543,7 +596,6 @@ export class AiPlayerController {
      */
     findAllValidCombinations(dice) {
         const combinations = [];
-        const used = new Array(dice.length).fill(false);
         
         // Najdeme všechny stejné hodnoty a jejich počty
         const counts = {};
@@ -552,48 +604,41 @@ export class AiPlayerController {
             counts[die].push(index);
         });
         
-        // Kontrolujeme trojice a více (2,3,4,6)
-        for (const value of [2, 3, 4, 6]) {
+        // PRIORITA 1: Kontrolujeme trojice a více (všechny hodnoty 1-6)
+        for (const value of [1, 2, 3, 4, 5, 6]) {
             if (counts[value] && counts[value].length >= 3) {
                 const points = this.calculateMultiplePoints(value, counts[value].length);
                 combinations.push({
                     points: points,
                     indices: [...counts[value]],
-                    type: `${counts[value].length}x${value}`
+                    type: `${counts[value].length}x${value}`,
+                    priority: 'multiple' // Vysoká priorita pro vícenásobné
                 });
             }
         }
         
-        // Kontrolujeme trojice a více jedniček (speciální pravidlo)
-        if (counts[1] && counts[1].length >= 3) {
-            const points = this.calculateMultiplePoints(1, counts[1].length);
-            combinations.push({
-                points: points,
-                indices: [...counts[1]],
-                type: `${counts[1].length}x1`
+        // PRIORITA 2: Jednotlivé jedničky (100 bodů) - pouze pokud není trojice
+        if (counts[1] && counts[1].length < 3) {
+            counts[1].forEach(index => {
+                combinations.push({
+                    points: 100,
+                    indices: [index],
+                    type: '1x1',
+                    priority: 'single'
+                });
             });
         }
         
-        // Jednotlivé jedničky (100 bodů)
-        if (counts[1]) {
-            for (let i = 0; i < Math.min(counts[1].length, 2); i++) { // Max 2 jednotlivé
-                combinations.push({
-                    points: 100,
-                    indices: [counts[1][i]],
-                    type: '1x1'
-                });
-            }
-        }
-        
-        // Jednotlivé pětky (50 bodů)
-        if (counts[5]) {
-            for (let i = 0; i < Math.min(counts[5].length, 2); i++) { // Max 2 jednotlivé
+        // PRIORITA 3: Jednotlivé pětky (50 bodů) - pouze pokud není trojice
+        if (counts[5] && counts[5].length < 3) {
+            counts[5].forEach(index => {
                 combinations.push({
                     points: 50,
-                    indices: [counts[5][i]],
-                    type: '1x5'
+                    indices: [index],
+                    type: '1x5',
+                    priority: 'single'
                 });
-            }
+            });
         }
         
         return combinations.filter(combo => combo.points > 0);
