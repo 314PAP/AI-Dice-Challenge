@@ -2,11 +2,21 @@
 <html lang="cs" class="h-100">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎲 AI Dice Challenge - Neonová kostková výzva</title>
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>" type="image/svg+xml">
+    
+    <!-- Inline neonové styly s nejvyšší prioritou pro chat spinner a scrollbar -->
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>��</text></svg>" type="image/svg+xml">
+    
+
+    
+    <!-- Inline styly - POUZE fallback bez barev pro případ vypnutého colors-bootstrap.css -->
+
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -14,6 +24,7 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     
+    <!-- POSTUPNÉ ZAPÍNÁNÍ EXTERNÍCH CSS KNIHOVEN - KROK 5: Animate.css -->
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     
@@ -23,173 +34,13 @@
     <!-- SweetAlert2 pro notifikace -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
     
-    <!-- MOBILE-OPTIMIZED CSS -->
+    <!-- ✅ ZAPÍNÁM POSTUPNĚ - NYNÍ POUZE BARVY -->
+    <link rel="stylesheet" href="/src/styles/main.css">
+    
+    <!-- Základní utility styly pro test -->
     <style>
-        :root {
-            --neon-green: #39ff14;
-            --neon-blue: #194dd1;
-            --neon-purple: #ff00ff;
-            --neon-orange: #ff8800;
-            --neon-red: #ff3131;
-            --neon-yellow: #ffff00;
-        }
-        
-        * {
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Orbitron', monospace;
-            background: #000;
-            color: var(--neon-green);
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            min-height: 100vh;
-            font-size: 14px;
-        }
-        
-        /* Neonové barvy */
-        .text-neon-green { color: var(--neon-green) !important; }
-        .text-neon-blue { color: var(--neon-blue) !important; }
-        .text-neon-purple { color: var(--neon-purple) !important; }
-        .text-neon-orange { color: var(--neon-orange) !important; }
-        .text-neon-red { color: var(--neon-red) !important; }
-        .text-neon-yellow { color: var(--neon-yellow) !important; }
-        
-        .border-neon-green { border-color: var(--neon-green) !important; }
-        .border-neon-blue { border-color: var(--neon-blue) !important; }
-        .border-neon-purple { border-color: var(--neon-purple) !important; }
-        .border-neon-orange { border-color: var(--neon-orange) !important; }
-        .border-neon-red { border-color: var(--neon-red) !important; }
-        .border-neon-yellow { border-color: var(--neon-yellow) !important; }
-        
-        /* Mobile-optimized buttons */
-        .btn-neon {
-            border: 2px solid var(--neon-green);
-            background: transparent;
-            color: var(--neon-green);
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 6px;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-neon:hover, .btn-neon:active, .btn-neon:focus {
-            background: var(--neon-green);
-            color: #000;
-            border-color: var(--neon-green);
-        }
-        
-        .btn-neon[data-neon-color="blue"] {
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
-        }
-        
-        .btn-neon[data-neon-color="blue"]:hover {
-            background: var(--neon-blue);
-            color: #000;
-        }
-        
-        .btn-neon[data-neon-color="orange"] {
-            border-color: var(--neon-orange);
-            color: var(--neon-orange);
-        }
-        
-        .btn-neon[data-neon-color="orange"]:hover {
-            background: var(--neon-orange);
-            color: #000;
-        }
-        
-        /* Loading screen */
-        #loadingScreen {
-            z-index: 9999;
-        }
-        
-        .spinner-border {
-            color: var(--neon-green);
-        }
-        
-        /* Chat styling */
-        .form-control {
-            background: transparent;
-            border: 2px solid var(--neon-blue);
-            color: var(--neon-green);
-            border-radius: 6px;
-            min-height: 44px;
-        }
-        
-        .form-control:focus {
-            background: transparent;
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
-        }
-        
-        .form-control::placeholder {
-            color: rgba(57, 255, 20, 0.5);
-        }
-        
-        /* Mobile optimizations */
-        @media (max-width: 576px) {
-            body { font-size: 13px; }
-            .btn-neon { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
-            h5 { font-size: 1.1rem; }
-            h6 { font-size: 1rem; }
-        }
-        
-        @media (max-width: 320px) {
-            body { font-size: 12px; }
-            .btn-neon { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
-        }
-        
-        /* Landscape mobile optimization */
-        @media (orientation: landscape) and (max-height: 500px) {
-            body { font-size: 12px; }
-            .container-fluid { padding: 0.5rem !important; }
-        }
-        
-        /* Touch device optimizations */
-        @media (hover: none) and (pointer: coarse) {
-            .btn-neon:active {
-                transform: scale(0.95);
-            }
-        }
-        
-        /* Hover effects only on devices that support hover */
-        @media (hover: hover) {
-            .btn-neon:hover {
-                box-shadow: 0 0 15px currentColor;
-            }
-        }
-        
-        /* Z-index utilities */
         .z-index-top { z-index: 9999; }
-        
-        /* Custom scrollbar for webkit browsers */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #000;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--neon-green);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--neon-blue);
-        }
+        .min-h-0 { min-height: 0; }
     </style>
 </head>
 <body class="h-100">
@@ -208,72 +59,54 @@
         </div>
     </div>
     
-    <!-- Main Application Container - Mobile-First Design -->
-    <div id="app" class="container-fluid h-100 d-none animate__animated animate__fadeIn" style="padding: 0.75rem;">
-        
-        <!-- Game content - Mobile stacked layout -->
-        <div class="row h-100 g-2">
+    <!-- Main Application Container - Responsive Flexbox Layout -->
+    <div id="app" class="container-fluid d-flex flex-column p-3 p-md-4 d-none vh-100 overflow-hidden animate__animated animate__fadeIn">
+        <!-- MOBIL: Vertikální layout, DESKTOP: Horizontální layout -->
+        <div class="d-flex flex-column flex-sm-row g-0 flex-fill h-100 overflow-hidden mx-1 mx-md-2">
             
-            <!-- Game Area - Full width on mobile, 8 columns on desktop -->
-            <div class="col-12 col-lg-8 h-100 d-flex flex-column">
-                
-                <div class="bg-black border border-neon-green rounded p-3 h-100 d-flex flex-column">
+            <!-- Game Area Column - MOBIL: horní část, DESKTOP: levá část -->
+            <div class="col-12 col-sm-8 d-flex flex-column p-1 overflow-hidden mobile-game-area">
+                <div class="flex-fill bg-black border-neon-green border rounded p-3 d-flex flex-column overflow-hidden h-100">
                     
                     <!-- Game Header -->
-                    <div class="text-center mb-3">
-                        <h5 class="text-neon-green mb-0">
-                            <i class="bi bi-dice-6-fill"></i> AI Kostková Výzva
-                        </h5>
+                    <div class="text-center mb-2">
+                        <h5 class="text-neon-green"><i class="bi bi-dice-6-fill"></i> AI Kostková Výzva</h5>
                     </div>
                     
-                    <!-- Game Content - Scrollable -->
-                    <div id="gameArea" class="flex-fill overflow-auto bg-black border border-neon-green rounded p-3">
-                        <div class="text-center">
-                            <p class="text-neon-blue">Game content area - scrollable</p>
-                            <p class="text-neon-green">Tady bude herní obsah...</p>
-                            <div class="mt-4">
-                                <button class="btn btn-neon me-2" data-neon-color="green">
-                                    <i class="bi bi-play-fill"></i> Start Game
-                                </button>
-                                <button class="btn btn-neon" data-neon-color="blue">
-                                    <i class="bi bi-gear-fill"></i> Settings
-                                </button>
-                            </div>
-                        </div>
+                    <!-- Game Content - Responsive and Scrollable -->
+                    <div id="gameArea" class="flex-fill overflow-auto bg-black border-neon-green border p-2 rounded min-h-0">
+                        <p>Game content area - scrollable</p>
+                        <p>Tady bude herní obsah...</p>
                     </div>
                     
                 </div>
-                
             </div>
             
-            <!-- Chat Area - Full width below game on mobile, 4 columns on desktop -->
-            <div class="col-12 col-lg-4 h-100 d-flex flex-column">
-                
-                <div class="bg-black border border-neon-purple rounded p-3 h-100 d-flex flex-column" style="min-height: 300px;">
+            <!-- Chat Area Column - MOBIL: spodní část, DESKTOP: pravá část -->
+            <div class="col-12 col-sm-4 d-flex flex-column p-1 overflow-hidden mobile-chat-area">
+                <div class="flex-fill bg-black border-neon-green border rounded p-3 d-flex flex-column overflow-hidden h-100">
                     
                     <!-- Chat Header -->
-                    <div class="text-center mb-3">
-                        <h6 class="text-neon-purple mb-0">
-                            <i class="bi bi-chat-dots-fill"></i> AI Chat
-                        </h6>
+                    <div class="text-center mb-2">
+                        <h6 class="text-neon-green"><i class="bi bi-chat-dots-fill"></i> AI Chat</h6>
                     </div>
                     
                     <!-- Chat Messages - Scrollable area -->
-                    <div id="chatMessages" class="flex-fill border border-neon-blue rounded p-2 overflow-auto" style="min-height: 200px; max-height: 400px;">
+                    <div id="chatMessages" class="flex-grow-1 bg-black border-neon-green border rounded overflow-auto min-h-0">
                         <!-- Loader -->
-                        <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                            <div class="spinner-border text-neon-green mb-2" role="status" id="chatSpinner" style="width: 2rem; height: 2rem;">
+                        <div class="d-flex flex-column align-items-center justify-content-center h-100 p-3">
+                            <div class="spinner-border" role="status" id="chatSpinner">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
-                            <div class="text-center text-neon-green small">Inicializace AI...</div>
+                            <div class="text-center text-neon-green">Inicializace AI...</div>
                         </div>
                     </div>
                     
                     <!-- Chat Input -->
-                    <div class="mt-3">
+                    <div class="mt-2">
                         <div class="input-group">
                             <input type="text" id="chatInput" 
-                                   class="form-control" 
+                                   class="form-control bg-black border-neon-green" 
                                    placeholder="Zpráva AI..." 
                                    autocomplete="off">
                             <button id="sendChatBtn" class="btn btn-neon" data-neon-color="green">
@@ -283,56 +116,17 @@
                     </div>
                     
                 </div>
-                
             </div>
             
         </div>
-        
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- External libraries -->
+    <!-- POSTUPNÉ ZAPÍNÁNÍ JS KNIHOVEN - KROK 6: HLAVNÍ APLIKACE -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    
-    <!-- Mobile optimization script -->
-    <script>
-        // Mobile-specific optimizations
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // Prevent zoom on double tap
-            let lastTouchEnd = 0;
-            document.addEventListener('touchend', function (event) {
-                const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
-                    event.preventDefault();
-                }
-                lastTouchEnd = now;
-            }, false);
-            
-            // Handle viewport changes
-            function handleViewportChange() {
-                const vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            }
-            
-            handleViewportChange();
-            window.addEventListener('resize', handleViewportChange);
-            window.addEventListener('orientationchange', () => {
-                setTimeout(handleViewportChange, 100);
-            });
-            
-            // Mobile debug info
-            console.log('Mobile app loaded');
-            console.log('Screen:', window.innerWidth + 'x' + window.innerHeight);
-            console.log('Device pixel ratio:', window.devicePixelRatio);
-            console.log('Touch support:', 'ontouchstart' in window);
-            console.log('User agent:', navigator.userAgent);
-            
-        });
-    </script>
     
     <!-- Main Application - Modular Structure -->
     <script type="module" src="/src/main.js"></script>
