@@ -155,7 +155,13 @@ export class AiPlayerController {
             const decision = this.makeAiDecision(aiPlayer, currentState);
             
             if (decision.action === 'save') {
-                await this.executeSaveDecision(aiPlayer, decision, currentState);
+                const result = await this.executeSaveDecision(aiPlayer, decision, currentState);
+                if (result === 'endTurn') {
+                    break; // Ukončit smyčku - tah je dokončen
+                } else if (result === 'continue') {
+                    continue; // Pokračovat ve smyčce - AI už hodil
+                }
+                // Jinak pokračovat normálně ve smyčce
             } else if (decision.action === 'endTurn') {
                 await this.executeEndTurnDecision(aiPlayer);
                 break;
@@ -194,6 +200,19 @@ export class AiPlayerController {
         
         this.gameLogic.saveDice();
         await this.delay(1000);
+        
+        // ZPRACOVÁNÍ NEXT ACTION - co dělat po uložení kostek
+        if (decision.nextAction === 'endTurn') {
+            console.log(`🤖 AI ${aiPlayer.name} rozhodl ukončit tah po uložení kostek`);
+            await this.executeEndTurnDecision(aiPlayer);
+            return 'endTurn'; // Signál pro ukončení smyčky
+        } else if (decision.nextAction === 'continue') {
+            console.log(`🤖 AI ${aiPlayer.name} rozhodl pokračovat v házení`);
+            await this.executeContinueDecision(aiPlayer);
+            return 'continue'; // Signál pro pokračování
+        }
+        
+        return 'save'; // Pouze uložení, pokračovat v rozhodování
     }
 
     /**
@@ -248,7 +267,7 @@ export class AiPlayerController {
         // DŮLEŽITÉ: Pokud je to první zápis a nemáme dost bodů, MUSÍME pokračovat
         if (aiPlayer.score === 0 && totalPoints < 300) {
             console.log(`🤖 AI ${aiPlayer.name}: První zápis, potřebuji min 300 bodů (mám ${totalPoints})`);
-            return { action: 'save', diceToSave: bestDice };
+            return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
         }
         
         // AI rozhodování podle získaných bodů a risk/reward
@@ -258,14 +277,17 @@ export class AiPlayerController {
             
             if (riskFactor > 0.7 || totalPoints >= 600) {
                 // Vysoké riziko nebo dostatečné body - ukončíme tah
+                console.log(`🤖 AI ${aiPlayer.name}: Mám ${totalPoints} bodů, riziko ${riskFactor.toFixed(2)} - ukončuji tah`);
                 return { action: 'save', diceToSave: bestDice, nextAction: 'endTurn' };
             } else {
                 // Střední riziko - odložíme a pokračujeme
+                console.log(`🤖 AI ${aiPlayer.name}: Mám ${totalPoints} bodů, riziko ${riskFactor.toFixed(2)} - pokračuji`);
                 return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
             }
         } else {
             // Málo bodů - musíme riskovat
-            return { action: 'save', diceToSave: bestDice };
+            console.log(`🤖 AI ${aiPlayer.name}: Pouze ${totalPoints} bodů - musím riskovat`);
+            return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
         }
     }
 
