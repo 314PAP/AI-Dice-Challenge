@@ -190,6 +190,8 @@ export class GameRenderer {
         const canRoll = !state.isRolling && 
                        (!state.selectedDice || state.selectedDice.length === 0); // Můžeme hodit pokud nejsou vybrané kostky
         
+        console.log(`🔘 BUTTON DEBUG - canRoll: ${canRoll} | isRolling: ${state.isRolling} | selectedDice: [${state.selectedDice?.join(',')}] | currentRoll: [${state.currentRoll?.join(',')}]`);
+        
         // 1. Tlačítko HODIT
         const rollBtn = createNeonButton(
             'HODIT', 
