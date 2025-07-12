@@ -225,27 +225,27 @@ export class GameUI {
      */
     renderMainMenu() {
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column justify-content-center align-items-center h-100';
+        container.className = 'd-flex flex-column justify-content-center align-items-center h-100 py-3 py-md-5';
         
-        // Nadpis - kompaktní
+        // Nadpis - menší padding
         const title = document.createElement('h1');
-        title.className = 'text-neon-green fs-4 mb-3 text-center';
+        title.className = 'text-neon-green fs-4 mb-1 text-center';
         title.innerHTML = '<i class="bi bi-star-fill"></i> Cílové skóre';
         container.appendChild(title);
         
-        // Selector pro cílové skóre - kompaktní
+        // Selector pro cílové skóre - kompaktní spacing
         const scoreSelector = document.createElement('div');
-        scoreSelector.className = 'mb-3 d-flex align-items-center justify-content-center';
+        scoreSelector.className = 'mb-2 d-flex align-items-center justify-content-center';
         
-        // Tlačítka - ČISTÝ BOOTSTRAP
-        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn-sm');
+        // Tlačítka - menší výška pro lepší proporce
+        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn-sm py-1');
         
         const scoreValue = document.createElement('div');
-        scoreValue.className = 'px-4 text-neon-yellow fs-4';
+        scoreValue.className = 'px-3 text-neon-yellow fs-4';
         scoreValue.textContent = gameState.getState().targetScore;
         scoreValue.id = 'targetScoreValue';
         
-        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn-sm');
+        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn-sm py-1');
         
         scoreSelector.appendChild(minusBtn);
         scoreSelector.appendChild(scoreValue);
@@ -253,9 +253,9 @@ export class GameUI {
         
         container.appendChild(scoreSelector);
         
-        // Tlačítka akcí - kompaktní grid bez mezer
+        // Tlačítka akcí - mezery pro hover animace
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-0';
+        buttonsContainer.className = 'row g-2';
         
         const startBtn = createNeonButton(
             'ZAČÍT HRU', 
@@ -290,19 +290,19 @@ export class GameUI {
         );
         
         const col1 = document.createElement('div');
-        col1.className = 'col-12 col-sm-6 mb-0';
+        col1.className = 'col-12 col-sm-6 mb-2 px-1';
         col1.appendChild(startBtn);
         
         const col2 = document.createElement('div');
-        col2.className = 'col-12 col-sm-6 mb-0';
+        col2.className = 'col-12 col-sm-6 mb-2 px-1';
         col2.appendChild(rulesBtn);
         
         const col3 = document.createElement('div');
-        col3.className = 'col-12 col-sm-6 mb-0';
+        col3.className = 'col-12 col-sm-6 mb-2 px-1';
         col3.appendChild(hallOfFameBtn);
         
         const col4 = document.createElement('div');
-        col4.className = 'col-12 col-sm-6 mb-0';
+        col4.className = 'col-12 col-sm-6 mb-2 px-1';
         col4.appendChild(exitGameBtn);
         
         buttonsContainer.appendChild(col1);

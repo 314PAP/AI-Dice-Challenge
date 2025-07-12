@@ -58,7 +58,7 @@ export class GameRenderer {
         console.log('👤 Aktuální hráč:', currentPlayer);
         
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100 overflow-hidden p-1';
+        container.className = 'd-flex flex-column h-100 overflow-hidden p-1 p-md-3';
         
         // 1. Responzivní karty hráčů
         container.appendChild(this.renderPlayersSection(state));
@@ -77,7 +77,7 @@ export class GameRenderer {
      */
     renderPlayersSection(state) {
         const playersSection = document.createElement('div');
-        playersSection.className = 'row g-0 mb-1';
+        playersSection.className = 'row g-1 g-md-2 mb-2 mb-md-3';
         
         // Přidáme informaci o finálním kole nad karty hráčů
         if (state.finalRound) {
@@ -147,11 +147,11 @@ export class GameRenderer {
      */
     renderDiceSection(state, toggleDiceCallback) {
         const diceSection = document.createElement('div');
-        diceSection.className = 'text-center my-1';
+        diceSection.className = 'text-center my-2 my-md-4 flex-grow-1 d-flex align-items-center';
         
-        // Kontejner pro kostky - kompaktní layout
+        // Kontejner pro kostky - responzivní velikost
         const diceContainer = document.createElement('div');
-        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-1 p-1';
+        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-2 gap-md-3 p-1 w-100';
         
         // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO
         if (state.currentRoll && state.currentRoll.length > 0) {
@@ -206,7 +206,7 @@ export class GameRenderer {
         actionButtons.className = 'mt-2 mb-2';
         
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-0 px-1';
+        buttonsContainer.className = 'row g-1 g-md-2 px-1';
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
@@ -263,7 +263,7 @@ export class GameRenderer {
         }
         
         const rollCol = document.createElement('div');
-        rollCol.className = 'col-6 mb-0';
+        rollCol.className = 'col-6 mb-1 px-1';
         rollCol.appendChild(rollBtn);
         buttonsContainer.appendChild(rollCol);
         
@@ -297,7 +297,7 @@ export class GameRenderer {
         }
         
         const saveCol = document.createElement('div');
-        saveCol.className = 'col-6 mb-0';
+        saveCol.className = 'col-6 mb-1 px-1';
         saveCol.appendChild(saveBtn);
         buttonsContainer.appendChild(saveCol);
         
@@ -328,7 +328,7 @@ export class GameRenderer {
         }
         
         const endCol = document.createElement('div');
-        endCol.className = 'col-6 mb-0';
+        endCol.className = 'col-6 mb-1 px-1';
         endCol.appendChild(endTurnBtn);
         buttonsContainer.appendChild(endCol);
         
