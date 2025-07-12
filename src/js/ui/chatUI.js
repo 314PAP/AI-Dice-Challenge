@@ -16,12 +16,13 @@ export class ChatUI {
         this.chatContainer = document.getElementById('chatMessages');
         this.chatInput = document.getElementById('chatInput');
         this.sendButton = document.getElementById('sendChatBtn');
+        this.lastRenderTime = 0; // Throttling pro renderování
         
         this.initEventListeners();
         this.renderMessages();
         
-        // Registrujeme se jako listener pro změny zpráv
-        chatSystem.addListener(() => this.renderMessages());
+        // Registrujeme se jako listener pro změny zpráv s throttling
+        chatSystem.addListener(() => this.throttledRenderMessages());
     }
 
     /**
@@ -56,7 +57,7 @@ export class ChatUI {
         // Vyčistíme input
         this.chatInput.value = '';
         
-        // Aktualizujeme zobrazení
+        // Aktualizujeme zobrazení - FORCE render pro uživatelské zprávy
         this.renderMessages();
         
         // Simulujeme odpověď od AI (náhodně vybereme jednu)
@@ -75,9 +76,21 @@ export class ChatUI {
             // Přidáme zprávu od AI
             chatSystem.addAiMessage(randomAi);
             
-            // Aktualizujeme zobrazení
+            // Aktualizujeme zobrazení - FORCE render pro AI odpovědi
             this.renderMessages();
         }, UI_CONSTANTS.AI_RESPONSE_MIN_DELAY + Math.random() * UI_CONSTANTS.AI_RESPONSE_RANDOM_DELAY); // Náhodný delay mezi 800ms a 2000ms
+    }
+
+    /**
+     * Throttled verze renderMessages - omezí četnost renderování
+     */
+    throttledRenderMessages() {
+        const now = Date.now();
+        if (now - this.lastRenderTime < 200) { // Max každých 200ms
+            return;
+        }
+        this.lastRenderTime = now;
+        this.renderMessages();
     }
 
     /**
@@ -87,6 +100,13 @@ export class ChatUI {
         if (!this.chatContainer) return;
         
         const messages = chatSystem.getMessages();
+        
+        // DEBUG: Logování zpráv
+        console.log(`💬 ChatUI: Renderuji ${messages.length} zpráv`);
+        if (messages.length > 0) {
+            const lastMessage = messages[messages.length - 1];
+            console.log(`📝 Poslední zpráva: ${lastMessage.sender}: ${lastMessage.content}`);
+        }
         
         // Uložíme si předchozí počet zpráv pro detekci nových zpráv
         const previousMessageCount = this.previousMessageCount || 0;

@@ -97,7 +97,10 @@ export class ChatSystem {
      * @returns {Object} Vytvořená zpráva
      */
     addSystemMessage(content, color = CHAT_COLORS.PURPLE) {
-        return this.addMessage('Systém', content, color);
+        console.log(`📨 ChatSystem: Přidávám systémovou zprávu: "${content}" (${color})`);
+        const message = this.addMessage('Systém', content, color);
+        console.log(`📨 ChatSystem: Celkem zpráv: ${this.messages.length}`);
+        return message;
     }
 
     /**
