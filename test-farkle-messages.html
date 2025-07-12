@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test FARKLE zpráv</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #000; color: #39ff14; font-family: 'Courier New', monospace; }
+        .test-container { max-width: 800px; margin: 2rem auto; padding: 1rem; }
+        .chat-container { height: 300px; overflow-y: auto; border: 1px solid #39ff14; padding: 1rem; background: #111; }
+        .message { margin-bottom: 0.5rem; padding: 0.5rem; border-left: 3px solid #39ff14; }
+        .system-message { border-left-color: #ff3131; color: #ff3131; }
+        .test-btn { background: #39ff14; color: #000; border: none; padding: 0.5rem 1rem; margin: 0.5rem; }
+        .test-btn:hover { background: #00ff00; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎲 Test FARKLE Zpráv</h1>
+        
+        <div class="mb-3">
+            <button class="test-btn" onclick="testFarkleMessage()">Test FARKLE zprávy</button>
+            <button class="test-btn" onclick="testSystemMessage()">Test systémové zprávy</button>
+            <button class="test-btn" onclick="clearChat()">Vyčistit chat</button>
+        </div>
+        
+        <div id="chatContainer" class="chat-container"></div>
+        
+        <div class="mt-3">
+            <h3>Status:</h3>
+            <div id="status"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Simulujeme ChatSystem
+        class TestChatSystem {
+            constructor() {
+                this.messages = [];
+                this.listeners = [];
+            }
+            
+            addListener(listener) {
+                this.listeners.push(listener);
+            }
+            
+            addSystemMessage(content, color = '#ff3131') {
+                console.log('📨 Přidávám systémovou zprávu:', content);
+                const message = {
+                    id: Date.now(),
+                    sender: 'Systém',
+                    content: content,
+                    color: color,
+                    timestamp: new Date()
+                };
+                this.messages.push(message);
+                this.notifyListeners();
+                return message;
+            }
+            
+            getMessages() {
+                return this.messages;
+            }
+            
+            notifyListeners() {
+                this.listeners.forEach(listener => {
+                    try {
+                        listener();
+                    } catch (error) {
+                        console.error('Chyba v listener:', error);
+                    }
+                });
+            }
+            
+            clear() {
+                this.messages = [];
+                this.notifyListeners();
+            }
+        }
+
+        // Simulujeme Chat UI
+        class TestChatUI {
+            constructor() {
+                this.chatContainer = document.getElementById('chatContainer');
+                this.chatSystem = new TestChatSystem();
+                this.renderCount = 0;
+                
+                // Registrujeme listener
+                this.chatSystem.addListener(() => this.renderMessages());
+            }
+            
+            renderMessages() {
+                this.renderCount++;
+                console.log(`🎨 Render #${this.renderCount}`);
+                
+                if (!this.chatContainer) return;
+                
+                const messages = this.chatSystem.getMessages();
+                
+                const messagesHTML = messages.map(msg => `
+                    <div class="message ${msg.sender === 'Systém' ? 'system-message' : ''}">
+                        <strong>${msg.sender}:</strong> ${msg.content}
+                        <small>(${msg.timestamp.toLocaleTimeString()})</small>
+                    </div>
+                `).join('');
+                
+                this.chatContainer.innerHTML = messagesHTML;
+                this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+                
+                // Aktualizujeme status
+                document.getElementById('status').innerHTML = `
+                    <div>Počet zpráv: ${messages.length}</div>
+                    <div>Počet renderů: ${this.renderCount}</div>
+                    <div>Poslední render: ${new Date().toLocaleTimeString()}</div>
+                `;
+            }
+        }
+
+        // Inicializujeme test
+        const testChatUI = new TestChatUI();
+        
+        // Funkce pro globální scope
+        window.testFarkleMessage = function() {
+            console.log('🎯 Test FARKLE zprávy');
+            testChatUI.chatSystem.addSystemMessage('💥 Hráč FARKLE!', '#ff3131');
+            testChatUI.chatSystem.addSystemMessage('💥 Gemini FARKLE!', '#ff3131');
+            testChatUI.chatSystem.addSystemMessage('💥 ChatGPT FARKLE!', '#ff3131');
+        };
+        
+        window.testSystemMessage = function() {
+            console.log('🎯 Test systémové zprávy');
+            testChatUI.chatSystem.addSystemMessage('🎯 HOT DICE! +850', '#39ff14');
+            testChatUI.chatSystem.addSystemMessage('🎲 +100 = 700 bodů', '#194dd1');
+        };
+        
+        window.clearChat = function() {
+            console.log('🧹 Čištění chatu');
+            testChatUI.chatSystem.clear();
+        };
+        
+        // Počáteční test
+        testChatUI.chatSystem.addSystemMessage('🎲 Test chat systému spuštěn');
+    </script>
+</body>
+</html>

@@ -85,10 +85,18 @@ export class AiPlayerController {
                 break;
             }
             
-            // Pokud není co odložit, může být farkle (už se zpracuje automaticky)
+            // Pokud není co odložit a nejsou ani odložené kostky ani turnScore, může to být konec tahu
             if (!currentState.currentRoll || currentState.currentRoll.length === 0) {
-                console.log(`🤖 AI ${aiPlayer.name} nemá kostky na stole, ukončuji rozhodování`);
-                break;
+                // Kontrola HOT DICE - pokud máme turnScore ale žádné kostky, znamená to HOT DICE reset
+                if (currentState.turnScore > 0) {
+                    console.log(`🤖 AI ${aiPlayer.name} má HOT DICE (turnScore: ${currentState.turnScore}), házím znovu všemi kostkami`);
+                    this.gameLogic.rollDice();
+                    await this.delay(3000); // Čekáme na dokončení animace
+                    continue; // Pokračujeme v rozhodování
+                } else {
+                    console.log(`🤖 AI ${aiPlayer.name} nemá kostky na stole, ukončuji rozhodování`);
+                    break;
+                }
             }
             
             // KONTROLA FARKLE - pokud jsou na stole kostky, ale žádné nejsou bodující
