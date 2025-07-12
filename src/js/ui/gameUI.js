@@ -519,7 +519,7 @@ export class GameUI {
         winnerInfo.className = 'text-center mb-3 mb-md-4';
         winnerInfo.innerHTML = `
             <h2 class="fs-fluid-2 text-neon-${winner.color} mb-2">
-                <img src="ai-icons/${winner.avatar}" alt="${winner.name}" class="rounded-circle me-1 me-sm-2" style="width: 40px; height: 40px;">
+                <img src="ai-icons/${winner.avatar}" alt="${winner.name}" class="rounded-circle me-1 me-sm-2">
                 ${winner.name}
             </h2>
             <div class="fs-fluid-3 text-neon-yellow mb-1 mb-sm-2">Vítězné skóre</div>

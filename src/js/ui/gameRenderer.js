@@ -127,7 +127,7 @@ export class GameRenderer {
                     <div class="mb-1 mb-sm-2 d-flex justify-content-center">
                         <img src="ai-icons/${player.avatar}" alt="${player.name}" 
                              class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''} img-fluid" 
-                             style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;">
+                             class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''} img-fluid">
                     </div>
                     <div class="text-neon-${player.color} small fw-bold mb-1 text-truncate">${player.name}</div>
                     <div class="text-neon-green small">Score:</div>
