@@ -55,7 +55,18 @@ export const calculatePoints = (dice) => {
     let points = 0;
     const counts = countDiceValues(dice);
     
-    // NEJPRVE KONTROLA TŘÍ PÁRŮ (nejvyšší priorita)
+    // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
+    // Postupka = 1500 bodů (např. 1,2,3,4,5,6)
+    if (dice.length === 6) {
+        const sortedDice = [...dice].sort();
+        const isSequence = sortedDice.every((value, index) => value === index + 1);
+        if (isSequence) {
+            console.log(`🎯 Detekována POSTUPKA (1,2,3,4,5,6) = 1500 bodů`);
+            return 1500; // Postupka = 1500 bodů (žádné jiné kombinace se nepočítají)
+        }
+    }
+    
+    // KONTROLA TŘÍ PÁRŮ (druhá priorita)
     // Tři páry = 1500 bodů (např. 2,2,6,6,3,3)
     let pairCount = 0;
     const originalCounts = { ...counts }; // Kopie pro kontrolu párů
