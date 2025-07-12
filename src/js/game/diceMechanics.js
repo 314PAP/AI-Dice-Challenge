@@ -154,7 +154,17 @@ export const hasScoringDice = (dice) => {
     const counts = countDiceValues(dice);
     console.log(`🔢 Počty hodnot:`, counts);
     
-    // KONTROLA TŘÍ PÁRŮ (nejvyšší priorita)
+    // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
+    if (dice.length === 6) {
+        const sortedDice = [...dice].sort();
+        const isSequence = sortedDice.every((value, index) => value === index + 1);
+        if (isSequence) {
+            console.log(`✅ Nalezena POSTUPKA (1,2,3,4,5,6) = 1500 bodů`);
+            return true;
+        }
+    }
+    
+    // KONTROLA TŘÍ PÁRŮ (druhá priorita)
     let pairCount = 0;
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         if (counts[value] === 2) {
@@ -197,6 +207,15 @@ export const hasScoringDice = (dice) => {
  */
 export const isValidFarkleCombination = (selectedDice) => {
     if (!selectedDice || selectedDice.length === 0) return false;
+    
+    // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
+    if (selectedDice.length === 6) {
+        const sortedDice = [...selectedDice].sort();
+        const isSequence = sortedDice.every((value, index) => value === index + 1);
+        if (isSequence) {
+            return true; // Postupka je vždy validní kombinace
+        }
+    }
     
     const counts = countDiceValues(selectedDice);
     
