@@ -225,27 +225,27 @@ export class GameUI {
      */
     renderMainMenu() {
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column justify-content-center align-items-center h-100 py-3 py-md-5';
+        container.className = 'd-flex flex-column justify-content-center align-items-center h-100 py-2 py-sm-3 py-md-5';
         
-        // Nadpis - menší padding
+        // Nadpis - responzivní mezery
         const title = document.createElement('h1');
-        title.className = 'text-neon-green fs-4 mb-1 text-center';
+        title.className = 'text-neon-green fs-4 mb-2 mb-sm-2 mb-md-3 text-center';
         title.innerHTML = '<i class="bi bi-star-fill"></i> Cílové skóre';
         container.appendChild(title);
         
-        // Selector pro cílové skóre - kompaktní spacing
+        // Selector pro cílové skóre - responzivní spacing
         const scoreSelector = document.createElement('div');
-        scoreSelector.className = 'mb-2 d-flex align-items-center justify-content-center';
+        scoreSelector.className = 'mb-2 mb-sm-3 mb-md-4 d-flex align-items-center justify-content-center';
         
-        // Tlačítka - menší výška pro lepší proporce
-        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn-sm py-1');
+        // Tlačítka - čtvercová velikost odpovídající výšce textu
+        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn-sm px-2 py-1');
         
         const scoreValue = document.createElement('div');
-        scoreValue.className = 'px-3 text-neon-yellow fs-4';
+        scoreValue.className = 'px-3 text-neon-yellow fs-4 lh-1';
         scoreValue.textContent = gameState.getState().targetScore;
         scoreValue.id = 'targetScoreValue';
         
-        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn-sm py-1');
+        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn-sm px-2 py-1');
         
         scoreSelector.appendChild(minusBtn);
         scoreSelector.appendChild(scoreValue);
@@ -290,19 +290,19 @@ export class GameUI {
         );
         
         const col1 = document.createElement('div');
-        col1.className = 'col-12 col-sm-6 mb-2 px-1';
+        col1.className = 'col-12 col-sm-6 mb-2 px-2';
         col1.appendChild(startBtn);
         
         const col2 = document.createElement('div');
-        col2.className = 'col-12 col-sm-6 mb-2 px-1';
+        col2.className = 'col-12 col-sm-6 mb-2 px-2';
         col2.appendChild(rulesBtn);
         
         const col3 = document.createElement('div');
-        col3.className = 'col-12 col-sm-6 mb-2 px-1';
+        col3.className = 'col-12 col-sm-6 mb-2 px-2';
         col3.appendChild(hallOfFameBtn);
         
         const col4 = document.createElement('div');
-        col4.className = 'col-12 col-sm-6 mb-2 px-1';
+        col4.className = 'col-12 col-sm-6 mb-2 px-2';
         col4.appendChild(exitGameBtn);
         
         buttonsContainer.appendChild(col1);
