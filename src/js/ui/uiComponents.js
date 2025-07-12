@@ -1,10 +1,25 @@
 /**
+ * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
+ * Bootstrap: btn, btn-sm, btn-outline-*, d-flex, align-items-center, me-2, position-relative, text-center, fw-bold, fs-5, border-2, rounded-3, card, card-body, p-3
+ * Neon třídy: btn-neon, text-neon-*, border-neon-*, bg-neon-black
+ * Vlastní: dice-item, dice-selected, dice-rolling, neon-glow
+ */
+
+/**
+ * SEZNAM PROMĚNNÝCH (lokální v metodách):
+ * button, icon, dice, card, cardBody
+ * 
+ * MOŽNÉ DUPLICITY: 
+ * - Žádné duplicity nalezeny - každá komponenta má své vlastní lokální proměnné
+ */
+
+/**
  * UI Components - Správa UI komponent a jejich renderování
  * Modul obsahuje funkce pro vytváření a aktualizaci UI prvků
  */
 
 import { UI_CONSTANTS, NEON_COLORS, DICE_CONSTANTS } from '../utils/constants.js';
-import { CONSOLE_COLORS, pxToRem } from '../utils/colors.js';
+import { CONSOLE_COLORS } from '../utils/colors.js';
 
 /**
  * Vytvoří tlačítko s neonovým efektem - plně responzivní pro všechny režimy zobrazení

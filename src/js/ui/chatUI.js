@@ -3,6 +3,22 @@
  * Stará se o vykreslování a aktualizaci chatovacího rozhraní
  */
 
+/**
+ * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
+ * Bootstrap: container-fluid, h-100, d-flex, flex-column, overflow-auto, mb-2, p-2, rounded, small, fw-bold
+ * Neon třídy: text-neon-green, text-neon-blue, text-neon-purple, text-neon-orange, text-neon-red, text-neon-yellow, bg-neon-black, border-neon-*
+ * Vlastní: chat-messages, chat-message, message-system, message-ai
+ */
+
+/**
+ * SEZNAM PROMĚNNÝCH (lokální v metodách):
+ * container, messagesContainer, message, messageEl, timestamp, timeEl, senderEl, contentEl
+ * 
+ * MOŽNÉ DUPLICITY: 
+ * - messageEl (používá se v renderMessages - OK, lokální scope)
+ * - container (používá se v renderChatScreen)
+ */
+
 import chatSystem from '../ai/chatSystem.js';
 import { aiPersonalities } from '../ai/personalities.js';
 import { UI_CONSTANTS, CHAT_CONSTANTS } from '../utils/constants.js';

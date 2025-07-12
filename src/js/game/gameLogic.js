@@ -19,9 +19,23 @@
 
 /**
  * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
- * Bootstrap: container-fluid, row, col-12, h-100, d-flex, flex-column, justify-content-center, align-items-center, text-center, mb-2, mb-3, badge, bg-success, bg-danger, bg-warning, bg-info
- * Neon třídy: text-neon-green, text-neon-blue, text-neon-purple, text-neon-orange, text-neon-red, text-neon-yellow, border-neon-*, bg-neon-black
- * Vlastní: btn-neon, dice-item, dice-selected, dice-rolling, game-area, player-status
+ * Bootstrap: (žádné přímé CSS třídy - čisté game logic)
+ * Neon třídy: (žádné - logika bez UI)
+ * Vlastní: dice, saved, selected (pro DOM query)
+ */
+
+/**
+ * SEZNAM PROMĚNNÝCH (lokální v metodách):
+ * state, diceCount, totalSavedDice, animationCounter, animationInterval, randomDice, dice, points, currentState, currentPlayer,
+ * updatedPlayers, farkleMsg, diceElements, warningMsg, savedDiceValues, selectedElements, newSavedDice, newSavedPoints,
+ * remainingDice, hasSavedDice, hasTurnScore
+ * 
+ * MOŽNÉ DUPLICITY: 
+ * - state (používá se ve všech metodách - OK, lokální scope)
+ * - warningMsg (používá se v saveDice a endTurn - OK, různé scope)
+ * - diceElements (používá se v handleFarkle - OK)
+ * - currentPlayer (používá se v handleFarkle)
+ * - hasSavedDice, hasTurnScore (používá se v endTurn)
  */
 
 import { rollDice as diceRoll, calculatePoints, hasScoringDice, isValidFarkleCombination } from './diceMechanics.js';

@@ -10,6 +10,16 @@
  * Vlastní: (žádné - čistá logika)
  */
 
+/**
+ * SEZNAM PROMĚNNÝCH (lokální v metodách):
+ * result, i, points, counts, count, value, die
+ * 
+ * MOŽNÉ DUPLICITY: 
+ * - counts (používá se v calculatePoints, hasScoringDice, isValidFarkleCombination - OK, různé scope)
+ * - count (používá se v calculatePoints a isValidFarkleCombination - OK, různé scope)
+ * - value (používá se ve všech for cyklech - OK, lokální scope)
+ */
+
 // Konstanty pro kostky
 import { DICE_CONSTANTS } from '../utils/constants.js';
 

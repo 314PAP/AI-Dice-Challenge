@@ -6,6 +6,18 @@
  */
 
 /**
+ * SEZNAM PROMĚNNÝCH (lokální v metodách):
+ * now, callbacks, gameContainer, currentPlayer, state, selectedDice, dieValue, warningMsg, countOfValue, container, title, scoreSelector,
+ * minusBtn, scoreValue, plusBtn, buttonsContainer, startBtn, rulesBtn, hallOfFameBtn, exitGameBtn, col1, col2, col3, col4,
+ * currentScore, newScore, scoreValueEl, backdrop, modal, yesBtn
+ * 
+ * MOŽNÉ DUPLICITY: 
+ * - currentPlayer (používá se v renderGame a showMenuWithConfirmation)
+ * - container (používá se v renderMenu a showConfirmationModal)
+ * - state (používá se v renderGame a toggleDiceSelection)
+ */
+
+/**
  * Game UI - Hlavní UI kontroler (REFAKTOROVANÝ)
  * 
  * OBSAH MODULU (po refaktoringu):
