@@ -373,6 +373,18 @@ export class AiPlayerController {
         const state = gameState.getState();
         const targetScore = state.targetScore || 10000;
         
+        // SPECIÁLNÍ LOGIKA PRO HOT DICE
+        const isHotDice = bestDice.length === state.currentRoll.length;
+        if (isHotDice) {
+            console.log(`🔥 AI detekoval HOT DICE situaci - bude pokračovat!`);
+            return {
+                action: 'save',
+                diceToSave: bestDice,
+                nextAction: 'continue', // VŽDY pokračovat při HOT DICE
+                reason: 'HOT DICE bonus!'
+            };
+        }
+        
         // Bezpečnostní prahy jako procenta z cílového skóre
         const safeThresholds = {
             early: { 
