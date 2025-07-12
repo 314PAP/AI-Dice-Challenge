@@ -18,11 +18,13 @@ import gameState from '../game/gameState.js';
 import { GameLogic } from '../game/gameLogic.js';
 import { GameRenderer } from './gameRenderer.js';
 import { AiPlayerController } from '../ai/aiPlayerController.js';
+import chatSystem from '../ai/chatSystem.js';
 import { createNeonButton, createNeonCard } from './uiComponents.js';
 
 export class GameUI {
     constructor() {
         this.gameArea = document.getElementById('gameArea');
+        this.aiTurnInProgress = false; // Flag pro kontrolu AI tahu
         
         // Inicializace modulů
         this.gameRenderer = new GameRenderer();
@@ -110,11 +112,14 @@ export class GameUI {
         if (gameContainer && this.gameArea) {
             this.gameArea.appendChild(gameContainer);
             
-            // Pokud je na tahu AI hráč, spustíme jeho automatický tah
+            // Pokud je na tahu AI hráč, spustíme jeho automatický tah (pouze jednou)
             const currentPlayer = state.players[state.currentPlayerIndex];
-            if (currentPlayer && !currentPlayer.isHuman && !state.isRolling) {
+            if (currentPlayer && !currentPlayer.isHuman && !state.isRolling && !this.aiTurnInProgress) {
+                this.aiTurnInProgress = true;
                 setTimeout(() => {
-                    this.aiController.playAiTurn(currentPlayer);
+                    this.aiController.playAiTurn(currentPlayer).finally(() => {
+                        this.aiTurnInProgress = false; // Reset flagu po dokončení
+                    });
                 }, 1500);
             }
         }
@@ -294,6 +299,13 @@ export class GameUI {
      */
     startGame() {
         console.log('Startuje hra...');
+        
+        // Vyčistíme chat při novém startu hry
+        chatSystem.clearMessages();
+        
+        // Reset AI flag při novém startu
+        this.aiTurnInProgress = false;
+        
         gameState.updateState({ 
             gameStarted: true,
             gamePhase: 'game',
@@ -431,6 +443,12 @@ export class GameUI {
      * Zobrazí herní menu
      */
     showMenu() {
+        // Vyčistíme chat při návratu do menu
+        chatSystem.clearMessages();
+        
+        // Reset AI flag při návratu do menu
+        this.aiTurnInProgress = false;
+        
         gameState.updateState({ gamePhase: 'menu' });
     }
 

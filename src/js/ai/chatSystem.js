@@ -126,6 +126,7 @@ export class ChatSystem {
      */
     clearMessages() {
         this.messages = [];
+        this.notifyListeners(); // Notifikujeme UI o změně
     }
 
     /**
