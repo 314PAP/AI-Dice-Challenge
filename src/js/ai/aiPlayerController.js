@@ -131,21 +131,21 @@ export class AiPlayerController {
                 console.log(`🎲 hasScoringDice(${JSON.stringify(currentState.currentRoll)}) =`, hasScoring);
                 
                 if (!hasScoring) {
-                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - spouštím finishRoll() pro automatické zpracování`);
+                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - spouštím handleFarkle() pro automatické zpracování`);
                     chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
                     
-                    // FORCE spuštění finishRoll() pro zpracování FARKLE - s kontrolou, zda je AI stále na tahu
+                    // FORCE spuštění handleFarkle() pro zpracování FARKLE - s kontrolou, zda je AI stále na tahu
                     setTimeout(() => {
                         const currentState = gameState.getState();
                         if (currentState.players[currentState.currentPlayerIndex].name === aiPlayer.name) {
-                            this.gameLogic.finishRoll(currentState.currentRoll.length);
+                            this.gameLogic.handleFarkle(currentState.currentRoll);
                         } else {
-                            console.log(`🤖 AI ${aiPlayer.name} už není na tahu, nebudu volat finishRoll()`);
+                            console.log(`🤖 AI ${aiPlayer.name} už není na tahu, nebudu volat handleFarkle()`);
                         }
                     }, 1000); // Krátké zpoždění pro lepší UX
                     
                     console.log(`🤖 AI ${aiPlayer.name} ukončuje rozhodování - FARKLE bude zpracován`);
-                    break;
+                    return; // UKONČUJEME CELOU FUNKCI, NE POUZE SMYČKU!
                 } else {
                     console.log(`✅ AI ${aiPlayer.name} našel bodující kostky, pokračuje...`);
                 }
