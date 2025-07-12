@@ -227,15 +227,15 @@ export class GameUI {
         const container = document.createElement('div');
         container.className = 'd-flex flex-column justify-content-center align-items-center h-100';
         
-        // Nadpis - ČISTÝ BOOTSTRAP
+        // Nadpis - kompaktní
         const title = document.createElement('h1');
-        title.className = 'text-neon-green display-6 mb-4 text-center';
+        title.className = 'text-neon-green fs-4 mb-3 text-center';
         title.innerHTML = '<i class="bi bi-star-fill"></i> Cílové skóre';
         container.appendChild(title);
         
-        // Selector pro cílové skóre - ČISTÝ BOOTSTRAP
+        // Selector pro cílové skóre - kompaktní
         const scoreSelector = document.createElement('div');
-        scoreSelector.className = 'mb-4 d-flex align-items-center justify-content-center fs-5';
+        scoreSelector.className = 'mb-3 d-flex align-items-center justify-content-center';
         
         // Tlačítka - ČISTÝ BOOTSTRAP
         const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn-sm');
