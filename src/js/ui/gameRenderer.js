@@ -1,4 +1,28 @@
 /**
+ * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
+ * Bootstrap: btn, btn-outline-success, btn-outline-danger, col-auto, d-flex, flex-column, justify-content-center, align-items-center, text-center, mb-2, mb-3, position-relative, fs-6, fw-bold, rounded-3, border-2, p-3, mx-auto, w-100
+ * Neon třídy: text-neon-green, text-        const hasTurnScore = state.turnScore && state.turnScore > 0;
+        
+        if (isAiTurn) {
+            endTurnBtn.disabled = true;
+            endTurnBtn.style.opacity = '0.3';
+            endTurnBtn.title = 'AI hraje automaticky';
+        } else if (!savedDiceCount || !hasTurnScore) {e, text-neon-purple, text-neon-orange, text-neon-red, text-neon-yellow, border-neon-green, border-neon-blue, border-neon-purple, border-neon-orange, border-neon-red, border-neon-yellow, bg-neon-black
+ * Vlastní: btn-neon, dice-area, dice-item, dice-selected, player-avatar, player-farkle-pulse, dice-rolling
+ */
+
+/**
+ * SEZNAM PROMĚNNÝCH (lokální v metodách):
+ * currentPlayer, container, playersSection, finalRoundAlert, isCurrentPlayer, isLeader, playerCol, cardClasses, playerCard, statusContent,
+ * diceSection, diceContainer, isSelected, diceEl, infoText, actionButtons, buttonsContainer, isAiTurn, hasSelectedDice, hasCurrentRoll,
+ * savedDiceCount, remainingDiceCount, canRoll, rollBtn, rollCol, saveBtn, saveCol, endTurnBtn, hasSavedDice, hasTurnScore, endCol, menuBtn, menuCol
+ * 
+ * MOŽNÉ DUPLICITY: 
+ * - hasSavedDice (používá se v renderActionButtons - zkontrolovat)
+ * - container (používá se v renderGameScreen a createErrorContainer)
+ */
+
+/**
  * Game Renderer - Vykreslování herní obrazovky
  * Oddělen od GameUI pro lepší modularitu
  */
@@ -191,16 +215,18 @@ export class GameRenderer {
         // OPRAVENÁ LOGIKA HÁZENÍ - hráč musí odložit vybrané kostky před dalším hodem
         const hasSelectedDice = state.selectedDice && state.selectedDice.length > 0;
         const hasCurrentRoll = state.currentRoll && state.currentRoll.length > 0;
+        const savedDiceCount = state.savedDice?.length || 0;
         
         // Můžeme hodit pouze pokud:
-        // 1. Není animace házení
+        // 1. Není animace házení  
         // 2. NEMÁME vybrané kostky (musí je odložit)
-        // 3. Buď nemáme kostky na stole (začátek tahu) nebo všechny kostky už jsou odložené
+        // 3. Buď nemáme kostky na stole (začátek) NEBO máme odložené kostky a zbývají kostky k hodu
+        const remainingDiceCount = 6 - savedDiceCount;
         const canRoll = !state.isRolling && 
-                       !hasSelectedDice && // DŮLEŽITÉ: Nesmí mít vybrané kostky!
-                       (!hasCurrentRoll || state.savedDice.length === 6); // Buď začátek tahu nebo hot dice
+                       !hasSelectedDice && 
+                       (!hasCurrentRoll || (savedDiceCount > 0 && remainingDiceCount > 0));
         
-        console.log(`🎲 GameRenderer: canRoll=${canRoll} (isRolling=${state.isRolling}, hasSelected=${hasSelectedDice}, hasCurrentRoll=${hasCurrentRoll})`);
+        console.log(`🎲 GameRenderer: canRoll=${canRoll} (isRolling=${state.isRolling}, hasSelected=${hasSelectedDice}, hasCurrentRoll=${hasCurrentRoll}, savedDice=${savedDiceCount}, remaining=${remainingDiceCount})`);
         
         
         // 1. Tlačítko HODIT
@@ -208,7 +234,10 @@ export class GameRenderer {
             'HODIT', 
             'green', 
             'bi-dice-6-fill',
-            callbacks.rollDice,
+            () => {
+                console.log(`🎯 TLAČÍTKO HODIT stisknuto! canRoll=${canRoll}`);
+                if (callbacks.rollDice) callbacks.rollDice();
+            },
             'btn-sm w-100'
         );
         
@@ -216,6 +245,7 @@ export class GameRenderer {
             rollBtn.disabled = true;
             rollBtn.style.opacity = '0.3';
             rollBtn.title = 'AI hraje automaticky';
+            console.log(`🤖 TLAČÍTKO HODIT zakázáno - AI tah`);
         } else if (!canRoll) {
             rollBtn.disabled = true;
             rollBtn.style.opacity = '0.5';
@@ -226,10 +256,12 @@ export class GameRenderer {
             } else {
                 rollBtn.title = 'Nelze hodit';
             }
+            console.log(`❌ TLAČÍTKO HODIT zakázáno - canRoll=false (${rollBtn.title})`);
         } else {
             rollBtn.disabled = false;
             rollBtn.style.opacity = '1';
-            rollBtn.title = 'Házet kostkami';
+            rollBtn.title = 'Hodit kostkami';
+            console.log(`✅ TLAČÍTKO HODIT povoleno - canRoll=true`);
         }
         
         const rollCol = document.createElement('div');
@@ -242,7 +274,10 @@ export class GameRenderer {
             'ODLOŽIT', 
             'blue', 
             'bi-floppy-fill',
-            callbacks.saveDice,
+            () => {
+                console.log(`💾 TLAČÍTKO ODLOŽIT stisknuto! selectedDice=${state.selectedDice?.length || 0}`);
+                if (callbacks.saveDice) callbacks.saveDice();
+            },
             'btn-sm w-100'
         );
         
@@ -250,14 +285,17 @@ export class GameRenderer {
             saveBtn.disabled = true;
             saveBtn.style.opacity = '0.3';
             saveBtn.title = 'AI hraje automaticky';
+            console.log(`🤖 TLAČÍTKO ODLOŽIT zakázáno - AI tah`);
         } else if (!state.selectedDice || state.selectedDice.length === 0) {
             saveBtn.disabled = true;
             saveBtn.style.opacity = '0.5';
             saveBtn.title = 'Nejsou vybrané kostky';
+            console.log(`❌ TLAČÍTKO ODLOŽIT zakázáno - žádné vybrané kostky`);
         } else {
             saveBtn.disabled = false;
             saveBtn.style.opacity = '1';
             saveBtn.title = 'Odložit vybrané kostky';
+            console.log(`✅ TLAČÍTKO ODLOŽIT povoleno - ${state.selectedDice.length} kostek vybráno`);
         }
         
         const saveCol = document.createElement('div');

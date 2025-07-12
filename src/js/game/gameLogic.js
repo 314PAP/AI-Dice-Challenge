@@ -17,6 +17,13 @@
  * - pokračování v tahu logika
  */
 
+/**
+ * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
+ * Bootstrap: container-fluid, row, col-12, h-100, d-flex, flex-column, justify-content-center, align-items-center, text-center, mb-2, mb-3, badge, bg-success, bg-danger, bg-warning, bg-info
+ * Neon třídy: text-neon-green, text-neon-blue, text-neon-purple, text-neon-orange, text-neon-red, text-neon-yellow, border-neon-*, bg-neon-black
+ * Vlastní: btn-neon, dice-item, dice-selected, dice-rolling, game-area, player-status
+ */
+
 import { rollDice as diceRoll, calculatePoints, hasScoringDice, isValidFarkleCombination } from './diceMechanics.js';
 import gameState from './gameState.js';
 import chatSystem from '../ai/chatSystem.js';

@@ -1,4 +1,11 @@
 /**
+ * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
+ * Bootstrap: container-fluid, row, col-12, col-6, d-flex, flex-column, justify-content-center, align-items-center, h-100, text-center, mb-2, mb-3, btn, btn-sm, opacity
+ * Neon třídy: text-neon-green, text-neon-blue, text-neon-purple, text-neon-orange, text-neon-red, text-neon-yellow, border-neon-*, bg-neon-black
+ * Vlastní: btn-neon, dice-selected, player-avatar
+ */
+
+/**
  * Game UI - Hlavní UI kontroler (REFAKTOROVANÝ)
  * 
  * OBSAH MODULU (po refaktoringu):

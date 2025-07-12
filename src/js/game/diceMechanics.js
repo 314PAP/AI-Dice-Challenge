@@ -3,6 +3,14 @@
  * Modul obsahuje veškerou logiku pro házení kostkami a vyhodnocování výsledků
  */
 
+/**
+ * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
+ * Bootstrap: (žádné přímé CSS třídy - čisté game logic)
+ * Neon třídy: (žádné - logika bez UI)
+ * Vlastní: (žádné - čistá logika)
+ */
+
+// Konstanty pro kostky
 import { DICE_CONSTANTS } from '../utils/constants.js';
 
 /**
