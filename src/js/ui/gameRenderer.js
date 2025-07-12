@@ -77,7 +77,7 @@ export class GameRenderer {
      */
     renderPlayersSection(state) {
         const playersSection = document.createElement('div');
-        playersSection.className = 'row g-1 g-sm-2 mb-3';
+        playersSection.className = 'row g-1 mb-2';
         
         // Přidáme informaci o finálním kole nad karty hráčů
         if (state.finalRound) {
@@ -95,9 +95,9 @@ export class GameRenderer {
             const isCurrentPlayer = index === state.currentPlayerIndex;
             const isLeader = state.finalRound && player.name === state.finalRoundLeader;
             
-            // Mobile-first: 2 sloupce na mobilu (col-6), 4 sloupce na tabletu+ (col-sm-3)
+            // Avatary VŽDY v jedné řadě - 4 sloupce, menší na mobilu
             const playerCol = document.createElement('div');
-            playerCol.className = 'col-6 col-sm-3';
+            playerCol.className = 'col-3';
             
             // Čistá karta hráče s neonovým rámečkem podle barvy
             let cardClasses = `card bg-black border border-neon-${player.color} ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
@@ -121,12 +121,11 @@ export class GameRenderer {
                 }
             }
             
-            // Responzivní obsah - responzivní avatary s Bootstrap
+            // Responzivní obsah - kompaktní layout pro malé obrazovky
             playerCard.innerHTML = `
-                <div class="card-body text-center p-1 p-sm-2">
-                    <div class="mb-1 mb-sm-2 d-flex justify-content-center">
+                <div class="card-body text-center p-1">
+                    <div class="mb-1 d-flex justify-content-center">
                         <img src="ai-icons/${player.avatar}" alt="${player.name}" 
-                             class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''} img-fluid" 
                              class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''} img-fluid">
                     </div>
                     <div class="text-neon-${player.color} small fw-bold mb-1 text-truncate">${player.name}</div>
@@ -148,11 +147,11 @@ export class GameRenderer {
      */
     renderDiceSection(state, toggleDiceCallback) {
         const diceSection = document.createElement('div');
-        diceSection.className = 'text-center my-3';
+        diceSection.className = 'text-center my-2';
         
-        // Kontejner pro kostky - mobile-first responzivní layout
+        // Kontejner pro kostky - kompaktní layout
         const diceContainer = document.createElement('div');
-        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-1 gap-sm-2 p-2 p-sm-3';
+        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-1 p-1';
         
         // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO
         if (state.currentRoll && state.currentRoll.length > 0) {
@@ -204,10 +203,10 @@ export class GameRenderer {
      */
     renderButtonsSection(state, currentPlayer, callbacks) {
         const actionButtons = document.createElement('div');
-        actionButtons.className = 'mt-3 mb-3';
+        actionButtons.className = 'mt-2 mb-2';
         
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-1 g-sm-2 px-1 px-sm-2';
+        buttonsContainer.className = 'row g-1 px-1';
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
