@@ -127,9 +127,14 @@ export class AiPlayerController {
                     console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - spouštím finishRoll() pro automatické zpracování`);
                     chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
                     
-                    // FORCE spuštění finishRoll() pro zpracování FARKLE
+                    // FORCE spuštění finishRoll() pro zpracování FARKLE - s kontrolou, zda je AI stále na tahu
                     setTimeout(() => {
-                        this.gameLogic.finishRoll();
+                        const currentState = gameState.getState();
+                        if (currentState.players[currentState.currentPlayerIndex].name === aiPlayer.name) {
+                            this.gameLogic.finishRoll(currentState.currentRoll.length);
+                        } else {
+                            console.log(`🤖 AI ${aiPlayer.name} už není na tahu, nebudu volat finishRoll()`);
+                        }
                     }, 1000); // Krátké zpoždění pro lepší UX
                     
                     console.log(`🤖 AI ${aiPlayer.name} ukončuje rozhodování - FARKLE bude zpracován`);
