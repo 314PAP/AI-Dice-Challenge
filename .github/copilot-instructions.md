@@ -7,6 +7,38 @@
 
 ## 🎯 AKTUÁLNÍ STAV PROJEKTU
 
+### 📖 BOOTSTRAP DOKUMENTACE
+
+**⚠️ VŽDY POUŽÍVEJ BOOTSTRAP DOKUMENTACI:**
+
+- **Lokální dokumentace**: `dokumentybtrap/` - kompletní Bootstrap 5 reference
+- **Klíčové soubory**:
+  - `dokumentybtrap/grid.md` - Grid systém
+  - `dokumentybtrap/colors.md` - Barevný systém
+  - `dokumentybtrap/utilities-for-layout.md` - Layout utility
+  - `dokumentybtrap/spacing.md` - Spacing utility
+  - `dokumentybtrap/buttons.md` - Tlačítka
+  - `dokumentybtrap/forms.md` - Formuláře
+- **Před každou CSS změnou**: VŽDY zkontroluj dokumentaci v `dokumentybtrap/`
+
+### 🚨 KRITICKÁ PRAVIDLA (NIKDY NEPORUŠUJ!)
+
+**CSS & STYLING:**
+- ❌ **ZAKÁZÁNY inline styly** - `style="..."` NIKDY!
+- ❌ **ZAKÁZÁNO vlastní CSS** - pouze Bootstrap + naše neon-* třídy
+- ✅ **POUŽÍVEJ naše CSS třídy** z `src/styles/colors-bootstrap-simple.css`
+- ✅ **ANIMACE z knihoven** - preferuj CSS animace z existing knihoven
+
+**POSTUP PŘI KAŽDÉ ZMĚNĚ:**
+1. **ZKONTROLUJ** `dokumentybtrap/[component].md`
+2. **POUŽIJ** Bootstrap utility třídy
+3. **POKUD** Bootstrap nemá → použij naše neon-* třídy
+4. **JAKO POSLEDNÍ** → vlastní CSS (minimálně)
+
+**SAMOKONTROLA:**
+- Před každým commitom zkontroluj: "Používám inline styly?" → OPRAV
+- Před každou animací zkontroluj: "Existuje v CSS knihovně?" → POUŽIJ
+
 ### ✅ CO FUNGUJE
 
 - Bootstrap layout (100% responzivní)

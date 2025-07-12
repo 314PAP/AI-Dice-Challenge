@@ -1,6 +1,18 @@
 /* ===================================================================
    FINÁLNÍ CSS - POUZE 3 SOUBORY
    
+   📖 BOOTSTRAP DOKUMENTACE: dokumentybtrap/ (VŽDY POUŽÍVEJ!)
+   - dokumentybtrap/grid.md - Grid systém
+   - dokumentybtrap/utilities-for-layout.md - Layout utility  
+   - dokumentybtrap/spacing.md - Spacing utility
+   - dokumentybtrap/colors.md - Barevný systém
+   
+   🚨 CHECKLIST PŘED KAŽDOU ZMĚNOU:
+   [ ] Zkontroloval jsem dokumentybtrap/?
+   [ ] Nepoužívám inline styly?
+   [ ] Používám naše CSS třídy místo vlastních?
+   [ ] Animace jsou z knihoven, ne vlastní CSS?
+   
    Kompletní systém se PŘESNĚ 3 soubory:
    1. colors-bootstrap-simple.css - VŠECHNY barvy, tlačítka, chat
    2. responsive-bootstrap.css - VŠECHNY velikosti a responzivita
