@@ -108,9 +108,16 @@ export class AiPlayerController {
                 // Kontrola HOT DICE - pokud máme turnScore ale žádné kostky, znamená to HOT DICE reset
                 if (currentState.turnScore > 0) {
                     console.log(`🤖 AI ${aiPlayer.name} má HOT DICE (turnScore: ${currentState.turnScore}), házím znovu všemi kostkami`);
-                    this.gameLogic.rollDice();
-                    await this.delay(3000); // Čekáme na dokončení animace
-                    continue; // Pokračujeme v rozhodování
+                    // Ještě jednou zkontrolujeme, že AI je stále na tahu před HOT DICE hodem
+                    const recentState = gameState.getState();
+                    if (recentState.players[recentState.currentPlayerIndex].name === aiPlayer.name) {
+                        this.gameLogic.rollDice();
+                        await this.delay(3000); // Čekáme na dokončení animace
+                        continue; // Pokračujeme v rozhodování
+                    } else {
+                        console.log(`🤖 AI ${aiPlayer.name} už není na tahu během HOT DICE, ukončuji rozhodování`);
+                        break;
+                    }
                 } else {
                     console.log(`🤖 AI ${aiPlayer.name} nemá kostky na stole, ukončuji rozhodování`);
                     break;
@@ -204,6 +211,13 @@ export class AiPlayerController {
      * @param {Object} aiPlayer - AI hráč
      */
     async executeContinueDecision(aiPlayer) {
+        // Zkontrolujeme, že AI je stále na tahu před pokračováním
+        const currentState = gameState.getState();
+        if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
+            console.log(`🤖 AI ${aiPlayer.name} už není na tahu, nemohu pokračovat`);
+            return;
+        }
+        
         chatSystem.addAiMessage(aiPlayer.name, "Zkusím hodit znovu! 🎯");
         await this.delay(1000);
         await this.gameLogic.rollDice();
