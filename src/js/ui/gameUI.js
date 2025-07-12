@@ -253,9 +253,9 @@ export class GameUI {
         
         container.appendChild(scoreSelector);
         
-        // Tlačítka akcí - ČISTÝ BOOTSTRAP GRID
+        // Tlačítka akcí - kompaktní grid bez mezer
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-2';
+        buttonsContainer.className = 'row g-0';
         
         const startBtn = createNeonButton(
             'ZAČÍT HRU', 
@@ -290,19 +290,19 @@ export class GameUI {
         );
         
         const col1 = document.createElement('div');
-        col1.className = 'col-12 col-sm-6 mb-2';
+        col1.className = 'col-12 col-sm-6 mb-0';
         col1.appendChild(startBtn);
         
         const col2 = document.createElement('div');
-        col2.className = 'col-12 col-sm-6 mb-2';
+        col2.className = 'col-12 col-sm-6 mb-0';
         col2.appendChild(rulesBtn);
         
         const col3 = document.createElement('div');
-        col3.className = 'col-12 col-sm-6 mb-2';
+        col3.className = 'col-12 col-sm-6 mb-0';
         col3.appendChild(hallOfFameBtn);
         
         const col4 = document.createElement('div');
-        col4.className = 'col-12 col-sm-6 mb-2';
+        col4.className = 'col-12 col-sm-6 mb-0';
         col4.appendChild(exitGameBtn);
         
         buttonsContainer.appendChild(col1);
