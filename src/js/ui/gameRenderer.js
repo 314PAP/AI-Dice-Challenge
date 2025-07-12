@@ -342,7 +342,7 @@ export class GameRenderer {
         );
         
         const menuCol = document.createElement('div');
-        menuCol.className = 'col-6 mb-0';
+        menuCol.className = 'col-6 mb-1 px-1';
         menuCol.appendChild(menuBtn);
         buttonsContainer.appendChild(menuCol);
         
