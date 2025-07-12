@@ -55,6 +55,22 @@ export const calculatePoints = (dice) => {
     let points = 0;
     const counts = countDiceValues(dice);
     
+    // NEJPRVE KONTROLA TŘÍ PÁRŮ (nejvyšší priorita)
+    // Tři páry = 1500 bodů (např. 2,2,6,6,3,3)
+    let pairCount = 0;
+    const originalCounts = { ...counts }; // Kopie pro kontrolu párů
+    
+    for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
+        if (originalCounts[value] === 2) {
+            pairCount++;
+        }
+    }
+    
+    if (pairCount === 3) {
+        console.log(`🎯 Detekovány TŘI PÁRY = 1500 bodů`);
+        return 1500; // Tři páry = 1500 bodů (žádné jiné kombinace se nepočítají)
+    }
+    
     // Tři a více stejných kostek - podle počtu kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         const count = counts[value];
@@ -127,6 +143,19 @@ export const hasScoringDice = (dice) => {
     const counts = countDiceValues(dice);
     console.log(`🔢 Počty hodnot:`, counts);
     
+    // KONTROLA TŘÍ PÁRŮ (nejvyšší priorita)
+    let pairCount = 0;
+    for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
+        if (counts[value] === 2) {
+            pairCount++;
+        }
+    }
+    
+    if (pairCount === 3) {
+        console.log(`✅ Nalezeny TŘI PÁRY = 1500 bodů`);
+        return true;
+    }
+    
     // Kontrola na tři a více stejných kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         if (counts[value] >= 3) {
@@ -159,6 +188,18 @@ export const isValidFarkleCombination = (selectedDice) => {
     if (!selectedDice || selectedDice.length === 0) return false;
     
     const counts = countDiceValues(selectedDice);
+    
+    // KONTROLA TŘÍ PÁRŮ
+    let pairCount = 0;
+    for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
+        if (counts[value] === 2) {
+            pairCount++;
+        }
+    }
+    
+    if (pairCount === 3 && selectedDice.length === 6) {
+        return true; // Tři páry jsou vždy validní
+    }
     
     // Projdeme všechny hodnoty kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
