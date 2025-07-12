@@ -433,7 +433,7 @@ export class GameUI {
 
         modal.innerHTML = `
             <div class="modal-dialog modal-sm">
-                <div class="modal-content bg-black border-3 border-neon-red" style="box-shadow: 0 0 2rem var(--neon-red);">
+                <div class="modal-content bg-black border-3 border-neon-red shadow-lg">
                     <div class="modal-header border-bottom border-neon-red">
                         <h5 class="modal-title text-neon-red fw-bold">${title}</h5>
                     </div>
@@ -519,7 +519,7 @@ export class GameUI {
         winnerInfo.className = 'text-center mb-3 mb-md-4';
         winnerInfo.innerHTML = `
             <h2 class="fs-fluid-2 text-neon-${winner.color} mb-2">
-                <img src="ai-icons/${winner.avatar}" alt="${winner.name}" class="rounded-circle me-1 me-sm-2" style="width: 40px; height: 40px; object-fit: cover;">
+                <img src="ai-icons/${winner.avatar}" alt="${winner.name}" class="rounded-circle me-1 me-sm-2" style="width: 40px; height: 40px;">
                 ${winner.name}
             </h2>
             <div class="fs-fluid-3 text-neon-yellow mb-1 mb-sm-2">Vítězné skóre</div>

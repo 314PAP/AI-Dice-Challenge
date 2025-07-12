@@ -84,7 +84,7 @@ export class GameRenderer {
             const finalRoundAlert = document.createElement('div');
             finalRoundAlert.className = 'col-12 mb-2';
             finalRoundAlert.innerHTML = `
-                <div class="alert border border-neon-orange text-neon-orange text-center py-1 py-sm-2" style="background-color: rgba(255, 136, 0, 0.1);">
+                <div class="alert border border-neon-orange text-neon-orange text-center py-1 py-sm-2 bg-transparent">
                     <strong>🚨 FINÁLNÍ KOLO</strong> - ${state.finalRoundLeader} dosáhl cíle!
                 </div>
             `;
@@ -112,12 +112,12 @@ export class GameRenderer {
             // Status pro finální kolo nebo FARKLE
             let statusContent = '';
             if (player.hasFarkle) {
-                statusContent = '<div class="text-neon-red fw-bold player-farkle-pulse" style="font-size: clamp(0.5rem, 1.2vw, 0.65rem);">💥 FARKLE!</div>';
+                statusContent = '<div class="text-neon-red fw-bold player-farkle-pulse small">💥 FARKLE!</div>';
             } else if (state.finalRound) {
                 if (isLeader) {
-                    statusContent = '<div class="text-neon-orange fw-bold" style="font-size: clamp(0.5rem, 1.2vw, 0.65rem);">👑 LEADER</div>';
+                    statusContent = '<div class="text-neon-orange fw-bold small">👑 LEADER</div>';
                 } else {
-                    statusContent = '<div class="text-neon-yellow" style="font-size: clamp(0.5rem, 1.2vw, 0.65rem);">Last chance!</div>';
+                    statusContent = '<div class="text-neon-yellow small">Last chance!</div>';
                 }
             }
             
@@ -127,12 +127,12 @@ export class GameRenderer {
                     <div class="mb-1 mb-sm-2 d-flex justify-content-center">
                         <img src="ai-icons/${player.avatar}" alt="${player.name}" 
                              class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''} img-fluid" 
-                             style="width: min(12vw, 60px); height: min(12vw, 60px); max-width: 60px; max-height: 60px; object-fit: cover;">
+                             style="width: 60px; height: 60px; max-width: 60px; max-height: 60px;">
                     </div>
                     <div class="text-neon-${player.color} small fw-bold mb-1 text-truncate">${player.name}</div>
-                    <div class="text-neon-green" style="font-size: clamp(0.6rem, 1.5vw, 0.7rem);">Score:</div>
-                    <div class="text-neon-green fw-bold" style="font-size: clamp(0.7rem, 2vw, 0.875rem);">${player.score}</div>
-                    <div id="player-status-${index}" class="mt-1" style="min-height: 1rem; font-size: clamp(0.6rem, 1.5vw, 0.75rem);">${statusContent}</div>
+                    <div class="text-neon-green small">Score:</div>
+                    <div class="text-neon-green fw-bold">${player.score}</div>
+                    <div id="player-status-${index}" class="mt-1 small min-h-0">${statusContent}</div>
                 </div>
             `;
             
