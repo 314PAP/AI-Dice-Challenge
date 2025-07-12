@@ -124,11 +124,15 @@ export class AiPlayerController {
                 console.log(`🎲 hasScoringDice(${JSON.stringify(currentState.currentRoll)}) =`, hasScoring);
                 
                 if (!hasScoring) {
-                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - GameLogic to ještě nezpracoval`);
+                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - spouštím finishRoll() pro automatické zpracování`);
                     chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
-                    // FARKLE se zpracuje automaticky v gameLogic při finishRoll()
-                    // AI skončí a čeká na automatické zpracování
-                    console.log(`🤖 AI ${aiPlayer.name} ukončuje rozhodování - čeká na FARKLE zpracování`);
+                    
+                    // FORCE spuštění finishRoll() pro zpracování FARKLE
+                    setTimeout(() => {
+                        this.gameLogic.finishRoll();
+                    }, 1000); // Krátké zpoždění pro lepší UX
+                    
+                    console.log(`🤖 AI ${aiPlayer.name} ukončuje rozhodování - FARKLE bude zpracován`);
                     break;
                 } else {
                     console.log(`✅ AI ${aiPlayer.name} našel bodující kostky, pokračuje...`);

@@ -186,13 +186,14 @@ export class GameLogic {
             
             setTimeout(() => {
                 diceElements.forEach(el => el.classList.remove('dice-farkle'));
-            }, 1200);
+            }, 2000); // Delší animace kostek
         }, 200);
         
-        // Automaticky ukončíme tah s farkle
+        // Automaticky ukončíme tah s farkle po delší době pro lepší viditelnost
         setTimeout(() => {
+            console.log('💥 Ukončuji tah s FARKLE...');
             this.endTurn(true);
-        }, 1500);
+        }, 3000); // Prodlouženo z 1.5s na 3s
     }
 
     /**
