@@ -1,6 +1,7 @@
 /* ===================================================================
    FINÁLNÍ CSS - POUZE 3 SOUBORY
    
+   🤖 COPILOT POVINNOST: Před KAŽDOU změnou spusť verify-copilot-system.sh!
    📖 BOOTSTRAP DOKUMENTACE: dokumentybtrap/ (VŽDY POUŽÍVEJ!)
    - dokumentybtrap/grid.md - Grid systém
    - dokumentybtrap/utilities-for-layout.md - Layout utility  
@@ -8,6 +9,7 @@
    - dokumentybtrap/colors.md - Barevný systém
    
    🚨 CHECKLIST PŘED KAŽDOU ZMĚNOU:
+   [ ] Spustil jsem verify-copilot-system.sh?
    [ ] Zkontroloval jsem dokumentybtrap/?
    [ ] Nepoužívám inline styly?
    [ ] Používám naše CSS třídy místo vlastních?
