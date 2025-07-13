@@ -109,27 +109,18 @@ export class GameRenderer {
                 cardClasses += ' border-neon-orange border-3'; // Leader má oranžový rámeček
             }
             
-            // Aplikujeme Farkle efekt podle konfigurace
+            // Aplikujeme Farkle efekt - pouze diagonální
             if (player.hasFarkle) {
-                switch (state.farkleEffect) {
-                    case FARKLE_EFFECTS.CARD_OVERLAY:
-                        cardClasses += ' player-farkle position-relative';
-                        break;
-                    default:
-                        // Pro ostatní efekty neměníme kartu
-                        break;
-                }
+                // Používáme jen diagonální efekt, takže kartu neměníme
             }
             
             const playerCard = document.createElement('div');
             playerCard.className = cardClasses;
             playerCard.id = `player-card-${index}`; // ID pro animace
             
-            // Status pro finální kolo nebo text-based Farkle
+            // Status pro finální kolo
             let statusContent = '';
-            if (player.hasFarkle && state.farkleEffect === FARKLE_EFFECTS.TEXT_UNDER_PLAYER) {
-                statusContent = '<div class="text-neon-red fw-bold player-farkle-pulse small">💥 FARKLE!</div>';
-            } else if (state.finalRound) {
+            if (state.finalRound) {
                 if (isLeader) {
                     statusContent = '<div class="text-neon-orange fw-bold small">👑 LEADER</div>';
                 } else {
@@ -150,11 +141,6 @@ export class GameRenderer {
                     <div id="player-status-${index}" class="mt-1 small min-h-0">${statusContent}</div>
                 </div>
             `;
-            
-            // Přidáme FARKLE overlay, pokud hráč má Farkle a používáme card overlay efekt
-            if (player.hasFarkle && state.farkleEffect === FARKLE_EFFECTS.CARD_OVERLAY) {
-                cardContent += '<div class="farkle-text">💥 FARKLE!</div>';
-            }
             
             playerCard.innerHTML = cardContent;
             
