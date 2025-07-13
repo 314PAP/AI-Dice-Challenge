@@ -91,6 +91,9 @@ npm run validate-full  # Blokuje vše při chybě
 npm run watch  # Spusť manuálně
 ```
 
+### Více informací:
+📖 **SELF_CHECK_DOKUMENTACE.md** - kompletní návod
+
 ### Self-check selhal:
 ```bash
 npm run validate  # Zjisti chyby
