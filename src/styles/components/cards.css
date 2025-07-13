@@ -1,0 +1,18 @@
+/* ===================================================================
+   AI DICE CHALLENGE - CARDS COMPONENT
+   Karty, panely a jejich obsah
+   ================================================================= */
+
+/* ===== KOMPONENTY - KARTY ===== */
+
+/*
+💡 ÚPRAVY BOOTSTRAP .card komponent
+Bootstrap má: .card, .card-body
+Upravujeme: kompaktní padding, menší bordery
+*/
+
+.card-body { padding: 0.25rem !important; }
+.card { border-width: 1px !important; }
+
+.card .small { font-size: clamp(0.5rem, 1.8vw, 0.75rem) !important; }
+.card .fw-bold { font-size: clamp(0.6rem, 2vw, 0.85rem) !important; }

@@ -1,0 +1,11 @@
+/* ===================================================================
+   AI DICE CHALLENGE - COLORS UTILITIES
+   Všechny barvy, neon efekty a barevné třídy
+   ================================================================= */
+
+/* 🎨 IMPORT Z PŮVODNÍHO colors-bootstrap-simple.css */
+/* Tento soubor bude obsahovat pouze barevné definice z původního souboru */
+
+/* Pro nyní importujeme celý původní soubor */
+/* V dalším kroku lze rozdělit na menší části */
+@import '../colors-bootstrap-simple.css';

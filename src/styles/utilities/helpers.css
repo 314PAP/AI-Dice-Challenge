@@ -1,0 +1,12 @@
+/* ===================================================================
+   AI DICE CHALLENGE - HELPERS UTILITIES
+   Z-index, utility třídy co Bootstrap nemá
+   ================================================================= */
+
+/* POUZE utility třídy které Bootstrap 5 nemá */
+.z-index-top {
+    z-index: var(--z-top); /* 9999 - pro absolutně nejvyšší vrstvu */
+}
+
+/* ODSTRANĚNO: .min-h-0 - Bootstrap 5 má .min-h-0 utility třídu! */
+/* POUŽÍVEJ MÍSTO TOHO: class="min-h-0" (Bootstrap má tuto třídu) */

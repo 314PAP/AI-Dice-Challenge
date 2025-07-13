@@ -1,0 +1,49 @@
+/* ===================================================================
+   AI DICE CHALLENGE - VARIABLES
+   CSS custom properties a globální proměnné
+   ================================================================= */
+
+/* ===== CSS PROMĚNNÉ - 6 NEONOVÝCH BAREV + ČERNÁ ===== */
+:root {
+  --neon-green: #39ff14;
+  --neon-green-rgb: 57, 255, 20;
+  --neon-blue: #194DD1;
+  --neon-blue-rgb: 25, 77, 209;
+  --neon-purple: #FF00FF;
+  --neon-purple-rgb: 255, 0, 255;
+  --neon-orange: #FF8800;
+  --neon-orange-rgb: 255, 136, 0;
+  --neon-red: #ff3131;
+  --neon-red-rgb: 255, 49, 49;
+  --neon-yellow: #ffff00;
+  --neon-yellow-rgb: 255, 255, 0;
+  --neon-black: #000000;
+  --neon-black-rgb: 0, 0, 0;
+  
+  /* Neonové efekty */
+  --neon-text-shadow: 0 0 0.625rem currentColor;
+  --neon-glow: 0 0 1.25rem currentColor;
+  --neon-glow-strong: 0 0 2rem currentColor;
+  
+  /* Rozměry a přechody */
+  --border-neon-medium: 0.125rem;
+  --border-neon-thin: 0.0625rem;
+  --transition-normal: all 0.3s ease;
+  --scale-hover: 1.05;
+  --scale-active: 0.98;
+  --neon-bg-hover: rgba(0, 0, 0, 0.2);
+  --neon-bg-active: rgba(0, 0, 0, 0.3);
+  
+  /* Z-index hierarchie */
+  --z-modal: 1050;     /* Bootstrap modal z-index */
+  --z-dropdown: 1000;  /* Bootstrap dropdown z-index */
+  --z-tooltip: 1070;   /* Bootstrap tooltip z-index */
+  --z-loading: 1055;   /* Vlastní loading screen */
+  --z-top: 9999;       /* Pro absolutně nejvyšší vrstvu */
+}
+
+/* ===== ZÁKLADNÍ GLOBÁLNÍ STYLY ===== */
+html, body {
+  background-color: var(--neon-black);
+  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+}
