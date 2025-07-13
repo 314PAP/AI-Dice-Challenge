@@ -154,7 +154,7 @@ export class GameRenderer {
         const diceSection = document.createElement('div');
         diceSection.className = 'flex-grow-1 d-flex align-items-center justify-content-center dice-section';
         diceSection.style.minHeight = '0';
-        diceSection.style.overflow = 'hidden';
+        diceSection.style.overflow = 'visible'; // OPRAVENO: Změněno z hidden na visible
         diceSection.style.marginTop = 'clamp(0.25rem, 1vw, 0.5rem)'; // Menší mezera nahoře
         diceSection.style.marginBottom = 'clamp(0.5rem, 2vw, 1rem)'; // Mezera pod kostkami pro tlačítka
         diceSection.style.paddingTop = 'clamp(0.1rem, 0.5vw, 0.25rem)'; // Menší padding
@@ -163,7 +163,7 @@ export class GameRenderer {
         const diceContainer = document.createElement('div');
         diceContainer.className = 'd-flex justify-content-center align-items-center gap-1 dice-container';
         diceContainer.style.maxWidth = '100%';
-        diceContainer.style.overflow = 'hidden';
+        diceContainer.style.overflow = 'visible'; // OPRAVENO: Změněno z hidden na visible
         diceContainer.style.flexWrap = 'nowrap'; // KLÍČOVÉ: Nikdy nezlomit řádek!
         
         // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO

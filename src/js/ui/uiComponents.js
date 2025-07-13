@@ -116,13 +116,22 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
     
-    // UPRAVENO: Menší kostky pro landscape, aby se vešly s mezerami
-    const vwSize = 'min(6vw, 2rem)'; // Zmenšeno z 8vw na 6vw
+    // UPRAVENO: Adaptivní velikost kostek podle orientace
+    let vwSize;
+    // Detekce orientace pro responzivní velikost
+    if (window.innerHeight < window.innerWidth) {
+        // Landscape - menší kostky
+        vwSize = 'min(4vw, 1.8rem)'; 
+    } else {
+        // Portrait - větší kostky
+        vwSize = 'min(8vw, 2.5rem)';
+    }
+    
     dice.style.width = vwSize;
     dice.style.height = vwSize;
-    dice.style.minWidth = '1.2rem'; // Zmenšeno z 1.5rem
-    dice.style.minHeight = '1.2rem';
-    dice.style.margin = '0.03125rem'; // Menší margin
+    dice.style.minWidth = '1rem'; // Menší minimum
+    dice.style.minHeight = '1rem';
+    dice.style.margin = '0.0625rem'; // Velmi malý margin
     dice.style.border = '1px solid var(--neon-green)';
     dice.style.flexShrink = '0'; // Zabrání smršťování
     
@@ -132,7 +141,18 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
         // Pro házející kostky zobrazíme otazník
         content = document.createElement('div');
         content.className = 'fw-bold';
-        content.style.fontSize = 'clamp(0.5rem, 2.5vw, 1rem)'; // Responzivní font
+        
+        // Adaptivní font podle orientace
+        let fontSize;
+        if (window.innerHeight < window.innerWidth) {
+            // Landscape - menší font
+            fontSize = 'clamp(0.4rem, 2vw, 0.8rem)';
+        } else {
+            // Portrait - větší font
+            fontSize = 'clamp(0.5rem, 3vw, 1rem)';
+        }
+        
+        content.style.fontSize = fontSize; // Responzivní font
         content.textContent = '?';
     } else {
         content = createDotPattern(validValue);
@@ -159,12 +179,23 @@ const createDotPattern = (value) => {
     // Vytvoření teček s responzivními velikostmi - ADAPTIVNÍ PRO ORIENTACI
     const createDot = (position) => {
         const dot = document.createElement('div');
-        dot.style.width = 'clamp(2px, 1.8vw, 6px)'; // Větší pro lepší viditelnost
-        dot.style.height = 'clamp(2px, 1.8vw, 6px)';
+        
+        // Adaptivní velikost teček podle orientace
+        let dotSize;
+        if (window.innerHeight < window.innerWidth) {
+            // Landscape - menší tečky
+            dotSize = 'clamp(1.5px, 1.2vw, 4px)';
+        } else {
+            // Portrait - větší tečky
+            dotSize = 'clamp(2px, 2vw, 6px)';
+        }
+        
+        dot.style.width = dotSize;
+        dot.style.height = dotSize;
         dot.style.backgroundColor = 'var(--neon-green)';
         dot.style.borderRadius = '50%';
         dot.style.position = 'absolute';
-        dot.style.boxShadow = '0 0 clamp(1px, 0.6vw, 3px) var(--neon-green)';
+        dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 2px) var(--neon-green)`;
         
         // Pozicování podle typu
         switch (position) {
@@ -241,4 +272,57 @@ const createDotPattern = (value) => {
     }
     
     return pattern;
+};
+
+/**
+ * Aktualizuje velikosti kostek při změně orientace
+ */
+export const updateDiceForOrientation = () => {
+    const dices = document.querySelectorAll('.dice');
+    
+    dices.forEach(dice => {
+        let vwSize;
+        // Detekce orientace pro responzivní velikost
+        if (window.innerHeight < window.innerWidth) {
+            // Landscape - menší kostky
+            vwSize = 'min(4vw, 1.8rem)'; 
+        } else {
+            // Portrait - větší kostky
+            vwSize = 'min(8vw, 2.5rem)';
+        }
+        
+        dice.style.width = vwSize;
+        dice.style.height = vwSize;
+        
+        // Aktualizace teček
+        const dots = dice.querySelectorAll('div[style*="border-radius: 50%"]');
+        dots.forEach(dot => {
+            let dotSize;
+            if (window.innerHeight < window.innerWidth) {
+                // Landscape - menší tečky
+                dotSize = 'clamp(1.5px, 1.2vw, 4px)';
+            } else {
+                // Portrait - větší tečky
+                dotSize = 'clamp(2px, 2vw, 6px)';
+            }
+            
+            dot.style.width = dotSize;
+            dot.style.height = dotSize;
+            dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 2px) var(--neon-green)`;
+        });
+        
+        // Aktualizace otazníku
+        const questionMark = dice.querySelector('.fw-bold');
+        if (questionMark) {
+            let fontSize;
+            if (window.innerHeight < window.innerWidth) {
+                // Landscape - menší font
+                fontSize = 'clamp(0.4rem, 2vw, 0.8rem)';
+            } else {
+                // Portrait - větší font
+                fontSize = 'clamp(0.5rem, 3vw, 1rem)';
+            }
+            questionMark.style.fontSize = fontSize;
+        }
+    });
 };

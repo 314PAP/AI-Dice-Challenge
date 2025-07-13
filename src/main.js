@@ -22,6 +22,7 @@ import UltraBootstrapAutocomplete from './js/ui/autocomplete.js';
 import { GAME_CONSTANTS, STORAGE_KEYS } from './js/utils/constants.js';
 import { sleep, loadFromLocalStorage, saveToLocalStorage } from './js/utils/helpers.js';
 import { CONSOLE_COLORS, pxToRem } from './js/utils/colors.js';
+import { updateDiceForOrientation } from './js/ui/uiComponents.js';
 
 /**
  * Hlavní třída aplikace, která propojuje všechny komponenty
@@ -193,6 +194,23 @@ class AIDiceGame {
     setupEventListeners() {
         // Příklad globálního event listeneru
         document.addEventListener('game-end', this.handleGameEnd.bind(this));
+        
+        // Listener pro změnu orientace - aktualizace velikostí kostek
+        window.addEventListener('resize', () => {
+            // Debounce pro lepší performance
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(() => {
+                updateDiceForOrientation();
+            }, 150);
+        });
+        
+        // Listener pro změnu orientace
+        window.addEventListener('orientationchange', () => {
+            // Trochu delší delay pro orientationchange
+            setTimeout(() => {
+                updateDiceForOrientation();
+            }, 300);
+        });
     }
 
     /**
