@@ -237,15 +237,15 @@ export class GameUI {
         const scoreSelector = document.createElement('div');
         scoreSelector.className = 'mb-2 mb-sm-3 mb-md-4 d-flex align-items-center justify-content-center';
         
-        // Tlačítka - čtvercová velikost odpovídající výšce textu
-        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn-sm px-2 py-1');
+        // Tlačítka - přesná velikost pro text fs-4
+        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn px-3 py-2 fs-4 lh-1');
         
         const scoreValue = document.createElement('div');
-        scoreValue.className = 'px-3 text-neon-yellow fs-4 lh-1';
+        scoreValue.className = 'px-3 text-neon-yellow fs-4 lh-1 d-flex align-items-center';
         scoreValue.textContent = gameState.getState().targetScore;
         scoreValue.id = 'targetScoreValue';
         
-        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn-sm px-2 py-1');
+        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn px-3 py-2 fs-4 lh-1');
         
         scoreSelector.appendChild(minusBtn);
         scoreSelector.appendChild(scoreValue);
