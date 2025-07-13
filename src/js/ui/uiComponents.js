@@ -116,13 +116,13 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
     
-    // UPRAVENO: Adaptivní viewport jednotky - větší využití prostoru
-    const vwSize = 'min(8vw, 2.5rem)'; // Větší základní velikost - 8% šířky obrazovky
+    // UPRAVENO: Menší kostky pro landscape, aby se vešly s mezerami
+    const vwSize = 'min(6vw, 2rem)'; // Zmenšeno z 8vw na 6vw
     dice.style.width = vwSize;
     dice.style.height = vwSize;
-    dice.style.minWidth = '1.5rem'; // Větší minimální velikost
-    dice.style.minHeight = '1.5rem';
-    dice.style.margin = '0.0625rem'; // Standardní margin
+    dice.style.minWidth = '1.2rem'; // Zmenšeno z 1.5rem
+    dice.style.minHeight = '1.2rem';
+    dice.style.margin = '0.03125rem'; // Menší margin
     dice.style.border = '1px solid var(--neon-green)';
     dice.style.flexShrink = '0'; // Zabrání smršťování
     

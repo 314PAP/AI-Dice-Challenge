@@ -284,43 +284,55 @@ body {
   font-size: clamp(0.7rem, 2vw, 0.9rem) !important;
 }
 
+/* ===== DICE CONTAINER - PADDING PRO SELECTED KOSTKY ===== */
+
+/* Základní padding pro kontejner kostek - TOP i BOTTOM */
+.dice-container {
+  padding: clamp(0.4rem, 1.5vw, 0.8rem) 0.25rem clamp(0.4rem, 1.5vw, 0.8rem) 0.25rem !important; /* TOP a BOTTOM padding */
+}
+
 /* ===== LANDSCAPE ORIENTACE - MEZERY PRO OZNAČENÉ KOSTKY ===== */
 
-/* Landscape orientace - více prostoru pro označené kostky */
+/* Landscape orientace - menší mezery, ale stále oddělené */
 @media (orientation: landscape) {
   .dice.selected {
-    transform: translateY(-0.6rem) !important; /* Větší posun vzhůru pro landscape */
+    transform: translateY(-0.4rem) !important; /* Menší posun vzhůru */
   }
   
-  /* Více prostoru mezi avatary a kostkami */
-  .row.mb-2 {
-    margin-bottom: clamp(0.75rem, 3vw, 1.5rem) !important;
+  /* Větší top a bottom padding pro landscape selected kostky */
+  .dice-container {
+    padding: clamp(0.6rem, 2vw, 1rem) 0.25rem clamp(0.6rem, 2vw, 1rem) 0.25rem !important;
   }
   
-  /* Sekce kostek s více prostorem */
+  /* Menší mezery mezi avatary a kostkami */
+  .row.mb-1 {
+    margin-bottom: clamp(0.4rem, 1.5vw, 0.8rem) !important;
+  }
+  
+  /* Sekce kostek s menším prostorem */
   .dice-section {
-    padding-top: clamp(0.5rem, 2vw, 1rem) !important;
-    margin-top: clamp(0.5rem, 2vw, 1rem) !important;
+    padding-top: clamp(0.25rem, 1vw, 0.5rem) !important;
+    margin-top: clamp(0.25rem, 1vw, 0.5rem) !important;
   }
 }
 
 /* ===== PORTRAIT ORIENTACE - ADAPTIVNÍ VELIKOSTI ===== */
 
-/* Portrait orientace - kostky využijí dostupný prostor */
+/* Portrait orientace - kostky využijí dostupný prostor, ale ne příliš */
 @media (orientation: portrait) {
   .dice {
-    width: min(12vw, 3rem) !important; /* Větší - využijí prostor */
-    height: min(12vw, 3rem) !important;
-    min-width: 2rem !important; /* Rozumná minimální velikost */
-    min-height: 2rem !important;
-    margin: 0.125rem !important; /* Standardní margin */
-    font-size: clamp(0.6rem, 2.5vw, 1rem) !important; /* Větší font */
+    width: min(10vw, 2.5rem) !important; /* Zmenšeno z 12vw */
+    height: min(10vw, 2.5rem) !important;
+    min-width: 1.8rem !important; /* Zmenšeno z 2rem */
+    min-height: 1.8rem !important;
+    margin: 0.0625rem !important; /* Menší margin */
+    font-size: clamp(0.5rem, 2vw, 0.8rem) !important; /* Menší font */
   }
   
   /* Kontejner kostek pro portrait */
   .dice-container {
-    gap: 0.25rem !important; /* Větší gap */
-    padding: 0.25rem !important; /* Padding pro lepší rozložení */
+    gap: 0.15rem !important; /* Menší gap */
+    padding: 0.15rem !important; /* Menší padding */
   }
   
   /* FARKLE text pro portrait orientaci */
@@ -334,30 +346,35 @@ body {
   .dice.selected {
     transform: translateY(-0.2rem) !important; /* Menší posun v portrait */
   }
-}
-
-/* Velmi malé portrait obrazovky - ale stále využijí prostor */
-@media (orientation: portrait) and (max-width: 375px) {
-  .dice {
-    width: min(10vw, 2.5rem) !important; /* Menší, ale stále rozumné */
-    height: min(10vw, 2.5rem) !important;
-    min-width: 1.8rem !important;
-    min-height: 1.8rem !important;
+  
+  /* Portrait - menší top a bottom padding, ale stále dostatečný */
+  .dice-container {
+    padding: clamp(0.4rem, 1.2vw, 0.6rem) 0.25rem clamp(0.4rem, 1.2vw, 0.6rem) 0.25rem !important;
   }
 }
 
-/* Vysoké portrait obrazovky - více místa pro kostky */
+/* Velmi malé portrait obrazovky */
+@media (orientation: portrait) and (max-width: 375px) {
+  .dice {
+    width: min(8vw, 2rem) !important; /* Zmenšeno z 10vw */
+    height: min(8vw, 2rem) !important;
+    min-width: 1.5rem !important; /* Zmenšeno z 1.8rem */
+    min-height: 1.5rem !important;
+  }
+}
+
+/* Vysoké portrait obrazovky - menší než předtím */
 @media (orientation: portrait) and (min-height: 600px) {
   .dice {
-    width: min(14vw, 3.5rem) !important; /* Ještě větší na vysokých obrazovkách */
-    height: min(14vw, 3.5rem) !important;
-    min-width: 2.2rem !important;
-    min-height: 2.2rem !important;
+    width: min(11vw, 2.8rem) !important; /* Zmenšeno z 14vw */
+    height: min(11vw, 2.8rem) !important;
+    min-width: 2rem !important; /* Zmenšeno z 2.2rem */
+    min-height: 2rem !important;
   }
   
   .dice-container {
-    gap: 0.375rem !important; /* Větší gap */
-    padding: 0.375rem !important;
+    gap: 0.2rem !important; /* Menší gap */
+    padding: 0.2rem !important;
   }
 }
 
