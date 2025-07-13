@@ -197,46 +197,6 @@ const createDotPattern = (value) => {
     
     return pattern;
 };
-    
-    // Rozdělení teček podle hodnoty
-    switch (value) {
-        case 1:
-            pattern.appendChild(createDot('center'));
-            break;
-        case 2:
-            pattern.appendChild(createDot('top-left'));
-            pattern.appendChild(createDot('bottom-right'));
-            break;
-        case 3:
-            pattern.appendChild(createDot('top-left'));
-            pattern.appendChild(createDot('center'));
-            pattern.appendChild(createDot('bottom-right'));
-            break;
-        case 4:
-            pattern.appendChild(createDot('top-left'));
-            pattern.appendChild(createDot('top-right'));
-            pattern.appendChild(createDot('bottom-left'));
-            pattern.appendChild(createDot('bottom-right'));
-            break;
-        case 5:
-            pattern.appendChild(createDot('top-left'));
-            pattern.appendChild(createDot('top-right'));
-            pattern.appendChild(createDot('center'));
-            pattern.appendChild(createDot('bottom-left'));
-            pattern.appendChild(createDot('bottom-right'));
-            break;
-        case 6:
-            pattern.appendChild(createDot('top-left'));
-            pattern.appendChild(createDot('top-right'));
-            pattern.appendChild(createDot('middle-left'));
-            pattern.appendChild(createDot('middle-right'));
-            pattern.appendChild(createDot('bottom-left'));
-            pattern.appendChild(createDot('bottom-right'));
-            break;
-    }
-    
-    return pattern;
-};
 
 /**
  * Aktualizuje velikosti kostek při změně orientace - ODSTRANĚNO
@@ -245,5 +205,5 @@ const createDotPattern = (value) => {
 export const updateDiceForOrientation = () => {
     // ODSTRANĚNO: Veškeré inline styly
     // Responzivita je nyní řešena pouze přes CSS
-    console.log('%c✅ Orientace aktualizována přes CSS', `color: ${CONSOLE_COLORS.neonGreen}`);
+    console.log('%c✅ Orientace aktualizována přes CSS', 'color: #39ff14');
 };
