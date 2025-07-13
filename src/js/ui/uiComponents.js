@@ -116,22 +116,37 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
     
-    // UPRAVENO: Adaptivní velikost kostek podle orientace
+    // OPRAVENO: Skutečně responzivní velikost podle CSS
+    // Používáme stejnou logiku jako v CSS - clamp() hodnoty
     let vwSize;
-    // Detekce orientace pro responzivní velikost
-    if (window.innerHeight < window.innerWidth) {
-        // Landscape - menší kostky
-        vwSize = 'min(4vw, 1.8rem)'; 
+    
+    // Detekce landscape pro menší kostky
+    if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
+        // Landscape s malou výškou - kompaktní kostky
+        vwSize = 'clamp(1.2rem, 4vw, 3rem)';
     } else {
-        // Portrait - větší kostky
-        vwSize = 'min(8vw, 2.5rem)';
+        // Normal nebo portrait - responzivní škálování podle breakpointů
+        const width = window.innerWidth;
+        if (width >= 1400) {
+            vwSize = 'clamp(4rem, 12vw, 10rem)';
+        } else if (width >= 1200) {
+            vwSize = 'clamp(3.5rem, 10vw, 8rem)';
+        } else if (width >= 992) {
+            vwSize = 'clamp(3rem, 9vw, 7rem)';
+        } else if (width >= 768) {
+            vwSize = 'clamp(2.5rem, 8vw, 6rem)';
+        } else if (width >= 576) {
+            vwSize = 'clamp(2rem, 7vw, 5rem)';
+        } else {
+            vwSize = 'clamp(1.5rem, 6vw, 4rem)';
+        }
     }
     
     dice.style.width = vwSize;
     dice.style.height = vwSize;
-    dice.style.minWidth = '1rem'; // Menší minimum
+    dice.style.minWidth = '1rem'; // Zachováme minimum
     dice.style.minHeight = '1rem';
-    dice.style.margin = '0.0625rem'; // Velmi malý margin
+    dice.style.margin = 'clamp(0.1rem, 0.5vw, 1rem)'; // Responzivní margin
     dice.style.border = '1px solid var(--neon-green)';
     dice.style.flexShrink = '0'; // Zabrání smršťování
     
@@ -142,14 +157,23 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
         content = document.createElement('div');
         content.className = 'fw-bold';
         
-        // Adaptivní font podle orientace
+        // Responzivní font podle velikosti obrazovky
         let fontSize;
-        if (window.innerHeight < window.innerWidth) {
-            // Landscape - menší font
-            fontSize = 'clamp(0.4rem, 2vw, 0.8rem)';
+        const width = window.innerWidth;
+        
+        if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
+            // Landscape kompaktní
+            fontSize = 'clamp(0.3rem, 1.5vw, 0.8rem)';
+        } else if (width >= 1400) {
+            fontSize = 'clamp(1.5rem, 4vw, 3rem)';
+        } else if (width >= 1200) {
+            fontSize = 'clamp(1.2rem, 3.5vw, 2.5rem)';
+        } else if (width >= 992) {
+            fontSize = 'clamp(1rem, 3vw, 2rem)';
+        } else if (width >= 768) {
+            fontSize = 'clamp(0.8rem, 2.5vw, 1.5rem)';
         } else {
-            // Portrait - větší font
-            fontSize = 'clamp(0.5rem, 3vw, 1rem)';
+            fontSize = 'clamp(0.6rem, 2vw, 1rem)';
         }
         
         content.style.fontSize = fontSize; // Responzivní font
@@ -176,18 +200,27 @@ const createDotPattern = (value) => {
     const pattern = document.createElement('div');
     pattern.className = 'position-relative w-100 h-100';
     
-    // Vytvoření teček s responzivními velikostmi - ADAPTIVNÍ PRO ORIENTACI
+    // Vytvoření teček s responzivními velikostmi - podle velikosti obrazovky
     const createDot = (position) => {
         const dot = document.createElement('div');
         
-        // Adaptivní velikost teček podle orientace
+        // Responzivní velikost teček podle šířky obrazovky (jako CSS)
         let dotSize;
-        if (window.innerHeight < window.innerWidth) {
-            // Landscape - menší tečky
-            dotSize = 'clamp(1.5px, 1.2vw, 4px)';
+        const width = window.innerWidth;
+        
+        if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
+            // Landscape kompaktní
+            dotSize = 'clamp(1px, 0.8vw, 3px)';
+        } else if (width >= 1400) {
+            dotSize = 'clamp(4px, 2.5vw, 12px)';
+        } else if (width >= 1200) {
+            dotSize = 'clamp(3px, 2vw, 10px)';
+        } else if (width >= 992) {
+            dotSize = 'clamp(2.5px, 1.8vw, 8px)';
+        } else if (width >= 768) {
+            dotSize = 'clamp(2px, 1.5vw, 6px)';
         } else {
-            // Portrait - větší tečky
-            dotSize = 'clamp(2px, 2vw, 6px)';
+            dotSize = 'clamp(1.5px, 1.2vw, 4px)';
         }
         
         dot.style.width = dotSize;
@@ -195,7 +228,7 @@ const createDotPattern = (value) => {
         dot.style.backgroundColor = 'var(--neon-green)';
         dot.style.borderRadius = '50%';
         dot.style.position = 'absolute';
-        dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 2px) var(--neon-green)`;
+        dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 3px) var(--neon-green)`;
         
         // Pozicování podle typu
         switch (position) {
@@ -282,45 +315,76 @@ export const updateDiceForOrientation = () => {
     
     dices.forEach(dice => {
         let vwSize;
-        // Detekce orientace pro responzivní velikost
-        if (window.innerHeight < window.innerWidth) {
-            // Landscape - menší kostky
-            vwSize = 'min(4vw, 1.8rem)'; 
+        
+        // Stejná logika jako v createDiceElement
+        if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
+            // Landscape s malou výškou - kompaktní kostky
+            vwSize = 'clamp(1.2rem, 4vw, 3rem)';
         } else {
-            // Portrait - větší kostky
-            vwSize = 'min(8vw, 2.5rem)';
+            // Normal nebo portrait - responzivní škálování podle breakpointů
+            const width = window.innerWidth;
+            if (width >= 1400) {
+                vwSize = 'clamp(4rem, 12vw, 10rem)';
+            } else if (width >= 1200) {
+                vwSize = 'clamp(3.5rem, 10vw, 8rem)';
+            } else if (width >= 992) {
+                vwSize = 'clamp(3rem, 9vw, 7rem)';
+            } else if (width >= 768) {
+                vwSize = 'clamp(2.5rem, 8vw, 6rem)';
+            } else if (width >= 576) {
+                vwSize = 'clamp(2rem, 7vw, 5rem)';
+            } else {
+                vwSize = 'clamp(1.5rem, 6vw, 4rem)';
+            }
         }
         
         dice.style.width = vwSize;
         dice.style.height = vwSize;
+        dice.style.margin = 'clamp(0.1rem, 0.5vw, 1rem)';
         
         // Aktualizace teček
         const dots = dice.querySelectorAll('div[style*="border-radius: 50%"]');
         dots.forEach(dot => {
             let dotSize;
-            if (window.innerHeight < window.innerWidth) {
-                // Landscape - menší tečky
-                dotSize = 'clamp(1.5px, 1.2vw, 4px)';
+            const width = window.innerWidth;
+            
+            if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
+                dotSize = 'clamp(1px, 0.8vw, 3px)';
+            } else if (width >= 1400) {
+                dotSize = 'clamp(4px, 2.5vw, 12px)';
+            } else if (width >= 1200) {
+                dotSize = 'clamp(3px, 2vw, 10px)';
+            } else if (width >= 992) {
+                dotSize = 'clamp(2.5px, 1.8vw, 8px)';
+            } else if (width >= 768) {
+                dotSize = 'clamp(2px, 1.5vw, 6px)';
             } else {
-                // Portrait - větší tečky
-                dotSize = 'clamp(2px, 2vw, 6px)';
+                dotSize = 'clamp(1.5px, 1.2vw, 4px)';
             }
             
             dot.style.width = dotSize;
             dot.style.height = dotSize;
-            dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 2px) var(--neon-green)`;
+            dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 3px) var(--neon-green)`;
         });
         
         // Aktualizace otazníku
         const questionMark = dice.querySelector('.fw-bold');
         if (questionMark) {
             let fontSize;
-            if (window.innerHeight < window.innerWidth) {
-                // Landscape - menší font
-                fontSize = 'clamp(0.4rem, 2vw, 0.8rem)';
+            const width = window.innerWidth;
+            
+            if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
+                fontSize = 'clamp(0.3rem, 1.5vw, 0.8rem)';
+            } else if (width >= 1400) {
+                fontSize = 'clamp(1.5rem, 4vw, 3rem)';
+            } else if (width >= 1200) {
+                fontSize = 'clamp(1.2rem, 3.5vw, 2.5rem)';
+            } else if (width >= 992) {
+                fontSize = 'clamp(1rem, 3vw, 2rem)';
+            } else if (width >= 768) {
+                fontSize = 'clamp(0.8rem, 2.5vw, 1.5rem)';
             } else {
-                // Portrait - větší font
-                fontSize = 'clamp(0.5rem, 3vw, 1rem)';
+                fontSize = 'clamp(0.6rem, 2vw, 1rem)';
             }
             questionMark.style.fontSize = fontSize;
         }
