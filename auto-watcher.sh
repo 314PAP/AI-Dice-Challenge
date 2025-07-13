@@ -36,7 +36,7 @@ if ! command -v inotifywait &> /dev/null; then
                 echo "────────────────────────────────────────────────────────────────────"
                 
                 # Spuštění automatické validace
-                if ./css-validation.sh; then
+                if ./smart-css-validation.sh; then
                     echo "✅ VALIDACE ÚSPĚŠNÁ - kód je v pořádku!"
                     echo ""
                     echo "❓ CHCEŠ COMMITNOUT A PUSHNOUT ZMĚNY?"
@@ -77,7 +77,7 @@ else
             sleep 1
             
             # Spuštění automatické validace
-            if ./css-validation.sh; then
+            if ./smart-css-validation.sh; then
                 echo "✅ VALIDACE ÚSPĚŠNÁ - kód je v pořádku!"
                 echo ""
                 echo "❓ CHCEŠ COMMITNOUT A PUSHNOUT ZMĚNY?"

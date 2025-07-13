@@ -37,11 +37,12 @@ code .
 ## 🛠️ Nouzové příkazy
 
 ```bash
-npm run setup    # Zobrazí pravidla
-npm run check    # Self-check systému  
-npm run validate # Manuální validace
-npm run commit   # Manuální commit
-npm run dev      # Vývojářský server
+npm run setup       # Zobrazí pravidla
+npm run check       # Self-check systému  
+npm run validate    # Smart validace (jen nové změny)
+npm run validate-full # Plná validace (celý projekt)
+npm run commit      # Manuální commit
+npm run dev         # Vývojářský server
 ```
 
 ---
@@ -63,6 +64,20 @@ npm run dev      # Vývojářský server
 dokumentybtrap/grid.md      # Layout
 dokumentybtrap/spacing.md   # Margin/padding  
 dokumentybtrap/colors.md    # Barvy
+```
+
+---
+
+## 🧠 Smart validace
+
+### ✅ Povolí commit i s legacy kódem:
+- **Blokuje**: jen NOVÉ chyby v git diff
+- **Reportuje**: celkový stav projektu
+- **Umožňuje**: postupné zlepšování
+
+### 🚨 Plná validace (legacy):
+```bash
+npm run validate-full  # Blokuje vše při chybě
 ```
 
 ---

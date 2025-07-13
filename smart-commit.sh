@@ -27,7 +27,7 @@ echo "📋 POVINNÁ VALIDACE PŘED COMMITEM:"
 echo "────────────────────────────────────────────────────────────────────"
 
 # Spuštění validace
-if ! ./css-validation.sh; then
+if ! ./smart-css-validation.sh; then
     echo ""
     echo "🚨 VALIDACE SELHALA!"
     echo "────────────────────────────────────────────────────────────────────"
