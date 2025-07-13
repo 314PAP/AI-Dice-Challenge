@@ -13,6 +13,13 @@ export const GAME_CONSTANTS = {
     DEFAULT_TARGET_SCORE: 10000
 };
 
+// FARKLE efekt konstanty
+export const FARKLE_EFFECTS = {
+    TEXT_UNDER_PLAYER: 'text-under-player',  // Jen malý text pod hráčem
+    CARD_OVERLAY: 'card-overlay',            // Šikmý overlay přes kartu hráče  
+    DICE_DIAGONAL: 'dice-diagonal'           // Diagonální nápis přes dice section
+};
+
 // Konstanty pro mechaniku kostek
 export const DICE_CONSTANTS = {
     MIN_VALUE: 1,

@@ -31,6 +31,7 @@
 
 import { createNeonButton, createDiceElement, createNeonCard } from './uiComponents.js';
 import { CONSOLE_COLORS } from '../utils/colors.js';
+import { FARKLE_EFFECTS } from '../utils/constants.js';
 
 export class GameRenderer {
     /**
@@ -104,19 +105,31 @@ export class GameRenderer {
             const playerCol = document.createElement('div');
             playerCol.className = 'col-3 player-col';
             
-            // Čistá karta hráče s neonovým rámečkem podle barvy
+            // Čistá karta hráče s neonovým rámečkem podle barvy - s dynamickým Farkle efektem
             let cardClasses = `card bg-black border border-neon-${player.color} h-100 ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
             if (isLeader) {
                 cardClasses += ' border-neon-orange border-3'; // Leader má oranžový rámeček
+            }
+            
+            // Aplikujeme Farkle efekt podle konfigurace
+            if (player.hasFarkle) {
+                switch (state.farkleEffect) {
+                    case FARKLE_EFFECTS.CARD_OVERLAY:
+                        cardClasses += ' player-farkle position-relative';
+                        break;
+                    default:
+                        // Pro ostatní efekty neměníme kartu
+                        break;
+                }
             }
             
             const playerCard = document.createElement('div');
             playerCard.className = cardClasses;
             playerCard.id = `player-card-${index}`; // ID pro animace
             
-            // Status pro finální kolo nebo FARKLE
+            // Status pro finální kolo nebo text-based Farkle
             let statusContent = '';
-            if (player.hasFarkle) {
+            if (player.hasFarkle && state.farkleEffect === FARKLE_EFFECTS.TEXT_UNDER_PLAYER) {
                 statusContent = '<div class="text-neon-red fw-bold player-farkle-pulse small">💥 FARKLE!</div>';
             } else if (state.finalRound) {
                 if (isLeader) {
@@ -127,7 +140,7 @@ export class GameRenderer {
             }
             
             // Responzivní obsah - kompaktní layout pro malé obrazovky
-            playerCard.innerHTML = `
+            let cardContent = `
                 <div class="card-body text-center p-1">
                     <div class="mb-1 d-flex justify-content-center">
                         <img src="ai-icons/${player.avatar}" alt="${player.name}" 
@@ -140,6 +153,13 @@ export class GameRenderer {
                 </div>
             `;
             
+            // Přidáme FARKLE overlay, pokud hráč má Farkle a používáme card overlay efekt
+            if (player.hasFarkle && state.farkleEffect === FARKLE_EFFECTS.CARD_OVERLAY) {
+                cardContent += '<div class="farkle-text">💥 FARKLE!</div>';
+            }
+            
+            playerCard.innerHTML = cardContent;
+            
             playerCol.appendChild(playerCard);
             playersSection.appendChild(playerCol);
         });
@@ -151,8 +171,16 @@ export class GameRenderer {
      * Vykreslí sekci s kostkami
      */
     renderDiceSection(state, toggleDiceCallback) {
+        const currentPlayer = state.players[state.currentPlayerIndex];
+        
+        // Určíme třídy pro dice section podle Farkle efektu
+        let diceSectionClasses = 'flex-grow-1 d-flex align-items-center justify-content-center dice-section';
+        if (currentPlayer && currentPlayer.hasFarkle && state.farkleEffect === FARKLE_EFFECTS.DICE_DIAGONAL) {
+            diceSectionClasses += ' dice-section-farkle';
+        }
+        
         const diceSection = document.createElement('div');
-        diceSection.className = 'flex-grow-1 d-flex align-items-center justify-content-center dice-section';
+        diceSection.className = diceSectionClasses;
         // ODSTRANĚNO: Veškeré inline styly - CSS řeší responsive-bootstrap.css
         
         // Kontejner pro kostky - POUZE CSS třídy, žádné inline styly

@@ -1,3 +1,5 @@
+import { FARKLE_EFFECTS } from '../utils/constants.js';
+
 /**
  * Game State - Centrální správa herního stavu
  * Modul odpovědný za správu herního stavu, hráčů, skóre a herní logiky
@@ -25,7 +27,9 @@ const initialGameState = {
     finalRoundStartPlayerIndex: -1,
     // Ochrana proti duplicitnímu zpracování
     isFarkleProcessing: false,
-    isRolling: false
+    isRolling: false,
+    // FARKLE efekt nastavení
+    farkleEffect: FARKLE_EFFECTS.DICE_DIAGONAL  // Testujeme diagonální efekt
 };
 
 /**

@@ -221,16 +221,16 @@ body {
 
 /* Základní velikosti kostek - bootstrap responsive approach */
 .dice {
-  width: clamp(1.8rem, 6vw, 3rem);
-  height: clamp(1.8rem, 6vw, 3rem);
+  width: clamp(2.2rem, 7vw, 3.5rem);
+  height: clamp(2.2rem, 7vw, 3.5rem);
   border-width: 1px;
   transition: all 0.3s ease;
   position: relative;
   cursor: pointer;
-  margin: clamp(0.1rem, 0.4vw, 0.4rem);
+  margin: clamp(0.12rem, 0.5vw, 0.5rem);
   flex-shrink: 0;
   pointer-events: auto;
-  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -245,31 +245,31 @@ body {
 /* Small tablets */
 @media (min-width: 576px) {
   .dice { 
-    width: clamp(2rem, 5.5vw, 3.5rem); 
-    height: clamp(2rem, 5.5vw, 3.5rem); 
-    margin: clamp(0.12rem, 0.45vw, 0.5rem);
-    font-size: clamp(0.8rem, 1.6vw, 1.1rem);
+    width: clamp(2.5rem, 6.5vw, 4rem); 
+    height: clamp(2.5rem, 6.5vw, 4rem); 
+    margin: clamp(0.15rem, 0.55vw, 0.6rem);
+    font-size: clamp(0.9rem, 1.8vw, 1.3rem);
   }
 }
 
 /* Tablets */
 @media (min-width: 768px) {
   .dice { 
-    width: clamp(2.2rem, 5vw, 4rem); 
-    height: clamp(2.2rem, 5vw, 4rem);
+    width: clamp(2.8rem, 6vw, 4.5rem); 
+    height: clamp(2.8rem, 6vw, 4.5rem);
     border-width: 2px;
-    margin: clamp(0.15rem, 0.5vw, 0.6rem);
-    font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+    margin: clamp(0.18rem, 0.6vw, 0.7rem);
+    font-size: clamp(1rem, 1.6vw, 1.4rem);
   }
 }
 
 /* Desktop */
 @media (min-width: 992px) {
   .dice { 
-    width: clamp(2.5rem, 4.5vw, 5rem); 
-    height: clamp(2.5rem, 4.5vw, 5rem);
-    margin: clamp(0.18rem, 0.55vw, 0.7rem);
-    font-size: clamp(1rem, 1.3vw, 1.4rem);
+    width: clamp(3.2rem, 5.5vw, 6rem); 
+    height: clamp(3.2rem, 5.5vw, 6rem);
+    margin: clamp(0.2rem, 0.65vw, 0.8rem);
+    font-size: clamp(1.2rem, 1.5vw, 1.6rem);
   }
 }
 
@@ -814,9 +814,9 @@ POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
   background-color: var(--neon-green);
   border-radius: 50%;
   position: absolute;
-  box-shadow: 0 0 clamp(0.5px, 0.4vw, 3px) var(--neon-green);
-  width: clamp(1.5px, 1.2vw, 4px);
-  height: clamp(1.5px, 1.2vw, 4px);
+  box-shadow: 0 0 clamp(0.8px, 0.6vw, 4px) var(--neon-green);
+  width: clamp(2px, 1.5vw, 5px);
+  height: clamp(2px, 1.5vw, 5px);
 }
 
 /* Pozicování teček */
@@ -861,15 +861,17 @@ POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
 /* Responzivní velikosti teček podle breakpointů */
 @media (min-width: 768px) {
   .dice-dot {
-    width: clamp(2px, 1.5vw, 6px);
-    height: clamp(2px, 1.5vw, 6px);
+    width: clamp(3px, 2vw, 7px);
+    height: clamp(3px, 2vw, 7px);
+    box-shadow: 0 0 clamp(1px, 0.8vw, 5px) var(--neon-green);
   }
 }
 
 @media (min-width: 992px) {
   .dice-dot {
-    width: clamp(3px, 2.2vw, 10px);
-    height: clamp(3px, 2.2vw, 10px);
+    width: clamp(4px, 2.5vw, 12px);
+    height: clamp(4px, 2.5vw, 12px);
+    box-shadow: 0 0 clamp(1.5px, 1vw, 6px) var(--neon-green);
   }
 }
 
