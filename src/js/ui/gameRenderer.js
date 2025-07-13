@@ -59,8 +59,7 @@ export class GameRenderer {
         
         const container = document.createElement('div');
         container.className = 'container-fluid h-100 d-flex flex-column p-1 p-md-2';
-        container.style.maxWidth = '100vw';
-        container.style.overflow = 'hidden';
+        // ODSTRANĚNO: Omezující inline styly - CSS řeší responsive-bootstrap.css
         
         // 1. Responzivní karty hráčů
         container.appendChild(this.renderPlayersSection(state));

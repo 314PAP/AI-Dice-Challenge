@@ -265,8 +265,8 @@ body {
 
 @media (min-width: 1200px) {
   .dice { 
-    width: clamp(4rem, 12vw, 8rem);  /* ZMENŠENO z obrovských 7rem-16rem */
-    height: clamp(4rem, 12vw, 8rem); /* ZMENŠENO z obrovských 7rem-16rem */
+    width: clamp(6rem, 15vw, 12rem);  /* ZNAČNĚ ZVĚTŠENO z 4rem-8rem */
+    height: clamp(6rem, 15vw, 12rem); /* ZNAČNĚ ZVĚTŠENO z 4rem-8rem */
     border-width: 3px;
     margin: clamp(0.3rem, 1vw, 1rem);
   }
@@ -280,8 +280,8 @@ body {
 
 @media (min-width: 1400px) {
   .dice { 
-    width: clamp(5rem, 15vw, 10rem);  /* ZMENŠENO z obrovských 8rem-20rem */
-    height: clamp(5rem, 15vw, 10rem); /* ZMENŠENO z obrovských 8rem-20rem */
+    width: clamp(8rem, 18vw, 16rem);  /* ZNAČNĚ ZVĚTŠENO z 5rem-10rem */
+    height: clamp(8rem, 18vw, 16rem); /* ZNAČNĚ ZVĚTŠENO z 5rem-10rem */
     margin: clamp(0.4rem, 1.2vw, 1.2rem);
   }
   
