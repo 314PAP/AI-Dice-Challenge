@@ -227,20 +227,25 @@ PŘECHODY:
 - Responzivní design vždy
 - Validace před každým commitem
 */
-   
-   🚨 CHECKLIST PŘED KAŽDOU ZMĚNOU:
-   [ ] Spustil jsem verify-copilot-system.sh?
-   [ ] Zkontroloval jsem dokumentybtrap/?
-   [ ] Nepoužívám inline styly?
-   [ ] Používám naše CSS třídy místo vlastních?
-   [ ] Animace jsou z knihoven, ne vlastní CSS?
-   [ ] Existuje JS knihovna místo vlastního kódu?
-   [ ] Je kód logický a jednoduchý (max 3000 řádků)?
-   
-   Kompletní systém se PŘESNĚ 3 soubory:
+
+/*
+🚨 CHECKLIST PŘED KAŽDOU ZMĚNOU:
+[ ] Spustil jsem verify-copilot-system.sh?
+[ ] Zkontroloval jsem dokumentybtrap/?
+[ ] Nepoužívám inline styly?
+[ ] Používám naše CSS třídy místo vlastních?
+[ ] Animace jsou z knihoven, ne vlastní CSS?
+[ ] Existuje JS knihovna místo vlastního kódu?
+[ ] Je kód logický a jednoduchý (max 3000 řádků)?
+
+Kompletní systém se PŘESNĚ 3 soubory:
    1. colors-bootstrap-simple.css - VŠECHNY barvy, tlačítka, chat
    2. responsive-bootstrap.css - VŠECHNY velikosti a responzivita
    3. bootstrap-responsive-utils.css - Bootstrap utility rozšíření
+*/
+
+/* ===================================================================
+   IMPORT VŠECH CSS MODULŮ - ZÁVĚREČNÁ SESTAVA
    ================================================================= */
 
 /* ZJEDNODUŠENÝ SOUBOR PRO VŠECHNY BARVY */
