@@ -1063,22 +1063,10 @@ V TOMTO SOUBORU POUZE:
   }
 }
 
-/* ===== RESPONZIVNÍ KOSTKY - OVERRIDE BOOTSTRAP ===== */
+/* ===== RESPONZIVNÍ KOSTKY - PŘESUNUTO DO responsive-bootstrap.css ===== */
 
-/* Responzivní kostky - menší pro mobile-first */
-.dice {
-  width: min(12vw, 45px) !important;
-  height: min(12vw, 45px) !important;
-  max-width: 45px !important;
-  max-height: 45px !important;
-  min-width: 30px !important;
-  min-height: 30px !important;
-  margin: 0.25rem !important;
-  flex-shrink: 0 !important;
-  font-size: clamp(0.6rem, 2vw, 0.9rem) !important;
-  box-sizing: border-box !important;
-  padding: 0.125rem !important;
-}
+/* VŠECHNY velikosti kostek jsou nyní v responsive-bootstrap.css pro lepší organizaci */
+/* Zde pouze animace a vizuální efekty specifické pro kostky */
 
 /* Responzivní avatary - ZMENŠENO pro lepší proporce */
 .player-avatar {
@@ -1092,48 +1080,11 @@ V TOMTO SOUBORU POUZE:
   flex-shrink: 0 !important;
 }
 
-/* Mobilní optimalizace pro velmi malé obrazovky */
-@media (max-width: 320px) {
-  .dice {
-    width: min(16vw, 45px) !important;
-    height: min(16vw, 45px) !important;
-    min-width: 30px !important;
-    min-height: 30px !important;
-    font-size: clamp(0.6rem, 3vw, 0.8rem) !important;
-    margin: 0.25rem !important;
-  }
-  
-  .player-avatar {
-    width: min(10vw, 32px) !important; /* Zmenšeno z 15vw a 45px */
-    height: min(10vw, 32px) !important;
-    min-width: 20px !important; /* Zmenšeno z 25px */
-    min-height: 20px !important;
-  }
-}
+/* Mobilní optimalizace pro velmi malé obrazovky - PŘESUNUTO */
+/* VŠECHNY kostky styly jsou nyní v responsive-bootstrap.css */
 
-/* Velmi malé obrazovky - ještě menší kostky */
-@media (max-width: 280px) {
-  .dice {
-    width: min(18vw, 40px) !important;
-    height: min(18vw, 40px) !important;
-    min-width: 28px !important;
-    min-height: 28px !important;
-    font-size: clamp(0.5rem, 3.5vw, 0.7rem) !important;
-    margin: 0.2rem !important;
-  }
-}
-
-/* Flexbox kontejnery - garantujeme responzivní chování */
-.dice-container-responsive {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: min(1.5vw, 0.25rem) !important;
-  max-width: 100% !important;
-  overflow-x: auto !important;
-  padding: 1rem !important;
-}
+/* Flexbox kontejnery - PŘESUNUTO do responsive-bootstrap.css */
+/* Všechny layout styly jsou centrálně v responsive-bootstrap.css */
 
 /* ===== BOOTSTRAP UTILITY TŘÍDY ===== */
 

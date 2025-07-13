@@ -81,9 +81,7 @@ export class GameRenderer {
      */
     renderPlayersSection(state) {
         const playersSection = document.createElement('div');
-        playersSection.className = 'row g-1 g-md-2 mb-1 flex-shrink-0';
-        playersSection.style.minHeight = '0';
-        playersSection.style.marginBottom = 'clamp(0.25rem, 1vw, 0.5rem)'; // Menší responzivní mezera
+        playersSection.className = 'row g-1 g-md-2 mb-1 flex-shrink-0 players-section';
         
         // Přidáme informaci o finálním kole nad karty hráčů
         if (state.finalRound) {
