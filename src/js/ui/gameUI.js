@@ -288,7 +288,7 @@ export class GameUI {
         );
         
         const exitGameBtn = createNeonButton(
-            'UKONČIT HRU', 
+            'UKONČIT', // Zkráceno pro lepší fit na mobilu 
             'red', 
             'bi-power', 
             () => window.close(), 

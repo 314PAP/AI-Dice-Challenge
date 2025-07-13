@@ -102,7 +102,7 @@ export class MenuComponents {
         );
         
         buttons.exitBtn = createNeonButton(
-            'UKONČIT HRU', 
+            'UKONČIT', // Zkráceno pro lepší fit na mobilu
             'red', 
             'bi-power', 
             () => window.close(),
