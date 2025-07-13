@@ -1,12 +1,232 @@
 /* ===================================================================
-   FINÁLNÍ CSS - POUZE 3 SOUBORY
+   AI DICE CHALLENGE - MAIN.CSS
+   KOMPLETNÍ DOKUMENTACE VŠECH POUŽITÝCH TŘÍD A STYLŮ
    
-   🤖 COPILOT POVINNOST: Před KAŽDOU změnou spusť verify-copilot-system.sh!
-   📖 BOOTSTRAP DOKUMENTACE: dokumentybtrap/ (VŽDY POUŽÍVEJ!)
-   - dokumentybtrap/grid.md - Grid systém
-   - dokumentybtrap/utilities-for-layout.md - Layout utility  
-   - dokumentybtrap/spacing.md - Spacing utility
-   - dokumentybtrap/colors.md - Barevný systém
+   Datum: 13. července 2025
+   Status: FINÁLNÍ DIZAJN - PŘIPRAVEN PRO LOGIKU HRY
+   ================================================================= */
+
+/* ===== PŘEHLED ARCHITEKTURY STYLŮ ===== */
+
+/*
+POUZE 2 HLAVNÍ CSS SOUBORY:
+1. colors-bootstrap-simple.css - všechny barvy a barevné efekty  
+2. responsive-bootstrap.css - všechny velikosti a responzivita
+
+BOOTSTRAP FIRST PŘÍSTUP:
+- Využíváme maximálně Bootstrap utility třídy
+- Naše custom třídy pouze doplňují Bootstrap
+- Žádné inline styly
+- Minimální vlastní CSS
+*/
+
+/* ===== BOOTSTRAP UTILITY TŘÍDY KTERÉ POUŽÍVÁME ===== */
+
+/*
+LAYOUT & GRID:
+- .container, .container-fluid
+- .row, .col, .col-12, .col-sm-6, .col-md-4, .col-lg-3
+- .d-flex, .d-none, .d-block, .d-sm-block
+- .justify-content-center, .justify-content-between
+- .align-items-center, .align-items-start, .align-items-end
+- .flex-column, .flex-row, .flex-wrap
+- .w-100, .h-100, .min-vh-100
+- .position-relative, .position-absolute, .position-fixed
+
+SPACING:
+- .p-0 až .p-5, .px-1, .py-2, .pt-3, .pb-4, .ps-2, .pe-2
+- .m-0 až .m-5, .mx-auto, .my-2, .mt-3, .mb-4, .ms-2, .me-2
+- .gap-1, .gap-2, .gap-3, .gap-4
+
+TYPOGRAPHY:
+- .fs-1 až .fs-6, .small, .lead
+- .display-1 až .display-6
+- .h1 až .h6
+- .text-center, .text-start, .text-end
+- .fw-bold, .fw-normal, .fw-light
+- .text-uppercase, .text-lowercase
+
+BORDERS & EFFECTS:
+- .border, .border-0, .border-top, .border-bottom
+- .rounded, .rounded-circle, .rounded-0, .rounded-3
+- .shadow, .shadow-sm, .shadow-lg
+
+RESPONSIVE UTILITIES:
+- .d-md-block, .d-lg-none
+- .fs-sm-4, .fs-md-3, .fs-lg-2
+- .p-sm-3, .p-md-4, .p-lg-5
+*/
+
+/* ===== NAŠE CUSTOM UTILITY TŘÍDY ===== */
+
+/*
+NEONOVÉ BARVY - TEXT:
+- .text-neon-green (#39ff14)
+- .text-neon-blue (#194DD1)  
+- .text-neon-purple (#FF00FF)
+- .text-neon-orange (#FF8800)
+- .text-neon-red (#ff3131)
+- .text-neon-yellow (#ffff00)
+
+NEONOVÉ BARVY - OKRAJE:
+- .border-neon-green, .border-neon-blue, .border-neon-purple
+- .border-neon-orange, .border-neon-red, .border-neon-yellow
+
+NEONOVÉ TLAČÍTKA:
+- .btn-neon[data-neon-color="green|blue|purple|orange|red|yellow"]
+- Automatické hover efekty (scale, glow)
+- Responzivní velikosti
+
+POZADÍ:
+- .bg-neon-black (#000000)
+- .bg-transparent
+
+EFEKTY:
+- .neon-glow (automatický glow efekt podle barvy textu)
+- .neon-shadow (text shadow efekt)
+*/
+
+/* ===== KOMPONENTY A JEJICH TŘÍDY ===== */
+
+/*
+DICE (KOSTKY):
+- .dice-container (hlavní kontejner)
+- .dice-section (sekce s kostkami)
+- .dice-grid (grid layout pro kostky)
+- .dice-item (jednotlivá kostka)
+- .dice-face (strana kostky)
+- .dice-dot (tečka na kostce)
+- Responzivní velikosti přes clamp()
+- Mobile: 2.5rem, Desktop: 4rem
+
+TLAČÍTKA:
+- .btn-neon (základní neonové tlačítko)
+- .game-button (herní tlačítka)
+- .menu-button (menu tlačítka)
+- Automatické zkracování textu na mobilech
+- Responzivní padding a font-size
+
+CHAT SYSTÉM:
+- .chat-container (hlavní chat kontejner)
+- .chat-messages (oblast zpráv)
+- .chat-message (jednotlivá zpráva)
+- .chat-author (autor zprávy)
+- .chat-text (text zprávy)
+- Automatické scrollování
+
+LOADING & SPINNERS:
+- .spinner-border (Bootstrap spinner)
+- .loading-text (loading text)
+- .fade-in, .fade-out (animace)
+
+FARKLE EFEKT:
+- .farkle-overlay (overlay pro Farkle)
+- .farkle-diagonal (diagonální gradient)
+- Pouze v dice-section, border-radius, overflow hidden
+*/
+
+/* ===== RESPONZIVNÍ BREAKPOINTY ===== */
+
+/*
+MOBILE FIRST PŘÍSTUP:
+
+1. XS (default, 0px+):
+   - font-size: 12px
+   - Kompaktní spacing
+   - Vertikální layout
+
+2. SM (576px+):
+   - font-size: 15px
+   - Mírně větší spacing
+   - Horizontální layout možný
+
+3. MD (768px+):
+   - font-size: 16px (Bootstrap default)
+   - Standardní spacing
+   - Desktop layout
+
+4. LG (992px+):
+   - font-size: 18px
+   - Větší komponenty
+   - Více prostoru
+
+5. XL (1200px+):
+   - font-size: 20px
+   - Maximální velikosti
+   - Luxusní spacing
+
+6. XXL (1400px+):
+   - font-size: 22px
+   - Ultra velikosti
+   - Maximum spacing
+*/
+
+/* ===== ANIMACE A PŘECHODY ===== */
+
+/*
+HOVER EFEKTY:
+- transform: scale(1.05) na tlačítkách
+- Neon glow efekt
+- Transition: all 0.3s ease
+
+FARKLE ANIMACE:
+- Fade in/out
+- Diagonal gradient animace
+- Transform effects
+
+LOADING ANIMACE:
+- Bootstrap spinner rotation
+- Fade effects
+- Pulse animace
+*/
+
+/* ===== CSS PROMĚNNÉ ===== */
+
+/*
+BARVY:
+- --neon-green: #39ff14
+- --neon-blue: #194DD1
+- --neon-purple: #FF00FF
+- --neon-orange: #FF8800
+- --neon-red: #ff3131
+- --neon-yellow: #ffff00
+- --neon-black: #000000
+
+EFEKTY:
+- --neon-text-shadow: 0 0 0.625rem currentColor
+- --neon-glow: 0 0 1.25rem currentColor
+- --neon-glow-strong: 0 0 2rem currentColor
+
+PŘECHODY:
+- --transition-normal: all 0.3s ease
+- --scale-hover: 1.05
+- --scale-active: 0.98
+*/
+
+/* ===== POZNÁMKY PRO DALŠÍ VÝVOJ ===== */
+
+/*
+✅ DOKONČENO:
+- Kompletní responzivní design
+- Bootstrap-first přístup
+- Neonové barvy a efekty
+- Mobile/desktop optimalizace
+- Všechny komponenty (dice, buttons, chat)
+- Validace a cleanup
+
+🎯 PŘIPRAVENO PRO:
+- Herní logiku
+- AI rozhodování
+- Scorování
+- Další funkcionality
+
+🚨 PRAVIDLA:
+- ŽÁDNÉ inline styly
+- Bootstrap utility třídy první volba
+- Minimální vlastní CSS
+- Responzivní design vždy
+- Validace před každým commitem
+*/
    
    🚨 CHECKLIST PŘED KAŽDOU ZMĚNOU:
    [ ] Spustil jsem verify-copilot-system.sh?
