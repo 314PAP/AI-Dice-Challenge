@@ -1,96 +1,79 @@
 /* ===================================================================
-   RESPONSIVE-BOOTSTRAP - JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI
+   AI DICE CHALLENGE - RESPONSIVE-BOOTSTRAP.CSS
+   VELIKOSTI, SPACING A LAYOUT - BEZ BAREV
    
-   Tento soubor obsahuje vše potřebné pro responzivitu a velikosti:
-   1. RESPONZIVNÍ TYPOGRAFIE (Bootstrap-first)
-   2. Responzivní výšky (game/chat sekce)
-   3. Komponenty - velikosti (kostky, tlačítka, spinnery)
-   4. Bootstrap rozšíření pro velikosti
+   Datum: 13. července 2025
+   Refaktorováno podle: main.css architektury
    
-   BEZ BAREV - pouze sizing, spacing, layout
+   BOOTSTRAP FIRST PŘÍSTUP:
+   ✅ Preferujeme Bootstrap utility třídy
+   ✅ Custom CSS pouze tam kde Bootstrap nestačí
+   ✅ Mobile-first responzivní design
+   ✅ Žádné inline styly
+   
+   OBSAH:
+   1. 📱 RESPONZIVNÍ TYPOGRAFIE (Bootstrap RFS)
+   2. 📐 VÝŠKY SEKCÍ (game/chat layout) 
+   3. 🎲 KOMPONENTY - kostky, tlačítka, spinnery
+   4. 📜 SCROLLBARY (neonový design)
+   5. 🎯 UTILITY TŘÍDY (pouze co Bootstrap nemá)
    ================================================================= */
 
-/* ===== RESPONZIVNÍ TYPOGRAFIE - BOOTSTRAP FIRST ===== */
+/* ===== 📱 RESPONZIVNÍ TYPOGRAFIE - BOOTSTRAP RFS FIRST ===== */
 
 /*
-BOOTSTRAP FONT-SIZES PRVNÍ VOLBA:
+🎯 POUŽÍVÁME BOOTSTRAP UTILITY TŘÍDY:
 ✅ .fs-1 až .fs-6 (základní velikosti)
-✅ .small (0.875em)
-✅ .lead (1.25em, větší váha)
+✅ .small (0.875em), .lead (1.25em)
 ✅ .display-1 až .display-6 (hero texty)
-✅ .h1 až .h6 (utility třídy pro velikosti nadpisů)
+✅ .h1 až .h6 (utility třídy pro nadpisy)
 
-RESPONZIVNÍ UTILITIES (Bootstrap 5.2+):
+🔄 RESPONZIVNÍ UTILITIES:
 ✅ .fs-sm-4, .fs-md-3, .fs-lg-2 (responzivní font-size)
-✅ .display-sm-4, .display-md-3 (responzivní display texty)
+✅ .display-sm-4, .display-md-3 (responzivní display)
+
+💡 VLASTNÍ CSS POUZE PRO SPECIFICKÉ HERNÍ POTŘEBY!
 */
 
-/* GLOBÁLNÍ NASTAVENÍ TYPOGRAFIE - Mobile-First, kompaktní */
+/* GLOBÁLNÍ RFS (Responsive Font Scaling) - Mobile-First */
 html {
-  /* Bootstrap RFS (Responsive Font Scaling) je automaticky aktivní */
-  font-size: 12px; /* Menší základní velikost pro kompaktní mobilní zobrazení */
+  font-size: 12px; /* XS: kompaktní mobil */
 }
 
 body {
-  /* Bootstrap už má responsive typography přes RFS */
   font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  line-height: 1.3; /* Ještě kompaktnější pro mobily */
+  line-height: 1.3; /* kompaktní pro mobily */
 }
 
-/* TABLET (576px+) - SM breakpoint */
-@media (min-width: 576px) {
-  html {
-    font-size: 15px; /* Mírně větší pro tablety */
-  }
-  
-  body {
-    line-height: 1.5; /* Bootstrap default */
-  }
+/* 📱 BREAKPOINTY - Bootstrap standard */
+@media (min-width: 576px) { /* SM: malé tablety */
+  html { font-size: 15px; }
+  body { line-height: 1.5; }
 }
 
-/* DESKTOP MALÝ (768px+) - MD breakpoint */
-@media (min-width: 768px) {
-  html {
-    font-size: 16px; /* Bootstrap default pro desktop */
-  }
+@media (min-width: 768px) { /* MD: desktop malý */
+  html { font-size: 16px; }
 }
 
-/* DESKTOP VELKÝ (992px+) - LG breakpoint */
-@media (min-width: 992px) {
-  html {
-    font-size: 17px; /* Větší pro velké monitory */
-  }
+@media (min-width: 992px) { /* LG: desktop velký */
+  html { font-size: 17px; }
 }
 
-/* ULTRA WIDE (1200px+) - XL breakpoint */
-@media (min-width: 1200px) {
-  html {
-    font-size: 18px; /* Největší pro ultra wide */
-  }
-  
-  body {
-    line-height: 1.6; /* Větší řádkování pro lepší čitelnost */
-  }
+@media (min-width: 1200px) { /* XL: ultra wide */
+  html { font-size: 18px; }
+  body { line-height: 1.6; }
 }
 
-/* XXTRA LARGE (1400px+) - XXL breakpoint */
-@media (min-width: 1400px) {
-  html {
-    font-size: 19px; /* Maximum pro největší obrazovky */
-  }
+@media (min-width: 1400px) { /* XXL: maximum */
+  html { font-size: 19px; }
 }
 
-/* LANDSCAPE OPTIMALIZACE - kompaktnější typografie */
+/* 🔄 LANDSCAPE OPTIMALIZACE - kompaktní layout */
 @media (orientation: landscape) and (max-height: 500px) {
-  html {
-    font-size: 13px; /* Menší pro landscape telefony */
-  }
+  html { font-size: 13px; }
+  body { line-height: 1.3; }
   
-  body {
-    line-height: 1.3; /* Kompaktnější řádkování */
-  }
-  
-  /* Menší nadpisy v landscape */
+  /* Kompaktní nadpisy v landscape */
   .h1, h1 { font-size: calc(1.8rem + 0.5vw) !important; }
   .h2, h2 { font-size: calc(1.5rem + 0.3vw) !important; }
   .h3, h3 { font-size: calc(1.3rem + 0.2vw) !important; }
@@ -99,151 +82,98 @@ body {
   .h6, h6 { font-size: 0.9rem !important; }
 }
 
-/* FLUID TYPOGRAPHY - pouze pro specifické případy kdy Bootstrap nestačí */
-.fs-fluid-game-title {
-  font-size: clamp(1rem, 4vw, 2rem); /* Herní titulky */
-}
+/* 🎯 HERNÍ FLUID TYPOGRAPHY - pouze specifické pro hru */
+.fs-fluid-game-title { font-size: clamp(1rem, 4vw, 2rem); }
+.fs-fluid-chat-text { font-size: clamp(0.75rem, 2.5vw, 1rem); }
+.fs-fluid-dice-number { font-size: clamp(1.2rem, 5vw, 2.5rem); }
 
-.fs-fluid-chat-text {
-  font-size: clamp(0.75rem, 2.5vw, 1rem); /* Chat text */
-}
+/* 🔗 BOOTSTRAP BUTTON SCALING - rozšíření */
+.btn { font-size: inherit; }
+.btn-sm { font-size: 0.8rem; }
+.btn-lg { font-size: 1.1rem; }
 
-.fs-fluid-dice-number {
-  font-size: clamp(1.2rem, 5vw, 2.5rem); /* Čísla na kostkách */
-}
+/* 📝 BOOTSTRAP FORM SCALING - rozšíření */
+.form-control, .form-select { font-size: inherit; }
+.form-control-sm { font-size: 0.85rem; }
+.form-control-lg { font-size: 1.1rem; }
 
-/* BUTTON TEXT SCALING - integruje s Bootstrap btn velikostmi */
-.btn {
-  font-size: inherit; /* Respektuje parent font-size */
-}
-
-.btn-sm {
-  font-size: 0.8rem; /* Menší tlačítka */
-}
-
-.btn-lg {
-  font-size: 1.1rem; /* Větší tlačítka */
-}
-
-/* INPUT TEXT SCALING */
-.form-control, .form-select {
-  font-size: inherit; /* Respektuje context */
-}
-
-.form-control-sm {
-  font-size: 0.85rem;
-}
-
-.form-control-lg {
-  font-size: 1.1rem;
-}
-
-/* CHAT SPECIFIC TYPOGRAPHY */
+/* 💬 CHAT TYPOGRAPHY - herní specifické */
 .chat-message {
   font-size: clamp(0.8rem, 2.2vw, 0.95rem);
   line-height: 1.3;
-  word-break: break-word; /* Toto Bootstrap nemá jako utility */
-  /* ODSTRANĚNO: max-width: 85% - použij class="mw-100" nebo class="w-85" */
+  word-break: break-word; /* Bootstrap nemá jako utility */
 }
 
 .chat-timestamp {
   font-size: clamp(0.65rem, 1.8vw, 0.75rem);
 }
 
-/* ===== RESPONZIVNÍ VÝŠKY - GAME/CHAT SEKCE ===== */
+/* ===== 📐 VÝŠKY SEKCÍ - GAME/CHAT LAYOUT ===== */
 
-/* ZÁKLADNÍ VÝŠKY pro Mobile-First přístup */
-.game-section,
-.mobile-game-height {
-  height: 55vh !important;
+/*
+🎯 HERNÍ SPECIFICKÉ VÝŠKY:
+Bootstrap má .h-25, .h-50, .h-75, .h-100, .vh-100
+ale potřebujeme specifické poměry pro game/chat
+*/
+
+/* Mobile-First: 55% game / 35% chat */
+.game-section, .mobile-game-height { height: 55vh !important; }
+.chat-section, .mobile-chat-height { height: 35vh !important; }
+
+/* 📱 RESPONZIVNÍ VÝŠKY */
+@media (min-width: 576px) { /* SM: tablety */
+  .game-section, .mobile-game-height { height: 60vh !important; }
+  .chat-section, .mobile-chat-height { height: 30vh !important; }
 }
 
-.chat-section,
-.mobile-chat-height {
-  height: 35vh !important;
+@media (min-width: 768px) { /* MD: desktop malý */
+  .game-section, .mobile-game-height { height: 65vh !important; }
+  .chat-section, .mobile-chat-height { height: 25vh !important; }
 }
 
-/* TABLET (576px+) */
-@media (min-width: 576px) {
-  .game-section,
-  .mobile-game-height {
-    height: 60vh !important;
-  }
-  
-  .chat-section,
-  .mobile-chat-height {
-    height: 30vh !important;
-  }
+@media (min-width: 992px) { /* LG: desktop velký */
+  .game-section, .mobile-game-height { height: 70vh !important; }
+  .chat-section, .mobile-chat-height { height: 20vh !important; }
 }
 
-/* DESKTOP MALÝ (768px+) */
-@media (min-width: 768px) {
-  .game-section,
-  .mobile-game-height {
-    height: 65vh !important;
-  }
-  
-  .chat-section,
-  .mobile-chat-height {
-    height: 25vh !important;
-  }
-}
-
-/* DESKTOP VELKÝ (992px+) */
-@media (min-width: 992px) {
-  .game-section,
-  .mobile-game-height {
-    height: 70vh !important;
-  }
-  
-  .chat-section,
-  .mobile-chat-height {
-    height: 20vh !important;
-  }
-}
-
-/* ULTRA WIDE (1200px+) */
-@media (min-width: 1200px) {
-  .game-section,
-  .mobile-game-height {
-    height: 75vh !important;
-  }
-  
-  .chat-section,
-  .mobile-chat-height {
-    height: 18vh !important;
-  }
+@media (min-width: 1200px) { /* XL: ultra wide */
+  .game-section, .mobile-game-height { height: 75vh !important; }
+  .chat-section, .mobile-chat-height { height: 18vh !important; }
 }
 
 
+/* ===== 🎲 KOMPONENTY - KOSTKY (DICE) ===== */
 
-/* ===== KOMPONENTY - KOSTKY VELIKOSTI ===== */
+/*
+💡 KOSTKY JSOU HERNÍ SPECIFICKÉ - Bootstrap nemá
+Používáme clamp() pro plynulé škálování všech velikostí
+*/
 
-/* Základní velikosti kostek - bootstrap responsive approach */
 .dice {
+  /* 📏 RESPONZIVNÍ VELIKOSTI */
   width: clamp(2.2rem, 7vw, 3.5rem);
   height: clamp(2.2rem, 7vw, 3.5rem);
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  margin: clamp(0.12rem, 0.5vw, 0.5rem);
+  
+  /* 🎯 LAYOUT PROPERTIES */
   border-width: 1px;
+  border-radius: 6px;
   transition: all 0.3s ease;
   position: relative;
   cursor: pointer;
-  margin: clamp(0.12rem, 0.5vw, 0.5rem);
   flex-shrink: 0;
   pointer-events: auto;
-  font-size: clamp(0.8rem, 2vw, 1.2rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
 }
 
-/* Kostky při házení - zakázat klikání */
-.dice.dice-rolling {
-  pointer-events: none;
-}
+/* 🚫 ZAKÁZAT INTERAKCI PŘI HÁZENÍ */
+.dice.dice-rolling { pointer-events: none; }
 
-/* Small tablets */
-@media (min-width: 576px) {
+/* 📱 RESPONZIVNÍ BREAKPOINTY */
+@media (min-width: 576px) { /* SM */
   .dice { 
     width: clamp(2.5rem, 6.5vw, 4rem); 
     height: clamp(2.5rem, 6.5vw, 4rem); 
@@ -252,8 +182,7 @@ body {
   }
 }
 
-/* Tablets */
-@media (min-width: 768px) {
+@media (min-width: 768px) { /* MD */
   .dice { 
     width: clamp(2.8rem, 6vw, 4.5rem); 
     height: clamp(2.8rem, 6vw, 4.5rem);
@@ -263,8 +192,7 @@ body {
   }
 }
 
-/* Desktop */
-@media (min-width: 992px) {
+@media (min-width: 992px) { /* LG */
   .dice { 
     width: clamp(3.2rem, 5.5vw, 6rem); 
     height: clamp(3.2rem, 5.5vw, 6rem);
@@ -273,8 +201,7 @@ body {
   }
 }
 
-/* Large desktop - PŘIMĚŘENÉ KOSTKY PRO VELKÉ OBRAZOVKY */
-@media (min-width: 1200px) {
+@media (min-width: 1200px) { /* XL */
   .dice { 
     width: clamp(3.5rem, 5vw, 5rem) !important;
     height: clamp(3.5rem, 5vw, 5rem) !important;
@@ -284,8 +211,7 @@ body {
   }
 }
 
-/* Extra large desktop - ROZUMNÉ KOSTKY PRO ULTRA WIDE */
-@media (min-width: 1400px) {
+@media (min-width: 1400px) { /* XXL */
   .dice { 
     width: clamp(4rem, 6vw, 6rem) !important;
     height: clamp(4rem, 6vw, 6rem) !important;
@@ -295,7 +221,7 @@ body {
   }
 }
 
-/* Landscape optimalizace - menší kostky kvůli výšce */
+/* 🔄 LANDSCAPE - kompaktní kostky */
 @media (orientation: landscape) and (max-height: 600px) {
   .dice {
     width: clamp(1.4rem, 4vw, 2.5rem) !important;
@@ -305,123 +231,92 @@ body {
   }
 }
 
-/* Dice transformace - interakce specifické pro hru */
-.dice.selected {
-  transform: translateY(-0.25rem) !important; /* Základní posun */
-}
+/* 🎯 INTERAKCE - herní stavy */
+.dice.selected { transform: translateY(-0.25rem) !important; }
+.dice:hover:not(.selected) { transform: scale(1.05) !important; }
 
-.dice:hover:not(.selected) {
-  transform: scale(1.05) !important;
-}
-
-/* Final round alert - responzivní text */
-.final-round-alert {
-  font-size: clamp(0.7rem, 2vw, 0.9rem) !important;
-}
-
-/* ===== DICE CONTAINER - RESPONZIVNÍ PADDING ===== */
-
-/* Základní padding pro kontejner kostek - optimalizováno pro všechny velikosti */
+/* 📦 DICE KONTEJNERY - layout optimalizace */
 .dice-container {
-  padding: clamp(0.2rem, 0.5vw, 0.6rem) 0.25rem !important;
-  overflow: visible !important; /* Aby se kostky neořezávaly */
-  flex-wrap: nowrap !important; /* Jeden řádek kostek na desktop */
-  max-width: none !important; /* Na velkých obrazovkách NEOMEZOVAT šířku */
+  /* 🎯 FLEXBOX LAYOUT */
   display: flex !important;
   justify-content: center !important;
   align-items: flex-start !important;
+  flex-wrap: nowrap !important;
+  
+  /* 📏 SPACING */
+  padding: clamp(0.2rem, 0.5vw, 0.6rem) 0.25rem !important;
+  overflow: visible !important;
+  max-width: none !important; /* velké obrazovky - neomezovat */
 }
 
-/* Na malých obrazovkách omezit šířku kvůli mobilu */
-@media (max-width: 768px) {
-  .dice-container {
-    max-width: 100% !important; /* Pouze na mobilu omezit */
-    flex-wrap: wrap !important; /* Na mobilu povolit zalamování */
-    justify-content: space-around !important;
-  }
-}
-
-/* Na velkých obrazovkách více prostoru */
-@media (min-width: 1200px) {
-  .dice-container {
-    padding: clamp(0.4rem, 1vw, 0.8rem) 0.5rem !important;
-    gap: clamp(0.2rem, 0.5vw, 0.5rem) !important;
-  }
-}
-
-/* ===== DICE SECTION - OPTIMALIZOVANÉ NASTAVENÍ ===== */
-
-/* Základní nastavení pro dice-section */
 .dice-section {
-  min-height: 0 !important; /* Flexibilní výška */
-  overflow: visible !important; /* Kostky se neořezávají */
-  margin: clamp(0.5rem, 1.5vw, 1rem) 0 !important; /* Responzivní mezery */
-  padding: clamp(0.2rem, 0.8vw, 0.5rem) 0 !important; /* Responzivní padding */
+  /* 🎯 FLEXBOX LAYOUT */
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
+  
+  /* 📏 SPACING */
+  min-height: 0 !important;
+  overflow: visible !important;
+  margin: clamp(0.5rem, 1.5vw, 1rem) 0 !important;
+  padding: clamp(0.2rem, 0.8vw, 0.5rem) 0 !important;
 }
 
-/* Na velkých obrazovkách optimalizovaný prostor */
-@media (min-width: 1200px) {
-  .dice-section {
-    margin: clamp(0.8rem, 2vw, 1.5rem) 0 !important;
-    padding: clamp(0.4rem, 1.2vw, 0.8rem) 0 !important;
-  }
-}
-
-/* Na mobilech kompaktnější */
+/* 📱 MOBIL - omezit šířku, povolit wrap */
 @media (max-width: 768px) {
+  .dice-container {
+    max-width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: space-around !important;
+  }
+  
   .dice-section {
     margin: clamp(0.3rem, 1vw, 0.6rem) 0 !important;
     padding: clamp(0.1rem, 0.5vw, 0.3rem) 0 !important;
   }
 }
 
-/* ===== LANDSCAPE ORIENTACE - MEZERY PRO OZNAČENÉ KOSTKY ===== */
-
-/* Landscape orientace - menší mezery, ale stále oddělené */
-@media (orientation: landscape) {
-  .dice.selected {
-    transform: translateY(-0.6rem) !important; /* Větší posun vzhůru pro lepší viditelnost */
-  }
-  
-  /* Menší top a bottom padding pro landscape selected kostky - MINIMÁLNÍ */
+/* 🖥️ VELKÉ OBRAZOVKY - více prostoru */
+@media (min-width: 1200px) {
   .dice-container {
-    padding: clamp(0.3rem, 1vw, 0.6rem) 0.25rem clamp(0.3rem, 1vw, 0.6rem) 0.25rem !important; /* ZMENŠENO pro landscape */
-    overflow: visible !important; /* Aby se selected kostky neořezávaly */
+    padding: clamp(0.4rem, 1vw, 0.8rem) 0.5rem !important;
+    gap: clamp(0.2rem, 0.5vw, 0.5rem) !important;
   }
   
-  /* Menší mezery mezi avatary a kostkami */
-  .row.mb-1 {
-    margin-bottom: clamp(0.4rem, 1.5vw, 0.8rem) !important;
-  }
-  
-  /* Sekce kostek s menším prostorem */
   .dice-section {
-    padding-top: clamp(0.25rem, 1vw, 0.5rem) !important;
-    margin-top: clamp(0.25rem, 1vw, 0.5rem) !important;
-    overflow: visible !important; /* Aby se kostky neořezávaly */
+    margin: clamp(0.8rem, 2vw, 1.5rem) 0 !important;
+    padding: clamp(0.4rem, 1.2vw, 0.8rem) 0 !important;
   }
 }
 
-/* ===== PORTRAIT ORIENTACE - ADAPTIVNÍ VELIKOSTI ===== */
+/* 🔄 LANDSCAPE - kompaktní mezery */
+@media (orientation: landscape) {
+  .dice.selected { transform: translateY(-0.6rem) !important; }
+  
+  .dice-container {
+    padding: clamp(0.3rem, 1vw, 0.6rem) 0.25rem !important;
+    overflow: visible !important;
+  }
+  
+  .dice-section {
+    padding-top: clamp(0.25rem, 1vw, 0.5rem) !important;
+    margin-top: clamp(0.25rem, 1vw, 0.5rem) !important;
+    overflow: visible !important;
+  }
+}
 
-/* ODSTRANĚNO: Portrait specifické override pravidla, protože máme globálně responzivní řešení s clamp() */
-/* Globální .dice pravidla se automaticky přizpůsobí portrait orientaci */
-
-/* Vysoké portrait obrazovky - optimalizované velikosti */
+/* 📱 PORTRAIT VYSOKÉ - optimalizované velikosti */
 @media (orientation: portrait) and (min-height: 600px) {
   .dice {
-    width: min(9vw, 2.5rem) !important; /* Zmenšeno pro lepší poměr */
+    width: min(9vw, 2.5rem) !important;
     height: min(9vw, 2.5rem) !important;
-    min-width: 1.8rem !important; /* Minimální velikost pro klikání */
+    min-width: 1.8rem !important;
     min-height: 1.8rem !important;
     font-size: clamp(0.7rem, 1.5vw, 1rem) !important;
   }
   
   .dice-container {
-    gap: 0.15rem !important; /* Menší gap pro lepší využití */
+    gap: 0.15rem !important;
     padding: clamp(0.15rem, 0.5vw, 0.3rem) !important;
     justify-content: space-evenly !important;
   }
@@ -432,49 +327,35 @@ body {
   }
 }
 
-/* ===== KOMPONENTY - KARTY HRÁČŮ MENŠÍ ===== */
+/* ===== 🔘 KOMPONENTY - TLAČÍTKA ===== */
 
-/* Zmenšené karty hráčů pro lepší proporce */
-.card-body {
-  padding: 0.25rem !important; /* Zmenšeno z defaultních 1rem */
-}
+/*
+💡 ROZŠÍŘENÍ BOOTSTRAP .btn tříd
+Bootstrap má: .btn, .btn-sm, .btn-lg
+Přidáváme: responzivní sizing, min-height pro touch
+*/
 
-.card {
-  border-width: 1px !important; /* Tenčí bordery */
-}
-
-/* Menší texty v kartách */
-.card .small {
-  font-size: clamp(0.5rem, 1.8vw, 0.75rem) !important;
-}
-
-.card .fw-bold {
-  font-size: clamp(0.6rem, 2vw, 0.85rem) !important;
-}
-
-/* ===== KOMPONENTY - TLAČÍTKA SKUTEČNĚ RESPONZIVNÍ ===== */
-
-/* Základní responzivní tlačítka - škálují se podle obrazovky */
 .btn {
-  font-size: clamp(0.8rem, 2.5vw, 1.4rem) !important; /* Od malých po velké obrazovky */
-  padding: clamp(0.3rem, 1vw, 0.8rem) clamp(0.6rem, 2vw, 1.5rem) !important; /* Responzivní padding */
-  line-height: 1.3 !important; /* Čitelnější */
-  min-height: clamp(2rem, 4vw, 3.5rem) !important; /* Minimální výška pro klikání */
+  /* 📏 RESPONZIVNÍ VELIKOSTI */
+  font-size: clamp(0.8rem, 2.5vw, 1.4rem) !important;
+  padding: clamp(0.3rem, 1vw, 0.8rem) clamp(0.6rem, 2vw, 1.5rem) !important;
+  min-height: clamp(2rem, 4vw, 3.5rem) !important;
+  line-height: 1.3 !important;
 }
 
 .btn-sm {
-  font-size: clamp(0.7rem, 2vw, 1.2rem) !important; 
+  font-size: clamp(0.7rem, 2vw, 1.2rem) !important;
   padding: clamp(0.2rem, 0.8vw, 0.6rem) clamp(0.5rem, 1.5vw, 1.2rem) !important;
   min-height: clamp(1.8rem, 3.5vw, 3rem) !important;
 }
 
 .btn-lg {
-  font-size: clamp(1rem, 3vw, 1.8rem) !important; 
+  font-size: clamp(1rem, 3vw, 1.8rem) !important;
   padding: clamp(0.4rem, 1.2vw, 1rem) clamp(0.8rem, 2.5vw, 2rem) !important;
   min-height: clamp(2.5rem, 5vw, 4.5rem) !important;
 }
 
-/* Desktop velikosti - větší tlačítka na velkých obrazovkách */
+/* 🖥️ DESKTOP VELIKOSTI */
 @media (min-width: 1200px) {
   .btn {
     font-size: clamp(1.1rem, 2.8vw, 1.6rem) !important;
@@ -489,9 +370,24 @@ body {
   }
 }
 
-/* ===== KOMPONENTY - SPINNER VELIKOSTI ===== */
+/* 🎯 NEONOVÉ TLAČÍTKA - pouze hover efekty */
+.btn-neon:hover, .btn-neon:focus {
+  box-shadow: 0 0 clamp(3px, 1vw, 8px) currentColor !important;
+  filter: brightness(1.1) !important;
+}
 
-/* Neon spinner - specifické pro hru, Bootstrap má pouze .spinner-border */
+.btn-neon:active {
+  filter: brightness(0.9) !important;
+}
+
+/* ===== 🌀 KOMPONENTY - SPINNERY ===== */
+
+/*
+💡 ROZŠÍŘENÍ BOOTSTRAP .spinner-border
+Bootstrap má: .spinner-border, .spinner-border-sm
+Přidáváme: neon-spinner s orbital animací
+*/
+
 .neon-spinner {
   display: inline-block !important;
   width: 2.5rem !important;
@@ -504,64 +400,15 @@ body {
   border-style: solid !important;
 }
 
-/* Různé velikosti spinnerů - pouze pokud Bootstrap .spinner-border-sm nestačí */
-.neon-spinner.neon-spinner-sm {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-}
+.neon-spinner.neon-spinner-sm { width: 1.5rem !important; height: 1.5rem !important; }
+.neon-spinner.neon-spinner-lg { width: 3.5rem !important; height: 3.5rem !important; }
 
-.neon-spinner.neon-spinner-lg {
-  width: 3.5rem !important;
-  height: 3.5rem !important;
-}
-
-/* ===== KOMPONENTY - NEONOVÁ TLAČÍTKA - POUZE EFEKTY ===== */
-
-/* Jemné efekty bez škálování aby se tlačítka nepřekrývala */
-.btn-neon:hover,
-.btn-neon:focus {
-  box-shadow: 0 0 clamp(3px, 1vw, 8px) currentColor !important;
-  filter: brightness(1.1) !important;
-  /* ODSTRANĚNO: transform: scale() - způsobovalo překrývání */
-}
-
-.btn-neon:active {
-  filter: brightness(0.9) !important;
-  /* ODSTRANĚNO: transform: scale() - způsobovalo překrývání */
-}
-
-/* ===== KOMPONENTY - CHAT VELIKOSTI - POUZE SPECIFICKÉ ===== */
-
-/* DUPLICITNÍ KÓD ODSTRANĚN - .chat-message už je definován výše v CHAT SPECIFIC TYPOGRAPHY */
-
-/* ===== KOMPONENTY - FORMULÁŘE - ODSTRANĚNO ===== */
-
-/* Bootstrap .form-control má všechny potřebné styly */
-
-/* ===== RESPONZIVNÍ TLAČÍTKA - ODSTRANĚNO ===== */
-
-/* Používej Bootstrap .btn-sm, .btn-lg a responsive třídy .btn-md-lg apod. */
-
-/* ===== LAYOUT UTILITY TŘÍDY - POUZE TO CO BOOTSTRAP NEMÁ ===== */
-
-/* POZNÁMKA: Bootstrap 5 má .min-vh-100, takže .min-height-100vh je zbytečný */
-/* POUŽÍVEJ MÍSTO TOHO: class="min-vh-100" */
-
-/* Z-index utility - Bootstrap 5 nemá specifické z-index utility */
-.z-index-top {
-    z-index: 9999;
-}
-
-/* === SPINNER ANIMACE ===== */
-
-/* Orbital spinner pro chat */
+/* 🎯 ORBITAL SPINNER ANIMACE */
 #chatSpinner.neon-spinner-orbital::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   border-radius: 50%;
   border: 0.125rem solid transparent;
   animation: neon-spin 1.2s linear infinite;
@@ -570,10 +417,8 @@ body {
 #chatSpinner.neon-spinner-orbital::after {
   content: '';
   position: absolute;
-  top: 15%;
-  left: 15%;
-  width: 70%;
-  height: 70%;
+  top: 15%; left: 15%;
+  width: 70%; height: 70%;
   border-radius: 50%;
   border: 0.125rem solid transparent;
   animation: neon-spin-reverse 1.8s linear infinite;
@@ -589,55 +434,91 @@ body {
   100% { transform: rotate(0deg); }
 }
 
-/* === MOBILNÍ LAYOUT 60/40 === */
+/* ===== 🃏 KOMPONENTY - KARTY ===== */
 
-/* Pouze pro mobily (< 576px) */
-@media (max-width: 575.98px) {
-    /* Game area - 60% výšky na mobilu */
-    .mobile-game-area {
-        flex: 0 0 60% !important;
-        min-height: 60% !important;
-        max-height: 60% !important;
-    }
-    
-    /* Chat area - 40% výšky na mobilu */
-    .mobile-chat-area {
-        flex: 0 0 40% !important;
-        min-height: 40% !important;
-        max-height: 40% !important;
-    }
+/*
+💡 ÚPRAVY BOOTSTRAP .card komponent
+Bootstrap má: .card, .card-body
+Upravujeme: kompaktní padding, menší bordery
+*/
+
+.card-body { padding: 0.25rem !important; }
+.card { border-width: 1px !important; }
+
+.card .small { font-size: clamp(0.5rem, 1.8vw, 0.75rem) !important; }
+.card .fw-bold { font-size: clamp(0.6rem, 2vw, 0.85rem) !important; }
+
+/* ===== 📱 MOBILNÍ LAYOUT 60/40 ===== */
+
+/*
+💡 HERNÍ SPECIFICKÝ LAYOUT PRO MOBILY
+Bootstrap má standardní grid, ale potřebujeme 60% game / 40% chat
+*/
+
+@media (max-width: 575.98px) { /* Pouze mobily */
+  .mobile-game-area {
+    flex: 0 0 60% !important;
+    min-height: 60% !important;
+    max-height: 60% !important;
+  }
+  
+  .mobile-chat-area {
+    flex: 0 0 40% !important;
+    min-height: 40% !important;
+    max-height: 40% !important;
+  }
 }
 
-/* Desktop a větší - standardní Bootstrap grid */
-@media (min-width: 576px) {
-    .mobile-game-area {
-        flex: 0 0 66.666667% !important; /* col-sm-8 ekvivalent */
-    }
-    
-    .mobile-chat-area {
-        flex: 0 0 33.333333% !important; /* col-sm-4 ekvivalent */
-    }
+@media (min-width: 576px) { /* Desktop a větší */
+  .mobile-game-area { flex: 0 0 66.666667% !important; } /* col-sm-8 */
+  .mobile-chat-area { flex: 0 0 33.333333% !important; } /* col-sm-4 */
 }
 
-/* ===== SCROLLBARY - KOMPLETNÍ NASTAVENÍ PRO CELOU HRU ===== */
+/* ===== 🎯 UTILITY TŘÍDY - CO BOOTSTRAP NEMÁ ===== */
 
-/* Globální scrollbary pro všechny kontejnery - responzivní */
+/*
+💡 POUZE NEZBYTNÉ UTILITY TŘÍDY
+Bootstrap 5 má většinu, přidáváme jen specifické
+*/
+
+.final-round-alert { font-size: clamp(0.7rem, 2vw, 0.9rem) !important; }
+
+/* 👥 PLAYERS SECTION */
+.players-section {
+  min-height: 0 !important;
+  margin-bottom: clamp(0.25rem, 1vw, 0.5rem) !important;
+}
+
+.player-col { min-width: 0 !important; } /* Bootstrap flex fix */
+
+/* Mezery mezi avatary - landscape optimalizace */
+@media (orientation: landscape) {
+  .row.mb-1 { margin-bottom: clamp(0.4rem, 1.5vw, 0.8rem) !important; }
+}
+
+/* ===== 📜 SCROLLBARY - NEONOVÝ DESIGN ===== */
+
+/*
+💡 KOMPLETNÍ SCROLLBAR SYSTÉM PRO CELOU HRU
+Bootstrap nemá scrollbar styling - čistě custom
+*/
+
+/* 🌐 GLOBÁLNÍ SCROLLBARY */
 *::-webkit-scrollbar {
-  width: 0.375rem; /* 6px - základní */
-  height: 0.375rem;
+  width: 0.375rem; height: 0.375rem; /* 6px základní */
 }
 
 *::-webkit-scrollbar-track {
   background: var(--neon-black);
   box-shadow: inset 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.05);
-  margin: 0.125rem; /* DŮLEŽITÉ - odsazení od okraje */
+  margin: 0.125rem;
 }
 
 *::-webkit-scrollbar-thumb {
   background: rgba(var(--neon-green-rgb), 0.7);
   box-shadow: 0 0 0.1875rem rgba(var(--neon-green-rgb), 0.3);
   border-radius: 0.1875rem;
-  border: 0.03125rem solid var(--neon-black); /* DŮLEŽITÉ - vytvoří odsazení */
+  border: 0.03125rem solid var(--neon-black);
 }
 
 *::-webkit-scrollbar-thumb:hover {
@@ -645,17 +526,15 @@ body {
   box-shadow: 0 0 0.25rem var(--neon-green), 0 0 0.5rem rgba(var(--neon-green-rgb), 0.4);
 }
 
-*::-webkit-scrollbar-corner {
-  background: var(--neon-black);
-}
+*::-webkit-scrollbar-corner { background: var(--neon-black); }
 
-/* Firefox scrollbary */
+/* 🦊 FIREFOX SCROLLBARY */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) var(--neon-black);
 }
 
-/* Bootstrap utility třídy - scrollbary pro overflow kontejnery */
+/* 📦 BOOTSTRAP OVERFLOW KONTEJNERY */
 .overflow-auto, .overflow-scroll, .overflow-y-auto, .overflow-x-auto, 
 [style*="overflow"], .scrollable, .scroll-container {
   scrollbar-width: thin;
@@ -666,8 +545,7 @@ body {
 .overflow-y-auto::-webkit-scrollbar, .overflow-x-auto::-webkit-scrollbar,
 [style*="overflow"]::-webkit-scrollbar, .scrollable::-webkit-scrollbar,
 .scroll-container::-webkit-scrollbar {
-  width: 8px; /* Bootstrap standard */
-  height: 8px;
+  width: 8px; height: 8px; /* Bootstrap standard */
 }
 
 .overflow-auto::-webkit-scrollbar-track, .overflow-scroll::-webkit-scrollbar-track,
@@ -675,7 +553,7 @@ body {
 [style*="overflow"]::-webkit-scrollbar-track, .scrollable::-webkit-scrollbar-track,
 .scroll-container::-webkit-scrollbar-track {
   background: transparent;
-  margin: 4px; /* Bootstrap standard odsazení */
+  margin: 4px;
 }
 
 .overflow-auto::-webkit-scrollbar-thumb, .overflow-scroll::-webkit-scrollbar-thumb,
@@ -685,7 +563,7 @@ body {
   background: var(--neon-green);
   border-radius: 4px;
   border: 2px solid transparent;
-  background-clip: content-box; /* KLÍČOVÉ - vytvoří odsazení od okraje */
+  background-clip: content-box;
 }
 
 .overflow-auto::-webkit-scrollbar-thumb:hover, .overflow-scroll::-webkit-scrollbar-thumb:hover,
@@ -704,21 +582,14 @@ body {
   background: transparent;
 }
 
-/* Chat scrollbar - specifické nastavení */
+/* 💬 CHAT SCROLLBAR - specifické */
 #chatMessages {
   scrollbar-width: thin;
   scrollbar-color: var(--neon-green) transparent;
 }
 
-#chatMessages::-webkit-scrollbar {
-  width: 8px;
-}
-
-#chatMessages::-webkit-scrollbar-track {
-  background: transparent;
-  margin: 4px;
-}
-
+#chatMessages::-webkit-scrollbar { width: 8px; }
+#chatMessages::-webkit-scrollbar-track { background: transparent; margin: 4px; }
 #chatMessages::-webkit-scrollbar-thumb {
   background: var(--neon-green);
   border-radius: 4px;
@@ -732,114 +603,34 @@ body {
   box-shadow: 0 0 0.375rem var(--neon-yellow), 0 0 0.75rem rgba(var(--neon-yellow-rgb), 0.5);
 }
 
-#chatMessages::-webkit-scrollbar-corner {
-  background: var(--neon-black);
-}
+#chatMessages::-webkit-scrollbar-corner { background: var(--neon-black); }
 
-/* Responsive scrollbary - větší na touch zařízeních */
-@media (pointer: coarse) {
-  *::-webkit-scrollbar {
-    width: 0.75rem; /* 12px */
-    height: 0.75rem;
-  }
-  
+/* 📱 RESPONZIVNÍ SCROLLBARY */
+@media (pointer: coarse) { /* Touch zařízení */
+  *::-webkit-scrollbar { width: 0.75rem; height: 0.75rem; }
   .overflow-auto::-webkit-scrollbar, .overflow-scroll::-webkit-scrollbar, 
   .overflow-y-auto::-webkit-scrollbar, .overflow-x-auto::-webkit-scrollbar,
   [style*="overflow"]::-webkit-scrollbar, .scrollable::-webkit-scrollbar,
-  .scroll-container::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
-  
-  #chatMessages::-webkit-scrollbar {
-    width: 0.875rem; /* 14px */
-    height: 0.875rem;
-  }
+  .scroll-container::-webkit-scrollbar { width: 12px; height: 12px; }
+  #chatMessages::-webkit-scrollbar { width: 0.875rem; height: 0.875rem; }
 }
 
-/* Landscape mode - tenčí scrollbary */
-@media (orientation: landscape) and (max-height: 500px) {
-  *::-webkit-scrollbar {
-    width: 0.25rem; /* 4px */
-    height: 0.25rem;
-  }
-  
+@media (orientation: landscape) and (max-height: 500px) { /* Landscape kompaktní */
+  *::-webkit-scrollbar { width: 0.25rem; height: 0.25rem; }
   .overflow-auto::-webkit-scrollbar, .overflow-scroll::-webkit-scrollbar, 
   .overflow-y-auto::-webkit-scrollbar, .overflow-x-auto::-webkit-scrollbar,
   [style*="overflow"]::-webkit-scrollbar, .scrollable::-webkit-scrollbar,
-  .scroll-container::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  
-  #chatMessages::-webkit-scrollbar {
-    width: 0.375rem; /* 6px */
-    height: 0.375rem;
-  }
+  .scroll-container::-webkit-scrollbar { width: 6px; height: 6px; }
+  #chatMessages::-webkit-scrollbar { width: 0.375rem; height: 0.375rem; }
 }
 
-/* ===================================================================
-   BOOTSTRAP-FIRST INSTRUKCE PRO RESPONSIVE-BOOTSTRAP.CSS
-   ================================================================= */
+/* ===== ⚪ DICE DOTS - TEČKY NA KOSTKÁCH ===== */
 
 /*
-TENTO SOUBOR OBSAHUJE POUZE:
-✅ Responzivní výšky pro game/chat sekce (specifické pro hru)
-✅ Kostky velikosti (herní komponenty)
-✅ Neon spinner velikosti (nelze nahradit Bootstrap .spinner-border)
-✅ Scrollbar velikosti (responzivní)
-✅ Velmi specifické utility (.min-height-100vh, .z-index-top)
-✅ Mobilní layout 60/40 pro hru
-✅ Spinner animace (specifické pro hru)
-
-MÍSTO VLASTNÍCH STYLŮ POUŽÍVEJ BOOTSTRAP:
-
-PADDING & MARGIN:
-❌ padding: 0.375rem 0.75rem → ✅ class="px-3 py-2"
-❌ margin-bottom: 0.75rem → ✅ class="mb-3"
-
-FONT SIZES:
-❌ font-size: 0.875rem → ✅ class="fs-6" nebo class="small"
-❌ font-size: 1.25rem → ✅ class="fs-5"
-
-BORDER RADIUS:
-❌ border-radius: 0.5rem → ✅ class="rounded"
-❌ border-radius: 0.375rem → ✅ class="rounded" (default)
-
-BUTTON SIZES:
-❌ padding: 0.25rem 0.5rem → ✅ class="btn btn-sm"
-❌ padding: 0.75rem 1.5rem → ✅ class="btn btn-lg"
-
-FLEXBOX:
-❌ flex-grow: 1 → ✅ class="flex-grow-1"
-❌ align-items: center → ✅ class="align-items-center"
-
-OVERFLOW:
-❌ overflow: hidden → ✅ class="overflow-hidden"
-❌ overflow-y: auto → ✅ class="overflow-y-auto"
-
-DISPLAY:
-❌ display: flex → ✅ class="d-flex"
-❌ display: none → ✅ class="d-none"
-
-WIDTH/HEIGHT:
-❌ width: 100% → ✅ class="w-100"
-❌ height: 100% → ✅ class="h-100"
-❌ min-height: 0 → ✅ class="min-h-0" (není v Bootstrap, ale není potřeba)
-
-POSITION:
-❌ position: relative → ✅ class="position-relative"
-❌ position: absolute → ✅ class="position-absolute"
-
-RESPONSIVE BREAKPOINTY:
-❌ @media (min-width: 768px) → ✅ class="d-md-block" nebo class="fs-md-4"
-
-POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
+💡 HERNÍ SPECIFICKÉ - místo inline stylů
+Bootstrap nemá dot pozicování - čistě custom
 */
 
-/* ===== DICE DOTS - CSS TŘÍDY MÍSTO INLINE STYLŮ ===== */
-
-/* Základní dot styly - responzivní velikosti */
 .dice-dot {
   background-color: var(--neon-green);
   border-radius: 50%;
@@ -849,46 +640,16 @@ POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
   height: clamp(3px, 1vw, 8px);
 }
 
-/* Pozicování teček */
-.dice-dot-center {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+/* 🎯 POZICOVÁNÍ TEČEK */
+.dice-dot-center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.dice-dot-top-left { top: 15%; left: 15%; }
+.dice-dot-top-right { top: 15%; right: 15%; }
+.dice-dot-middle-left { top: 50%; left: 15%; transform: translateY(-50%); }
+.dice-dot-middle-right { top: 50%; right: 15%; transform: translateY(-50%); }
+.dice-dot-bottom-left { bottom: 15%; left: 15%; }
+.dice-dot-bottom-right { bottom: 15%; right: 15%; }
 
-.dice-dot-top-left {
-  top: 15%;
-  left: 15%;
-}
-
-.dice-dot-top-right {
-  top: 15%;
-  right: 15%;
-}
-
-.dice-dot-middle-left {
-  top: 50%;
-  left: 15%;
-  transform: translateY(-50%);
-}
-
-.dice-dot-middle-right {
-  top: 50%;
-  right: 15%;
-  transform: translateY(-50%);
-}
-
-.dice-dot-bottom-left {
-  bottom: 15%;
-  left: 15%;
-}
-
-.dice-dot-bottom-right {
-  bottom: 15%;
-  right: 15%;
-}
-
-/* Responzivní velikosti teček podle breakpointů */
+/* 📱 RESPONZIVNÍ VELIKOSTI TEČEK */
 @media (min-width: 768px) {
   .dice-dot {
     width: clamp(4px, 1.2vw, 10px);
@@ -921,7 +682,6 @@ POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
   }
 }
 
-/* Landscape kompaktní - menší tečky */
 @media (orientation: landscape) and (max-height: 600px) {
   .dice-dot {
     width: clamp(2px, 0.6vw, 4px) !important;
@@ -930,55 +690,52 @@ POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
   }
 }
 
-/* Font velikost pro otazník v kostce (.fw-bold) - responzivní */
-.dice .fw-bold {
-  font-size: clamp(0.7rem, 1.8vw, 1.2rem);
-}
+/* 🔤 FONT VELIKOST PRO OTAZNÍK V KOSTCE */
+.dice .fw-bold { font-size: clamp(0.7rem, 1.8vw, 1.2rem); }
 
 @media (min-width: 768px) {
-  .dice .fw-bold {
-    font-size: clamp(0.9rem, 2vw, 1.6rem);
-  }
+  .dice .fw-bold { font-size: clamp(0.9rem, 2vw, 1.6rem); }
 }
 
 @media (min-width: 992px) {
-  .dice .fw-bold {
-    font-size: clamp(1.1rem, 2.5vw, 2rem);
-  }
+  .dice .fw-bold { font-size: clamp(1.1rem, 2.5vw, 2rem); }
 }
 
 @media (min-width: 1200px) {
-  .dice .fw-bold {
-    font-size: clamp(1.3rem, 2.8vw, 2.2rem);
-  }
+  .dice .fw-bold { font-size: clamp(1.3rem, 2.8vw, 2.2rem); }
 }
 
 @media (min-width: 1400px) {
-  .dice .fw-bold {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-  }
+  .dice .fw-bold { font-size: clamp(1.5rem, 3vw, 2.5rem); }
 }
 
-/* Landscape kompaktní font */
 @media (orientation: landscape) and (max-height: 600px) {
-  .dice .fw-bold {
-    font-size: clamp(0.3rem, 1.5vw, 0.8rem) !important;
-  }
+  .dice .fw-bold { font-size: clamp(0.3rem, 1.5vw, 0.8rem) !important; }
 }
+
+/* ===================================================================
+   🎯 BOOTSTRAP-FIRST INSTRUKCE
+   ================================================================= */
 
 /*
-POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
+✅ TENTO SOUBOR OBSAHUJE POUZE:
+- Responzivní výšky pro game/chat (herní specifické)
+- Kostky a dice kontejnery (herní komponenty)
+- Neon spinnery (nelze nahradit Bootstrap)
+- Scrollbar styling (Bootstrap nemá)
+- Mobilní 60/40 layout
+- Dice dots pozicování
+
+❌ MÍSTO VLASTNÍCH STYLŮ POUŽÍVEJ BOOTSTRAP:
+
+SPACING: padding/margin → .px-3, .py-2, .mb-3, .mt-4
+FONT SIZES: font-size → .fs-1 až .fs-6, .small, .lead
+BORDERS: border-radius → .rounded, .rounded-3
+FLEXBOX: flex properties → .d-flex, .align-items-center
+DISPLAY: display → .d-none, .d-block, .d-md-flex
+OVERFLOW: overflow → .overflow-hidden, .overflow-y-auto
+POSITION: position → .position-relative, .position-absolute
+RESPONSIVE: @media → .d-md-block, .fs-lg-3
+
+🚀 POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
 */
-
-/* ===== PLAYERS SECTION - BOOTSTRAP UTILITIES ===== */
-
-/* Players section s responzivními mezerami */
-.players-section {
-  min-height: 0 !important;
-  margin-bottom: clamp(0.25rem, 1vw, 0.5rem) !important;
-}
-
-/* Player columns - Bootstrap flex fix */
-.player-col {
-  min-width: 0 !important; /* Bootstrap fix pro overflow */
-}
