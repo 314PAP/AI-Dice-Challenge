@@ -28,10 +28,7 @@
     "hooks:lenient": "./toggle-git-hooks.sh lenient",
     "hooks:strict": "./toggle-git-hooks.sh strict",
     "hooks:status": "./toggle-git-hooks.sh status",
-    "prepare": "husky install",
-    "auto-commit": "./auto-commit.sh",
-    "auto-commit:watch": "./auto-commit-watcher.sh",
-    "auto-commit:force": "./force-commit.sh"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",
