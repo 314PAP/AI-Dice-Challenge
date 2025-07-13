@@ -1047,46 +1047,46 @@ V TOMTO SOUBORU POUZE:
   border-width: 3px !important;
 }
 
-/* Responsive velikosti avatarů - použije Bootstrap breakpointy */
+/* Responsive velikosti avatarů - ZMENŠENO pro lepší proporce */
 @media (max-width: 576px) {
   .player-avatar {
-    width: 64px !important;
-    height: 64px !important;
+    width: 36px !important; /* Zmenšeno z 64px */
+    height: 36px !important;
   }
 }
 
 @media (max-width: 375px) {
   .player-avatar {
-    width: 56px !important;
-    height: 56px !important;
+    width: 32px !important; /* Zmenšeno z 56px */
+    height: 32px !important;
   }
 }
 
 /* ===== RESPONZIVNÍ KOSTKY - OVERRIDE BOOTSTRAP ===== */
 
-/* Responzivní kostky - garantujeme velikosti proti Bootstrap override */
+/* Responzivní kostky - menší pro mobile-first */
 .dice {
-  width: min(14vw, 55px) !important;
-  height: min(14vw, 55px) !important;
-  max-width: 55px !important;
-  max-height: 55px !important;
-  min-width: 35px !important;
-  min-height: 35px !important;
-  margin: 0.5rem !important;
+  width: min(12vw, 45px) !important;
+  height: min(12vw, 45px) !important;
+  max-width: 45px !important;
+  max-height: 45px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  margin: 0.25rem !important;
   flex-shrink: 0 !important;
-  font-size: clamp(0.7rem, 2.5vw, 1rem) !important;
+  font-size: clamp(0.6rem, 2vw, 0.9rem) !important;
   box-sizing: border-box !important;
   padding: 0.125rem !important;
 }
 
-/* Responzivní avatary - garantujeme velikosti */
+/* Responzivní avatary - ZMENŠENO pro lepší proporce */
 .player-avatar {
-  width: min(12vw, 60px) !important;
-  height: min(12vw, 60px) !important;
-  max-width: 60px !important;
-  max-height: 60px !important;
-  min-width: 30px !important;
-  min-height: 30px !important;
+  width: min(8vw, 40px) !important; /* Zmenšeno z 12vw a 60px */
+  height: min(8vw, 40px) !important;
+  max-width: 40px !important; /* Zmenšeno z 60px */
+  max-height: 40px !important;
+  min-width: 24px !important; /* Zmenšeno z 30px */
+  min-height: 24px !important;
   object-fit: cover !important;
   flex-shrink: 0 !important;
 }
@@ -1103,10 +1103,10 @@ V TOMTO SOUBORU POUZE:
   }
   
   .player-avatar {
-    width: min(15vw, 45px) !important;
-    height: min(15vw, 45px) !important;
-    min-width: 25px !important;
-    min-height: 25px !important;
+    width: min(10vw, 32px) !important; /* Zmenšeno z 15vw a 45px */
+    height: min(10vw, 32px) !important;
+    min-width: 20px !important; /* Zmenšeno z 25px */
+    min-height: 20px !important;
   }
 }
 

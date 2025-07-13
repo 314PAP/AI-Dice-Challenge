@@ -26,7 +26,7 @@
 /* ZJEDNODUŠENÝ SOUBOR PRO VŠECHNY BARVY */
 @import './colors-bootstrap-simple.css';
 
-/* JEDINÝ SOUBOR PRO VŠECHNY VELIKOSTI A RESPONZIVITU */
+/* RESPONZIVNÍ STYLY PRO KOSTKY A VELIKOSTI */
 @import './responsive-bootstrap.css';
 
 /* BOOTSTRAP RESPONSIVE UTILITY ROZŠÍŘENÍ */

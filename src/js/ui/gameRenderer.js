@@ -58,7 +58,9 @@ export class GameRenderer {
         console.log('👤 Aktuální hráč:', currentPlayer);
         
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100 overflow-hidden p-1 p-md-3';
+        container.className = 'container-fluid h-100 d-flex flex-column p-1 p-md-2';
+        container.style.maxWidth = '100vw';
+        container.style.overflow = 'hidden';
         
         // 1. Responzivní karty hráčů
         container.appendChild(this.renderPlayersSection(state));
@@ -77,14 +79,15 @@ export class GameRenderer {
      */
     renderPlayersSection(state) {
         const playersSection = document.createElement('div');
-        playersSection.className = 'row g-1 g-md-2 mb-2 mb-md-3';
+        playersSection.className = 'row g-1 g-md-2 mb-1 mb-md-2 flex-shrink-0';
+        playersSection.style.minHeight = '0'; // Zabránit expanzi
         
         // Přidáme informaci o finálním kole nad karty hráčů
         if (state.finalRound) {
             const finalRoundAlert = document.createElement('div');
-            finalRoundAlert.className = 'col-12 mb-2';
+            finalRoundAlert.className = 'col-12 mb-1';
             finalRoundAlert.innerHTML = `
-                <div class="alert border border-neon-orange text-neon-orange text-center py-1 py-sm-2 bg-transparent">
+                <div class="alert border border-neon-orange text-neon-orange text-center py-1 bg-transparent final-round-alert">
                     <strong>🚨 FINÁLNÍ KOLO</strong> - ${state.finalRoundLeader} dosáhl cíle!
                 </div>
             `;
@@ -95,12 +98,13 @@ export class GameRenderer {
             const isCurrentPlayer = index === state.currentPlayerIndex;
             const isLeader = state.finalRound && player.name === state.finalRoundLeader;
             
-            // Avatary VŽDY v jedné řadě - 4 sloupce, menší na mobilu
+            // Avatary PŘÍSNĚ v Bootstrap grid - col-3 (4 sloupce), bez overflow
             const playerCol = document.createElement('div');
             playerCol.className = 'col-3';
+            playerCol.style.minWidth = '0'; // Bootstrap fix pro overflow
             
             // Čistá karta hráče s neonovým rámečkem podle barvy
-            let cardClasses = `card bg-black border border-neon-${player.color} ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
+            let cardClasses = `card bg-black border border-neon-${player.color} h-100 ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
             if (isLeader) {
                 cardClasses += ' border-neon-orange border-3'; // Leader má oranžový rámeček
             }
@@ -147,11 +151,16 @@ export class GameRenderer {
      */
     renderDiceSection(state, toggleDiceCallback) {
         const diceSection = document.createElement('div');
-        diceSection.className = 'text-center my-2 my-md-4 flex-grow-1 d-flex align-items-center';
+        diceSection.className = 'flex-grow-1 d-flex align-items-center justify-content-center my-1 my-md-2';
+        diceSection.style.minHeight = '0';
+        diceSection.style.overflow = 'hidden';
         
-        // Kontejner pro kostky - responzivní velikost
+        // Kontejner pro kostky - VYNUCENÝ jeden řádek
         const diceContainer = document.createElement('div');
-        diceContainer.className = 'd-flex flex-wrap justify-content-center align-items-center gap-2 gap-md-3 p-1 w-100';
+        diceContainer.className = 'd-flex justify-content-center align-items-center gap-1';
+        diceContainer.style.maxWidth = '100%';
+        diceContainer.style.overflow = 'hidden';
+        diceContainer.style.flexWrap = 'nowrap'; // KLÍČOVÉ: Nikdy nezlomit řádek!
         
         // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO
         if (state.currentRoll && state.currentRoll.length > 0) {
@@ -189,7 +198,8 @@ export class GameRenderer {
         // Pokud nejsou žádné kostky
         if ((!state.currentRoll || state.currentRoll.length === 0) && (!state.savedDice || state.savedDice.length === 0)) {
             const infoText = document.createElement('div');
-            infoText.className = 'text-neon-yellow fs-5';
+            // OPRAVENO: Responzivní velikost textu - malý na mobilu, větší na desktopu
+            infoText.className = 'text-neon-yellow small fs-md-6';
             infoText.innerHTML = '<i class="bi bi-dice-6"></i> Stiskněte HODIT pro začátek';
             diceContainer.appendChild(infoText);
         }
@@ -203,10 +213,12 @@ export class GameRenderer {
      */
     renderButtonsSection(state, currentPlayer, callbacks) {
         const actionButtons = document.createElement('div');
-        actionButtons.className = 'mt-2 mb-2';
+        actionButtons.className = 'mt-1 mb-1 flex-shrink-0';
+        actionButtons.style.minHeight = '0';
         
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-2 g-md-3 px-1';
+        buttonsContainer.className = 'row g-1 g-md-2 px-0 mx-0';
+        buttonsContainer.style.maxWidth = '100%';
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
@@ -263,7 +275,8 @@ export class GameRenderer {
         }
         
         const rollCol = document.createElement('div');
-        rollCol.className = 'col-6 mb-1 px-2';
+        rollCol.className = 'col-6 mb-1 px-1';
+        rollCol.style.minWidth = '0'; // Bootstrap overflow fix
         rollCol.appendChild(rollBtn);
         buttonsContainer.appendChild(rollCol);
         
@@ -297,7 +310,8 @@ export class GameRenderer {
         }
         
         const saveCol = document.createElement('div');
-        saveCol.className = 'col-6 mb-1 px-2';
+        saveCol.className = 'col-6 mb-1 px-1';
+        saveCol.style.minWidth = '0'; // Bootstrap overflow fix
         saveCol.appendChild(saveBtn);
         buttonsContainer.appendChild(saveCol);
         
@@ -328,7 +342,8 @@ export class GameRenderer {
         }
         
         const endCol = document.createElement('div');
-        endCol.className = 'col-6 mb-1 px-2';
+        endCol.className = 'col-6 mb-1 px-1';
+        endCol.style.minWidth = '0'; // Bootstrap overflow fix
         endCol.appendChild(endTurnBtn);
         buttonsContainer.appendChild(endCol);
         
@@ -342,7 +357,8 @@ export class GameRenderer {
         );
         
         const menuCol = document.createElement('div');
-        menuCol.className = 'col-6 mb-1 px-2';
+        menuCol.className = 'col-6 mb-1 px-1';
+        menuCol.style.minWidth = '0'; // Bootstrap overflow fix
         menuCol.appendChild(menuBtn);
         buttonsContainer.appendChild(menuCol);
         

@@ -112,16 +112,27 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     }
     
     const dice = document.createElement('div');
-    dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded`;
+    // OPRAVENO: Menší viewport jednotky pro vždy jeden řádek kostek
+    dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
     
+    // ZMENŠENO: Viewport-responsive velikosti pro jeden řádek
+    const vwSize = 'min(7vw, 2rem)'; // 7% šířky obrazovky, max 2rem - MENŠÍ!
+    dice.style.width = vwSize;
+    dice.style.height = vwSize;
+    dice.style.minWidth = '1.2rem'; // Menší minimální velikost
+    dice.style.minHeight = '1.2rem';
+    dice.style.margin = '0.0625rem'; // Menší margin
+    dice.style.border = '1px solid var(--neon-green)';
+    dice.style.flexShrink = '0'; // Zabrání smršťování
     
     // Vytvoření patternu s tečkami podle hodnoty kostky
     let content;
     if (validValue === '?') {
         // Pro házející kostky zobrazíme otazník
         content = document.createElement('div');
-        content.className = 'fs-4 fw-bold';
+        content.className = 'fw-bold';
+        content.style.fontSize = 'clamp(0.5rem, 2.5vw, 1rem)'; // Responzivní font
         content.textContent = '?';
     } else {
         content = createDotPattern(validValue);
@@ -137,60 +148,95 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
 };
 
 /**
- * Vytvoří pattern teček pro kostku
+ * Vytvoří pattern teček pro kostku s viewport-responsive velikostmi
  * @param {number} value - Hodnota kostky (1-6)
  * @returns {HTMLDivElement} Pattern teček
  */
 const createDotPattern = (value) => {
     const pattern = document.createElement('div');
-    pattern.className = 'position-relative w-100 h-100'; // Změna na relativní pozicování
+    pattern.className = 'position-relative w-100 h-100';
     
-    const dotCount = value;
+    // Vytvoření teček s responzivními velikostmi - MENŠÍ
+    const createDot = (position) => {
+        const dot = document.createElement('div');
+        dot.style.width = 'clamp(1.5px, 1vw, 4px)'; // Menší responzivní velikost tečky
+        dot.style.height = 'clamp(1.5px, 1vw, 4px)';
+        dot.style.backgroundColor = 'var(--neon-green)';
+        dot.style.borderRadius = '50%';
+        dot.style.position = 'absolute';
+        dot.style.boxShadow = '0 0 clamp(0.5px, 0.3vw, 2px) var(--neon-green)';
+        
+        // Pozicování podle typu
+        switch (position) {
+            case 'center':
+                dot.style.top = '50%';
+                dot.style.left = '50%';
+                dot.style.transform = 'translate(-50%, -50%)';
+                break;
+            case 'top-left':
+                dot.style.top = '15%';
+                dot.style.left = '15%';
+                break;
+            case 'top-right':
+                dot.style.top = '15%';
+                dot.style.right = '15%';
+                break;
+            case 'middle-left':
+                dot.style.top = '50%';
+                dot.style.left = '15%';
+                dot.style.transform = 'translateY(-50%)';
+                break;
+            case 'middle-right':
+                dot.style.top = '50%';
+                dot.style.right = '15%';
+                dot.style.transform = 'translateY(-50%)';
+                break;
+            case 'bottom-left':
+                dot.style.bottom = '15%';
+                dot.style.left = '15%';
+                break;
+            case 'bottom-right':
+                dot.style.bottom = '15%';
+                dot.style.right = '15%';
+                break;
+        }
+        return dot;
+    };
     
     // Rozdělení teček podle hodnoty
-    switch (dotCount) {
+    switch (value) {
         case 1:
-            pattern.innerHTML = `<div class="dot center"></div>`;
+            pattern.appendChild(createDot('center'));
             break;
         case 2:
-            pattern.innerHTML = `
-                <div class="dot top-left"></div>
-                <div class="dot bottom-right"></div>
-            `;
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('bottom-right'));
             break;
         case 3:
-            pattern.innerHTML = `
-                <div class="dot top-left"></div>
-                <div class="dot center"></div>
-                <div class="dot bottom-right"></div>
-            `;
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('center'));
+            pattern.appendChild(createDot('bottom-right'));
             break;
         case 4:
-            pattern.innerHTML = `
-                <div class="dot top-left"></div>
-                <div class="dot top-right"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-right"></div>
-            `;
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('top-right'));
+            pattern.appendChild(createDot('bottom-left'));
+            pattern.appendChild(createDot('bottom-right'));
             break;
         case 5:
-            pattern.innerHTML = `
-                <div class="dot top-left"></div>
-                <div class="dot top-right"></div>
-                <div class="dot center"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-right"></div>
-            `;
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('top-right'));
+            pattern.appendChild(createDot('center'));
+            pattern.appendChild(createDot('bottom-left'));
+            pattern.appendChild(createDot('bottom-right'));
             break;
         case 6:
-            pattern.innerHTML = `
-                <div class="dot top-left"></div>
-                <div class="dot top-right"></div>
-                <div class="dot middle-left"></div>
-                <div class="dot middle-right"></div>
-                <div class="dot bottom-left"></div>
-                <div class="dot bottom-right"></div>
-            `;
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('top-right'));
+            pattern.appendChild(createDot('middle-left'));
+            pattern.appendChild(createDot('middle-right'));
+            pattern.appendChild(createDot('bottom-left'));
+            pattern.appendChild(createDot('bottom-right'));
             break;
     }
     

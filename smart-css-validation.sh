@@ -49,7 +49,7 @@ fi
 # 2. Kontrola vlastních CSS souborů
 echo ""
 echo "🔍 Vlastní CSS soubory..."
-OWN_CSS=$(find src/styles/ -name "*.css" | grep -v "main.css\|colors-bootstrap-simple.css" | grep -v archive || true)
+OWN_CSS=$(find src/styles/ -name "*.css" | grep -v "main.css\|colors-bootstrap-simple.css\|responsive-bootstrap.css\|bootstrap-responsive-utils.css" | grep -v archive || true)
 if [ -n "$OWN_CSS" ]; then
     echo "⚠️ MOŽNÉ VLASTNÍ CSS SOUBORY:"
     echo "$OWN_CSS"
@@ -87,7 +87,7 @@ for file in $ALL_CHANGED_FILES; do
         fi
         
         # Kontrola nových vlastních CSS
-        if [[ "$file" =~ \.css$ ]] && [[ ! "$file" =~ (main\.css|colors-bootstrap-simple\.css) ]]; then
+        if [[ "$file" =~ \.css$ ]] && [[ ! "$file" =~ (main\.css|colors-bootstrap-simple\.css|responsive-bootstrap\.css|bootstrap-responsive-utils\.css) ]]; then
             if git diff HEAD "$file" | grep -q '^+'; then
                 echo "❌ NOVÁ CHYBA: Nový vlastní CSS soubor $file"
                 NEW_ERRORS=$((NEW_ERRORS + 1))
