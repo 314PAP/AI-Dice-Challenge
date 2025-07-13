@@ -233,18 +233,6 @@ export class AiPlayerController {
     analyzeGameSituation(aiPlayer, state, turnPoints) {
         return this.strategies.analyzeGameSituation(aiPlayer, state, turnPoints);
     }
-            }
-        }
-        
-        return {
-            gamePhase,
-            myPosition,
-            gap,
-            riskTolerance,
-            remainingDice: state.currentRoll?.length || 6,
-            turnPoints
-        };
-    }
 
     /**
      * Určí fázi hry - deleguje na AiStrategies
