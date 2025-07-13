@@ -1102,6 +1102,7 @@ V TOMTO SOUBORU POUZE:
 /* Diagonální FARKLE nápis přes dice-section */
 .dice-section-farkle {
   position: relative !important;
+  overflow: hidden !important; /* Zajistí že FARKLE se nevylije z kontejneru */
 }
 
 .dice-section-farkle::after {
@@ -1113,22 +1114,22 @@ V TOMTO SOUBORU POUZE:
   bottom: 0 !important;
   background: linear-gradient(
     135deg, 
-    transparent 35%, 
-    rgba(255, 49, 49, 0.9) 40%, 
-    rgba(255, 49, 49, 0.9) 60%, 
-    transparent 65%
+    transparent 38%, 
+    rgba(255, 49, 49, 0.9) 42%, 
+    rgba(255, 49, 49, 0.9) 58%, 
+    transparent 62%
   ) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   color: var(--neon-black) !important;
   font-weight: 900 !important;
-  font-size: clamp(1.2rem, 5vw, 2.5rem) !important;
+  font-size: clamp(0.9rem, 3.5vw, 1.8rem) !important; /* Zmenšené pro lepší fit */
   text-shadow: 
     0 0 0.5rem rgba(255, 255, 255, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.8) !important;
-  letter-spacing: 0.1em !important;
-  transform: rotate(-25deg) !important;
+  letter-spacing: 0.05em !important; /* Zmenšené letter spacing */
+  transform: rotate(-20deg) !important; /* Menší rotace */
   animation: farkle-diagonal-appear 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
   border-top: 2px solid rgba(255, 255, 255, 0.4) !important;
   border-bottom: 2px solid rgba(255, 255, 255, 0.4) !important;
@@ -1137,50 +1138,52 @@ V TOMTO SOUBORU POUZE:
     0 0 2rem rgba(255, 49, 49, 0.6),
     inset 0 0 1rem rgba(255, 255, 255, 0.2) !important;
   pointer-events: none !important;
+  overflow: hidden !important; /* Skrýt přesahující části */
 }
 
 @keyframes farkle-diagonal-appear {
   0% {
     opacity: 0;
-    transform: rotate(-25deg) scale(0) translateX(-100%);
+    transform: rotate(-20deg) scale(0) translateX(-50%);
   }
   60% {
     opacity: 1;
-    transform: rotate(-25deg) scale(1.1) translateX(0);
+    transform: rotate(-20deg) scale(1.05) translateX(0);
   }
   100% {
     opacity: 0.95;
-    transform: rotate(-25deg) scale(1) translateX(0);
+    transform: rotate(-20deg) scale(1) translateX(0);
   }
 }
 
 /* Responzivní úpravy pro diagonal overlay */
 @media (max-width: 768px) {
   .dice-section-farkle::after {
-    font-size: clamp(1rem, 4vw, 1.5rem) !important;
-    transform: rotate(-20deg) !important;
+    font-size: clamp(0.8rem, 3vw, 1.2rem) !important;
+    transform: rotate(-15deg) !important;
   }
   
   @keyframes farkle-diagonal-appear {
     0% {
       opacity: 0;
-      transform: rotate(-20deg) scale(0) translateX(-100%);
+      transform: rotate(-15deg) scale(0) translateX(-30%);
     }
     60% {
       opacity: 1;
-      transform: rotate(-20deg) scale(1.1) translateX(0);
+      transform: rotate(-15deg) scale(1.05) translateX(0);
     }
     100% {
       opacity: 0.95;
-      transform: rotate(-20deg) scale(1) translateX(0);
+      transform: rotate(-15deg) scale(1) translateX(0);
     }
   }
 }
 
 @media (max-width: 576px) {
   .dice-section-farkle::after {
-    font-size: 0.9rem !important;
-    transform: rotate(-15deg) !important;
+    font-size: clamp(0.7rem, 2.5vw, 1rem) !important;
+    transform: rotate(-12deg) !important;
     content: "💥 FARKLE!" !important; /* Kratší text na mobilu */
+    letter-spacing: 0.02em !important; /* Ještě menší spacing na mobilu */
   }
 }
