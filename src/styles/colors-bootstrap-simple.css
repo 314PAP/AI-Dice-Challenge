@@ -1108,16 +1108,16 @@ V TOMTO SOUBORU POUZE:
 .dice-section-farkle::after {
   content: "💥 FARKLE! 💥";
   position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+  top: 20% !important; /* Zúženo z 0 */
+  left: 10% !important; /* Zúženo z 0 */
+  right: 10% !important; /* Zúženo z 0 */
+  bottom: 20% !important; /* Zúženo z 0 */
   background: linear-gradient(
     135deg, 
-    transparent 38%, 
-    rgba(255, 49, 49, 0.9) 42%, 
-    rgba(255, 49, 49, 0.9) 58%, 
-    transparent 62%
+    transparent 30%, 
+    rgba(255, 49, 49, 0.95) 35%, 
+    rgba(255, 49, 49, 0.95) 65%, 
+    transparent 70%
   ) !important;
   display: flex !important;
   align-items: center !important;
@@ -1129,7 +1129,7 @@ V TOMTO SOUBORU POUZE:
     0 0 0.5rem rgba(255, 255, 255, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.8) !important;
   letter-spacing: 0.05em !important; /* Zmenšené letter spacing */
-  transform: rotate(-20deg) !important; /* Menší rotace */
+  transform: rotate(-15deg) !important; /* Ještě menší rotace */
   animation: farkle-diagonal-appear 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
   border-top: 1.5px solid rgba(255, 255, 255, 0.4) !important; /* Zmenšeno o 20% */
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.4) !important;
@@ -1138,21 +1138,23 @@ V TOMTO SOUBORU POUZE:
     0 0 1.6rem rgba(255, 49, 49, 0.6),
     inset 0 0 0.8rem rgba(255, 255, 255, 0.2) !important;
   pointer-events: none !important;
+  border-radius: 8px !important; /* Přidáno pro lepší ohraničení */
+  overflow: hidden !important; /* Zajistí že efekt se nevylije */
   overflow: hidden !important; /* Skrýt přesahující části */
 }
 
 @keyframes farkle-diagonal-appear {
   0% {
     opacity: 0;
-    transform: rotate(-20deg) scale(0) translateX(-50%);
+    transform: rotate(-15deg) scale(0) translateX(-30%);
   }
   60% {
     opacity: 1;
-    transform: rotate(-20deg) scale(1.05) translateX(0);
+    transform: rotate(-15deg) scale(1.05) translateX(0);
   }
   100% {
     opacity: 0.95;
-    transform: rotate(-20deg) scale(1) translateX(0);
+    transform: rotate(-15deg) scale(1) translateX(0);
   }
 }
 
@@ -1160,7 +1162,9 @@ V TOMTO SOUBORU POUZE:
 @media (max-width: 768px) {
   .dice-section-farkle::after {
     font-size: clamp(0.64rem, 2.4vw, 0.96rem) !important; /* Zmenšeno o 20% */
-    transform: rotate(-15deg) !important;
+    transform: rotate(-12deg) !important; /* Ještě menší rotace na tabletu */
+    top: 25% !important; /* Více zúženo na tabletu */
+    bottom: 25% !important;
   }
   
   @keyframes farkle-diagonal-appear {
@@ -1182,8 +1186,12 @@ V TOMTO SOUBORU POUZE:
 @media (max-width: 576px) {
   .dice-section-farkle::after {
     font-size: clamp(0.56rem, 2vw, 0.8rem) !important; /* Zmenšeno o 20% */
-    transform: rotate(-12deg) !important;
+    transform: rotate(-10deg) !important; /* Minimální rotace na mobilu */
     content: "💥 FARKLE!" !important; /* Kratší text na mobilu */
     letter-spacing: 0.02em !important; /* Ještě menší spacing na mobilu */
+    top: 30% !important; /* Nejvíce zúženo na mobilu */
+    bottom: 30% !important;
+    left: 15% !important;
+    right: 15% !important;
   }
 }
