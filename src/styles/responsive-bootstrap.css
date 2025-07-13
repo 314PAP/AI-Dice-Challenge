@@ -258,8 +258,8 @@ body {
 
 @media (min-width: 1200px) {
   .dice { 
-    width: clamp(3.5rem, 10vw, 8rem); 
-    height: clamp(3.5rem, 10vw, 8rem);
+    width: clamp(7rem, 20vw, 16rem);  /* ZDVOJNÁSOBENO ze 3.5rem-8rem na 7rem-16rem */
+    height: clamp(7rem, 20vw, 16rem); /* ZDVOJNÁSOBENO ze 3.5rem-8rem na 7rem-16rem */
     border-width: 3px;
     margin: clamp(0.3rem, 1vw, 1rem);
   }
@@ -267,8 +267,8 @@ body {
 
 @media (min-width: 1400px) {
   .dice { 
-    width: clamp(4rem, 12vw, 10rem); 
-    height: clamp(4rem, 12vw, 10rem);
+    width: clamp(8rem, 24vw, 20rem);  /* ZDVOJNÁSOBENO ze 4rem-10rem na 8rem-20rem */
+    height: clamp(8rem, 24vw, 20rem); /* ZDVOJNÁSOBENO ze 4rem-10rem na 8rem-20rem */
     margin: clamp(0.4rem, 1.2vw, 1.2rem);
   }
 }

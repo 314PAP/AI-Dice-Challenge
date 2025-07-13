@@ -606,7 +606,7 @@ html, body {
 .btn.btn-neon:hover,
 .btn.btn-neon:focus {
   background-color: var(--neon-bg-hover, rgba(0, 0, 0, 0.2)) !important;
-  transform: scale(var(--scale-hover, 1.05)) !important;
+  /* ODSTRANĚNO: transform: scale() - způsobovalo překrývání na velkých obrazovkách */
   color: inherit !important;
   border-color: inherit !important;
   box-shadow: var(--neon-glow-strong) !important;
