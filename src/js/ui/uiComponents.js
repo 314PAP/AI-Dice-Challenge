@@ -112,71 +112,19 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     }
     
     const dice = document.createElement('div');
-    // OPRAVENO: Menší viewport jednotky pro vždy jeden řádek kostek
+    // OPRAVENO: Pouze Bootstrap a CSS třídy, žádné inline styly
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
     
-    // OPRAVENO: Skutečně responzivní velikost podle CSS
-    // Používáme stejnou logiku jako v CSS - clamp() hodnoty
-    let vwSize;
-    
-    // Detekce landscape pro menší kostky
-    if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
-        // Landscape s malou výškou - kompaktní kostky
-        vwSize = 'clamp(1.2rem, 4vw, 3rem)';
-    } else {
-        // Normal nebo portrait - responzivní škálování podle breakpointů
-        const width = window.innerWidth;
-        if (width >= 1400) {
-            vwSize = 'clamp(4rem, 12vw, 10rem)';
-        } else if (width >= 1200) {
-            vwSize = 'clamp(3.5rem, 10vw, 8rem)';
-        } else if (width >= 992) {
-            vwSize = 'clamp(3rem, 9vw, 7rem)';
-        } else if (width >= 768) {
-            vwSize = 'clamp(2.5rem, 8vw, 6rem)';
-        } else if (width >= 576) {
-            vwSize = 'clamp(2rem, 7vw, 5rem)';
-        } else {
-            vwSize = 'clamp(1.5rem, 6vw, 4rem)';
-        }
-    }
-    
-    dice.style.width = vwSize;
-    dice.style.height = vwSize;
-    dice.style.minWidth = '1rem'; // Zachováme minimum
-    dice.style.minHeight = '1rem';
-    dice.style.margin = 'clamp(0.1rem, 0.5vw, 1rem)'; // Responzivní margin
-    dice.style.border = '1px solid var(--neon-green)';
-    dice.style.flexShrink = '0'; // Zabrání smršťování
+    // ODSTRANĚNO: Veškeré inline styly - velikosti řeší responsive-bootstrap.css
+    dice.style.flexShrink = '0'; // Pouze nutný flexShrink zůstává
     
     // Vytvoření patternu s tečkami podle hodnoty kostky
     let content;
     if (validValue === '?') {
         // Pro házející kostky zobrazíme otazník
         content = document.createElement('div');
-        content.className = 'fw-bold';
-        
-        // Responzivní font podle velikosti obrazovky
-        let fontSize;
-        const width = window.innerWidth;
-        
-        if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
-            // Landscape kompaktní
-            fontSize = 'clamp(0.3rem, 1.5vw, 0.8rem)';
-        } else if (width >= 1400) {
-            fontSize = 'clamp(1.5rem, 4vw, 3rem)';
-        } else if (width >= 1200) {
-            fontSize = 'clamp(1.2rem, 3.5vw, 2.5rem)';
-        } else if (width >= 992) {
-            fontSize = 'clamp(1rem, 3vw, 2rem)';
-        } else if (width >= 768) {
-            fontSize = 'clamp(0.8rem, 2.5vw, 1.5rem)';
-        } else {
-            fontSize = 'clamp(0.6rem, 2vw, 1rem)';
-        }
-        
-        content.style.fontSize = fontSize; // Responzivní font
+        content.className = 'fw-bold'; // Font velikost řeší CSS
         content.textContent = '?';
     } else {
         content = createDotPattern(validValue);
@@ -192,7 +140,7 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
 };
 
 /**
- * Vytvoří pattern teček pro kostku s viewport-responsive velikostmi
+ * Vytvoří pattern teček pro kostku - pouze CSS třídy
  * @param {number} value - Hodnota kostky (1-6)
  * @returns {HTMLDivElement} Pattern teček
  */
@@ -200,70 +148,13 @@ const createDotPattern = (value) => {
     const pattern = document.createElement('div');
     pattern.className = 'position-relative w-100 h-100';
     
-    // Vytvoření teček s responzivními velikostmi - podle velikosti obrazovky
+    // Vytvoření teček s CSS třídami - odstraněny inline styly
     const createDot = (position) => {
         const dot = document.createElement('div');
         
-        // Responzivní velikost teček podle šířky obrazovky (jako CSS)
-        let dotSize;
-        const width = window.innerWidth;
+        // ODSTRANĚNO: Veškeré inline styly - velikosti řeší CSS
+        dot.className = `dice-dot dice-dot-${position}`;
         
-        if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
-            // Landscape kompaktní
-            dotSize = 'clamp(1px, 0.8vw, 3px)';
-        } else if (width >= 1400) {
-            dotSize = 'clamp(4px, 2.5vw, 12px)';
-        } else if (width >= 1200) {
-            dotSize = 'clamp(3px, 2vw, 10px)';
-        } else if (width >= 992) {
-            dotSize = 'clamp(2.5px, 1.8vw, 8px)';
-        } else if (width >= 768) {
-            dotSize = 'clamp(2px, 1.5vw, 6px)';
-        } else {
-            dotSize = 'clamp(1.5px, 1.2vw, 4px)';
-        }
-        
-        dot.style.width = dotSize;
-        dot.style.height = dotSize;
-        dot.style.backgroundColor = 'var(--neon-green)';
-        dot.style.borderRadius = '50%';
-        dot.style.position = 'absolute';
-        dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 3px) var(--neon-green)`;
-        
-        // Pozicování podle typu
-        switch (position) {
-            case 'center':
-                dot.style.top = '50%';
-                dot.style.left = '50%';
-                dot.style.transform = 'translate(-50%, -50%)';
-                break;
-            case 'top-left':
-                dot.style.top = '15%';
-                dot.style.left = '15%';
-                break;
-            case 'top-right':
-                dot.style.top = '15%';
-                dot.style.right = '15%';
-                break;
-            case 'middle-left':
-                dot.style.top = '50%';
-                dot.style.left = '15%';
-                dot.style.transform = 'translateY(-50%)';
-                break;
-            case 'middle-right':
-                dot.style.top = '50%';
-                dot.style.right = '15%';
-                dot.style.transform = 'translateY(-50%)';
-                break;
-            case 'bottom-left':
-                dot.style.bottom = '15%';
-                dot.style.left = '15%';
-                break;
-            case 'bottom-right':
-                dot.style.bottom = '15%';
-                dot.style.right = '15%';
-                break;
-        }
         return dot;
     };
     
@@ -306,87 +197,53 @@ const createDotPattern = (value) => {
     
     return pattern;
 };
+    
+    // Rozdělení teček podle hodnoty
+    switch (value) {
+        case 1:
+            pattern.appendChild(createDot('center'));
+            break;
+        case 2:
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('bottom-right'));
+            break;
+        case 3:
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('center'));
+            pattern.appendChild(createDot('bottom-right'));
+            break;
+        case 4:
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('top-right'));
+            pattern.appendChild(createDot('bottom-left'));
+            pattern.appendChild(createDot('bottom-right'));
+            break;
+        case 5:
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('top-right'));
+            pattern.appendChild(createDot('center'));
+            pattern.appendChild(createDot('bottom-left'));
+            pattern.appendChild(createDot('bottom-right'));
+            break;
+        case 6:
+            pattern.appendChild(createDot('top-left'));
+            pattern.appendChild(createDot('top-right'));
+            pattern.appendChild(createDot('middle-left'));
+            pattern.appendChild(createDot('middle-right'));
+            pattern.appendChild(createDot('bottom-left'));
+            pattern.appendChild(createDot('bottom-right'));
+            break;
+    }
+    
+    return pattern;
+};
 
 /**
- * Aktualizuje velikosti kostek při změně orientace
+ * Aktualizuje velikosti kostek při změně orientace - ODSTRANĚNO
+ * Velikosti nyní řeší pouze CSS pomocí media queries
  */
 export const updateDiceForOrientation = () => {
-    const dices = document.querySelectorAll('.dice');
-    
-    dices.forEach(dice => {
-        let vwSize;
-        
-        // Stejná logika jako v createDiceElement
-        if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
-            // Landscape s malou výškou - kompaktní kostky
-            vwSize = 'clamp(1.2rem, 4vw, 3rem)';
-        } else {
-            // Normal nebo portrait - responzivní škálování podle breakpointů
-            const width = window.innerWidth;
-            if (width >= 1400) {
-                vwSize = 'clamp(4rem, 12vw, 10rem)';
-            } else if (width >= 1200) {
-                vwSize = 'clamp(3.5rem, 10vw, 8rem)';
-            } else if (width >= 992) {
-                vwSize = 'clamp(3rem, 9vw, 7rem)';
-            } else if (width >= 768) {
-                vwSize = 'clamp(2.5rem, 8vw, 6rem)';
-            } else if (width >= 576) {
-                vwSize = 'clamp(2rem, 7vw, 5rem)';
-            } else {
-                vwSize = 'clamp(1.5rem, 6vw, 4rem)';
-            }
-        }
-        
-        dice.style.width = vwSize;
-        dice.style.height = vwSize;
-        dice.style.margin = 'clamp(0.1rem, 0.5vw, 1rem)';
-        
-        // Aktualizace teček
-        const dots = dice.querySelectorAll('div[style*="border-radius: 50%"]');
-        dots.forEach(dot => {
-            let dotSize;
-            const width = window.innerWidth;
-            
-            if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
-                dotSize = 'clamp(1px, 0.8vw, 3px)';
-            } else if (width >= 1400) {
-                dotSize = 'clamp(4px, 2.5vw, 12px)';
-            } else if (width >= 1200) {
-                dotSize = 'clamp(3px, 2vw, 10px)';
-            } else if (width >= 992) {
-                dotSize = 'clamp(2.5px, 1.8vw, 8px)';
-            } else if (width >= 768) {
-                dotSize = 'clamp(2px, 1.5vw, 6px)';
-            } else {
-                dotSize = 'clamp(1.5px, 1.2vw, 4px)';
-            }
-            
-            dot.style.width = dotSize;
-            dot.style.height = dotSize;
-            dot.style.boxShadow = `0 0 clamp(0.5px, 0.4vw, 3px) var(--neon-green)`;
-        });
-        
-        // Aktualizace otazníku
-        const questionMark = dice.querySelector('.fw-bold');
-        if (questionMark) {
-            let fontSize;
-            const width = window.innerWidth;
-            
-            if (window.innerHeight < window.innerWidth && window.innerHeight <= 600) {
-                fontSize = 'clamp(0.3rem, 1.5vw, 0.8rem)';
-            } else if (width >= 1400) {
-                fontSize = 'clamp(1.5rem, 4vw, 3rem)';
-            } else if (width >= 1200) {
-                fontSize = 'clamp(1.2rem, 3.5vw, 2.5rem)';
-            } else if (width >= 992) {
-                fontSize = 'clamp(1rem, 3vw, 2rem)';
-            } else if (width >= 768) {
-                fontSize = 'clamp(0.8rem, 2.5vw, 1.5rem)';
-            } else {
-                fontSize = 'clamp(0.6rem, 2vw, 1rem)';
-            }
-            questionMark.style.fontSize = fontSize;
-        }
-    });
+    // ODSTRANĚNO: Veškeré inline styly
+    // Responzivita je nyní řešena pouze přes CSS
+    console.log('%c✅ Orientace aktualizována přes CSS', `color: ${CONSOLE_COLORS.neonGreen}`);
 };
