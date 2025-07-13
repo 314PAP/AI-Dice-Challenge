@@ -116,8 +116,7 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
     
-    // ODSTRANĚNO: Veškeré inline styly - velikosti řeší responsive-bootstrap.css
-    dice.style.flexShrink = '0'; // Pouze nutný flexShrink zůstává
+    // ODSTRANĚNO: Veškeré inline styly - velikosti i flexShrink řeší CSS
     
     // Vytvoření patternu s tečkami podle hodnoty kostky
     let content;

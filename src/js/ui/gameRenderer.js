@@ -179,10 +179,10 @@ export class GameRenderer {
                 // Přidáme animaci házení, pokud je aktivní
                 if (state.isRolling) {
                     diceEl.classList.add('dice-rolling');
-                    diceEl.style.pointerEvents = 'none';
+                    // ODSTRANĚNO: inline style - CSS řeší přes .dice-rolling
                 } else {
                     diceEl.classList.remove('dice-rolling');
-                    diceEl.style.pointerEvents = 'auto';
+                    // ODSTRANĚNO: inline style - CSS řeší přes .dice
                 }
                 
                 diceContainer.appendChild(diceEl);
