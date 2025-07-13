@@ -11,28 +11,29 @@ npm install
 code .
 ```
 
-## 📖 Dokumentace
+**→ Automatický self-check + file watcher se spustí!**
 
-- **QUICK_REFERENCE.md** - rychlý návod pro každodenní použití
-- **SELF_CHECK_DOKUMENTACE.md** - kompletní dokumentace self-check systému
-- **INSTALACNI_NAVOD.md** - instalace na novém PC
+## 📖 KOMPLETNÍ DOKUMENTACE
 
-## 🎯 Klíčové příkazy
+**🤖 [SELF_CHECK_KOMPLETNI_NAVOD.md](SELF_CHECK_KOMPLETNI_NAVOD.md)**
+
+Vše v jednom souboru:
+- ✅ Instalace na novém PC
+- ✅ Každodenní workflow  
+- ✅ Self-check systém
+- ✅ Všechny příkazy
+- ✅ Řešení problémů
+- ✅ Pravidla a tipy
+
+## ⚡ Nejpoužívanější příkazy
 
 ```bash
-npm run dev        # Spuštění vývojářského serveru
 npm run validate   # Smart validace (jen nové změny)
-npm run commit     # Automatický commit + push
-npm run setup      # Zobrazí pravidla a workflow
+npm run commit     # Automatický commit + push  
+npm run dev        # Vývojářský server
+npm run setup      # Zobrazí pravidla
 ```
-
-## ⚡ Automatické funkce
-
-- **Self-check** při otevření projektu
-- **File watcher** sleduje změny v reálném čase
-- **Smart validace** umožňuje postupné zlepšování
-- **Automatický commit** workflow
 
 ---
 
-**🎮 Prostě otevři VS Code a začni programovat!**
+**🎮 Prostě otevři VS Code a začni programovat! Systém hlídá kvalitu automaticky!**
