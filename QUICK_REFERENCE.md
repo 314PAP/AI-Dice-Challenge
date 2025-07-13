@@ -1,5 +1,7 @@
 # 🚀 QUICK REFERENCE - AI Dice Challenge
 
+**✅ Automatické spuštění při otevření VS Code!**
+
 ## ⚡ Super rychlý start na novém PC
 
 ```bash

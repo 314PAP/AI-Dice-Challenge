@@ -60,9 +60,6 @@ if ! command -v inotifywait &> /dev/null; then
     done
 else
     # Pokud je inotify dostupný, použijeme ho
-
-else
-    # Pokud je inotify dostupný, použijeme ho
     echo "👀 Sledování aktivní pro složku src/ (inotify)..."
     echo "────────────────────────────────────────────────────────────────────"
 
