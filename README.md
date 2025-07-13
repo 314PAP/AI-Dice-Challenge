@@ -10,6 +10,7 @@ Modulární kostková hra s AI osobnostmi postavená na **Pure Bootstrap 5.3.2**
 - 🌈 **Neonový design** - Sci-fi vzhled s 6 neonovými barvami
 - ⚡ **ES6 moduly** - Čistá modulární architektura
 - 📱 **Mobile-first** - Optimalizováno pro všechna zařízení
+- 🤖 **Self-validating** - Automatické kontroly kvality kódu
 
 ## 🚀 Rychlý start
 
@@ -17,6 +18,55 @@ Modulární kostková hra s AI osobnostmi postavená na **Pure Bootstrap 5.3.2**
 # Klonování
 git clone https://github.com/314PAP/AI-Dice-Challenge.git
 cd AI-Dice-Challenge
+
+# AUTOMATICKÉ NASTAVENÍ (spustí se samo po npm install)
+npm install
+
+# Spuštění vývojového serveru
+npm run dev
+```
+
+## 🔧 Vývojářské nástroje
+
+```bash
+# Kontrola systému a CSS validace
+npm run check
+
+# Pouze CSS validace
+npm run validate
+
+# Automatické commity (volitelné)
+npm run auto-commit
+
+# Manuální setup
+npm run setup
+```
+
+## 🤖 Copilot Self-Check Systém
+
+Projekt má zabudovaný automatický systém kontroly kvality:
+
+### ✅ **Co se kontroluje:**
+- 🚫 **Žádné inline styly** (`style=""`)
+- 📖 **Bootstrap dokumentace** použita (`dokumentybtrap/`)
+- 🎨 **Pouze povolené CSS třídy** 
+- 📏 **Komplexnost kódu** (max 3000 řádků JS)
+- 🔍 **Odkazy na dokumentaci** v kódu
+
+### 🛠️ **Jak to funguje:**
+1. **Při `npm install`** se automaticky spustí setup
+2. **Před každým auto-commitem** se validace spustí
+3. **Manuálně:** `npm run check` kdykoliv
+
+### 📖 **Bootstrap dokumentace:**
+```
+dokumentybtrap/
+├── grid.md - Grid systém
+├── spacing.md - Mezery a padding
+├── buttons.md - Tlačítka
+├── flex.md - Flexbox
+└── colors.md - Barvy
+```
 
 # Instalace
 npm install
