@@ -211,11 +211,9 @@ export class GameRenderer {
     renderButtonsSection(state, currentPlayer, callbacks) {
         const actionButtons = document.createElement('div');
         actionButtons.className = 'mt-1 mb-1 flex-shrink-0';
-        actionButtons.style.minHeight = '0';
         
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-1 g-md-2 px-0 mx-0';
-        buttonsContainer.style.maxWidth = '100%';
+        buttonsContainer.className = 'row g-2 px-0 mx-0';
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
@@ -245,17 +243,17 @@ export class GameRenderer {
                 console.log(`🎯 TLAČÍTKO HODIT stisknuto! canRoll=${canRoll}`);
                 if (callbacks.rollDice) callbacks.rollDice();
             },
-            'btn-sm w-100'
+            'btn w-100'
         );
         
         if (isAiTurn) {
             rollBtn.disabled = true;
-            rollBtn.style.opacity = '0.3';
+            rollBtn.classList.add('disabled', 'opacity-50');
             rollBtn.title = 'AI hraje automaticky';
             console.log(`🤖 TLAČÍTKO HODIT zakázáno - AI tah`);
         } else if (!canRoll) {
             rollBtn.disabled = true;
-            rollBtn.style.opacity = '0.5';
+            rollBtn.classList.add('disabled', 'opacity-50');
             if (state.isRolling) {
                 rollBtn.title = 'Probíhá házení...';
             } else if (state.selectedDice && state.selectedDice.length > 0) {
@@ -266,14 +264,13 @@ export class GameRenderer {
             console.log(`❌ TLAČÍTKO HODIT zakázáno - canRoll=false (${rollBtn.title})`);
         } else {
             rollBtn.disabled = false;
-            rollBtn.style.opacity = '1';
+            rollBtn.classList.remove('disabled', 'opacity-50');
             rollBtn.title = 'Hodit kostkami';
             console.log(`✅ TLAČÍTKO HODIT povoleno - canRoll=true`);
         }
         
         const rollCol = document.createElement('div');
-        rollCol.className = 'col-6 mb-1 px-1';
-        rollCol.style.minWidth = '0'; // Bootstrap overflow fix
+        rollCol.className = 'col-12 col-sm-6 mb-2 px-2';
         rollCol.appendChild(rollBtn);
         buttonsContainer.appendChild(rollCol);
         
@@ -286,29 +283,28 @@ export class GameRenderer {
                 console.log(`💾 TLAČÍTKO ODLOŽIT stisknuto! selectedDice=${state.selectedDice?.length || 0}`);
                 if (callbacks.saveDice) callbacks.saveDice();
             },
-            'btn-sm w-100'
+            'btn w-100'
         );
         
         if (isAiTurn) {
             saveBtn.disabled = true;
-            saveBtn.style.opacity = '0.3';
+            saveBtn.classList.add('disabled', 'opacity-50');
             saveBtn.title = 'AI hraje automaticky';
             console.log(`🤖 TLAČÍTKO ODLOŽIT zakázáno - AI tah`);
         } else if (!state.selectedDice || state.selectedDice.length === 0) {
             saveBtn.disabled = true;
-            saveBtn.style.opacity = '0.5';
+            saveBtn.classList.add('disabled', 'opacity-50');
             saveBtn.title = 'Nejsou vybrané kostky';
             console.log(`❌ TLAČÍTKO ODLOŽIT zakázáno - žádné vybrané kostky`);
         } else {
             saveBtn.disabled = false;
-            saveBtn.style.opacity = '1';
+            saveBtn.classList.remove('disabled', 'opacity-50');
             saveBtn.title = 'Odložit vybrané kostky';
             console.log(`✅ TLAČÍTKO ODLOŽIT povoleno - ${state.selectedDice.length} kostek vybráno`);
         }
         
         const saveCol = document.createElement('div');
-        saveCol.className = 'col-6 mb-1 px-1';
-        saveCol.style.minWidth = '0'; // Bootstrap overflow fix
+        saveCol.className = 'col-12 col-sm-6 mb-2 px-2';
         saveCol.appendChild(saveBtn);
         buttonsContainer.appendChild(saveCol);
         
@@ -318,7 +314,7 @@ export class GameRenderer {
             'orange', 
             'bi-skip-forward-fill',
             callbacks.endTurn,
-            'btn-sm w-100'
+            'btn w-100'
         );
         
         const hasSavedDice = state.savedDice && state.savedDice.length > 0;
@@ -326,21 +322,20 @@ export class GameRenderer {
         
         if (isAiTurn) {
             endTurnBtn.disabled = true;
-            endTurnBtn.style.opacity = '0.3';
+            endTurnBtn.classList.add('disabled', 'opacity-50');
             endTurnBtn.title = 'AI hraje automaticky';
         } else if (!hasSavedDice && !hasTurnScore) {
             endTurnBtn.disabled = true;
-            endTurnBtn.style.opacity = '0.5';
+            endTurnBtn.classList.add('disabled', 'opacity-50');
             endTurnBtn.title = 'Nejsou body k ukončení';
         } else {
             endTurnBtn.disabled = false;
-            endTurnBtn.style.opacity = '1';
+            endTurnBtn.classList.remove('disabled', 'opacity-50');
             endTurnBtn.title = 'Ukončit tah';
         }
         
         const endCol = document.createElement('div');
-        endCol.className = 'col-6 mb-1 px-1';
-        endCol.style.minWidth = '0'; // Bootstrap overflow fix
+        endCol.className = 'col-12 col-sm-6 mb-2 px-2';
         endCol.appendChild(endTurnBtn);
         buttonsContainer.appendChild(endCol);
         
@@ -350,12 +345,11 @@ export class GameRenderer {
             'red', 
             'bi-list', 
             callbacks.showMenuWithConfirmation,
-            'btn-sm w-100'
+            'btn w-100'
         );
         
         const menuCol = document.createElement('div');
-        menuCol.className = 'col-6 mb-1 px-1';
-        menuCol.style.minWidth = '0'; // Bootstrap overflow fix
+        menuCol.className = 'col-12 col-sm-6 mb-2 px-2';
         menuCol.appendChild(menuBtn);
         buttonsContainer.appendChild(menuCol);
         

@@ -1134,3 +1134,14 @@ V TOMTO SOUBORU POUZE:
   overflow-x: auto !important;
   padding: 1rem !important;
 }
+
+/* ===== BOOTSTRAP UTILITY TŘÍDY ===== */
+
+/* Opacity utilities (Bootstrap 5) */
+.opacity-0 { opacity: 0 !important; }
+.opacity-25 { opacity: 0.25 !important; }
+.opacity-50 { opacity: 0.5 !important; }
+.opacity-75 { opacity: 0.75 !important; }
+.opacity-100 { opacity: 1 !important; }
+
+/* ===== KOMPONENTY ===== */

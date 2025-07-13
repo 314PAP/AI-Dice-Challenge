@@ -1,38 +1,3 @@
-/**
- * AI Player Controller - Automatické hraní za AI hráče
- * 
- * OBSAH MODULU:
- * - Automatické hraní za AI hráče
- * - AI rozhodování o dalších tazích
- * - Vyhodnocování nejlepších kombinací
- * - AI reakce na herní události
- * - Simulace lidského hraní (delay, komentáře)
- * 
- * FUNKCE PŘESUNUTÉ Z gameUI.js:
- * - playAiTurn() - automatické hraní AI
- * - makeAiDecision() - rozhodování AI
- * - findBestDiceToSave() - hledání nejlepších kostek
- * - triggerAiReactions() - reakce AI na události
- */
-
-/**
- * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
- * Bootstrap: (žádné přímé CSS třídy - AI logika)
- * Neon třídy: (žádné - čistá AI logika)  
- * Vlastní: (žádné - logika bez UI)
- */
-
-/**
- * SEZNAM PROMĚNNÝCH (lokální v metodách):
- * state, attempts, maxAttempts, currentState, hasScoring, decision, selectedValues, points, bestDice, currentTurnPoints,
- * newPoints, totalPoints, riskFactor, diceRisk, pointsRisk, combinations, aPointsPerDie, bPointsPerDie, used, counts
- * 
- * MOŽNÉ DUPLICITY: 
- * - state/currentState (používá se ve více metodách - OK, lokální scope)
- * - points (používá se v executeAiAction a findBestDiceToSave)
- * - combinations (používá se v findBestDiceToSave a findAllValidCombinations)
- */
-
 import { calculatePoints, hasScoringDice } from '../game/diceMechanics.js';
 import gameState from '../game/gameState.js';
 import chatSystem from './chatSystem.js';

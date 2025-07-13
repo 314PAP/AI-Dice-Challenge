@@ -278,11 +278,25 @@ body {
   }
 }
 
+@media (min-width: 1200px) {
+  .dice { 
+    width: clamp(4rem, 10vw, 8rem) !important;   /* VĚTŠÍ pro desktopy */
+    height: clamp(4rem, 10vw, 8rem) !important;  /* VĚTŠÍ pro desktopy */
+    margin: clamp(0.3rem, 0.8vw, 0.8rem) !important;
+  }
+  
+  /* Ještě větší mezery V HERNÍM KONTEJNERU na širokých obrazovkách */
+  .game-container .btn,
+  .game-buttons .btn {
+    margin: 0.8rem 0.6rem; /* Větší mezery pro široké obrazovky POUZE ve hře */
+  }
+}
+
 @media (min-width: 1400px) {
   .dice { 
-    width: clamp(8rem, 18vw, 16rem);  /* ZNAČNĚ ZVĚTŠENO z 5rem-10rem */
-    height: clamp(8rem, 18vw, 16rem); /* ZNAČNĚ ZVĚTŠENO z 5rem-10rem */
-    margin: clamp(0.4rem, 1.2vw, 1.2rem);
+    width: clamp(6rem, 12vw, 12rem) !important;  /* OPRAVENO - rozumná velikost */
+    height: clamp(6rem, 12vw, 12rem) !important; /* OPRAVENO - rozumná velikost */
+    margin: clamp(0.4rem, 1vw, 1rem) !important;
   }
   
   /* Ještě větší mezery POUZE V HERNÍM KONTEJNERU na ultra širokých obrazovkách */
