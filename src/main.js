@@ -127,17 +127,18 @@ class AIDiceGame {
                 const originalClasses = app.className;
                 
                 // Přidáme pěknou fade out animaci s delším trváním
+                loadingScreen.classList.add('opacity-0');
                 loadingScreen.style.transition = 'opacity 0.8s ease-out';
-                loadingScreen.style.opacity = '0';
                 
                 // Zobrazíme hlavní aplikaci s fade in efektem
                 app.classList.remove('d-none');
-                app.style.opacity = '0';
+                app.classList.add('opacity-0');
                 app.style.transition = 'opacity 0.6s ease-in';
                 
                 // Po krátké pauze zapneme fade in pro hlavní aplikaci
                 setTimeout(() => {
-                    app.style.opacity = '1';
+                    app.classList.remove('opacity-0');
+                    app.classList.add('opacity-100');
                 }, 100);
                 
                 // 🔍 DEBUG: Kontrola změn tříd - pouze pokud je skutečný rozdíl

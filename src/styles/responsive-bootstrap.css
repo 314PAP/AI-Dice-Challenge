@@ -273,25 +273,25 @@ body {
   }
 }
 
-/* Large desktop - VÝRAZNĚ VĚTŠÍ KOSTKY */
+/* Large desktop - MASIVNÍ KOSTKY PRO VELKÉ OBRAZOVKY */
 @media (min-width: 1200px) {
   .dice { 
-    width: clamp(4rem, 6vw, 8rem) !important;
-    height: clamp(4rem, 6vw, 8rem) !important;
-    border-width: 3px;
-    margin: clamp(0.3rem, 0.8vw, 1rem);
-    font-size: clamp(1.4rem, 1.8vw, 2.2rem);
+    width: clamp(6rem, 8vw, 12rem) !important;
+    height: clamp(6rem, 8vw, 12rem) !important;
+    border-width: 4px;
+    margin: clamp(0.5rem, 1.2vw, 1.5rem);
+    font-size: clamp(2rem, 2.5vw, 3rem);
   }
 }
 
-/* Extra large desktop - NEJVĚTŠÍ KOSTKY PRO ULTRA WIDE */
+/* Extra large desktop - MEGA KOSTKY PRO ULTRA WIDE */
 @media (min-width: 1400px) {
   .dice { 
-    width: clamp(5rem, 7vw, 10rem) !important;
-    height: clamp(5rem, 7vw, 10rem) !important;
-    border-width: 3px;
-    margin: clamp(0.4rem, 1vw, 1.2rem);
-    font-size: clamp(1.6rem, 2vw, 2.8rem);
+    width: clamp(8rem, 10vw, 15rem) !important;
+    height: clamp(8rem, 10vw, 15rem) !important;
+    border-width: 5px;
+    margin: clamp(0.6rem, 1.5vw, 2rem);
+    font-size: clamp(2.5rem, 3vw, 4rem);
   }
 }
 
@@ -875,15 +875,17 @@ POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
 
 @media (min-width: 1200px) {
   .dice-dot {
-    width: clamp(4px, 2.8vw, 14px);
-    height: clamp(4px, 2.8vw, 14px);
+    width: clamp(8px, 4vw, 20px);
+    height: clamp(8px, 4vw, 20px);
+    box-shadow: 0 0 clamp(2px, 1vw, 8px) var(--neon-green);
   }
 }
 
 @media (min-width: 1400px) {
   .dice-dot {
-    width: clamp(6px, 3.5vw, 18px);
-    height: clamp(6px, 3.5vw, 18px);
+    width: clamp(12px, 5vw, 28px);
+    height: clamp(12px, 5vw, 28px);
+    box-shadow: 0 0 clamp(3px, 1.5vw, 12px) var(--neon-green);
   }
 }
 
@@ -934,3 +936,16 @@ POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
 /*
 POKUD NĚCO NENÍ V BOOTSTRAP 5, TEPRVE POTOM PIŠ VLASTNÍ CSS!
 */
+
+/* ===== PLAYERS SECTION - BOOTSTRAP UTILITIES ===== */
+
+/* Players section s responzivními mezerami */
+.players-section {
+  min-height: 0 !important;
+  margin-bottom: clamp(0.25rem, 1vw, 0.5rem) !important;
+}
+
+/* Player columns - Bootstrap flex fix */
+.player-col {
+  min-width: 0 !important; /* Bootstrap fix pro overflow */
+}

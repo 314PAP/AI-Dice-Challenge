@@ -1,11 +1,13 @@
 /**
  * SEZNAM POUŽÍVANÝCH CSS TŘÍD:
- * Bootstrap: btn, btn-outline-success, btn-outline-danger, col-auto, d-flex, flex-column, justify-content-center, align-items-center, text-center, mb-2, mb-3, position-relative, fs-6, fw-bold, rounded-3, border-2, p-3, mx-auto, w-100
+ * Bootstrap: btn, btn-outline-success, bt    renderPlayersSection(state) {
+        const playersSection = document.createElement('div');
+        playersSection.className = 'row g-1 flex-shrink-0 players-section';line-danger, col-auto, d-flex, flex-column, justify-content-center, align-items-center, text-center, mb-2, mb-3, position-relative, fs-6, fw-bold, rounded-3, border-2, p-3, mx-auto, w-100
  * Neon třídy: text-neon-green, text-        const hasTurnScore = state.turnScore && state.turnScore > 0;
         
         if (isAiTurn) {
             endTurnBtn.disabled = true;
-            endTurnBtn.style.opacity = '0.3';
+            endTurnBtn.classList.add('opacity-25');
             endTurnBtn.title = 'AI hraje automaticky';
         } else if (!savedDiceCount || !hasTurnScore) {e, text-neon-purple, text-neon-orange, text-neon-red, text-neon-yellow, border-neon-green, border-neon-blue, border-neon-purple, border-neon-orange, border-neon-red, border-neon-yellow, bg-neon-black
  * Vlastní: btn-neon, dice-area, dice-item, dice-selected, player-avatar, player-farkle-pulse, dice-rolling
@@ -98,10 +100,9 @@ export class GameRenderer {
             const isCurrentPlayer = index === state.currentPlayerIndex;
             const isLeader = state.finalRound && player.name === state.finalRoundLeader;
             
-            // Avatary PŘÍSNĚ v Bootstrap grid - col-3 (4 sloupce), bez overflow
+            // Avatary PŘÍSNĚ v Bootstrap grid - col-3 (4 sloupce)
             const playerCol = document.createElement('div');
-            playerCol.className = 'col-3';
-            playerCol.style.minWidth = '0'; // Bootstrap fix pro overflow
+            playerCol.className = 'col-3 player-col';
             
             // Čistá karta hráče s neonovým rámečkem podle barvy
             let cardClasses = `card bg-black border border-neon-${player.color} h-100 ${isCurrentPlayer ? 'border-3 player-active' : 'border-2'}`;
