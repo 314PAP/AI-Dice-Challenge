@@ -243,7 +243,7 @@ export class GameRenderer {
                 console.log(`🎯 TLAČÍTKO HODIT stisknuto! canRoll=${canRoll}`);
                 if (callbacks.rollDice) callbacks.rollDice();
             },
-            'btn w-100'
+            'btn-sm w-100'
         );
         
         if (isAiTurn) {
@@ -270,7 +270,7 @@ export class GameRenderer {
         }
         
         const rollCol = document.createElement('div');
-        rollCol.className = 'col-12 col-sm-6 mb-2 px-2';
+        rollCol.className = 'col-6 mb-1 px-1';
         rollCol.appendChild(rollBtn);
         buttonsContainer.appendChild(rollCol);
         
@@ -283,7 +283,7 @@ export class GameRenderer {
                 console.log(`💾 TLAČÍTKO ODLOŽIT stisknuto! selectedDice=${state.selectedDice?.length || 0}`);
                 if (callbacks.saveDice) callbacks.saveDice();
             },
-            'btn w-100'
+            'btn-sm w-100'
         );
         
         if (isAiTurn) {
@@ -304,7 +304,7 @@ export class GameRenderer {
         }
         
         const saveCol = document.createElement('div');
-        saveCol.className = 'col-12 col-sm-6 mb-2 px-2';
+        saveCol.className = 'col-6 mb-1 px-1';
         saveCol.appendChild(saveBtn);
         buttonsContainer.appendChild(saveCol);
         
@@ -314,7 +314,7 @@ export class GameRenderer {
             'orange', 
             'bi-skip-forward-fill',
             callbacks.endTurn,
-            'btn w-100'
+            'btn-sm w-100'
         );
         
         const hasSavedDice = state.savedDice && state.savedDice.length > 0;
@@ -335,7 +335,7 @@ export class GameRenderer {
         }
         
         const endCol = document.createElement('div');
-        endCol.className = 'col-12 col-sm-6 mb-2 px-2';
+        endCol.className = 'col-6 mb-1 px-1';
         endCol.appendChild(endTurnBtn);
         buttonsContainer.appendChild(endCol);
         
@@ -345,11 +345,11 @@ export class GameRenderer {
             'red', 
             'bi-list', 
             callbacks.showMenuWithConfirmation,
-            'btn w-100'
+            'btn-sm w-100'
         );
         
         const menuCol = document.createElement('div');
-        menuCol.className = 'col-12 col-sm-6 mb-2 px-2';
+        menuCol.className = 'col-6 mb-1 px-1';
         menuCol.appendChild(menuBtn);
         buttonsContainer.appendChild(menuCol);
         

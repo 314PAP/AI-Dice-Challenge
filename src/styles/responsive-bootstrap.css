@@ -219,17 +219,22 @@ body {
 
 /* ===== KOMPONENTY - KOSTKY VELIKOSTI ===== */
 
-/* Základní velikosti kostek - skutečně responzivní, ne fixní minimum */
+/* Základní velikosti kostek - bootstrap responsive approach */
 .dice {
-  width: clamp(1.5rem, 6vw, 4rem); /* Od mobilu po velké obrazovky */
-  height: clamp(1.5rem, 6vw, 4rem); 
-  border-width: 1px; /* Bootstrap default border */
+  width: clamp(1.8rem, 6vw, 3rem);
+  height: clamp(1.8rem, 6vw, 3rem);
+  border-width: 1px;
   transition: all 0.3s ease;
   position: relative;
   cursor: pointer;
-  margin: clamp(0.1rem, 0.5vw, 0.5rem); /* Responzivní margin */
-  flex-shrink: 0; /* Zabránit zmenšování v flex kontejneru */
-  pointer-events: auto; /* Povolit klikání */
+  margin: clamp(0.1rem, 0.4vw, 0.4rem);
+  flex-shrink: 0;
+  pointer-events: auto;
+  font-size: clamp(0.7rem, 1.8vw, 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
 }
 
 /* Kostky při házení - zakázat klikání */
@@ -237,81 +242,65 @@ body {
   pointer-events: none;
 }
 
-/* Responzivní velikosti kostek - Bootstrap breakpointy s větším rozsahem */
+/* Small tablets */
 @media (min-width: 576px) {
   .dice { 
-    width: clamp(2rem, 7vw, 5rem); 
-    height: clamp(2rem, 7vw, 5rem); 
-    margin: clamp(0.15rem, 0.6vw, 0.6rem); 
+    width: clamp(2rem, 5.5vw, 3.5rem); 
+    height: clamp(2rem, 5.5vw, 3.5rem); 
+    margin: clamp(0.12rem, 0.45vw, 0.5rem);
+    font-size: clamp(0.8rem, 1.6vw, 1.1rem);
   }
 }
 
+/* Tablets */
 @media (min-width: 768px) {
   .dice { 
-    width: clamp(2.5rem, 8vw, 6rem); 
-    height: clamp(2.5rem, 8vw, 6rem);
-    border-width: 2px; /* Bootstrap border-2 */
-    margin: clamp(0.2rem, 0.7vw, 0.7rem);
+    width: clamp(2.2rem, 5vw, 4rem); 
+    height: clamp(2.2rem, 5vw, 4rem);
+    border-width: 2px;
+    margin: clamp(0.15rem, 0.5vw, 0.6rem);
+    font-size: clamp(0.9rem, 1.4vw, 1.2rem);
   }
 }
 
+/* Desktop */
 @media (min-width: 992px) {
   .dice { 
-    width: clamp(3rem, 9vw, 7rem); 
-    height: clamp(3rem, 9vw, 7rem);
-    margin: clamp(0.25rem, 0.8vw, 0.8rem);
+    width: clamp(2.5rem, 4.5vw, 5rem); 
+    height: clamp(2.5rem, 4.5vw, 5rem);
+    margin: clamp(0.18rem, 0.55vw, 0.7rem);
+    font-size: clamp(1rem, 1.3vw, 1.4rem);
   }
 }
 
+/* Large desktop */
 @media (min-width: 1200px) {
   .dice { 
-    width: clamp(6rem, 15vw, 12rem);  /* ZNAČNĚ ZVĚTŠENO z 4rem-8rem */
-    height: clamp(6rem, 15vw, 12rem); /* ZNAČNĚ ZVĚTŠENO z 4rem-8rem */
-    border-width: 3px;
-    margin: clamp(0.3rem, 1vw, 1rem);
-  }
-  
-  /* Větší mezery mezi tlačítky POUZE V HERNÍM KONTEJNERU na velkých obrazovkách */
-  .game-container .btn,
-  .game-buttons .btn {
-    margin: 0.75rem 0.5rem; /* Větší mezery pro prevenci překrývání POUZE ve hře */
+    width: clamp(3rem, 4vw, 6rem);
+    height: clamp(3rem, 4vw, 6rem);
+    border-width: 2px;
+    margin: clamp(0.2rem, 0.6vw, 0.8rem);
+    font-size: clamp(1.1rem, 1.2vw, 1.6rem);
   }
 }
 
-@media (min-width: 1200px) {
-  .dice { 
-    width: clamp(4rem, 10vw, 8rem) !important;   /* VĚTŠÍ pro desktopy */
-    height: clamp(4rem, 10vw, 8rem) !important;  /* VĚTŠÍ pro desktopy */
-    margin: clamp(0.3rem, 0.8vw, 0.8rem) !important;
-  }
-  
-  /* Ještě větší mezery V HERNÍM KONTEJNERU na širokých obrazovkách */
-  .game-container .btn,
-  .game-buttons .btn {
-    margin: 0.8rem 0.6rem; /* Větší mezery pro široké obrazovky POUZE ve hře */
-  }
-}
-
+/* Extra large desktop */
 @media (min-width: 1400px) {
   .dice { 
-    width: clamp(6rem, 12vw, 12rem) !important;  /* OPRAVENO - rozumná velikost */
-    height: clamp(6rem, 12vw, 12rem) !important; /* OPRAVENO - rozumná velikost */
-    margin: clamp(0.4rem, 1vw, 1rem) !important;
-  }
-  
-  /* Ještě větší mezery POUZE V HERNÍM KONTEJNERU na ultra širokých obrazovkách */
-  .game-container .btn,
-  .game-buttons .btn {
-    margin: 1rem 0.75rem; /* Největší mezery pro ultra široké obrazovky POUZE ve hře */
+    width: clamp(3.5rem, 3.5vw, 7rem);
+    height: clamp(3.5rem, 3.5vw, 7rem);
+    margin: clamp(0.25rem, 0.65vw, 0.9rem);
+    font-size: clamp(1.2rem, 1.1vw, 1.8rem);
   }
 }
 
 /* Landscape optimalizace - menší kostky kvůli výšce */
 @media (orientation: landscape) and (max-height: 600px) {
   .dice {
-    width: clamp(1.2rem, 4vw, 3rem) !important;
-    height: clamp(1.2rem, 4vw, 3rem) !important;
-    margin: clamp(0.1rem, 0.3vw, 0.3rem) !important;
+    width: clamp(1.4rem, 4vw, 2.5rem) !important;
+    height: clamp(1.4rem, 4vw, 2.5rem) !important;
+    margin: clamp(0.08rem, 0.3vw, 0.25rem) !important;
+    font-size: clamp(0.6rem, 1.5vw, 0.9rem) !important;
   }
 }
 
