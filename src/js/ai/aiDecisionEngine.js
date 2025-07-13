@@ -5,6 +5,7 @@
 
 import { calculatePoints, hasScoringDice } from '../game/diceMechanics.js';
 import gameState from '../game/gameState.js';
+import chatSystem from './chatSystem.js';
 
 export class AiDecisionEngine {
     /**
@@ -95,6 +96,56 @@ export class AiDecisionEngine {
                 // Rozumná volba
                 return combinations[0].indices;
         }
+    }
+
+    /**
+     * Hlavní rozhodovací metoda AI - zjednodušená verze
+     */
+    makeDecision(aiPlayer, state) {
+        const bestDice = this.findBestDiceToSave(state.currentRoll);
+        
+        if (bestDice.length === 0) {
+            return { action: 'wait' };
+        }
+        
+        const currentTurnPoints = calculatePoints(state.savedDice || []) + (state.turnScore || 0);
+        const newPoints = calculatePoints(bestDice.map(i => state.currentRoll[i]));
+        const totalPoints = currentTurnPoints + newPoints;
+        
+        // LOGIKA PRVNÍHO ZÁPISU
+        if (aiPlayer.score === 0) {
+            if (totalPoints < 300) {
+                chatSystem.addAiMessage(aiPlayer.name, `Potřebuji ještě ${300 - totalPoints} bodů pro první zápis! 🎯`);
+                return { action: 'save', diceToSave: bestDice, nextAction: 'continue' };
+            } else {
+                chatSystem.addAiMessage(aiPlayer.name, `Mám ${totalPoints} bodů - dosáhl jsem prvního zápisu! ✅`);
+                return { action: 'save', diceToSave: bestDice, nextAction: 'endTurn' };
+            }
+        }
+        
+        // Základní rozhodování - zjednodušené
+        const shouldRisk = totalPoints < 500 && Math.random() > 0.5;
+        const action = shouldRisk ? 'continue' : 'endTurn';
+        
+        chatSystem.addAiMessage(aiPlayer.name, 
+            action === 'continue' ? `Mám ${totalPoints} bodů, ale zkusím ještě! 🎯` : `Ukončuji s ${totalPoints} body! ✅`
+        );
+        
+        return { action: 'save', diceToSave: bestDice, nextAction: action };
+    }
+
+    /**
+     * Najde nejlepší kostky k odložení - zjednodušená verze
+     */
+    findBestDiceToSave(dice) {
+        if (!dice || dice.length === 0) return [];
+        
+        const combinations = this.findScoringCombinations(dice);
+        if (combinations.length === 0) return [];
+        
+        // Nejlepší kombinace podle bodů na kostku
+        combinations.sort((a, b) => (b.points / b.indices.length) - (a.points / a.indices.length));
+        return combinations[0].indices;
     }
 }
 

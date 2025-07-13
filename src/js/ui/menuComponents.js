@@ -4,8 +4,73 @@
  */
 
 import { createNeonButton, createNeonCard } from './uiComponents.js';
+import gameState from '../game/gameState.js';
+import chatSystem from '../ai/chatSystem.js';
 
 export class MenuComponents {
+    /**
+     * Zobrazí menu s potvrzovacím dialogem
+     */
+    showMenuWithConfirmation(onConfirm) {
+        this.showStyledConfirmation(
+            'Opravdu chcete odejít do menu?',
+            'Rozehraná hra bude ztracena.',
+            onConfirm
+        );
+    }
+
+    /**
+     * Zobrazí stylovaný potvrzovací dialog
+     */
+    showStyledConfirmation(title, message, onConfirm) {
+        const backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop fade show position-fixed top-0 start-0 w-100 h-100';
+
+        const modal = document.createElement('div');
+        modal.className = 'modal d-flex align-items-center justify-content-center position-fixed top-0 start-0 w-100 h-100';
+
+        modal.innerHTML = `
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content bg-black border-3 border-neon-red shadow-lg">
+                    <div class="modal-header border-bottom border-neon-red">
+                        <h5 class="modal-title text-neon-red fw-bold">${title}</h5>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p class="text-neon-yellow mb-3">${message}</p>
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button type="button" class="btn btn-neon btn-sm" data-neon-color="green" id="confirm-yes">Ano</button>
+                            <button type="button" class="btn btn-neon btn-sm" data-neon-color="red" id="confirm-no">Ne</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(backdrop);
+        document.body.appendChild(modal);
+
+        const yesBtn = modal.querySelector('#confirm-yes');
+        const noBtn = modal.querySelector('#confirm-no');
+
+        const closeModal = () => {
+            document.body.removeChild(backdrop);
+            document.body.removeChild(modal);
+        };
+
+        yesBtn.addEventListener('click', () => { closeModal(); onConfirm(); });
+        noBtn.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', closeModal);
+    }
+
+    /**
+     * Zobrazí herní menu
+     */
+    showMenu() {
+        chatSystem.clearMessages();
+        gameState.updateState({ gamePhase: 'menu', gameStarted: false });
+    }
+
+    // ...existing code...
     /**
      * Vytvoří hlavní menu tlačítka
      */

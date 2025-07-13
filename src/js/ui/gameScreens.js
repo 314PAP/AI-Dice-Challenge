@@ -4,6 +4,7 @@
  */
 
 import { createNeonButton, createNeonCard } from './uiComponents.js';
+import gameState from '../game/gameState.js';
 
 export class GameScreens {
     /**
@@ -143,6 +144,92 @@ export class GameScreens {
         container.appendChild(btnGroup);
         
         return container;
+    }
+
+    /**
+     * Zobrazí pravidla
+     */
+    showRules() {
+        gameState.updateState({ gamePhase: 'rules' });
+    }
+
+    /**
+     * Zobrazí síň slávy  
+     */
+    showHallOfFame() {
+        gameState.updateState({ gamePhase: 'halloffame' });
+    }
+
+    /**
+     * Vykreslí pravidla
+     */
+    renderRules(gameArea) {
+        const container = document.createElement('div');
+        container.className = 'd-flex flex-column h-100 overflow-hidden p-1';
+        
+        const title = document.createElement('h1');
+        title.className = 'text-neon-blue fs-fluid-1 mb-2 text-center';
+        title.innerHTML = '<i class="bi bi-book-half"></i> Pravidla';
+        container.appendChild(title);
+        
+        const rulesCard = createNeonCard('Pravidla kostkovky', 'blue', `
+            <div class="mb-3">
+                <h4 class="text-neon-blue h5 mb-2">Cíl hry</h4>
+                <p class="text-neon-green mb-0">Dosáhnout prvního cílového skóre.</p>
+            </div>
+            <div class="mb-0">
+                <h4 class="text-neon-blue h5 mb-2">Bodování</h4>
+                <p class="text-neon-green mb-0">Jednička = 100, Pětka = 50, Tři stejné = násobky</p>
+            </div>
+        `);
+        
+        container.appendChild(rulesCard);
+        
+        const backBtn = createNeonButton('ZPĚT', 'orange', 'bi-arrow-left', 
+            () => gameState.updateState({ gamePhase: 'menu' }));
+        container.appendChild(backBtn);
+        
+        if (gameArea) {
+            gameArea.innerHTML = '';
+            gameArea.appendChild(container);
+        }
+    }
+
+    /**
+     * Vykreslí síň slávy
+     */
+    renderHallOfFame(gameArea) {
+        const container = document.createElement('div');
+        container.className = 'd-flex flex-column h-100 p-1';
+        
+        const title = document.createElement('h1');
+        title.className = 'text-neon-orange fs-fluid-1 mb-2 text-center';
+        title.innerHTML = '<i class="bi bi-trophy-fill"></i> Síň slávy';
+        container.appendChild(title);
+        
+        const table = document.createElement('div');
+        table.innerHTML = `
+            <table class="table table-sm">
+                <thead>
+                    <tr><th class="text-neon-orange">Jméno</th><th class="text-neon-orange">Skóre</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="text-neon-blue">Hráč</td><td class="text-neon-green">12500</td></tr>
+                    <tr><td class="text-neon-blue">Gemini</td><td class="text-neon-green">10800</td></tr>
+                </tbody>
+            </table>
+        `;
+        
+        container.appendChild(table);
+        
+        const backBtn = createNeonButton('ZPĚT', 'orange', 'bi-arrow-left', 
+            () => gameState.updateState({ gamePhase: 'menu' }));
+        container.appendChild(backBtn);
+        
+        if (gameArea) {
+            gameArea.innerHTML = '';
+            gameArea.appendChild(container);
+        }
     }
 }
 

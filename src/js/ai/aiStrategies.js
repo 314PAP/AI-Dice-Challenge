@@ -3,7 +3,99 @@
  * Přesunuto z aiPlayerController.js pro zmenšení velikosti
  */
 
+import gameState from '../game/gameState.js';
+import chatSystem from './chatSystem.js';
+
 export class AiStrategies {
+    /**
+     * Analyzuje herní situaci pro strategické rozhodování
+     */
+    analyzeGameSituation(aiPlayer, state, turnPoints) {
+        const players = state.players;
+        const myScore = aiPlayer.score;
+        const targetScore = state.targetScore || 10000;
+        
+        const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
+        const myPosition = sortedPlayers.findIndex(p => p.name === aiPlayer.name) + 1;
+        const leadingScore = sortedPlayers[0].score;
+        const gap = leadingScore - myScore;
+        
+        const gamePhase = this.determineGamePhase(myScore, leadingScore, targetScore);
+        
+        let riskTolerance = 'conservative';
+        if (gamePhase === 'early') {
+            riskTolerance = 'conservative';
+        } else if (gamePhase === 'middle') {
+            riskTolerance = myPosition <= 2 ? 'moderate' : 'aggressive';
+        } else {
+            if (gap > 2000) {
+                riskTolerance = 'aggressive';
+            } else if (myPosition === 1) {
+                riskTolerance = 'conservative';
+            } else {
+                riskTolerance = 'aggressive';
+            }
+        }
+        
+        return {
+            gamePhase,
+            myPosition,
+            gap,
+            riskTolerance,
+            remainingDice: state.currentRoll?.length || 6,
+            turnPoints
+        };
+    }
+
+    /**
+     * Určí fázi hry
+     */
+    determineGamePhase(myScore, leadingScore, targetScore) {
+        const maxScore = Math.max(myScore, leadingScore);
+        const progress = maxScore / targetScore;
+        
+        if (progress < 0.3) return 'early';
+        if (progress < 0.7) return 'middle';
+        return 'late';
+    }
+
+    /**
+     * Vypočítá riziko FARKLE
+     */
+    calculateFarkleRisk(remainingDice) {
+        const riskTable = {
+            1: 0.67, 2: 0.56, 3: 0.42, 4: 0.29, 5: 0.19, 6: 0.13
+        };
+        return riskTable[remainingDice] || 0.1;
+    }
+
+    /**
+     * Oznámí rozhodnutí AI
+     */
+    announceDecision(aiPlayer, decision, totalPoints, strategy) {
+        const { reason } = decision;
+        
+        let message = '';
+        if (decision.nextAction === 'continue') {
+            message = `Mám ${totalPoints} bodů, ale ${reason}! 🎯`;
+        } else {
+            message = `Ukončuji s ${totalPoints} body - ${reason}! ✅`;
+        }
+        
+        console.log(`🤖 AI ${aiPlayer.name} rozhodnutí: ${decision.nextAction} (${reason})`);
+        chatSystem.addAiMessage(aiPlayer.name, message);
+    }
+
+    /**
+     * Vypočítá rizikový faktor
+     */
+    calculateRiskFactor(remainingDice, currentPoints) {
+        const diceRisk = (6 - remainingDice) / 6;
+        const pointsRisk = Math.min(currentPoints / 1000, 1);
+        return (diceRisk + pointsRisk) / 2;
+    }
+
+    // ...existing code...
     /**
      * Konzervativní strategie - bezpečné hraní
      * @param {Object} state - Stav hry

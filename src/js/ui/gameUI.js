@@ -39,33 +39,39 @@ import { GameRenderer } from './gameRenderer.js';
 import { AiPlayerController } from '../ai/aiPlayerController.js';
 import chatSystem from '../ai/chatSystem.js';
 import { createNeonButton, createNeonCard } from './uiComponents.js';
+import { MenuComponents } from './menuComponents.js';
+import { GameScreens } from './gameScreens.js';
 
 export class GameUI {
     constructor() {
         this.gameArea = document.getElementById('gameArea');
-        this.aiTurnInProgress = false; // Flag pro kontrolu AI tahu
-        this.lastPlayerIndex = undefined; // Pro sledování změny hráče
-        this.lastRenderTime = 0; // Pro omezení renderování
+        this.aiTurnInProgress = false;
+        this.lastPlayerIndex = undefined;
+        this.lastRenderTime = 0;
         
         // Inicializace modulů
         this.gameRenderer = new GameRenderer();
         this.gameLogic = new GameLogic(this.gameRenderer);
         this.aiController = new AiPlayerController(this.gameLogic);
+        this.menuComponents = new MenuComponents();
+        this.gameScreens = new GameScreens();
         
-        // Ověříme, že gameArea existuje
+        // Ověříme DOM
         if (!this.gameArea) {
-            console.warn('⚠️ GameUI: Element #gameArea nenalezen. GameUI bude čekat na DOM.');
-            document.addEventListener('DOMContentLoaded', () => {
-                this.gameArea = document.getElementById('gameArea');
-                if (this.gameArea) {
-                    console.log('✅ GameUI: Element #gameArea nalezen po DOMContentLoaded');
-                    this.initEventListeners();
-                }
-            });
+            console.warn('⚠️ GameUI: Element #gameArea nenalezen');
+            document.addEventListener('DOMContentLoaded', () => this.initWhenReady());
             return;
         }
         
         this.initEventListeners();
+    }
+
+    initWhenReady() {
+        this.gameArea = document.getElementById('gameArea');
+        if (this.gameArea) {
+            console.log('✅ GameUI: Element nalezen po DOMContentLoaded');
+            this.initEventListeners();
+        }
     }
 
     /**
@@ -371,342 +377,18 @@ export class GameUI {
     }
 
     /**
-     * Zobrazí pravidla
+     * Zobrazí pravidla - deleguje na GameScreens
      */
     showRules() {
-        gameState.updateState({ gamePhase: 'rules' });
+        this.gameScreens.showRules();
     }
 
     /**
-     * Zobrazí síň slávy
+     * Zobrazí síň slávy - deleguje na GameScreens
      */
     showHallOfFame() {
-        gameState.updateState({ gamePhase: 'halloffame' });
+        this.gameScreens.renderHallOfFame(this.gameArea);
     }
-
-    // =============================================================================
-    // DELEGOVANÉ HERNÍ FUNKCE (nyní pouze proxies k GameLogic)
-    // =============================================================================
-
-    
-    /**
-     * Zobrazí menu s potvrzovacím dialogem
-     */
-    showMenuWithConfirmation() {
-        this.showStyledConfirmation(
-            'Opravdu chcete odejít do menu?',
-            'Rozehraná hra bude ztracena.',
-            () => this.showMenu()
-        );
-    }
-
-    /**
-     * Zobrazí stylovaný potvrzovací dialog
-     */
-    showStyledConfirmation(title, message, onConfirm) {
-        // Vytvoříme backdrop
-        const backdrop = document.createElement('div');
-        backdrop.className = 'modal-backdrop fade show';
-        backdrop.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1050;
-            backdrop-filter: blur(5px);
-        `;
-
-        // Vytvoříme modální dialog
-        const modal = document.createElement('div');
-        modal.className = 'modal d-flex align-items-center justify-content-center';
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1055;
-            display: flex !important;
-        `;
-
-        modal.innerHTML = `
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content bg-black border-3 border-neon-red shadow-lg">
-                    <div class="modal-header border-bottom border-neon-red">
-                        <h5 class="modal-title text-neon-red fw-bold">${title}</h5>
-                    </div>
-                    <div class="modal-body text-center">
-                        <p class="text-neon-yellow mb-3">${message}</p>
-                        <div class="d-flex gap-2 justify-content-center">
-                            <button type="button" class="btn btn-neon btn-sm" data-neon-color="green" id="confirm-yes">
-                                <i class="bi bi-check-lg me-1"></i>Ano
-                            </button>
-                            <button type="button" class="btn btn-neon btn-sm" data-neon-color="red" id="confirm-no">
-                                <i class="bi bi-x-lg me-1"></i>Ne
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Přidáme do DOM
-        document.body.appendChild(backdrop);
-        document.body.appendChild(modal);
-
-        // Event listenery
-        const yesBtn = modal.querySelector('#confirm-yes');
-        const noBtn = modal.querySelector('#confirm-no');
-
-        const closeModal = () => {
-            document.body.removeChild(backdrop);
-            document.body.removeChild(modal);
-        };
-
-        yesBtn.addEventListener('click', () => {
-            closeModal();
-            onConfirm();
-        });
-
-        noBtn.addEventListener('click', closeModal);
-        backdrop.addEventListener('click', closeModal);
-
-        // ESC key
-        const escHandler = (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-                document.removeEventListener('keydown', escHandler);
-            }
-        };
-        document.addEventListener('keydown', escHandler);
-    }
-
-    /**
-     * Zobrazí herní menu
-     */
-    showMenu() {
-        // Vyčistíme chat při návratu do menu
-        chatSystem.clearMessages();
-        
-        // Reset AI flag při návratu do menu
-        this.aiTurnInProgress = false;
-        
-        gameState.updateState({ gamePhase: 'menu' });
-    }
-
-    /**
-     * Vykreslí obrazovku konce hry - optimalizovaná pro všechny režimy zobrazení
-     * @param {Object} state - Aktuální herní stav
-     */
-    renderGameOver(state) {
-        const container = document.createElement('div');
-        container.className = 'd-flex flex-column justify-content-center align-items-center h-100';
-        
-        // Nadpis - menší na landscape/malých zařízeních
-        const title = document.createElement('h1');
-        title.className = 'text-neon-green fs-fluid-1 mb-2 mb-md-3 text-center';
-        title.innerHTML = '<i class="bi bi-trophy-fill"></i> Konec hry';
-        container.appendChild(title);
-        
-        // Najdeme vítěze
-        const winner = state.players.reduce((prev, current) => 
-            (prev.score > current.score) ? prev : current);
-        
-        // Informace o vítězi - kompaktnější pro malé displeje s obrázkem
-        const winnerInfo = document.createElement('div');
-        winnerInfo.className = 'text-center mb-3 mb-md-4';
-        winnerInfo.innerHTML = `
-            <h2 class="fs-fluid-2 text-neon-${winner.color} mb-2">
-                <img src="ai-icons/${winner.avatar}" alt="${winner.name}" class="rounded-circle me-1 me-sm-2">
-                ${winner.name}
-            </h2>
-            <div class="fs-fluid-3 text-neon-yellow mb-1 mb-sm-2">Vítězné skóre</div>
-            <div class="fs-fluid-1 text-neon-green">${winner.score}</div>
-        `;
-        container.appendChild(winnerInfo);
-        
-        // Tlačítka akcí - responzivní layout pro všechny režimy
-        const btnGroup = document.createElement('div');
-        btnGroup.className = 'd-flex flex-column flex-sm-row justify-content-center gap-2 w-100 px-3';
-        
-        // V landscape režimu zobrazit tlačítka vedle sebe pro úsporu místa
-        const newGameBtn = createNeonButton(
-            'NOVÁ HRA', 
-            'green', 
-            'bi-play-fill', 
-            () => this.startGame(), 
-            'btn-custom-sm btn-md-lg flex-grow-1'
-        );
-        
-        const menuBtn = createNeonButton(
-            'HLAVNÍ MENU', 
-            'blue', 
-            'bi-house-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 
-            'btn-custom-sm btn-md-lg flex-grow-1'
-        );
-        
-        btnGroup.appendChild(newGameBtn);
-        btnGroup.appendChild(menuBtn);
-        
-        container.appendChild(btnGroup);
-        
-        // Vyčistíme a přidáme nový obsah
-        if (this.gameArea) {
-            this.gameArea.innerHTML = '';
-            this.gameArea.appendChild(container);
-        } else {
-            console.warn('⚠️ GameUI.renderGameOver: gameArea není dostupný');
-        }
-    }
-
-    /**
-     * Vykreslí pravidla - optimalizovaná pro všechny režimy zobrazení
-     */
-    renderRules() {
-        const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100 p-2 p-md-3';
-        
-        // Nadpis - Bootstrap responsive typography
-        const title = document.createElement('h1');
-        title.className = 'text-neon-blue h2 h-md-1 mb-3 mb-md-4 text-center';
-        title.innerHTML = '<i class="bi bi-book-fill me-2"></i>Pravidla hry';
-        container.appendChild(title);
-        
-        // Pravidla - Bootstrap responsive container s overflow
-        const rulesContainer = document.createElement('div');
-        rulesContainer.className = 'flex-grow-1 overflow-auto px-0 px-md-2';
-        
-        // Vytvoření pravidel v responsivní kartě - Bootstrap-first approach
-        const rulesCard = createNeonCard('Pravidla kostkovky', 'blue', `
-            <div class="mb-3 mb-lg-4">
-                <h4 class="text-neon-blue h5 h-md-4 mb-2">Cíl hry</h4>
-                <p class="text-neon-green mb-0">Dosáhnout jako první cílového skóre (výchozí je 10 000 bodů).</p>
-            </div>
-            
-            <div class="mb-3 mb-lg-4">
-                <h4 class="text-neon-blue h5 h-md-4 mb-2">Průběh tahu</h4>
-                <ol class="text-neon-green ps-3 ps-md-4 mb-0">
-                    <li class="mb-1 mb-md-2">Hráč hodí všemi šesti kostkami.</li>
-                    <li class="mb-1 mb-md-2">Musí vybrat alespoň jednu bodovanou kombinaci.</li>
-                    <li class="mb-1 mb-md-2">Může buď ukončit tah a připsat si body, nebo pokračovat s házením zbývajícími kostkami.</li>
-                    <li class="mb-1 mb-md-2">Pokud pokračuje a hodí kombinaci bez bodů, ztrácí všechny body z aktuálního tahu.</li>
-                </ol>
-            </div>
-            
-            <div class="mb-0">
-                <h4 class="text-neon-blue h5 h-md-4 mb-2">Bodování</h4>
-                <ul class="text-neon-green ps-3 ps-md-4 mb-0">
-                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Jednička</span> = 100 bodů</li>
-                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Pětka</span> = 50 bodů</li>
-                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Tři stejné kostky</span> = hodnota × 100 (tři jedničky = 1000)</li>
-                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Čtyři stejné kostky</span> = hodnota × 200</li>
-                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Pět stejných kostek</span> = hodnota × 400</li>
-                    <li class="mb-1 mb-md-2"><span class="text-neon-yellow fw-bold">Šest stejných kostek</span> = hodnota × 800</li>
-                </ul>
-            </div>
-        `);
-        
-        rulesContainer.appendChild(rulesCard);
-        container.appendChild(rulesContainer);
-        
-        // Tlačítko zpět - Bootstrap responsive button
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'mt-auto pt-3 d-flex justify-content-center';
-        
-        const backBtn = createNeonButton('ZPĚT DO MENU', 'orange', 'bi-arrow-left-circle-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm btn-md-regular px-4 py-2 btn-no-scale');
-        buttonContainer.appendChild(backBtn);
-        container.appendChild(buttonContainer);
-        
-        // Vyčistíme a přidáme nový obsah
-        if (this.gameArea) {
-            this.gameArea.innerHTML = '';
-            this.gameArea.appendChild(container);
-        } else {
-            console.warn('⚠️ GameUI.renderRules: gameArea není dostupný');
-        }
-    }
-
-    /**
-     * Vykreslí síň slávy - optimalizovaná pro všechny režimy zobrazení
-     * Odstraněny inline styly a nahrazeny Bootstrap třídami
-     */
-    renderHallOfFame() {
-        const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100 overflow-visible p-1';
-        
-        // Nadpis - kompaktnější v landscape režimu
-        const title = document.createElement('h1');
-        title.className = 'text-neon-orange fs-fluid-1 mb-2 mb-md-3 text-center';
-        title.innerHTML = '<i class="bi bi-trophy-fill"></i> Síň slávy';
-        container.appendChild(title);
-        
-        // Zobrazení tabulky se záznamy - plně responzivní
-        const recordsContainer = document.createElement('div');
-        recordsContainer.className = 'flex-grow-1 overflow-auto';
-        
-        // Vytvoříme fiktivní záznamy pro demonstraci - v reálném použití by se načetly z localStorage
-        const records = [
-            { name: 'Hráč', score: 12500, date: '2023-12-15' },
-            { name: 'Gemini', score: 10800, date: '2023-12-14' },
-            { name: 'ChatGPT', score: 10200, date: '2023-12-12' },
-            { name: 'Claude', score: 9800, date: '2023-12-10' }
-        ];
-        
-        // Vytvoříme responzivní tabulku s využitím Bootstrap tříd
-        const table = document.createElement('div');
-        table.className = 'table-responsive';
-        
-        // Optimalizace pro malé obrazovky - Bootstrap-first přístup
-        // ODSTRANĚNO: Zbytečné bg-transparent třídy (black background je default)
-        // OPRAVENO: neon-orange-border-bottom → neon-green-border-bottom (zelené oddělovače)
-        table.innerHTML = `
-            <table class="table table-sm neon-table">
-                <thead>
-                    <tr class="neon-green-border-bottom">
-                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange">#</th>
-                        <th scope="col" class="text-neon-orange neon-text-shadow-orange">Jméno</th>
-                        <th scope="col" class="text-center text-neon-orange neon-text-shadow-orange">Skóre</th>
-                        <th scope="col" class="text-center d-none d-sm-table-cell text-neon-orange neon-text-shadow-orange">Datum</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${records.map((record, index) => `
-                        <tr>
-                            <th scope="row" class="text-center text-neon-yellow neon-text-shadow-yellow">${index + 1}</th>
-                            <td class="text-neon-blue neon-text-shadow-blue">${record.name}</td>
-                            <td class="text-center text-neon-green neon-text-shadow-green">${record.score}</td>
-                            <td class="text-center d-none d-sm-table-cell text-neon-purple neon-text-shadow-purple">${record.date}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        `;
-        
-        recordsContainer.appendChild(table);
-        container.appendChild(recordsContainer);
-        
-        // Tlačítko zpět - sticky na spodek, kompaktní design s overflow protection
-        const buttonContainer = document.createElement('div');
-        buttonContainer.className = 'mt-auto pt-2 d-flex justify-content-center overflow-visible p-2';
-        
-        const backBtn = createNeonButton('ZPĚT DO MENU', 'orange', 'bi-arrow-left-circle-fill', 
-            () => gameState.updateState({ gamePhase: 'menu' }), 'btn-sm px-3 py-2');
-        buttonContainer.appendChild(backBtn);
-        container.appendChild(buttonContainer);
-        
-        // Vyčistíme a přidáme nový obsah
-        if (this.gameArea) {
-            this.gameArea.innerHTML = '';
-            this.gameArea.appendChild(container);
-        } else {
-            console.warn('⚠️ GameUI.renderHallOfFame: gameArea není dostupný');
-        }
-    }
-
 }
 
 // Exportujeme třídu GameUI
