@@ -321,6 +321,16 @@ body {
 .dice-container {
   padding: clamp(0.2rem, 0.5vw, 0.4rem) 0.25rem clamp(0.2rem, 0.5vw, 0.4rem) 0.25rem !important; /* JEŠTĚ ZMENŠENO pro více prostoru */
   overflow: visible !important; /* Aby se kostky neořezávaly */
+  flex-wrap: nowrap !important; /* Jeden řádek kostek */
+  max-width: none !important; /* Na velkých obrazovkách NEOMEZOVAT šířku */
+}
+
+/* Na malých obrazovkách omezit šířku kvůli mobilu */
+@media (max-width: 768px) {
+  .dice-container {
+    max-width: 100% !important; /* Pouze na mobilu omezit */
+    flex-wrap: wrap !important; /* Na mobilu povolit zalamování */
+  }
 }
 
 /* ===== LANDSCAPE ORIENTACE - MEZERY PRO OZNAČENÉ KOSTKY ===== */

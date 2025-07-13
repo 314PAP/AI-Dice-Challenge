@@ -159,12 +159,10 @@ export class GameRenderer {
         diceSection.style.marginBottom = 'clamp(0.5rem, 2vw, 1rem)'; // Mezera pod kostkami pro tlačítka
         diceSection.style.paddingTop = 'clamp(0.1rem, 0.5vw, 0.25rem)'; // Menší padding
         
-        // Kontejner pro kostky - VYNUCENÝ jeden řádek s CSS třídou
+        // Kontejner pro kostky - POUZE CSS třídy, žádné inline styly
         const diceContainer = document.createElement('div');
         diceContainer.className = 'd-flex justify-content-center align-items-center gap-1 dice-container';
-        diceContainer.style.maxWidth = '100%';
-        diceContainer.style.overflow = 'visible'; // OPRAVENO: Změněno z hidden na visible
-        diceContainer.style.flexWrap = 'nowrap'; // KLÍČOVÉ: Nikdy nezlomit řádek!
+        // ODSTRANĚNO: Veškeré inline styly - CSS řeší responsive-bootstrap.css
         
         // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO
         if (state.currentRoll && state.currentRoll.length > 0) {
