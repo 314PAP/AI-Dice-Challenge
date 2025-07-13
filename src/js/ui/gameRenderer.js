@@ -79,8 +79,9 @@ export class GameRenderer {
      */
     renderPlayersSection(state) {
         const playersSection = document.createElement('div');
-        playersSection.className = 'row g-1 g-md-2 mb-1 mb-md-2 flex-shrink-0';
+        playersSection.className = 'row g-1 g-md-2 mb-2 mb-md-3 flex-shrink-0'; // Větší bottom margin
         playersSection.style.minHeight = '0'; // Zabránit expanzi
+        playersSection.style.marginBottom = 'clamp(0.5rem, 2vw, 1rem)'; // Responzivní mezera
         
         // Přidáme informaci o finálním kole nad karty hráčů
         if (state.finalRound) {
@@ -151,13 +152,15 @@ export class GameRenderer {
      */
     renderDiceSection(state, toggleDiceCallback) {
         const diceSection = document.createElement('div');
-        diceSection.className = 'flex-grow-1 d-flex align-items-center justify-content-center my-1 my-md-2';
+        diceSection.className = 'flex-grow-1 d-flex align-items-center justify-content-center my-2 my-md-3 dice-section';
         diceSection.style.minHeight = '0';
         diceSection.style.overflow = 'hidden';
+        diceSection.style.marginTop = 'clamp(0.5rem, 2vw, 1rem)'; // Responzivní mezera nahoře
+        diceSection.style.paddingTop = 'clamp(0.25rem, 1vw, 0.5rem)'; // Extra padding pro označené kostky
         
-        // Kontejner pro kostky - VYNUCENÝ jeden řádek
+        // Kontejner pro kostky - VYNUCENÝ jeden řádek s CSS třídou
         const diceContainer = document.createElement('div');
-        diceContainer.className = 'd-flex justify-content-center align-items-center gap-1';
+        diceContainer.className = 'd-flex justify-content-center align-items-center gap-1 dice-container';
         diceContainer.style.maxWidth = '100%';
         diceContainer.style.overflow = 'hidden';
         diceContainer.style.flexWrap = 'nowrap'; // KLÍČOVÉ: Nikdy nezlomit řádek!

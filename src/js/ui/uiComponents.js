@@ -116,13 +116,13 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
     
-    // ZMENŠENO: Viewport-responsive velikosti pro jeden řádek
-    const vwSize = 'min(7vw, 2rem)'; // 7% šířky obrazovky, max 2rem - MENŠÍ!
+    // UPRAVENO: Adaptivní viewport jednotky - větší využití prostoru
+    const vwSize = 'min(8vw, 2.5rem)'; // Větší základní velikost - 8% šířky obrazovky
     dice.style.width = vwSize;
     dice.style.height = vwSize;
-    dice.style.minWidth = '1.2rem'; // Menší minimální velikost
-    dice.style.minHeight = '1.2rem';
-    dice.style.margin = '0.0625rem'; // Menší margin
+    dice.style.minWidth = '1.5rem'; // Větší minimální velikost
+    dice.style.minHeight = '1.5rem';
+    dice.style.margin = '0.0625rem'; // Standardní margin
     dice.style.border = '1px solid var(--neon-green)';
     dice.style.flexShrink = '0'; // Zabrání smršťování
     
@@ -156,15 +156,15 @@ const createDotPattern = (value) => {
     const pattern = document.createElement('div');
     pattern.className = 'position-relative w-100 h-100';
     
-    // Vytvoření teček s responzivními velikostmi - MENŠÍ
+    // Vytvoření teček s responzivními velikostmi - ADAPTIVNÍ PRO ORIENTACI
     const createDot = (position) => {
         const dot = document.createElement('div');
-        dot.style.width = 'clamp(1.5px, 1vw, 4px)'; // Menší responzivní velikost tečky
-        dot.style.height = 'clamp(1.5px, 1vw, 4px)';
+        dot.style.width = 'clamp(2px, 1.8vw, 6px)'; // Větší pro lepší viditelnost
+        dot.style.height = 'clamp(2px, 1.8vw, 6px)';
         dot.style.backgroundColor = 'var(--neon-green)';
         dot.style.borderRadius = '50%';
         dot.style.position = 'absolute';
-        dot.style.boxShadow = '0 0 clamp(0.5px, 0.3vw, 2px) var(--neon-green)';
+        dot.style.boxShadow = '0 0 clamp(1px, 0.6vw, 3px) var(--neon-green)';
         
         // Pozicování podle typu
         switch (position) {
