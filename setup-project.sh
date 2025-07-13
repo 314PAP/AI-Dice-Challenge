@@ -9,10 +9,10 @@ echo "════════════════════════�
 echo ""
 echo "📋 POVINNÝ WORKFLOW PRO VŠECHNY ZMĚNY:"
 echo "────────────────────────────────────────────────────────────────────"
-echo "1️⃣  Před každou změnou: npm run check"
+echo "1️⃣  Při otevření VS Code → automatický self-check"
 echo "2️⃣  Po změnách kódu: npm run validate" 
 echo "3️⃣  Zkontroluj výsledky validace"
-echo "4️⃣  Teprve po schválení → commit & push"
+echo "4️⃣  Když je vše OK: npm run commit (automatický commit+push)"
 echo ""
 echo "🚨 KRITICKÁ PRAVIDLA (NIKDY NEPORUŠUJ!):"
 echo "────────────────────────────────────────────────────────────────────"
@@ -30,10 +30,11 @@ echo "3️⃣  POSLEDNÍ: Vlastní CSS (pouze nutné minimum)"
 echo ""
 echo "⚙️ DOSTUPNÉ PŘÍKAZY:"
 echo "────────────────────────────────────────────────────────────────────"
-echo "npm run dev     - Spustí vývojářský server"
-echo "npm run check   - Self-check systému a pravidel"
+echo "npm run dev      - Spustí vývojářský server"
+echo "npm run check    - Self-check systému a pravidel"
 echo "npm run validate - Validace CSS pravidel"
-echo "npm run setup   - Zobrazí tento workflow"
+echo "npm run commit   - Validace → commit → push (automaticky)"
+echo "npm run setup    - Zobrazí tento workflow"
 echo ""
 echo "📖 BOOTSTRAP DOKUMENTACE:"
 echo "────────────────────────────────────────────────────────────────────"
@@ -51,6 +52,8 @@ echo ""
 chmod +x verify-copilot-system.sh 2>/dev/null || true
 chmod +x css-validation.sh 2>/dev/null || true
 chmod +x setup-project.sh 2>/dev/null || true
+chmod +x auto-selfcheck.sh 2>/dev/null || true
+chmod +x smart-commit.sh 2>/dev/null || true
 
 echo "✅ Projekt je připraven - DODRŽUJ WORKFLOW!"
 echo ""
