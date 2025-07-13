@@ -22,6 +22,7 @@
     "check": "./verify-copilot-system.sh",
     "validate": "./css-validation.sh",
     "commit": "./smart-commit.sh",
+    "watch": "./auto-watcher.sh",
     "postinstall": "./setup-project.sh",
     "clean": "vite build && prettier --write dist/**/*.{js,css,html}",
     "start": "python3 -m http.server 8000"

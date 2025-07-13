@@ -55,11 +55,24 @@ git diff --stat
 echo ""
 echo "❓ CHCETE COMMITNOUT A PUSHNOUT TYTO ZMĚNY?"
 echo "────────────────────────────────────────────────────────────────────"
-read -p "🔹 Zadejte commit zprávu (nebo Enter pro automatickou): " commit_message
+echo "🔹 Stiskněte ENTER pro automatickou commit zprávu"
+echo "🔹 Nebo napište vlastní commit zprávu:"
+read -p "💬 " commit_message
 
 if [ -z "$commit_message" ]; then
-    # Automatická commit zpráva
-    commit_message="feat: Code update - $(date '+%Y-%m-%d %H:%M')"
+    # Automatická commit zpráva na základě změn
+    if git diff --name-only | grep -q "\.js$"; then
+        if git diff --name-only | grep -q "\.css$"; then
+            commit_message="feat: JS + CSS updates - $(date '+%Y-%m-%d %H:%M')"
+        else
+            commit_message="feat: JS code updates - $(date '+%Y-%m-%d %H:%M')"
+        fi
+    elif git diff --name-only | grep -q "\.css$"; then
+        commit_message="style: CSS updates - $(date '+%Y-%m-%d %H:%M')"
+    else
+        commit_message="feat: Code updates - $(date '+%Y-%m-%d %H:%M')"
+    fi
+    echo "📝 Automatická zpráva: $commit_message"
 fi
 
 echo ""
