@@ -152,8 +152,8 @@ export class ChatUI {
      * @returns {string} HTML kód zprávy
      */
     createMessageElement(message) {
-        // Základní třídy pro zprávu - minimální mezery
-        let messageClasses = 'chat-message mb-0 py-1 px-2 rounded bg-black overflow-hidden w-100';
+        // Základní třídy pro zprávu - ultraminimální padding pro kompaktnost
+        let messageClasses = 'chat-message mb-0 pt-1 pb-0 px-2 rounded bg-black overflow-hidden w-100';
         let colorClass = 'text-neon-green';
         let aiClass = '';
         
