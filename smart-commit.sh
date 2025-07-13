@@ -53,10 +53,10 @@ echo "────────────────────────�
 git diff --stat
 
 echo ""
-echo "❓ CHCETE COMMITNOUT A PUSHNOUT TYTO ZMĚNY?"
+echo "❓ POTVRĎ COMMIT A PUSH:"
 echo "────────────────────────────────────────────────────────────────────"
-echo "🔹 Stiskněte ENTER pro automatickou commit zprávu"
-echo "🔹 Nebo napište vlastní commit zprávu:"
+echo "🔹 Stiskni ENTER pro commit s automatickou zprávou"
+echo "🔹 Nebo napiš vlastní commit zprávu:"
 read -p "💬 " commit_message
 
 if [ -z "$commit_message" ]; then
