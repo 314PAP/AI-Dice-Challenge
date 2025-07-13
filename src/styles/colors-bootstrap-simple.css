@@ -1124,19 +1124,19 @@ V TOMTO SOUBORU POUZE:
   justify-content: center !important;
   color: var(--neon-black) !important;
   font-weight: 900 !important;
-  font-size: clamp(0.9rem, 3.5vw, 1.8rem) !important; /* Zmenšené pro lepší fit */
+  font-size: clamp(0.72rem, 2.8vw, 1.44rem) !important; /* Zmenšeno o 20% */
   text-shadow: 
     0 0 0.5rem rgba(255, 255, 255, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.8) !important;
   letter-spacing: 0.05em !important; /* Zmenšené letter spacing */
   transform: rotate(-20deg) !important; /* Menší rotace */
   animation: farkle-diagonal-appear 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
-  border-top: 2px solid rgba(255, 255, 255, 0.4) !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4) !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.4) !important; /* Zmenšeno o 20% */
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
-    0 0 1rem var(--neon-red),
-    0 0 2rem rgba(255, 49, 49, 0.6),
-    inset 0 0 1rem rgba(255, 255, 255, 0.2) !important;
+    0 0 0.8rem var(--neon-red), /* Zmenšeno o 20% */
+    0 0 1.6rem rgba(255, 49, 49, 0.6),
+    inset 0 0 0.8rem rgba(255, 255, 255, 0.2) !important;
   pointer-events: none !important;
   overflow: hidden !important; /* Skrýt přesahující části */
 }
@@ -1159,7 +1159,7 @@ V TOMTO SOUBORU POUZE:
 /* Responzivní úpravy pro diagonal overlay */
 @media (max-width: 768px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.8rem, 3vw, 1.2rem) !important;
+    font-size: clamp(0.64rem, 2.4vw, 0.96rem) !important; /* Zmenšeno o 20% */
     transform: rotate(-15deg) !important;
   }
   
@@ -1181,7 +1181,7 @@ V TOMTO SOUBORU POUZE:
 
 @media (max-width: 576px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.7rem, 2.5vw, 1rem) !important;
+    font-size: clamp(0.56rem, 2vw, 0.8rem) !important; /* Zmenšeno o 20% */
     transform: rotate(-12deg) !important;
     content: "💥 FARKLE!" !important; /* Kratší text na mobilu */
     letter-spacing: 0.02em !important; /* Ještě menší spacing na mobilu */
