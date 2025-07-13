@@ -47,7 +47,7 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
     
     // Pro velmi malé displeje použijeme Bootstrap třídy místo testování window.innerHeight
     // Responzivní zobrazení textu s využitím Bootstrap tříd
-    const isShortText = text.length <= 8; // Upraveno limit - "UKONČIT" má 7 znaků
+    const isShortText = text.length <= 10; // Upraveno - "ZAČÍT HRU" a "SÍŇ SLÁVY" mají 9 znaků
     const displayText = !isShortText ? 
         `<span class="d-none d-landscape-inline">${text}</span><span class="d-inline d-landscape-none">${text.substring(0, 4)}...</span>` : 
         text;
