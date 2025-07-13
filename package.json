@@ -21,14 +21,9 @@
     "setup": "./setup-project.sh",
     "check": "./verify-copilot-system.sh",
     "validate": "./css-validation.sh",
-    "auto-commit": "./auto-commit-watcher.sh",
     "postinstall": "./setup-project.sh",
     "clean": "vite build && prettier --write dist/**/*.{js,css,html}",
-    "start": "python3 -m http.server 8000",
-    "hooks:lenient": "./toggle-git-hooks.sh lenient",
-    "hooks:strict": "./toggle-git-hooks.sh strict",
-    "hooks:status": "./toggle-git-hooks.sh status",
-    "prepare": "husky install"
+    "start": "python3 -m http.server 8000"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.0",

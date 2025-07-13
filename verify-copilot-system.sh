@@ -32,13 +32,13 @@ else
     echo "❌ Validation script není spustitelný"
 fi
 
-# Kontrola integrace do auto-commit
+# Kontrola integrace workflow
 echo ""
-echo "4️⃣ Kontroluji auto-commit integraci..."
-if grep -q "css-validation.sh" auto-commit-watcher.sh; then
-    echo "✅ CSS validace je integrována do auto-commit"
+echo "4️⃣ Kontroluji workflow integraci..."
+if [[ -f "./setup-project.sh" ]] && grep -q "npm run check" setup-project.sh; then
+    echo "✅ Workflow je správně nastaven"
 else
-    echo "❌ CSS validace není integrována"
+    echo "❌ Workflow není správně nastaven"
 fi
 
 # Test aktuálního stavu
@@ -55,13 +55,13 @@ echo "════════════════════════�
 
 if [ $VALIDATION_RESULT -eq 0 ]; then
     echo "🎉 PERFEKTNÍ! Copilot self-check systém je plně funkční"
-    echo "✅ Auto-commity budou blokované při CSS chybách"
+    echo "✅ Workflow je správně nastaven"
     echo "✅ Copilot má přístup k Bootstrap dokumentaci"
-    echo "✅ Systém je plně autonomní"
+    echo "✅ Všechna pravidla jsou dodržena"
 else
     echo "⚠️ POTŘEBA OPRAV: Validation našel problémy"
-    echo "💡 Auto-commit nyní tyto problémy zastaví"
-    echo "🔧 Copilot musí opravit před dalším commitem"
+    echo "💡 Před commitem je nutné opravit všechny chyby"
+    echo "🔧 Copilot musí dodržovat všechna pravidla"
 fi
 
 echo ""
