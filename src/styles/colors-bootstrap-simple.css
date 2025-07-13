@@ -207,6 +207,7 @@ html, body {
   animation: dice-saved-pulse 2s ease-in-out infinite !important;
   opacity: 0.8 !important;
   cursor: not-allowed !important;
+  filter: brightness(0.8) !important; /* Tmavší saved kostky */
 }
 
 @keyframes dice-saved-pulse {

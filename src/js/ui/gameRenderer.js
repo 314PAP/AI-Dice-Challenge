@@ -153,11 +153,7 @@ export class GameRenderer {
     renderDiceSection(state, toggleDiceCallback) {
         const diceSection = document.createElement('div');
         diceSection.className = 'flex-grow-1 d-flex align-items-center justify-content-center dice-section';
-        diceSection.style.minHeight = '0';
-        diceSection.style.overflow = 'visible'; // OPRAVENO: Změněno z hidden na visible
-        diceSection.style.marginTop = 'clamp(0.25rem, 1vw, 0.5rem)'; // Menší mezera nahoře
-        diceSection.style.marginBottom = 'clamp(0.5rem, 2vw, 1rem)'; // Mezera pod kostkami pro tlačítka
-        diceSection.style.paddingTop = 'clamp(0.1rem, 0.5vw, 0.25rem)'; // Menší padding
+        // ODSTRANĚNO: Veškeré inline styly - CSS řeší responsive-bootstrap.css
         
         // Kontejner pro kostky - POUZE CSS třídy, žádné inline styly
         const diceContainer = document.createElement('div');
@@ -192,7 +188,7 @@ export class GameRenderer {
             state.savedDice.forEach(dieValue => {
                 const diceEl = createDiceElement(dieValue, false, null);
                 diceEl.classList.add('saved');
-                diceEl.style.filter = 'brightness(0.8)';
+                // ODSTRANĚNO: inline style filter - CSS řeší přes .dice.saved
                 diceContainer.appendChild(diceEl);
             });
         }

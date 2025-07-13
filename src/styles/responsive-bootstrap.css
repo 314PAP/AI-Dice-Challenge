@@ -333,6 +333,24 @@ body {
   }
 }
 
+/* ===== DICE SECTION - ZÁKLADNÍ NASTAVENÍ ===== */
+
+/* Základní nastavení pro dice-section */
+.dice-section {
+  min-height: 0 !important; /* Flexibilní výška */
+  overflow: visible !important; /* Kostky se neořezávají */
+  margin: clamp(0.25rem, 1vw, 0.5rem) 0 clamp(0.5rem, 2vw, 1rem) 0 !important; /* Responzivní mezery */
+  padding-top: clamp(0.1rem, 0.5vw, 0.25rem) !important; /* Minimální padding */
+}
+
+/* Na velkých obrazovkách větší prostor pro kostky */
+@media (min-width: 1200px) {
+  .dice-section {
+    margin: clamp(0.5rem, 2vw, 1rem) 0 clamp(1rem, 3vw, 2rem) 0 !important; /* Větší mezery */
+    padding: clamp(0.25rem, 1vw, 0.5rem) !important; /* Větší padding */
+  }
+}
+
 /* ===== LANDSCAPE ORIENTACE - MEZERY PRO OZNAČENÉ KOSTKY ===== */
 
 /* Landscape orientace - menší mezery, ale stále oddělené */
