@@ -149,7 +149,7 @@ export class GameUI {
             toggleDiceSelection: (index) => this.toggleDiceSelection(index),
             rollDice: () => this.gameLogic.rollDice(),
             saveDice: () => this.gameLogic.saveDice(),
-            endTurn: () => this.gameLogic.endTurn(),
+            endTurn: () => this.endTurnWithValidation(),
             showMenuWithConfirmation: () => this.showMenuWithConfirmation()
         };
         
@@ -219,6 +219,35 @@ export class GameUI {
         // Pro ostatní hodnoty musí být alespoň 3 stejné
         const countOfValue = currentRoll.filter(die => die === dieValue).length;
         return countOfValue >= 3;
+    }
+
+    /**
+     * Ukončí tah s validací prvního zápisu
+     */
+    endTurnWithValidation() {
+        const state = gameState.getState();
+        const currentPlayer = state.players[state.currentPlayerIndex];
+        const turnScore = state.turnScore || 0;
+        
+        // KONTROLA PRVNÍHO ZÁPISU před ukončením tahu
+        if (currentPlayer.score === 0 && turnScore < 300) {
+            const errorMsg = `❌ První zápis vyžaduje minimálně 300 bodů! Máte jen ${turnScore} bodů. Pokračujte v házení nebo odložte více kostek.`;
+            console.warn(errorMsg);
+            
+            // Zobraz chybovou zprávu
+            import('../ai/chatSystem.js').then(({ default: chatSystem }) => {
+                import('../utils/colors.js').then(({ CHAT_COLORS }) => {
+                    chatSystem.addSystemMessage(errorMsg, CHAT_COLORS.RED);
+                });
+            });
+            
+            // Přehraj error zvuk
+            soundSystem.play('error');
+            return; // BLOKUJ ukončení tahu
+        }
+        
+        // Pokud validace prošla, ukončíme tah
+        this.gameLogic.endTurn();
     }
 
     // =============================================================================

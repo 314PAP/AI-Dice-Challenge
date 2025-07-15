@@ -163,9 +163,12 @@ export function showConfirmDialog(message, onConfirm = null, onCancel = null) {
         // Přidáme modal do DOM
         document.body.appendChild(backdrop);
         
-        // Focus na NE tlačítko (bezpečnější volba)
+        // Focus na NE tlačítko (bezpečnější volba) - pouze pokud existuje
         setTimeout(() => {
-            noBtn.focus();
+            const focusButton = onConfirm ? noBtn : okBtn;
+            if (focusButton) {
+                focusButton.focus();
+            }
         }, 100);
     });
 }
