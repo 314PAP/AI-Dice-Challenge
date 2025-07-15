@@ -92,19 +92,27 @@ export class AiPlayerController {
             }
             
             // KONTROLA FARKLE - pokud jsou na stole kostky, ale žádné nejsou bodující
+            // ⏰ DODÁNA KONTROLA: Počkáme až dokončí animace před zobrazením FARKLE
             if (currentState.currentRoll && currentState.currentRoll.length > 0) {
                 const hasScoring = hasScoringDice(currentState.currentRoll);
                 
                 if (!hasScoring) {
-                    chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
-                    
-                    // FORCE spuštění handleFarkle() pro zpracování FARKLE - s kontrolou, zda je AI stále na tahu
+                    // ⏰ OPRAVENO: Čekáme na dokončení animace před zobrazením FARKLE
                     setTimeout(() => {
+                        // Ověříme, že AI je stále na tahu
                         const currentState = gameState.getState();
                         if (currentState.players[currentState.currentPlayerIndex].name === aiPlayer.name) {
-                            this.gameLogic.handleFarkle(currentState.currentRoll);
+                            chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
+                            
+                            // FORCE spuštění handleFarkle() pro zpracování FARKLE
+                            setTimeout(() => {
+                                const currentState = gameState.getState();
+                                if (currentState.players[currentState.currentPlayerIndex].name === aiPlayer.name) {
+                                    this.gameLogic.handleFarkle(currentState.currentRoll);
+                                }
+                            }, 1000); // Krátké zpoždění pro lepší UX
                         }
-                    }, 1000); // Krátké zpoždění pro lepší UX
+                    }, 2200); // Čekáme na dokončení animace (2.1s + trochu navíc)
                     
                     return; // UKONČUJEME CELOU FUNKCI, NE POUZE SMYČKU!
                 }
