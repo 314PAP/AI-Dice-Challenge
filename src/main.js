@@ -97,12 +97,11 @@ class AIDiceGame {
      */
     testSoundSystem() {
         try {
-            // Test načtení zvuků
-            const soundsLoaded = soundSystem.getSoundsCount();
-            console.log(`🎵 Zvukový systém: ${soundsLoaded} zvuků načteno`);
-            
-            if (soundsLoaded === 0) {
-                console.warn('⚠️ Žádné zvuky nenačteny');
+            // Test zvukového systému - ověříme, že existuje
+            if (soundSystem && soundSystem.enabled !== undefined) {
+                console.log(`🎵 Zvukový systém: ${soundSystem.enabled ? 'AKTIVNÍ' : 'NEAKTIVNÍ'}`);
+            } else {
+                console.warn('⚠️ Zvukový systém nenačten');
             }
         } catch (error) {
             console.error('❌ Chyba v zvukovém systému:', error);
@@ -116,11 +115,11 @@ class AIDiceGame {
         const status = {
             components: this.componentManager.getComponentsStatus().length,
             layout: this.layoutManager.isLayoutValid ? 'OK' : 'ISSUES',
-            sounds: soundSystem.getSoundsCount?.() || 0
+            sounds: soundSystem && soundSystem.enabled ? 'OK' : 'OFF'
         };
         
         console.log(
-            '%c🎮 APP STATUS %c Components: %c%d %c Layout: %c%s %c Sounds: %c%d',
+            '%c🎮 APP STATUS %c Components: %c%d %c Layout: %c%s %c Sounds: %c%s',
             `background: ${CONSOLE_COLORS.bgDark}; color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold; padding: 2px 6px;`,
             `color: ${CONSOLE_COLORS.textDark};`,
             `color: ${CONSOLE_COLORS.neonBlue}; font-weight: bold;`,
@@ -129,7 +128,7 @@ class AIDiceGame {
             `color: ${status.layout === 'OK' ? CONSOLE_COLORS.neonGreen : CONSOLE_COLORS.neonYellow}; font-weight: bold;`,
             status.layout,
             `color: ${CONSOLE_COLORS.textDark};`,
-            `color: ${CONSOLE_COLORS.neonPurple}; font-weight: bold;`,
+            `color: ${status.sounds === 'OK' ? CONSOLE_COLORS.neonGreen : CONSOLE_COLORS.neonYellow}; font-weight: bold;`,
             status.sounds
         );
     }

@@ -7,10 +7,11 @@
 
 // Lodash utilities (načteno z CDN)  
 const { isEmpty, isFunction, forEach, map, throttle } = _;
-import { GameUI } from '../ui/gameUI.js';
+import GameUI from '../ui/gameUI.js';
 import ChatUI from '../ui/chatUI.js';
 import UltraBootstrapAutocomplete from '../ui/autocomplete.js';
 import { updateDiceForOrientation } from '../ui/uiComponents.js';
+import gameState from '../game/gameState.js';
 
 /**
  * Správce UI komponent
@@ -54,6 +55,9 @@ export class ComponentManager {
 
             // Specifické nastavení
             this.setupOrientationUpdates();
+            
+            // Spuštění prvního renderu pro GameUI
+            this.triggerInitialRender();
             
             this.initialized = true;
             console.log('✅ Všechny komponenty inicializovány');
@@ -154,5 +158,16 @@ export class ComponentManager {
         
         this.components = {};
         this.initialized = false;
+    }
+
+    /**
+     * Spustí první render GameUI
+     */
+    triggerInitialRender() {
+        const gameUI = this.getComponent('gameUI');
+        if (gameUI && isFunction(gameUI.renderUI)) {
+            console.log('🎮 ComponentManager: Spouštím první render');
+            gameUI.renderUI(gameState.getState());
+        }
     }
 }

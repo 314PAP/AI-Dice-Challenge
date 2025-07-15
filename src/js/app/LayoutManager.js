@@ -125,7 +125,7 @@ export class LayoutManager {
         
         if (gameHeight > 0 && chatHeight > 0) {
             const ratio = round(gameHeight / chatHeight, 2);
-            if (ratio < 1.2) {
+            if (ratio < 0.8) { // Snížený threshold - mobilní poměr může být i 1:1
                 issues.push(`Nevyvážený poměr Game:Chat = ${ratio}`);
             }
         }
