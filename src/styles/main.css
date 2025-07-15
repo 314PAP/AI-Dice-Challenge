@@ -9,6 +9,8 @@
 /* ===== EXTERNÍ CSS KNIHOVNY ===== */
 @import 'animate.css';
 @import 'hover.css/css/hover-min.css';
+@import 'magic.css/dist/magic.min.css';
+@import 'csshake/dist/csshake.min.css';
 
 /* ===== ARCHITEKTURA MODULÁRNÍHO CSS SYSTÉMU ===== */
 

@@ -111,74 +111,64 @@ html, body {
   cursor: pointer !important;
 }
 
-/* Idle animace - pouze když nejsou jiné stavy - výrazně viditelnější */
+/* Idle animace - pouze když nejsou jiné stavy */
 .dice:not(.selected):not(.saved):not(.dice-rolling):not(.dice-new):not(.dice-scoring):not(.dice-farkle) {
-  animation: pulse 2.5s ease-in-out infinite !important; /* Animate.css pulse */
+  animation: pulse 2.5s ease-in-out infinite !important;
 }
 
 
 
-/* Hover efekt - menší neon glow aby nekrvácel z kontejneru */
+/* Hover efekt + neon glow */
 .dice:hover:not(.selected):not(.saved):not(.dice-rolling) {
   border-color: var(--neon-yellow) !important;
   box-shadow: 0 0 0.5rem var(--neon-yellow), 0 0 1rem rgba(255, 255, 0, 0.3) !important;
-  transform: scale(1.03) rotateX(2deg) rotateY(-2deg) !important;
-  /* Použití Animate.css místo vlastní animace */
-  animation: pulse 1s ease-in-out infinite !important;
+  animation: magic 0.6s ease-in-out infinite !important;
 }
 
-/* Odstraněno - nahrazeno Animate.css pulse animací
-
-/* Animace házení - dynamická změna čísel místo bounce */
+/* Animace házení */
 .dice-rolling {
   border-color: var(--neon-purple) !important;
   box-shadow: 0 0 0.625rem var(--neon-purple) !important;
   color: var(--neon-purple) !important;
-  /* Použití Animate.css místo vlastní animace */
   animation: heartBeat 0.3s ease-in-out infinite !important;
   cursor: not-allowed !important;
 }
 
-/* Odstraněno - nahrazeno Animate.css heartBeat animací
-
-/* Vybraná kostka - modrá */
+/* Vybraná kostka */
 .dice.selected {
   border-color: var(--neon-blue) !important;
   box-shadow: 0 0 0.9375rem var(--neon-blue) !important;
-  /* Použití Animate.css místo vlastní animace */
   animation: tada 1.5s ease-in-out infinite !important;
   transform: scale(1.02) !important;
 }
 
-/* Odstraněno - nahrazeno Animate.css tada animací
-
-/* Odložené kostky - modré s pulzováním */
+/* Odložené kostky */
 .dice.saved {
   border-color: var(--neon-blue) !important;
   box-shadow: 0 0 0.625rem var(--neon-blue) !important;
   color: var(--neon-blue) !important;
-  animation: pulse 2s ease-in-out infinite !important; /* Animate.css pulse */
+  animation: pulse 2s ease-in-out infinite !important;
   opacity: 0.8 !important;
   cursor: not-allowed !important;
-  filter: brightness(0.8) !important; /* Tmavší saved kostky */
+  filter: brightness(0.8) !important;
 }
 
 
 /* Animace pro nově vygenerované kostky */
 .dice.dice-new {
-  animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important; /* Animate.css bounceIn */
+  animation: puffIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
 }
 
 
-/* Speciální efekt při skórování - výraznější */
+/* Speciální efekt při skórování */
 .dice.dice-scoring {
-  animation: flash 0.4s ease-in-out 4 !important; /* Animate.css flash */
+  animation: vanishIn 0.4s ease-in-out 4 !important;
 }
 
 
-/* Efekt při neplatném tahu (Farkle) */
+/* Efekt při neplatném tahu */
 .dice.dice-farkle {
-  animation: shake 0.6s ease-in-out 2 !important; /* Animate.css shake */
+  animation: shake-hard 0.6s ease-in-out 2 !important;
 }
 
 
@@ -210,10 +200,13 @@ html, body {
 
 /* ===== ANIMACE HRÁČŮ ===== */
 
-/* Aktivní hráč - pulsující border s neonovou barvou */
+/* Aktivní hráč - jemný pulsující neonový efekt */
 .player-active {
-  animation: pulse 2s ease-in-out infinite !important; /* Animate.css pulse */
+  animation: pulse 3s ease-in-out infinite !important;
   border-width: 3px !important;
+  box-shadow: 0 0 1.5rem currentColor, 0 0 3rem rgba(255, 255, 255, 0.2) !important;
+  transform: scale(1.02) !important;
+  transition: all 0.3s ease !important;
 }
 
 
@@ -221,7 +214,7 @@ html, body {
 
 /* Animace při získání bodů */
 .score-animation {
-  animation: zoomIn 1s ease-out !important; /* Animate.css zoomIn */
+  animation: zoomIn 1s ease-out !important;
 }
 
 
@@ -230,7 +223,7 @@ html, body {
 /* FARKLE animace pro kartu hráče */
 .player-farkle {
   position: relative !important;
-  animation: heartBeat 0.8s ease-in-out 3 !important; /* Animate.css heartBeat */
+  animation: heartBeat 0.8s ease-in-out 3 !important;
 }
 
 
@@ -243,9 +236,9 @@ html, body {
   background: linear-gradient(45deg, var(--neon-red), #ff6b6b) !important;
   color: var(--neon-black) !important;
   font-weight: 900 !important;
-  font-size: clamp(1rem, 4vw, 1.5rem) !important; /* Responzivní velikost */
-  padding: 0.25rem 0.75rem !important; /* Menší padding pro mobily */
-  border-radius: 0.375rem !important; /* Bootstrap border-radius */
+  font-size: clamp(1rem, 4vw, 1.5rem) !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 0.375rem !important;
   box-shadow: 
     0 0 1rem var(--neon-red),
     0 0 2rem rgba(255, 49, 49, 0.5),
@@ -253,19 +246,18 @@ html, body {
   text-shadow: 
     0 0 0.5rem rgba(0, 0, 0, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.5) !important;
-  animation: bounceInDown 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important; /* Animate.css bounceInDown */
+  animation: bounceInDown 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
   z-index: 10 !important;
-  letter-spacing: 0.05em !important; /* Menší letter-spacing */
-  border: 1px solid rgba(255, 255, 255, 0.3) !important; /* Tenčí border */
-  white-space: nowrap !important; /* Zabránit zalamování */
+  letter-spacing: 0.05em !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  white-space: nowrap !important;
 }
 
-/* Responzivní úpravy pro FARKLE text */
 @media (max-width: 768px) {
   .farkle-text {
     font-size: 1rem !important;
     padding: 0.25rem 0.5rem !important;
-    transform: translate(-50%, -50%) rotate(-10deg) !important; /* Menší rotace na mobilu */
+    transform: translate(-50%, -50%) rotate(-10deg) !important;
   }
 }
 
@@ -288,14 +280,14 @@ html, body {
   border-radius: inherit !important;
   pointer-events: none !important;
   z-index: 1 !important;
-  animation: pulse 0.8s ease-in-out 3 !important; /* Animate.css pulse */
+  animation: pulse 0.8s ease-in-out 3 !important;
 }
 
 
 /* FARKLE animace pro kartu hráče */
 .player-card-farkle {
   position: relative !important;
-  animation: heartBeat 1s ease-in-out 3 !important; /* Animate.css heartBeat */
+  animation: heartBeat 1s ease-in-out 3 !important;
 }
 
 .farkle-text-overlay {
@@ -316,7 +308,7 @@ html, body {
   text-shadow: 
     0 0 1rem rgba(0, 0, 0, 0.9),
     0 3px 6px rgba(0, 0, 0, 0.7) !important;
-  animation: bounceInUp 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important; /* Animate.css bounceInUp */
+  animation: bounceInUp 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
   z-index: 20 !important;
   letter-spacing: 0.1em !important;
   border: 2px solid rgba(255, 255, 255, 0.5) !important;
@@ -352,7 +344,7 @@ html, body {
   border-radius: inherit !important;
   pointer-events: none !important;
   z-index: -1 !important;
-  animation: pulse 1s ease-in-out 3 !important; /* Animate.css pulse */
+  animation: pulse 1s ease-in-out 3 !important;
 }
 
 
@@ -374,16 +366,17 @@ html, body {
   outline: none;
 }
 
-/* Hover a focus stavy - pouze efekty */
+/* Hover a focus stavy + neonové efekty */
 .btn-neon:hover,
 .btn-neon:focus,
 .btn.btn-neon:hover,
 .btn.btn-neon:focus {
   background-color: var(--neon-bg-hover, rgba(0, 0, 0, 0.2)) !important;
-  transform: scale(1.05) !important; /* VRÁCEN hover scale efekt pro tlačítka */
   color: inherit !important;
   border-color: inherit !important;
   box-shadow: var(--neon-glow-strong) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
 }
 
 /* Speciální třída pro tlačítka bez scaling - pro zabránění overflow */
@@ -400,7 +393,7 @@ html, body {
 .btn-neon.active,
 .btn.btn-neon.active {
   background-color: var(--neon-bg-active, rgba(0, 0, 0, 0.3)) !important;
-  transform: scale(var(--scale-active, 0.98)) !important;
+  transform: scale(0.98) !important;
   color: inherit !important;
   border-color: inherit !important;
 }
@@ -545,23 +538,20 @@ html, body {
   background: rgba(var(--neon-yellow-rgb), 0.15);
   border: none;
   color: var(--neon-yellow);
-  align-self: flex-start; /* OPRAVENO: stejné jako AI zprávy */
-  /* ODSTRANĚNO: text-align: center - systémové zprávy nejsou vycentrované */
-  /* ODSTRANĚNO: font-style: italic - jednotný styl s AI zprávami */
-  /* ODSTRANĚNO: max-width: 95% - používej Bootstrap .w-* utility třídy */
+  align-self: flex-start;
 }
 
 /* ===== TABULKY - NEONOVÉ STYLY ===== */
 
 /* Neonová tabulka - přepíše Bootstrap defaultní bílé pozadí a ohraničení */
 .neon-table {
-  background-color: var(--neon-black) !important; /* OPRAVENO: černé pozadí místo bílého */
+  background-color: var(--neon-black) !important;
   border-color: var(--neon-green) !important;
 }
 
 .neon-table th,
 .neon-table td {
-  background-color: var(--neon-black) !important; /* OPRAVENO: černé pozadí pro buňky */
+  background-color: var(--neon-black) !important;
   border-color: var(--neon-green) !important;
 }
 
@@ -617,20 +607,22 @@ html, body {
 
 /* ===== ZBÝVAJÍCÍ UTILITY STYLY - POUZE NUTNÉ MINIMUM ===== */
 
-/* ODSTRANĚNO: Veškeré padding/margin definice */
-/* POUŽÍVEJ MÍSTO TOHO: Bootstrap .p-*, .pe-*, .py-* utility třídy */
+/* Používej místo toho Bootstrap .p-*, .pe-*, .py-* utility třídy */
 
-/* Příklad jak nahradit odstraněné styly:
+/*
+Příklad jak nahradit odstraněné styly:
 ❌ ODSTRANĚNO: padding-right: 0.75rem
 ✅ POUŽIJ: class="pe-3"
 
 ❌ ODSTRANĚNO: max-width: 95%  
 ✅ POUŽIJ: class="w-95" (nebo .mw-100 pro max-width: 100%)
+*/
 
 /* ===================================================================
    BOOTSTRAP-FIRST PRAVIDLA PRO BUDOUCÍ ÚPRAVY
    ================================================================= */
 
+/*
 MÍSTO VLASTNÍCH STYLŮ POUŽÍVEJ BOOTSTRAP TŘÍDY:
 
 VELIKOSTI A SPACING:
@@ -669,18 +661,56 @@ V TOMTO SOUBORU POUZE:
 ❌ Width, height
 ❌ Display, flex properties
 ❌ Media queries pro velikosti (pouze pro barvy)
+*/
 
 /* ===== ANIMACE PRO HERNÍ STAVY ===== */
 
-/* Aktivní hráč - pulsující neonový border */
-.player-active {
-  animation: pulse 2s ease-in-out infinite; /* Animate.css pulse */
+/* Aktivní hráč - pulsující neonový border podle barvy */
+.border-neon-green.player-active {
+  animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-green), 0 0 3rem var(--neon-green) !important;
+  transform: scale(1.02) !important;
 }
 
-/* FARKLE stav - červené blikání */
+.border-neon-blue.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-blue), 0 0 3rem var(--neon-blue) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-purple.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-purple), 0 0 3rem var(--neon-purple) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-orange.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-orange), 0 0 3rem var(--neon-orange) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-red.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-red), 0 0 3rem var(--neon-red) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-yellow.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-yellow), 0 0 3rem var(--neon-yellow) !important;
+  transform: scale(1.02) !important;
+}
+
+/* FARKLE stav */
 .player-farkle {
-  animation: flash 0.8s ease-in-out 3; /* Animate.css flash */
+  animation: shake-slow 0.8s ease-in-out 3;
   border-color: var(--neon-red) !important;
 }
 
@@ -690,7 +720,7 @@ V TOMTO SOUBORU POUZE:
   text-shadow: 0 0 0.625rem var(--neon-red);
   font-weight: bold;
   font-size: 1.2rem;
-  animation: flash 0.8s ease-in-out 3; /* Animate.css flash */
+  animation: shake-little 0.8s ease-in-out 3;
 }
 
 /* ===== ANIMACE PRO AVATARY HRÁČŮ ===== */
@@ -702,87 +732,110 @@ V TOMTO SOUBORU POUZE:
   padding: 2px; /* Malý padding pro lepší zobrazení borderu */
 }
 
-/* Jemná animace pro všechny avatary - lehké pulsování */
-
-.player-avatar:hover {
-  animation: pulse 2s ease-in-out infinite; /* Animate.css pulse */
+/* Jemný neonový efekt při hover na avatary - podle barvy border kontejneru */
+.border-neon-green .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-green), 0 0 2rem var(--neon-green) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
 }
 
-/* Aktivní hráč - výrazná neonová animace kolem avataru */
+.border-neon-blue .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-blue), 0 0 2rem var(--neon-blue) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-purple .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-purple), 0 0 2rem var(--neon-purple) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-orange .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-orange), 0 0 2rem var(--neon-orange) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-red .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-red), 0 0 2rem var(--neon-red) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-yellow .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-yellow), 0 0 2rem var(--neon-yellow) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Společná animace pro všechny aktivní avatary - podle barvy border kontejneru */
 .border-neon-green .player-avatar-active {
-  border-color: var(--neon-green) !important;
-  color: var(--neon-green);
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 3px !important;
+  box-shadow: 0 0 1rem var(--neon-green), 0 0 2rem var(--neon-green) !important;
+  transform: scale(1.05) !important;
 }
 
 .border-neon-blue .player-avatar-active {
-  border-color: var(--neon-blue) !important;
-  color: var(--neon-blue);
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 3px !important;
+  box-shadow: 0 0 1rem var(--neon-blue), 0 0 2rem var(--neon-blue) !important;
+  transform: scale(1.05) !important;
 }
 
 .border-neon-purple .player-avatar-active {
-  border-color: var(--neon-purple) !important;
-  color: var(--neon-purple);
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 3px !important;
+  box-shadow: 0 0 1rem var(--neon-purple), 0 0 2rem var(--neon-purple) !important;
+  transform: scale(1.05) !important;
 }
 
 .border-neon-orange .player-avatar-active {
-  border-color: var(--neon-orange) !important;
-  color: var(--neon-orange);
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 3px !important;
+  box-shadow: 0 0 1rem var(--neon-orange), 0 0 2rem var(--neon-orange) !important;
+  transform: scale(1.05) !important;
 }
 
 .border-neon-red .player-avatar-active {
-  border-color: var(--neon-red) !important;
-  color: var(--neon-red);
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 3px !important;
+  box-shadow: 0 0 1rem var(--neon-red), 0 0 2rem var(--neon-red) !important;
+  transform: scale(1.05) !important;
 }
 
 .border-neon-yellow .player-avatar-active {
-  border-color: var(--neon-yellow) !important;
-  color: var(--neon-yellow);
-}
-
-/* Společná animace pro všechny aktivní avatary */
-.player-avatar-active {
-  animation: pulse 3s ease-in-out infinite; /* Animate.css pulse */
+  animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
   border-width: 3px !important;
+  box-shadow: 0 0 1rem var(--neon-yellow), 0 0 2rem var(--neon-yellow) !important;
+  transform: scale(1.05) !important;
 }
 
-/* Responsive velikosti avatarů - ZMENŠENO pro lepší proporce */
+/* Responsive velikosti avatarů */
 @media (max-width: 576px) {
   .player-avatar {
-    width: 36px !important; /* Zmenšeno z 64px */
+    width: 36px !important;
     height: 36px !important;
   }
 }
 
 @media (max-width: 375px) {
   .player-avatar {
-    width: 32px !important; /* Zmenšeno z 56px */
+    width: 32px !important;
     height: 32px !important;
   }
 }
 
-/* ===== RESPONZIVNÍ KOSTKY - PŘESUNUTO DO responsive-bootstrap.css ===== */
+/* ===== RESPONZIVNÍ OPTIMALIZACE ===== */
 
 /* VŠECHNY velikosti kostek jsou nyní v responsive-bootstrap.css pro lepší organizaci */
-/* Zde pouze animace a vizuální efekty specifické pro kostky */
-
-/* Responzivní avatary - ZMENŠENO pro lepší proporce */
-.player-avatar {
-  width: min(8vw, 40px) !important; /* Zmenšeno z 12vw a 60px */
-  height: min(8vw, 40px) !important;
-  max-width: 40px !important; /* Zmenšeno z 60px */
-  max-height: 40px !important;
-  min-width: 24px !important; /* Zmenšeno z 30px */
-  min-height: 24px !important;
-  object-fit: cover !important;
-  flex-shrink: 0 !important;
-}
-
-/* Mobilní optimalizace pro velmi malé obrazovky - PŘESUNUTO */
-/* VŠECHNY kostky styly jsou nyní v responsive-bootstrap.css */
-
-/* Flexbox kontejnery - PŘESUNUTO do responsive-bootstrap.css */
-/* Všechny layout styly jsou centrálně v responsive-bootstrap.css */
 
 /* ===== BOOTSTRAP UTILITY TŘÍDY ===== */
 
@@ -800,16 +853,16 @@ V TOMTO SOUBORU POUZE:
 /* Diagonální FARKLE nápis přes dice-section */
 .dice-section-farkle {
   position: relative !important;
-  overflow: hidden !important; /* Zajistí že FARKLE se nevylije z kontejneru */
+  overflow: hidden !important;
 }
 
 .dice-section-farkle::after {
   content: "💥 FARKLE! 💥";
   position: absolute !important;
-  top: 20% !important; /* Zúženo z 0 */
-  left: 10% !important; /* Zúženo z 0 */
-  right: 10% !important; /* Zúženo z 0 */
-  bottom: 20% !important; /* Zúženo z 0 */
+  top: 20% !important;
+  left: 10% !important;
+  right: 10% !important;
+  bottom: 20% !important;
   background: linear-gradient(
     135deg, 
     transparent 30%, 
@@ -822,41 +875,40 @@ V TOMTO SOUBORU POUZE:
   justify-content: center !important;
   color: var(--neon-black) !important;
   font-weight: 900 !important;
-  font-size: clamp(0.72rem, 2.8vw, 1.44rem) !important; /* Zmenšeno o 20% */
+  font-size: clamp(0.72rem, 2.8vw, 1.44rem) !important;
   text-shadow: 
     0 0 0.5rem rgba(255, 255, 255, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.8) !important;
-  letter-spacing: 0.05em !important; /* Zmenšené letter spacing */
-  transform: rotate(-15deg) !important; /* Ještě menší rotace */
-  animation: rotateIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important; /* Animate.css rotateIn */
-  border-top: 1.5px solid rgba(255, 255, 255, 0.4) !important; /* Zmenšeno o 20% */
+  letter-spacing: 0.05em !important;
+  transform: rotate(-15deg) !important;
+  animation: rotateIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.4) !important;
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
-    0 0 0.8rem var(--neon-red), /* Zmenšeno o 20% */
+    0 0 0.8rem var(--neon-red),
     0 0 1.6rem rgba(255, 49, 49, 0.6),
     inset 0 0 0.8rem rgba(255, 255, 255, 0.2) !important;
   pointer-events: none !important;
-  border-radius: 8px !important; /* Přidáno pro lepší ohraničení */
-  overflow: hidden !important; /* Zajistí že efekt se nevylije */
-  overflow: hidden !important; /* Skrýt přesahující části */
+  border-radius: 8px !important;
+  overflow: hidden !important;
 }
 
 @media (max-width: 768px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.64rem, 2.4vw, 0.96rem) !important; /* Zmenšeno o 20% */
-    transform: rotate(-12deg) !important; /* Ještě menší rotace na tabletu */
-    top: 25% !important; /* Více zúženo na tabletu */
+    font-size: clamp(0.64rem, 2.4vw, 0.96rem) !important;
+    transform: rotate(-12deg) !important;
+    top: 25% !important;
     bottom: 25% !important;
   }
 }
 
 @media (max-width: 576px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.56rem, 2vw, 0.8rem) !important; /* Zmenšeno o 20% */
-    transform: rotate(-10deg) !important; /* Minimální rotace na mobilu */
-    content: "💥 FARKLE!" !important; /* Kratší text na mobilu */
-    letter-spacing: 0.02em !important; /* Ještě menší spacing na mobilu */
-    top: 30% !important; /* Nejvíce zúženo na mobilu */
+    font-size: clamp(0.56rem, 2vw, 0.8rem) !important;
+    transform: rotate(-10deg) !important;
+    content: "💥 FARKLE!" !important;
+    letter-spacing: 0.02em !important;
+    top: 30% !important;
     bottom: 30% !important;
     left: 15% !important;
     right: 15% !important;
