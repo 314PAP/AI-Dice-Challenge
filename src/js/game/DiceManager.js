@@ -110,10 +110,12 @@ export class DiceManager {
             // 🎵 Speciální zvuk pro Hot Dice
             soundSystem.play('hotDice');
             
-            // Reset aktuálního hodu - hráč může hodit znovu všemi kostkami
+            // OPRAVENO: Reset aktuálního hodu + vyčištění uložených kostek
+            // Body už jsou v turnScore, kostky můžeme vyčistit
             gameState.updateState({
                 currentRoll: [],
-                selectedDice: []
+                selectedDice: [],
+                savedDice: [] // KLÍČOVÁ OPRAVA: Vyčistit uložené kostky po HOT DICE
             });
         } else if (isEmpty(remainingDice)) {
             // Žádné zbývající kostky, ale méně než 6 uložených
