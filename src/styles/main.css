@@ -6,6 +6,10 @@
    Status: REFAKTOROVÁNO - MODULÁRNÍ STRUKTURA
    ================================================================= */
 
+/* ===== EXTERNÍ CSS KNIHOVNY ===== */
+@import 'animate.css';
+@import 'hover.css/css/hover-min.css';
+
 /* ===== ARCHITEKTURA MODULÁRNÍHO CSS SYSTÉMU ===== */
 
 /*
