@@ -152,9 +152,22 @@ export class DiceManager {
     canRollDice() {
         const state = gameState.getState();
         
+        // OPRAVENÁ LOGIKA PRO HOT DICE:
+        // Můžeš hodit pokud:
+        // 1. Neběží animace
+        // 2. Nemáš vybrané kostky  
+        // 3. A BUĎTO:
+        //    - Nemáš žádný hod (začátek tahu)
+        //    - NEBO máš kostky k výběru (normální situace)
+        //    - NEBO HOT DICE situace (currentRoll prázdné, ale turnScore > 0)
+        
+        const hasCurrentRoll = state.currentRoll && state.currentRoll.length > 0;
+        const isHotDiceSituation = (!state.currentRoll || state.currentRoll.length === 0) && (state.turnScore || 0) > 0;
+        const isStartOfTurn = !state.currentRoll || state.currentRoll.length === 0;
+        
         return !state.isRolling && 
                isEmpty(state.selectedDice) && 
-               (!state.currentRoll || state.currentRoll.length > 0 || (state.savedDice || []).length < 6);
+               (hasCurrentRoll || isHotDiceSituation || isStartOfTurn);
     }
 
     /**
