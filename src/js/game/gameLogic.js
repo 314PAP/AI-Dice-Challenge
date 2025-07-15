@@ -34,15 +34,12 @@ export class GameLogic {
      * Hodí kostky - zjednodušená verze
      */
     async rollDice() {
-        console.log('🎲 GameLogic: Házení kostkami...');
-        
         if (!this.diceManager.canRollDice()) {
             console.warn('⚠️ Nelze hodit kostky nyní');
             return;
         }
         
         const diceCount = this.diceManager.getDiceCountToRoll();
-        console.log(`🎯 Házím ${diceCount} kostkami`);
         
         // Příprava animace
         gameState.updateState({
@@ -67,8 +64,6 @@ export class GameLogic {
         
         if (!hasScoringDice(dice)) {
             this.handleFarkle(dice);
-        } else {
-            console.log(`✅ Kostky na výběr dostupné`);
         }
     }
 
@@ -79,7 +74,6 @@ export class GameLogic {
     handleFarkle(dice) {
         const currentState = gameState.getState();
         if (currentState.isFarkleProcessing) {
-            console.log('⚠️ Farkle už se zpracovává');
             return;
         }
 
@@ -105,7 +99,6 @@ export class GameLogic {
         
         // Automatické ukončení tahu po 3 sekundách
         setTimeout(() => {
-            console.log('💥 Ukončuji tah s FARKLE...');
             this.endTurn(true);
         }, 3000);
     }
@@ -114,7 +107,6 @@ export class GameLogic {
      * Odloží vybrané kostky - deleguje na DiceManager
      */
     saveDice() {
-        console.log('💾 GameLogic: saveDice() delegováno na DiceManager');
         this.diceManager.saveDice();
     }
 
@@ -123,7 +115,6 @@ export class GameLogic {
      * @param {boolean} isFarkle - FARKLE flag
      */
     endTurn(isFarkle = false) {
-        console.log(`🏁 GameLogic: endTurn(${isFarkle}) delegováno na TurnManager`);
         this.turnManager.endTurn(isFarkle);
     }
 
@@ -149,8 +140,6 @@ export class GameLogic {
      * Reset hry
      */
     resetGame() {
-        console.log('🔄 Resetuji hru...');
-        
         this.diceManager.resetDiceForNewTurn();
         
         gameState.updateState({
@@ -169,7 +158,6 @@ export class GameLogic {
         });
         
         chatSystem.clearMessages();
-        console.log('✅ Hra resetována');
     }
 
     /**
@@ -187,7 +175,6 @@ export class GameLogic {
      * Čištění při uzavření
      */
     cleanup() {
-        console.log('🧹 GameLogic: Čištění modulů');
         // Zde by mohlo být čištění modulů pokud by bylo potřeba
     }
 }

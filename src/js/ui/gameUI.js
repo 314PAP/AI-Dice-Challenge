@@ -270,7 +270,6 @@ export class GameUI {
         const buttonsContainer = document.createElement('div');
         buttonsContainer.className = 'row g-2';
         
-        console.log('🏠 GameUI: Vytvářím hlavní akční tlačítka');
         const startBtn = createNeonButton(
             'ZAČÍT HRU', 
             'green', 
@@ -356,9 +355,6 @@ export class GameUI {
      * Spustí hru
      */
     startGame() {
-        console.log('🚀 BUTTON CALLBACK: startGame() byla zavolána!');
-        console.log('🎮 Startuje hra...');
-        
         // Vyčistíme chat při novém startu hry
         chatSystem.clearMessages();
         
@@ -377,7 +373,6 @@ export class GameUI {
             turnScore: 0,
             players: gameState.getState().players.map(p => ({ ...p, score: 0 }))
         });
-        console.log('Nový herní stav:', gameState.getState());
         
         // Pokud začíná AI hráč, spustíme jeho tah
         const currentPlayer = gameState.getState().players[0];
@@ -392,7 +387,6 @@ export class GameUI {
      * Zobrazí pravidla - deleguje na GameScreens
      */
     showRules() {
-        console.log('🚀 BUTTON CALLBACK: showRules() byla zavolána!');
         this.gameScreens.showRules();
     }
 
@@ -400,7 +394,6 @@ export class GameUI {
      * Zobrazí síň slávy - deleguje na GameScreens
      */
     showHallOfFame() {
-        console.log('🚀 BUTTON CALLBACK: showHallOfFame() byla zavolána!');
         this.gameScreens.renderHallOfFame(this.gameArea);
     }
 
@@ -408,13 +401,11 @@ export class GameUI {
      * 🏠 Zobrazí hlavní menu s potvrzením (pokud je hra v průběhu)
      */
     async showMenuWithConfirmation() {
-        console.log('🏠 GameUI: showMenuWithConfirmation() volána');
         
         const state = gameState.getState();
         
         // Pokud hra není spuštěná, přejdi rovnou do menu
         if (!state.gameStarted) {
-            console.log('🏠 Hra není spuštěná, přechod do menu...');
             gameState.updateState({ 
                 currentPhase: 'menu',
                 gameStarted: false 
@@ -428,7 +419,6 @@ export class GameUI {
         const confirmed = await showConfirmDialog(
             confirmMessage,
             () => {
-                console.log('🏠 Uživatel potvrdil ukončení hry, přechod do menu...');
                 gameState.updateState({ 
                     gamePhase: 'menu',
                     gameStarted: false,
@@ -436,13 +426,13 @@ export class GameUI {
                 });
             },
             () => {
-                console.log('🏠 Uživatel zrušil ukončení hry');
+                // Zrušeno
             }
         );
         
         // Pokud nebyl potvrzen, nic dalšího nedělej
         if (!confirmed) {
-            console.log('🏠 Dialog nebyl potvrzen');
+            // Dialog zrušen
         }
     }
 
@@ -460,7 +450,6 @@ export class GameUI {
         chatSystem.addAiMessage('Gemini', 'Připravte se na analytickou výzvu!');
         chatSystem.addAiMessage('ChatGPT', 'Bude to skvělá hra!');
         chatSystem.addAiMessage('Claude', 'Hodně štěstí!');
-        console.log('🏠 GameUI: Přidány úvodní zprávy do chatu');
     }
 
     /**
@@ -474,8 +463,6 @@ export class GameUI {
             player.hasFarkle = false;
         });
         state.isFarkleProcessing = false;
-        
-        console.log('🏠 GameUI: Resetovány všechny FARKLE flagy (silent update)');
     }
 }
 

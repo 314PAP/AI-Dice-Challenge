@@ -26,7 +26,6 @@ export class DiceManager {
      * Odloží vybrané kostky - s lodash optimalizací
      */
     saveDice() {
-        console.log('💾 DiceManager: saveDice() zavolána');
         const state = gameState.getState();
         
         if (isEmpty(state.selectedDice)) {
@@ -41,8 +40,6 @@ export class DiceManager {
             filter(state.currentRoll, (_, index) => state.selectedDice.includes(index)),
             (value) => value
         );
-        
-        console.log(`💾 Ukládám kostky: [${selectedDiceValues.join(', ')}]`);
         
         // Spočítáme body za vybrané kostky
         const points = calculatePoints(selectedDiceValues);
@@ -81,9 +78,6 @@ export class DiceManager {
             !state.selectedDice.includes(index)
         );
         
-        console.log(`💰 +${points} bodů (celkem v tahu: ${newTurnScore})`);
-        console.log(`📦 Uložené kostky: [${newSavedDice.join(', ')}] (${newSavedDice.length}/6)`);
-        
         // Aktualizujeme herní stav
         gameState.updateState({
             savedDice: newSavedDice,
@@ -107,8 +101,6 @@ export class DiceManager {
      */
     checkHotDice(newSavedDice, newSavedPoints, remainingDice) {
         if (newSavedDice.length === 6) {
-            console.log('🔥 HOT DICE! Všech 6 kostek uloženo - můžete hodit znovu všemi kostkami!');
-            
             const hotDiceMsg = '🔥 HOT DICE! Všech 6 kostek uloženo!';
             chatSystem.addSystemMessage(hotDiceMsg, CHAT_COLORS.ORANGE);
             
@@ -122,7 +114,6 @@ export class DiceManager {
             });
         } else if (isEmpty(remainingDice)) {
             // Žádné zbývající kostky, ale méně než 6 uložených
-            console.log('✅ Všechny kostky z tohoto hodu uloženy');
         }
     }
 
@@ -191,7 +182,5 @@ export class DiceManager {
             turnScore: 0,
             isRolling: false
         });
-        
-        console.log('🔄 Kostky resetovány pro nový tah');
     }
 }

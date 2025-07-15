@@ -33,7 +33,6 @@ export class DiceAnimationManager {
         this.isAnimating = true;
 
         // 🎵 Spustíme zvuk házení kostek
-        console.log(`🎲 [ANIMATION] Spouštím zvuk diceRoll pro ${diceCount} kostek`);
         soundSystem.play('diceRoll');
         
         return new Promise((resolve) => {
@@ -85,15 +84,12 @@ export class DiceAnimationManager {
             isRolling: false
         });
         
-        console.log(`🎯 Hozeno: [${dice.join(', ')}] = ${points} bodů`);
-        
         // Zkontrolujeme FARKLE - když hod neobsahuje žádné bodující kostky
         if (!hasScoringDice(dice)) {
             this.triggerFarkleAnimation(dice);
         } else {
             // 🎵 Pozitivní zvuk pro úspěšný hod
             if (points > 0) {
-                console.log(`💰 [ANIMATION] Spouštím zvuk score pro ${points} bodů`);
                 soundSystem.play('score');
             }
             this.addSpawnAnimation();
@@ -121,9 +117,7 @@ export class DiceAnimationManager {
      * Spustí FARKLE animaci
      * @param {Array} dice - Kostky
      */
-    triggerFarkleAnimation(dice) {
-        console.log('💥 Spouštím FARKLE animaci');
-        
+    triggerFarkleAnimation(dice) {        
         // Přidáme farkle animaci ke kostkám
         setTimeout(() => {
             const diceElements = document.querySelectorAll('.dice:not(.saved)');

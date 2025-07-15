@@ -42,9 +42,7 @@ export class ComponentManager {
             await Promise.all(
                 map(componentConfig, async (factory, name) => {
                     try {
-                        console.log(`🔧 Inicializuji komponentu: ${name}`);
                         this.components[name] = await factory();
-                        console.log(`✅ Komponenta ${name} inicializována`);
                     } catch (error) {
                         console.error(`❌ Chyba při inicializaci ${name}:`, error);
                         throw error;
@@ -56,7 +54,6 @@ export class ComponentManager {
             this.setupOrientationUpdates();
             
             this.initialized = true;
-            console.log('✅ Základní komponenty inicializovány (bez GameUI)');
             
         } catch (error) {
             console.error('❌ Chyba při inicializaci komponent:', error);
@@ -76,7 +73,6 @@ export class ComponentManager {
         try {
             console.log('🔧 Inicializuji GameUI po skrytí loading screen...');
             this.components.gameUI = new GameUI();
-            console.log('✅ GameUI inicializováno');
             
             // Spustí první render
             this.triggerInitialRender();
@@ -98,13 +94,13 @@ export class ComponentManager {
 
         // Lodash isEmpty pro kontrolu
         if (isEmpty(chatInput.value)) {
-            console.log('🔧 Inicializuji autocomplete...');
+            // Autocomplete ready
         }
 
         return new UltraBootstrapAutocomplete(chatInput, {
             suggestions: this.getAutocompleteSuggestions(),
             onSelect: (suggestion) => {
-                console.log(`📝 Autocomplete: ${suggestion}`);
+                // Suggestion selected
             }
         });
     }
@@ -167,7 +163,6 @@ export class ComponentManager {
             if (isFunction(component?.cleanup)) {
                 try {
                     component.cleanup();
-                    console.log(`🧹 Komponenta ${name} vyčištěna`);
                 } catch (error) {
                     console.error(`❌ Chyba při čištění ${name}:`, error);
                 }
@@ -184,7 +179,6 @@ export class ComponentManager {
     triggerInitialRender() {
         const gameUI = this.getComponent('gameUI');
         if (gameUI && isFunction(gameUI.renderUI)) {
-            console.log('🎮 ComponentManager: Spouštím první render');
             gameUI.renderUI(gameState.getState());
         }
     }

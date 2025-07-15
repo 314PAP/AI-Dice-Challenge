@@ -19,11 +19,9 @@ export class AiPlayerController {
      * @param {Object} aiPlayer - AI hráč na tahu
      */
     async playAiTurn(aiPlayer) {
-        console.log(`🤖 AiController: ${aiPlayer.name} hraje automaticky...`);
         // ODSTRANĚNO: Systémová zpráva "přemýšlí" - ruší AI chat
         
         // 🎵 Zvuk pro AI tah
-        console.log(`🤖 [AI DEBUG] Spouštím zvuk aiTurn`);
         soundSystem.play('aiTurn');
         
         const state = gameState.getState();
@@ -67,13 +65,11 @@ export class AiPlayerController {
             
             // KONTROLA ZRUŠENÉHO TAHU - pokud se zpracovává farkle, ukončíme
             if (currentState.isFarkleProcessing) {
-                console.log(`🤖 AI ${aiPlayer.name} - farkle se už zpracovává, ukončuji rozhodování`);
                 break;
             }
             
             // Kontrola, zda je AI stále na tahu
             if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
-                console.log(`🤖 AI ${aiPlayer.name} už není na tahu, ukončuji rozhodování`);
                 break;
             }
             
@@ -81,7 +77,6 @@ export class AiPlayerController {
             if (!currentState.currentRoll || currentState.currentRoll.length === 0) {
                 // Kontrola HOT DICE - pokud máme turnScore ale žádné kostky, znamená to HOT DICE reset
                 if (currentState.turnScore > 0) {
-                    console.log(`🤖 AI ${aiPlayer.name} má HOT DICE (turnScore: ${currentState.turnScore}), házím znovu všemi kostkami`);
                     // Ještě jednou zkontrolujeme, že AI je stále na tahu před HOT DICE hodem
                     const recentState = gameState.getState();
                     if (recentState.players[recentState.currentPlayerIndex].name === aiPlayer.name) {
@@ -89,23 +84,18 @@ export class AiPlayerController {
                         await this.delay(3000); // Čekáme na dokončení animace
                         continue; // Pokračujeme v rozhodování
                     } else {
-                        console.log(`🤖 AI ${aiPlayer.name} už není na tahu během HOT DICE, ukončuji rozhodování`);
                         break;
                     }
                 } else {
-                    console.log(`🤖 AI ${aiPlayer.name} nemá kostky na stole, ukončuji rozhodování`);
                     break;
                 }
             }
             
             // KONTROLA FARKLE - pokud jsou na stole kostky, ale žádné nejsou bodující
             if (currentState.currentRoll && currentState.currentRoll.length > 0) {
-                console.log(`🎲 AI ${aiPlayer.name} kontroluje FARKLE na kostkách:`, currentState.currentRoll);
                 const hasScoring = hasScoringDice(currentState.currentRoll);
-                console.log(`🎲 hasScoringDice(${JSON.stringify(currentState.currentRoll)}) =`, hasScoring);
                 
                 if (!hasScoring) {
-                    console.log(`🤖 AI ${aiPlayer.name} detekoval FARKLE - spouštím handleFarkle() pro automatické zpracování`);
                     chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
                     
                     // FORCE spuštění handleFarkle() pro zpracování FARKLE - s kontrolou, zda je AI stále na tahu
@@ -113,15 +103,10 @@ export class AiPlayerController {
                         const currentState = gameState.getState();
                         if (currentState.players[currentState.currentPlayerIndex].name === aiPlayer.name) {
                             this.gameLogic.handleFarkle(currentState.currentRoll);
-                        } else {
-                            console.log(`🤖 AI ${aiPlayer.name} už není na tahu, nebudu volat handleFarkle()`);
                         }
                     }, 1000); // Krátké zpoždění pro lepší UX
                     
-                    console.log(`🤖 AI ${aiPlayer.name} ukončuje rozhodování - FARKLE bude zpracován`);
                     return; // UKONČUJEME CELOU FUNKCI, NE POUZE SMYČKU!
-                } else {
-                    console.log(`✅ AI ${aiPlayer.name} našel bodující kostky, pokračuje...`);
                 }
             }
             
@@ -163,7 +148,6 @@ export class AiPlayerController {
      * @param {Object} currentState - Aktuální stav
      */
     async executeSaveDecision(aiPlayer, decision, currentState) {
-        console.log(`🤖 AI ${aiPlayer.name} vybírá kostky:`, decision.diceToSave);
         gameState.updateState({ selectedDice: decision.diceToSave });
         await this.delay(500);
         
@@ -182,11 +166,9 @@ export class AiPlayerController {
         
         // ZPRACOVÁNÍ NEXT ACTION - co dělat po uložení kostek
         if (decision.nextAction === 'endTurn') {
-            console.log(`🤖 AI ${aiPlayer.name} rozhodl ukončit tah po uložení kostek`);
             await this.executeEndTurnDecision(aiPlayer);
             return 'endTurn'; // Signál pro ukončení smyčky
         } else if (decision.nextAction === 'continue') {
-            console.log(`🤖 AI ${aiPlayer.name} rozhodl pokračovat v házení`);
             await this.executeContinueDecision(aiPlayer);
             return 'continue'; // Signál pro pokračování
         }
@@ -212,7 +194,6 @@ export class AiPlayerController {
         // Zkontrolujeme, že AI je stále na tahu před pokračováním
         const currentState = gameState.getState();
         if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
-            console.log(`🤖 AI ${aiPlayer.name} už není na tahu, nemohu pokračovat`);
             return;
         }
         
