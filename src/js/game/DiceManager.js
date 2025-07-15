@@ -51,16 +51,8 @@ export class DiceManager {
             return;
         }
         
-        // VALIDACE PRVNÍHO ZÁPISU
-        const currentPlayer = state.players[state.currentPlayerIndex];
-        const currentTurnScore = (state.turnScore || 0) + points;
-        
-        if (currentPlayer.score === 0 && currentTurnScore < 300) {
-            const errorMsg = `❌ První zápis vyžaduje minimálně 300 bodů! Máte jen ${currentTurnScore} bodů.`;
-            console.error(errorMsg);
-            chatSystem.addSystemMessage(errorMsg, CHAT_COLORS.RED);
-            return;
-        }
+        // VALIDACE PRVNÍHO ZÁPISU - POUZE PŘI UKONČENÍ TAHU, NE PŘI ODLOŽENÍ!
+        // Tato validace se přesunuje do endTurn() funkce
         
         // Přidáme skórovací animaci
         this.animationManager.addScoringAnimation();

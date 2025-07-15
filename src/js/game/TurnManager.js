@@ -32,6 +32,11 @@ export class TurnManager {
         const result = this.calculateTurnResult(isFarkle);
         this.updatePlayerScore(result);
         
+        // Pokud je tah neplatný, nepokračujeme v endTurn sekvenci
+        if (result.invalidTurn) {
+            return; // Hráč zůstává na tahu a může pokračovat
+        }
+        
         // Kontrola výhry pomocí lodash
         const winner = this.checkVictory(result.player);
         if (winner) {
@@ -70,6 +75,29 @@ export class TurnManager {
         const pointsGained = state.turnScore || 0;
         const oldScore = currentPlayer.score;
         
+        // VALIDACE PRVNÍHO ZÁPISU - POUZE PŘI UKONČENÍ TAHU!
+        if (currentPlayer.score === 0 && pointsGained < 300) {
+            const errorMsg = `❌ První zápis vyžaduje minimálně 300 bodů! Máte jen ${pointsGained} bodů. Pokračujte v házení.`;
+            console.error(errorMsg);
+            
+            // Import chatSystem dynamicky pro menší závislosti
+            import('../ai/chatSystem.js').then(({ default: chatSystem }) => {
+                import('../utils/colors.js').then(({ CHAT_COLORS }) => {
+                    chatSystem.addSystemMessage(errorMsg, CHAT_COLORS.RED);
+                });
+            });
+            
+            // Vrátíme "farkle-like" výsledek - neplatný tah
+            return {
+                player: currentPlayer,
+                pointsGained: 0,
+                wasFarkle: false,
+                invalidTurn: true,
+                reason: 'Nedostatečné body pro první zápis',
+                oldScore
+            };
+        }
+        
         return {
             player: currentPlayer,
             pointsGained,
@@ -84,6 +112,18 @@ export class TurnManager {
      */
     updatePlayerScore(result) {
         const state = gameState.getState();
+        
+        // Pokud je tah neplatný (nedostatečné body), nepřidávej skóre a neukončuj tah
+        if (result.invalidTurn) {
+            console.warn(`⚠️ Neplatný tah: ${result.reason} - tah pokračuje`);
+            // Pouze resetujeme turnScore na 0 a umožníme hráči pokračovat
+            gameState.updateState({
+                turnScore: 0,
+                selectedDice: [],
+                currentRoll: []
+            });
+            return; // NEPOKRAČUJEME v endTurn sekvenci!
+        }
         
         // Lodash cloneDeep pro bezpečnou kopii
         const updatedPlayers = cloneDeep(state.players);
