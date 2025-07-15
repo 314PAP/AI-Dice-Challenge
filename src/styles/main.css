@@ -2,8 +2,8 @@
    AI DICE CHALLENGE - MAIN.CSS
    KOMPLETNÍ DOKUMENTACE MODULÁRNÍ ARCHITEKTURY
    
-   Datum: 13. července 2025
-   Status: REFAKTOROVÁNO - MODULÁRNÍ STRUKTURA
+   Datum: 15. července 2025
+   Status: MODULARIZOVANÁ STRUKTURA - ROZDĚLENO Z colors-bootstrap-simple.css
    ================================================================= */
 
 /* ===== EXTERNÍ CSS KNIHOVNY ===== */
@@ -12,46 +12,89 @@
 @import 'magic.css/dist/magic.min.css';
 @import 'csshake/dist/csshake.min.css';
 
-/* ===== ARCHITEKTURA MODULÁRNÍHO CSS SYSTÉMU ===== */
+/* ===================================================================
+   🏗️ NOVÁ MODULARIZOVANÁ STRUKTURA - RYCHLÁ ORIENTACE
+   ================================================================= */
 
 /*
-🏗️ STRUKTURA ADRESÁŘŮ:
+📁 KOMPLETNÍ STROMOVÁ STRUKTURA:
 
 src/styles/
-├── main.css                    ← TENTO SOUBOR (dokumentace + importy)
-├── base/                       ← Základní styly
-│   ├── variables.css              CSS custom properties a globální proměnné
-│   ├── typography.css             Responzivní typografie (Orbitron, RFS)
-│   └── layout.css                 Výšky sekcí, spacing, mobile layout
-├── components/                 ← UI komponenty
-│   ├── dice.css                   Kostky, kontejnery, dice dots
-│   ├── buttons.css                Tlačítka a hover efekty
-│   ├── cards.css                  Karty a panely
-│   ├── chat.css                   Chat UI a scrollbary
-│   └── spinners.css               Loading animace
-├── utilities/                  ← Utility třídy
-│   ├── colors.css                 Barvy, neon efekty, třídy
-│   ├── responsive.css             Breakpointy a responzivní utility
-│   └── helpers.css                Z-index, spacing helpers
-└── themes/                     ← Motivy a témata
-    └── neon.css                   Neonový motiv (main theme)
+├── base/                  🏗️ Základní stavební kameny
+│   ├── variables.css      (CSS proměnné a globální nastavení)
+│   ├── typography.css     (Fonty, RFS, responzivní typografie)  
+│   └── layout.css         (Výšky, spacing, základní layout)
+├── components/            🎨 UI komponenty
+│   ├── dice.css          (Kostky + animace + stavy)
+│   ├── buttons.css       (Neonová tlačítka + hover efekty)
+│   ├── forms.css         (Formulářové prvky)
+│   ├── chat.css          (Chat UI + scrollbary + AI osobnosti)
+│   ├── players.css       (Animace hráčů + aktivní stavy)
+│   ├── avatars.css       (Avatar animace + hover podle barev)
+│   ├── farkle.css        (FARKLE overlay efekty + diagonal text)
+│   ├── tables.css        (Neonové tabulky + text-shadow utility)
+│   ├── cards.css         (Karty a panely)
+│   └── spinners.css      (Loading animace + orbital spinnery)
+├── utilities/             🔧 Utility třídy
+│   ├── colors.css        (Základní barevné utility třídy)
+│   ├── bootstrap-overrides.css (Bootstrap color overrides)
+│   ├── responsive.css    (Responzivní breakpointy)
+│   └── helpers.css       (Z-index, utility třídy)
+└── themes/                🎨 Témata
+    └── neon.css          (Neonový motiv)
 
-📦 VELIKOSTI MODULŮ (přibližně):
-- variables.css      ~40 řádků    (CSS proměnné)
-- typography.css     ~120 řádků   (fonty + RFS)
-- layout.css         ~80 řádků    (výšky + layout)
-- dice.css           ~200 řádků   (kostky + animace)
-- buttons.css        ~60 řádků    (tlačítka)
-- cards.css          ~15 řádků    (karty)
-- chat.css           ~140 řádků   (scrollbary)
-- spinners.css       ~50 řádků    (loading)
-- colors.css         ~800 řádků   (barvy + neon)
-- responsive.css     ~200 řádků   (breakpointy)
-- helpers.css        ~50 řádků    (utility)
-- neon.css           ~100 řádků   (motiv)
-*/
+🎯 HLAVNÍ CSS TŘÍDY PRO JS POUŽITÍ:
 
-/* ===== BOOTSTRAP UTILITY TŘÍDY KTERÉ POUŽÍVÁME ===== */
+🎲 KOSTKY (dice.css):
+.dice                     - základní kostka
+.dice.selected           - vybraná kostka (modrá)
+.dice.saved              - odložená kostka (modrá, průhledná)
+.dice-rolling            - animace házení (fialová)
+.dice.dice-new           - nově vygenerovaná (fadeInUp)
+.dice.dice-scoring       - při skórování (flash)
+.dice.dice-farkle        - neplatný tah (shake-hard)
+
+👤 HRÁČI (players.css):
+.player-active           - aktivní hráč (pulse + border)
+.border-neon-[color].player-active - aktivní hráč podle barvy
+.score-animation         - animace skóre (zoomIn)
+
+👥 AVATARY (avatars.css):
+.player-avatar           - základní avatar
+.player-avatar:hover     - hover efekt podle border barvy
+.player-avatar-active    - aktivní avatar (pulse + glow)
+
+💥 FARKLE (farkle.css):
+.player-farkle           - FARKLE na kartě hráče
+.farkle-text             - FARKLE overlay text
+.dice-section-farkle     - diagonální FARKLE přes kostky
+.farkle-text-overlay     - větší FARKLE overlay
+
+🔘 TLAČÍTKA (buttons.css):
+.btn-neon                - neonové tlačítko
+.btn-neon[data-neon-color="green|blue|purple|orange|red|yellow"]
+.btn-no-scale            - bez scaling efektu
+
+💬 CHAT (chat.css):
+.chat-message            - základní zpráva
+.chat-message-ai         - AI zpráva
+.chat-message-user       - uživatelská zpráva
+.ai-gemini|claude|gpt|llama|mistral - AI osobnosti
+
+🎨 BARVY (colors.css):
+.text-neon-[color]       - neonový text
+.border-neon-[color]     - neonový border
+.bg-neon-[color]         - neonové pozadí
+
+📱 RESPONZIVNÍ BREAKPOINTY:
+- XS: 0px (mobil portrait)
+- SM: 576px (mobil landscape)  
+- MD: 768px (tablet)
+- LG: 992px (malý desktop)
+- XL: 1200px (desktop)
+- XXL: 1400px (velký desktop)
+
+/* ===== PŮVODNÍ ARCHITEKTURA DOKUMENTACE ===== */
 
 /*
 LAYOUT & GRID:
