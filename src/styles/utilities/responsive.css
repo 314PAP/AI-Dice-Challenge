@@ -1,7 +1,169 @@
 /* ===================================================================
    AI DICE CHALLENGE - RESPONSIVE UTILITIES
-   Breakpointy a responzivní utility třídy
+   Společné responzivní utility třídy a breakpointy
    ================================================================= */
 
-/* Zatím prázdný - responzivní kód je integrován v komponentách */
-/* V budoucnu lze přesunout společné @media queries zde */
+/* ===== BOOTSTRAP BREAKPOINTY - DOKUMENTACE ===== */
+
+/*
+📱 BOOTSTRAP STANDARD BREAKPOINTY:
+- XS: 0px - 575.98px      (mobil portrait)
+- SM: 576px - 767.98px    (mobil landscape / malý tablet)  
+- MD: 768px - 991.98px    (tablet / malý desktop)
+- LG: 992px - 1199.98px   (desktop)
+- XL: 1200px - 1399.98px  (velký desktop)
+- XXL: 1400px+            (ultra široký desktop)
+
+🎯 SPECIÁLNÍ BREAKPOINTY PRO HRU:
+- landscape < 500px        (kompaktní landscape mobily)
+- landscape < 600px        (všechny landscape)
+- portrait > 600px         (vysoké portrait obrazovky)
+- pointer: coarse          (touch zařízení)
+*/
+
+/* ===== UTILITY TŘÍDY PRO RESPONZIVNÍ SPACING ===== */
+
+/* Responzivní gap utility pro flexbox/grid */
+@media (max-width: 575.98px) { /* XS */
+  .gap-responsive { gap: 0.25rem !important; }
+  .gap-responsive-sm { gap: 0.125rem !important; }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) { /* SM */
+  .gap-responsive { gap: 0.5rem !important; }
+  .gap-responsive-sm { gap: 0.25rem !important; }
+}
+
+@media (min-width: 768px) { /* MD+ */
+  .gap-responsive { gap: 1rem !important; }
+  .gap-responsive-sm { gap: 0.5rem !important; }
+}
+
+/* ===== LAYOUT UTILITY TŘÍDY ===== */
+
+/* Mobile-first responsive heights */
+.min-vh-game {
+  min-height: 100vh;
+}
+
+@media (max-width: 575.98px) { /* Mobily */
+  .min-vh-game { 
+    min-height: calc(100vh - 3rem); /* Prostor pro navigaci */
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) { /* Kompaktní landscape */
+  .min-vh-game { 
+    min-height: 100vh; 
+  }
+}
+
+/* ===== TOUCH OPTIMALIZACE ===== */
+
+@media (pointer: coarse) { /* Touch zařízení */
+  .touch-target {
+    min-height: 44px !important; /* iOS minimum touch target */
+    min-width: 44px !important;
+  }
+  
+  .touch-padding {
+    padding: 0.5rem !important;
+  }
+}
+
+/* ===== ORIENTACE OPTIMALIZACE ===== */
+
+/* Landscape optimalizace - kompaktní spacing */
+@media (orientation: landscape) and (max-height: 600px) {
+  .landscape-compact { 
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  
+  .landscape-hide { 
+    display: none !important; 
+  }
+}
+
+/* Portrait optimalizace - více vertical space */
+@media (orientation: portrait) and (min-height: 600px) {
+  .portrait-spacious { 
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* ===== PERFORMANCE OPTIMALIZACE ===== */
+
+/* Zmenšené animace na slabších zařízeních */
+@media (max-width: 575.98px) { /* Mobily */
+  .reduce-motion {
+    animation-duration: 0.5s !important;
+    transition-duration: 0.2s !important;
+  }
+}
+
+/* ===== TEXT SCALING UTILITY ===== */
+
+/* Fluid text scaling - doplňuje Bootstrap RFS */
+.text-fluid-xs { font-size: clamp(0.7rem, 2vw, 0.9rem) !important; }
+.text-fluid-sm { font-size: clamp(0.8rem, 2.5vw, 1.1rem) !important; }
+.text-fluid-md { font-size: clamp(1rem, 3vw, 1.3rem) !important; }
+.text-fluid-lg { font-size: clamp(1.2rem, 4vw, 1.8rem) !important; }
+.text-fluid-xl { font-size: clamp(1.5rem, 5vw, 2.5rem) !important; }
+
+/* ===== VISIBILITY HELPERS ===== */
+
+/* Rozšíření Bootstrap display utilities */
+.d-xs-block { display: block !important; }
+.d-xs-none { display: none !important; }
+
+@media (min-width: 576px) {
+  .d-xs-block { display: none !important; }
+  .d-xs-none { display: block !important; }
+}
+
+/* ===== GAME-SPECIFIC RESPONSIVE UTILITIES ===== */
+
+/* Herní sekce responzivní výšky */
+.game-section-height {
+  height: calc(100vh - 4rem); /* Default pro desktop */
+}
+
+@media (max-width: 767.98px) { /* Mobile/tablet */
+  .game-section-height {
+    height: 60vh; /* 60/40 split na mobile */
+  }
+}
+
+.chat-section-height {
+  height: calc(100vh - 4rem); /* Default pro desktop */
+}
+
+@media (max-width: 767.98px) { /* Mobile/tablet */
+  .chat-section-height {
+    height: 40vh; /* 60/40 split na mobile */
+  }
+}
+
+/* ===== CONTAINER IMPROVEMENTS ===== */
+
+/* Responzivní padding pro containers */
+.container-game {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+@media (min-width: 576px) {
+  .container-game {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-game {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}

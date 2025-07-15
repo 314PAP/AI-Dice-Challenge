@@ -94,6 +94,11 @@ src/styles/
 - XL: 1200px (desktop)
 - XXL: 1400px (velký desktop)
 
+📱 RESPONZIVNÍ ARCHITEKTURA:
+✅ responsive.css - společné utility třídy (gap-responsive, min-vh-game, touch-target)
+✅ components/*.css - komponenta-specifické @media (velikosti kostek, avatarů)
+✅ base/*.css - základní responzivní styly (fonty, layout)
+
 /* ===== PŮVODNÍ ARCHITEKTURA DOKUMENTACE ===== */
 
 /*
@@ -321,7 +326,7 @@ RESPONSIVE:
 
 /* 🔧 UTILITY TŘÍDY */
 @import './utilities/colors.css';           /* Barvy a neon efekty */
-@import './utilities/responsive.css';       /* Responzivní breakpointy */
+@import './utilities/responsive.css';       /* Společné responzivní utility třídy */
 @import './utilities/helpers.css';          /* Z-index, utility třídy */
 @import './utilities/bootstrap-overrides.css'; /* Bootstrap overrides */
 
