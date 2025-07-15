@@ -23,6 +23,7 @@ import { GAME_CONSTANTS, STORAGE_KEYS } from './js/utils/constants.js';
 import { sleep, loadFromLocalStorage, saveToLocalStorage } from './js/utils/helpers.js';
 import { CONSOLE_COLORS, pxToRem } from './js/utils/colors.js';
 import { updateDiceForOrientation } from './js/ui/uiComponents.js';
+import soundSystem from './js/utils/soundSystem.js';
 
 /**
  * Hlavní třída aplikace, která propojuje všechny komponenty
@@ -164,6 +165,9 @@ class AIDiceGame {
         this.gameUI = new GameUI();
         this.chatUI = new ChatUI();
         
+        // 🎵 Inicializace zvukového systému při prvním kliknutí
+        this.initializeSoundSystem();
+        
         // Odstranění případných starých autocomplete elementů
         this.removeAutocompleteDropdowns();
         
@@ -246,6 +250,29 @@ class AIDiceGame {
         saveToLocalStorage(STORAGE_KEYS.GAME_SETTINGS, {
             targetScore: state.targetScore
         });
+    }
+
+    /**
+     * 🎵 Inicializuje zvukový systém při prvním user interaction
+     */
+    initializeSoundSystem() {
+        let soundInitialized = false;
+        
+        const initOnFirstClick = () => {
+            if (!soundInitialized) {
+                soundInitialized = true;
+                soundSystem.init();
+                console.log('🎵 Zvukový systém inicializován při prvním kliknutí');
+                
+                // Odstraníme listener po prvním použití
+                document.removeEventListener('click', initOnFirstClick);
+                document.removeEventListener('touchstart', initOnFirstClick);
+            }
+        };
+        
+        // Přidáme listenery pro první user interaction
+        document.addEventListener('click', initOnFirstClick);
+        document.addEventListener('touchstart', initOnFirstClick);
     }
 
     /**

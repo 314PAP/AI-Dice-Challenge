@@ -20,6 +20,7 @@
 
 import { UI_CONSTANTS, NEON_COLORS, DICE_CONSTANTS } from '../utils/constants.js';
 import { CONSOLE_COLORS } from '../utils/colors.js';
+import soundSystem from '../utils/soundSystem.js';
 
 /**
  * Vytvoří tlačítko s neonovým efektem - plně responzivní pro všechny režimy zobrazení
@@ -58,6 +59,11 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
     if (onClick) {
         button.addEventListener('click', onClick);
     }
+    
+    // 🎵 Hover efekt pro menu
+    button.addEventListener('mouseenter', () => {
+        soundSystem.play('menuHover', 0.5); // Tišší než ostatní zvuky
+    });
     
     return button;
 };
@@ -132,7 +138,12 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     dice.appendChild(content);
     
     if (onClick) {
-        dice.addEventListener('click', onClick);
+        dice.addEventListener('click', () => {
+            // 🎵 Zvuk kliknutí na kostku
+            console.log(`🎯 [UI DEBUG] Spouštím zvuk diceClick`);
+            soundSystem.play('diceClick');
+            onClick();
+        });
     }
     
     return dice;

@@ -2,6 +2,7 @@ import { rollDice as diceRoll, calculatePoints, hasScoringDice, isValidFarkleCom
 import gameState from './gameState.js';
 import chatSystem from '../ai/chatSystem.js';
 import { CHAT_COLORS } from '../utils/colors.js';
+import soundSystem from '../utils/soundSystem.js';
 
 export class GameLogic {
     constructor(gameRenderer) {
@@ -44,15 +45,19 @@ export class GameLogic {
             isRolling: true // Flag pro animaci
         });
         
-        // Spustíme animaci házení
+        // Spustíme animaci házení s zvukem
         await this.playRollingAnimation(diceCount);
     }
 
     /**
-     * Animace házení kostek
+     * Animace házení kostek s 8-bit zvuky
      * @param {number} diceCount - Počet kostek
      */
     async playRollingAnimation(diceCount) {
+        // 🎵 Spustíme zvuk házení kostek
+        console.log(`🎲 [GAME DEBUG] Spouštím zvuk diceRoll pro ${diceCount} kostek`);
+        soundSystem.play('diceRoll');
+        
         return new Promise((resolve) => {
             let animationCounter = 0;
             const animationInterval = setInterval(() => {
@@ -104,6 +109,11 @@ export class GameLogic {
         if (!hasScoringDice(dice)) {
             this.handleFarkle(dice);
         } else {
+            // 🎵 Pozitivní zvuk pro úspěšný hod
+            if (points > 0) {
+                console.log(`💰 [GAME DEBUG] Spouštím zvuk score pro ${points} bodů`);
+                soundSystem.play('score');
+            }
             // ODSTRANĚNO: Dlouhá zpráva o výběru kostek - zbytečná
             console.log(`✅ Kostky na výběr dostupné`);
         }
@@ -138,6 +148,10 @@ export class GameLogic {
         const farkleMsg = `💥 ${currentPlayer.name} FARKLE!`;
         console.warn(farkleMsg);
         chatSystem.addSystemMessage(farkleMsg, CHAT_COLORS.RED);
+        
+        // 🎵 Dramatický zvuk pro FARKLE
+        console.log(`💀 [GAME DEBUG] Spouštím zvuk farkle pro ${currentPlayer.name}`);
+        soundSystem.play('farkle');
         
         // Přidáme farkle animaci ke kostkám
         setTimeout(() => {

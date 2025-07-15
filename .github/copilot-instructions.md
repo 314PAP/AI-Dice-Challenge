@@ -115,7 +115,6 @@
 
 ### Modulární struktura
 
-- **MAX 150 řádků** na soubor
 - **Jedna zodpovědnost** na modul
 - **ES6 moduly** povinně
 

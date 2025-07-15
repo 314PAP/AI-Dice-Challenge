@@ -43,7 +43,6 @@
     "prettier": "^3.6.2",
     "vite": "^7.0.0"
   },
-  "dependencies": {},
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix --max-warnings=1000 || true",
@@ -56,5 +55,8 @@
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
+  },
+  "dependencies": {
+    "howler": "^2.2.4"
   }
 }

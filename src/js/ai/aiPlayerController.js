@@ -4,6 +4,7 @@ import chatSystem from './chatSystem.js';
 import { CHAT_COLORS } from '../utils/colors.js';
 import { AiDecisionEngine } from './aiDecisionEngine.js';
 import { AiStrategies } from './aiStrategies.js';
+import soundSystem from '../utils/soundSystem.js';
 
 export class AiPlayerController {
     constructor(gameLogic) {
@@ -20,6 +21,10 @@ export class AiPlayerController {
     async playAiTurn(aiPlayer) {
         console.log(`🤖 AiController: ${aiPlayer.name} hraje automaticky...`);
         // ODSTRANĚNO: Systémová zpráva "přemýšlí" - ruší AI chat
+        
+        // 🎵 Zvuk pro AI tah
+        console.log(`🤖 [AI DEBUG] Spouštím zvuk aiTurn`);
+        soundSystem.play('aiTurn');
         
         const state = gameState.getState();
         
