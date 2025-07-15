@@ -66,3 +66,6 @@ fi
 
 echo ""
 echo "📝 Log tohoto ověření: $(date)"
+
+# ✅ OPRAVA: Vracíme správný exit code podle validation výsledku
+exit $VALIDATION_RESULT
