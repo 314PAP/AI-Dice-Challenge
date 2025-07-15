@@ -49,12 +49,14 @@ fi
 # 2. Kontrola vlastních CSS souborů
 echo ""
 echo "🔍 Vlastní CSS soubory..."
-OWN_CSS=$(find src/styles/ -name "*.css" | grep -v "main.css\|colors-bootstrap-simple.css\|responsive-bootstrap.css\|bootstrap-responsive-utils.css" | grep -v archive || true)
+# POVOLENÉ CSS SOUBORY: main.css + modularizovaná struktura + archivované
+ALLOWED_CSS_PATTERN="(main\.css|colors-bootstrap-simple\.css|base/|components/|utilities/|themes/|archive/)"
+OWN_CSS=$(find src/styles/ -name "*.css" | grep -v -E "$ALLOWED_CSS_PATTERN" || true)
 if [ -n "$OWN_CSS" ]; then
-    echo "⚠️ MOŽNÉ VLASTNÍ CSS SOUBORY:"
+    echo "⚠️ NEPOVOLENÉ CSS SOUBORY:"
     echo "$OWN_CSS"
 else
-    echo "✅ Pouze povolené CSS soubory"
+    echo "✅ Pouze povolené CSS soubory (modularizovaná struktura)"
 fi
 
 # 3. Kontrola komplexnosti JS (celý projekt)
@@ -86,17 +88,17 @@ for file in $ALL_CHANGED_FILES; do
             NEW_ERRORS=$((NEW_ERRORS + 1))
         fi
         
-        # Kontrola nových vlastních CSS
-        if [[ "$file" =~ \.css$ ]] && [[ ! "$file" =~ (main\.css|colors-bootstrap-simple\.css|responsive-bootstrap\.css|bootstrap-responsive-utils\.css) ]]; then
+        # Kontrola nových vlastních CSS - nyní podporuje modularizovanou strukturu
+        if [[ "$file" =~ \.css$ ]] && [[ ! "$file" =~ (main\.css|colors-bootstrap-simple\.css|base/|components/|utilities/|themes/|archive/) ]]; then
             if git diff HEAD "$file" | grep -q '^+'; then
-                echo "❌ NOVÁ CHYBA: Nový vlastní CSS soubor $file"
+                echo "❌ NOVÁ CHYBA: Nepovolený CSS soubor $file (použij modularizovanou strukturu)"
                 NEW_ERRORS=$((NEW_ERRORS + 1))
             fi
         fi
         
-        # Kontrola nových z-index hodnot
-        if git diff HEAD "$file" | grep '^+' | grep -q 'z-index:'; then
-            echo "❌ NOVÁ CHYBA: Nový z-index v $file"
+        # Kontrola nových z-index hodnot (povolené jsou CSS proměnné)
+        if git diff HEAD "$file" | grep '^+' | grep 'z-index:' | grep -v 'var(--z-' | grep -q .; then
+            echo "❌ NOVÁ CHYBA: Nový z-index v $file (použij CSS proměnné --z-*)"
             NEW_ERRORS=$((NEW_ERRORS + 1))
         fi
     fi

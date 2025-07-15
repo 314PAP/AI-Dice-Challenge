@@ -1,4 +1,4 @@
-/* ===================================================================
+/* =   1. colors-bootstrap-simple.css - všechny barvy a neon efekty (NYNÍ SOUČÁST MODULÁRNÍ ARCHITEKTURY)================================================================
    COLORS-BOOTSTRAP-SIMPLE - ČISTÝ SOUBOR PRO BARVY
    
    Pouze 2 hlavní soubory:
@@ -156,18 +156,21 @@ html, body {
 
 /* Animace pro nově vygenerované kostky */
 .dice.dice-new {
-  animation: puffIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+  /* ✅ ANIMATE.CSS - fadeInUp místo neexistující puffIn */
+  animation: fadeInUp 0.8s ease-out forwards !important;
 }
 
 
 /* Speciální efekt při skórování */
 .dice.dice-scoring {
-  animation: vanishIn 0.4s ease-in-out 4 !important;
+  /* ✅ ANIMATE.CSS - flash místo neexistující vanishIn */
+  animation: flash 0.4s ease-in-out 4 !important;
 }
 
 
 /* Efekt při neplatném tahu */
 .dice.dice-farkle {
+  /* ✅ CSSHAKE - shake-hard existuje v CSShake knihovně */
   animation: shake-hard 0.6s ease-in-out 2 !important;
 }
 
@@ -246,8 +249,9 @@ html, body {
   text-shadow: 
     0 0 0.5rem rgba(0, 0, 0, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.5) !important;
-  animation: bounceInDown 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
-  z-index: 10 !important;
+  /* ✅ ANIMATE.CSS - bounceInDown čistá knihovna bez custom cubic-bezier */
+  animation: bounceInDown 0.6s ease-out forwards !important;
+  z-index: var(--z-top) !important;
   letter-spacing: 0.05em !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   white-space: nowrap !important;
@@ -279,7 +283,7 @@ html, body {
   background: radial-gradient(circle, rgba(255, 49, 49, 0.1) 0%, rgba(255, 49, 49, 0.05) 50%, transparent 100%) !important;
   border-radius: inherit !important;
   pointer-events: none !important;
-  z-index: 1 !important;
+  z-index: var(--z-dropdown) !important;
   animation: pulse 0.8s ease-in-out 3 !important;
 }
 
@@ -308,8 +312,9 @@ html, body {
   text-shadow: 
     0 0 1rem rgba(0, 0, 0, 0.9),
     0 3px 6px rgba(0, 0, 0, 0.7) !important;
-  animation: bounceInUp 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
-  z-index: 20 !important;
+  /* ✅ ANIMATE.CSS - bounceInUp čistá knihovna bez custom cubic-bezier */
+  animation: bounceInUp 1s ease-out forwards !important;
+  z-index: var(--z-top) !important;
   letter-spacing: 0.1em !important;
   border: 2px solid rgba(255, 255, 255, 0.5) !important;
   white-space: nowrap !important;
@@ -343,12 +348,12 @@ html, body {
   background: radial-gradient(circle, rgba(255, 49, 49, 0.2) 0%, rgba(255, 49, 49, 0.1) 50%, transparent 100%) !important;
   border-radius: inherit !important;
   pointer-events: none !important;
-  z-index: -1 !important;
+  z-index: var(--z-behind) !important;
   animation: pulse 1s ease-in-out 3 !important;
 }
 
 
-/* Všechny scrollbar styly jsou nyní v responsive-bootstrap.css pro lepší organizaci */
+/* Všechny scrollbar styly jsou nyní v modularizované struktuře (components/chat.css) pro lepší organizaci */
 
 /* ===== NEONOVÁ TLAČÍTKA - POUZE BARVY A EFEKTY ===== */
 
@@ -710,7 +715,8 @@ V TOMTO SOUBORU POUZE:
 
 /* FARKLE stav */
 .player-farkle {
-  animation: shake-slow 0.8s ease-in-out 3;
+  /* ✅ CSSHAKE - shake-little místo neexistující shake-slow */
+  animation: shake-little 0.8s ease-in-out 3;
   border-color: var(--neon-red) !important;
 }
 
@@ -720,6 +726,7 @@ V TOMTO SOUBORU POUZE:
   text-shadow: 0 0 0.625rem var(--neon-red);
   font-weight: bold;
   font-size: 1.2rem;
+  /* ✅ CSSHAKE - shake-little je správná třída z knihovny */
   animation: shake-little 0.8s ease-in-out 3;
 }
 
@@ -728,8 +735,8 @@ V TOMTO SOUBORU POUZE:
 /* Základní avatar styl */
 .player-avatar {
   transition: var(--transition-normal);
-  border: 3px solid transparent;
-  padding: 2px; /* Malý padding pro lepší zobrazení borderu */
+  border: 2px solid transparent;
+  padding: 4px; /* Zvětšený padding pro lepší poměr ikony k rámečku */
 }
 
 /* Jemný neonový efekt při hover na avatary - podle barvy border kontejneru */
@@ -773,7 +780,7 @@ V TOMTO SOUBORU POUZE:
 .border-neon-green .player-avatar-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  border-width: 3px !important;
+  border-width: 2px !important;
   box-shadow: 0 0 1rem var(--neon-green), 0 0 2rem var(--neon-green) !important;
   transform: scale(1.05) !important;
 }
@@ -781,7 +788,7 @@ V TOMTO SOUBORU POUZE:
 .border-neon-blue .player-avatar-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  border-width: 3px !important;
+  border-width: 2px !important;
   box-shadow: 0 0 1rem var(--neon-blue), 0 0 2rem var(--neon-blue) !important;
   transform: scale(1.05) !important;
 }
@@ -789,7 +796,7 @@ V TOMTO SOUBORU POUZE:
 .border-neon-purple .player-avatar-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  border-width: 3px !important;
+  border-width: 2px !important;
   box-shadow: 0 0 1rem var(--neon-purple), 0 0 2rem var(--neon-purple) !important;
   transform: scale(1.05) !important;
 }
@@ -797,7 +804,7 @@ V TOMTO SOUBORU POUZE:
 .border-neon-orange .player-avatar-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  border-width: 3px !important;
+  border-width: 2px !important;
   box-shadow: 0 0 1rem var(--neon-orange), 0 0 2rem var(--neon-orange) !important;
   transform: scale(1.05) !important;
 }
@@ -805,7 +812,7 @@ V TOMTO SOUBORU POUZE:
 .border-neon-red .player-avatar-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  border-width: 3px !important;
+  border-width: 2px !important;
   box-shadow: 0 0 1rem var(--neon-red), 0 0 2rem var(--neon-red) !important;
   transform: scale(1.05) !important;
 }
@@ -813,29 +820,50 @@ V TOMTO SOUBORU POUZE:
 .border-neon-yellow .player-avatar-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  border-width: 3px !important;
+  border-width: 2px !important;
   box-shadow: 0 0 1rem var(--neon-yellow), 0 0 2rem var(--neon-yellow) !important;
   transform: scale(1.05) !important;
 }
 
-/* Responsive velikosti avatarů */
-@media (max-width: 576px) {
+/* Responsive velikosti avatarů - zmenšené pro lepší poměr */
+@media (min-width: 992px) {
+  .player-avatar {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .player-avatar {
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+@media (max-width: 768px) {
   .player-avatar {
     width: 36px !important;
     height: 36px !important;
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 576px) {
   .player-avatar {
     width: 32px !important;
     height: 32px !important;
   }
 }
 
+@media (max-width: 375px) {
+  .player-avatar {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
+
 /* ===== RESPONZIVNÍ OPTIMALIZACE ===== */
 
-/* VŠECHNY velikosti kostek jsou nyní v responsive-bootstrap.css pro lepší organizaci */
+/* VŠECHNY velikosti kostek jsou nyní v modularizované struktuře (components/dice.css) pro lepší organizaci */
 
 /* ===== BOOTSTRAP UTILITY TŘÍDY ===== */
 
@@ -859,28 +887,28 @@ V TOMTO SOUBORU POUZE:
 .dice-section-farkle::after {
   content: "💥 FARKLE! 💥";
   position: absolute !important;
-  top: 20% !important;
-  left: 10% !important;
-  right: 10% !important;
-  bottom: 20% !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotate(-15deg) !important;
+  width: 80% !important;
+  height: 40% !important;
   background: linear-gradient(
     135deg, 
-    transparent 30%, 
-    rgba(255, 49, 49, 0.95) 35%, 
-    rgba(255, 49, 49, 0.95) 65%, 
-    transparent 70%
+    transparent 20%, 
+    rgba(255, 49, 49, 0.95) 25%, 
+    rgba(255, 49, 49, 0.95) 75%, 
+    transparent 80%
   ) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   color: var(--neon-black) !important;
   font-weight: 900 !important;
-  font-size: clamp(0.72rem, 2.8vw, 1.44rem) !important;
+  font-size: clamp(0.8rem, 3vw, 1.2rem) !important;
   text-shadow: 
     0 0 0.5rem rgba(255, 255, 255, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.8) !important;
   letter-spacing: 0.05em !important;
-  transform: rotate(-15deg) !important;
   animation: rotateIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
   border-top: 1.5px solid rgba(255, 255, 255, 0.4) !important;
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.4) !important;
@@ -891,26 +919,25 @@ V TOMTO SOUBORU POUZE:
   pointer-events: none !important;
   border-radius: 8px !important;
   overflow: hidden !important;
+  z-index: var(--z-top) !important;
 }
 
 @media (max-width: 768px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.64rem, 2.4vw, 0.96rem) !important;
-    transform: rotate(-12deg) !important;
-    top: 25% !important;
-    bottom: 25% !important;
+    font-size: clamp(0.7rem, 2.5vw, 1rem) !important;
+    transform: translate(-50%, -50%) rotate(-12deg) !important;
+    width: 75% !important;
+    height: 35% !important;
   }
 }
 
 @media (max-width: 576px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.56rem, 2vw, 0.8rem) !important;
-    transform: rotate(-10deg) !important;
+    font-size: clamp(0.6rem, 2vw, 0.85rem) !important;
+    transform: translate(-50%, -50%) rotate(-10deg) !important;
     content: "💥 FARKLE!" !important;
     letter-spacing: 0.02em !important;
-    top: 30% !important;
-    bottom: 30% !important;
-    left: 15% !important;
-    right: 15% !important;
+    width: 70% !important;
+    height: 30% !important;
   }
 }

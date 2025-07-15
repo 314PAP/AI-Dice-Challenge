@@ -62,7 +62,7 @@ export class GameRenderer {
         
         const container = document.createElement('div');
         container.className = 'container-fluid h-100 d-flex flex-column p-1 p-md-2';
-        // ODSTRANĚNO: Omezující inline styly - CSS řeší responsive-bootstrap.css
+        // ODSTRANĚNO: Omezující inline styly - CSS řeší modularizovaná struktura (main.css)
         
         // 1. Responzivní karty hráčů
         container.appendChild(this.renderPlayersSection(state));
@@ -165,12 +165,12 @@ export class GameRenderer {
         
         const diceSection = document.createElement('div');
         diceSection.className = diceSectionClasses;
-        // ODSTRANĚNO: Veškeré inline styly - CSS řeší responsive-bootstrap.css
+        // ODSTRANĚNO: Veškeré inline styly - CSS řeší modularizovaná struktura (main.css)
         
         // Kontejner pro kostky - POUZE CSS třídy, žádné inline styly
         const diceContainer = document.createElement('div');
         diceContainer.className = 'd-flex justify-content-center align-items-center gap-1 dice-container';
-        // ODSTRANĚNO: Veškeré inline styly - CSS řeší responsive-bootstrap.css
+        // ODSTRANĚNO: Veškeré inline styly - CSS řeší modularizovaná struktura (main.css)
         
         // Pokud jsou nějaké aktuální kostky, zobrazíme je VLEVO
         if (state.currentRoll && state.currentRoll.length > 0) {

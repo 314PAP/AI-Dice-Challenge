@@ -26,7 +26,7 @@ Přidáváme: neon-spinner s orbital animací
 .neon-spinner.neon-spinner-sm { width: 1.5rem !important; height: 1.5rem !important; }
 .neon-spinner.neon-spinner-lg { width: 3.5rem !important; height: 3.5rem !important; }
 
-/* 🎯 ORBITAL SPINNER ANIMACE */
+/* 🎯 ORBITAL SPINNER ANIMACE - KNIHOVNY MÍSTO CUSTOM CSS */
 #chatSpinner.neon-spinner-orbital::before {
   content: '';
   position: absolute;
@@ -34,7 +34,8 @@ Přidáváme: neon-spinner s orbital animací
   width: 100%; height: 100%;
   border-radius: 50%;
   border: 0.125rem solid transparent;
-  animation: neon-spin 1.2s linear infinite;
+  /* ✅ MAGIC.CSS - rotateIn s nekonečným opakováním */
+  animation: rotateIn 1.2s linear infinite;
 }
 
 #chatSpinner.neon-spinner-orbital::after {
@@ -44,15 +45,8 @@ Přidáváme: neon-spinner s orbital animací
   width: 70%; height: 70%;
   border-radius: 50%;
   border: 0.125rem solid transparent;
-  animation: neon-spin-reverse 1.8s linear infinite;
+  /* ✅ MAGIC.CSS - rotateOut s nekonečným opakováním (reverse) */
+  animation: rotateOut 1.8s linear infinite reverse;
 }
 
-@keyframes neon-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes neon-spin-reverse {
-  0% { transform: rotate(360deg); }
-  100% { transform: rotate(0deg); }
-}
+/* ❌ CUSTOM KEYFRAMES ODSTRANĚNY - nahrazeny Magic.css knihovnou */
