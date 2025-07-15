@@ -54,7 +54,7 @@ export class ChatUI {
         if (!message) return;
         
         // Přidáme zprávu od hráče
-        chatSystem.addMessage(CHAT_CONSTANTS.PLAYER_NAME, message, 'green');
+        chatSystem.addMessage('Hráč', message, 'green');
         
         // Vyčistíme input
         this.chatInput.value = '';
@@ -137,11 +137,11 @@ export class ChatUI {
         let aiClass = '';
         
         // Určení typu zprávy a přidání odpovídajících tříd
-        if (message.sender === CHAT_CONSTANTS.PLAYER_NAME) {
+        if (message.sender === 'Hráč') {
             // Zpráva od hráče - barvu definuje CSS komponenta chat-message-user
             messageClasses += ' chat-message-user';
             colorClass = ''; // Nepoužíváme Bootstrap utility třídu, barvu definuje CSS komponenta
-        } else if (message.sender === CHAT_CONSTANTS.SYSTEM_NAME) {
+        } else if (message.sender === 'Systém') {
             // Systémová zpráva
             messageClasses += ' chat-message-system';
             colorClass = ''; // Barvu definuje CSS komponenta

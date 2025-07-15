@@ -81,7 +81,7 @@ export function showConfirmDialog(message, onConfirm = null, onCancel = null) {
             
             // Tlačítko ANO (červené pro nebezpečí)
             const yesBtn = createNeonButton(
-                'UKONČIT', 
+                'ANO', 
                 'red', 
                 'bi-check-circle-fill', 
                 () => {
@@ -95,7 +95,7 @@ export function showConfirmDialog(message, onConfirm = null, onCancel = null) {
             
             // Tlačítko NE (zelené pro bezpečí)
             const noBtn = createNeonButton(
-                'NE, POKRAČOVAT', 
+                'NE', 
                 'green', 
                 'bi-x-circle-fill', 
                 () => {

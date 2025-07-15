@@ -38,6 +38,7 @@ import { GameLogic } from '../game/gameLogic.js';
 import { GameRenderer } from './gameRenderer.js';
 import { AiPlayerController } from '../ai/aiPlayerController.js';
 import chatSystem from '../ai/chatSystem.js';
+import { CHAT_COLORS } from '../utils/colors.js';
 import { createNeonButton, createNeonCard } from './uiComponents.js';
 import { MenuComponents } from './menuComponents.js';
 import { GameScreens } from './gameScreens.js';
@@ -211,6 +212,34 @@ export class GameUI {
      * @returns {boolean} Zda lze kostku vybrat
      */
     isValidDiceForSelection(dieValue, currentRoll) {
+        // KONTROLA POSTUPKY (1,2,3,4,5,6) - všechny kostky lze vybrat
+        if (currentRoll.length === 6) {
+            const sortedDice = [...currentRoll].sort();
+            const isSequence = sortedDice.every((value, index) => value === index + 1);
+            if (isSequence) {
+                return true; // V postupce lze vybrat jakoukoli kostku
+            }
+        }
+        
+        // KONTROLA TŘÍ PÁRŮ - všechny kostky lze vybrat
+        if (currentRoll.length === 6) {
+            const counts = {};
+            currentRoll.forEach(die => {
+                counts[die] = (counts[die] || 0) + 1;
+            });
+            
+            let pairCount = 0;
+            for (let value = 1; value <= 6; value++) {
+                if (counts[value] === 2) {
+                    pairCount++;
+                }
+            }
+            
+            if (pairCount === 3) {
+                return true; // Ve třech párech lze vybrat jakoukoli kostku
+            }
+        }
+        
         // Jedničky a pětky lze vždy vybrat
         if (dieValue === 1 || dieValue === 5) {
             return true;
@@ -403,8 +432,11 @@ export class GameUI {
             players: gameState.getState().players.map(p => ({ ...p, score: 0 }))
         });
         
-        // Pokud začíná AI hráč, spustíme jeho tah
+        // Přidáme systémovou zprávu o začátku hry
         const currentPlayer = gameState.getState().players[0];
+        chatSystem.addSystemMessage(`Hra začíná! Na řadě je ${currentPlayer.name}`, CHAT_COLORS.GREEN);
+        
+        // Pokud začíná AI hráč, spustíme jeho tah
         if (!currentPlayer.isHuman) {
             setTimeout(() => {
                 this.aiController.playAiTurn(currentPlayer);
@@ -448,6 +480,9 @@ export class GameUI {
         const confirmed = await showConfirmDialog(
             confirmMessage,
             () => {
+                // Přidáme uvítací zprávy při návratu do menu (clearMessages se volá uvnitř)
+                this.addWelcomeMessages();
+                
                 gameState.updateState({ 
                     gamePhase: 'menu',
                     gameStarted: false,
@@ -469,13 +504,11 @@ export class GameUI {
      * Přidá úvodní zprávy do chatu v hlavním menu
      */
     addWelcomeMessages() {
-        // Pokud už jsou nějaké zprávy, nic nepřidáváme
-        if (chatSystem.messages.length > 0) {
-            return;
-        }
+        // Vždy vyčistíme chat při návratu do menu a přidáme uvítací zprávy
+        chatSystem.clearMessages();
 
         // Přidáme úvodní zprávy pomocí správných metod
-        chatSystem.addSystemMessage('Vítejte v AI Kostkové Výzvě!');
+        chatSystem.addSystemMessage('Vítejte v AI Kostkové Výzvě!', CHAT_COLORS.GREEN);
         chatSystem.addAiMessage('Gemini', 'Připravte se na analytickou výzvu!');
         chatSystem.addAiMessage('ChatGPT', 'Bude to skvělá hra!');
         chatSystem.addAiMessage('Claude', 'Hodně štěstí!');
