@@ -82,7 +82,6 @@ export class AiStrategies {
             message = `Ukončuji s ${totalPoints} body - ${reason}! ✅`;
         }
         
-        console.log(`🤖 AI ${aiPlayer.name} rozhodnutí: ${decision.nextAction} (${reason})`);
         chatSystem.addAiMessage(aiPlayer.name, message);
     }
 

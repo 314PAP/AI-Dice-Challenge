@@ -39,32 +39,20 @@ export class AppInitializer {
      * Skryje loading screen s animací
      */
     hideLoadingScreen() {
-        console.log('🎬 hideLoadingScreen() spuštěn - FORCE MODE');
         const loadingScreen = document.getElementById('loadingScreen');
         const app = document.getElementById('app');
         
-        console.log('🔍 Loading screen debug:', {
-            loadingScreen: !!loadingScreen,
-            app: !!app,
-            loadingDisplay: loadingScreen ? loadingScreen.style.display : 'N/A',
-            appClasses: app ? app.className : 'N/A'
-        });
-        
         if (loadingScreen) {
-            console.log('✅ FORCE: Odstraňuji loading screen z DOM...');
             loadingScreen.remove(); // Kompletně odstraň z DOM
-            console.log('✅ Loading screen odstraněn z DOM');
         } else {
             console.error('❌ Loading screen element nenalezen!');
         }
         
         if (app) {
-            console.log('✅ FORCE: Zobrazuji app...');
             app.classList.remove('d-none');
             app.style.display = 'flex';
             app.style.visibility = 'visible';
             app.style.opacity = '1';
-            console.log('✅ App zobrazen');
         } else {
             console.error('❌ App element nenalezen!');
         }
@@ -72,7 +60,6 @@ export class AppInitializer {
         // Debug check
         setTimeout(() => {
             const check = document.getElementById('loadingScreen');
-            console.log('🔍 Loading screen check po 100ms:', !!check);
         }, 100);
     }
 

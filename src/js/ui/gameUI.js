@@ -46,8 +46,6 @@ import soundSystem from '../utils/soundSystem.js';
 
 export class GameUI {
     constructor() {
-        console.log('🔄 GameUI: Konstruktor spuštěn');
-        
         this.gameArea = document.getElementById('gameArea');
         this.aiTurnInProgress = false;
         this.lastPlayerIndex = undefined;
@@ -59,10 +57,6 @@ export class GameUI {
         this.aiController = new AiPlayerController(this.gameLogic);
         this.menuComponents = new MenuComponents();
         this.gameScreens = new GameScreens();
-        
-        // Lepší debug informace
-        console.log('🔍 GameUI: DOM readyState:', document.readyState);
-        console.log('🔍 GameUI: gameArea:', this.gameArea);
         
         // Ověříme DOM s fallbackem
         if (!this.gameArea) {
@@ -76,17 +70,13 @@ export class GameUI {
             return;
         }
         
-        console.log('✅ GameUI: Element #gameArea nalezen při inicializaci');
         this.initEventListeners();
     }
 
     initWhenReady() {
-        console.log('🔄 GameUI: initWhenReady spuštěn');
         this.gameArea = document.getElementById('gameArea');
-        console.log('🔍 GameUI: gameArea po opakovaném hledání:', this.gameArea);
         
         if (this.gameArea) {
-            console.log('✅ GameUI: Element nalezen po opakovaném hledání');
             this.initEventListeners();
         } else {
             console.error('❌ GameUI: Element #gameArea stále nenalezen');
@@ -114,16 +104,12 @@ export class GameUI {
         // Omezení renderování během animace (max každých 500ms)
         const now = Date.now();
         if (state.isRolling && (now - this.lastRenderTime) < 500) {
-            console.log('🎮 GameUI: Přeskakuji render během animace');
             return; // Přeskočíme render během rychlé animace
         }
         this.lastRenderTime = now;
 
-        console.log(`🎮 GameUI: Renderuji fázi "${state.gamePhase}" pro hráče ${state.currentPlayerIndex}`);
-
         // Kontrola změny hráče - reset AI flagu
         if (this.lastPlayerIndex !== undefined && this.lastPlayerIndex !== state.currentPlayerIndex) {
-            console.log(`🔄 GameUI: Hráč se změnil z ${this.lastPlayerIndex} na ${state.currentPlayerIndex}, resetuji AI flag`);
             this.aiTurnInProgress = false;
         }
         this.lastPlayerIndex = state.currentPlayerIndex;
@@ -158,8 +144,6 @@ export class GameUI {
      * @param {Object} state - Aktuální herní stav
      */
     renderGameScreen(state) {
-        console.log('🎮 GameUI: Deleguji vykreslení na GameRenderer');
-        
         // Připravíme callbacks pro GameRenderer
         const callbacks = {
             toggleDiceSelection: (index) => this.toggleDiceSelection(index),
@@ -173,8 +157,6 @@ export class GameUI {
         const gameContainer = this.gameRenderer.renderGameScreen(state, callbacks);
         
         if (gameContainer && this.gameArea) {
-            // JEDNODUCHÉ ŘEŠENÍ: Vždy aktualizuj DOM, throttling jen pro render logiku
-            console.log('🎮 GameUI: Aktualizuji DOM');
             this.gameArea.innerHTML = '';
             this.gameArea.appendChild(gameContainer);
             
@@ -183,7 +165,6 @@ export class GameUI {
             if (currentPlayer && !currentPlayer.isHuman && !state.isRolling && !this.aiTurnInProgress && 
                 !state.isFarkleProcessing && (state.currentRoll.length === 0 || state.currentRoll.length === 6)) {
                 // Spustíme AI pouze na začátku tahu (prázdné kostky) nebo na začátku nového hodu (6 kostek)
-                console.log(`🤖 GameUI: Spouštím AI pro ${currentPlayer.name}`);
                 this.aiTurnInProgress = true;
                 setTimeout(() => {
                     this.aiController.playAiTurn(currentPlayer).finally(() => {
@@ -199,22 +180,18 @@ export class GameUI {
      * @param {number} index - Index kostky
      */
     toggleDiceSelection(index) {
-        console.log('🎯 GameUI: toggleDiceSelection volán s indexem:', index);
         const state = gameState.getState();
         let selectedDice = [...(state.selectedDice || [])];
         
         if (selectedDice.includes(index)) {
             // Odznačování - vždy povoleno
             selectedDice = selectedDice.filter(i => i !== index);
-            console.log('➖ Odebírám index', index);
         } else {
             // Označování - kontrolujeme platnost kostky
             const dieValue = state.currentRoll[index];
-            console.log(`🎯 Zkouším označit kostku ${dieValue} na indexu ${index}`);
             
             if (this.isValidDiceForSelection(dieValue, state.currentRoll)) {
                 selectedDice.push(index);
-                console.log('➕ Přidávám kostku', dieValue, 'index', index);
             } else {
                 const warningMsg = `⚠️ Kostka ${dieValue} nemůže být označena! Potřebujete alespoň 3 stejné kostky.`;
                 console.warn(warningMsg);
@@ -252,10 +229,6 @@ export class GameUI {
      * Vykreslí hlavní menu - optimalizované pro všechny režimy zobrazení
      */
     renderMainMenu() {
-        console.log('🏠 GameUI: Renderuji hlavní menu - začátek');
-        console.log('🔧 Debug renderMainMenu: gameArea exists:', !!this.gameArea);
-        console.log('🔧 Debug renderMainMenu: createNeonButton =', typeof createNeonButton);
-        
         if (!this.gameArea) {
             console.error('❌ GameUI.renderMainMenu: gameArea není dostupný při renderování!');
             return;
@@ -278,7 +251,6 @@ export class GameUI {
         scoreSelector.className = 'mb-2 mb-sm-3 mb-md-4 d-flex align-items-center justify-content-center';
         
         // Tlačítka - přesná velikost pro text fs-4
-        console.log('🏠 GameUI: Vytvářím minus tlačítko pro cílové skóre');
         const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn px-3 py-2 fs-4 lh-1');
         
         const scoreValue = document.createElement('div');
@@ -286,7 +258,6 @@ export class GameUI {
         scoreValue.textContent = gameState.getState().targetScore;
         scoreValue.id = 'targetScoreValue';
         
-        console.log('🏠 GameUI: Vytvářím plus tlačítko pro cílové skóre');
         const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn px-3 py-2 fs-4 lh-1');
         
         scoreSelector.appendChild(minusBtn);
@@ -307,7 +278,6 @@ export class GameUI {
             () => this.startGame(), 
             'btn w-100'
         );
-        console.log('🏠 GameUI: Tlačítko ZAČÍT HRU vytvořeno');
         
         const rulesBtn = createNeonButton(
             'PRAVIDLA', 
@@ -316,7 +286,6 @@ export class GameUI {
             () => this.showRules(), 
             'btn w-100'
         );
-        console.log('🏠 GameUI: Tlačítko PRAVIDLA vytvořeno');
         
         const hallOfFameBtn = createNeonButton(
             'SÍŇ SLÁVY', 
@@ -325,7 +294,6 @@ export class GameUI {
             () => this.showHallOfFame(), 
             'btn w-100'
         );
-        console.log('🏠 GameUI: Tlačítko SÍŇ SLÁVY vytvořeno');
         
         const exitGameBtn = createNeonButton(
             'UKONČIT', // Zkráceno pro lepší fit na mobilu 
@@ -334,16 +302,6 @@ export class GameUI {
             () => window.close(), 
             'btn w-100'
         );
-        console.log('🏠 GameUI: Tlačítko UKONČIT vytvořeno');
-        
-        console.log('🔧 Debug renderMainMenu - všechna tlačítka vytvořena:', {
-            startBtn: !!startBtn,
-            rulesBtn: !!rulesBtn, 
-            hallOfFameBtn: !!hallOfFameBtn,
-            exitGameBtn: !!exitGameBtn,
-            startBtnHasOnClick: startBtn.onclick || startBtn.addEventListener,
-            startBtnListeners: startBtn.getEventListeners ? startBtn.getEventListeners('click') : 'nedostupné'
-        });
         
         const col1 = document.createElement('div');
         col1.className = 'col-12 col-sm-6 mb-2 px-2';
@@ -368,12 +326,10 @@ export class GameUI {
         
         container.appendChild(buttonsContainer);
         
-        console.log('🏠 GameUI: Přidávám obsah do gameArea');
         // Vyčistíme a přidáme nový obsah
         if (this.gameArea) {
             this.gameArea.innerHTML = '';
             this.gameArea.appendChild(container);
-            console.log('🏠 GameUI: Hlavní menu vykresleno úspěšně');
         } else {
             console.warn('⚠️ GameUI.renderMainMenu: gameArea není dostupný');
         }
@@ -384,7 +340,6 @@ export class GameUI {
      * @param {number} change - O kolik změnit skóre
      */
     adjustTargetScore(change) {
-        console.log(`🚀 BUTTON CALLBACK: adjustTargetScore(${change}) byla zavolána!`);
         const currentScore = gameState.getState().targetScore;
         const newScore = Math.max(1000, Math.min(50000, currentScore + change));
         
