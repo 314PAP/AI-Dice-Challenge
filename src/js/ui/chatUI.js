@@ -103,13 +103,6 @@ export class ChatUI {
         
         const messages = chatSystem.getMessages();
         
-        // DEBUG: Logování zpráv
-        console.log(`💬 ChatUI: Renderuji ${messages.length} zpráv`);
-        if (messages.length > 0) {
-            const lastMessage = messages[messages.length - 1];
-            console.log(`📝 Poslední zpráva: ${lastMessage.sender}: ${lastMessage.content}`);
-        }
-        
         // Uložíme si předchozí počet zpráv pro detekci nových zpráv
         const previousMessageCount = this.previousMessageCount || 0;
         const hasNewMessages = messages.length > previousMessageCount;
