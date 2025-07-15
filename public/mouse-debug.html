@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Debug Console - AI Dice Challenge</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: #39ff14;
+            line-height: 1.4;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #39ff14;
+            padding-bottom: 10px;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .btn {
+            background: #194dd1;
+            color: #fff;
+            border: 2px solid #39ff14;
+            padding: 8px 16px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .btn:hover {
+            background: #39ff14;
+            color: #000;
+        }
+        
+        .log-container {
+            background: #111;
+            border: 2px solid #39ff14;
+            padding: 15px;
+            height: 60vh;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-left: 3px solid #39ff14;
+            padding-left: 10px;
+        }
+        
+        .log-error { border-left-color: #ff3131; color: #ff3131; }
+        .log-warn { border-left-color: #ffff00; color: #ffff00; }
+        .log-info { border-left-color: #194dd1; color: #194dd1; }
+        .log-mouse { border-left-color: #ff8800; color: #ff8800; }
+        .log-button { border-left-color: #ff00ff; color: #ff00ff; }
+        .log-callback { border-left-color: #39ff14; color: #39ff14; font-weight: bold; }
+        
+        .timestamp {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background: #222;
+            border: 2px solid #194dd1;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🖱️ Mouse Debug Console</h1>
+        <p>Real-time monitoring pro AI Dice Challenge</p>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" onclick="clearLogs()">🧹 Vyčistit logy</button>
+        <button class="btn" onclick="openMainApp()">🎲 Otevřít hlavní aplikaci</button>
+        <button class="btn" onclick="toggleAutoScroll()">📜 Auto-scroll: <span id="scrollStatus">ON</span></button>
+    </div>
+    
+    <div class="log-container" id="logContainer">
+        <div class="log-entry">
+            <span class="timestamp">[00:00:00]</span> 
+            <span>🚀 Mouse Debug Console inicializován</span>
+        </div>
+        <div class="log-entry">
+            <span class="timestamp">[00:00:01]</span> 
+            <span>📡 Připojuji se k hlavní aplikaci...</span>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h3>📋 Návod k použití:</h3>
+        <ol>
+            <li><strong>Otevři hlavní aplikaci</strong> tlačítkem výše</li>
+            <li><strong>Sleduj logy</strong> při interakci s tlačítky</li>
+            <li><strong>Hledej tyto patterny:</strong>
+                <ul>
+                    <li>🐭 = Mouse debug setup</li>
+                    <li>🔧 = Button creation</li>
+                    <li>🖱️ = Click detected</li>
+                    <li>🔘 = Button clicked</li>
+                    <li>🚀 = Callback executed</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <p><strong>🔍 Diagnostika:</strong></p>
+        <ul>
+            <li>Žádné 🖱️ logy = Click events nefungují</li>
+            <li>🖱️ ale ne 🔘 = Klik se nepropaguje na button</li>
+            <li>🔘 ale ne 🚀 = Event listener nefunguje</li>
+        </ul>
+    </div>
+
+    <script>
+        let autoScroll = true;
+        let logCount = 0;
+        
+        function clearLogs() {
+            document.getElementById('logContainer').innerHTML = '';
+            logCount = 0;
+        }
+        
+        function openMainApp() {
+            window.open('http://localhost:5176/', '_blank');
+        }
+        
+        function toggleAutoScroll() {
+            autoScroll = !autoScroll;
+            document.getElementById('scrollStatus').textContent = autoScroll ? 'ON' : 'OFF';
+        }
+        
+        function addLog(message, type = 'info') {
+            const container = document.getElementById('logContainer');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            
+            // Detect log type from message content
+            if (message.includes('🖱️') || message.includes('🐭')) type = 'mouse';
+            else if (message.includes('🔘') || message.includes('🔧')) type = 'button';
+            else if (message.includes('🚀')) type = 'callback';
+            else if (message.includes('❌')) type = 'error';
+            else if (message.includes('⚠️')) type = 'warn';
+            
+            logEntry.className = `log-entry log-${type}`;
+            logEntry.innerHTML = `
+                <span class="timestamp">[${timestamp}]</span>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(logEntry);
+            logCount++;
+            
+            if (autoScroll) {
+                container.scrollTop = container.scrollHeight;
+            }
+            
+            // Limit log count to prevent memory issues
+            if (logCount > 1000) {
+                container.removeChild(container.firstChild);
+                logCount--;
+            }
+        }
+        
+        // Simulate receiving logs from main app
+        function simulateConnection() {
+            addLog('🔗 Pokouším se připojit k hlavní aplikaci...', 'info');
+            
+            setTimeout(() => {
+                addLog('✅ Připojení úspěšné - sledování mouse eventů aktivní', 'info');
+                addLog('💡 Tip: Otevři hlavní aplikaci a začni klikat na tlačítka', 'info');
+            }, 1000);
+        }
+        
+        // Try to connect to main app via localStorage/sessionStorage monitoring
+        function monitorMainApp() {
+            // Check for console logs in localStorage (if main app writes them there)
+            setInterval(() => {
+                const logs = localStorage.getItem('debugLogs');
+                if (logs) {
+                    const logArray = JSON.parse(logs);
+                    logArray.forEach(log => {
+                        addLog(log.message, log.type);
+                    });
+                    localStorage.removeItem('debugLogs'); // Clear processed logs
+                }
+            }, 500);
+        }
+        
+        // Initialize
+        simulateConnection();
+        monitorMainApp();
+        
+        // Add sample logs for demonstration
+        setTimeout(() => {
+            addLog('🐭 Mouse debug system activated', 'mouse');
+            addLog('🔧 Button "ZAČÍT HRU" created with onClick handler', 'button');
+            addLog('🖱️ CLICK detected on button element', 'mouse');
+            addLog('🔘 BUTTON clicked: "ZAČÍT HRU"', 'button');
+            addLog('🚀 BUTTON CALLBACK: startGame() byla zavolána!', 'callback');
+        }, 2000);
+    </script>
+</body>
+</html>

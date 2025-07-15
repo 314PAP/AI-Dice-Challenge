@@ -41,9 +41,13 @@ import chatSystem from '../ai/chatSystem.js';
 import { createNeonButton, createNeonCard } from './uiComponents.js';
 import { MenuComponents } from './menuComponents.js';
 import { GameScreens } from './gameScreens.js';
+import { showConfirmDialog } from './confirmDialog.js';
+import soundSystem from '../utils/soundSystem.js';
 
 export class GameUI {
     constructor() {
+        console.log('🔄 GameUI: Konstruktor spuštěn');
+        
         this.gameArea = document.getElementById('gameArea');
         this.aiTurnInProgress = false;
         this.lastPlayerIndex = undefined;
@@ -56,21 +60,36 @@ export class GameUI {
         this.menuComponents = new MenuComponents();
         this.gameScreens = new GameScreens();
         
-        // Ověříme DOM
+        // Lepší debug informace
+        console.log('🔍 GameUI: DOM readyState:', document.readyState);
+        console.log('🔍 GameUI: gameArea:', this.gameArea);
+        
+        // Ověříme DOM s fallbackem
         if (!this.gameArea) {
-            console.warn('⚠️ GameUI: Element #gameArea nenalezen');
-            document.addEventListener('DOMContentLoaded', () => this.initWhenReady());
+            console.warn('⚠️ GameUI: Element #gameArea nenalezen při inicializaci');
+            // Zkusíme hned i po DOMContentLoaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => this.initWhenReady());
+            } else {
+                setTimeout(() => this.initWhenReady(), 100);
+            }
             return;
         }
         
+        console.log('✅ GameUI: Element #gameArea nalezen při inicializaci');
         this.initEventListeners();
     }
 
     initWhenReady() {
+        console.log('🔄 GameUI: initWhenReady spuštěn');
         this.gameArea = document.getElementById('gameArea');
+        console.log('🔍 GameUI: gameArea po opakovaném hledání:', this.gameArea);
+        
         if (this.gameArea) {
-            console.log('✅ GameUI: Element nalezen po DOMContentLoaded');
+            console.log('✅ GameUI: Element nalezen po opakovaném hledání');
             this.initEventListeners();
+        } else {
+            console.error('❌ GameUI: Element #gameArea stále nenalezen');
         }
     }
 
@@ -191,6 +210,7 @@ export class GameUI {
         } else {
             // Označování - kontrolujeme platnost kostky
             const dieValue = state.currentRoll[index];
+            console.log(`🎯 Zkouším označit kostku ${dieValue} na indexu ${index}`);
             
             if (this.isValidDiceForSelection(dieValue, state.currentRoll)) {
                 selectedDice.push(index);
@@ -198,6 +218,8 @@ export class GameUI {
             } else {
                 const warningMsg = `⚠️ Kostka ${dieValue} nemůže být označena! Potřebujete alespoň 3 stejné kostky.`;
                 console.warn(warningMsg);
+                // Přehrajeme error zvuk - kostka nejde označit
+                soundSystem.play('error');
                 return;
             }
         }
@@ -230,6 +252,18 @@ export class GameUI {
      * Vykreslí hlavní menu - optimalizované pro všechny režimy zobrazení
      */
     renderMainMenu() {
+        console.log('🏠 GameUI: Renderuji hlavní menu - začátek');
+        console.log('🔧 Debug renderMainMenu: gameArea exists:', !!this.gameArea);
+        console.log('🔧 Debug renderMainMenu: createNeonButton =', typeof createNeonButton);
+        
+        if (!this.gameArea) {
+            console.error('❌ GameUI.renderMainMenu: gameArea není dostupný při renderování!');
+            return;
+        }
+
+        // Přidání úvodních zpráv do chatu při zobrazení menu (BEZ triggeru state update)
+        this.addWelcomeMessages();
+        
         const container = document.createElement('div');
         container.className = 'd-flex flex-column justify-content-center align-items-center h-100 py-2 py-sm-3 py-md-5';
         
@@ -244,6 +278,7 @@ export class GameUI {
         scoreSelector.className = 'mb-2 mb-sm-3 mb-md-4 d-flex align-items-center justify-content-center';
         
         // Tlačítka - přesná velikost pro text fs-4
+        console.log('🏠 GameUI: Vytvářím minus tlačítko pro cílové skóre');
         const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn px-3 py-2 fs-4 lh-1');
         
         const scoreValue = document.createElement('div');
@@ -251,6 +286,7 @@ export class GameUI {
         scoreValue.textContent = gameState.getState().targetScore;
         scoreValue.id = 'targetScoreValue';
         
+        console.log('🏠 GameUI: Vytvářím plus tlačítko pro cílové skóre');
         const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn px-3 py-2 fs-4 lh-1');
         
         scoreSelector.appendChild(minusBtn);
@@ -263,6 +299,7 @@ export class GameUI {
         const buttonsContainer = document.createElement('div');
         buttonsContainer.className = 'row g-2';
         
+        console.log('🏠 GameUI: Vytvářím hlavní akční tlačítka');
         const startBtn = createNeonButton(
             'ZAČÍT HRU', 
             'green', 
@@ -270,6 +307,7 @@ export class GameUI {
             () => this.startGame(), 
             'btn w-100'
         );
+        console.log('🏠 GameUI: Tlačítko ZAČÍT HRU vytvořeno');
         
         const rulesBtn = createNeonButton(
             'PRAVIDLA', 
@@ -278,6 +316,7 @@ export class GameUI {
             () => this.showRules(), 
             'btn w-100'
         );
+        console.log('🏠 GameUI: Tlačítko PRAVIDLA vytvořeno');
         
         const hallOfFameBtn = createNeonButton(
             'SÍŇ SLÁVY', 
@@ -286,6 +325,7 @@ export class GameUI {
             () => this.showHallOfFame(), 
             'btn w-100'
         );
+        console.log('🏠 GameUI: Tlačítko SÍŇ SLÁVY vytvořeno');
         
         const exitGameBtn = createNeonButton(
             'UKONČIT', // Zkráceno pro lepší fit na mobilu 
@@ -294,6 +334,16 @@ export class GameUI {
             () => window.close(), 
             'btn w-100'
         );
+        console.log('🏠 GameUI: Tlačítko UKONČIT vytvořeno');
+        
+        console.log('🔧 Debug renderMainMenu - všechna tlačítka vytvořena:', {
+            startBtn: !!startBtn,
+            rulesBtn: !!rulesBtn, 
+            hallOfFameBtn: !!hallOfFameBtn,
+            exitGameBtn: !!exitGameBtn,
+            startBtnHasOnClick: startBtn.onclick || startBtn.addEventListener,
+            startBtnListeners: startBtn.getEventListeners ? startBtn.getEventListeners('click') : 'nedostupné'
+        });
         
         const col1 = document.createElement('div');
         col1.className = 'col-12 col-sm-6 mb-2 px-2';
@@ -318,10 +368,12 @@ export class GameUI {
         
         container.appendChild(buttonsContainer);
         
+        console.log('🏠 GameUI: Přidávám obsah do gameArea');
         // Vyčistíme a přidáme nový obsah
         if (this.gameArea) {
             this.gameArea.innerHTML = '';
             this.gameArea.appendChild(container);
+            console.log('🏠 GameUI: Hlavní menu vykresleno úspěšně');
         } else {
             console.warn('⚠️ GameUI.renderMainMenu: gameArea není dostupný');
         }
@@ -332,6 +384,7 @@ export class GameUI {
      * @param {number} change - O kolik změnit skóre
      */
     adjustTargetScore(change) {
+        console.log(`🚀 BUTTON CALLBACK: adjustTargetScore(${change}) byla zavolána!`);
         const currentScore = gameState.getState().targetScore;
         const newScore = Math.max(1000, Math.min(50000, currentScore + change));
         
@@ -348,13 +401,17 @@ export class GameUI {
      * Spustí hru
      */
     startGame() {
-        console.log('Startuje hra...');
+        console.log('🚀 BUTTON CALLBACK: startGame() byla zavolána!');
+        console.log('🎮 Startuje hra...');
         
         // Vyčistíme chat při novém startu hry
         chatSystem.clearMessages();
         
         // Reset AI flag při novém startu
         this.aiTurnInProgress = false;
+        
+        // Reset všech FARKLE flagů při novém startu hry
+        this.resetAllFarkleFlags();
         
         gameState.updateState({ 
             gameStarted: true,
@@ -380,6 +437,7 @@ export class GameUI {
      * Zobrazí pravidla - deleguje na GameScreens
      */
     showRules() {
+        console.log('🚀 BUTTON CALLBACK: showRules() byla zavolána!');
         this.gameScreens.showRules();
     }
 
@@ -387,7 +445,82 @@ export class GameUI {
      * Zobrazí síň slávy - deleguje na GameScreens
      */
     showHallOfFame() {
+        console.log('🚀 BUTTON CALLBACK: showHallOfFame() byla zavolána!');
         this.gameScreens.renderHallOfFame(this.gameArea);
+    }
+
+    /**
+     * 🏠 Zobrazí hlavní menu s potvrzením (pokud je hra v průběhu)
+     */
+    async showMenuWithConfirmation() {
+        console.log('🏠 GameUI: showMenuWithConfirmation() volána');
+        
+        const state = gameState.getState();
+        
+        // Pokud hra není spuštěná, přejdi rovnou do menu
+        if (!state.gameStarted) {
+            console.log('🏠 Hra není spuštěná, přechod do menu...');
+            gameState.updateState({ 
+                currentPhase: 'menu',
+                gameStarted: false 
+            });
+            return;
+        }
+        
+        // Pokud je hra v průběhu, zobraz stylizovaný dialog
+        const confirmMessage = 'Opravdu chcete ukončit hru a vrátit se do hlavního menu? Veškerý postup bude ztracen.';
+        
+        const confirmed = await showConfirmDialog(
+            confirmMessage,
+            () => {
+                console.log('🏠 Uživatel potvrdil ukončení hry, přechod do menu...');
+                gameState.updateState({ 
+                    gamePhase: 'menu',
+                    gameStarted: false,
+                    currentPlayerIndex: 0
+                });
+            },
+            () => {
+                console.log('🏠 Uživatel zrušil ukončení hry');
+            }
+        );
+        
+        // Pokud nebyl potvrzen, nic dalšího nedělej
+        if (!confirmed) {
+            console.log('🏠 Dialog nebyl potvrzen');
+        }
+    }
+
+    /**
+     * Přidá úvodní zprávy do chatu v hlavním menu
+     */
+    addWelcomeMessages() {
+        // Pokud už jsou nějaké zprávy, nic nepřidáváme
+        if (chatSystem.messages.length > 0) {
+            return;
+        }
+
+        // Přidáme úvodní zprávy pomocí správných metod
+        chatSystem.addSystemMessage('Vítejte v AI Kostkové Výzvě!');
+        chatSystem.addAiMessage('Gemini', 'Připravte se na analytickou výzvu!');
+        chatSystem.addAiMessage('ChatGPT', 'Bude to skvělá hra!');
+        chatSystem.addAiMessage('Claude', 'Hodně štěstí!');
+        console.log('🏠 GameUI: Přidány úvodní zprávy do chatu');
+    }
+
+    /**
+     * Resetuje FARKLE flagy pro všechny hráče (bez triggeru state change)
+     */
+    resetAllFarkleFlags() {
+        const state = gameState.getState();
+        
+        // Upravíme data přímo bez notifikace listeneru
+        state.players.forEach(player => {
+            player.hasFarkle = false;
+        });
+        state.isFarkleProcessing = false;
+        
+        console.log('🏠 GameUI: Resetovány všechny FARKLE flagy (silent update)');
     }
 }
 

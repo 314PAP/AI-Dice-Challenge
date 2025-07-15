@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Debug - AI Dice Challenge</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #39ff14; padding: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #39ff14; }
+        .debug-info { background: #111; padding: 10px; margin: 5px 0; }
+        .button-test { margin: 10px; padding: 10px; background: #333; border: 1px solid #39ff14; }
+    </style>
+</head>
+<body>
+    <h1>🔍 DOM Debug - AI Dice Challenge</h1>
+    
+    <div class="debug-section">
+        <h2>📊 DOM Analýza</h2>
+        <div id="dom-analysis"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>🖱️ Test tlačítek z gameArea</h2>
+        <div id="button-analysis"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>🎨 CSS Test</h2>
+        <div id="css-test"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>🎮 Manuální test</h2>
+        <button class="btn-neon manual-test" data-neon-color="green" onclick="manualTest()">MANUÁLNÍ TEST</button>
+        <div id="manual-result"></div>
+    </div>
+    
+    <script>
+        function manualTest() {
+            document.getElementById('manual-result').innerHTML = '✅ Manuální tlačítko funguje!';
+        }
+        
+        function analyzePage() {
+            const domAnalysis = document.getElementById('dom-analysis');
+            const buttonAnalysis = document.getElementById('button-analysis');
+            const cssTest = document.getElementById('css-test');
+            
+            // Načtení hlavní stránky v iframe
+            const iframe = document.createElement('iframe');
+            iframe.src = '/';
+            iframe.style.width = '100%';
+            iframe.style.height = '600px';
+            iframe.style.border = '1px solid #39ff14';
+            
+            iframe.onload = function() {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Analýza DOM
+                    const gameArea = iframeDoc.getElementById('gameArea');
+                    const buttons = iframeDoc.querySelectorAll('.btn-neon');
+                    const allButtons = iframeDoc.querySelectorAll('button');
+                    
+                    domAnalysis.innerHTML = `
+                        <div class="debug-info">gameArea element: ${gameArea ? '✅ Nalezen' : '❌ Nenalezen'}</div>
+                        <div class="debug-info">Neonová tlačítka (.btn-neon): ${buttons.length}</div>
+                        <div class="debug-info">Všechna tlačítka: ${allButtons.length}</div>
+                        <div class="debug-info">Loading screen: ${iframeDoc.getElementById('loadingScreen') ? 'Existuje' : 'Neexistuje'}</div>
+                    `;
+                    
+                    // Analýza tlačítek
+                    let buttonHtml = '';
+                    buttons.forEach((btn, index) => {
+                        const hasEventListener = btn.onclick !== null || btn.addEventListener !== undefined;
+                        const computedStyle = iframe.contentWindow.getComputedStyle(btn);
+                        
+                        buttonHtml += `
+                            <div class="button-test">
+                                <strong>Tlačítko ${index + 1}:</strong><br>
+                                Text: "${btn.textContent.trim()}"<br>
+                                Třídy: ${btn.className}<br>
+                                Data-neon-color: ${btn.getAttribute('data-neon-color')}<br>
+                                OnClick: ${btn.onclick ? '✅ Má' : '❌ Nemá'}<br>
+                                Barva: ${computedStyle.color}<br>
+                                Border: ${computedStyle.borderColor}<br>
+                                Cursor: ${computedStyle.cursor}<br>
+                                <button onclick="testButton(${index})">Test klik</button>
+                            </div>
+                        `;
+                    });
+                    
+                    buttonAnalysis.innerHTML = buttonHtml;
+                    
+                    // CSS test
+                    cssTest.innerHTML = `
+                        <div class="debug-info">CSS hlavní: ${iframeDoc.querySelector('link[href*="main.css"]') ? '✅' : '❌'}</div>
+                        <div class="debug-info">Bootstrap: ${iframeDoc.querySelector('link[href*="bootstrap"]') ? '✅' : '❌'}</div>
+                        <div class="debug-info">Animate.css: ${iframeDoc.querySelector('link[href*="animate.css"]') ? '✅' : '❌'}</div>
+                    `;
+                    
+                } catch (error) {
+                    domAnalysis.innerHTML = `<div class="debug-info">❌ Chyba při analýze: ${error.message}</div>`;
+                }
+            };
+            
+            document.body.appendChild(iframe);
+        }
+        
+        function testButton(index) {
+            const iframe = document.querySelector('iframe');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const buttons = iframeDoc.querySelectorAll('.btn-neon');
+            
+            if (buttons[index]) {
+                buttons[index].click();
+                alert(`Klikl jsem na tlačítko ${index + 1}: "${buttons[index].textContent.trim()}"`);
+            }
+        }
+        
+        // Spuštění analýzy po načtení stránky
+        setTimeout(analyzePage, 1000);
+    </script>
+</body>
+</html>

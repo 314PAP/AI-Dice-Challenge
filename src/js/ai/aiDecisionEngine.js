@@ -57,20 +57,43 @@ export class AiDecisionEngine {
     static findScoringCombinations(dice) {
         const combinations = [];
         
-        // Pro jednoduchost - najdeme nejlepší kombinaci
+        // Testujeme jednotlivé kostky - ale pouze pokud jsou validní podle pravidel
         for (let i = 0; i < dice.length; i++) {
-            const testSelection = [i];
-            const points = calculatePoints(dice, testSelection);
-            if (points > 0) {
+            const dieValue = dice[i];
+            
+            // Jedničky a pětky lze vždy vybrat
+            if (dieValue === 1 || dieValue === 5) {
+                const testDice = [dieValue];
+                const points = calculatePoints(testDice);
                 combinations.push({
-                    indices: testSelection,
+                    indices: [i],
                     points: points,
-                    dice: [dice[i]]
+                    dice: testDice
                 });
+            } else {
+                // Pro ostatní hodnoty (2,3,4,6) kontrolujeme, zda je jich alespoň 3
+                const countOfValue = dice.filter(die => die === dieValue).length;
+                if (countOfValue >= 3) {
+                    // Najdeme všechny indexy této hodnoty
+                    const allIndices = dice.map((die, idx) => die === dieValue ? idx : -1).filter(idx => idx !== -1);
+                    const testDice = allIndices.slice(0, 3).map(idx => dice[idx]); // Minimálně 3 kusy
+                    const points = calculatePoints(testDice);
+                    
+                    combinations.push({
+                        indices: allIndices.slice(0, 3), // Minimálně 3 indexy
+                        points: points,
+                        dice: testDice
+                    });
+                }
             }
         }
         
-        return combinations.sort((a, b) => b.points - a.points);
+        // Odstraníme duplicity a seřadíme podle bodů
+        const uniqueCombinations = combinations.filter((combo, index, arr) => {
+            return arr.findIndex(c => JSON.stringify(c.indices.sort()) === JSON.stringify(combo.indices.sort())) === index;
+        });
+        
+        return uniqueCombinations.sort((a, b) => b.points - a.points);
     }
 
     /**
@@ -108,9 +131,12 @@ export class AiDecisionEngine {
             return { action: 'wait' };
         }
         
-        const currentTurnPoints = calculatePoints(state.savedDice || []) + (state.turnScore || 0);
+        // OPRAVA: turnScore už obsahuje body ze všech uložených kostek v tomto tahu
+        const currentTurnPoints = state.turnScore || 0;
         const newPoints = calculatePoints(bestDice.map(i => state.currentRoll[i]));
         const totalPoints = currentTurnPoints + newPoints;
+        
+        console.log(`🤖 AI rozhodování: currentTurnPoints=${currentTurnPoints}, newPoints=${newPoints}, totalPoints=${totalPoints}`);
         
         // LOGIKA PRVNÍHO ZÁPISU
         if (aiPlayer.score === 0) {
@@ -135,16 +161,22 @@ export class AiDecisionEngine {
     }
 
     /**
-     * Najde nejlepší kostky k odložení - zjednodušená verze
+     * Najde nejlepší kostky k odložení - opravená verze
      */
     findBestDiceToSave(dice) {
         if (!dice || dice.length === 0) return [];
         
-        const combinations = this.findScoringCombinations(dice);
+        console.log(`🤖 AI findBestDiceToSave: analyzuji kostky`, dice);
+        
+        const combinations = AiDecisionEngine.findScoringCombinations(dice);
+        console.log(`🤖 AI nalezené kombinace:`, combinations);
+        
         if (combinations.length === 0) return [];
         
         // Nejlepší kombinace podle bodů na kostku
         combinations.sort((a, b) => (b.points / b.indices.length) - (a.points / a.indices.length));
+        
+        console.log(`🤖 AI vybrána nejlepší kombinace:`, combinations[0]);
         return combinations[0].indices;
     }
 }

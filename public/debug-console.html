@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Console - AI Dice Challenge</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #39ff14; padding: 20px; }
+        .log { margin: 5px 0; padding: 5px; border-left: 3px solid #39ff14; }
+        .error { border-left-color: #ff3131; color: #ff3131; }
+        .warn { border-left-color: #ffff00; color: #ffff00; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Console - AI Dice Challenge</h1>
+    <div id="log-output"></div>
+    
+    <script>
+        const logOutput = document.getElementById('log-output');
+        
+        // Zachytávání console.log, console.error, console.warn
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function addToOutput(message, type = 'log') {
+            const div = document.createElement('div');
+            div.className = `log ${type}`;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logOutput.appendChild(div);
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToOutput(args.join(' '), 'log');
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToOutput(args.join(' '), 'error');
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToOutput(args.join(' '), 'warn');
+        };
+        
+        // Zachytávání chyb
+        window.addEventListener('error', (e) => {
+            addToOutput(`ERROR: ${e.message} at ${e.filename}:${e.lineno}`, 'error');
+        });
+        
+        window.addEventListener('unhandledrejection', (e) => {
+            addToOutput(`UNHANDLED PROMISE: ${e.reason}`, 'error');
+        });
+        
+        // Testování načítání hlavní aplikace
+        addToOutput('🚀 Spouštím debug test...');
+        
+        // Načtení hlavní aplikace
+        import('/src/main.js')
+            .then(() => {
+                addToOutput('✅ Hlavní aplikace načtena');
+            })
+            .catch((error) => {
+                addToOutput(`❌ Chyba při načítání hlavní aplikace: ${error.message}`, 'error');
+            });
+    </script>
+</body>
+</html>

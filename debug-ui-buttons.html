@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug UI Buttons - AI Dice</title>
+    <style>
+        body { 
+            background: #000; 
+            color: #39ff14; 
+            font-family: monospace; 
+            padding: 20px;
+        }
+        .debug-section {
+            border: 1px solid #39ff14;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .console-log {
+            background: #001100;
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 3px solid #39ff14;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            background: #001100;
+            color: #39ff14;
+            border: 1px solid #39ff14;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #002200;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug UI Buttons - AI Dice</h1>
+    
+    <div class="debug-section">
+        <h2>Console Log Output:</h2>
+        <div id="debug-output" class="console-log"></div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Test Actions:</h2>
+        <button onclick="startDebugTest()">🚀 Start Debug Test</button>
+        <button onclick="checkButtons()">🔍 Check Buttons in DOM</button>
+        <button onclick="clearDebugOutput()">🧹 Clear Output</button>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Main App Load:</h2>
+        <div id="app-container">
+            <div id="game-area" style="min-height: 200px; border: 1px dashed #39ff14; padding: 10px;">
+                <!-- Zde se načte aplikace -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let debugOutput = document.getElementById('debug-output');
+        
+        // Zachytíme console.log
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+        
+        function logToDebug(level, ...args) {
+            const timestamp = new Date().toLocaleTimeString();
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+            ).join(' ');
+            
+            debugOutput.innerHTML += `[${timestamp}] [${level}] ${message}\n`;
+            debugOutput.scrollTop = debugOutput.scrollHeight;
+        }
+        
+        console.log = (...args) => {
+            originalLog(...args);
+            logToDebug('LOG', ...args);
+        };
+        
+        console.warn = (...args) => {
+            originalWarn(...args);
+            logToDebug('WARN', ...args);
+        };
+        
+        console.error = (...args) => {
+            originalError(...args);
+            logToDebug('ERROR', ...args);
+        };
+        
+        function startDebugTest() {
+            console.log('🚀 Debug test započat');
+            
+            // Načteme main.js
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.src = '/src/main.js';
+            script.onload = () => {
+                console.log('✅ main.js načten');
+                setTimeout(() => {
+                    checkButtons();
+                }, 2000);
+            };
+            script.onerror = (e) => {
+                console.error('❌ Chyba při načítání main.js:', e);
+            };
+            document.head.appendChild(script);
+        }
+        
+        function checkButtons() {
+            console.log('🔍 Kontrolujem tlačítka v DOM...');
+            
+            const buttons = document.querySelectorAll('button');
+            console.log(`📊 Celkový počet tlačítek: ${buttons.length}`);
+            
+            buttons.forEach((btn, index) => {
+                const hasClickListener = btn.onclick !== null;
+                const eventListeners = btn.getEventListeners ? btn.getEventListeners('click') : [];
+                
+                console.log(`🔘 Tlačítko ${index + 1}:`, {
+                    text: btn.textContent.trim(),
+                    className: btn.className,
+                    hasOnClick: hasClickListener,
+                    listenerCount: eventListeners.length || 'nedostupné',
+                    element: btn
+                });
+            });
+        }
+        
+        function clearDebugOutput() {
+            debugOutput.innerHTML = '';
+        }
+        
+        // Načteme potřebné CSS pro aplikaci
+        const cssFiles = [
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+            'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css',
+            '/src/styles/main.css'
+        ];
+        
+        cssFiles.forEach(href => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            document.head.appendChild(link);
+        });
+        
+        // Načteme Lodash
+        const lodashScript = document.createElement('script');
+        lodashScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js';
+        lodashScript.onload = () => {
+            console.log('✅ Lodash načten');
+        };
+        document.head.appendChild(lodashScript);
+        
+        console.log('🔧 Debug stránka inicializována');
+    </script>
+</body>
+</html>

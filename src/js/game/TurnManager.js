@@ -181,15 +181,23 @@ export class TurnManager {
         const state = gameState.getState();
         const nextPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
         
+        // Reset hasFarkle flag pro všechny hráče
+        const resetPlayers = state.players.map(player => ({
+            ...player,
+            hasFarkle: false
+        }));
+        
         gameState.updateState({
             currentPlayerIndex: nextPlayerIndex,
             currentRoll: [],
             selectedDice: [],
             savedDice: [],
-            turnScore: 0
+            turnScore: 0,
+            players: resetPlayers,
+            isFarkleProcessing: false
         });
         
-        const nextPlayer = state.players[nextPlayerIndex];
+        const nextPlayer = resetPlayers[nextPlayerIndex];
         console.log(`🔄 Další hráč: ${nextPlayer.name}`);
         
         // Pokud je další hráč AI, automaticky začne hrát

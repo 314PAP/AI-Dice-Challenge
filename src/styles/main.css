@@ -6,306 +6,7 @@
    Status: MODULARIZOVANÁ STRUKTURA - ROZDĚLENO Z colors-bootstrap-simple.css
    ================================================================= */
 
-/* ===== EXTERNÍ CSS KNIHOVNY ===== */
-@import 'animate.css';
-@import 'hover.css/css/hover-min.css';
-@import 'magic.css/dist/magic.min.css';
-@import 'csshake/dist/csshake.min.css';
-
-/* ===================================================================
-   🏗️ NOVÁ MODULARIZOVANÁ STRUKTURA - RYCHLÁ ORIENTACE
-   ================================================================= */
-
-/*
-📁 KOMPLETNÍ STROMOVÁ STRUKTURA:
-
-src/styles/
-├── base/                  🏗️ Základní stavební kameny
-│   ├── variables.css      (CSS proměnné a globální nastavení)
-│   ├── typography.css     (Fonty, RFS, responzivní typografie)  
-│   └── layout.css         (Výšky, spacing, základní layout)
-├── components/            🎨 UI komponenty
-│   ├── dice.css          (Kostky + animace + stavy)
-│   ├── buttons.css       (Neonová tlačítka + hover efekty)
-│   ├── forms.css         (Formulářové prvky)
-│   ├── chat.css          (Chat UI + scrollbary + AI osobnosti)
-│   ├── players.css       (Animace hráčů + aktivní stavy)
-│   ├── avatars.css       (Avatar animace + hover podle barev)
-│   ├── farkle.css        (FARKLE overlay efekty + diagonal text)
-│   ├── tables.css        (Neonové tabulky + text-shadow utility)
-│   ├── cards.css         (Karty a panely)
-│   └── spinners.css      (Loading animace + orbital spinnery)
-├── utilities/             🔧 Utility třídy
-│   ├── colors.css        (Základní barevné utility třídy)
-│   ├── bootstrap-overrides.css (Bootstrap color overrides)
-│   ├── responsive.css    (Responzivní breakpointy)
-│   └── helpers.css       (Z-index, utility třídy)
-└── themes/                🎨 Témata
-    └── neon.css          (Neonový motiv)
-
-🎯 HLAVNÍ CSS TŘÍDY PRO JS POUŽITÍ:
-
-🎲 KOSTKY (dice.css):
-.dice                     - základní kostka
-.dice.selected           - vybraná kostka (modrá)
-.dice.saved              - odložená kostka (modrá, průhledná)
-.dice-rolling            - animace házení (fialová)
-.dice.dice-new           - nově vygenerovaná (fadeInUp)
-.dice.dice-scoring       - při skórování (flash)
-.dice.dice-farkle        - neplatný tah (shake-hard)
-
-👤 HRÁČI (players.css):
-.player-active           - aktivní hráč (pulse + border)
-.border-neon-[color].player-active - aktivní hráč podle barvy
-.score-animation         - animace skóre (zoomIn)
-
-👥 AVATARY (avatars.css):
-.player-avatar           - základní avatar
-.player-avatar:hover     - hover efekt podle border barvy
-.player-avatar-active    - aktivní avatar (pulse + glow)
-
-💥 FARKLE (farkle.css):
-.player-farkle           - FARKLE na kartě hráče
-.farkle-text             - FARKLE overlay text
-.dice-section-farkle     - diagonální FARKLE přes kostky
-.farkle-text-overlay     - větší FARKLE overlay
-
-🔘 TLAČÍTKA (buttons.css):
-.btn-neon                - neonové tlačítko
-.btn-neon[data-neon-color="green|blue|purple|orange|red|yellow"]
-.btn-no-scale            - bez scaling efektu
-
-💬 CHAT (chat.css):
-.chat-message            - základní zpráva
-.chat-message-ai         - AI zpráva
-.chat-message-user       - uživatelská zpráva
-.ai-gemini|claude|gpt|llama|mistral - AI osobnosti
-
-🎨 BARVY (colors.css):
-.text-neon-[color]       - neonový text
-.border-neon-[color]     - neonový border
-.bg-neon-[color]         - neonové pozadí
-
-📱 RESPONZIVNÍ BREAKPOINTY:
-- XS: 0px (mobil portrait)
-- SM: 576px (mobil landscape)  
-- MD: 768px (tablet)
-- LG: 992px (malý desktop)
-- XL: 1200px (desktop)
-- XXL: 1400px (velký desktop)
-
-📱 RESPONZIVNÍ ARCHITEKTURA:
-✅ responsive.css - společné utility třídy (gap-responsive, min-vh-game, touch-target)
-✅ components/*.css - komponenta-specifické @media (velikosti kostek, avatarů)
-✅ base/*.css - základní responzivní styly (fonty, layout)
-
-/* ===== PŮVODNÍ ARCHITEKTURA DOKUMENTACE ===== */
-
-/*
-LAYOUT & GRID:
-✅ .container, .container-fluid
-✅ .row, .col, .col-12, .col-sm-6, .col-md-4, .col-lg-3
-✅ .d-flex, .d-none, .d-block, .d-sm-block
-✅ .justify-content-center, .justify-content-between
-✅ .align-items-center, .align-items-start, .align-items-end
-✅ .flex-column, .flex-row, .flex-wrap
-✅ .w-100, .h-100, .min-vh-100
-✅ .position-relative, .position-absolute, .position-fixed
-
-SPACING:
-✅ .p-0 až .p-5, .px-1, .py-2, .pt-3, .pb-4, .ps-2, .pe-2
-✅ .m-0 až .m-5, .mx-auto, .my-2, .mt-3, .mb-4, .ms-2, .me-2
-✅ .gap-1, .gap-2, .gap-3, .gap-4
-
-TYPOGRAPHY:
-✅ .fs-1 až .fs-6, .small, .lead
-✅ .display-1 až .display-6
-✅ .h1 až .h6
-✅ .text-center, .text-start, .text-end
-✅ .fw-bold, .fw-normal, .fw-light
-✅ .text-uppercase, .text-lowercase
-
-BORDERS & EFFECTS:
-✅ .border, .border-0, .border-top, .border-bottom
-✅ .rounded, .rounded-1, .rounded-2, .rounded-3
-✅ .shadow, .shadow-sm, .shadow-lg
-
-OVERFLOW & VISIBILITY:
-✅ .overflow-hidden, .overflow-auto, .overflow-y-auto
-✅ .visible, .invisible
-
-RESPONSIVE:
-✅ .d-sm-block, .d-md-flex, .d-lg-none
-✅ .fs-sm-4, .fs-md-3, .fs-lg-2
-✅ .w-sm-50, .w-md-75, .w-lg-100
-*/
-
-/* ===== NAŠE CUSTOM UTILITY TŘÍDY ===== */
-
-/*
-🎨 BARVY (colors.css):
-- .text-neon-green, .text-neon-blue, .text-neon-purple
-- .text-neon-orange, .text-neon-red, .text-neon-yellow
-- .border-neon-green, .border-neon-blue, atd.
-- .btn-neon[data-neon-color="green|blue|purple|orange|red|yellow"]
-- .bg-neon-black
-- .neon-glow, .neon-text-shadow
-
-📏 RESPONZIVNÍ (responsive.css):
-- .game-section, .chat-section (herní výšky)
-- .mobile-game-area, .mobile-chat-area (60/40 layout)
-- .fs-fluid-game-title, .fs-fluid-chat-text
-- Všechny @media queries pro mobilní optimalizaci
-
-🎲 KOMPONENTY (components/):
-- .dice, .dice-container, .dice-section (kostky)
-- .dice-dot-center, .dice-dot-top-left, atd. (tečky)
-- .neon-spinner, .neon-spinner-orbital (loading)
-- .chat-message, .chat-timestamp (chat)
-- Custom scrollbar styly
-
-🔧 POMOCNÉ (helpers.css):
-- .z-index-top (z-index: 9999)
-- .final-round-alert (responsive font)
-- .players-section, .player-col
-*/
-
-/* ===== KOMPONENTY A JEJICH ZODPOVĚDNOSTI ===== */
-
-/*
-🎲 DICE KOMPONENTA (dice.css):
-- Responzivní velikosti kostek (clamp values)
-- Hover a selection efekty
-- Dice kontejnery a layout
-- Dice dots pozicování
-- Landscape a portrait optimalizace
-
-🔘 BUTTONS KOMPONENTA (buttons.css):
-- Responzivní tlačítka (.btn, .btn-sm, .btn-lg)
-- Neon hover efekty (.btn-neon)
-- Touch-friendly min-height
-- Form controls scaling
-
-💬 CHAT KOMPONENTA (chat.css):
-- Kompletní scrollbar systém
-- WebKit + Firefox podpora
-- Responzivní scrollbar velikosti
-- Chat-specifické scrollbary
-
-🌀 SPINNERS KOMPONENTA (spinners.css):
-- Neon spinner animace
-- Orbital spinner (#chatSpinner)
-- Keyframe animace (neon-spin)
-
-🃏 CARDS KOMPONENTA (cards.css):
-- Bootstrap card rozšíření
-- Kompaktní padding
-- Responzivní text v kartách
-*/
-
-/* ===== RESPONZIVNÍ BREAKPOINTY ===== */
-
-/*
-🎯 BOOTSTRAP STANDARD BREAKPOINTY:
-- XS: 0px (mobil portrait)
-- SM: 576px (mobil landscape / malý tablet)
-- MD: 768px (tablet)
-- LG: 992px (malý desktop)
-- XL: 1200px (desktop)
-- XXL: 1400px (velký desktop)
-
-📱 NAŠE ORIENTACE PRAVIDLA:
-- @media (orientation: landscape) and (max-height: 500px)
-  → Ultra kompaktní layout pro landscape mobily
-- @media (orientation: portrait) and (min-height: 600px)
-  → Optimalizace pro vysoké portrait obrazovky
-- @media (pointer: coarse)
-  → Touch zařízení (větší scrollbary, tlačítka)
-
-🎯 RFS (Responsive Font Scaling):
-- html font-size: 12px → 19px (XS → XXL)
-- Všechny komponenty používají clamp() hodnoty
-- Fluid typography pro herní elementy
-*/
-
-/* ===== CSS PROMĚNNÉ A TÉMATA ===== */
-
-/*
-🎨 NEONOVÉ BARVY (variables.css):
-- --neon-green: #39ff14 (hlavní)
-- --neon-blue: #194DD1 (sekundární)
-- --neon-purple: #FF00FF (akcent)
-- --neon-orange: #FF8800 (varování)
-- --neon-red: #ff3131 (chyba)
-- --neon-yellow: #ffff00 (zvýraznění)
-- --neon-black: #000000 (pozadí)
-
-⚡ EFEKTY:
-- --neon-glow: 0 0 1.25rem currentColor
-- --neon-text-shadow: 0 0 0.625rem currentColor
-- --transition-normal: all 0.3s ease
-
-📐 Z-INDEX HIERARCHIE:
-- --z-modal: 1050 (Bootstrap modal)
-- --z-tooltip: 1070 (Bootstrap tooltip)
-- --z-loading: 1055 (loading screen)
-- --z-top: 9999 (absolutně nejvyšší)
-*/
-
-/* ===== POZNÁMKY PRO DALŠÍ VÝVOJ ===== */
-
-/*
-✅ DOKONČENO:
-- Kompletní modularizace CSS
-- Logické rozdělení do komponent
-- Bootstrap-first přístup zachován
-- Responzivní design optimalizován
-- Dokumentace každého modulu
-- Žádné duplicity kódu
-
-🎯 VÝHODY MODULÁRNÍHO PŘÍSTUPU:
-- ✅ Snazší navigace a hledání stylů
-- ✅ Lepší Git workflow (menší konflikty)
-- ✅ Možnost lazy-loading modulů
-- ✅ Izolované debugging
-- ✅ Týmová spolupráce friendly
-- ✅ Performance optimalizace možná
-
-🚨 PRAVIDLA PRO EDITACI:
-- ŽÁDNÉ inline styly
-- Bootstrap utility třídy jako první volba
-- Modulární struktura - každý styl na správné místo
-- Responzivní design vždy
-- Validace před každým commitem
-*/
-
-/*
-🚨 CHECKLIST PŘED KAŽDOU ZMĚNOU:
-[ ] Spustil jsem verify-copilot-system.sh?
-[ ] Zkontroloval jsem dokumentybtrap/?
-[ ] Edituju správný modul podle zodpovědnosti?
-[ ] Neduplicuju kód z jiných modulů?
-[ ] Používám Bootstrap utility kde je to možné?
-[ ] Animace jsou z knihoven, ne vlastní CSS?
-[ ] Existuje JS knihovna místo vlastního kódu?
-[ ] Je změna konzistentní s celým systémem?
-
-📁 MODULÁRNÍ SYSTÉM - CO KAM PATŘÍ:
-- Barvy → utilities/colors.css
-- Kostky → components/dice.css
-- Tlačítka → components/buttons.css
-- Typografie → base/typography.css
-- Layout → base/layout.css
-- Chat → components/chat.css
-- Loading → components/spinners.css
-- Karty → components/cards.css
-- Proměnné → base/variables.css
-- Breakpointy → utilities/responsive.css
-*/
-
-/* ===================================================================
-   IMPORT VŠECH MODULŮ - ZÁVĚREČNÁ SESTAVA
-   ================================================================= */
+/* ===== @IMPORT DIREKTIVY - MUSÍ BÝT NA ZAČÁTKU ===== */
 
 /* 🏗️ ZÁKLADNÍ STAVEBNÍ KAMENY */
 @import './base/variables.css';    /* CSS proměnné a globální nastavení */
@@ -324,6 +25,7 @@ RESPONSIVE:
 @import './components/farkle.css';   /* FARKLE overlay efekty */
 @import './components/tables.css';   /* Neonové tabulky */
 
+
 /* 🔧 UTILITY TŘÍDY */
 @import './utilities/colors.css';           /* Barvy a neon efekty */
 @import './utilities/responsive.css';       /* Společné responzivní utility třídy */
@@ -332,3 +34,49 @@ RESPONSIVE:
 
 /* 🎨 TÉMATA */
 @import './themes/neon.css';         /* Neonový motiv */
+
+/* ===== LOADING SCREEN KOMPONENTY ===== */
+
+/* Loading spinner velikost */
+.loading-spinner {
+    width: 4rem !important;
+    height: 4rem !important;
+    border-width: 0.3rem !important;
+}
+
+/* Debug text velikost */
+.debug-text {
+    font-size: 0.8rem !important;
+}
+
+/* Z-index utility */
+.z-index-top { 
+    z-index: var(--z-top) !important; 
+}
+
+.min-h-0 { 
+    min-height: 0 !important; 
+}
+
+/* ===== KONEC LOADING SCREEN KOMPONENTY ===== */
+
+/* ===== POTVRZOVACÍ DIALOG ANIMACE ===== */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Backdrop blur efekt */
+.backdrop-blur {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* ===== KONEC POTVRZOVACÍ DIALOG ANIMACE ===== */
+

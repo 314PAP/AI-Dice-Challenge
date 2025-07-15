@@ -56,14 +56,45 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
     buttonContent += displayText;
     button.innerHTML = buttonContent;
     
+    console.log('🔧 Debug createNeonButton:', {
+        text: text,
+        hasOnClick: !!onClick,
+        onClickType: typeof onClick,
+        buttonElement: !!button
+    });
+    
     if (onClick) {
-        button.addEventListener('click', onClick);
+        console.log('🔗 Přidávám event listener pro tlačítko:', text, typeof onClick);
+        button.addEventListener('click', (event) => {
+            console.log('🖱️ Tlačítko kliknuto:', text);
+            try {
+                onClick(event);
+            } catch (error) {
+                console.error('❌ Chyba v onClick handleru:', error);
+            }
+        });
+        
+        // Ověření, že listener byl přidán
+        console.log('✅ Event listener přidán - ověření:', {
+            text: text,
+            listenerCount: button.getEventListeners ? button.getEventListeners('click').length : 'nedostupné'
+        });
+    } else {
+        console.warn('⚠️ Tlačítko bez onClick handleru:', text);
     }
     
     // 🎵 Hover efekt odstraněn (na požádání uživatele)
     // button.addEventListener('mouseenter', () => {
     //     soundSystem.play('menuHover', 0.5); // Tišší než ostatní zvuky
     // });
+    
+    console.log('📤 createNeonButton dokončeno - vracím tlačítko:', {
+        text: text,
+        elementType: button.tagName,
+        className: button.className,
+        hasOnClick: !!onClick,
+        innerHTML: button.innerHTML
+    });
     
     return button;
 };

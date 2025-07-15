@@ -8,16 +8,6 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>" type="image/svg+xml">
     
-    <!-- Inline neonové styly s nejvyšší prioritou pro chat spinner a scrollbar -->
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>��</text></svg>" type="image/svg+xml">
-    
-
-    
-    <!-- Inline styly - POUZE fallback bez barev pro případ vypnutého colors-bootstrap.css -->
-
-    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -31,17 +21,20 @@
     <!-- Animate.css -->
     <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
     
+    <!-- Hover.css pro hover efekty -->
+    <link href="https://cdn.jsdelivr.net/npm/hover.css@2.3.1/css/hover-min.css" rel="stylesheet">
+    
+    <!-- Magic.css pro speciální animace -->
+    <link href="https://cdn.jsdelivr.net/npm/magic.css@1.4.6/dist/magic.min.css" rel="stylesheet">
+    
+    <!-- CSShake pro shake animace -->
+    <link href="https://cdn.jsdelivr.net/npm/csshake@1.5.3/dist/csshake.min.css" rel="stylesheet">
+    
     <!-- SweetAlert2 pro notifikace -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
     
-    <!-- ✅ ZAPÍNÁM POSTUPNĚ - NYNÍ POUZE BARVY -->
+    <!-- ✅ PŮVODNÍ WORKING CSS STRUKTURA -->
     <link rel="stylesheet" href="/src/styles/main.css">
-    
-    <!-- Základní utility styly pro test -->
-    <style>
-        .z-index-top { z-index: 9999; }
-        .min-h-0 { min-height: 0; }
-    </style>
 </head>
 <body class="h-100">
     
@@ -49,15 +42,38 @@
     <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center z-index-top">
         <div class="text-center">
             <!-- Neonový spinner -->
-            <div class="spinner-border text-neon-green mb-3" role="status" style="width: 4rem; height: 4rem; border-width: 0.3rem;">
+            <div class="spinner-border text-neon-green mb-3 loading-spinner" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
             <h3 class="text-neon-green">
                 <i class="bi bi-dice-6-fill"></i> AI Dice Challenge
             </h3>
             <p class="text-neon-blue mt-2">Načítání neonové výzvy...</p>
+            <p class="text-neon-yellow mt-3 debug-text">
+                🔧 Debug: Pokud se aplikace nezobrazí do 5 sekund, 
+                <a href="#" onclick="forceHideLoading()" class="text-neon-orange">klikni sem</a>
+            </p>
         </div>
     </div>
+
+    <script>
+        // Emergency loading screen removal
+        function forceHideLoading() {
+            console.log('🚨 Manual force hide loading screen');
+            const loadingScreen = document.getElementById('loadingScreen');
+            const app = document.getElementById('app');
+            
+            if (loadingScreen) {
+                loadingScreen.style.display = 'none';
+            }
+            if (app) {
+                app.classList.remove('d-none');
+            }
+        }
+        
+        // Auto hide after 8 seconds
+        setTimeout(forceHideLoading, 8000);
+    </script>
     
     <!-- Main Application Container - Responsive Flexbox Layout -->
     <div id="app" class="container-fluid d-flex flex-column p-3 p-md-4 d-none vh-100 overflow-hidden animate__animated animate__fadeIn">

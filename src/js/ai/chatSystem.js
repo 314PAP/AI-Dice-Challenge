@@ -139,15 +139,6 @@ export class ChatSystem {
     getChatHistory() {
         return this.chatHistory;
     }
-
-    /**
-     * Přidá systémovou zprávu do chatu
-     * @param {string} content - Obsah zprávy
-     * @param {string} [color=CHAT_COLORS.YELLOW] - Barva zprávy
-     */
-    addSystemMessage(content, color = CHAT_COLORS.YELLOW) {
-        this.addMessage('Systém', content, color);
-    }
 }
 
 // Exportujeme jedinou instanci ChatSystem

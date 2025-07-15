@@ -1,9 +1,33 @@
 /**
- * 🎲 AI Dice Challenge - Modularizovaný hlavní soubor  
- * 
- * Redukováno z 574 řádků na ~100 řádků pomocí lodash a modulů
- * Moduly: AppInitializer, ComponentManager, LayoutManager
+ * AI Dice Challenge - Main Application Entry Point
+ * Modularizovaná hra kostek s AI - ES6 moduly + Bootstrap
  */
+
+async function waitForLodash() {
+    return new Promise((resolve, reject) => {
+        let attempts = 0;
+        const maxAttempts = 50; // 5 sekund (50 × 100ms)
+        
+        const checkLodash = () => {
+            attempts++;
+            
+            if (typeof _ !== 'undefined') {
+                console.log('✅ Lodash dostupný po', attempts * 100, 'ms');
+                resolve();
+            } else if (attempts >= maxAttempts) {
+                console.error('❌ Lodash se nenačetl po 5 sekundách');
+                reject(new Error('Lodash timeout'));
+            } else {
+                setTimeout(checkLodash, 100);
+            }
+        };
+        
+        checkLodash();
+    });
+}
+
+// Čekání na Lodash před inicializací
+await waitForLodash();
 
 // Lodash utilities (načteno z CDN)
 const { isEmpty, isFunction } = _;
@@ -22,89 +46,96 @@ import { CONSOLE_COLORS } from './js/utils/colors.js';
  */
 class AIDiceGame {
     constructor() {
-        console.log('🎲 AI Dice Challenge - Modular Edition starting...');
+        console.log('🎲 AI Dice Challenge starting...');
         
-        // Moduly pro zjednodušení
-        this.initializer = new AppInitializer();
-        this.componentManager = new ComponentManager();
-        this.layoutManager = new LayoutManager();
-        
-        this.init();
+        try {
+            this.initializer = new AppInitializer();
+            this.componentManager = new ComponentManager();
+            this.layoutManager = new LayoutManager();
+            this.init();
+        } catch (error) {
+            console.error('❌ Init error:', error);
+            throw error;
+        }
     }
 
     /**
-     * Hlavní inicializace - zjednodušená
+     * Hlavní inicializace
      */
     async init() {
         try {
-            // 1. Čekání na DOM
+            // 1. DOM ready
             await this.initializer.waitForDOM();
             
-            // 2. Skrytí loading screen
-            this.initializer.hideLoadingScreen();
+            // 2. Mouse debug setup
+            setupMouseDebug();
             
-            // 3. Inicializace komponent
+            // 3. Basic components
             await this.componentManager.initializeComponents();
             
-            // 4. Nastavení event listenerů
+            // 4. Hide loading
+            console.log('🎬 Volám hideLoadingScreen...');
+            this.initializer.hideLoadingScreen();
+            console.log('✅ hideLoadingScreen dokončen');
+            
+            // Malé zpoždění pro jistotu
+            await new Promise(resolve => setTimeout(resolve, 600));
+            
+            // 5. GameUI init
+            await this.componentManager.initializeGameUI();
+            
+            // 6. Event listeners
             this.initializer.setupEventListeners();
             
-            // 5. Spuštění layout monitoringu
+            // 7. Layout monitoring
             this.layoutManager.startLayoutMonitoring();
             
-            // 6. Finální kontroly
+            // 8. Final checks
             await this.performFinalChecks();
             
-            console.log('✅ AI Dice Challenge initialized!');
+            console.log('✅ AI Dice Challenge ready!');
             
         } catch (error) {
-            console.error('❌ App init failed:', error);
+            console.error('❌ Init failed:', error);
             this.initializer.showError('Chyba při načítání aplikace.');
         }
     }
 
     /**
-     * Finální kontroly - s lodash optimalizací
+     * Přidá uvítací zprávy do chatu
+     */
+    /**
+     * Finální kontroly
      */
     async performFinalChecks() {
-        // Krátká pauza pro stabilizaci
         await new Promise(resolve => setTimeout(resolve, 500));
         
-        // Kontrola komponent
         const componentStatus = this.componentManager.getComponentsStatus();
         const allInitialized = componentStatus.every(c => c.initialized);
         
         if (!allInitialized) {
-            console.warn('⚠️ Některé komponenty nejsou inicializované:', componentStatus);
+            console.warn('⚠️ Components not ready:', componentStatus);
         }
         
-        // Kontrola layoutu
         const layoutValid = this.layoutManager.validateLayout();
         if (!layoutValid.valid) {
-            console.warn('⚠️ Layout problémy detekované');
+            console.warn('⚠️ Layout issues detected');
             this.layoutManager.fixLayout();
         }
         
-        // Test zvukového systému
         this.testSoundSystem();
-        
-        // Výpis stavu
         this.logAppStatus();
     }
 
-    /**
-     * Test zvukového systému
-     */
     testSoundSystem() {
         try {
-            // Test zvukového systému - ověříme, že existuje
             if (soundSystem && soundSystem.enabled !== undefined) {
-                console.log(`🎵 Zvukový systém: ${soundSystem.enabled ? 'AKTIVNÍ' : 'NEAKTIVNÍ'}`);
+                console.log(`🎵 Sound: ${soundSystem.enabled ? 'ON' : 'OFF'}`);
             } else {
-                console.warn('⚠️ Zvukový systém nenačten');
+                console.warn('⚠️ Sound system missing');
             }
         } catch (error) {
-            console.error('❌ Chyba v zvukovém systému:', error);
+            console.error('❌ Sound error:', error);
         }
     }
 
@@ -118,48 +149,131 @@ class AIDiceGame {
             sounds: soundSystem && soundSystem.enabled ? 'OK' : 'OFF'
         };
         
-        console.log(
-            '%c🎮 APP STATUS %c Components: %c%d %c Layout: %c%s %c Sounds: %c%s',
-            `background: ${CONSOLE_COLORS.bgDark}; color: ${CONSOLE_COLORS.neonGreen}; font-weight: bold; padding: 2px 6px;`,
-            `color: ${CONSOLE_COLORS.textDark};`,
-            `color: ${CONSOLE_COLORS.neonBlue}; font-weight: bold;`,
-            status.components,
-            `color: ${CONSOLE_COLORS.textDark};`,
-            `color: ${status.layout === 'OK' ? CONSOLE_COLORS.neonGreen : CONSOLE_COLORS.neonYellow}; font-weight: bold;`,
-            status.layout,
-            `color: ${CONSOLE_COLORS.textDark};`,
-            `color: ${status.sounds === 'OK' ? CONSOLE_COLORS.neonGreen : CONSOLE_COLORS.neonYellow}; font-weight: bold;`,
-            status.sounds
-        );
+        console.log(`🎮 Status: ${status.components} components, Layout ${status.layout}, Sounds ${status.sounds}`);
     }
 
-    /**
-     * Získání komponenty
-     */
     getComponent(name) {
         return this.componentManager.getComponent(name);
     }
 
-    /**
-     * Čištění při uzavření aplikace
-     */
     cleanup() {
         this.layoutManager.stopLayoutMonitoring();
         this.componentManager.cleanup();
         this.initializer.cleanup();
-        console.log('🧹 Aplikace vyčištěna');
+        console.log('🧹 App cleaned');
     }
 }
 
 // Globální instance pro debugging
 window.AIDiceGame = AIDiceGame;
 
-// Spuštění aplikace
-const app = new AIDiceGame();
+async function initializeApp() {
+    try {
+        console.log('🚀 Spouštím inicializaci aplikace...');
+        
+        // Spuštění aplikace
+        const app = new AIDiceGame();
+        
+        // Čištění při odchodu ze stránky
+        window.addEventListener('beforeunload', () => {
+            app.cleanup();
+        });
+        
+        // Export pro debugging
+        window.app = app;
+        
+        console.log('🎯 Aplikace úspěšně inicializována');
+        return app;
+        
+    } catch (error) {
+        console.error('❌ Kritická chyba při inicializaci aplikace:', error);
+        
+        // Zobrazení chyby uživateli
+        const loadingScreen = document.getElementById('loadingScreen');
+        if (loadingScreen) {
+            loadingScreen.innerHTML = `
+                <div class="text-center text-danger">
+                    <h3>❌ Chyba při načítání aplikace</h3>
+                    <p>${error.message}</p>
+                    <button class="btn btn-danger" onclick="location.reload()">Obnovit stránku</button>
+                </div>
+            `;
+        }
+        
+        throw error;
+    }
+}
 
-// Čištění při odchodu ze stránky
-window.addEventListener('beforeunload', () => {
-    app.cleanup();
-});
+// Spuštění inicializace
+const app = await initializeApp();
+
+/**
+ * DEBUG: Mouse event tracker
+ */
+function setupMouseDebug() {
+    console.log('🐭 Setupuji mouse debug...');
+    
+    // Global click listener
+    document.addEventListener('click', (e) => {
+        console.log('🖱️ CLICK detected:', {
+            target: e.target,
+            tagName: e.target.tagName,
+            id: e.target.id,
+            className: e.target.className,
+            textContent: e.target.textContent?.trim(),
+            hasClickListener: e.target.onclick !== null,
+            hasEventListeners: e.target.getEventListeners ? e.target.getEventListeners('click') : 'nedostupné',
+            coordinates: { x: e.clientX, y: e.clientY }
+        });
+        
+        // Check if button
+        if (e.target.tagName === 'BUTTON') {
+            console.log('🔘 BUTTON clicked:', {
+                text: e.target.textContent?.trim(),
+                classes: e.target.className,
+                onclick: e.target.onclick,
+                disabled: e.target.disabled,
+                style: e.target.style.cssText
+            });
+        }
+    });
+    
+    // Mouse hover tracking on buttons
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            console.log('🖱️ Button HOVER:', e.target.textContent?.trim());
+        }
+    });
+    
+    // Mousedown/mouseup tracking
+    document.addEventListener('mousedown', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            console.log('⬇️ Button MOUSEDOWN:', e.target.textContent?.trim());
+        }
+    });
+    
+    document.addEventListener('mouseup', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            console.log('⬆️ Button MOUSEUP:', e.target.textContent?.trim());
+        }
+    });
+}
+
+// Spuštění debug systému
+setupMouseDebug();
+
+// DEBUG: Force loading screen removal after 3 seconds
+setTimeout(() => {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen && loadingScreen.style.display !== 'none') {
+        console.log('🚨 EMERGENCY: Force removing stuck loading screen!');
+        loadingScreen.remove();
+        const app = document.getElementById('app');
+        if (app) {
+            app.classList.remove('d-none');
+            app.style.display = 'flex';
+        }
+    }
+}, 3000);
 
 export default app;

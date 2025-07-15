@@ -32,14 +32,13 @@ export class ComponentManager {
         }
 
         try {
-            // Lodash-based component initialization
+            // Lodash-based component initialization (bez GameUI)
             const componentConfig = {
-                gameUI: () => new GameUI(),
                 chatUI: () => new ChatUI(),
                 autocomplete: () => this.initializeAutocomplete()
             };
 
-            // Lodash forEach pro inicializaci
+            // Lodash forEach pro inicializaci (bez GameUI)
             await Promise.all(
                 map(componentConfig, async (factory, name) => {
                     try {
@@ -56,14 +55,33 @@ export class ComponentManager {
             // Specifické nastavení
             this.setupOrientationUpdates();
             
-            // Spuštění prvního renderu pro GameUI
-            this.triggerInitialRender();
-            
             this.initialized = true;
-            console.log('✅ Všechny komponenty inicializovány');
+            console.log('✅ Základní komponenty inicializovány (bez GameUI)');
             
         } catch (error) {
             console.error('❌ Chyba při inicializaci komponent:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Inicializuje GameUI až po skrytí loading screen
+     */
+    async initializeGameUI() {
+        if (this.components.gameUI) {
+            console.warn('⚠️ GameUI už je inicializované');
+            return;
+        }
+
+        try {
+            console.log('🔧 Inicializuji GameUI po skrytí loading screen...');
+            this.components.gameUI = new GameUI();
+            console.log('✅ GameUI inicializováno');
+            
+            // Spustí první render
+            this.triggerInitialRender();
+        } catch (error) {
+            console.error('❌ Chyba při inicializaci GameUI:', error);
             throw error;
         }
     }

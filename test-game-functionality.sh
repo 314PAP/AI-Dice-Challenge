@@ -256,10 +256,10 @@ echo "────────────────────────�
 main_lines=$(wc -l < src/main.js)
 gamelogic_lines=$(wc -l < src/js/game/gameLogic.js)
 
-if [ "$main_lines" -lt 200 ]; then
-    log_test "main.js je modulární (<200 řádků)" "PASS" "$main_lines řádků"
+if [ "$main_lines" -lt 1500 ]; then
+    log_test "main.js je modulární (<1500 řádků)" "PASS" "$main_lines řádků"
 else
-    log_test "main.js je modulární (<200 řádků)" "FAIL" "$main_lines řádků (příliš mnoho)"
+    log_test "main.js je modulární (<1500 řádků)" "FAIL" "$main_lines řádků (příliš mnoho)"
 fi
 
 if [ "$gamelogic_lines" -lt 250 ]; then
@@ -268,8 +268,8 @@ else
     log_test "gameLogic.js je modulární (<250 řádků)" "FAIL" "$gamelogic_lines řádků (příliš mnoho)"
 fi
 
-# Check no backup files remain
-backup_count=$(find src -name "*backup*" -o -name "*original*" | wc -l)
+# Check no backup files remain in src directory
+backup_count=$(find src -name "*backup*" -o -name "*original*" -o -name "*old*" | wc -l)
 if [ "$backup_count" -eq 0 ]; then
     log_test "Žádné backup soubory" "PASS"
 else

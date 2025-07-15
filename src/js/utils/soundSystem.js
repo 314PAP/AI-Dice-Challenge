@@ -45,6 +45,15 @@ class MicroSoundSystem {
                 case 'aiTurn':
                     this.playAiTurnSound(ctx);
                     break;
+                case 'warning':
+                    this.playWarningSound(ctx);
+                    break;
+                case 'buttonClick':
+                    this.playButtonClickSound(ctx);
+                    break;
+                case 'error':
+                    this.playErrorSound(ctx);
+                    break;
                 default:
                     this.playSimpleBeep(ctx, 440);
             }
@@ -175,6 +184,40 @@ class MicroSoundSystem {
         } catch(e) {
             // Tichý failsafe
         }
+    }
+    
+    playWarningSound(ctx) {
+        // Varovný zvuk - dvoutónový alarm
+        const freqs = [800, 600, 800, 600];
+        freqs.forEach((freq, i) => {
+            setTimeout(() => {
+                this.playSimpleBeep(ctx, freq, 0.2, 'square');
+            }, i * 250);
+        });
+    }
+    
+    playButtonClickSound(ctx) {
+        // Příjemný klik pro tlačítka
+        this.playSimpleBeep(ctx, 1200, 0.06, 'square');
+    }
+    
+    playErrorSound(ctx) {
+        // Zamítavý zvuk - klesající tón
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.frequency.setValueAtTime(600, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.3);
+        osc.type = 'sawtooth';
+        
+        gain.gain.setValueAtTime(this.volume * 0.4, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+        
+        osc.start();
+        osc.stop(ctx.currentTime + 0.3);
     }
     
     setVolume(v) { 
