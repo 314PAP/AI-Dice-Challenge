@@ -39,7 +39,6 @@ export const calculatePoints = (dice) => {
         const sortedDice = [...dice].sort();
         const isSequence = sortedDice.every((value, index) => value === index + 1);
         if (isSequence) {
-            console.log(`🎯 Detekována POSTUPKA (1,2,3,4,5,6) = 1500 bodů`);
             return 1500; // Postupka = 1500 bodů (žádné jiné kombinace se nepočítají)
         }
     }
@@ -56,7 +55,6 @@ export const calculatePoints = (dice) => {
     }
     
     if (pairCount === 3) {
-        console.log(`🎯 Detekovány TŘI PÁRY = 1500 bodů`);
         return 1500; // Tři páry = 1500 bodů (žádné jiné kombinace se nepočítají)
     }
     
@@ -122,22 +120,18 @@ export const countDiceValues = (dice) => {
  * @returns {boolean} True pokud hod obsahuje bodovanou kombinaci
  */
 export const hasScoringDice = (dice) => {
-    console.log(`🎲 hasScoringDice() volána s kostkami:`, dice);
     
     if (!dice || !dice.length) {
-        console.log(`❌ Žádné kostky nebo prázdný array`);
         return false;
     }
     
     const counts = countDiceValues(dice);
-    console.log(`🔢 Počty hodnot:`, counts);
     
     // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
     if (dice.length === 6) {
         const sortedDice = [...dice].sort();
         const isSequence = sortedDice.every((value, index) => value === index + 1);
         if (isSequence) {
-            console.log(`✅ Nalezena POSTUPKA (1,2,3,4,5,6) = 1500 bodů`);
             return true;
         }
     }
@@ -151,30 +145,25 @@ export const hasScoringDice = (dice) => {
     }
     
     if (pairCount === 3) {
-        console.log(`✅ Nalezeny TŘI PÁRY = 1500 bodů`);
         return true;
     }
     
     // Kontrola na tři a více stejných kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         if (counts[value] >= 3) {
-            console.log(`✅ Nalezeny 3+ kostky hodnoty ${value}: ${counts[value]}x`);
             return true;
         }
     }
     
     // Kontrola na jedničky a pětky
     if (counts[DICE_CONSTANTS.MIN_VALUE] > 0) {
-        console.log(`✅ Nalezeny jedničky: ${counts[DICE_CONSTANTS.MIN_VALUE]}x`);
         return true;
     }
     
     if (counts[5] > 0) {
-        console.log(`✅ Nalezeny pětky: ${counts[5]}x`);
         return true;
     }
     
-    console.log(`❌ Žádné bodující kostky nenalezeny`);
     return false;
 };
 

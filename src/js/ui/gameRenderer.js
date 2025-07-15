@@ -45,7 +45,6 @@ export class GameRenderer {
      * @returns {HTMLElement} Vytvořený herní kontejner
      */
     renderGameScreen(state, callbacks = {}) {
-        console.log('🎮 GameRenderer: Vykresluje se herní obrazovka:', state);
         
         if (!state.players || state.players.length === 0) {
             console.error('❌ Žádní hráči v herním stavu!');
@@ -57,8 +56,6 @@ export class GameRenderer {
             console.error('❌ Aktuální hráč nenalezen! Index:', state.currentPlayerIndex);
             return this.createErrorContainer('Aktuální hráč nenalezen');
         }
-        
-        console.log('👤 Aktuální hráč:', currentPlayer);
         
         const container = document.createElement('div');
         container.className = 'container-fluid h-100 d-flex flex-column p-1 p-md-2';
@@ -244,8 +241,6 @@ export class GameRenderer {
                        !hasSelectedDice && 
                        (!hasCurrentRoll || (savedDiceCount > 0 && remainingDiceCount > 0));
         
-        console.log(`🎲 GameRenderer: canRoll=${canRoll} (isRolling=${state.isRolling}, hasSelected=${hasSelectedDice}, hasCurrentRoll=${hasCurrentRoll}, savedDice=${savedDiceCount}, remaining=${remainingDiceCount})`);
-        
         
         // 1. Tlačítko HODIT
         const rollBtn = createNeonButton(
@@ -253,7 +248,6 @@ export class GameRenderer {
             'green', 
             'bi-dice-6-fill',
             () => {
-                console.log(`🎯 TLAČÍTKO HODIT stisknuto! canRoll=${canRoll}`);
                 if (callbacks.rollDice) callbacks.rollDice();
             },
             'btn-sm w-100'
@@ -263,7 +257,6 @@ export class GameRenderer {
             rollBtn.disabled = true;
             rollBtn.classList.add('disabled', 'opacity-50');
             rollBtn.title = 'AI hraje automaticky';
-            console.log(`🤖 TLAČÍTKO HODIT zakázáno - AI tah`);
         } else if (!canRoll) {
             rollBtn.disabled = true;
             rollBtn.classList.add('disabled', 'opacity-50');
@@ -274,12 +267,10 @@ export class GameRenderer {
             } else {
                 rollBtn.title = 'Nelze hodit';
             }
-            console.log(`❌ TLAČÍTKO HODIT zakázáno - canRoll=false (${rollBtn.title})`);
         } else {
             rollBtn.disabled = false;
             rollBtn.classList.remove('disabled', 'opacity-50');
             rollBtn.title = 'Hodit kostkami';
-            console.log(`✅ TLAČÍTKO HODIT povoleno - canRoll=true`);
         }
         
         const rollCol = document.createElement('div');
@@ -293,7 +284,6 @@ export class GameRenderer {
             'blue', 
             'bi-floppy-fill',
             () => {
-                console.log(`💾 TLAČÍTKO ODLOŽIT stisknuto! selectedDice=${state.selectedDice?.length || 0}`);
                 if (callbacks.saveDice) callbacks.saveDice();
             },
             'btn-sm w-100'
@@ -303,17 +293,14 @@ export class GameRenderer {
             saveBtn.disabled = true;
             saveBtn.classList.add('disabled', 'opacity-50');
             saveBtn.title = 'AI hraje automaticky';
-            console.log(`🤖 TLAČÍTKO ODLOŽIT zakázáno - AI tah`);
         } else if (!state.selectedDice || state.selectedDice.length === 0) {
             saveBtn.disabled = true;
             saveBtn.classList.add('disabled', 'opacity-50');
             saveBtn.title = 'Nejsou vybrané kostky';
-            console.log(`❌ TLAČÍTKO ODLOŽIT zakázáno - žádné vybrané kostky`);
         } else {
             saveBtn.disabled = false;
             saveBtn.classList.remove('disabled', 'opacity-50');
             saveBtn.title = 'Odložit vybrané kostky';
-            console.log(`✅ TLAČÍTKO ODLOŽIT povoleno - ${state.selectedDice.length} kostek vybráno`);
         }
         
         const saveCol = document.createElement('div');

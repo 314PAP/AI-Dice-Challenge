@@ -71,7 +71,6 @@ export class ComponentManager {
         }
 
         try {
-            console.log('🔧 Inicializuji GameUI po skrytí loading screen...');
             this.components.gameUI = new GameUI();
             
             // Spustí první render
