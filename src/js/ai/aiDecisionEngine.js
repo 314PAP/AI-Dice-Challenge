@@ -159,19 +159,58 @@ export class AiDecisionEngine {
     }
 
     /**
-     * Najde nejlepší kostky k odložení - opravená verze
+     * Najde nejlepší kostky k odložení - OPRAVENÁ verze
+     * Vybírá všechny dostupné bodující kombinace, ne jen jednu
      */
     findBestDiceToSave(dice) {
         if (!dice || dice.length === 0) return [];
         
+        // Najdeme všechny možné kombinace
         const combinations = AiDecisionEngine.findScoringCombinations(dice);
         
         if (combinations.length === 0) return [];
         
-        // Nejlepší kombinace podle bodů na kostku
-        combinations.sort((a, b) => (b.points / b.indices.length) - (a.points / a.indices.length));
+        // NOVÁ LOGIKA: Vybereme kombinaci s nejvíce body celkem
+        // Nejen nejlepší poměr, ale největší celkové body
+        return this.findOptimalDiceCombination(dice, combinations);
+    }
+    
+    /**
+     * Najde optimální kombinaci kostek pro maximální body
+     * @param {Array} dice - Všechny kostky na stole
+     * @param {Array} combinations - Dostupné kombinace
+     * @returns {Array} Optimální indexy kostek
+     */
+    findOptimalDiceCombination(dice, combinations) {
+        // Zkusíme najít kombinaci, která využívá všechny bodující kostky
+        const usedIndices = new Set();
+        const selectedIndices = [];
+        let totalPoints = 0;
         
-        return combinations[0].indices;
+        // Seřadíme kombinace podle bodů (nejvíce bodů první)
+        const sortedCombinations = combinations.sort((a, b) => b.points - a.points);
+        
+        // Postupně vybíráme kombinace, které se nepřekrývají
+        for (const combo of sortedCombinations) {
+            // Zkontroluj, zda se tato kombinace nepřekrývá s už vybranými kostkami
+            const hasOverlap = combo.indices.some(index => usedIndices.has(index));
+            
+            if (!hasOverlap) {
+                // Přidáme tuto kombinaci
+                combo.indices.forEach(index => {
+                    usedIndices.add(index);
+                    selectedIndices.push(index);
+                });
+                totalPoints += combo.points;
+            }
+        }
+        
+        // Pokud jsme nic nevybrali, vezmi alespoň nejlepší kombinaci
+        if (selectedIndices.length === 0) {
+            return combinations[0].indices;
+        }
+        
+        return selectedIndices.sort((a, b) => a - b); // Seřadíme indexy
     }
 }
 
