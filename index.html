@@ -35,24 +35,26 @@
     
     <!-- ✅ PŮVODNÍ WORKING CSS STRUKTURA -->
     <link rel="stylesheet" href="/src/styles/main.css">
+    
+    <!-- TESTOVACÍ CSS PRO LOADING SPINNER -->
 </head>
 <body class="h-100">
     
     <!-- Loading Screen s neonovým designem -->
     <div id="loadingScreen" class="position-fixed top-0 start-0 w-100 h-100 bg-black d-flex justify-content-center align-items-center z-index-top">
         <div class="text-center">
-            <!-- Neonový spinner -->
-            <div class="spinner-border text-neon-green mb-3 loading-spinner" role="status">
-                <span class="visually-hidden">Loading...</span>
+            <!-- Profesionální ring spinner z loading.io -->
+            <div class="triple-neon-spinner mb-4">
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
-            <h3 class="text-neon-green">
-                <i class="bi bi-dice-6-fill"></i> AI Dice Challenge
+            <h3 class="loading-text mb-4">
+                <i class="bi bi-dice-6-fill title-word-ai"></i> 
+                <span class="title-word-ai">AI</span> 
+                <span class="title-word-kostkova">KOSTKOVÁ</span> 
+                <span class="title-word-vyzva">VÝZVA</span>
             </h3>
-            <p class="text-neon-blue mt-2">Načítání neonové výzvy...</p>
-            <p class="text-neon-yellow mt-3 debug-text">
-                🔧 Debug: Pokud se aplikace nezobrazí do 5 sekund, 
-                <a href="#" onclick="forceHideLoading()" class="text-neon-orange">klikni sem</a>
-            </p>
         </div>
     </div>
 

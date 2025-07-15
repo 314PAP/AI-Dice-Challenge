@@ -73,9 +73,9 @@ class AIDiceGame {
             // 2. Basic components
             await this.componentManager.initializeComponents();
             
-            // Ujisti se, že loading trvá alespoň 2 sekundy
+            // Ujisti se, že loading trvá alespoň 3 sekundy pro dokončení animace
             const elapsedTime = Date.now() - startTime;
-            const minLoadingTime = 2000; // 2 sekundy
+            const minLoadingTime = 3000; // 3 sekundy pro neonovou animaci
             if (elapsedTime < minLoadingTime) {
                 await new Promise(resolve => setTimeout(resolve, minLoadingTime - elapsedTime));
             }
