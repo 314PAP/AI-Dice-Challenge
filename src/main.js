@@ -64,11 +64,21 @@ class AIDiceGame {
      */
     async init() {
         try {
+            // Zaznamenej čas startu pro minimum 2 sekundy loading
+            const startTime = Date.now();
+            
             // 1. DOM ready
             await this.initializer.waitForDOM();
             
             // 2. Basic components
             await this.componentManager.initializeComponents();
+            
+            // Ujisti se, že loading trvá alespoň 2 sekundy
+            const elapsedTime = Date.now() - startTime;
+            const minLoadingTime = 2000; // 2 sekundy
+            if (elapsedTime < minLoadingTime) {
+                await new Promise(resolve => setTimeout(resolve, minLoadingTime - elapsedTime));
+            }
             
             // 3. Hide loading
             console.log('🎬 Volám hideLoadingScreen...');
