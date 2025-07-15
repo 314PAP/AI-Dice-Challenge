@@ -58,6 +58,8 @@ export class AiPlayerController {
     async aiDecisionLoop(aiPlayer) {
         let attempts = 0;
         const maxAttempts = 10; // Ochrana proti nekonečné smyčce
+        let invalidTurnAttempts = 0; // Počítadlo neplatných pokusů
+        const maxInvalidAttempts = 3; // Max pokusy o neplatné tahy
         
         while (attempts < maxAttempts) {
             attempts++;
@@ -130,14 +132,45 @@ export class AiPlayerController {
                 }
                 // Jinak pokračovat normálně ve smyčce
             } else if (decision.action === 'endTurn') {
-                await this.executeEndTurnDecision(aiPlayer);
-                break;
+                // BEZPEČNOSTNÍ KONTROLA: Ověř, že AI má dostatečné body pro ukončení
+                const currentPlayer = currentState.players[currentState.currentPlayerIndex];
+                const totalTurnScore = currentState.turnScore || 0;
+                
+                if (currentPlayer.score === 0 && totalTurnScore < 300) {
+                    console.warn(`⚠️ AI ${aiPlayer.name} se pokouší ukončit s ${totalTurnScore} body, ale potřebuje 300. Pokračuji v házení.`);
+                    invalidTurnAttempts++;
+                    
+                    // Pokud se AI opakovaně pokouší o neplatné ukončení, force ukončení
+                    if (invalidTurnAttempts >= maxInvalidAttempts) {
+                        console.error(`🚨 AI ${aiPlayer.name} opakovaně dělá neplatné tahy, force ukončuji tah`);
+                        this.gameLogic.endTurn(); // Force ukončení i s neplatným skóre
+                        break;
+                    }
+                    
+                    await this.executeContinueDecision(aiPlayer);
+                } else {
+                    await this.executeEndTurnDecision(aiPlayer);
+                    break;
+                }
             } else if (decision.action === 'continue') {
                 await this.executeContinueDecision(aiPlayer);
             } else {
-                console.warn('⚠️ AI nerozpoznalo akci, ukončuji tah');
-                this.gameLogic.endTurn();
-                break;
+                // FALLBACK: Pokud AI nerozpozná akci, zkus bezpečné rozhodnutí
+                console.warn(`⚠️ AI ${aiPlayer.name} nerozpoznalo akci '${decision.action}', zkouším fallback`);
+                
+                const currentPlayer = currentState.players[currentState.currentPlayerIndex];
+                const totalTurnScore = currentState.turnScore || 0;
+                
+                if (totalTurnScore >= 300 || currentPlayer.score > 0) {
+                    // Má dostatečné body → ukončit tah
+                    console.log(`💡 Fallback: ${aiPlayer.name} ukončuje tah (${totalTurnScore} bodů)`);
+                    await this.executeEndTurnDecision(aiPlayer);
+                    break;
+                } else {
+                    // Nemá dostatečné body → pokračovat
+                    console.log(`💡 Fallback: ${aiPlayer.name} pokračuje v házení (${totalTurnScore} bodů)`);
+                    await this.executeContinueDecision(aiPlayer);
+                }
             }
             
             await this.delay(1500); // Pauza mezi akcemi
