@@ -67,13 +67,10 @@ class AIDiceGame {
             // 1. DOM ready
             await this.initializer.waitForDOM();
             
-            // 2. Mouse debug setup
-            setupMouseDebug();
-            
-            // 3. Basic components
+            // 2. Basic components
             await this.componentManager.initializeComponents();
             
-            // 4. Hide loading
+            // 3. Hide loading
             console.log('🎬 Volám hideLoadingScreen...');
             this.initializer.hideLoadingScreen();
             console.log('✅ hideLoadingScreen dokončen');
@@ -81,16 +78,16 @@ class AIDiceGame {
             // Malé zpoždění pro jistotu
             await new Promise(resolve => setTimeout(resolve, 600));
             
-            // 5. GameUI init
+            // 4. GameUI init
             await this.componentManager.initializeGameUI();
             
-            // 6. Event listeners
+            // 5. Event listeners
             this.initializer.setupEventListeners();
             
-            // 7. Layout monitoring
+            // 6. Layout monitoring
             this.layoutManager.startLayoutMonitoring();
             
-            // 8. Final checks
+            // 7. Final checks
             await this.performFinalChecks();
             
             console.log('✅ AI Dice Challenge ready!');
@@ -206,61 +203,6 @@ async function initializeApp() {
 
 // Spuštění inicializace
 const app = await initializeApp();
-
-/**
- * DEBUG: Mouse event tracker
- */
-function setupMouseDebug() {
-    console.log('🐭 Setupuji mouse debug...');
-    
-    // Global click listener
-    document.addEventListener('click', (e) => {
-        console.log('🖱️ CLICK detected:', {
-            target: e.target,
-            tagName: e.target.tagName,
-            id: e.target.id,
-            className: e.target.className,
-            textContent: e.target.textContent?.trim(),
-            hasClickListener: e.target.onclick !== null,
-            hasEventListeners: e.target.getEventListeners ? e.target.getEventListeners('click') : 'nedostupné',
-            coordinates: { x: e.clientX, y: e.clientY }
-        });
-        
-        // Check if button
-        if (e.target.tagName === 'BUTTON') {
-            console.log('🔘 BUTTON clicked:', {
-                text: e.target.textContent?.trim(),
-                classes: e.target.className,
-                onclick: e.target.onclick,
-                disabled: e.target.disabled,
-                style: e.target.style.cssText
-            });
-        }
-    });
-    
-    // Mouse hover tracking on buttons
-    document.addEventListener('mouseover', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            console.log('🖱️ Button HOVER:', e.target.textContent?.trim());
-        }
-    });
-    
-    // Mousedown/mouseup tracking
-    document.addEventListener('mousedown', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            console.log('⬇️ Button MOUSEDOWN:', e.target.textContent?.trim());
-        }
-    });
-    
-    document.addEventListener('mouseup', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            console.log('⬆️ Button MOUSEUP:', e.target.textContent?.trim());
-        }
-    });
-}
-
-// Spuštění debug systému
-setupMouseDebug();
 
 // DEBUG: Force loading screen removal after 3 seconds
 setTimeout(() => {
