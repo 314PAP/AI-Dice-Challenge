@@ -34,17 +34,17 @@ export const calculatePoints = (dice) => {
     const counts = countDiceValues(dice);
     
     // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
-    // Postupka = 1500 bodů (např. 1,2,3,4,5,6)
+    // Postupka = 3000 bodů (např. 1,2,3,4,5,6)
     if (dice.length === 6) {
         const sortedDice = [...dice].sort();
         const isSequence = sortedDice.every((value, index) => value === index + 1);
         if (isSequence) {
-            return 1500; // Postupka = 1500 bodů (žádné jiné kombinace se nepočítají)
+            return 3000; // Postupka = 3000 bodů (žádné jiné kombinace se nepočítají)
         }
     }
     
     // KONTROLA TŘÍ PÁRŮ (druhá priorita)
-    // Tři páry = 1500 bodů (např. 2,2,6,6,3,3)
+    // Tři páry = 3000 bodů (např. 2,2,6,6,3,3)
     let pairCount = 0;
     const originalCounts = { ...counts }; // Kopie pro kontrolu párů
     
@@ -55,7 +55,7 @@ export const calculatePoints = (dice) => {
     }
     
     if (pairCount === 3) {
-        return 1500; // Tři páry = 1500 bodů (žádné jiné kombinace se nepočítají)
+        return 3000; // Tři páry = 3000 bodů (žádné jiné kombinace se nepočítají)
     }
     
     // Tři a více stejných kostek - podle počtu kostek

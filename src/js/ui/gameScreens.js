@@ -165,25 +165,83 @@ export class GameScreens {
      */
     renderRules(gameArea) {
         const container = document.createElement('div');
-        container.className = 'd-flex flex-column h-100 overflow-hidden p-1';
+        container.className = 'd-flex flex-column h-100 p-2';
         
         const title = document.createElement('h1');
         title.className = 'text-neon-blue fs-fluid-1 mb-2 text-center';
         title.innerHTML = '<i class="bi bi-book-half"></i> Pravidla';
         container.appendChild(title);
         
-        const rulesCard = createNeonCard('Pravidla kostkovky', 'blue', `
+        const rulesCard = createNeonCard('', 'blue', `
             <div class="mb-3">
-                <h4 class="text-neon-blue h5 mb-2">Cíl hry</h4>
-                <p class="text-neon-green mb-0">Dosáhnout prvního cílového skóre.</p>
+                <h6 class="text-neon-yellow mb-2">🎯 Cíl hry</h6>
+                <p class="text-neon-green small mb-0">Získej <strong class="text-neon-blue">10 000 bodů</strong> jako první hráč!</p>
             </div>
+            
+            <div class="mb-3">
+                <h6 class="text-neon-yellow mb-2">🎲 Jak hrát krok za krokem</h6>
+                <ol class="text-neon-green small mb-0 ps-3">
+                    <li><strong class="text-neon-orange">Klikni "HODIT"</strong> - hodíš všemi dostupnými kostkami</li>
+                    <li><strong class="text-neon-orange">Označ kostky</strong> - klikni na kostky s body (rozsvítí se)</li>
+                    <li><strong class="text-neon-orange">Klikni "ODLOŽIT"</strong> - odložíš označené kostky</li>
+                    <li><strong class="text-neon-orange">Rozhodnutí:</strong> "HODIT" znovu nebo "UKONČIT TAH"</li>
+                </ol>
+            </div>
+            
+            <div class="mb-3">
+                <h6 class="text-neon-yellow mb-2">💰 Základní bodování</h6>
+                <ul class="text-neon-green small mb-0 ps-3">
+                    <li><strong class="text-neon-blue">Kostka 1</strong> = 100 bodů</li>
+                    <li><strong class="text-neon-blue">Kostka 5</strong> = 50 bodů</li>
+                    <li>Ostatní kostky (2, 3, 4, 6) = <strong class="text-neon-red">0 bodů</strong></li>
+                </ul>
+            </div>
+            
+            <div class="mb-3">
+                <h6 class="text-neon-yellow mb-2">🏆 Kombinace</h6>
+                <ul class="text-neon-green small mb-0 ps-3">
+                    <li><strong class="text-neon-purple">Tři 1</strong> = 1000 bodů</li>
+                    <li><strong class="text-neon-purple">Tři 2</strong> = 200 bodů</li>
+                    <li><strong class="text-neon-purple">Tři 3</strong> = 300 bodů</li>
+                    <li><strong class="text-neon-purple">Tři 4</strong> = 400 bodů</li>
+                    <li><strong class="text-neon-purple">Tři 5</strong> = 500 bodů</li>
+                    <li><strong class="text-neon-purple">Tři 6</strong> = 600 bodů</li>
+                    <li><strong class="text-neon-blue">Čtyři stejné</strong> = základní body × 2</li>
+                    <li><strong class="text-neon-blue">Pět stejných</strong> = základní body × 4</li>
+                    <li><strong class="text-neon-blue">Šest stejných</strong> = základní body × 8</li>
+                </ul>
+            </div>
+            
+            <div class="mb-3">
+                <h6 class="text-neon-yellow mb-2">🎰 Speciální kombinace</h6>
+                <ul class="text-neon-green small mb-0 ps-3">
+                    <li><strong class="text-neon-orange">Tři dvojice</strong> (např. 223344) = 3000 bodů</li>
+                    <li><strong class="text-neon-orange">Postupka</strong> (123456) = 3000 bodů</li>
+                    <li class="text-neon-red small">Pozor: Do tří dvojic se NEPOČÍTAJÍ 1 a 5!</li>
+                </ul>
+            </div>
+            
+            <div class="mb-3">
+                <h6 class="text-neon-orange mb-2">🔥 HOT DICE</h6>
+                <p class="text-neon-green small mb-0">Pokud odložíš <strong>všech 6 kostek</strong>, dostaneš je zpět a můžeš pokračovat v házení!</p>
+            </div>
+            
+            <div class="mb-3">
+                <h6 class="text-neon-red mb-2">⚠️ FARKLE (Riziko)</h6>
+                <p class="text-neon-red small mb-0">Nehodíš <strong>žádnou 1, 5 nebo kombinaci</strong>? <strong>Ztratíš všechny body z celého tahu!</strong></p>
+            </div>
+            
             <div class="mb-0">
-                <h4 class="text-neon-blue h5 mb-2">Bodování</h4>
-                <p class="text-neon-green mb-0">Jednička = 100, Pětka = 50, Tři stejné = násobky</p>
+                <h6 class="text-neon-orange mb-2">🚀 První zápis</h6>
+                <p class="text-neon-green small mb-0">Pro první zápis potřebuješ minimálně <strong class="text-neon-yellow">300 bodů</strong> v jednom tahu.</p>
             </div>
         `);
         
-        container.appendChild(rulesCard);
+        // Wrapper pro scroll a overflow
+        const scrollWrapper = document.createElement('div');
+        scrollWrapper.className = 'flex-grow-1 overflow-auto mb-2';
+        scrollWrapper.appendChild(rulesCard);
+        container.appendChild(scrollWrapper);
         
         const backBtn = createNeonButton('ZPĚT', 'orange', 'bi-arrow-left', 
             () => gameState.updateState({ gamePhase: 'menu' }));

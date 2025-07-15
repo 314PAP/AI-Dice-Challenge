@@ -526,6 +526,40 @@ export class GameUI {
         });
         state.isFarkleProcessing = false;
     }
+
+    /**
+     * Vykreslí pravidla hry
+     */
+    renderRules() {
+        if (!this.gameArea) {
+            console.error('❌ GameUI.renderRules: gameArea není dostupný při renderování!');
+            return;
+        }
+        
+        // Delegujeme na GameScreens
+        if (this.gameScreens && this.gameScreens.renderRules) {
+            this.gameScreens.renderRules(this.gameArea);
+        } else {
+            console.error('❌ GameScreens nebo renderRules metoda není dostupná!');
+        }
+    }
+
+    /**
+     * Vykreslí síň slávy
+     */
+    renderHallOfFame() {
+        if (!this.gameArea) {
+            console.error('❌ GameUI.renderHallOfFame: gameArea není dostupný při renderování!');
+            return;
+        }
+        
+        // Delegujeme na GameScreens
+        if (this.gameScreens && this.gameScreens.renderHallOfFame) {
+            this.gameScreens.renderHallOfFame(this.gameArea);
+        } else {
+            console.error('❌ GameScreens nebo renderHallOfFame metoda není dostupná!');
+        }
+    }
 }
 
 // Exportujeme třídu GameUI
