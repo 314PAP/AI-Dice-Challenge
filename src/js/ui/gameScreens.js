@@ -208,15 +208,15 @@ export class GameScreens {
                     <li><strong class="text-neon-purple">Tři 6</strong> = 600 bodů</li>
                     <li><strong class="text-neon-blue">Čtyři stejné</strong> = základní body × 2</li>
                     <li><strong class="text-neon-blue">Pět stejných</strong> = základní body × 4</li>
-                    <li><strong class="text-neon-blue">Šest stejných</strong> = základní body × 8</li>
+                    <li><strong class="text-neon-blue">Šest stejných</strong> = <strong class="text-neon-yellow">5000 bodů</strong></li>
                 </ul>
             </div>
             
             <div class="mb-3">
                 <h6 class="text-neon-yellow mb-2">🎰 Speciální kombinace</h6>
                 <ul class="text-neon-green small mb-0 ps-3">
-                    <li><strong class="text-neon-orange">Tři dvojice</strong> (např. 223344) = 3000 bodů</li>
-                    <li><strong class="text-neon-orange">Postupka</strong> (123456) = 3000 bodů</li>
+                    <li><strong class="text-neon-orange">Tři dvojice</strong> (např. 223344) = <strong class="text-neon-yellow">1500 bodů</strong></li>
+                    <li><strong class="text-neon-orange">Postupka</strong> (123456) = <strong class="text-neon-yellow">2000 bodů</strong></li>
                     <li class="text-neon-red small">Pozor: Do tří dvojic se NEPOČÍTAJÍ 1 a 5!</li>
                 </ul>
             </div>

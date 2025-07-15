@@ -34,17 +34,17 @@ export const calculatePoints = (dice) => {
     const counts = countDiceValues(dice);
     
     // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
-    // Postupka = 3000 bodů (např. 1,2,3,4,5,6)
+    // Postupka = 2000 bodů (např. 1,2,3,4,5,6)
     if (dice.length === 6) {
         const sortedDice = [...dice].sort();
         const isSequence = sortedDice.every((value, index) => value === index + 1);
         if (isSequence) {
-            return 3000; // Postupka = 3000 bodů (žádné jiné kombinace se nepočítají)
+            return 2000; // Postupka = 2000 bodů (žádné jiné kombinace se nepočítají)
         }
     }
     
     // KONTROLA TŘÍ PÁRŮ (druhá priorita)
-    // Tři páry = 3000 bodů (např. 2,2,6,6,3,3)
+    // Tři páry = 1500 bodů (např. 2,2,6,6,3,3)
     let pairCount = 0;
     const originalCounts = { ...counts }; // Kopie pro kontrolu párů
     
@@ -55,21 +55,24 @@ export const calculatePoints = (dice) => {
     }
     
     if (pairCount === 3) {
-        return 3000; // Tři páry = 3000 bodů (žádné jiné kombinace se nepočítají)
+        return 1500; // Tři páry = 1500 bodů (žádné jiné kombinace se nepočítají)
     }
     
     // Tři a více stejných kostek - podle počtu kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         const count = counts[value];
         if (count >= 3) {
+            // Speciální bodování pro šest stejných čísel
+            if (count === 6) {
+                points += 5000; // Šest stejných = 5000 bodů
+            }
             // Speciální bodování pro jednotky
-            if (value === DICE_CONSTANTS.MIN_VALUE) {
-                // Trojice jedniček = 1000, čtveřice = 2000, pětice = 4000, šestica = 8000
+            else if (value === DICE_CONSTANTS.MIN_VALUE) {
+                // Trojice jedniček = 1000, čtveřice = 2000, pětice = 4000
                 switch (count) {
                     case 3: points += 1000; break;
                     case 4: points += 2000; break;
                     case 5: points += 4000; break;
-                    case 6: points += 8000; break;
                 }
             } else {
                 // Ostatní čísla: trojice = hodnota × 100, pak se zdvojnásobuje
@@ -77,7 +80,6 @@ export const calculatePoints = (dice) => {
                     case 3: points += value * 100; break;    // 3×2 = 200
                     case 4: points += value * 200; break;    // 4×2 = 400  
                     case 5: points += value * 400; break;    // 5×2 = 800
-                    case 6: points += value * 800; break;    // 6×2 = 1600
                 }
             }
             
