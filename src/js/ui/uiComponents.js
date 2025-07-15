@@ -60,10 +60,10 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
         button.addEventListener('click', onClick);
     }
     
-    // 🎵 Hover efekt pro menu
-    button.addEventListener('mouseenter', () => {
-        soundSystem.play('menuHover', 0.5); // Tišší než ostatní zvuky
-    });
+    // 🎵 Hover efekt odstraněn (na požádání uživatele)
+    // button.addEventListener('mouseenter', () => {
+    //     soundSystem.play('menuHover', 0.5); // Tišší než ostatní zvuky
+    // });
     
     return button;
 };
