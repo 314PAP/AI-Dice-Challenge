@@ -23,7 +23,7 @@ export class DiceManager {
     }
 
     /**
-     * Odloží vybrané kostky - s lodash optimalizací
+     * Odloží vybrané kostky - s lodash optimalizací a validací prvního zápisu
      */
     saveDice() {
         const state = gameState.getState();
@@ -45,7 +45,18 @@ export class DiceManager {
         const points = calculatePoints(selectedDiceValues);
         
         if (points === 0) {
-            const errorMsg = '❌ Vybrané kostky nezískávají body!';
+            const errorMsg = '❌ Vybrané kostky neziskávají body!';
+            console.error(errorMsg);
+            chatSystem.addSystemMessage(errorMsg, CHAT_COLORS.RED);
+            return;
+        }
+        
+        // VALIDACE PRVNÍHO ZÁPISU
+        const currentPlayer = state.players[state.currentPlayerIndex];
+        const currentTurnScore = (state.turnScore || 0) + points;
+        
+        if (currentPlayer.score === 0 && currentTurnScore < 300) {
+            const errorMsg = `❌ První zápis vyžaduje minimálně 300 bodů! Máte jen ${currentTurnScore} bodů.`;
             console.error(errorMsg);
             chatSystem.addSystemMessage(errorMsg, CHAT_COLORS.RED);
             return;
