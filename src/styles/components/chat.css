@@ -112,6 +112,58 @@ Bootstrap nemá scrollbar styling - čistě custom
 
 #chatMessages::-webkit-scrollbar-corner { background: var(--neon-black); }
 
+/* ===== CHAT ZPRÁVY - POUZE BARVY, VELIKOSTI ŘEŠÍ BOOTSTRAP ===== */
+
+/* Zprávy v chatu - pouze barvy a efekty */
+.chat-message {
+  background: rgba(var(--neon-black-rgb), 0.3);
+  color: var(--neon-green);
+  border: var(--border-neon-thin) solid transparent;
+}
+
+/* AI zprávy - pouze barvy */
+.chat-message-ai {
+  align-self: flex-start;
+}
+
+/* Uživatelské zprávy - pouze barvy */
+.chat-message-user {
+  background: rgba(var(--neon-black-rgb), 0.3);
+  color: var(--neon-green);
+  align-self: flex-end;
+  text-shadow: none;
+  border: none;
+}
+
+/* AI osobnosti - SPECIFICKÉ BARVY */
+.chat-message-ai.ai-gemini {
+  color: var(--neon-blue) !important;
+}
+
+.chat-message-ai.ai-claude {
+  color: var(--neon-orange) !important;
+}
+
+.chat-message-ai.ai-gpt {
+  color: var(--neon-purple) !important;
+}
+
+.chat-message-ai.ai-llama {
+  color: var(--neon-yellow) !important;
+}
+
+.chat-message-ai.ai-mistral {
+  color: var(--neon-red) !important;
+}
+
+/* Systémové zprávy - pouze barvy */
+.chat-message-system {
+  background: rgba(var(--neon-yellow-rgb), 0.15);
+  border: none;
+  color: var(--neon-yellow);
+  align-self: flex-start;
+}
+
 /* 📱 RESPONZIVNÍ SCROLLBARY */
 @media (pointer: coarse) { /* Touch zařízení */
   *::-webkit-scrollbar { width: 0.75rem; height: 0.75rem; }

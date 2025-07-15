@@ -1,0 +1,84 @@
+/* ===================================================================
+   AI DICE CHALLENGE - PLAYERS COMPONENT
+   Animace a styly pro hráče
+   ================================================================= */
+
+/* ===== ANIMACE HRÁČŮ ===== */
+
+/* Aktivní hráč - jemný pulsující neonový efekt */
+.player-active {
+  animation: pulse 3s ease-in-out infinite !important;
+  border-width: 3px !important;
+  box-shadow: 0 0 1.5rem currentColor, 0 0 3rem rgba(255, 255, 255, 0.2) !important;
+  transform: scale(1.02) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* ===== ANIMACE SKÓRE HRÁČE ===== */
+
+/* Animace při získání bodů */
+.score-animation {
+  animation: zoomIn 1s ease-out !important;
+}
+
+/* ===== ANIMACE PRO HERNÍ STAVY ===== */
+
+/* Aktivní hráč - pulsující neonový border podle barvy */
+.border-neon-green.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-green), 0 0 3rem var(--neon-green) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-blue.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-blue), 0 0 3rem var(--neon-blue) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-purple.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-purple), 0 0 3rem var(--neon-purple) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-orange.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-orange), 0 0 3rem var(--neon-orange) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-red.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-red), 0 0 3rem var(--neon-red) !important;
+  transform: scale(1.02) !important;
+}
+
+.border-neon-yellow.player-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  box-shadow: 0 0 1.5rem var(--neon-yellow), 0 0 3rem var(--neon-yellow) !important;
+  transform: scale(1.02) !important;
+}
+
+/* FARKLE stav */
+.player-farkle {
+  /* ✅ CSSHAKE - shake-little místo neexistující shake-slow */
+  animation: shake-little 0.8s ease-in-out 3;
+  border-color: var(--neon-red) !important;
+}
+
+/* FARKLE text */
+.farkle-text {
+  color: var(--neon-red);
+  text-shadow: 0 0 0.625rem var(--neon-red);
+  font-weight: bold;
+  font-size: 1.2rem;
+  /* ✅ CSSHAKE - shake-little je správná třída z knihovny */
+  animation: shake-little 0.8s ease-in-out 3;
+}

@@ -1,0 +1,61 @@
+/* ===================================================================
+   AI DICE CHALLENGE - BOOTSTRAP OVERRIDES
+   Override Bootstrap defaultních barev a stylů
+   ================================================================= */
+
+/* ===== BOOTSTRAP UTILITY OVERRIDE - POUZE NUTNÉ ===== */
+
+/* Text utility třídy - pouze light má zůstat bílou */
+.text-light { 
+  color: #ffffff !important; 
+}
+
+/* Background utility třídy */
+.bg-black { 
+  background-color: var(--neon-black) !important; 
+}
+
+/* ===== BOOTSTRAP COLORS OVERRIDE - KRITICKÉ TŘÍDY ===== */
+
+/* Override Bootstrap default colors pouze tam, kde je potřeba */
+.text-primary { color: var(--neon-blue) !important; }
+.text-secondary { color: var(--neon-purple) !important; }
+.text-success { color: var(--neon-green) !important; }
+.text-info { color: var(--neon-blue) !important; }
+.text-warning { color: var(--neon-yellow) !important; }
+.text-danger { color: var(--neon-red) !important; }
+.text-dark { color: var(--neon-green) !important; }
+
+/* Bootstrap button colors - pouze když není použita naše neon třída */
+.btn-primary:not(.btn-neon):not([class*="btn-neon"]) {
+  background-color: var(--neon-blue) !important;
+  border-color: var(--neon-blue) !important;
+  color: white !important;
+}
+
+.btn-success:not(.btn-neon):not([class*="btn-neon"]) {
+  background-color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  color: black !important;
+}
+
+.btn-danger:not(.btn-neon):not([class*="btn-neon"]) {
+  background-color: var(--neon-red) !important;
+  border-color: var(--neon-red) !important;
+  color: white !important;
+}
+
+.btn-warning:not(.btn-neon):not([class*="btn-neon"]) {
+  background-color: var(--neon-yellow) !important;
+  border-color: var(--neon-yellow) !important;
+  color: black !important;
+}
+
+/* ===== ZBÝVAJÍCÍ UTILITY STYLY - POUZE NUTNÉ MINIMUM ===== */
+
+/* Opacity utilities (Bootstrap 5) */
+.opacity-0 { opacity: 0 !important; }
+.opacity-25 { opacity: 0.25 !important; }
+.opacity-50 { opacity: 0.5 !important; }
+.opacity-75 { opacity: 0.75 !important; }
+.opacity-100 { opacity: 1 !important; }

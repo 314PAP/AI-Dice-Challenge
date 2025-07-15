@@ -1,0 +1,135 @@
+/* ===================================================================
+   AI DICE CHALLENGE - AVATARS COMPONENT
+   Avatar animace a styly podle barev
+   ================================================================= */
+
+/* ===== ANIMACE PRO AVATARY HRÁČŮ ===== */
+
+/* Základní avatar styl */
+.player-avatar {
+  transition: var(--transition-normal);
+  border: 2px solid transparent;
+  padding: 4px; /* Zvětšený padding pro lepší poměr ikony k rámečku */
+}
+
+/* Jemný neonový efekt při hover na avatary - podle barvy border kontejneru */
+.border-neon-green .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-green), 0 0 2rem var(--neon-green) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-blue .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-blue), 0 0 2rem var(--neon-blue) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-purple .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-purple), 0 0 2rem var(--neon-purple) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-orange .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-orange), 0 0 2rem var(--neon-orange) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-red .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-red), 0 0 2rem var(--neon-red) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.border-neon-yellow .player-avatar:hover {
+  box-shadow: 0 0 1rem var(--neon-yellow), 0 0 2rem var(--neon-yellow) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Společná animace pro všechny aktivní avatary - podle barvy border kontejneru */
+.border-neon-green .player-avatar-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 1rem var(--neon-green), 0 0 2rem var(--neon-green) !important;
+  transform: scale(1.05) !important;
+}
+
+.border-neon-blue .player-avatar-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 1rem var(--neon-blue), 0 0 2rem var(--neon-blue) !important;
+  transform: scale(1.05) !important;
+}
+
+.border-neon-purple .player-avatar-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 1rem var(--neon-purple), 0 0 2rem var(--neon-purple) !important;
+  transform: scale(1.05) !important;
+}
+
+.border-neon-orange .player-avatar-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 1rem var(--neon-orange), 0 0 2rem var(--neon-orange) !important;
+  transform: scale(1.05) !important;
+}
+
+.border-neon-red .player-avatar-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 1rem var(--neon-red), 0 0 2rem var(--neon-red) !important;
+  transform: scale(1.05) !important;
+}
+
+.border-neon-yellow .player-avatar-active {
+  animation: pulse 3s ease-in-out infinite;
+  border-style: solid !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 1rem var(--neon-yellow), 0 0 2rem var(--neon-yellow) !important;
+  transform: scale(1.05) !important;
+}
+
+/* Responsive velikosti avatarů - zmenšené pro lepší poměr */
+@media (min-width: 992px) {
+  .player-avatar {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .player-avatar {
+    width: 42px !important;
+    height: 42px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .player-avatar {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .player-avatar {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .player-avatar {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}

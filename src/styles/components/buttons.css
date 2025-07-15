@@ -56,6 +56,97 @@ Přidáváme: responzivní sizing, min-height pro touch
   filter: brightness(0.9) !important;
 }
 
+/* ===== NEONOVÁ TLAČÍTKA - POUZE BARVY A EFEKTY ===== */
+
+/* Základní neon-btn třída - pouze barvy a efekty, velikosti řeší Bootstrap */
+.btn-neon,
+.btn.btn-neon {
+  background-color: transparent;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: var(--neon-text-shadow);
+  transition: var(--transition-normal, all 0.3s ease);
+  position: relative;
+  border-width: var(--border-neon-medium);
+  border-style: solid;
+  outline: none;
+}
+
+/* Hover a focus stavy + neonové efekty */
+.btn-neon:hover,
+.btn-neon:focus,
+.btn.btn-neon:hover,
+.btn.btn-neon:focus {
+  background-color: var(--neon-bg-hover, rgba(0, 0, 0, 0.2)) !important;
+  color: inherit !important;
+  border-color: inherit !important;
+  box-shadow: var(--neon-glow-strong) !important;
+  transform: scale(1.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Speciální třída pro tlačítka bez scaling - pro zabránění overflow */
+.btn-neon.btn-no-scale:hover,
+.btn-neon.btn-no-scale:focus,
+.btn.btn-neon.btn-no-scale:hover,
+.btn.btn-neon.btn-no-scale:focus {
+  transform: none;
+}
+
+/* Active stav */
+.btn-neon:active,
+.btn.btn-neon:active,
+.btn-neon.active,
+.btn.btn-neon.active {
+  background-color: var(--neon-bg-active, rgba(0, 0, 0, 0.3)) !important;
+  transform: scale(0.98) !important;
+  color: inherit !important;
+  border-color: inherit !important;
+}
+
+/* Varianty barev neonových tlačítek */
+.btn-neon[data-neon-color="green"],
+.btn.btn-neon[data-neon-color="green"] {
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: var(--neon-glow) !important;
+}
+
+.btn-neon[data-neon-color="blue"],
+.btn.btn-neon[data-neon-color="blue"] {
+  color: var(--neon-blue) !important;
+  border-color: var(--neon-blue) !important;
+  box-shadow: var(--neon-glow) !important;
+}
+
+.btn-neon[data-neon-color="purple"],
+.btn.btn-neon[data-neon-color="purple"] {
+  color: var(--neon-purple) !important;
+  border-color: var(--neon-purple) !important;
+  box-shadow: var(--neon-glow) !important;
+}
+
+.btn-neon[data-neon-color="orange"],
+.btn.btn-neon[data-neon-color="orange"] {
+  color: var(--neon-orange) !important;
+  border-color: var(--neon-orange) !important;
+  box-shadow: var(--neon-glow) !important;
+}
+
+.btn-neon[data-neon-color="yellow"],
+.btn.btn-neon[data-neon-color="yellow"] {
+  color: var(--neon-yellow) !important;
+  border-color: var(--neon-yellow) !important;
+  box-shadow: var(--neon-glow) !important;
+}
+
+.btn-neon[data-neon-color="red"],
+.btn.btn-neon[data-neon-color="red"] {
+  color: var(--neon-red) !important;
+  border-color: var(--neon-red) !important;
+  box-shadow: var(--neon-glow) !important;
+}
+
 /* 🔗 BOOTSTRAP BUTTON SCALING - rozšíření */
 .btn { font-size: inherit; }
 .btn-sm { font-size: 0.8rem; }

@@ -1,11 +1,37 @@
 /* ===================================================================
    AI DICE CHALLENGE - COLORS UTILITIES
-   Všechny barvy, neon efekty a barevné třídy
+   Základní barevné utility třídy
    ================================================================= */
 
-/* 🎨 IMPORT Z PŮVODNÍHO colors-bootstrap-simple.css */
-/* Tento soubor bude obsahovat pouze barevné definice z původního souboru */
+/* ===== ZÁKLADNÍ GLOBÁLNÍ STYLY ===== */
+html, body {
+  background-color: var(--neon-black);
+  font-family: 'Orbitron', 'SF Pro Display', system-ui, sans-serif;
+}
 
-/* Pro nyní importujeme celý původní soubor */
-/* V dalším kroku lze rozdělit na menší části */
-@import '../colors-bootstrap-simple.css';
+/* ===== NAŠE UTILITY TŘÍDY ===== */
+
+/* Text barvy */
+.text-neon-green { color: var(--neon-green) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-blue { color: var(--neon-blue) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-purple { color: var(--neon-purple) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-orange { color: var(--neon-orange) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-red { color: var(--neon-red) !important; text-shadow: var(--neon-text-shadow); }
+.text-neon-yellow { color: var(--neon-yellow) !important; text-shadow: var(--neon-text-shadow); }
+
+/* Border barvy */
+.border-neon-green { border-color: var(--neon-green) !important; }
+.border-neon-blue { border-color: var(--neon-blue) !important; }
+.border-neon-purple { border-color: var(--neon-purple) !important; }
+.border-neon-orange { border-color: var(--neon-orange) !important; }
+.border-neon-red { border-color: var(--neon-red) !important; }
+.border-neon-yellow { border-color: var(--neon-yellow) !important; }
+
+/* Background barvy */
+.bg-neon-black { background-color: var(--neon-black) !important; }
+.bg-neon-green { background-color: var(--neon-green) !important; }
+.bg-neon-blue { background-color: var(--neon-blue) !important; }
+.bg-neon-purple { background-color: var(--neon-purple) !important; }
+.bg-neon-orange { background-color: var(--neon-orange) !important; }
+.bg-neon-red { background-color: var(--neon-red) !important; }
+.bg-neon-yellow { background-color: var(--neon-yellow) !important; }

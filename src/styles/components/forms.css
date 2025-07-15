@@ -1,0 +1,28 @@
+/* ===================================================================
+   AI DICE CHALLENGE - FORMS COMPONENT
+   Formulářové prvky s neonovými styly
+   ================================================================= */
+
+/* ===== FORMULÁŘE ===== */
+
+/* Základní formulářové prvky */
+.form-control,
+.form-select,
+.input-group-text {
+  background-color: var(--neon-black) !important;
+  color: var(--neon-green) !important;
+  border-color: var(--neon-green) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-green) !important;
+  box-shadow: 0 0 0.625rem rgba(var(--neon-green-rgb), 0.5) !important;
+  color: var(--neon-green) !important;
+}
+
+.form-control::placeholder {
+  color: rgba(var(--neon-green-rgb), 0.7) !important;
+  opacity: 1 !important;
+}

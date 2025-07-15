@@ -1,0 +1,199 @@
+/* ===================================================================
+   AI DICE CHALLENGE - FARKLE COMPONENT
+   FARKLE overlay efekty a animace
+   ================================================================= */
+
+/* ===== FARKLE OVERLAY EFEKTY ===== */
+
+/* FARKLE animace pro kartu hráče */
+.player-farkle {
+  position: relative !important;
+  animation: heartBeat 0.8s ease-in-out 3 !important;
+}
+
+/* Moderní FARKLE text overlay - Bootstrap responzivní */
+.farkle-text {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotate(-15deg) !important;
+  background: linear-gradient(45deg, var(--neon-red), #ff6b6b) !important;
+  color: var(--neon-black) !important;
+  font-weight: 900 !important;
+  font-size: clamp(1rem, 4vw, 1.5rem) !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 
+    0 0 1rem var(--neon-red),
+    0 0 2rem rgba(255, 49, 49, 0.5),
+    inset 0 0 0.5rem rgba(255, 255, 255, 0.3) !important;
+  text-shadow: 
+    0 0 0.5rem rgba(0, 0, 0, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  /* ✅ ANIMATE.CSS - bounceInDown čistá knihovna bez custom cubic-bezier */
+  animation: bounceInDown 0.6s ease-out forwards !important;
+  z-index: var(--z-top) !important;
+  letter-spacing: 0.05em !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 768px) {
+  .farkle-text {
+    font-size: 1rem !important;
+    padding: 0.25rem 0.5rem !important;
+    transform: translate(-50%, -50%) rotate(-10deg) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .farkle-text {
+    font-size: 0.875rem !important;
+    padding: 0.125rem 0.375rem !important;
+    transform: translate(-50%, -50%) rotate(-8deg) !important;
+  }
+}
+
+.player-farkle::before {
+  content: '';
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: radial-gradient(circle, rgba(255, 49, 49, 0.1) 0%, rgba(255, 49, 49, 0.05) 50%, transparent 100%) !important;
+  border-radius: inherit !important;
+  pointer-events: none !important;
+  z-index: var(--z-dropdown) !important;
+  animation: pulse 0.8s ease-in-out 3 !important;
+}
+
+/* FARKLE animace pro kartu hráče */
+.player-card-farkle {
+  position: relative !important;
+  animation: heartBeat 1s ease-in-out 3 !important;
+}
+
+.farkle-text-overlay {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotate(-25deg) !important;
+  background: linear-gradient(135deg, var(--neon-red) 0%, #ff6b6b 50%, var(--neon-red) 100%) !important;
+  color: white !important;
+  font-weight: 900 !important;
+  font-size: clamp(1.2rem, 5vw, 2rem) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 
+    0 0 2rem var(--neon-red),
+    0 0 4rem rgba(255, 49, 49, 0.8),
+    inset 0 0 1rem rgba(255, 255, 255, 0.3) !important;
+  text-shadow: 
+    0 0 1rem rgba(0, 0, 0, 0.9),
+    0 3px 6px rgba(0, 0, 0, 0.7) !important;
+  /* ✅ ANIMATE.CSS - bounceInUp čistá knihovna bez custom cubic-bezier */
+  animation: bounceInUp 1s ease-out forwards !important;
+  z-index: var(--z-top) !important;
+  letter-spacing: 0.1em !important;
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  white-space: nowrap !important;
+  font-family: 'Arial Black', Arial, sans-serif !important;
+}
+
+/* Responzivní úpravy pro FARKLE overlay text */
+@media (max-width: 768px) {
+  .farkle-text-overlay {
+    font-size: 1.2rem !important;
+    padding: 0.4rem 0.8rem !important;
+    transform: translate(-50%, -50%) rotate(-20deg) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .farkle-text-overlay {
+    font-size: 1rem !important;
+    padding: 0.3rem 0.6rem !important;
+    transform: translate(-50%, -50%) rotate(-15deg) !important;
+  }
+}
+
+.farkle-text-overlay::before {
+  content: '';
+  position: absolute !important;
+  top: -50% !important;
+  left: -50% !important;
+  right: -50% !important;
+  bottom: -50% !important;
+  background: radial-gradient(circle, rgba(255, 49, 49, 0.2) 0%, rgba(255, 49, 49, 0.1) 50%, transparent 100%) !important;
+  border-radius: inherit !important;
+  pointer-events: none !important;
+  z-index: var(--z-behind) !important;
+  animation: pulse 1s ease-in-out 3 !important;
+}
+
+/* ===== FARKLE DIAGONAL OVERLAY PRO DICE SECTION ===== */
+
+/* Diagonální FARKLE nápis přes dice-section */
+.dice-section-farkle {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.dice-section-farkle::after {
+  content: "💥 FARKLE! 💥";
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotate(-15deg) !important;
+  width: 80% !important;
+  height: 40% !important;
+  background: linear-gradient(
+    135deg, 
+    transparent 20%, 
+    rgba(255, 49, 49, 0.95) 25%, 
+    rgba(255, 49, 49, 0.95) 75%, 
+    transparent 80%
+  ) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--neon-black) !important;
+  font-weight: 900 !important;
+  font-size: clamp(0.8rem, 3vw, 1.2rem) !important;
+  text-shadow: 
+    0 0 0.5rem rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.8) !important;
+  letter-spacing: 0.05em !important;
+  animation: rotateIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 
+    0 0 0.8rem var(--neon-red),
+    0 0 1.6rem rgba(255, 49, 49, 0.6),
+    inset 0 0 0.8rem rgba(255, 255, 255, 0.2) !important;
+  pointer-events: none !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  z-index: var(--z-top) !important;
+}
+
+@media (max-width: 768px) {
+  .dice-section-farkle::after {
+    font-size: clamp(0.7rem, 2.5vw, 1rem) !important;
+    transform: translate(-50%, -50%) rotate(-12deg) !important;
+    width: 75% !important;
+    height: 35% !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .dice-section-farkle::after {
+    font-size: clamp(0.6rem, 2vw, 0.85rem) !important;
+    transform: translate(-50%, -50%) rotate(-10deg) !important;
+    content: "💥 FARKLE!" !important;
+    letter-spacing: 0.02em !important;
+    width: 70% !important;
+    height: 30% !important;
+  }
+}

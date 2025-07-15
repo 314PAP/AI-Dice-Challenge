@@ -270,11 +270,17 @@ RESPONSIVE:
 @import './components/cards.css';    /* Karty a panely */
 @import './components/chat.css';     /* Chat UI a scrollbary */
 @import './components/spinners.css'; /* Loading animace */
+@import './components/forms.css';    /* Formulářové prvky */
+@import './components/players.css';  /* Animace hráčů */
+@import './components/avatars.css';  /* Avatar animace */
+@import './components/farkle.css';   /* FARKLE overlay efekty */
+@import './components/tables.css';   /* Neonové tabulky */
 
 /* 🔧 UTILITY TŘÍDY */
-@import './utilities/colors.css';      /* Barvy a neon efekty */
-@import './utilities/responsive.css';  /* Responzivní breakpointy */
-@import './utilities/helpers.css';     /* Z-index, utility třídy */
+@import './utilities/colors.css';           /* Barvy a neon efekty */
+@import './utilities/responsive.css';       /* Responzivní breakpointy */
+@import './utilities/helpers.css';          /* Z-index, utility třídy */
+@import './utilities/bootstrap-overrides.css'; /* Bootstrap overrides */
 
 /* 🎨 TÉMATA */
 @import './themes/neon.css';         /* Neonový motiv */

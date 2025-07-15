@@ -1,0 +1,68 @@
+/* ===================================================================
+   AI DICE CHALLENGE - TABLES COMPONENT
+   Neonové tabulky
+   ================================================================= */
+
+/* ===== TABULKY - NEONOVÉ STYLY ===== */
+
+/* Neonová tabulka - přepíše Bootstrap defaultní bílé pozadí a ohraničení */
+.neon-table {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-green) !important;
+}
+
+.neon-table th,
+.neon-table td {
+  background-color: var(--neon-black) !important;
+  border-color: var(--neon-green) !important;
+}
+
+/* Neonové bordery pro různé barvy */
+.neon-green-border-bottom {
+  border-bottom: var(--border-neon-thin) solid var(--neon-green) !important;
+}
+
+.neon-orange-border-bottom {
+  border-bottom: var(--border-neon-thin) solid var(--neon-orange) !important;
+}
+
+.neon-blue-border-bottom {
+  border-bottom: var(--border-neon-thin) solid var(--neon-blue) !important;
+}
+
+.neon-purple-border-bottom {
+  border-bottom: var(--border-neon-thin) solid var(--neon-purple) !important;
+}
+
+.neon-red-border-bottom {
+  border-bottom: var(--border-neon-thin) solid var(--neon-red) !important;
+}
+
+.neon-yellow-border-bottom {
+  border-bottom: var(--border-neon-thin) solid var(--neon-yellow) !important;
+}
+
+/* Specific text-shadow utility třídy - Bootstrap nemá */
+.neon-text-shadow-green {
+  text-shadow: 0 0 0.625rem var(--neon-green) !important;
+}
+
+.neon-text-shadow-orange {
+  text-shadow: 0 0 0.625rem var(--neon-orange) !important;
+}
+
+.neon-text-shadow-blue {
+  text-shadow: 0 0 0.625rem var(--neon-blue) !important;
+}
+
+.neon-text-shadow-purple {
+  text-shadow: 0 0 0.625rem var(--neon-purple) !important;
+}
+
+.neon-text-shadow-red {
+  text-shadow: 0 0 0.625rem var(--neon-red) !important;
+}
+
+.neon-text-shadow-yellow {
+  text-shadow: 0 0 0.625rem var(--neon-yellow) !important;
+}
