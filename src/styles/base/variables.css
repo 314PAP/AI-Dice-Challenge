@@ -35,6 +35,7 @@
   --neon-bg-active: rgba(0, 0, 0, 0.3);
   
   /* Z-index hierarchie */
+  --z-hidden: -9999;   /* Pro skrytí autocomplete a podobných prvků */
   --z-behind: -1;      /* Pro elementy za pozadím */
   --z-modal: 1050;     /* Bootstrap modal z-index */
   --z-dropdown: 1000;  /* Bootstrap dropdown z-index */

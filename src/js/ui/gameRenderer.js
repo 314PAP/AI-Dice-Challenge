@@ -223,7 +223,7 @@ export class GameRenderer {
         actionButtons.className = 'mt-1 mb-1 flex-shrink-0';
         
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-2 px-0 mx-0';
+        buttonsContainer.className = 'row g-3 px-1 mx-0';
         
         const isAiTurn = currentPlayer && !currentPlayer.isHuman;
         
@@ -250,7 +250,7 @@ export class GameRenderer {
             () => {
                 if (callbacks.rollDice) callbacks.rollDice();
             },
-            'btn-sm w-100'
+            'btn-sm w-100 btn-no-scale'
         );
         
         if (isAiTurn) {
@@ -274,7 +274,7 @@ export class GameRenderer {
         }
         
         const rollCol = document.createElement('div');
-        rollCol.className = 'col-6 mb-1 px-1';
+        rollCol.className = 'col-6 mb-2 px-2';
         rollCol.appendChild(rollBtn);
         buttonsContainer.appendChild(rollCol);
         
@@ -286,7 +286,7 @@ export class GameRenderer {
             () => {
                 if (callbacks.saveDice) callbacks.saveDice();
             },
-            'btn-sm w-100'
+            'btn-sm w-100 btn-no-scale'
         );
         
         if (isAiTurn) {
@@ -304,7 +304,7 @@ export class GameRenderer {
         }
         
         const saveCol = document.createElement('div');
-        saveCol.className = 'col-6 mb-1 px-1';
+        saveCol.className = 'col-6 mb-2 px-2';
         saveCol.appendChild(saveBtn);
         buttonsContainer.appendChild(saveCol);
         
@@ -314,7 +314,7 @@ export class GameRenderer {
             'orange', 
             'bi-skip-forward-fill',
             callbacks.endTurn,
-            'btn-sm w-100'
+            'btn-sm w-100 btn-no-scale'
         );
         
         const hasSavedDice = state.savedDice && state.savedDice.length > 0;
@@ -335,7 +335,7 @@ export class GameRenderer {
         }
         
         const endCol = document.createElement('div');
-        endCol.className = 'col-6 mb-1 px-1';
+        endCol.className = 'col-6 mb-2 px-2';
         endCol.appendChild(endTurnBtn);
         buttonsContainer.appendChild(endCol);
         
@@ -345,11 +345,11 @@ export class GameRenderer {
             'red', 
             'bi-list', 
             callbacks.showMenuWithConfirmation,
-            'btn-sm w-100'
+            'btn-sm w-100 btn-no-scale'
         );
         
         const menuCol = document.createElement('div');
-        menuCol.className = 'col-6 mb-1 px-1';
+        menuCol.className = 'col-6 mb-2 px-2';
         menuCol.appendChild(menuBtn);
         buttonsContainer.appendChild(menuCol);
         

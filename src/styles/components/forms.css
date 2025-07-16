@@ -26,3 +26,70 @@
   color: rgba(var(--neon-green-rgb), 0.7) !important;
   opacity: 1 !important;
 }
+
+/* ===== SPECIÁLNÍ STYLING PRO CHAT INPUT ===== */
+
+/* Chat input group - Bootstrap input-group sjednocený vzhled */
+#chatInput {
+  border-right: 2px solid var(--neon-green) !important; /* Svislá čára mezi inputem a tlačítkem */
+  border-radius: 0.375rem 0 0 0.375rem !important; /* Pouze levé rohy zaoblené */
+  background-color: var(--neon-black) !important;
+  border: 2px solid var(--neon-green) !important;
+}
+
+#chatInput:focus {
+  border-right: 2px solid var(--neon-green) !important; /* Zachovává svislou čáru při focusu */
+  border-color: var(--neon-green) !important;
+  background-color: var(--neon-black) !important;
+  box-shadow: 0 0 0.5rem rgba(var(--neon-green-rgb), 0.3) !important;
+}
+
+/* Zajistí, že se border-left tlačítka nezmění při focus input */
+#chatInput:focus + #sendChatBtn {
+  border-left: none !important;
+  border-color: var(--neon-green) !important;
+}
+
+/* Bootstrap input-group bez mezer mezi elementy */
+.input-group > #chatInput + #sendChatBtn {
+  margin-left: 0 !important;
+}
+
+/* ===== POTLAČENÍ AUTOCOMPLETE ===== */
+
+/* Skrytí autocomplete dropdown - kompletní blokování */
+#chatInput {
+  background-image: none !important;
+}
+
+#chatInput::-webkit-list-button,
+#chatInput::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+
+/* Agresivní skrytí všech autocomplete boxů */
+input[autocomplete="off"]::-webkit-credentials-auto-fill-button,
+input[autocomplete="off"]::-webkit-contacts-auto-fill-button,
+input[autocomplete="off"]::-webkit-credit-card-auto-fill-button {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Skrytí dropdownu přes z-index */
+#chatInput + .dropdown-menu,
+#chatInput ~ .dropdown-menu,
+input[type="text"] + ul,
+input[type="text"] ~ ul {
+  display: none !important;
+  visibility: hidden !important;
+  z-index: var(--z-hidden) !important; /* Používáme CSS proměnnou místo hard-coded hodnoty */
+}
+
+/* Skrytí autocomplete pro všechny browsery */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--neon-black) inset !important;
+  -webkit-text-fill-color: var(--neon-green) !important;
+}

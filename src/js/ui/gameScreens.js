@@ -243,8 +243,9 @@ export class GameScreens {
         scrollWrapper.appendChild(rulesCard);
         container.appendChild(scrollWrapper);
         
-        const backBtn = createNeonButton('ZPĚT', 'orange', 'bi-arrow-left', 
-            () => gameState.updateState({ gamePhase: 'menu' }));
+        const backBtn = createNeonButton('⬅ ZPĚT', 'orange', null, 
+            () => gameState.updateState({ gamePhase: 'menu' }), 
+            'px-4 py-2 mx-auto d-block w-auto text-center d-flex align-items-center justify-content-center fw-bold');
         container.appendChild(backBtn);
         
         if (gameArea) {
@@ -256,7 +257,7 @@ export class GameScreens {
     /**
      * Vykreslí síň slávy
      */
-    renderHallOfFame(gameArea) {
+    async renderHallOfFame(gameArea) {
         const container = document.createElement('div');
         container.className = 'd-flex flex-column h-100 p-1';
         
@@ -266,22 +267,62 @@ export class GameScreens {
         container.appendChild(title);
         
         const table = document.createElement('div');
-        table.innerHTML = `
-            <table class="table table-sm">
-                <thead>
-                    <tr><th class="text-neon-orange">Jméno</th><th class="text-neon-orange">Skóre</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td class="text-neon-blue">Hráč</td><td class="text-neon-green">12500</td></tr>
-                    <tr><td class="text-neon-blue">Gemini</td><td class="text-neon-green">10800</td></tr>
-                </tbody>
-            </table>
-        `;
+        
+        try {
+            // Načteme reálná data ze síně slavy
+            const { getHallOfFame } = await import('../utils/hallOfFame.js');
+            const hallOfFameData = getHallOfFame();
+            
+            let tableContent;
+            if (hallOfFameData.length === 0) {
+                // Prázdná síň slavy
+                tableContent = `
+                    <div class="text-center p-4">
+                        <i class="bi bi-trophy text-neon-orange fs-1 mb-3 d-block"></i>
+                        <p class="text-neon-blue">Zatím žádné záznamy</p>
+                        <p class="text-neon-green small">Dokončete hru a staňte se prvním v síni slavy!</p>
+                    </div>
+                `;
+            } else {
+                // Zobrazíme reálná data
+                const rows = hallOfFameData.map((entry, index) => 
+                    `<tr>
+                        <td class="text-neon-blue">${index + 1}. ${entry.name}</td>
+                        <td class="text-neon-green">${entry.score.toLocaleString()}</td>
+                    </tr>`
+                ).join('');
+                
+                tableContent = `
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-neon-orange">Hráč</th>
+                                <th class="text-neon-orange">Skóre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rows}
+                        </tbody>
+                    </table>
+                `;
+            }
+            
+            table.innerHTML = tableContent;
+        } catch (error) {
+            console.error('❌ Chyba při načítání síně slavy:', error);
+            table.innerHTML = `
+                <div class="text-center p-4">
+                    <i class="bi bi-exclamation-triangle text-neon-red fs-1 mb-3 d-block"></i>
+                    <p class="text-neon-red">Chyba při načítání síně slavy</p>
+                </div>
+            `;
+        }
         
         container.appendChild(table);
         
-        const backBtn = createNeonButton('ZPĚT', 'orange', 'bi-arrow-left', 
-            () => gameState.updateState({ gamePhase: 'menu' }));
+        const backBtn = createNeonButton('⬅ ZPĚT', 'orange', null, 
+            () => gameState.updateState({ gamePhase: 'menu' }), 
+            'px-4 py-2 mx-auto d-block w-auto text-center d-flex align-items-center justify-content-center fw-bold');
         container.appendChild(backBtn);
         
         if (gameArea) {

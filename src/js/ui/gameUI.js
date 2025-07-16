@@ -133,7 +133,9 @@ export class GameUI {
                 this.renderRules();
                 break;
             case 'halloffame':
-                this.renderHallOfFame();
+                this.renderHallOfFame().catch(error => 
+                    console.error('❌ Chyba při renderování síně slavy:', error)
+                );
                 break;
             default:
                 this.renderMainMenu();
@@ -309,14 +311,14 @@ export class GameUI {
         scoreSelector.className = 'mb-2 mb-sm-3 mb-md-4 d-flex align-items-center justify-content-center';
         
         // Tlačítka - přesná velikost pro text fs-4
-        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn px-3 py-2 fs-4 lh-1');
+        const minusBtn = createNeonButton('-', 'blue', null, () => this.adjustTargetScore(-1000), 'btn px-3 py-2 fs-4 lh-1 btn-no-scale');
         
         const scoreValue = document.createElement('div');
         scoreValue.className = 'px-3 text-neon-yellow fs-4 lh-1 d-flex align-items-center';
         scoreValue.textContent = gameState.getState().targetScore;
         scoreValue.id = 'targetScoreValue';
         
-        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn px-3 py-2 fs-4 lh-1');
+        const plusBtn = createNeonButton('+', 'blue', null, () => this.adjustTargetScore(1000), 'btn px-3 py-2 fs-4 lh-1 btn-no-scale');
         
         scoreSelector.appendChild(minusBtn);
         scoreSelector.appendChild(scoreValue);
@@ -454,8 +456,8 @@ export class GameUI {
     /**
      * Zobrazí síň slávy - deleguje na GameScreens
      */
-    showHallOfFame() {
-        this.gameScreens.renderHallOfFame(this.gameArea);
+    async showHallOfFame() {
+        await this.gameScreens.renderHallOfFame(this.gameArea);
     }
 
     /**
@@ -547,7 +549,7 @@ export class GameUI {
     /**
      * Vykreslí síň slávy
      */
-    renderHallOfFame() {
+    async renderHallOfFame() {
         if (!this.gameArea) {
             console.error('❌ GameUI.renderHallOfFame: gameArea není dostupný při renderování!');
             return;
@@ -555,7 +557,7 @@ export class GameUI {
         
         // Delegujeme na GameScreens
         if (this.gameScreens && this.gameScreens.renderHallOfFame) {
-            this.gameScreens.renderHallOfFame(this.gameArea);
+            await this.gameScreens.renderHallOfFame(this.gameArea);
         } else {
             console.error('❌ GameScreens nebo renderHallOfFame metoda není dostupná!');
         }

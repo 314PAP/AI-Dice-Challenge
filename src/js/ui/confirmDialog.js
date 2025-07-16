@@ -67,7 +67,7 @@ export function showConfirmDialog(message, onConfirm = null, onCancel = null) {
                     closeModal();
                     resolve(true);
                 }, 
-                'btn w-100 fw-bold'
+                'btn w-100 fw-bold btn-no-scale'
             );
             
             const okCol = document.createElement('div');
@@ -90,7 +90,7 @@ export function showConfirmDialog(message, onConfirm = null, onCancel = null) {
                     if (onConfirm) onConfirm();
                     resolve(true);
                 }, 
-                'btn w-100 fw-bold'
+                'btn w-100 fw-bold btn-no-scale'
             );
             
             // Tlačítko NE (zelené pro bezpečí)
@@ -104,7 +104,7 @@ export function showConfirmDialog(message, onConfirm = null, onCancel = null) {
                     if (onCancel) onCancel();
                     resolve(false);
                 }, 
-                'btn w-100 fw-bold'
+                'btn w-100 fw-bold btn-no-scale'
             );
             
             // Přidáme tlačítka do containeru

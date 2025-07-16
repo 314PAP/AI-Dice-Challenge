@@ -9,7 +9,7 @@ echo "════════════════════════�
 echo ""
 
 # Kontrola, že jsme v správném adresáři
-if [ ! -f "package.json" ] || [ ! -f "verify-copilot-system.sh" ]; then
+if [ ! -f "package.json" ] || [ ! -f "skripty/validace/verify-copilot-system.sh" ]; then
     echo "❌ Nejste ve správném adresáři AI Dice Challenge projektu!"
     exit 1
 fi
@@ -18,7 +18,7 @@ echo "🔧 Spouštím self-check systému..."
 echo "────────────────────────────────────────────────────────────────────"
 
 # Spuštění self-check
-if ./verify-copilot-system.sh; then
+if ./skripty/validace/verify-copilot-system.sh; then
     echo ""
     echo "✅ SELF-CHECK ÚSPĚŠNÝ!"
     echo "────────────────────────────────────────────────────────────────────"

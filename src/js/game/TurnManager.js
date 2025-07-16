@@ -205,6 +205,13 @@ export class TurnManager {
         
         console.log(`🏆 Hra skončila! Vítěz: ${winner.name} s ${winner.score} body`);
         
+        // Uložíme vítěze do síně slavy
+        import('../utils/hallOfFame.js').then(({ addScoreToHallOfFame }) => {
+            addScoreToHallOfFame(winner.name, winner.score);
+        }).catch(error => {
+            console.error('❌ Chyba při ukládání do síně slavy:', error);
+        });
+        
         const message = `🏆 Vítěz: ${winner.name} s ${winner.score} body!`;
         chatSystem.addSystemMessage(message, CHAT_COLORS.GOLD);
         

@@ -91,6 +91,9 @@ Přidáváme: responzivní sizing, min-height pro touch
 .btn.btn-neon.btn-no-scale:hover,
 .btn.btn-neon.btn-no-scale:focus {
   transform: none;
+  /* Zachová glow efekt bez scaling */
+  box-shadow: var(--neon-glow-strong) !important;
+  background-color: var(--neon-bg-hover, rgba(0, 0, 0, 0.2)) !important;
 }
 
 /* Active stav */
@@ -156,3 +159,80 @@ Přidáváme: responzivní sizing, min-height pro touch
 .form-control, .form-select { font-size: inherit; }
 .form-control-sm { font-size: 0.85rem; }
 .form-control-lg { font-size: 1.1rem; }
+
+/* 🎯 ICON ENHANCEMENTS - zesílení ikon v tlačítkách */
+.btn-neon i.bi {
+  font-weight: 900 !important; /* Nejtlustší varianta Bootstrap ikon */
+  font-size: 1.1em !important; /* Mírně větší než text */
+  text-shadow: 0 0 2px currentColor !important; /* Neonový efekt pro ikonu */
+}
+
+/* Speciálně pro šipky zpět */
+.btn-neon i.bi-arrow-left {
+  font-weight: 900 !important;
+  font-size: 1.2em !important;
+  text-shadow: 0 0 3px currentColor !important;
+}
+
+/* Responzivní mezery pro menu layout */
+.menu-button-spacing {
+  margin: clamp(0.25rem, 1vw, 0.75rem);
+}
+
+@media (max-width: 576px) {
+  .menu-button-spacing {
+    margin: 0.5rem 0.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .menu-button-spacing {
+    margin: 0.75rem 0.5rem;
+  }
+}
+
+/* ===== SPECIÁLNÍ STYLING PRO CHAT TLAČÍTKO ===== */
+
+/* Chat send button - Bootstrap input-group integrovaný design */
+#sendChatBtn {
+  background-color: var(--neon-black) !important; /* Stejné pozadí jako input */
+  border: 2px solid var(--neon-green) !important; /* Stejný border jako input */
+  border-left: none !important; /* Spojení s input polem - sdílí svislou čáru */
+  color: var(--neon-green) !important;
+  border-radius: 0 0.375rem 0.375rem 0 !important; /* Pouze pravé rohy zaoblené */
+  padding: 0.375rem 0.75rem !important;
+  /* Potlačení obecných neon efektů */
+  box-shadow: none !important;
+  text-transform: none !important;
+  font-weight: normal !important;
+}
+
+#sendChatBtn:hover,
+#sendChatBtn:focus {
+  background-color: var(--neon-black) !important; /* Zachová stejné pozadí */
+  border-color: var(--neon-green) !important;
+  border-left: none !important; /* Zůstává bez levého borderu */
+  transform: none !important;
+  outline: none !important;
+  box-shadow: 0 0 1rem rgba(var(--neon-green-rgb), 0.6) !important; /* Silnější glow při hoveru */
+}
+
+/* Zajištění, že se border nezmění při aktivním inputu */
+.input-group #chatInput:focus + #sendChatBtn,
+.input-group #chatInput:active + #sendChatBtn {
+  border-left: none !important;
+  border-color: var(--neon-green) !important;
+}
+
+#sendChatBtn i.bi-send-fill {
+  transition: all 0.2s ease !important;
+  font-size: 1rem !important;
+  opacity: 0.9;
+}
+
+#sendChatBtn:hover i.bi-send-fill,
+#sendChatBtn:focus i.bi-send-fill {
+  opacity: 1 !important;
+  filter: brightness(1.4) !important; /* Výraznější rozsvícení */
+  text-shadow: 0 0 4px currentColor !important; /* Silnější neonový efekt */
+}

@@ -82,7 +82,7 @@ export class MenuComponents {
             'green', 
             'bi-play-fill', 
             callbacks.startGame,
-            'btn w-100'
+            'btn w-100 btn-no-scale'
         );
         
         buttons.rulesBtn = createNeonButton(
@@ -90,7 +90,7 @@ export class MenuComponents {
             'blue', 
             'bi-book-fill', 
             callbacks.showRules,
-            'btn w-100'
+            'btn w-100 btn-no-scale'
         );
         
         buttons.hallOfFameBtn = createNeonButton(
@@ -98,7 +98,7 @@ export class MenuComponents {
             'purple', 
             'bi-trophy-fill', 
             callbacks.showHallOfFame,
-            'btn w-100'
+            'btn w-100 btn-no-scale'
         );
         
         buttons.exitBtn = createNeonButton(
@@ -106,7 +106,7 @@ export class MenuComponents {
             'red', 
             'bi-power', 
             () => window.close(),
-            'btn w-100'
+            'btn w-100 btn-no-scale'
         );
         
         return buttons;
@@ -117,22 +117,22 @@ export class MenuComponents {
      */
     static createMenuLayout(buttons) {
         const buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'row g-2 px-2';
+        buttonsContainer.className = 'row g-3 px-3 justify-content-center';
         
         const col1 = document.createElement('div');
-        col1.className = 'col-12 col-sm-6 mb-2 px-2';
+        col1.className = 'col-12 col-sm-6 col-lg-5 menu-button-spacing';
         col1.appendChild(buttons.startBtn);
         
         const col2 = document.createElement('div');
-        col2.className = 'col-12 col-sm-6 mb-2 px-2';
+        col2.className = 'col-12 col-sm-6 col-lg-5 menu-button-spacing';
         col2.appendChild(buttons.rulesBtn);
         
         const col3 = document.createElement('div');
-        col3.className = 'col-12 col-sm-6 mb-2 px-2';
+        col3.className = 'col-12 col-sm-6 col-lg-5 menu-button-spacing';
         col3.appendChild(buttons.hallOfFameBtn);
         
         const col4 = document.createElement('div');
-        col4.className = 'col-12 col-sm-6 mb-2 px-2';
+        col4.className = 'col-12 col-sm-6 col-lg-5 menu-button-spacing';
         col4.appendChild(buttons.exitBtn);
         
         buttonsContainer.appendChild(col1);
@@ -150,13 +150,13 @@ export class MenuComponents {
         const selector = document.createElement('div');
         selector.className = 'd-flex align-items-center justify-content-center gap-3 my-3';
         
-        const minusBtn = createNeonButton('-', 'blue', null, () => callbacks.adjustScore(-1000), 'btn px-3 py-2 fs-4 lh-1');
+        const minusBtn = createNeonButton('-', 'blue', null, () => callbacks.adjustScore(-1000), 'btn px-3 py-2 fs-4 lh-1 btn-no-scale');
         const scoreDisplay = document.createElement('div');
         scoreDisplay.className = 'text-neon-yellow fs-3 fw-bold px-3';
         scoreDisplay.textContent = currentTarget.toLocaleString();
         scoreDisplay.id = 'targetScoreDisplay';
         
-        const plusBtn = createNeonButton('+', 'blue', null, () => callbacks.adjustScore(1000), 'btn px-3 py-2 fs-4 lh-1');
+        const plusBtn = createNeonButton('+', 'blue', null, () => callbacks.adjustScore(1000), 'btn px-3 py-2 fs-4 lh-1 btn-no-scale');
         
         selector.appendChild(minusBtn);
         selector.appendChild(scoreDisplay);

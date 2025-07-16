@@ -228,4 +228,43 @@ setTimeout(() => {
     }
 }, 3000);
 
+// JavaScript řešení pro potlačení autocomplete
+document.addEventListener('DOMContentLoaded', function() {
+    const chatInput = document.getElementById('chatInput');
+    
+    if (chatInput) {
+        // Elegantnější JavaScript řešení pro autocomplete
+        chatInput.setAttribute('autocomplete', 'off');
+        chatInput.setAttribute('spellcheck', 'false');
+        
+        // Dynamické potlašení autocomplete dropdown
+        chatInput.addEventListener('focus', function() {
+            // Momentálně nastavíme readonly a pak ho zrušíme
+            this.setAttribute('readonly', true);
+            setTimeout(() => {
+                this.removeAttribute('readonly');
+            }, 10);
+        });
+        
+        // Potlačení browser autocomplete přes JavaScript
+        chatInput.addEventListener('input', function() {
+            // Odstraní možné autocomplete hodnoty
+            this.setAttribute('autocomplete', 'new-password');
+        });
+        
+        // Skrytí možných autocomplete dropdown elementů
+        const hideAutocomplete = () => {
+            const dropdowns = document.querySelectorAll('datalist, .autocomplete-suggestions, [class*="autocomplete"]');
+            dropdowns.forEach(dropdown => {
+                dropdown.style.display = 'none';
+                dropdown.style.visibility = 'hidden';
+            });
+        };
+        
+        chatInput.addEventListener('focus', hideAutocomplete);
+        chatInput.addEventListener('input', hideAutocomplete);
+        chatInput.addEventListener('keydown', hideAutocomplete);
+    }
+});
+
 export default app;
