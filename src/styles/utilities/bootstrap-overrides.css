@@ -3,6 +3,14 @@
    Override Bootstrap defaultních barev a stylů
    ================================================================= */
 
+/* ===== CHECKLIST PŘED KAŽDOU ZMĚNOU =====
+   ✅ ZKONTROLUJTE V dokumentybtrap/ PŘED KAŽDOU ZMĚNOU!
+   ✅ POUZE Bootstrap utility třídy mají přednost
+   ✅ NEONOVÉ třídy mají druhou přednost
+   ✅ ŽÁDNÉ inline styly!
+   ✅ ŽÁDNÉ vlastní CSS bez konzultace!
+   ================================================================= */
+
 /* ===== BOOTSTRAP UTILITY OVERRIDE - POUZE NUTNÉ ===== */
 
 /* Text utility třídy - pouze light má zůstat bílou */

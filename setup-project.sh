@@ -32,8 +32,9 @@ echo "⚙️ DOSTUPNÉ PŘÍKAZY (většinou nepotřebuješ):"
 echo "────────────────────────────────────────────────────────────────────"
 echo "npm run dev      - Spustí vývojářský server"
 echo "npm run commit   - Manuální commit (pokud nechceš automatický)"
-echo "npm run check    - Manuální self-check"
+echo "npm run test     - Interaktivní spuštění testů"
 echo "npm run validate - Manuální validace"
+echo "npm run check    - Manuální self-check"
 echo "npm run setup    - Zobrazí tento workflow"
 echo ""
 echo "💡 VĚTŠINOU STAČÍ: Programovat → ENTER pro commit!"
@@ -51,12 +52,9 @@ echo "════════════════════════�
 echo ""
 
 # Nastavení oprávnění pro skripty
-chmod +x verify-copilot-system.sh 2>/dev/null || true
-chmod +x css-validation.sh 2>/dev/null || true
+# Nastavení oprávnění pro skripty
+find ./skripty -name "*.sh" -exec chmod +x {} \; 2>/dev/null || true
 chmod +x setup-project.sh 2>/dev/null || true
-chmod +x auto-selfcheck.sh 2>/dev/null || true
-chmod +x smart-commit.sh 2>/dev/null || true
-chmod +x auto-watcher.sh 2>/dev/null || true
 
 echo "✅ Projekt je připraven - DODRŽUJ WORKFLOW!"
 echo ""

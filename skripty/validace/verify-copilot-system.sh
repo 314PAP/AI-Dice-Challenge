@@ -26,7 +26,7 @@ fi
 # Kontrola, že validation script existuje a je spustitelný
 echo ""
 echo "3️⃣ Kontroluji validation script..."
-if [[ -x "./css-validation.sh" ]]; then
+if [[ -x "./skripty/validace/css-validation.sh" ]]; then
     echo "✅ Validation script je spustitelný"
 else
     echo "❌ Validation script není spustitelný"
@@ -35,7 +35,7 @@ fi
 # Kontrola integrace workflow
 echo ""
 echo "4️⃣ Kontroluji workflow integraci..."
-if [[ -f "./setup-project.sh" ]] && grep -q "npm run check" setup-project.sh; then
+if [[ -f "./setup-project.sh" ]] && grep -q "npm run check\|npm run validate" setup-project.sh; then
     echo "✅ Workflow je správně nastaven"
 else
     echo "❌ Workflow není správně nastaven"
@@ -45,7 +45,7 @@ fi
 echo ""
 echo "5️⃣ Testuji aktuální stav projektu..."
 echo "─────────────────────────────────────────────"
-./css-validation.sh
+./skripty/validace/css-validation.sh
 VALIDATION_RESULT=$?
 
 echo ""

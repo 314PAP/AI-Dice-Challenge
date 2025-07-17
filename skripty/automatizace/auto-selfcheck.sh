@@ -26,11 +26,13 @@ if ./skripty/validace/verify-copilot-system.sh; then
     echo "📋 REMEMBER: npm run validate po každé změně!"
     echo ""
     echo "⚙️ DOSTUPNÉ PŘÍKAZY:"
-    echo "• npm run validate - kontrola kódu po změnách"
-    echo "• npm run check - kompletní self-check"
-    echo "• npm run setup - zobrazit workflow"
+    echo "• npm run test - interaktivní spuštění testů"
+    echo "• npm run test:quick - rychlé testy"
+    echo "• npm run test:full - kompletní testy"
+    echo "• npm run commit - validace + commit + push"
+    echo "• npm run watch - sledovat změny"
     echo ""
-    echo "🔧 WORKFLOW: změna → npm run validate → kontrola → commit+push"
+    echo "🔧 WORKFLOW: změna → npm run test → kontrola → npm run commit"
     echo "═══════════════════════════════════════════════════════════════════"
     echo ""
 else
@@ -38,8 +40,8 @@ else
     echo "🚨 SELF-CHECK SELHAL!"
     echo "────────────────────────────────────────────────────────────────────"
     echo "❌ Před jakýmkoliv programováním musíte opravit chyby!"
-    echo "💡 Spusťte: npm run validate"
-    echo "🔧 Opravte všechny problémy a pak spusťte: npm run check"
+    echo "💡 Spusťte: npm run test"
+    echo "🔧 Opravte všechny problémy a pak spusťte znovu"
     echo ""
     exit 1
 fi
