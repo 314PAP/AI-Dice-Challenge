@@ -8,44 +8,36 @@
 /* Základní avatar styl */
 .player-avatar {
   transition: var(--transition-normal);
-  border: 2px solid transparent;
-  padding: 4px; /* Zvětšený padding pro lepší poměr ikony k rámečku */
 }
 
 /* Jemný neonový efekt při hover na avatary - podle barvy border kontejneru */
 .border-neon-green .player-avatar:hover {
   box-shadow: 0 0 0.3rem var(--neon-green), 0 0 0.6rem var(--neon-green) !important;
-  transform: scale(1.05) !important;
   transition: all 0.3s ease !important;
 }
 
 .border-neon-blue .player-avatar:hover {
   box-shadow: 0 0 0.3rem var(--neon-blue), 0 0 0.6rem var(--neon-blue) !important;
-  transform: scale(1.05) !important;
   transition: all 0.3s ease !important;
 }
 
 .border-neon-purple .player-avatar:hover {
   box-shadow: 0 0 0.3rem var(--neon-purple), 0 0 0.6rem var(--neon-purple) !important;
-  transform: scale(1.05) !important;
   transition: all 0.3s ease !important;
 }
 
 .border-neon-orange .player-avatar:hover {
   box-shadow: 0 0 0.3rem var(--neon-orange), 0 0 0.6rem var(--neon-orange) !important;
-  transform: scale(1.05) !important;
   transition: all 0.3s ease !important;
 }
 
 .border-neon-red .player-avatar:hover {
   box-shadow: 0 0 0.3rem var(--neon-red), 0 0 0.6rem var(--neon-red) !important;
-  transform: scale(1.05) !important;
   transition: all 0.3s ease !important;
 }
 
 .border-neon-yellow .player-avatar:hover {
   box-shadow: 0 0 0.3rem var(--neon-yellow), 0 0 0.6rem var(--neon-yellow) !important;
-  transform: scale(1.05) !important;
   transition: all 0.3s ease !important;
 }
 
@@ -55,7 +47,6 @@
   border-style: solid !important;
   border-width: 2px !important;
   box-shadow: 0 0 0.3rem var(--neon-green), 0 0 0.6rem var(--neon-green) !important;
-  transform: scale(1.05) !important;
 }
 
 .border-neon-blue .player-avatar-active {
@@ -63,7 +54,6 @@
   border-style: solid !important;
   border-width: 2px !important;
   box-shadow: 0 0 0.3rem var(--neon-blue), 0 0 0.6rem var(--neon-blue) !important;
-  transform: scale(1.05) !important;
 }
 
 .border-neon-purple .player-avatar-active {
@@ -71,7 +61,6 @@
   border-style: solid !important;
   border-width: 2px !important;
   box-shadow: 0 0 0.3rem var(--neon-purple), 0 0 0.6rem var(--neon-purple) !important;
-  transform: scale(1.05) !important;
 }
 
 .border-neon-orange .player-avatar-active {
@@ -79,7 +68,6 @@
   border-style: solid !important;
   border-width: 2px !important;
   box-shadow: 0 0 0.3rem var(--neon-orange), 0 0 0.6rem var(--neon-orange) !important;
-  transform: scale(1.05) !important;
 }
 
 .border-neon-red .player-avatar-active {
@@ -87,7 +75,6 @@
   border-style: solid !important;
   border-width: 2px !important;
   box-shadow: 0 0 0.3rem var(--neon-red), 0 0 0.6rem var(--neon-red) !important;
-  transform: scale(1.05) !important;
 }
 
 .border-neon-yellow .player-avatar-active {
@@ -95,7 +82,6 @@
   border-style: solid !important;
   border-width: 2px !important;
   box-shadow: 0 0 0.3rem var(--neon-yellow), 0 0 0.6rem var(--neon-yellow) !important;
-  transform: scale(1.05) !important;
 }
 
 /* Responsive velikosti avatarů - zmenšené pro lepší poměr */
