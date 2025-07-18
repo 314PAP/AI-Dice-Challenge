@@ -14,7 +14,7 @@ const initialGameState = {
         { name: 'Claude', score: 0, isHuman: false, avatar: 'claude.jpeg', color: 'orange' }
     ],
     currentPlayerIndex: 0,
-    targetScore: 10000,
+    targetScore: 1000,
     gameStarted: false,
     currentRoll: [],
     selectedDice: [],
@@ -95,12 +95,12 @@ class GameState {
      */
     nextPlayer() {
         const nextPlayerIndex = (this.state.currentPlayerIndex + 1) % this.state.players.length;
-        this.updateState({ 
-            currentPlayerIndex: nextPlayerIndex, 
+        this.updateState({
+            currentPlayerIndex: nextPlayerIndex,
             currentRoll: [],
             selectedDice: [],
             savedDice: [],
-            turnScore: 0 
+            turnScore: 0
         });
     }
 
@@ -111,10 +111,33 @@ class GameState {
     addPoints(points) {
         const player = this.state.players[this.state.currentPlayerIndex];
         player.score += points;
-        
-        this.updateState({ 
+
+        this.updateState({
             players: [...this.state.players],
             turnScore: this.state.turnScore + points
+        });
+    }
+
+    /**
+     * Aktualizovat skóre konkrétního hráče
+     * @param {string} playerName - Jméno hráče
+     * @param {number} points - Body k přidání
+     */
+    updatePlayerScore(playerName, points) {
+        const playerIndex = this.state.players.findIndex(p => p.name === playerName);
+        if (playerIndex === -1) {
+            console.error(`❌ Hráč ${playerName} nenalezen`);
+            return;
+        }
+
+        const player = this.state.players[playerIndex];
+        const oldScore = player.score;
+        player.score += points;
+
+        console.log(`🎯 ${playerName}: ${oldScore} + ${points} = ${player.score} bodů`);
+
+        this.updateState({
+            players: [...this.state.players]
         });
     }
 }

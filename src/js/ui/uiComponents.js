@@ -34,46 +34,54 @@ import soundSystem from '../utils/soundSystem.js';
 export const createNeonButton = (text, color, icon = null, onClick = null, additionalClasses = "") => {
     // Validace barvy pomocí konstant
     const validColor = Object.values(NEON_COLORS).includes(color) ? color : NEON_COLORS.GREEN;
-    
+
     const button = document.createElement('button');
     button.className = `btn btn-neon ${additionalClasses}`;
     button.setAttribute('data-neon-color', validColor);
-    
+
     let buttonContent = '';
-    
+
     if (icon) {
         // Menší mezera na malých zařízeních pro úsporu místa
         buttonContent += `<i class="bi ${icon} me-1 me-sm-2"></i>`;
     }
-    
+
     // Pro velmi malé displeje použijeme Bootstrap třídy místo testování window.innerHeight
     // Responzivní zobrazení textu s využitím Bootstrap tříd
     const isShortText = text.length <= 12; // Upraveno - "UKONČIT TAH" má 11 znaků
-    const displayText = !isShortText ? 
-        `<span class="d-none d-landscape-inline">${text}</span><span class="d-inline d-landscape-none">${text.substring(0, 4)}...</span>` : 
+    const displayText = !isShortText ?
+        `<span class="d-none d-landscape-inline">${text}</span><span class="d-inline d-landscape-none">${text.substring(0, 4)}...</span>` :
         text;
-    
+
     buttonContent += displayText;
     button.innerHTML = buttonContent;
-    
+
     if (onClick) {
         button.addEventListener('click', (event) => {
+            // Blokovat klik na deaktivované tlačítko
+            if (button.disabled || button.classList.contains('disabled')) {
+                event.preventDefault();
+                event.stopPropagation();
+                console.log('🚫 Klik na deaktivované tlačítko ignorován');
+                return;
+            }
+
             try {
                 onClick(event);
             } catch (error) {
                 console.error('❌ Chyba v onClick handleru:', error);
             }
         });
-        
+
     } else {
         console.warn('⚠️ Tlačítko bez onClick handleru:', text);
     }
-    
+
     // 🎵 Hover efekt odstraněn (na požádání uživatele)
     // button.addEventListener('mouseenter', () => {
     //     soundSystem.play('menuHover', 0.5); // Tišší než ostatní zvuky
     // });
-    
+
     return button;
 };
 
@@ -88,16 +96,16 @@ export const createNeonButton = (text, color, icon = null, onClick = null, addit
 export const createNeonCard = (title, color, content = "", headerIcon = null) => {
     // Validace barvy pomocí konstant
     const validColor = Object.values(NEON_COLORS).includes(color) ? color : NEON_COLORS.BLUE;
-    
+
     const card = document.createElement('div');
     card.className = `card bg-black border-wide-neon-${validColor} mb-3`;
-    
+
     let headerContent = '';
     if (headerIcon) {
         headerContent += `<i class="bi ${headerIcon} me-2"></i>`;
     }
     headerContent += title;
-    
+
     card.innerHTML = `
         <div class="card-header text-neon-${validColor}">
             ${headerContent}
@@ -106,7 +114,7 @@ export const createNeonCard = (title, color, content = "", headerIcon = null) =>
             ${content}
         </div>
     `;
-    
+
     return card;
 };
 
@@ -125,14 +133,14 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     } else {
         validValue = Math.min(Math.max(value, DICE_CONSTANTS.MIN_VALUE), DICE_CONSTANTS.MAX_VALUE);
     }
-    
+
     const dice = document.createElement('div');
     // OPRAVENO: Pouze Bootstrap a CSS třídy, žádné inline styly
     dice.className = `dice ${selected ? 'selected' : ''} d-flex justify-content-center align-items-center rounded position-relative`;
     dice.setAttribute('data-value', validValue);
-    
+
     // ODSTRANĚNO: Veškeré inline styly - velikosti i flexShrink řeší CSS
-    
+
     // Vytvoření patternu s tečkami podle hodnoty kostky
     let content;
     if (validValue === '?') {
@@ -143,9 +151,9 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
     } else {
         content = createDotPattern(validValue);
     }
-    
+
     dice.appendChild(content);
-    
+
     if (onClick) {
         dice.addEventListener('click', () => {
             // 🎵 Zvuk kliknutí na kostku
@@ -153,7 +161,7 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
             onClick();
         });
     }
-    
+
     return dice;
 };
 
@@ -165,17 +173,17 @@ export const createDiceElement = (value, selected = false, onClick = null) => {
 const createDotPattern = (value) => {
     const pattern = document.createElement('div');
     pattern.className = 'position-relative w-100 h-100';
-    
+
     // Vytvoření teček s CSS třídami - odstraněny inline styly
     const createDot = (position) => {
         const dot = document.createElement('div');
-        
+
         // ODSTRANĚNO: Veškeré inline styly - velikosti řeší CSS
         dot.className = `dice-dot dice-dot-${position}`;
-        
+
         return dot;
     };
-    
+
     // Rozdělení teček podle hodnoty
     switch (value) {
         case 1:
@@ -212,7 +220,7 @@ const createDotPattern = (value) => {
             pattern.appendChild(createDot('bottom-right'));
             break;
     }
-    
+
     return pattern;
 };
 

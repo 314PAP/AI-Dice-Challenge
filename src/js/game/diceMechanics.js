@@ -29,10 +29,13 @@ export const rollDice = (count) => {
  */
 export const calculatePoints = (dice) => {
     if (!dice || !dice.length) return 0;
-    
+
+    // 🐛 DEBUG: Log vstupních dat
+    console.log(`🎯 calculatePoints vstup: [${dice.join(', ')}]`);
+
     let points = 0;
     const counts = countDiceValues(dice);
-    
+
     // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
     // Postupka = 2000 bodů (např. 1,2,3,4,5,6)
     if (dice.length === 6) {
@@ -42,22 +45,22 @@ export const calculatePoints = (dice) => {
             return 2000; // Postupka = 2000 bodů (žádné jiné kombinace se nepočítají)
         }
     }
-    
+
     // KONTROLA TŘÍ PÁRŮ (druhá priorita)
     // Tři páry = 1500 bodů (např. 2,2,6,6,3,3)
     let pairCount = 0;
     const originalCounts = { ...counts }; // Kopie pro kontrolu párů
-    
+
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         if (originalCounts[value] === 2) {
             pairCount++;
         }
     }
-    
+
     if (pairCount === 3) {
         return 1500; // Tři páry = 1500 bodů (žádné jiné kombinace se nepočítají)
     }
-    
+
     // Tři a více stejných kostek - podle počtu kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         const count = counts[value];
@@ -82,16 +85,19 @@ export const calculatePoints = (dice) => {
                     case 5: points += value * 400; break;    // 5×2 = 800
                 }
             }
-            
+
             // Odečteme již započítané kostky
             counts[value] = 0;
         }
     }
-    
+
     // Jednotlivé jedničky a pětky
     points += counts[DICE_CONSTANTS.MIN_VALUE] * DICE_CONSTANTS.SINGLE_ONE_POINTS; // Každá jednotka 100 bodů
     points += counts[5] * DICE_CONSTANTS.SINGLE_FIVE_POINTS;  // Každá pětka 50 bodů
-    
+
+    // 🐛 DEBUG: Log výsledku
+    console.log(`🎯 calculatePoints výsledek: [${dice.join(', ')}] = ${points} bodů`);
+
     return points;
 };
 
@@ -102,17 +108,17 @@ export const calculatePoints = (dice) => {
  */
 export const countDiceValues = (dice) => {
     const counts = {};
-    
+
     // Inicializace počítadel pro všechny možné hodnoty kostek
     for (let i = DICE_CONSTANTS.MIN_VALUE; i <= DICE_CONSTANTS.MAX_VALUE; i++) {
         counts[i] = 0;
     }
-    
+
     // Počítání výskytů hodnot
     for (const die of dice) {
         counts[die]++;
     }
-    
+
     return counts;
 };
 
@@ -122,13 +128,13 @@ export const countDiceValues = (dice) => {
  * @returns {boolean} True pokud hod obsahuje bodovanou kombinaci
  */
 export const hasScoringDice = (dice) => {
-    
+
     if (!dice || !dice.length) {
         return false;
     }
-    
+
     const counts = countDiceValues(dice);
-    
+
     // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
     if (dice.length === 6) {
         const sortedDice = [...dice].sort();
@@ -137,7 +143,7 @@ export const hasScoringDice = (dice) => {
             return true;
         }
     }
-    
+
     // KONTROLA TŘÍ PÁRŮ (druhá priorita)
     let pairCount = 0;
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
@@ -145,27 +151,27 @@ export const hasScoringDice = (dice) => {
             pairCount++;
         }
     }
-    
+
     if (pairCount === 3) {
         return true;
     }
-    
+
     // Kontrola na tři a více stejných kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         if (counts[value] >= 3) {
             return true;
         }
     }
-    
+
     // Kontrola na jedničky a pětky
     if (counts[DICE_CONSTANTS.MIN_VALUE] > 0) {
         return true;
     }
-    
+
     if (counts[5] > 0) {
         return true;
     }
-    
+
     return false;
 };
 
@@ -176,7 +182,7 @@ export const hasScoringDice = (dice) => {
  */
 export const isValidFarkleCombination = (selectedDice) => {
     if (!selectedDice || selectedDice.length === 0) return false;
-    
+
     // KONTROLA POSTUPKY (1,2,3,4,5,6) - nejvyšší priorita
     if (selectedDice.length === 6) {
         const sortedDice = [...selectedDice].sort();
@@ -185,9 +191,9 @@ export const isValidFarkleCombination = (selectedDice) => {
             return true; // Postupka je vždy validní kombinace
         }
     }
-    
+
     const counts = countDiceValues(selectedDice);
-    
+
     // KONTROLA TŘÍ PÁRŮ
     let pairCount = 0;
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
@@ -195,16 +201,16 @@ export const isValidFarkleCombination = (selectedDice) => {
             pairCount++;
         }
     }
-    
+
     if (pairCount === 3 && selectedDice.length === 6) {
         return true; // Tři páry jsou vždy validní
     }
-    
+
     // Projdeme všechny hodnoty kostek
     for (let value = DICE_CONSTANTS.MIN_VALUE; value <= DICE_CONSTANTS.MAX_VALUE; value++) {
         const count = counts[value];
         if (count === 0) continue; // Žádné kostky této hodnoty
-        
+
         if (value === DICE_CONSTANTS.MIN_VALUE || value === 5) {
             // Jedničky a pětky: můžeme mít libovolný počet (1+, nebo 3+ pro trojice)
             // Vše je validní - jednotlivé i trojice
@@ -216,6 +222,6 @@ export const isValidFarkleCombination = (selectedDice) => {
             }
         }
     }
-    
+
     return true;
 };

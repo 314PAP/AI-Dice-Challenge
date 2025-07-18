@@ -2,15 +2,15 @@
  * 🎲 AI Dice Challenge - Dice Animation Module
  * 
  * Modul pro animace kostek oddělený z GameLogic.js
- * Používá lodash pro optimalizaci animačních funkcí
+ * Používá nativní JS místo lodash pro lepší kompatibilitu
  */
-
-// Lodash utilities (načteno z CDN)
-const { range } = _;
 
 import gameState from './gameState.js';
 import { rollDice as diceRoll, calculatePoints, hasScoringDice } from './diceMechanics.js';
 import soundSystem from '../utils/soundSystem.js';
+
+// Náhrada za lodash range funkci - opraveno
+const range = (count) => Array.from({ length: count }, (_, i) => i);
 
 /**
  * Třída pro správu animací kostek
@@ -34,33 +34,33 @@ export class DiceAnimationManager {
 
         // 🎵 Spustíme zvuk házení kostek
         soundSystem.play('diceRoll');
-        
+
         return new Promise((resolve) => {
             let animationCounter = 0;
-            const maxIterations = 10;
-            
+            const maxIterations = 15; // Delší animace - 3 sekundy
+
             const animationInterval = setInterval(() => {
                 animationCounter++;
-                
-                // Lodash range pro generování pole čísel
+
+                // Generování náhodných čísel pro animaci
                 const randomDice = range(diceCount).map(() => Math.floor(Math.random() * 6) + 1);
-                
+
                 // Aktualizujeme kostky s náhodnými čísly pro animaci
                 gameState.updateState({
                     currentRoll: randomDice,
                     isRolling: true
                 });
-                
-                // Po 10 iteracích (2 sekundy) ukončíme animaci
+
+                // Po 15 iteracích (3 sekundy) ukončíme animaci
                 if (animationCounter >= maxIterations) {
                     clearInterval(animationInterval);
-                    
+
                     // Po animaci ukážeme finální výsledek
                     setTimeout(() => {
                         this.finishRoll(diceCount);
                         this.isAnimating = false;
                         resolve();
-                    }, 100);
+                    }, 200);
                 }
             }, 200); // Každých 200ms se změní čísla
         });
@@ -73,17 +73,17 @@ export class DiceAnimationManager {
     finishRoll(diceCount) {
         // Využití importované funkce pro finální hod
         const dice = diceRoll(diceCount);
-        
+
         // Spočítáme body z tohoto hodu
         const points = calculatePoints(dice);
-        
+
         // Aktualizuje herní stav s výsledkem
         gameState.updateState({
             currentRoll: dice,
             selectedDice: [],
             isRolling: false
         });
-        
+
         // Zkontrolujeme FARKLE - když hod neobsahuje žádné bodující kostky
         if (!hasScoringDice(dice)) {
             this.triggerFarkleAnimation(dice);
@@ -105,7 +105,7 @@ export class DiceAnimationManager {
             diceElements.forEach(el => {
                 el.classList.add('dice-new');
             });
-            
+
             // Odstranění třídy po animaci
             setTimeout(() => {
                 diceElements.forEach(el => el.classList.remove('dice-new'));
@@ -117,17 +117,17 @@ export class DiceAnimationManager {
      * Spustí FARKLE animaci
      * @param {Array} dice - Kostky
      */
-    triggerFarkleAnimation(dice) {        
+    triggerFarkleAnimation(dice) {
         // Přidáme farkle animaci ke kostkám
         setTimeout(() => {
             const diceElements = document.querySelectorAll('.dice:not(.saved)');
             diceElements.forEach(el => el.classList.add('dice-farkle'));
-            
+
             setTimeout(() => {
                 diceElements.forEach(el => el.classList.remove('dice-farkle'));
             }, 2000);
         }, 200);
-        
+
         return dice; // Vrátíme pro další zpracování
     }
 
@@ -140,7 +140,7 @@ export class DiceAnimationManager {
             selectedElements.forEach(el => {
                 el.classList.add('dice-scoring');
             });
-            
+
             setTimeout(() => {
                 selectedElements.forEach(el => el.classList.remove('dice-scoring'));
             }, 1000);

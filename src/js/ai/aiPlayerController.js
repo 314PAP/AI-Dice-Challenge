@@ -19,19 +19,30 @@ export class AiPlayerController {
      * @param {Object} aiPlayer - AI hráč na tahu
      */
     async playAiTurn(aiPlayer) {
+        console.log(`🎯 AI ${aiPlayer.name} začíná playAiTurn`);
+
         // ODSTRANĚNO: Systémová zpráva "přemýšlí" - ruší AI chat
-        
+
         // 🎵 Zvuk pro AI tah
         soundSystem.play('aiTurn');
-        
+
         const state = gameState.getState();
-        
+
         // Pokud AI není na tahu, ukončíme
         if (state.players[state.currentPlayerIndex].name !== aiPlayer.name) {
-            console.warn('⚠️ AI není na tahu!');
+            console.warn(`⚠️ AI ${aiPlayer.name} není na tahu! Na tahu je: ${state.players[state.currentPlayerIndex].name}`);
             return;
         }
-        
+
+        // Kontrola, zda už AI tah neprobíhá
+        if (state.isAiTurnInProgress) {
+            console.warn(`⚠️ AI tah pro ${aiPlayer.name} již probíhá!`);
+            return;
+        }
+
+        // Nastavíme flag AI tahu
+        gameState.updateState({ isAiTurnInProgress: true });
+
         try {
             // Pokud nejsou kostky na stole, začneme hodem
             if (!state.currentRoll || state.currentRoll.length === 0) {
@@ -40,14 +51,18 @@ export class AiPlayerController {
                 await this.gameLogic.rollDice();
                 await this.delay(3000); // Delší čekání po hodu
             }
-            
+
             // AI rozhodování loop
             await this.aiDecisionLoop(aiPlayer);
-            
+
         } catch (error) {
             console.error('❌ Chyba v AI tahu:', error);
             // Backup - ukončíme tah pokud se něco pokazí
             this.gameLogic.endTurn();
+        } finally {
+            // Reset AI tah flagu
+            gameState.updateState({ isAiTurnInProgress: false });
+            console.log(`🏁 AI ${aiPlayer.name} dokončuje playAiTurn`);
         }
     }
 
@@ -60,21 +75,21 @@ export class AiPlayerController {
         const maxAttempts = 10; // Ochrana proti nekonečné smyčce
         let invalidTurnAttempts = 0; // Počítadlo neplatných pokusů
         const maxInvalidAttempts = 3; // Max pokusy o neplatné tahy
-        
+
         while (attempts < maxAttempts) {
             attempts++;
             const currentState = gameState.getState();
-            
+
             // KONTROLA ZRUŠENÉHO TAHU - pokud se zpracovává farkle, ukončíme
             if (currentState.isFarkleProcessing) {
                 break;
             }
-            
+
             // Kontrola, zda je AI stále na tahu
             if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
                 break;
             }
-            
+
             // Pokud není co odložit a nejsou ani odložené kostky ani turnScore, může to být konec tahu
             if (!currentState.currentRoll || currentState.currentRoll.length === 0) {
                 // Kontrola HOT DICE - pokud máme turnScore ale žádné kostky, znamená to HOT DICE reset
@@ -92,12 +107,12 @@ export class AiPlayerController {
                     break;
                 }
             }
-            
+
             // KONTROLA FARKLE - pokud jsou na stole kostky, ale žádné nejsou bodující
             // ⏰ DODÁNA KONTROLA: Počkáme až dokončí animace před zobrazením FARKLE
             if (currentState.currentRoll && currentState.currentRoll.length > 0) {
                 const hasScoring = hasScoringDice(currentState.currentRoll);
-                
+
                 if (!hasScoring) {
                     // ⏰ OPRAVENO: Čekáme na dokončení animace před zobrazením FARKLE
                     setTimeout(() => {
@@ -105,7 +120,7 @@ export class AiPlayerController {
                         const currentState = gameState.getState();
                         if (currentState.players[currentState.currentPlayerIndex].name === aiPlayer.name) {
                             chatSystem.addAiMessage(aiPlayer.name, "Oh ne, FARKLE! 💥😱");
-                            
+
                             // FORCE spuštění handleFarkle() pro zpracování FARKLE
                             setTimeout(() => {
                                 const currentState = gameState.getState();
@@ -115,14 +130,14 @@ export class AiPlayerController {
                             }, 1000); // Krátké zpoždění pro lepší UX
                         }
                     }, 2200); // Čekáme na dokončení animace (2.1s + trochu navíc)
-                    
+
                     return; // UKONČUJEME CELOU FUNKCI, NE POUZE SMYČKU!
                 }
             }
-            
+
             // AI rozhodování
             const decision = this.makeAiDecision(aiPlayer, currentState);
-            
+
             if (decision.action === 'save') {
                 const result = await this.executeSaveDecision(aiPlayer, decision, currentState);
                 if (result === 'endTurn') {
@@ -135,18 +150,18 @@ export class AiPlayerController {
                 // BEZPEČNOSTNÍ KONTROLA: Ověř, že AI má dostatečné body pro ukončení
                 const currentPlayer = currentState.players[currentState.currentPlayerIndex];
                 const totalTurnScore = currentState.turnScore || 0;
-                
+
                 if (currentPlayer.score === 0 && totalTurnScore < 300) {
                     console.warn(`⚠️ AI ${aiPlayer.name} se pokouší ukončit s ${totalTurnScore} body, ale potřebuje 300. Pokračuji v házení.`);
                     invalidTurnAttempts++;
-                    
+
                     // Pokud se AI opakovaně pokouší o neplatné ukončení, force ukončení
                     if (invalidTurnAttempts >= maxInvalidAttempts) {
                         console.error(`🚨 AI ${aiPlayer.name} opakovaně dělá neplatné tahy, force ukončuji tah`);
                         this.gameLogic.endTurn(); // Force ukončení i s neplatným skóre
                         break;
                     }
-                    
+
                     await this.executeContinueDecision(aiPlayer);
                 } else {
                     await this.executeEndTurnDecision(aiPlayer);
@@ -157,10 +172,10 @@ export class AiPlayerController {
             } else {
                 // FALLBACK: Pokud AI nerozpozná akci, zkus bezpečné rozhodnutí
                 console.warn(`⚠️ AI ${aiPlayer.name} nerozpoznalo akci '${decision.action}', zkouším fallback`);
-                
+
                 const currentPlayer = currentState.players[currentState.currentPlayerIndex];
                 const totalTurnScore = currentState.turnScore || 0;
-                
+
                 if (totalTurnScore >= 300 || currentPlayer.score > 0) {
                     // Má dostatečné body → ukončit tah
                     console.log(`💡 Fallback: ${aiPlayer.name} ukončuje tah (${totalTurnScore} bodů)`);
@@ -172,10 +187,10 @@ export class AiPlayerController {
                     await this.executeContinueDecision(aiPlayer);
                 }
             }
-            
+
             await this.delay(1500); // Pauza mezi akcemi
         }
-        
+
         if (attempts >= maxAttempts) {
             console.warn('⚠️ AI dosáhlo maximálního počtu pokusů');
             this.gameLogic.endTurn();
@@ -191,20 +206,20 @@ export class AiPlayerController {
     async executeSaveDecision(aiPlayer, decision, currentState) {
         gameState.updateState({ selectedDice: decision.diceToSave });
         await this.delay(500);
-        
+
         const selectedValues = decision.diceToSave.map(i => currentState.currentRoll[i]);
         const points = calculatePoints(selectedValues);
-        
+
         // Speciální zpráva pro HOT DICE (všechny kostky odloženy)
         if (decision.diceToSave.length === currentState.currentRoll.length) {
             chatSystem.addAiMessage(aiPlayer.name, `🔥 HOT DICE! Odložím všechny kostky [${selectedValues.join(', ')}] za ${points} bodů! Házím znovu se všemi kostkami! 🎲🔥`);
         } else {
             chatSystem.addAiMessage(aiPlayer.name, `Odkládám kostky [${selectedValues.join(', ')}] za ${points} bodů! 💎`);
         }
-        
+
         this.gameLogic.saveDice();
         await this.delay(1000);
-        
+
         // ZPRACOVÁNÍ NEXT ACTION - co dělat po uložení kostek
         if (decision.nextAction === 'endTurn') {
             await this.executeEndTurnDecision(aiPlayer);
@@ -213,7 +228,7 @@ export class AiPlayerController {
             await this.executeContinueDecision(aiPlayer);
             return 'continue'; // Signál pro pokračování
         }
-        
+
         return 'save'; // Pouze uložení, pokračovat v rozhodování
     }
 
@@ -237,7 +252,7 @@ export class AiPlayerController {
         if (currentState.players[currentState.currentPlayerIndex].name !== aiPlayer.name) {
             return;
         }
-        
+
         chatSystem.addAiMessage(aiPlayer.name, "Zkusím hodit znovu! 🎯");
         await this.delay(1000);
         await this.gameLogic.rollDice();
@@ -323,13 +338,13 @@ export class AiPlayerController {
     triggerAiReactions(eventType, eventData = {}) {
         const state = gameState.getState();
         const currentPlayer = state.players[state.currentPlayerIndex];
-        
+
         // POUZE pro lidského hráče
         if (!currentPlayer.isHuman) return;
-        
+
         const aiPlayers = state.players.filter(player => !player.isHuman);
         const reactingAI = aiPlayers.sort(() => Math.random() - 0.5).slice(0, 1);
-        
+
         reactingAI.forEach((aiPlayer, index) => {
             setTimeout(() => {
                 const reaction = this.generateReaction(eventType, eventData, currentPlayer, aiPlayer);
@@ -348,7 +363,7 @@ export class AiPlayerController {
             save: [`Dobrá volba! 👍`, `Solidní taktika! 💡`],
             endTurn: [`Bezpečná hra! ✅`, `${eventData.points} bodů - není špatné! 📊`]
         };
-        
+
         const possibleReactions = reactions[eventType] || [`Zajímavý tah! 🎮`];
         return possibleReactions[Math.floor(Math.random() * possibleReactions.length)];
     }

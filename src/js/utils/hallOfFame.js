@@ -13,9 +13,18 @@ import { saveToLocalStorage, loadFromLocalStorage } from './helpers.js';
  */
 export const addScoreToHallOfFame = (playerName, score) => {
     try {
+        // Validace - pouze lidští hráči s konkrétním jménem
+        const aiNames = ['Gemini', 'ChatGPT', 'Claude', 'AI'];
+        const genericNames = ['Hráč', 'Player', 'User'];
+
+        if (aiNames.includes(playerName) || genericNames.includes(playerName)) {
+            console.log(`🚫 ${playerName} se neukládá do síně slávy (AI nebo obecný název)`);
+            return false;
+        }
+
         // Načteme současnou síň slavy
         const currentHallOfFame = getHallOfFame();
-        
+
         // Přidáme nové skóre
         const newEntry = {
             name: playerName,
@@ -23,17 +32,17 @@ export const addScoreToHallOfFame = (playerName, score) => {
             date: new Date().toISOString(),
             timestamp: Date.now()
         };
-        
+
         currentHallOfFame.push(newEntry);
-        
+
         // Seřadíme podle skóre (sestupně) a vezmeme top 10
         const sortedHallOfFame = currentHallOfFame
             .sort((a, b) => b.score - a.score)
             .slice(0, 10);
-        
+
         // Uložíme zpět
         saveToLocalStorage(STORAGE_KEYS.HALL_OF_FAME, sortedHallOfFame);
-        
+
         console.log(`🏆 Přidáno do síně slavy: ${playerName} - ${score} bodů`);
         return true;
     } catch (error) {
@@ -78,12 +87,12 @@ export const clearHallOfFame = () => {
 export const isScoreWorthyOfHallOfFame = (score) => {
     try {
         const hallOfFame = getHallOfFame();
-        
+
         // Pokud je síň slavy prázdná nebo má méně než 10 záznamů
         if (hallOfFame.length < 10) {
             return true;
         }
-        
+
         // Pokud je skóre lepší než nejhorší v top 10
         const worstScore = hallOfFame[hallOfFame.length - 1].score;
         return score > worstScore;

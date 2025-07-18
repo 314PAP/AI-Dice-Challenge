@@ -59,7 +59,7 @@
     </div>
 
     <script>
-        // Emergency loading screen removal
+        // Emergency loading screen removal - kompatibilní s AppInitializer
         function forceHideLoading() {
             console.log('🚨 Manual force hide loading screen');
             const loadingScreen = document.getElementById('loadingScreen');
@@ -67,9 +67,13 @@
             
             if (loadingScreen) {
                 loadingScreen.style.display = 'none';
+                loadingScreen.style.visibility = 'hidden';
+                loadingScreen.classList.add('d-none');
+                // Necháme element v DOM pro AppInitializer
             }
             if (app) {
                 app.classList.remove('d-none');
+                app.style.display = 'flex';
             }
         }
         

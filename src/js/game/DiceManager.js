@@ -27,39 +27,44 @@ export class DiceManager {
      */
     saveDice() {
         const state = gameState.getState();
-        
+
         if (isEmpty(state.selectedDice)) {
             const warningMsg = '⚠️ Vyberte kostky k odložení!';
             console.warn(warningMsg);
             chatSystem.addSystemMessage(warningMsg, CHAT_COLORS.YELLOW);
             return;
         }
-        
+
         // Lodash filter a map pro získání hodnot vybraných kostek
         const selectedDiceValues = map(
             filter(state.currentRoll, (_, index) => state.selectedDice.includes(index)),
             (value) => value
         );
-        
+
+        // 🐛 DEBUG: Co user vybral
+        console.log(`🎯 User vybral indexy: [${state.selectedDice.join(', ')}]`);
+        console.log(`🎯 Z kostek: [${state.currentRoll.join(', ')}]`);
+        console.log(`🎯 Vybrané hodnoty: [${selectedDiceValues.join(', ')}]`);
+
         // Spočítáme body za vybrané kostky
         const points = calculatePoints(selectedDiceValues);
-        
+
         if (points === 0) {
             const errorMsg = '❌ Vybrané kostky neziskávají body!';
             console.error(errorMsg);
             chatSystem.addSystemMessage(errorMsg, CHAT_COLORS.RED);
             return;
         }
-        
+
         // VALIDACE PRVNÍHO ZÁPISU - POUZE PŘI UKONČENÍ TAHU, NE PŘI ODLOŽENÍ!
         // Tato validace se přesunuje do endTurn() funkce
-        
+
         // Přidáme skórovací animaci
         this.animationManager.addScoringAnimation();
-        
+
         // 🎵 Zvuk pro uložení kostek
         soundSystem.play('saveDice');
-        
+
         // Aktualizujeme stav s uloženými kostkami
         this.updateSavedDice(selectedDiceValues, points);
     }
@@ -71,16 +76,16 @@ export class DiceManager {
      */
     updateSavedDice(savedDiceValues, points) {
         const state = gameState.getState();
-        
+
         // Lodash clone pro bezpečnou kopii
         const newSavedDice = [...(state.savedDice || []), ...savedDiceValues];
         const newTurnScore = (state.turnScore || 0) + points;
-        
+
         // Filtrujeme zbývající kostky (nevy brané)
-        const remainingDice = filter(state.currentRoll, (_, index) => 
+        const remainingDice = filter(state.currentRoll, (_, index) =>
             !state.selectedDice.includes(index)
         );
-        
+
         // Aktualizujeme herní stav
         gameState.updateState({
             savedDice: newSavedDice,
@@ -88,10 +93,10 @@ export class DiceManager {
             currentRoll: remainingDice,
             selectedDice: []
         });
-        
+
         // Kontrola Hot Dice
         this.checkHotDice(newSavedDice, newTurnScore, remainingDice);
-        
+
         const message = `💾 Uloženo ${savedDiceValues.length} kostek za ${points} bodů`;
         chatSystem.addSystemMessage(message, CHAT_COLORS.BLUE);
     }
@@ -106,10 +111,10 @@ export class DiceManager {
         if (newSavedDice.length === 6) {
             const hotDiceMsg = '🔥 HOT DICE! Všech 6 kostek uloženo!';
             chatSystem.addSystemMessage(hotDiceMsg, CHAT_COLORS.ORANGE);
-            
+
             // 🎵 Speciální zvuk pro Hot Dice
             soundSystem.play('hotDice');
-            
+
             // OPRAVENO: Reset aktuálního hodu + vyčištění uložených kostek
             // Body už jsou v turnScore, kostky můžeme vyčistit
             gameState.updateState({
@@ -127,15 +132,15 @@ export class DiceManager {
      */
     getDiceCountToRoll() {
         const state = gameState.getState();
-        
+
         // Pokud jsou zbývající kostky z předchozího hodu, házíme jimi
         if (!isEmpty(state.currentRoll)) {
             return state.currentRoll.length;
         }
-        
+
         // Jinak házíme podle počtu uložených kostek
         const totalSavedDice = (state.savedDice || []).length;
-        
+
         if (totalSavedDice === 0) {
             // Začátek tahu - hodíme všemi 6 kostkami
             return 6;
@@ -153,7 +158,7 @@ export class DiceManager {
      */
     canRollDice() {
         const state = gameState.getState();
-        
+
         // OPRAVENÁ LOGIKA PRO HOT DICE:
         // Můžeš hodit pokud:
         // 1. Neběží animace
@@ -162,14 +167,14 @@ export class DiceManager {
         //    - Nemáš žádný hod (začátek tahu)
         //    - NEBO máš kostky k výběru (normální situace)
         //    - NEBO HOT DICE situace (currentRoll prázdné, ale turnScore > 0)
-        
+
         const hasCurrentRoll = state.currentRoll && state.currentRoll.length > 0;
         const isHotDiceSituation = (!state.currentRoll || state.currentRoll.length === 0) && (state.turnScore || 0) > 0;
         const isStartOfTurn = !state.currentRoll || state.currentRoll.length === 0;
-        
-        return !state.isRolling && 
-               isEmpty(state.selectedDice) && 
-               (hasCurrentRoll || isHotDiceSituation || isStartOfTurn);
+
+        return !state.isRolling &&
+            isEmpty(state.selectedDice) &&
+            (hasCurrentRoll || isHotDiceSituation || isStartOfTurn);
     }
 
     /**
@@ -177,7 +182,7 @@ export class DiceManager {
      */
     getDiceStatus() {
         const state = gameState.getState();
-        
+
         return {
             currentRoll: state.currentRoll || [],
             selectedDice: state.selectedDice || [],

@@ -10,15 +10,27 @@ const { cloneDeep, sumBy, maxBy, filter } = _;
 
 import gameState from './gameState.js';
 import chatSystem from '../ai/chatSystem.js';
-import { CHAT_COLORS } from '../utils/colors.js';
 import soundSystem from '../utils/soundSystem.js';
+import { CHAT_COLORS } from '../utils/colors.js';
+import { AiPlayerController } from '../ai/aiPlayerController.js';
 
 /**
- * Třída pro správu tahů hráčů
+ * Třída pro správu tahů hry
  */
 export class TurnManager {
     constructor() {
-        this.currentTurnData = null;
+        this.gameLogic = null;
+        this.aiController = null;
+        this.aiTurnInProgress = false; // Ochrana proti duplicitním AI tahům
+    }
+
+    /**
+     * Nastaví reference na gameLogic pro AI funkčnost
+     * @param {Object} gameLogic - Instance GameLogic
+     */
+    setGameLogic(gameLogic) {
+        this.gameLogic = gameLogic;
+        this.aiController = new AiPlayerController(gameLogic);
     }
 
     /**
@@ -28,28 +40,23 @@ export class TurnManager {
     endTurn(isFarkle = false) {
         const state = gameState.getState();
         if (state.gamePhase === 'gameover') return; // Hra skončila
-        
+
         const result = this.calculateTurnResult(isFarkle);
-        this.updatePlayerScore(result);
-        
+        this.updatePlayerScore(result.player.name, result.pointsGained);
+
         // Pokud je tah neplatný, nepokračujeme v endTurn sekvenci
         if (result.invalidTurn) {
             return; // Hráč zůstává na tahu a může pokračovat
         }
-        
+
         // Kontrola výhry pomocí lodash
         const winner = this.checkVictory(result.player);
         if (winner) {
             this.endGame();
             return;
         }
-        
-        // Finální kolo kontrola
-        if (state.finalRound && this.checkFinalRoundCompletion()) {
-            this.endGame();
-            return;
-        }
-        
+
+        // Přejdeme na dalšího hráče
         this.switchToNextPlayer();
     }
 
@@ -60,7 +67,7 @@ export class TurnManager {
     calculateTurnResult(isFarkle) {
         const state = gameState.getState();
         const currentPlayer = cloneDeep(state.players[state.currentPlayerIndex]);
-        
+
         if (isFarkle) {
             console.log(`💥 ${currentPlayer.name} FARKLE - ztrácí ${state.turnScore || 0} bodů`);
             return {
@@ -70,23 +77,23 @@ export class TurnManager {
                 oldScore: currentPlayer.score
             };
         }
-        
+
         // Normální ukončení tahu
         const pointsGained = state.turnScore || 0;
         const oldScore = currentPlayer.score;
-        
+
         // VALIDACE PRVNÍHO ZÁPISU - POUZE PŘI UKONČENÍ TAHU!
         if (currentPlayer.score === 0 && pointsGained < 300) {
             const errorMsg = `❌ První zápis vyžaduje minimálně 300 bodů! Máte jen ${pointsGained} bodů. Pokračujte v házení.`;
             console.error(errorMsg);
-            
+
             // Import chatSystem dynamicky pro menší závislosti
             import('../ai/chatSystem.js').then(({ default: chatSystem }) => {
                 import('../utils/colors.js').then(({ CHAT_COLORS }) => {
                     chatSystem.addSystemMessage(errorMsg, CHAT_COLORS.RED);
                 });
             });
-            
+
             // Vrátíme "farkle-like" výsledek - neplatný tah
             return {
                 player: currentPlayer,
@@ -97,7 +104,7 @@ export class TurnManager {
                 oldScore
             };
         }
-        
+
         return {
             player: currentPlayer,
             pointsGained,
@@ -110,37 +117,38 @@ export class TurnManager {
      * Aktualizuje skóre hráče
      * @param {Object} result - Výsledek tahu
      */
-    updatePlayerScore(result) {
+    updatePlayerScore(playerName, points) {
         const state = gameState.getState();
-        
-        // Pokud je tah neplatný (nedostatečné body), nepřidávej skóre a neukončuj tah
-        if (result.invalidTurn) {
-            console.warn(`⚠️ Neplatný tah: ${result.reason} - tah pokračuje`);
-            // Pouze resetujeme turnScore na 0 a umožníme hráči pokračovat
-            gameState.updateState({
-                turnScore: 0,
-                selectedDice: [],
-                currentRoll: []
-            });
-            return; // NEPOKRAČUJEME v endTurn sekvenci!
+        const playerIndex = state.players.findIndex(p => p.name === playerName);
+
+        if (playerIndex === -1) {
+            console.error(`❌ Hráč ${playerName} nenalezen`);
+            return;
         }
-        
-        // Lodash cloneDeep pro bezpečnou kopii
-        const updatedPlayers = cloneDeep(state.players);
-        updatedPlayers[state.currentPlayerIndex].score += result.pointsGained;
-        updatedPlayers[state.currentPlayerIndex].hasFarkle = result.wasFarkle;
-        
-        // Reset herního stavu po tahu
-        gameState.updateState({
-            players: updatedPlayers,
-            currentRoll: [],
-            selectedDice: [],
-            savedDice: [],
-            turnScore: 0,
-            isFarkleProcessing: false // Reset ochranného flagu
-        });
-        
-        this.logTurnResult(result.player, state, result.pointsGained, result.oldScore);
+
+        const player = state.players[playerIndex];
+        const oldScore = player.score;
+        const newScore = oldScore + points;
+
+        console.log(`🔍 updatePlayerScore: ${playerName} měl ${oldScore}, získává ${points}, bude mít ${newScore}`);
+
+        // Aktualizace skóre
+        gameState.updatePlayerScore(playerName, points);
+
+        // Systémové zprávy a animace
+        if (points > 0) {
+            console.log(`✅ ${playerName}: +${points} bodů (${oldScore} → ${newScore})`);
+
+            const color = playerName === "Hráč" ? CHAT_COLORS.GREEN : CHAT_COLORS.BLUE;
+            chatSystem.addMessage(playerName, `Ukončuji tah. Solidní výsledek! ✅`, color);
+
+        } else {
+            console.log(`💥 ${playerName}: FARKLE! (${newScore} bodů)`);
+        }
+
+        // Kontrola vítězství s aktualizovaným skóre
+        const updatedPlayer = { ...player, score: newScore };
+        this.checkVictory(updatedPlayer);
     }
 
     /**
@@ -148,10 +156,10 @@ export class TurnManager {
      */
     logTurnResult(player, state, points, oldScore) {
         const newScore = oldScore + points;
-        const message = points > 0 
+        const message = points > 0
             ? `✅ ${player.name}: +${points} bodů (${oldScore} → ${newScore})`
             : `💥 ${player.name}: FARKLE! (${oldScore} bodů)`;
-        
+
         console.log(message);
         chatSystem.addSystemMessage(message, points > 0 ? CHAT_COLORS.GREEN : CHAT_COLORS.RED);
     }
@@ -163,24 +171,30 @@ export class TurnManager {
     checkVictory(player) {
         const state = gameState.getState();
         const hasWon = player.score >= state.targetScore;
-        
+
+        console.log(`🔍 checkVictory: ${player.name} má ${player.score} bodů, cíl ${state.targetScore}, hasWon: ${hasWon}, finalRound: ${state.finalRound}`);
+
         if (hasWon && !state.finalRound) {
             console.log(`🏆 ${player.name} dosáhl ${state.targetScore} bodů! Začíná finální kolo.`);
-            
+
             gameState.updateState({
                 finalRound: true,
-                finalRoundLeader: player,
+                finalRoundLeader: player.name,
                 finalRoundStartPlayerIndex: state.currentPlayerIndex
             });
-            
+
             const message = `🏆 ${player.name} dosáhl ${state.targetScore} bodů! Finální kolo začíná!`;
             chatSystem.addSystemMessage(message, CHAT_COLORS.YELLOW);
-            
+
             // 🎵 Zvuk pro dosažení cíle
             soundSystem.play('victory');
+
+            // Neukončujeme hru zde - čekáme na dokončení finálního kola
+            return false;
         }
-        
-        return hasWon && state.finalRound && this.checkFinalRoundCompletion();
+
+        // Pokud už je finální kolo a někdo dosáhne vyššího skóre, hra pokračuje
+        return false;
     }
 
     /**
@@ -189,7 +203,7 @@ export class TurnManager {
     checkFinalRoundCompletion() {
         const state = gameState.getState();
         if (!state.finalRound) return false;
-        
+
         // Finální kolo končí, když se dostaneme zpět k hráči, který ho začal
         return state.currentPlayerIndex === state.finalRoundStartPlayerIndex;
     }
@@ -199,25 +213,25 @@ export class TurnManager {
      */
     endGame() {
         const state = gameState.getState();
-        
+
         // Lodash maxBy pro nalezení vítěze
         const winner = maxBy(state.players, 'score');
-        
+
         console.log(`🏆 Hra skončila! Vítěz: ${winner.name} s ${winner.score} body`);
-        
+
         // Uložíme vítěze do síně slavy
         import('../utils/hallOfFame.js').then(({ addScoreToHallOfFame }) => {
             addScoreToHallOfFame(winner.name, winner.score);
         }).catch(error => {
             console.error('❌ Chyba při ukládání do síně slavy:', error);
         });
-        
+
         const message = `🏆 Vítěz: ${winner.name} s ${winner.score} body!`;
         chatSystem.addSystemMessage(message, CHAT_COLORS.GOLD);
-        
+
         // 🎵 Závěrečný zvuk
         soundSystem.play('gameEnd');
-        
+
         gameState.updateState({ gamePhase: 'gameover' });
     }
 
@@ -227,13 +241,13 @@ export class TurnManager {
     switchToNextPlayer() {
         const state = gameState.getState();
         const nextPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
-        
+
         // Reset hasFarkle flag pro všechny hráče
         const resetPlayers = state.players.map(player => ({
             ...player,
             hasFarkle: false
         }));
-        
+
         gameState.updateState({
             currentPlayerIndex: nextPlayerIndex,
             currentRoll: [],
@@ -243,15 +257,34 @@ export class TurnManager {
             players: resetPlayers,
             isFarkleProcessing: false
         });
-        
+
         const nextPlayer = resetPlayers[nextPlayerIndex];
         console.log(`🔄 Další hráč: ${nextPlayer.name}`);
-        
+
+        // Kontrola finálního kola - pokud jsme zpět u hráče, který ho začal
+        console.log(`🔍 switchToNextPlayer: finalRound: ${state.finalRound}, nextPlayerIndex: ${nextPlayerIndex}, finalRoundStartPlayerIndex: ${state.finalRoundStartPlayerIndex}`);
+
+        if (state.finalRound && nextPlayerIndex === state.finalRoundStartPlayerIndex) {
+            console.log(`🏁 Finální kolo dokončeno - určujeme vítěze`);
+            this.endGame();
+            return;
+        }
+
         // Pokud je další hráč AI, automaticky začne hrát
         if (!nextPlayer.isHuman) {
-            setTimeout(() => {
-                console.log(`🤖 ${nextPlayer.name} začíná AI tah`);
-                // Zde by se volala AI logika
+            console.log(`🤖 ${nextPlayer.name} začíná AI tah`);
+
+            // AI timeout bez flag ochrany - každý AI má vlastní timeout
+            setTimeout(async () => {
+                try {
+                    if (this.aiController) {
+                        await this.aiController.playAiTurn(nextPlayer);
+                    } else {
+                        console.error('❌ AI Controller není inicializován!');
+                    }
+                } catch (error) {
+                    console.error('❌ Chyba v AI tahu:', error);
+                }
             }, 1000);
         }
     }

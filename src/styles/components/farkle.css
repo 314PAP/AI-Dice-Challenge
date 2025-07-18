@@ -148,7 +148,10 @@
 /* Diagonální FARKLE nápis přes dice-section */
 .dice-section-farkle {
   position: relative !important;
-  overflow: hidden !important;
+  /* ✅ OPRAVENO: Overflow visible pro viewport, ale clipped pro container */
+  overflow: visible !important;
+  /* ✅ PŘIDÁNO: Contain pro layout stability */
+  contain: layout style !important;
 }
 
 .dice-section-farkle::after {
@@ -157,54 +160,84 @@
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) rotate(-15deg) !important;
-  width: 80% !important;
-  height: 40% !important;
+  /* ✅ OPRAVENO: Responzivní velikost omezená na container */
+  max-width: calc(100% - 1rem) !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: clamp(2.5rem, 6vh, 4rem) !important;
+  /* ✅ OPRAVENO: Font velikost podle dice-section, ne viewport */
+  font-size: clamp(1rem, min(5vw, 4vh), 2rem) !important;
+  /* ✅ OPRAVENO: Větší padding pro lepší čitelnost */
+  padding: clamp(0.5rem, 3vw, 1rem) clamp(1rem, 6vw, 2rem) !important;
   background: linear-gradient(
     135deg, 
-    transparent 20%, 
-    rgba(255, 49, 49, 0.95) 25%, 
-    rgba(255, 49, 49, 0.95) 75%, 
-    transparent 80%
+    rgba(255, 49, 49, 0.95) 0%, 
+    rgba(255, 49, 49, 0.98) 50%, 
+    rgba(255, 49, 49, 0.95) 100%
   ) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   color: var(--neon-black) !important;
   font-weight: 900 !important;
-  font-size: clamp(0.8rem, 3vw, 1.2rem) !important;
+  /* ✅ OPRAVENO: Font velikost podle dice-section, ne viewport */
+  font-size: clamp(1rem, min(5vw, 4vh), 2rem) !important;
+  /* ✅ OPRAVENO: Větší padding pro lepší čitelnost */
+  padding: clamp(0.5rem, 3vw, 1rem) clamp(1rem, 6vw, 2rem) !important;
   text-shadow: 
     0 0 0.5rem rgba(255, 255, 255, 0.8),
     0 2px 4px rgba(0, 0, 0, 0.8) !important;
   letter-spacing: 0.05em !important;
   animation: rotateIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards !important;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.4) !important;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
   box-shadow: 
     0 0 0.8rem var(--neon-red),
     0 0 1.6rem rgba(255, 49, 49, 0.6),
     inset 0 0 0.8rem rgba(255, 255, 255, 0.2) !important;
   pointer-events: none !important;
   border-radius: 8px !important;
-  overflow: hidden !important;
+  /* ✅ OPRAVENO: Bez overflow hidden - aby se text nevyřízl */
   z-index: var(--z-top) !important;
+  white-space: nowrap !important;
 }
 
 @media (max-width: 768px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.7rem, 2.5vw, 1rem) !important;
+    font-size: clamp(0.8rem, min(4vw, 3vh), 1.5rem) !important;
     transform: translate(-50%, -50%) rotate(-12deg) !important;
-    width: 75% !important;
-    height: 35% !important;
+    padding: clamp(0.4rem, 2.5vw, 0.8rem) clamp(0.8rem, 5vw, 1.5rem) !important;
+    min-height: clamp(2rem, 5vh, 3rem) !important;
   }
 }
 
 @media (max-width: 576px) {
   .dice-section-farkle::after {
-    font-size: clamp(0.6rem, 2vw, 0.85rem) !important;
+    font-size: clamp(0.7rem, min(3.5vw, 2.5vh), 1.2rem) !important;
     transform: translate(-50%, -50%) rotate(-10deg) !important;
     content: "💥 FARKLE!" !important;
     letter-spacing: 0.02em !important;
-    width: 70% !important;
-    height: 30% !important;
+    padding: clamp(0.3rem, 2vw, 0.6rem) clamp(0.6rem, 4vw, 1.2rem) !important;
+    min-height: clamp(1.8rem, 4vh, 2.5rem) !important;
+  }
+}
+
+/* Extra malé obrazovky a landscape mobily */
+@media (max-width: 400px) {
+  .dice-section-farkle::after {
+    font-size: clamp(0.6rem, min(3vw, 2vh), 1rem) !important;
+    transform: translate(-50%, -50%) rotate(-8deg) !important;
+    content: "FARKLE!" !important;
+    padding: clamp(0.25rem, 1.5vw, 0.5rem) clamp(0.5rem, 3vw, 1rem) !important;
+    min-height: clamp(1.5rem, 3vh, 2rem) !important;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .dice-section-farkle::after {
+    font-size: clamp(0.5rem, min(2.5vw, 3vh), 0.9rem) !important;
+    transform: translate(-50%, -50%) rotate(-5deg) !important;
+    content: "FARKLE!" !important;
+    padding: clamp(0.2rem, 1vw, 0.4rem) clamp(0.4rem, 2vw, 0.8rem) !important;
+    min-height: clamp(1.2rem, 2.5vh, 1.8rem) !important;
   }
 }

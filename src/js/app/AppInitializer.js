@@ -16,7 +16,7 @@ export class AppInitializer {
     constructor() {
         this.initTime = Date.now();
         this.observer = null;
-        
+
         // Lodash throttled funkce pro optimalizaci
         this.throttledHeightCheck = throttle(this.debugAppHeight.bind(this), 200);
         this.debouncedResize = debounce(this.handleResize.bind(this), 300);
@@ -36,18 +36,29 @@ export class AppInitializer {
     }
 
     /**
-     * Skryje loading screen s animací
+     * Skrývá loading screen - robustní verze
      */
     hideLoadingScreen() {
         const loadingScreen = document.getElementById('loadingScreen');
         const app = document.getElementById('app');
-        
+
         if (loadingScreen) {
-            loadingScreen.remove(); // Kompletně odstraň z DOM
+            // Zkusíme všechny možné způsoby skrytí
+            loadingScreen.style.display = 'none';
+            loadingScreen.style.visibility = 'hidden';
+            loadingScreen.style.opacity = '0';
+            loadingScreen.classList.add('d-none');
+
+            // Teprve pak odstraníme z DOM
+            setTimeout(() => {
+                if (loadingScreen.parentNode) {
+                    loadingScreen.remove();
+                }
+            }, 100);
         } else {
-            console.error('❌ Loading screen element nenalezen!');
+            console.warn('⚠️ Loading screen element už byl odstraněn nebo neexistuje');
         }
-        
+
         if (app) {
             app.classList.remove('d-none');
             app.style.display = 'flex';
@@ -56,11 +67,6 @@ export class AppInitializer {
         } else {
             console.error('❌ App element nenalezen!');
         }
-        
-        // Debug check
-        setTimeout(() => {
-            const check = document.getElementById('loadingScreen');
-        }, 100);
     }
 
     /**
@@ -69,7 +75,7 @@ export class AppInitializer {
     debugAppHeight(context) {
         const app = document.getElementById('app');
         if (!app) return;
-        
+
         const info = {
             context,
             viewport: { width: window.innerWidth, height: window.innerHeight },
@@ -77,10 +83,10 @@ export class AppInitializer {
             app: app.offsetHeight,
             timestamp: Date.now() - this.initTime
         };
-        
+
         // Lodash pick pro vybrání jen důležitých properties
         const essential = pick(info, ['context', 'viewport.height', 'app', 'timestamp']);
-        
+
         console.log(
             `%c🔍 LAYOUT DEBUG %c${context} %c${essential.timestamp}ms`,
             `background: ${CONSOLE_COLORS.bgDark}; color: ${CONSOLE_COLORS.neonBlue}; font-weight: bold; padding: 2px 6px;`,
@@ -94,7 +100,7 @@ export class AppInitializer {
      */
     setupMutationObserver() {
         if (this.observer) return;
-        
+
         this.observer = new MutationObserver(
             // Lodash throttle pro omezení četnosti spouštění
             throttle((mutations) => {
@@ -103,7 +109,7 @@ export class AppInitializer {
                 }
             }, 100)
         );
-        
+
         const app = document.getElementById('app');
         if (app) {
             this.observer.observe(app, {
@@ -128,9 +134,9 @@ export class AppInitializer {
     setupEventListeners() {
         // Resize listener s debounce
         window.addEventListener('resize', this.debouncedResize);
-        
+
         // Visibility change s throttle
-        document.addEventListener('visibilitychange', 
+        document.addEventListener('visibilitychange',
             throttle(() => {
                 if (!document.hidden) {
                     this.debugAppHeight('Visibility Change');
@@ -147,7 +153,7 @@ export class AppInitializer {
             this.observer.disconnect();
             this.observer = null;
         }
-        
+
         window.removeEventListener('resize', this.debouncedResize);
     }
 
@@ -162,7 +168,7 @@ export class AppInitializer {
             <p>${message}</p>
         `;
         document.body.appendChild(errorDiv);
-        
+
         // Auto-remove po 5 sekundách
         setTimeout(() => {
             errorDiv.remove();
