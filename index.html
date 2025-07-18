@@ -65,11 +65,14 @@
             const loadingScreen = document.getElementById('loadingScreen');
             const app = document.getElementById('app');
             
-            if (loadingScreen) {
+            if (loadingScreen && !loadingScreen.classList.contains('d-none')) {
+                console.log('🎬 Emergency: Skrývám loading screen...');
                 loadingScreen.style.display = 'none';
                 loadingScreen.style.visibility = 'hidden';
                 loadingScreen.classList.add('d-none');
                 // Necháme element v DOM pro AppInitializer
+            } else {
+                console.log('ℹ️ Emergency: Loading screen už je skrytý nebo neexistuje');
             }
             if (app) {
                 app.classList.remove('d-none');

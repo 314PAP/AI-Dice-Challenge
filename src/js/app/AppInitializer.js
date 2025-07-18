@@ -36,13 +36,21 @@ export class AppInitializer {
     }
 
     /**
-     * Skrývá loading screen - robustní verze
+     * Skryje loading screen a zobrazí hlavní aplikaci
      */
     hideLoadingScreen() {
+        // Pokud už probíhá skrývání, přeskoč
+        if (this._hidingLoadingScreen) {
+            console.log('🔄 Loading screen se už skrývá, přeskakuji...');
+            return;
+        }
+
+        this._hidingLoadingScreen = true;
         const loadingScreen = document.getElementById('loadingScreen');
         const app = document.getElementById('app');
 
-        if (loadingScreen) {
+        if (loadingScreen && !loadingScreen.classList.contains('d-none')) {
+            console.log('🎬 Skrývám loading screen...');
             // Zkusíme všechny možné způsoby skrytí
             loadingScreen.style.display = 'none';
             loadingScreen.style.visibility = 'hidden';
@@ -54,9 +62,16 @@ export class AppInitializer {
                 if (loadingScreen.parentNode) {
                     loadingScreen.remove();
                 }
+                this._hidingLoadingScreen = false;
+                console.log('✅ Loading screen úspěšně odstraněn');
             }, 100);
         } else {
-            console.warn('⚠️ Loading screen element už byl odstraněn nebo neexistuje');
+            this._hidingLoadingScreen = false;
+            if (!loadingScreen) {
+                console.log('ℹ️ Loading screen element už neexistuje');
+            } else {
+                console.log('ℹ️ Loading screen už je skrytý');
+            }
         }
 
         if (app) {
