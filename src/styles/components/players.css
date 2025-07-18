@@ -9,7 +9,7 @@
 .player-active {
   animation: pulse 3s ease-in-out infinite !important;
   border-width: 3px !important;
-  box-shadow: 0 0 1.5rem currentColor, 0 0 3rem rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 0 0.4rem currentColor, 0 0 0.8rem rgba(255, 255, 255, 0.2) !important;
   transform: scale(1.02) !important;
   transition: all 0.3s ease !important;
 }
@@ -27,42 +27,42 @@
 .border-neon-green.player-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  box-shadow: 0 0 1.5rem var(--neon-green), 0 0 3rem var(--neon-green) !important;
+  box-shadow: 0 0 0.4rem var(--neon-green), 0 0 0.8rem var(--neon-green) !important;
   transform: scale(1.02) !important;
 }
 
 .border-neon-blue.player-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  box-shadow: 0 0 1.5rem var(--neon-blue), 0 0 3rem var(--neon-blue) !important;
+  box-shadow: 0 0 0.4rem var(--neon-blue), 0 0 0.8rem var(--neon-blue) !important;
   transform: scale(1.02) !important;
 }
 
 .border-neon-purple.player-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  box-shadow: 0 0 1.5rem var(--neon-purple), 0 0 3rem var(--neon-purple) !important;
+  box-shadow: 0 0 0.4rem var(--neon-purple), 0 0 0.8rem var(--neon-purple) !important;
   transform: scale(1.02) !important;
 }
 
 .border-neon-orange.player-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  box-shadow: 0 0 1.5rem var(--neon-orange), 0 0 3rem var(--neon-orange) !important;
+  box-shadow: 0 0 0.4rem var(--neon-orange), 0 0 0.8rem var(--neon-orange) !important;
   transform: scale(1.02) !important;
 }
 
 .border-neon-red.player-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  box-shadow: 0 0 1.5rem var(--neon-red), 0 0 3rem var(--neon-red) !important;
+  box-shadow: 0 0 0.4rem var(--neon-red), 0 0 0.8rem var(--neon-red) !important;
   transform: scale(1.02) !important;
 }
 
 .border-neon-yellow.player-active {
   animation: pulse 3s ease-in-out infinite;
   border-style: solid !important;
-  box-shadow: 0 0 1.5rem var(--neon-yellow), 0 0 3rem var(--neon-yellow) !important;
+  box-shadow: 0 0 0.4rem var(--neon-yellow), 0 0 0.8rem var(--neon-yellow) !important;
   transform: scale(1.02) !important;
 }
 
