@@ -208,8 +208,13 @@
 
 /* Backdrop blur efekt */
 .backdrop-blur {
-    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+
+/* App container initial state */
+.app-hidden {
+    visibility: hidden !important;
 }
 
 /* ===== KONEC POTVRZOVACÍ DIALOG ANIMACE ===== */

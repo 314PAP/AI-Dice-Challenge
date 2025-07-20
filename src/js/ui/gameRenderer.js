@@ -378,10 +378,6 @@ export class GameRenderer {
 
         let targetContent = `<div class="text-neon-yellow small">🎯 Cílové skóre: <span class="fw-bold fs-6">${state.targetScore}</span></div>`;
 
-        if (state.finalRound) {
-            targetContent += `<div class="text-neon-orange small mt-1">🏁 Finální kolo - všichni ještě jednou!</div>`;
-        }
-
         targetCol.innerHTML = targetContent;
         targetSection.appendChild(targetCol);
 

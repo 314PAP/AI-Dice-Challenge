@@ -7,10 +7,10 @@ async function waitForLodash() {
     return new Promise((resolve, reject) => {
         let attempts = 0;
         const maxAttempts = 50; // 5 sekund (50 × 100ms)
-        
+
         const checkLodash = () => {
             attempts++;
-            
+
             if (typeof _ !== 'undefined') {
                 console.log('✅ Lodash dostupný po', attempts * 100, 'ms');
                 resolve();
@@ -21,7 +21,7 @@ async function waitForLodash() {
                 setTimeout(checkLodash, 100);
             }
         };
-        
+
         checkLodash();
     });
 }
@@ -47,7 +47,7 @@ import { CONSOLE_COLORS } from './js/utils/colors.js';
 class AIDiceGame {
     constructor() {
         console.log('🎲 AI Dice Challenge starting...');
-        
+
         try {
             this.initializer = new AppInitializer();
             this.componentManager = new ComponentManager();
@@ -66,42 +66,42 @@ class AIDiceGame {
         try {
             // Zaznamenej čas startu pro minimum 2 sekundy loading
             const startTime = Date.now();
-            
+
             // 1. DOM ready
             await this.initializer.waitForDOM();
-            
+
             // 2. Basic components
             await this.componentManager.initializeComponents();
-            
+
             // Ujisti se, že loading trvá alespoň 3 sekundy pro dokončení animace
             const elapsedTime = Date.now() - startTime;
             const minLoadingTime = 3000; // 3 sekundy pro neonovou animaci
             if (elapsedTime < minLoadingTime) {
                 await new Promise(resolve => setTimeout(resolve, minLoadingTime - elapsedTime));
             }
-            
+
             // 3. Hide loading
             console.log('🎬 Volám hideLoadingScreen...');
             this.initializer.hideLoadingScreen();
             console.log('✅ hideLoadingScreen dokončen');
-            
+
             // Malé zpoždění pro jistotu
             await new Promise(resolve => setTimeout(resolve, 600));
-            
+
             // 4. GameUI init
             await this.componentManager.initializeGameUI();
-            
+
             // 5. Event listeners
             this.initializer.setupEventListeners();
-            
+
             // 6. Layout monitoring
             this.layoutManager.startLayoutMonitoring();
-            
+
             // 7. Final checks
             await this.performFinalChecks();
-            
+
             console.log('✅ AI Dice Challenge ready!');
-            
+
         } catch (error) {
             console.error('❌ Init failed:', error);
             this.initializer.showError('Chyba při načítání aplikace.');
@@ -116,20 +116,20 @@ class AIDiceGame {
      */
     async performFinalChecks() {
         await new Promise(resolve => setTimeout(resolve, 500));
-        
+
         const componentStatus = this.componentManager.getComponentsStatus();
         const allInitialized = componentStatus.every(c => c.initialized);
-        
+
         if (!allInitialized) {
             console.warn('⚠️ Components not ready:', componentStatus);
         }
-        
+
         const layoutValid = this.layoutManager.validateLayout();
         if (!layoutValid.valid) {
             console.warn('⚠️ Layout issues detected');
             this.layoutManager.fixLayout();
         }
-        
+
         this.testSoundSystem();
         this.logAppStatus();
     }
@@ -155,7 +155,7 @@ class AIDiceGame {
             layout: this.layoutManager.isLayoutValid ? 'OK' : 'ISSUES',
             sounds: soundSystem && soundSystem.enabled ? 'OK' : 'OFF'
         };
-        
+
         console.log(`🎮 Status: ${status.components} components, Layout ${status.layout}, Sounds ${status.sounds}`);
     }
 
@@ -177,24 +177,24 @@ window.AIDiceGame = AIDiceGame;
 async function initializeApp() {
     try {
         console.log('🚀 Spouštím inicializaci aplikace...');
-        
+
         // Spuštění aplikace
         const app = new AIDiceGame();
-        
+
         // Čištění při odchodu ze stránky
         window.addEventListener('beforeunload', () => {
             app.cleanup();
         });
-        
+
         // Export pro debugging
         window.app = app;
-        
+
         console.log('🎯 Aplikace úspěšně inicializována');
         return app;
-        
+
     } catch (error) {
         console.error('❌ Kritická chyba při inicializaci aplikace:', error);
-        
+
         // Zobrazení chyby uživateli
         const loadingScreen = document.getElementById('loadingScreen');
         if (loadingScreen) {
@@ -206,7 +206,7 @@ async function initializeApp() {
                 </div>
             `;
         }
-        
+
         throw error;
     }
 }
@@ -229,29 +229,29 @@ setTimeout(() => {
 }, 3000);
 
 // JavaScript řešení pro potlačení autocomplete
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const chatInput = document.getElementById('chatInput');
-    
+
     if (chatInput) {
         // Elegantnější JavaScript řešení pro autocomplete
         chatInput.setAttribute('autocomplete', 'off');
         chatInput.setAttribute('spellcheck', 'false');
-        
+
         // Dynamické potlašení autocomplete dropdown
-        chatInput.addEventListener('focus', function() {
+        chatInput.addEventListener('focus', function () {
             // Momentálně nastavíme readonly a pak ho zrušíme
             this.setAttribute('readonly', true);
             setTimeout(() => {
                 this.removeAttribute('readonly');
             }, 10);
         });
-        
+
         // Potlačení browser autocomplete přes JavaScript
-        chatInput.addEventListener('input', function() {
+        chatInput.addEventListener('input', function () {
             // Odstraní možné autocomplete hodnoty
             this.setAttribute('autocomplete', 'new-password');
         });
-        
+
         // Skrytí možných autocomplete dropdown elementů
         const hideAutocomplete = () => {
             const dropdowns = document.querySelectorAll('datalist, .autocomplete-suggestions, [class*="autocomplete"]');
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 dropdown.style.visibility = 'hidden';
             });
         };
-        
+
         chatInput.addEventListener('focus', hideAutocomplete);
         chatInput.addEventListener('input', hideAutocomplete);
         chatInput.addEventListener('keydown', hideAutocomplete);

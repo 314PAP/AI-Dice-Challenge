@@ -223,7 +223,7 @@ export class AiPlayerController {
         // ZPRACOVÁNÍ NEXT ACTION - co dělat po uložení kostek
         // 🔥 KONTROLA HOT DICE: Pokud AI odložil všechny kostky, MUSÍ pokračovat v házení
         const isHotDice = decision.diceToSave.length === currentState.currentRoll.length;
-        
+
         if (isHotDice) {
             console.log(`🔥 HOT DICE detekováno! AI musí házet znovu, nemůže ukončit tah.`);
             // Force pokračování - AI nemůže ukončit tah po HOT DICE

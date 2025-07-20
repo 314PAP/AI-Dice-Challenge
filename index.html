@@ -34,7 +34,7 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
     
     <!-- ✅ PŮVODNÍ WORKING CSS STRUKTURA -->
-    <link rel="stylesheet" href="/src/styles/main.css">
+    <link rel="stylesheet" href="./src/styles/main.css">
     
     <!-- TESTOVACÍ CSS PRO LOADING SPINNER -->
 </head>
@@ -75,17 +75,25 @@
                 console.log('ℹ️ Emergency: Loading screen už je skrytý nebo neexistuje');
             }
             if (app) {
-                app.classList.remove('d-none');
+                app.classList.remove('d-none', 'app-hidden');
                 app.style.display = 'flex';
             }
         }
         
-        // Auto hide after 8 seconds
-        setTimeout(forceHideLoading, 8000);
+        // Auto hide after 5 seconds a zobraz app
+        setTimeout(() => {
+            forceHideLoading();
+            // Zajistit zobrazení app
+            const app = document.getElementById('app');
+            if (app) {
+                app.classList.remove('d-none', 'app-hidden');
+                app.style.display = 'flex';
+            }
+        }, 5000);
     </script>
     
     <!-- Main Application Container - Responsive Flexbox Layout -->
-    <div id="app" class="container-fluid d-flex flex-column p-3 p-md-4 d-none vh-100 overflow-hidden animate__animated animate__fadeIn">
+    <div id="app" class="container-fluid d-flex flex-column p-3 p-md-4 vh-100 overflow-hidden animate__animated animate__fadeIn app-hidden">
         <!-- MOBIL: Vertikální layout, DESKTOP: Horizontální layout -->
         <div class="d-flex flex-column flex-sm-row g-0 flex-fill h-100 overflow-hidden mx-1 mx-md-2">
             
@@ -132,7 +140,7 @@
                                    class="form-control bg-black border-neon-green" 
                                    placeholder="Zpráva AI..." 
                                    autocomplete="off">
-                            <button id="sendChatBtn" class="btn btn-neon btn-no-scale" data-neon-color="green">
+                            <button id="sendChatBtn" class="btn btn-neon btn-no-scale" data-neon-color="green" aria-label="Odeslat zprávu">
                                 <i class="bi bi-send-fill"></i>
                             </button>
                         </div>

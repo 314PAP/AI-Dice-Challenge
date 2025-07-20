@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dice Challenge - Glow Effects Test</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Naše styly -->
+    <link href="src/styles/colors-bootstrap-simple.css" rel="stylesheet">
+    <link href="src/styles/components/dice.css" rel="stylesheet">
+    
+    <!-- Custom glow effects from index.html -->
+    <style>
+        /* Library-based glow effects */
+        .glow-soft {
+            filter: drop-shadow(0 0 8px var(--neon-green));
+            animation: glow-soft-pulse 3s ease-in-out infinite;
+        }
+
+        .glow-pulse {
+            animation: glow-pulse-breathe 2s ease-in-out infinite;
+        }
+
+        .glow-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-shimmer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(57, 255, 20, 0.4), transparent);
+            animation: glow-shimmer-move 3s linear infinite;
+            pointer-events: none;
+        }
+
+        .glow-neon {
+            box-shadow: 
+                0 0 5px var(--neon-blue),
+                0 0 10px var(--neon-blue),
+                0 0 15px var(--neon-blue),
+                0 0 20px var(--neon-blue);
+            animation: glow-neon-intense 2s ease-in-out infinite;
+        }
+
+        /* Keyframes for glow effects */
+        @keyframes glow-soft-pulse {
+            0%, 100% { filter: drop-shadow(0 0 8px var(--neon-green)); }
+            50% { filter: drop-shadow(0 0 15px var(--neon-green)) drop-shadow(0 0 25px var(--neon-green)); }
+        }
+
+        @keyframes glow-pulse-breathe {
+            0%, 100% { 
+                box-shadow: 0 0 10px var(--neon-yellow);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 20px var(--neon-yellow), 0 0 30px var(--neon-yellow);
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes glow-shimmer-move {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes glow-neon-intense {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 5px var(--neon-blue),
+                    0 0 10px var(--neon-blue),
+                    0 0 15px var(--neon-blue);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 10px var(--neon-blue),
+                    0 0 20px var(--neon-blue),
+                    0 0 30px var(--neon-blue),
+                    0 0 40px var(--neon-blue);
+            }
+        }
+
+        /* Test layout */
+        body {
+            background: var(--neon-black);
+            color: var(--neon-green);
+            font-family: 'Courier New', monospace;
+        }
+
+        .test-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid var(--neon-green);
+            border-radius: 0.5rem;
+        }
+
+        .dice-demo {
+            width: 80px;
+            height: 80px;
+            background: var(--neon-black);
+            border: 2px solid var(--neon-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--neon-green);
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center text-neon-green mb-4">
+                    <i class="fas fa-dice me-2"></i>
+                    AI Dice Challenge - Glow Effects Test
+                </h1>
+            </div>
+        </div>
+
+        <!-- Custom vs Library Comparison -->
+        <div class="row">
+            <div class="col-12">
+                <div class="test-section">
+                    <h3 class="text-neon-blue mb-3">
+                        <i class="fas fa-magic me-2"></i>
+                        Custom Keyframes vs Library Glow Effects
+                    </h3>
+                    
+                    <div class="comparison-grid">
+                        <!-- Custom Keyframes -->
+                        <div>
+                            <h5 class="text-neon-yellow">Custom Keyframes</h5>
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <div class="dice-demo dice">⚀</div>
+                                <div class="dice-demo dice selected">⚁</div>
+                                <div class="dice-demo dice dice-new">⚂</div>
+                                <div class="dice-demo dice dice-scoring">⚃</div>
+                            </div>
+                            <small class="text-muted">
+                                Uses: gentle-glow, blue-neon-pulse, neon-dawn, golden-flash
+                            </small>
+                        </div>
+
+                        <!-- Library Glow Effects -->
+                        <div>
+                            <h5 class="text-neon-purple">Library Glow Effects</h5>
+                            <div class="d-flex flex-wrap justify-content-center">
+                                <div class="dice-demo glow-soft">⚃</div>
+                                <div class="dice-demo glow-pulse">⚄</div>
+                                <div class="dice-demo glow-shimmer">⚅</div>
+                                <div class="dice-demo glow-neon">⚀</div>
+                            </div>
+                            <small class="text-muted">
+                                Uses: glow-soft, glow-pulse, glow-shimmer, glow-neon
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Individual Effects Demo -->
+        <div class="row">
+            <div class="col-12">
+                <div class="test-section">
+                    <h3 class="text-neon-orange mb-3">
+                        <i class="fas fa-star me-2"></i>
+                        Individual Library Effects
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="dice-demo glow-soft mx-auto">⚀</div>
+                            <h6 class="text-neon-green">Glow Soft</h6>
+                            <small>Jemné pulzující záření</small>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="dice-demo glow-pulse mx-auto">⚁</div>
+                            <h6 class="text-neon-yellow">Glow Pulse</h6>
+                            <small>Dýchání s box-shadow</small>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="dice-demo glow-shimmer mx-auto">⚂</div>
+                            <h6 class="text-neon-purple">Glow Shimmer</h6>
+                            <small>Přelétávající světelný efekt</small>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="dice-demo glow-neon mx-auto">⚃</div>
+                            <h6 class="text-neon-blue">Glow Neon</h6>
+                            <small>Intenzivní neonové záření</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="row">
+            <div class="col-12">
+                <div class="test-section">
+                    <h3 class="text-neon-red mb-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Použití v hře
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-neon-green">Custom Efekty (výchozí)</h5>
+                            <ul>
+                                <li>Idle kostky: <code>gentle-glow</code></li>
+                                <li>Hover: <code>neon-flash</code></li>
+                                <li>Vybrané: <code>blue-neon-pulse</code></li>
+                                <li>Nové: <code>neon-dawn</code></li>
+                                <li>Skórování: <code>golden-flash</code></li>
+                                <li>Farkle: <code>red-warning-blink</code></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-neon-purple">Library Efekty (volitelné)</h5>
+                            <ul>
+                                <li>Idle: <code>.glow-soft</code></li>
+                                <li>Hover: <code>.glow-pulse</code> (přes CSS)</li>
+                                <li>Vybrané: <code>.glow-neon</code></li>
+                                <li>Nové: <code>.glow-shimmer</code></li>
+                                <li>Speciální efekty přes DiceGlowManager</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-toggle-on me-2"></i>
+                        <strong>V hře:</strong> Používejte toggle tlačítko v pravém horním rohu pro přepínání mezi custom a library efekty!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
