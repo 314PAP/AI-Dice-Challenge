@@ -1,19 +1,10 @@
 # 🎲 AI Dice Challenge 1.0
 
-**Moderní kostkářská hra s AI protivníky postavená na Bootstrap 5 a ES6 modulech**
-
-## 🎯 O hře
+🎯 O hře
 
 AI Dice Challenge je implementace hry Farkle s pokročilými AI protivníky. Cílem je dosáhnout **10,000 bodů** jako první hráč.
 
-### 🎮 Hlavní funkce
-
-- **3 AI protivníci** s různými strategiemi
-- **Real-time chat systém** s AI reakcemi
-- **Hot Dice mechanika** - při odložení všech kostek musíte pokračovat
-- **Plně responzivní UI** postavené na Bootstrap 5
-
-## 🚀 Rychlý start
+### 🚀 Rychlý start
 
 ```bash
 # Naklonování a spuštění
@@ -43,7 +34,7 @@ Moje první hra pomocí **Vibecodingu** - dělal jsem to s GitHub Copilotem - Cl
 ### 💸 Realita vývoje
 
 - **💰 Utraceno**: $42,93 za Copilota
-- **☕ Káva**: Všechku jsem vypil
+- **☕ Káva**: Všecku jsem vypil
 - **🧠 Nervy**: V kyblíku, ale dal jsem to dokupy!
 
 ### 📈 Vývojové statistiky
@@ -56,8 +47,8 @@ Moje první hra pomocí **Vibecodingu** - dělal jsem to s GitHub Copilotem - Cl
 
 ### 💝 Podpořte projekt
 
-Tak mi můžete třeba koupit kafe, bo jsem všecko u toho vypil! [☕ Buy me a coffee](https://buymeacoffee.com/pipap)
+Tak mi můžete třeba koupit kávu, bo jsem všecku u toho vypil! [☕ Buy me a coffee](https://buymeacoffee.com/pipap)
 
 ---
 
-*Vytvořeno s ❤️ pomocí moderních web technologií*
+*Vytvořeno s ❤️ pomocí moderních ovcí.*
