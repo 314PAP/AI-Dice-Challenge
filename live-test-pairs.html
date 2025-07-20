@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎲 Live Test - Pravidla Párů</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #39ff14;
+            padding: 20px;
+            margin: 0;
+        }
+        .test-case {
+            background: #111;
+            border: 2px solid #39ff14;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .result {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .passed { color: #39ff14; }
+        .failed { color: #ff3131; }
+        button {
+            background: #194dd1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        button:hover {
+            background: #39ff14;
+            color: #000;
+        }
+        .run-all {
+            background: #ff8800;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎲 Live Test - Pravidla Párů</h1>
+    
+    <div class="test-case">
+        <h3>Test 1: Tři klasické páry (bez 1 a 5)</h3>
+        <div>Kostky: [2, 2, 6, 6, 3, 3]</div>
+        <div class="result" id="test1">Čekám na test...</div>
+        <button onclick="runTest1()">Spustit Test 1</button>
+    </div>
+
+    <div class="test-case">
+        <h3>Test 2: Tři páry VČETNĚ 1 a 5</h3>
+        <div>Kostky: [1, 1, 5, 5, 3, 3]</div>
+        <div class="result" id="test2">Čekám na test...</div>
+        <button onclick="runTest2()">Spustit Test 2</button>
+    </div>
+
+    <div class="test-case">
+        <h3>Test 3: Jednotlivé 1 a 5 (bez párů)</h3>
+        <div>Kostky: [1, 5, 2, 3, 4, 6]</div>
+        <div class="result" id="test3">Čekám na test...</div>
+        <button onclick="runTest3()">Spustit Test 3</button>
+    </div>
+
+    <div class="test-case">
+        <h3>Test 4: Kombinace - pár + jednotlivé</h3>
+        <div>Kostky: [1, 1, 5, 2, 3, 4]</div>
+        <div class="result" id="test4">Čekám na test...</div>
+        <button onclick="runTest4()">Spustit Test 4</button>
+    </div>
+
+    <button onclick="runAllTests()" class="run-all">🚀 Spustit všechny testy</button>
+
+    <script type="module">
+        import { calculatePoints } from './src/js/game/diceMechanics.js';
+        
+        window.runTest1 = function() {
+            console.log('🧪 Test 1: Tři klasické páry');
+            const dice = [2, 2, 6, 6, 3, 3];
+            const result = calculatePoints(dice);
+            const expected = 1500;
+            const passed = result === expected;
+            
+            console.log(`Kostky: [${dice.join(', ')}]`);
+            console.log(`Výsledek: ${result} bodů`);
+            console.log(`Očekáváno: ${expected} bodů`);
+            console.log(`Status: ${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'}`);
+            
+            document.getElementById('test1').innerHTML = 
+                `<span class="${passed ? 'passed' : 'failed'}">${result} bodů (${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'})</span>`;
+        }
+
+        window.runTest2 = function() {
+            console.log('🧪 Test 2: Tři páry VČETNĚ 1 a 5');
+            const dice = [1, 1, 5, 5, 3, 3];
+            const result = calculatePoints(dice);
+            const expected = 1500; // Podle pravidla by mělo být jen 1500
+            const passed = result === expected;
+            
+            console.log(`Kostky: [${dice.join(', ')}]`);
+            console.log(`Výsledek: ${result} bodů`);
+            console.log(`Očekáváno: ${expected} bodů (jen tři páry, bez bonusu za 1 a 5)`);
+            console.log(`Status: ${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'}`);
+            
+            document.getElementById('test2').innerHTML = 
+                `<span class="${passed ? 'passed' : 'failed'}">${result} bodů (${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'})</span>`;
+        }
+
+        window.runTest3 = function() {
+            console.log('🧪 Test 3: Jednotlivé 1 a 5');
+            const dice = [1, 5, 2, 3, 4, 6];
+            const result = calculatePoints(dice);
+            const expected = 100 + 50; // 1 = 100, 5 = 50
+            const passed = result === expected;
+            
+            console.log(`Kostky: [${dice.join(', ')}]`);
+            console.log(`Výsledek: ${result} bodů`);
+            console.log(`Očekáváno: ${expected} bodů (1=100 + 5=50)`);
+            console.log(`Status: ${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'}`);
+            
+            document.getElementById('test3').innerHTML = 
+                `<span class="${passed ? 'passed' : 'failed'}">${result} bodů (${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'})</span>`;
+        }
+
+        window.runTest4 = function() {
+            console.log('🧪 Test 4: Pár jedniček + jednotlivá pětka');
+            const dice = [1, 1, 5, 2, 3, 4];
+            const result = calculatePoints(dice);
+            // Pár jedniček by neměl dát body, jen jednotlivé: 1=100, 1=100, 5=50 = 250
+            const expected = 250;
+            const passed = result === expected;
+            
+            console.log(`Kostky: [${dice.join(', ')}]`);
+            console.log(`Výsledek: ${result} bodů`);
+            console.log(`Očekáváno: ${expected} bodů (jen jednotlivé: 1+1+5 = 100+100+50)`);
+            console.log(`Status: ${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'}`);
+            
+            document.getElementById('test4').innerHTML = 
+                `<span class="${passed ? 'passed' : 'failed'}">${result} bodů (${passed ? '✅ PROŠEL' : '❌ NEPROŠEL'})</span>`;
+        }
+
+        window.runAllTests = function() {
+            console.log('🚀 === Spouštím všechny testy ===');
+            runTest1();
+            runTest2();
+            runTest3();
+            runTest4();
+            console.log('🏁 === Všechny testy dokončeny ===');
+        }
+    </script>
+</body>
+</html>

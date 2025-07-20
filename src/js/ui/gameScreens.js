@@ -217,7 +217,6 @@ export class GameScreens {
                 <ul class="text-neon-green small mb-0 ps-3">
                     <li><strong class="text-neon-orange">Tři dvojice</strong> (např. 223344) = <strong class="text-neon-yellow">1500 bodů</strong></li>
                     <li><strong class="text-neon-orange">Postupka</strong> (123456) = <strong class="text-neon-yellow">2000 bodů</strong></li>
-                    <li class="text-neon-red small">Pozor: Do tří dvojic se NEPOČÍTAJÍ 1 a 5!</li>
                 </ul>
             </div>
             
