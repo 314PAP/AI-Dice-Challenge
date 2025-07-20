@@ -9,7 +9,7 @@
 const { isEmpty, isFunction, forEach, map, throttle } = _;
 import GameUI from '../ui/gameUI.js';
 import ChatUI from '../ui/chatUI.js';
-import UltraBootstrapAutocomplete from '../ui/autocomplete.js';
+// UltraBootstrapAutocomplete odstraněn - nepotřebujeme autocomplete dropdown
 import { updateDiceForOrientation } from '../ui/uiComponents.js';
 import gameState from '../game/gameState.js';
 
@@ -32,10 +32,10 @@ export class ComponentManager {
         }
 
         try {
-            // Lodash-based component initialization (bez GameUI)
+            // Lodash-based component initialization (bez GameUI a autocomplete)
             const componentConfig = {
-                chatUI: () => new ChatUI(),
-                autocomplete: () => this.initializeAutocomplete()
+                chatUI: () => new ChatUI()
+                // autocomplete odstraněn - nechceme dropdown v chat inputu
             };
 
             // Lodash forEach pro inicializaci (bez GameUI)
@@ -79,43 +79,6 @@ export class ComponentManager {
             console.error('❌ Chyba při inicializaci GameUI:', error);
             throw error;
         }
-    }
-
-    /**
-     * Inicializuje autocomplete - zjednodušeno pomocí lodash
-     */
-    initializeAutocomplete() {
-        const chatInput = document.getElementById('chatInput');
-        if (!chatInput) {
-            console.warn('⚠️ Chat input nenalezen');
-            return null;
-        }
-
-        // Lodash isEmpty pro kontrolu
-        if (isEmpty(chatInput.value)) {
-            // Autocomplete ready
-        }
-
-        return new UltraBootstrapAutocomplete(chatInput, {
-            suggestions: this.getAutocompleteSuggestions(),
-            onSelect: (suggestion) => {
-                // Suggestion selected
-            }
-        });
-    }
-
-    /**
-     * Vrací autocomplete návrhy
-     */
-    getAutocompleteSuggestions() {
-        return [
-            'Kolik bodů mám?',
-            'Jaké jsou pravidla?',
-            'Ukončit hru',
-            'Hoď kostky',
-            'Strategie pro výhru',
-            'Jak hraje AI?'
-        ];
     }
 
     /**
