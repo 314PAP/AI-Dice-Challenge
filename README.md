@@ -23,46 +23,12 @@ npm install
 npm run dev
 ```
 
-## 🤖 AI protivníci
-
-- **Gemini** 🔵 - Analytický stratég (riskantní)
-- **ChatGPT** 🟣 - Vyvážený hráč (střední riziko)
-- **Claude** 🟠 - Opatrný taktik (konzervativní)
-
-## 📋 Pravidla
-
-Podrobná pravidla najdete v [PRAVIDLA.md](PRAVIDLA.md)
-
-### Základní mechanika
-
-- **Cíl**: 10,000 bodů
-- **První vstup**: Minimálně 300 bodů
-- **Farkle**: Žádná skórující kombinace = ztráta všech bodů v tahu
-- **Hot Dice**: Při odložení všech 6 kostek musíte pokračovat
-
-### Bodování
-
-- **1** = 100 bodů, **5** = 50 bodů
-- **Tři stejných**: 1,1,1 = 1,000; ostatní = hodnota × 100
-- **Tři páry** = 1,500 bodů
-- **Postupka** (1,2,3,4,5,6) = 2,000 bodů
-- **Čtyři stejných**: dvojnásobek tří stejných
-
-## 🔧 Technologie
+### 🔧 Technologie
 
 - **Bootstrap 5** - responzivní UI
 - **ES6 moduly** - modulární architektura
 - **Animační knihovny** - smooth efekty
 - **Python HTTP server** - lokální vývoj
-
-## 📁 Struktura
-
-```
-src/js/ai/     # AI logika a osobnosti
-src/js/game/   # Herní mechaniky
-src/js/ui/     # UI komponenty
-skripty/       # Automatizace a testy
-```
 
 ## 📄 Licence
 
@@ -80,15 +46,6 @@ Moje první hra pomocí **Vibecodingu** - dělal jsem to s GitHub Copilotem - Cl
 - **☕ Káva**: Všechku jsem vypil
 - **🧠 Nervy**: V kyblíku, ale dal jsem to dokupy!
 
-### 🛠️ Použité technologie
-
-- **GitHub Copilot + Claude Sonnet 4** - AI asistenti
-- **Bootstrap 5** - responzivní framework
-- **ES6 moduly** - čistá JavaScript architektura
-- **CSS knihovny** - Animate.css, Hover.css pro profesionální animace
-- **Git** - pokročilé verzování s 370+ commits
-- **VS Code** - s custom auto-backup systémem
-
 ### 📈 Vývojové statistiky
 
 - **🗓️ Doba vývoje**: 21 dní (30.6. - 20.7.2025)
@@ -99,7 +56,7 @@ Moje první hra pomocí **Vibecodingu** - dělal jsem to s GitHub Copilotem - Cl
 
 ### 💝 Podpořte projekt
 
-Tak mi můžete třeba koupit kafe, bo jsem všechku toho vypil! [☕ Buy me a coffee](https://buymeacoffee.com/pipap)
+Tak mi můžete třeba koupit kafe, bo jsem všecko u toho vypil! [☕ Buy me a coffee](https://buymeacoffee.com/pipap)
 
 ---
 
