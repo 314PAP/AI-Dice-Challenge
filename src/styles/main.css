@@ -28,6 +28,7 @@
 
 /* 🔧 UTILITY TŘÍDY */
 @import './utilities/colors.css';           /* Barvy a neon efekty */
+@import './utilities/animations.css';       /* UI animace s Animate.css */
 @import './utilities/responsive.css';       /* Společné responzivní utility třídy */
 @import './utilities/helpers.css';          /* Z-index, utility třídy */
 @import './utilities/bootstrap-overrides.css'; /* Bootstrap overrides */

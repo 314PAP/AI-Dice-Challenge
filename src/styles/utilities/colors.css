@@ -19,13 +19,31 @@ html, body {
 .text-neon-red { color: var(--neon-red) !important; text-shadow: var(--neon-text-shadow); }
 .text-neon-yellow { color: var(--neon-yellow) !important; text-shadow: var(--neon-text-shadow); }
 
-/* Border barvy */
-.border-neon-green { border-color: var(--neon-green) !important; }
-.border-neon-blue { border-color: var(--neon-blue) !important; }
-.border-neon-purple { border-color: var(--neon-purple) !important; }
-.border-neon-orange { border-color: var(--neon-orange) !important; }
-.border-neon-red { border-color: var(--neon-red) !important; }
-.border-neon-yellow { border-color: var(--neon-yellow) !important; }
+/* Border barvy s neonovým efektem */
+.border-neon-green { 
+  border-color: var(--neon-green) !important; 
+  box-shadow: 0 0 0.5rem var(--neon-green);
+}
+.border-neon-blue { 
+  border-color: var(--neon-blue) !important; 
+  box-shadow: 0 0 0.5rem var(--neon-blue);
+}
+.border-neon-purple { 
+  border-color: var(--neon-purple) !important; 
+  box-shadow: 0 0 0.5rem var(--neon-purple);
+}
+.border-neon-orange { 
+  border-color: var(--neon-orange) !important; 
+  box-shadow: 0 0 0.5rem var(--neon-orange);
+}
+.border-neon-red { 
+  border-color: var(--neon-red) !important; 
+  box-shadow: 0 0 0.5rem var(--neon-red);
+}
+.border-neon-yellow { 
+  border-color: var(--neon-yellow) !important; 
+  box-shadow: 0 0 0.5rem var(--neon-yellow);
+}
 
 /* Background barvy */
 .bg-neon-black { background-color: var(--neon-black) !important; }

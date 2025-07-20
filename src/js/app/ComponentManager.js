@@ -52,9 +52,9 @@ export class ComponentManager {
 
             // Specifické nastavení
             this.setupOrientationUpdates();
-            
+
             this.initialized = true;
-            
+
         } catch (error) {
             console.error('❌ Chyba při inicializaci komponent:', error);
             throw error;
@@ -72,7 +72,7 @@ export class ComponentManager {
 
         try {
             this.components.gameUI = new GameUI();
-            
+
             // Spustí první render
             this.triggerInitialRender();
         } catch (error) {
@@ -130,7 +130,7 @@ export class ComponentManager {
                 }
             }
         });
-        
+
         this.components = {};
         this.initialized = false;
     }
