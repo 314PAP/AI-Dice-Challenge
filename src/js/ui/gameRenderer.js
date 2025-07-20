@@ -120,7 +120,7 @@ export class GameRenderer {
             let cardContent = `
                 <div class="card-body text-center p-1">
                     <div class="mb-1 d-flex justify-content-center">
-                        <img src="ai-icons/${player.avatar}" alt="${player.name}" 
+                        <img src="public/ai-icons/${player.avatar}" alt="${player.name}" 
                              class="player-avatar rounded-circle ${isCurrentPlayer ? 'player-avatar-active' : ''} img-fluid">
                     </div>
                     <div class="text-neon-${player.color} small fw-bold mb-1 text-truncate">${player.name}</div>
@@ -396,5 +396,28 @@ export class GameRenderer {
             </div>
         `;
         return container;
+    }
+
+    /**
+     * Získá emoji pro hráče místo avataru
+     * @param {Object} player - Hráč
+     * @returns {string} Emoji
+     */
+    getPlayerEmoji(player) {
+        if (player.isHuman) {
+            return '👤'; // Člověk
+        }
+
+        // AI emoji podle jména
+        switch (player.name) {
+            case 'Gemini':
+                return '🔵';
+            case 'ChatGPT':
+                return '🟣';
+            case 'Claude':
+                return '🟠';
+            default:
+                return '🤖'; // Fallback pro jiné AI
+        }
     }
 }
